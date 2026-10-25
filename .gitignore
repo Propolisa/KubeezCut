@@ -58,3 +58,4 @@ tmp
 # Local-only trees (not pushed; keep your copies on disk)
 KubeezWebsite/
 OpenCut/
+tsconfig.tsbuildinfo
