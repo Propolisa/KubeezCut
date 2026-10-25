@@ -21,7 +21,7 @@ function L(e, t = J) {
 const R = (e) => {
   const t = D(e), r = (s) => L(t, s);
   return Object.assign(r, t), r;
-}, X = (e) => e ? R(e) : R, j = { BASE_URL: "/", DEV: !1, MODE: "production", PROD: !0, SSR: !1, VITE_AI_FEATURES: "false", VITE_KUBEEZ_BROWSER_API_URL: "https://api.kubeez.com" }, g = /* @__PURE__ */ new Map(), I = (e) => {
+}, X = (e) => e ? R(e) : R, j = { BASE_URL: "./", DEV: !1, MODE: "production", PROD: !0, SSR: !1, VITE_AI_FEATURES: "false", VITE_KUBEEZ_BROWSER_API_URL: "https://api.kubeez.com" }, g = /* @__PURE__ */ new Map(), I = (e) => {
   const t = g.get(e);
   return t ? Object.fromEntries(
     Object.entries(t.stores).map(([r, s]) => [r, s.getState()])
