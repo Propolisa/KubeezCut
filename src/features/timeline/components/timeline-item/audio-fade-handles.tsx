@@ -2,6 +2,7 @@ import { memo, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/shared/ui/cn';
 import { getAudioFadeHandleLeft } from '../../utils/audio-fade';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 function FadeTooltip({ anchorRect, label }: { anchorRect: DOMRect | null; label: string }) {
   if (!anchorRect) return null;
@@ -12,7 +13,7 @@ function FadeTooltip({ anchorRect, label }: { anchorRect: DOMRect | null; label:
     >
       {label}
     </div>,
-    document.body
+    getPortalContainer() ?? document.body
   );
 }
 

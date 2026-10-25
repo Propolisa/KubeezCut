@@ -32,6 +32,7 @@ import {
 } from '@/shared/utils/linked-media';
 import { evaluateAudioFadeInCurve, evaluateAudioFadeOutCurve, type AudioClipFadeSpan } from '@/shared/utils/audio-fade-curve';
 import { getOrEnhanceAudio, type AudioEnhanceSettings } from '@/features/export/deps/audio-enhance-contract';
+import { AI_FEATURES } from '@/config/features';
 
 /**
  * Two segments can only merge across a continuous boundary when their
@@ -1634,7 +1635,7 @@ export async function processAudio(
       // Decode ONLY the needed range using mediabunny (huge performance improvement!)
       // If the segment has AI enhance enabled and a mediaId, swap to the
       // baked enhanced AudioBuffer (full duration) and slice the needed window.
-      const decoded = (segment.audioEnhance?.enabled && segment.mediaId)
+      const decoded = (AI_FEATURES && segment.audioEnhance?.enabled && segment.mediaId)
         ? await sliceEnhancedAudio(
             segment.mediaId,
             segment.src,

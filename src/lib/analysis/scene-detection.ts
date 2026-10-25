@@ -12,6 +12,7 @@ import type { MotionResult } from './optical-flow-analyzer';
 import { ANALYSIS_WIDTH, ANALYSIS_HEIGHT } from './optical-flow-shaders';
 import { createGemmaSceneWorker } from './create-gemma-worker';
 import { createLogger } from '@/shared/logging/logger';
+import { AI_FEATURES } from '@/config/features';
 
 const log = createLogger('SceneDetection');
 
@@ -168,7 +169,7 @@ export async function detectScenes(
 
   log.info('Deduplication complete', { cuts: deduped.length, minGapSec: MIN_CUT_GAP_SEC });
 
-  if (!useGemmaVerification || deduped.length === 0 || signal?.aborted) {
+  if (!AI_FEATURES || !useGemmaVerification || deduped.length === 0 || signal?.aborted) {
     return deduped;
   }
 

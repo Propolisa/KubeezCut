@@ -1,6 +1,6 @@
 {
   "name": "kubeezcut",
-  "description": "KubeezCut — free, open-source multi-track browser video editor (WebGPU, WebCodecs). Local-first media library; optional Kubeez.com AI generation.",
+  "description": "KubeezCut \u2014 free, open-source multi-track browser video editor (WebGPU, WebCodecs). Local-first media library; optional Kubeez.com AI generation.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -29,7 +29,8 @@
     "test:preview-sync": "vitest run src/features/preview/components/video-preview.sync.test.tsx",
     "test:preview-sync:stress": "node scripts/preview-sync-stress.mjs --runs 20",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:embed": "vite build --config vite.embed.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { createPortal } from 'react-dom';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 interface DragBlockedTooltipProps {
   hint: { x: number; y: number; message: string; tone?: 'warning' | 'danger' } | null;
@@ -31,6 +32,6 @@ export const DragBlockedTooltip = memo(function DragBlockedTooltip({
         {hint.message}
       </div>
     </div>,
-    document.body
+    getPortalContainer() ?? document.body
   );
 });

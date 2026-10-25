@@ -8,6 +8,7 @@ export default tseslint.config(
   {
     ignores: [
       'dist',
+      'dist-embed',
       'coverage',
       'public/wasm/**',
       'tmp/**',

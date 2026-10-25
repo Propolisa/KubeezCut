@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { createPortal } from 'react-dom';
 import { useTransitionDragStore } from '@/shared/state/transition-drag';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 export const TransitionDragTooltip = memo(function TransitionDragTooltip() {
   const invalidHint = useTransitionDragStore((s) => s.invalidHint);
@@ -22,6 +23,6 @@ export const TransitionDragTooltip = memo(function TransitionDragTooltip() {
         {invalidHint.message}
       </div>
     </div>,
-    document.body,
+    getPortalContainer() ?? document.body,
   );
 });

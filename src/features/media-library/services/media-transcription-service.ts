@@ -28,6 +28,7 @@ import {
   DEFAULT_WHISPER_QUANTIZATION,
   normalizeWhisperLanguage,
 } from '@/shared/utils/whisper-settings';
+import { AI_FEATURES } from '@/config/features';
 
 const logger = createLogger('MediaTranscriptionService');
 const DEFAULT_MODEL: MediaTranscriptModel = DEFAULT_WHISPER_MODEL;
@@ -45,10 +46,12 @@ interface InsertTranscriptAsCaptionsResult {
 }
 
 class MediaTranscriptionService {
-  private readonly transcriber = new BrowserTranscriber({
-    model: DEFAULT_MODEL,
-    quantization: DEFAULT_QUANTIZATION,
-  });
+  private readonly transcriber = AI_FEATURES
+    ? new BrowserTranscriber({
+      model: DEFAULT_MODEL,
+      quantization: DEFAULT_QUANTIZATION,
+    })
+    : null;
 
   getTranscript = getTranscript;
   getTranscriptMediaIds = getTranscriptMediaIds;
@@ -84,6 +87,7 @@ class MediaTranscriptionService {
     const quantization =
       options.quantization ?? settings.defaultWhisperQuantization ?? DEFAULT_QUANTIZATION;
     const language = normalizeWhisperLanguage(options.language ?? settings.defaultWhisperLanguage);
+    if (!this.transcriber) throw new Error('Transcription is not available in this build');
     const stream = this.transcriber.transcribe(file, {
       model,
       language,

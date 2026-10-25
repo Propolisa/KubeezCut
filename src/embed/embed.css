@@ -1,0 +1,3 @@
+/* Stylesheet for embedded islands. The embed build scopes every rule under .kc-embed and flattens cascade
+   layers (vite.embed.config.ts), so these styles neither leak into nor lose to the host page. */
+@import "../index.css";

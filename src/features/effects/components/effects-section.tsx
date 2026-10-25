@@ -11,6 +11,7 @@ import { PropertySection } from '@/shared/ui/property-controls';
 import { GpuEffectPanel, GpuWheelsPanel, GpuCurvesPanel } from './panels';
 import { getGpuCategoriesWithEffects, getGpuEffect, getGpuEffectDefaultParams } from '@/infrastructure/gpu/effects';
 import { useEffectPreviews } from '../hooks/use-effect-previews';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 interface EffectsSectionProps {
   /** Visual items (already filtered to exclude audio) */
@@ -420,7 +421,7 @@ export const EffectsSection = memo(function EffectsSection({ items }: EffectsSec
               )}
             </div>
           </div>,
-          document.body
+          getPortalContainer() ?? document.body
         )}
         {effects.length > 0 && (
           <Button

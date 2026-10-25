@@ -27,6 +27,7 @@ import type { TransformAnimatableProperty } from '@/types/keyframe';
 import type { CoordinateParams, Transform, Point } from '../types/gizmo';
 import type { TransformProperties } from '@/types/transform';
 import type { TimelineItem } from '@/types/timeline';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 interface GizmoOverlayProps {
   containerRect: DOMRect | null;
@@ -726,7 +727,7 @@ export function GizmoOverlay({
               );
             })}
           </div>,
-          document.body
+          getPortalContainer() ?? document.body
         )}
     </div>
   );

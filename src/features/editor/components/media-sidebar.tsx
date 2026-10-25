@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useEffect, memo, Activity } from 'react';
+import { useCallback, useMemo, useRef, useEffect, memo, Activity, lazy, Suspense } from 'react';
 import {
   ChevronDown,
   ChevronLeft,
@@ -54,12 +54,15 @@ import { getGpuCategoriesWithEffects, getGpuEffectDefaultParams } from '@/infras
 import { useEffectPreviews } from '@/features/editor/deps/effects-contract';
 import { createLogger } from '@/shared/logging/logger';
 import { useSettingsStore } from '@/features/editor/deps/settings';
-import { AiPanel } from './ai-panel';
 import {
   EDITOR_LAYOUT_CSS_VALUES,
   clampLeftEditorSidebarWidth,
   getEditorLayout,
 } from '@/shared/ui/editor-layout';
+import { AI_FEATURES } from '@/config/features';
+
+// Loaded on demand and compiled out when AI features are off (src/config/features.ts).
+const AiPanel = AI_FEATURES ? lazy(() => import('./ai-panel').then((m) => ({ default: m.AiPanel }))) : null;
 
 const logger = createLogger('MediaSidebar');
 
@@ -350,7 +353,7 @@ export const MediaSidebar = memo(function MediaSidebar({ fillContainer = false }
     { id: 'effects' as const, icon: Layers, label: 'Effects' },
     { id: 'transitions' as const, icon: Blend, label: 'Transitions' },
     { id: 'ai' as const, icon: WandSparkles, label: 'AI' },
-  ];
+  ].filter((category) => AI_FEATURES || category.id !== 'ai');
 
   const shouldSuppressGeneratedItemClick = useCallback(() => {
     if (!suppressGeneratedItemClickRef.current) {
@@ -864,9 +867,13 @@ export const MediaSidebar = memo(function MediaSidebar({ fillContainer = false }
           </div>
 
           {/* AI Tab */}
-          <div className={`${SCROLL_TAB_PANEL_CLASS} ${activeTab === 'ai' ? 'block' : 'hidden'}`}>
-            <AiPanel />
-          </div>
+          {AiPanel && (
+            <div className={`${SCROLL_TAB_PANEL_CLASS} ${activeTab === 'ai' ? 'block' : 'hidden'}`}>
+              <Suspense fallback={null}>
+                <AiPanel />
+              </Suspense>
+            </div>
+          )}
             </>
           )}
           </div>

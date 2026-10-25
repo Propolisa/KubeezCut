@@ -2,6 +2,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/shared/ui/cn"
+import { getPortalContainer } from './portal-container'
 
 const TooltipProvider = TooltipPrimitive.Provider
 
@@ -13,7 +14,7 @@ const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
-  <TooltipPrimitive.Portal>
+  <TooltipPrimitive.Portal container={getPortalContainer()}>
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}

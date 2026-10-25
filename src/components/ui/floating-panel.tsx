@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { getPortalContainer } from './portal-container';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -283,5 +284,5 @@ export const FloatingPanel = memo(function FloatingPanel({
     </div>
   );
 
-  return createPortal(panel, document.body);
+  return createPortal(panel, getPortalContainer() ?? document.body);
 });

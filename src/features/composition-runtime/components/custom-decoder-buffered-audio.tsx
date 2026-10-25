@@ -11,6 +11,7 @@ import { useAudioPlaybackState } from './hooks/use-audio-playback-state';
 import { getOrEnhanceAudio } from '../deps/audio-enhance';
 import { useTimelineStore } from '../deps/stores';
 import { useClock } from '@/features/composition-runtime/deps/player';
+import { AI_FEATURES } from '@/config/features';
 
 const log = createLogger('CustomDecoderBufferedAudio');
 const GAIN_RAMP_SECONDS = 0.008;
@@ -75,7 +76,7 @@ export const CustomDecoderBufferedAudio: React.FC<CustomDecoderBufferedAudioProp
   const audioEnhance = useTimelineStore(
     useCallback((s) => s.items.find((i) => i.id === itemId)?.audioEnhance, [itemId]),
   );
-  const enhanceEnabled = audioEnhance?.enabled === true;
+  const enhanceEnabled = AI_FEATURES && audioEnhance?.enabled === true;
   const enhanceKey = enhanceEnabled
     ? JSON.stringify({
         M: audioEnhance?.model ?? 'rnnoise',

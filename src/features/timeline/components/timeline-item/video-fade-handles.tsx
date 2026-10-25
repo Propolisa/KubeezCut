@@ -2,6 +2,7 @@ import { memo, useRef, useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/shared/ui/cn';
 import { getAudioFadeHandleLeft, type AudioFadeHandle } from '../../utils/audio-fade';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 interface VideoFadeHandlesProps {
   trackLocked: boolean;
@@ -36,7 +37,7 @@ function FadeTooltip({
     >
       {label}
     </div>,
-    document.body
+    getPortalContainer() ?? document.body
   );
 }
 

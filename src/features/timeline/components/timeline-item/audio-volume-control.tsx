@@ -1,5 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { getPortalContainer } from '@/components/ui/portal-container';
 
 const AUDIO_VOLUME_HOVER_ARM_DELAY_MS = 180;
 
@@ -104,7 +105,7 @@ export const AudioVolumeControl = memo(function AudioVolumeControl({
             >
               {editLabel}
             </div>,
-            document.body
+            getPortalContainer() ?? document.body
           )
         ) : (
           <div
