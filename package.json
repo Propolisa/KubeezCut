@@ -1,0 +1,9 @@
+{
+  "name": "kubeezcut-embed",
+  "version": "0.0.0-450cb59",
+  "description": "KubeezCut editor islands for embedding (built from 450cb59)",
+  "license": "MIT",
+  "type": "module",
+  "exports": { ".": "./index.js", "./embed.css": "./embed.css" },
+  "sideEffects": ["*.css"]
+}
