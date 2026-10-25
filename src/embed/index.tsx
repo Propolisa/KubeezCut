@@ -24,6 +24,9 @@ import { MediaSidebar } from '@/features/editor/components/media-sidebar';
 import { PropertiesSidebar } from '@/features/editor/components/properties-sidebar';
 import { PreviewArea } from '@/features/editor/components/preview-area';
 import { usePlaybackStore } from '@/shared/state/playback';
+import { resolveMediaUrl, getMediaType } from '@/features/timeline/deps/media-library-resolver';
+import { mediaLibraryService } from '@/features/timeline/deps/media-library-service';
+import { buildDroppedMediaTimelineItems, getDroppedMediaDurationInFrames, type DroppableMediaType } from '@/features/timeline/utils/dropped-media';
 import { getProject, createProject } from '@/infrastructure/storage/indexeddb/projects';
 import { CURRENT_SCHEMA_VERSION } from '@/domain/projects/migrations/types';
 import type { SequencerHost } from './host';
@@ -138,6 +141,50 @@ export const mountPreview = (element: HTMLElement) => mount(element, <Preview />
 export const mountMedia = (element: HTMLElement) => mount(element, <MediaSidebar fillContainer />);
 /** Strip properties (Blender's sequencer sidebar). */
 export const mountStripProperties = (element: HTMLElement) => mount(element, <PropertiesSidebar fillContainer />);
+
+/**
+ * Imports files into the open project's media pool by reference (KubeezCut never copies media). Hosts pass
+ * File System Access handles, including handles from the origin private file system.
+ */
+export async function importMedia(handles: FileSystemFileHandle[]) {
+  return useMediaLibraryStore.getState().importHandles(handles);
+}
+
+/**
+ * Adds a media pool entry to the Sequencer as a strip (plus its linked audio strip for video with sound), at
+ * `frame` (default: the playhead) on the top video or audio channel. Same placement rules as dropping it.
+ * Returns the new strip ids.
+ */
+export async function addMediaStrip(mediaId: string, { frame }: { frame?: number } = {}): Promise<string[]> {
+  const media = useMediaLibraryStore.getState().mediaItems.find((m) => m.id === mediaId);
+  if (!media) throw new Error(`Unknown media: ${mediaId}`);
+  const mediaType = getMediaType(media.mimeType) as DroppableMediaType;
+  const timeline = useTimelineStore.getState();
+  const fps = timeline.fps;
+  const tracks = timeline.tracks.filter((t) => !t.isGroup).sort((a, b) => a.order - b.order);
+  const videoTrack = tracks.find((t) => t.kind !== 'audio');
+  const audioTrack = tracks.find((t) => t.kind === 'audio');
+  const primaryTrack = mediaType === 'audio' ? audioTrack : videoTrack;
+  if (!primaryTrack) throw new Error('No track for this media type');
+  const from = Math.max(0, Math.round(frame ?? usePlaybackStore.getState().currentFrame));
+  const durationInFrames = getDroppedMediaDurationInFrames(media, mediaType, fps);
+  const [blobUrl, thumbnailUrl] = await Promise.all([
+    resolveMediaUrl(mediaId),
+    mediaType === 'audio' ? Promise.resolve(null) : mediaLibraryService.getThumbnailBlobUrl(mediaId),
+  ]);
+  if (!blobUrl) throw new Error(`Media is not readable: ${media.fileName}`);
+  const project = useProjectStore.getState().currentProject;
+  const items = buildDroppedMediaTimelineItems({
+    media, mediaId, mediaType, label: media.fileName, timelineFps: fps, blobUrl, thumbnailUrl,
+    canvasWidth: project?.metadata.width ?? 1920, canvasHeight: project?.metadata.height ?? 1080,
+    placement: {
+      primary: { trackId: primaryTrack.id, from, durationInFrames },
+      linkedAudio: mediaType === 'video' && media.audioCodec && audioTrack ? { trackId: audioTrack.id, from, durationInFrames } : undefined,
+    },
+  });
+  timeline.addItems(items);
+  return items.map((item) => item.id);
+}
 
 /** Unmounts every island and the shared popup layer. */
 export function disposeAll(): void {

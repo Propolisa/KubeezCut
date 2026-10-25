@@ -103,6 +103,8 @@ export default defineConfig((env) => {
       worker: { format: 'es' },
       // Site assets (brand images, favicons) belong to the standalone app.
       publicDir: false,
+      // Workers and lazy chunks resolve next to the module, wherever the host serves it.
+      base: './',
       build: {
         outDir: 'dist-embed',
         sourcemap: false,
