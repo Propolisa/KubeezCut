@@ -8,7 +8,7 @@ npm run -s build:embed
 TMP=$(mktemp -d)
 trap 'git worktree remove --force "$TMP" 2>/dev/null || true; rm -rf "$TMP"' EXIT
 if git ls-remote --exit-code --heads origin embed-dist >/dev/null 2>&1; then
-  git fetch -q origin embed-dist
+  git fetch -q origin +embed-dist:refs/remotes/origin/embed-dist
   git worktree add -q "$TMP" origin/embed-dist
   git -C "$TMP" checkout -q -B embed-dist
 else
