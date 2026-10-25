@@ -18,6 +18,7 @@ import { setMediaDragData, clearMediaDragData } from '../utils/drag-data-cache';
 import { proxyService } from '../services/proxy-service';
 import { mediaTranscriptionService } from '../services/media-transcription-service';
 import { isLocalInferenceCancellationError } from '@/shared/state/local-inference';
+import { AI_FEATURES } from '@/config/features';
 import { useEditorStore } from '@/shared/state/editor';
 import {
   getTranscriptionOverallPercent,
@@ -49,7 +50,7 @@ export function MediaCard({ media, selected = false, isBroken = false, onSelect,
 
   const mediaType = getMediaType(media.mimeType);
   const isImporting = importingIds.includes(media.id);
-  const isTranscribable = mediaType === 'video' || mediaType === 'audio';
+  const isTranscribable = AI_FEATURES && (mediaType === 'video' || mediaType === 'audio');
   const canGenerateProxy = proxyService.needsProxy(
     media.width,
     media.height,

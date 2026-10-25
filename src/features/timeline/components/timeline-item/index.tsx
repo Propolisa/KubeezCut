@@ -85,6 +85,7 @@ import { ItemContextMenu } from './item-context-menu';
 import { toast } from 'sonner';
 import { useClearKeyframesDialogStore } from '@/shared/state/clear-keyframes-dialog';
 import { useTtsGenerateDialogStore } from '@/shared/state/tts-generate-dialog';
+import { AI_FEATURES } from '@/config/features';
 import type { AnimatableProperty } from '@/types/keyframe';
 import { useBentoLayoutDialogStore } from '../bento-layout-dialog-store';
 import { getRazorSplitPosition } from '../../utils/razor-snap';
@@ -3192,13 +3193,13 @@ export const TimelineItem = memo(function TimelineItem({ item, timelineDuration 
         })()}
         onFreezeFrame={handleFreezeFrame}
         isTextItem={item.type === 'text' && hasSpeakableText}
-        onGenerateAudioFromText={handleGenerateAudioFromText}
+        onGenerateAudioFromText={AI_FEATURES ? handleGenerateAudioFromText : undefined}
         canGenerateCaptions={(item.type === 'video' || item.type === 'audio') && !!item.mediaId && !isBroken}
         canRegenerateCaptions={hasGeneratedCaptions}
         isGeneratingCaptions={isCaptionGenerationActive || transcriptStatus === 'transcribing'}
         defaultCaptionModel={defaultWhisperModel}
-        onGenerateCaptions={handleGenerateCaptions}
-        onRegenerateCaptions={handleRegenerateCaptions}
+        onGenerateCaptions={AI_FEATURES ? handleGenerateCaptions : undefined}
+        onRegenerateCaptions={AI_FEATURES ? handleRegenerateCaptions : undefined}
         isCompositionItem={isCompositionItem}
         onEnterComposition={handleEnterComposition}
         onDissolveComposition={handleDissolveComposition}

@@ -23,6 +23,7 @@ import { ShapeSection } from './shape-section';
 import { CornerPinSection } from './corner-pin-section';
 import { EffectsSection } from '@/features/editor/deps/effects-contract';
 import { AudioEnhanceSection } from '@/features/editor/deps/audio-enhance-contract';
+import { AI_FEATURES } from '@/config/features';
 
 /**
  * Check if an item is a GIF (image with .gif extension)
@@ -258,7 +259,7 @@ export const ClipPanel = memo(function ClipPanel() {
         {/* Audio Tab - gain, fades, AI enhancement */}
         <TabsContent value="audio" className="space-y-4 mt-3">
           {hasAudioItems && <AudioSection items={selectedItems} />}
-          {hasAudioItems && <AudioEnhanceSection items={selectedItems} />}
+          {AI_FEATURES && hasAudioItems && <AudioEnhanceSection items={selectedItems} />}
         </TabsContent>
 
         {/* Effects Tab - clip effects plus text styling and animation */}

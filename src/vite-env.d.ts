@@ -22,6 +22,9 @@ interface ImportMetaEnv {
    */
   readonly VITE_SUPABASE_PUBLISHABLE_KEY?: string;
   readonly VITE_SUPABASE_ANON_KEY?: string;
+
+  /** `false` removes AI entry points: Kubeez generation, Whisper, TTS, RNNoise (see src/config/features.ts). */
+  readonly VITE_AI_FEATURES?: string;
 }
 
 /**

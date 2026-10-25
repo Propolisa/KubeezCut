@@ -53,6 +53,7 @@ import { getMediaType } from '../utils/validation';
 import type { MediaMetadata } from '@/types/storage';
 import { isMarqueeJustFinished, useMarqueeSelection, type MarqueeItem } from '@/hooks/use-marquee-selection';
 import { useKubeezGenerateDialogStore } from '@/shared/state/kubeez-generate-dialog';
+import { AI_FEATURES } from '@/config/features';
 import { KUBEEZ_BRAND_LOGO_URL } from '@/components/brand/kubeez-cut-logo';
 
 function CopyButton({ text }: { text: string }) {
@@ -597,26 +598,28 @@ export const MediaLibrary = memo(function MediaLibrary({ onMediaSelect }: MediaL
             <span>Import</span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => openKubeezGenerate()}
-            disabled={!currentProjectId}
-            className="flex items-center gap-1.5 h-7 px-2.5 rounded-md border border-primary/60 bg-primary/10 text-primary
-              hover:bg-primary/20 hover:border-primary/80
-              disabled:opacity-40 disabled:cursor-not-allowed
-              transition-colors duration-150"
-            title="Generate media with Kubeez (image, video, music, speech)"
-          >
-            <img
-              src={KUBEEZ_BRAND_LOGO_URL}
-              alt=""
-              width={14}
-              height={14}
-              decoding="async"
-              className="h-3.5 w-3.5 shrink-0 object-contain"
-            />
-            <span className="font-medium">Kubeez</span>
-          </button>
+          {AI_FEATURES && (
+            <button
+              type="button"
+              onClick={() => openKubeezGenerate()}
+              disabled={!currentProjectId}
+              className="flex items-center gap-1.5 h-7 px-2.5 rounded-md border border-primary/60 bg-primary/10 text-primary
+                hover:bg-primary/20 hover:border-primary/80
+                disabled:opacity-40 disabled:cursor-not-allowed
+                transition-colors duration-150"
+              title="Generate media with Kubeez (image, video, music, speech)"
+            >
+              <img
+                src={KUBEEZ_BRAND_LOGO_URL}
+                alt=""
+                width={14}
+                height={14}
+                decoding="async"
+                className="h-3.5 w-3.5 shrink-0 object-contain"
+              />
+              <span className="font-medium">Kubeez</span>
+            </button>
+          )}
 
           {/* Missing media indicator */}
           {brokenMediaIds.length > 0 && (
