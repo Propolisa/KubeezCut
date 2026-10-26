@@ -33,6 +33,7 @@ import type { SequencerHost } from './host';
 import './embed.css';
 import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
 import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
+import { installTouchDrag } from './touch-drag';
 import { addKeymapRegion } from './keymap';
 import { sequencerMenus } from './commands';
 
@@ -120,13 +121,18 @@ export async function openProject(next: SequencerHost): Promise<void> {
 
 function mount(element: HTMLElement, node: ReactNode): { dispose(): void } {
   ensurePortalRoot();
+  installTouchDrag();
   element.classList.add('kc-embed', 'dark');
   const root = createRoot(element);
+  // The island fills the host element exactly: KubeezCut's panels size themselves from their container, so a
+  // container sized by its content would feed back into itself (the preview shrinking and growing in a loop).
   root.render(
     <StrictMode>
-      <ErrorBoundary level="feature">
-        <TooltipProvider delayDuration={300}>{node}</TooltipProvider>
-      </ErrorBoundary>
+      <div className="kc-island">
+        <ErrorBoundary level="feature">
+          <TooltipProvider delayDuration={300}>{node}</TooltipProvider>
+        </ErrorBoundary>
+      </div>
     </StrictMode>
   );
   mounted.add(root);
