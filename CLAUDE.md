@@ -71,6 +71,7 @@ src/
 
 ## Code Style
 
+- Less is more: DRY, readable, self-documenting code with almost no comments (only a one-line reason the code cannot express). Tidy as you go: remove clutter, bloat, dead code and code your change replaces
 - Strict TypeScript (`noUnusedLocals`, `noUnusedParameters`, `noUncheckedIndexedAccess`)
 - `no-console` rule — always use `createLogger` from `src/shared/logging/logger.ts`, never raw `console.*` calls
 - **Logging**: Use wide event pattern for multi-step operations (export, import, save): `log.startEvent(name, opId)` accumulates context, emits one structured event via `.success()` / `.failure()`. Use `createOperationId()` for correlation. Include business context (project ID, item counts, codec, resolution) in events
