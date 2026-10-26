@@ -26,7 +26,7 @@ import {
 import { gifFrameCache } from '@/features/media-library/deps/timeline-services';
 import { opfsService } from './opfs-service';
 import { proxyService } from './proxy-service';
-import { validateMediaFile, getMimeType } from '../utils/validation';
+import { validateMediaFile, getMimeType, withDetectedMimeType } from '../utils/validation';
 import { getSharedProxyKey } from '../utils/proxy-key';
 import { mediaProcessorService } from './media-processor-service';
 import { generateThumbnail } from '../utils/thumbnail-generator';
@@ -260,7 +260,7 @@ class MediaLibraryService {
       );
     }
 
-    const file = await handle.getFile();
+    const file = await withDetectedMimeType(await handle.getFile());
 
     // Stage 2: Validation
     const validationResult = validateMediaFile(file);

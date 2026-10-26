@@ -35,6 +35,7 @@ function processImportResults(
   const unsupportedCodecFiles: UnsupportedCodecFile[] = [];
   let importedCount = 0;
   let failedCount = 0;
+  const failures: string[] = [];
 
   for (const result of importResults) {
     if (result.status === 'fulfilled') {
@@ -82,8 +83,15 @@ function processImportResults(
           importingIds: state.importingIds.filter((id) => id !== failedTask.tempId),
         }));
         logger.error(`Failed to import ${failedTask.file.name}`, result.reason);
+        const reason = result.reason instanceof Error ? result.reason.message : String(result.reason);
+        failures.push(`${failedTask.file.name}: ${reason}`);
       }
     }
+  }
+
+  if (failures.length > 0) {
+    // A failed import removes its placeholder; say why, or the file just disappears.
+    set({ error: failures.length === 1 ? `Could not import ${failures[0]}` : `Could not import ${failures.length} files. ${failures.join('; ')}`, errorLink: null });
   }
 
   return { results, importedCount, duplicateNames, unsupportedCodecFiles, failedCount };

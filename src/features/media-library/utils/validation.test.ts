@@ -1,8 +1,10 @@
+// @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import {
   getMediaType,
   getMimeType,
   validateMediaFile,
+  withDetectedMimeType,
 } from '@/features/media-library/utils/validation';
 
 describe('validation', () => {
@@ -33,5 +35,21 @@ describe('validation', () => {
     expect(getMediaType('audio/x-m4a')).toBe('audio');
     expect(getMediaType('audio/mp4')).toBe('audio');
     expect(getMediaType('image/svg+xml')).toBe('image');
+  });
+
+  it('accepts the MIME names Android reports for supported formats', () => {
+    expect(validateMediaFile(new File(['data'], 'tone.wav', { type: 'audio/x-wav' })).valid).toBe(true);
+    expect(getMimeType(new File(['data'], 'VID_1.3gp', { type: 'video/3gpp' }))).toBe('video/mp4');
+    expect(getMimeType(new File(['data'], 'memo', { type: 'audio/3gpp' }))).toBe('audio/mp4');
+    expect(validateMediaFile(new File(['data'], 'voice.weba', { type: 'audio/webm' })).valid).toBe(true);
+  });
+
+  it('detects the format from content when name and type are unknown', async () => {
+    const mp4 = new Uint8Array([0, 0, 0, 24, ...'ftypisom'].map((c) => (typeof c === 'string' ? c.charCodeAt(0) : c)));
+    const wav = new TextEncoder().encode('RIFF\0\0\0\0WAVEfmt ');
+    expect((await withDetectedMimeType(new File([mp4], '1000012345'))).type).toBe('video/mp4');
+    expect((await withDetectedMimeType(new File([wav], 'recording'))).type).toBe('audio/wav');
+    const unknown = new File(['plain text'], 'notes');
+    expect(await withDetectedMimeType(unknown)).toBe(unknown);
   });
 });

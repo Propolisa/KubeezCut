@@ -38,3 +38,8 @@
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* Touch as mouse (src/embed/touch-mouse.ts): touches drive the preview's editors, not page panning or zoom. */
+.kc-embed [data-kc-touch-mouse] {
+  touch-action: none;
+}

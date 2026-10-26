@@ -34,6 +34,7 @@ import './embed.css';
 import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
 import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
 import { installTouchDrag } from './touch-drag';
+import { installTouchMouse } from './touch-mouse';
 import { addKeymapRegion } from './keymap';
 import { sequencerMenus } from './commands';
 
@@ -45,6 +46,7 @@ export type { Command, MenuEntry } from './commands';
 let host: SequencerHost | null = null;
 let portalRoot: HTMLElement | null = null;
 let chrome: { unmount(): void } | null = null;
+let stopMediaErrors: (() => void) | undefined;
 let stopTransitions: (() => void) | undefined;
 let stopCommits: (() => void) | undefined;
 let releasePortalRegion: (() => void) | undefined;
@@ -104,6 +106,12 @@ export async function openProject(next: SequencerHost): Promise<void> {
   await useTimelineStore.getState().loadTimeline(p.id, { allowProjectUpgrade: true });
   stopTransitions?.();
   stopTransitions = initTransitionChainSubscription();
+  // Media library errors (failed imports, unavailable picker) also go to the host, since the File Browser that
+  // shows them may not be open.
+  stopMediaErrors?.();
+  stopMediaErrors = useMediaLibraryStore.subscribe((state, prev) => {
+    if (state.error && state.error !== prev.error) host?.notify?.(state.error, 'error');
+  });
   // Until the host owns the timeline document, saving goes to KubeezCut's storage after each edit settles.
   stopCommits?.();
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -119,16 +127,17 @@ export async function openProject(next: SequencerHost): Promise<void> {
   });
 }
 
-function mount(element: HTMLElement, node: ReactNode): { dispose(): void } {
+function mount(element: HTMLElement, node: ReactNode, { touchMouse = false } = {}): { dispose(): void } {
   ensurePortalRoot();
   installTouchDrag();
+  if (touchMouse) installTouchMouse();
   element.classList.add('kc-embed', 'dark');
   const root = createRoot(element);
   // The island fills the host element exactly: KubeezCut's panels size themselves from their container, so a
   // container sized by its content would feed back into itself (the preview shrinking and growing in a loop).
   root.render(
     <StrictMode>
-      <div className="kc-island">
+      <div className="kc-island" data-kc-touch-mouse={touchMouse || undefined}>
         <ErrorBoundary level="feature">
           <TooltipProvider delayDuration={300}>{node}</TooltipProvider>
         </ErrorBoundary>
@@ -162,7 +171,7 @@ function Preview() {
 /** Blender's Sequencer view: tracks (channels), strips, trimming and transitions. */
 export const mountSequencer = (element: HTMLElement) => mount(element, <SequencerTimeline />);
 /** Blender's Preview view: the composited frame with the transform gizmo. */
-export const mountPreview = (element: HTMLElement) => mount(element, <Preview />);
+export const mountPreview = (element: HTMLElement) => mount(element, <Preview />, { touchMouse: true });
 /** Media pool: import and browse footage, audio and images. */
 export const mountMedia = (element: HTMLElement) => mount(element, <MediaSidebar fillContainer />);
 /** Strip properties (Blender's sequencer sidebar). */
