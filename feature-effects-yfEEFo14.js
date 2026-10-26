@@ -1,7 +1,7 @@
-import { db as K, dc as ne, B as A, cJ as Pe, cK as Re, cL as Me, cM as Se, cN as Le, dd as Te, de as $e, b as ee, df as ye, dg as je, dh as De, di as Ge, dj as Ae, U as Ke } from "./feature-editing-core-DTxPXeIc.js";
+import { dU as A, dV as ne, B as W, d5 as Pe, d6 as Re, d7 as Me, d8 as Se, d9 as Le, dW as Te, dX as pe, cy as me, cx as he, bK as ve, dY as $e, b as ee, dZ as ye, d_ as je, d$ as De, e0 as Ge, cM as We, dN as Ae, e1 as Ke, a8 as Ie } from "./feature-editing-core-CMGBJc-E.js";
 import "./gif-processing-CfWcW1Gl.js";
-import { r as a, j as e, b as We } from "./react-vendor-18pR7s9b.js";
-import { R as pe, v as me, u as he, T as ve, a7 as Ie, P as ze, a0 as Oe } from "./vendor-icons-BsfPWTmk.js";
+import { r as a, j as e, b as ze } from "./react-vendor-18pR7s9b.js";
+import { am as Ve } from "./vendor-icons-Ce83X_M4.js";
 const se = [
   {
     id: "vintage",
@@ -64,7 +64,7 @@ function ge({
 }) {
   return /* @__PURE__ */ e.jsxs(e.Fragment, { children: [
     /* @__PURE__ */ e.jsx(
-      A,
+      W,
       {
         variant: "ghost",
         size: "icon",
@@ -76,7 +76,7 @@ function ge({
       }
     ),
     /* @__PURE__ */ e.jsx(
-      A,
+      W,
       {
         variant: "ghost",
         size: "icon",
@@ -87,7 +87,7 @@ function ge({
       }
     ),
     /* @__PURE__ */ e.jsx(
-      A,
+      W,
       {
         variant: "ghost",
         size: "icon",
@@ -99,7 +99,7 @@ function ge({
     )
   ] });
 }
-const Ve = a.memo(function({
+const Oe = a.memo(function({
   effect: t,
   gpuEffect: o,
   definition: d,
@@ -114,7 +114,7 @@ const Ve = a.memo(function({
   );
   if (w.length === 1 && w[0][1].type === "number") {
     const [l, x] = w[0], C = o.params[l] ?? x.default;
-    return /* @__PURE__ */ e.jsx(K, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full", children: [
+    return /* @__PURE__ */ e.jsx(A, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full", children: [
       /* @__PURE__ */ e.jsx(
         ne,
         {
@@ -141,7 +141,7 @@ const Ve = a.memo(function({
       )
     ] }) });
   }
-  return w.length === 0 ? /* @__PURE__ */ e.jsx(K, { label: d.name, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: /* @__PURE__ */ e.jsx(
+  return w.length === 0 ? /* @__PURE__ */ e.jsx(A, { label: d.name, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: /* @__PURE__ */ e.jsx(
     ge,
     {
       effectId: t.id,
@@ -152,7 +152,7 @@ const Ve = a.memo(function({
       onRemove: h
     }
   ) }) }) : /* @__PURE__ */ e.jsxs("div", { className: "space-y-0", children: [
-    /* @__PURE__ */ e.jsx(K, { label: d.name, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: /* @__PURE__ */ e.jsx(
+    /* @__PURE__ */ e.jsx(A, { label: d.name, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: /* @__PURE__ */ e.jsx(
       ge,
       {
         effectId: t.id,
@@ -168,7 +168,7 @@ const Ve = a.memo(function({
       if (!(x.visibleWhen?.(o.params) ?? !0)) return null;
       const M = t.enabled;
       return x.type === "number" ? /* @__PURE__ */ e.jsx(
-        K,
+        A,
         {
           label: x.label,
           className: M ? void 0 : "opacity-50",
@@ -188,12 +188,12 @@ const Ve = a.memo(function({
         },
         l
       ) : x.type === "boolean" ? /* @__PURE__ */ e.jsx(
-        K,
+        A,
         {
           label: x.label,
           className: M ? void 0 : "opacity-50",
           children: /* @__PURE__ */ e.jsx(
-            A,
+            W,
             {
               variant: C ? "default" : "outline",
               size: "sm",
@@ -206,7 +206,7 @@ const Ve = a.memo(function({
         },
         l
       ) : x.type === "select" && x.options ? /* @__PURE__ */ e.jsx(
-        K,
+        A,
         {
           label: x.label,
           className: M ? void 0 : "opacity-50",
@@ -225,7 +225,7 @@ const Ve = a.memo(function({
         },
         l
       ) : x.type === "color" ? /* @__PURE__ */ e.jsx(
-        K,
+        A,
         {
           label: x.label,
           className: M ? void 0 : "opacity-50",
@@ -247,12 +247,12 @@ const Ve = a.memo(function({
 function de(i, t, o) {
   return Math.max(t, Math.min(o, i));
 }
-const Ee = 100, Be = 64, Fe = 4, ue = 4;
-function He(i, t, o) {
+const Ee = 100, Be = 64, Ye = 4, ue = 4;
+function Fe(i, t, o) {
   const d = o.getBoundingClientRect(), f = d.left + d.width / 2, r = d.top + d.height / 2, p = i - f, m = t - r, h = Math.sqrt(p * p + m * m), w = Math.max(1, d.width / 2 - ue - 1), n = de(h / w, 0, 1);
   return { hue: (Math.atan2(m, p) * 180 / Math.PI + 360) % 360, amount: n };
 }
-const Ye = a.memo(function({
+const He = a.memo(function({
   label: t,
   hue: o,
   amount: d,
@@ -269,8 +269,8 @@ const Ye = a.memo(function({
   const g = a.useCallback((L) => {
     const G = w.current;
     if (!G) return null;
-    const O = He(L.clientX, L.clientY, G);
-    return C(O.hue), M(O.amount), p(O.hue, O.amount), O;
+    const V = Fe(L.clientX, L.clientY, G);
+    return C(V.hue), M(V.amount), p(V.hue, V.amount), V;
   }, [p]), b = a.useCallback((L) => {
     if (r) return;
     const G = w.current;
@@ -283,7 +283,7 @@ const Ye = a.memo(function({
     G ? m(G.hue, G.amount) : m(x, S), l(!1);
   }, [r, n, S, x, m, g]), T = a.useCallback(() => {
     n && (m(x, S), l(!1));
-  }, [n, S, x, m]), W = f / 2 - ue - 1, z = Math.cos(x * Math.PI / 180) * (W * S), U = Math.sin(x * Math.PI / 180) * (W * S);
+  }, [n, S, x, m]), K = f / 2 - ue - 1, z = Math.cos(x * Math.PI / 180) * (K * S), U = Math.sin(x * Math.PI / 180) * (K * S);
   return /* @__PURE__ */ e.jsxs("div", { className: "flex flex-col items-center gap-1", children: [
     /* @__PURE__ */ e.jsx(
       "button",
@@ -327,7 +327,7 @@ const Ye = a.memo(function({
       "%"
     ] }),
     /* @__PURE__ */ e.jsx(
-      A,
+      W,
       {
         variant: "ghost",
         size: "icon",
@@ -362,8 +362,8 @@ const Ye = a.memo(function({
     const b = l.current;
     if (!b) return;
     const j = () => {
-      const W = (b.clientWidth - Fe * 2) / 3;
-      C(de(Math.floor(W), Be, Ee));
+      const K = (b.clientWidth - Ye * 2) / 3;
+      C(de(Math.floor(K), Be, Ee));
     };
     if (j(), typeof ResizeObserver > "u") return;
     const P = new ResizeObserver(() => j());
@@ -371,9 +371,9 @@ const Ye = a.memo(function({
   }, []);
   const g = "[&>span]:w-[84px] [&>span]:min-w-[84px]";
   return /* @__PURE__ */ e.jsxs("div", { className: "space-y-0", children: [
-    /* @__PURE__ */ e.jsx(K, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: [
+    /* @__PURE__ */ e.jsx(A, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: [
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
@@ -385,7 +385,7 @@ const Ye = a.memo(function({
         }
       ),
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
@@ -396,7 +396,7 @@ const Ye = a.memo(function({
         }
       ),
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
@@ -408,7 +408,7 @@ const Ye = a.memo(function({
       )
     ] }) }),
     /* @__PURE__ */ e.jsx("div", { className: "px-2 pb-2", children: /* @__PURE__ */ e.jsx("div", { ref: l, className: "grid grid-cols-3 gap-1", children: _e.map((b) => /* @__PURE__ */ e.jsx(
-      Ye,
+      He,
       {
         label: b.label,
         hue: o.params[b.hueKey] ?? 0,
@@ -440,7 +440,7 @@ const Ye = a.memo(function({
       const j = d.params[b];
       if (!j) return null;
       const P = o.params[b] ?? j.default;
-      return /* @__PURE__ */ e.jsx(K, { label: j.label, className: g, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full", children: /* @__PURE__ */ e.jsx(
+      return /* @__PURE__ */ e.jsx(A, { label: j.label, className: g, children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 min-w-0 w-full", children: /* @__PURE__ */ e.jsx(
         ne,
         {
           value: P,
@@ -537,18 +537,18 @@ const st = a.memo(function({
   a.useEffect(() => {
     x || M(ke(o));
   }, [o, x]);
-  const { shadows: g, midtones: b, highlights: j, contrast: P, red: T, green: W, blue: z } = S, U = a.useRef(null), L = a.useRef(null), O = Object.entries(d.params).every(
+  const { shadows: g, midtones: b, highlights: j, contrast: P, red: T, green: K, blue: z } = S, U = a.useRef(null), L = a.useRef(null), V = Object.entries(d.params).every(
     ([c, v]) => o.params[c] === v.default
   ), Z = a.useMemo(
     () => et(g, b, j, P, D),
     [g, b, j, P]
-  ), F = a.useMemo(
+  ), Y = a.useMemo(
     () => be(g, b, j, P, T / 200, D),
     [g, b, j, P, T]
   ), Q = a.useMemo(
-    () => be(g, b, j, P, W / 200, D),
-    [g, b, j, P, W]
-  ), V = a.useMemo(
+    () => be(g, b, j, P, K / 200, D),
+    [g, b, j, P, K]
+  ), O = a.useMemo(
     () => be(g, b, j, P, z / 200, D),
     [g, b, j, P, z]
   ), J = a.useMemo(
@@ -558,7 +558,7 @@ const st = a.memo(function({
       outputY: xe(v, g, b, j, P)
     })),
     [g, b, j, P]
-  ), H = a.useCallback((c) => {
+  ), F = a.useCallback((c) => {
     const v = w.current;
     if (!v) return null;
     const E = v.getBoundingClientRect();
@@ -568,7 +568,7 @@ const st = a.memo(function({
     const c = (E) => {
       const k = U.current;
       if (!k) return;
-      const s = H(E.clientY);
+      const s = F(E.clientY);
       if (s === null) return;
       const u = X(
         Ce(k.inputX, s, k.paramKey, { shadows: g, midtones: b, highlights: j, contrast: P }),
@@ -579,7 +579,7 @@ const st = a.memo(function({
     }, v = (E) => {
       const k = U.current;
       if (!k) return;
-      const s = H(E.clientY);
+      const s = F(E.clientY);
       if (s !== null) {
         const u = X(
           Ce(k.inputX, s, k.paramKey, { shadows: g, midtones: b, highlights: j, contrast: P }),
@@ -593,7 +593,7 @@ const st = a.memo(function({
     return window.addEventListener("mousemove", c), window.addEventListener("mouseup", v), () => {
       window.removeEventListener("mousemove", c), window.removeEventListener("mouseup", v);
     };
-  }, [g, b, j, P, t.id, H, f, r]);
+  }, [g, b, j, P, t.id, F, f, r]);
   const ae = a.useCallback(
     (c, v, E) => {
       t.enabled && (c.preventDefault(), c.stopPropagation(), U.current = { paramKey: v, inputX: E }, C(!0));
@@ -626,32 +626,32 @@ const st = a.memo(function({
       c.preventDefault(), c.stopPropagation();
       const E = w.current;
       if (!E) return;
-      const k = E.getBoundingClientRect(), s = c.clientY - k.top, u = v === "red" ? T : v === "green" ? W : z;
+      const k = E.getBoundingClientRect(), s = c.clientY - k.top, u = v === "red" ? T : v === "green" ? K : z;
       L.current = { channel: v, startY: s, startValue: u }, C(!0);
     },
-    [t.enabled, n, T, W, z]
+    [t.enabled, n, T, K, z]
   ), oe = a.useCallback(
     (c, v) => {
       M((E) => ({ ...E, [c]: v })), r(t.id, c, v);
     },
     [t.id, r]
-  ), le = Ne.find((c) => c.key === n), ce = n === "master" ? Z : n === "red" ? F : n === "green" ? Q : V;
+  ), le = Ne.find((c) => c.key === n), ce = n === "master" ? Z : n === "red" ? Y : n === "green" ? Q : O;
   return /* @__PURE__ */ e.jsxs("div", { className: "space-y-0", children: [
-    /* @__PURE__ */ e.jsx(K, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: [
+    /* @__PURE__ */ e.jsx(A, { label: d.name, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 min-w-0 w-full justify-end", children: [
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
-          className: `h-6 w-6 flex-shrink-0 ${O ? "opacity-30" : ""}`,
+          className: `h-6 w-6 flex-shrink-0 ${V ? "opacity-30" : ""}`,
           onClick: () => p(t.id),
           title: "Reset to defaults",
-          disabled: O,
+          disabled: V,
           children: /* @__PURE__ */ e.jsx(pe, { className: "w-3 h-3" })
         }
       ),
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
@@ -662,7 +662,7 @@ const st = a.memo(function({
         }
       ),
       /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "ghost",
           size: "icon",
@@ -673,8 +673,8 @@ const st = a.memo(function({
         }
       )
     ] }) }),
-    /* @__PURE__ */ e.jsx(K, { label: "Channel", children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 flex-wrap", children: Ne.map((c) => /* @__PURE__ */ e.jsx(
-      A,
+    /* @__PURE__ */ e.jsx(A, { label: "Channel", children: /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 flex-wrap", children: Ne.map((c) => /* @__PURE__ */ e.jsx(
+      W,
       {
         variant: n === c.key ? "secondary" : "outline",
         size: "sm",
@@ -726,9 +726,9 @@ const st = a.memo(function({
                 strokeDasharray: "4 4"
               }
             ),
-            n === "master" && T !== 0 && /* @__PURE__ */ e.jsx("path", { d: F, stroke: "#ef4444", strokeWidth: 1, fill: "none", opacity: 0.3 }),
-            n === "master" && W !== 0 && /* @__PURE__ */ e.jsx("path", { d: Q, stroke: "#22c55e", strokeWidth: 1, fill: "none", opacity: 0.3 }),
-            n === "master" && z !== 0 && /* @__PURE__ */ e.jsx("path", { d: V, stroke: "#3b82f6", strokeWidth: 1, fill: "none", opacity: 0.3 }),
+            n === "master" && T !== 0 && /* @__PURE__ */ e.jsx("path", { d: Y, stroke: "#ef4444", strokeWidth: 1, fill: "none", opacity: 0.3 }),
+            n === "master" && K !== 0 && /* @__PURE__ */ e.jsx("path", { d: Q, stroke: "#22c55e", strokeWidth: 1, fill: "none", opacity: 0.3 }),
+            n === "master" && z !== 0 && /* @__PURE__ */ e.jsx("path", { d: O, stroke: "#3b82f6", strokeWidth: 1, fill: "none", opacity: 0.3 }),
             /* @__PURE__ */ e.jsx(
               "path",
               {
@@ -776,7 +776,7 @@ const st = a.memo(function({
     ] }),
     n === "master" ? /* @__PURE__ */ e.jsx(e.Fragment, { children: ["shadows", "midtones", "highlights", "contrast"].map((c) => {
       const v = d.params[c];
-      return v ? /* @__PURE__ */ e.jsx(K, { label: v.label, children: /* @__PURE__ */ e.jsx(
+      return v ? /* @__PURE__ */ e.jsx(A, { label: v.label, children: /* @__PURE__ */ e.jsx(
         ne,
         {
           value: S[c],
@@ -791,7 +791,7 @@ const st = a.memo(function({
       ) }, c) : null;
     }) }) : /* @__PURE__ */ e.jsx(e.Fragment, { children: ["red", "green", "blue"].map((c) => {
       const v = d.params[c];
-      return v ? /* @__PURE__ */ e.jsx(K, { label: v.label, children: /* @__PURE__ */ e.jsx(
+      return v ? /* @__PURE__ */ e.jsx(A, { label: v.label, children: /* @__PURE__ */ e.jsx(
         ne,
         {
           value: S[c],
@@ -806,23 +806,23 @@ const st = a.memo(function({
       ) }, c) : null;
     }) })
   ] });
-}), Y = 80, _ = 45, q = /* @__PURE__ */ new Map();
+}), H = 80, _ = 45, q = /* @__PURE__ */ new Map();
 let ie = null, te = null;
 async function nt() {
   return ie || te || (te = $e.create(), ie = await te, te = null, ie);
 }
 function at() {
-  const i = new OffscreenCanvas(Y, _), t = i.getContext("2d"), o = t.createLinearGradient(0, 0, Y, _);
-  o.addColorStop(0, "#9b9df5"), o.addColorStop(0.3, "#d45d5d"), o.addColorStop(0.6, "#5b8fbf"), o.addColorStop(1, "#4aab7a"), t.fillStyle = o, t.fillRect(0, 0, Y, _);
+  const i = new OffscreenCanvas(H, _), t = i.getContext("2d"), o = t.createLinearGradient(0, 0, H, _);
+  o.addColorStop(0, "#9b9df5"), o.addColorStop(0.3, "#d45d5d"), o.addColorStop(0.6, "#5b8fbf"), o.addColorStop(1, "#4aab7a"), t.fillStyle = o, t.fillRect(0, 0, H, _);
   const d = t.createRadialGradient(
-    Y / 2,
+    H / 2,
     _ / 2,
     _ * 0.3,
-    Y / 2,
+    H / 2,
     _ / 2,
-    Y * 0.7
+    H * 0.7
   );
-  return d.addColorStop(0, "rgba(255,255,255,0.1)"), d.addColorStop(1, "rgba(0,0,0,0.25)"), t.fillStyle = d, t.fillRect(0, 0, Y, _), i;
+  return d.addColorStop(0, "rgba(255,255,255,0.1)"), d.addColorStop(1, "rgba(0,0,0,0.25)"), t.fillStyle = d, t.fillRect(0, 0, H, _), i;
 }
 function rt(i) {
   const t = {};
@@ -843,7 +843,7 @@ async function ot(i, t, o, d) {
     params: f
   }, p = i.applyEffectsToCanvas(t, [r]);
   if (!p) return null;
-  const m = await createImageBitmap(p), h = new OffscreenCanvas(Y, _);
+  const m = await createImageBitmap(p), h = new OffscreenCanvas(H, _);
   h.getContext("2d").drawImage(m, 0, 0), m.close();
   const n = await h.convertToBlob({ type: "image/jpeg", quality: 0.85 });
   return URL.createObjectURL(n);
@@ -859,7 +859,7 @@ async function lt(i, t, o) {
     params: n.params
   })), r = i.applyEffectsToCanvas(t, f);
   if (!r) return null;
-  const p = await createImageBitmap(r), m = new OffscreenCanvas(Y, _);
+  const p = await createImageBitmap(r), m = new OffscreenCanvas(H, _);
   m.getContext("2d").drawImage(p, 0, 0), p.close();
   const w = await m.convertToBlob({ type: "image/jpeg", quality: 0.85 });
   return URL.createObjectURL(w);
@@ -978,7 +978,7 @@ const pt = a.memo(function({ items: t }) {
       }), m(R);
     },
     [l, n, w, m]
-  ), W = a.useCallback(
+  ), K = a.useCallback(
     (s, u) => {
       const y = l.find((R) => R.id === s);
       if (!y || y.effect.type !== "gpu-effect") return;
@@ -1030,7 +1030,7 @@ const pt = a.memo(function({ items: t }) {
   ), G = a.useMemo(
     () => l.length > 0 && l.every((s) => s.enabled),
     [l]
-  ), O = a.useCallback(() => {
+  ), V = a.useCallback(() => {
     const s = !G;
     n.forEach((u) => {
       l.forEach((y) => {
@@ -1042,60 +1042,60 @@ const pt = a.memo(function({ items: t }) {
       n.forEach((u) => r(u, s));
     },
     [n, r]
-  ), [F, Q] = a.useState(!1), [V, J] = a.useState(""), H = a.useRef(null), ae = a.useRef(null), re = a.useRef(null), [oe, le] = a.useState({}), ce = a.useCallback(() => {
+  ), [Y, Q] = a.useState(!1), [O, J] = a.useState(""), F = a.useRef(null), ae = a.useRef(null), re = a.useRef(null), [oe, le] = a.useState({}), ce = a.useCallback(() => {
     b(), J(""), Q(!0);
   }, [b]), c = a.useCallback(() => {
-    Q(!1), J(""), H.current?.blur();
+    Q(!1), J(""), F.current?.blur();
   }, []);
   a.useEffect(() => {
-    if (!F || !H.current) return;
-    const s = H.current.getBoundingClientRect();
+    if (!Y || !F.current) return;
+    const s = F.current.getBoundingClientRect();
     le({
       position: "fixed",
       top: `${s.bottom + 4}px`,
       left: `${s.left}px`,
       width: `${s.width}px`
     }), requestAnimationFrame(() => re.current?.focus());
-  }, [F]), a.useEffect(() => {
-    if (!F) return;
+  }, [Y]), a.useEffect(() => {
+    if (!Y) return;
     const s = (y) => {
-      ae.current?.contains(y.target) || H.current?.contains(y.target) || c();
+      ae.current?.contains(y.target) || F.current?.contains(y.target) || c();
     }, u = (y) => {
       y.key === "Escape" && c();
     };
     return document.addEventListener("pointerdown", s), document.addEventListener("keydown", u), () => {
       document.removeEventListener("pointerdown", s), document.removeEventListener("keydown", u);
     };
-  }, [F, c]);
+  }, [Y, c]);
   const v = a.useMemo(() => {
-    if (!V.trim()) return C;
-    const s = V.toLowerCase();
+    if (!O.trim()) return C;
+    const s = O.toLowerCase();
     return C.map(({ category: u, effects: y }) => ({
       category: u,
       effects: y.filter((N) => N.name.toLowerCase().includes(s))
     })).filter(({ effects: u }) => u.length > 0);
-  }, [C, V]), E = a.useMemo(() => {
-    if (!V.trim()) return se;
-    const s = V.toLowerCase();
+  }, [C, O]), E = a.useMemo(() => {
+    if (!O.trim()) return se;
+    const s = O.toLowerCase();
     return se.filter((u) => u.name.toLowerCase().includes(s));
-  }, [V]), k = v.length > 0 || E.length > 0;
-  return w.length === 0 ? null : /* @__PURE__ */ e.jsxs(Ge, { title: "Effects", icon: Ie, defaultOpen: !0, children: [
+  }, [O]), k = v.length > 0 || E.length > 0;
+  return w.length === 0 ? null : /* @__PURE__ */ e.jsxs(Ge, { title: "Effects", icon: Ve, defaultOpen: !0, children: [
     /* @__PURE__ */ e.jsxs("div", { className: "px-2 pb-2 flex gap-1", children: [
       /* @__PURE__ */ e.jsxs(
-        A,
+        W,
         {
-          ref: H,
+          ref: F,
           variant: "outline",
           size: "sm",
           className: "flex-1 h-7 text-xs",
-          onClick: () => F ? c() : ce(),
+          onClick: () => Y ? c() : ce(),
           children: [
-            /* @__PURE__ */ e.jsx(ze, { className: "w-3 h-3 mr-1" }),
+            /* @__PURE__ */ e.jsx(We, { className: "w-3 h-3 mr-1" }),
             "Add Effect"
           ]
         }
       ),
-      F && We.createPortal(
+      Y && ze.createPortal(
         /* @__PURE__ */ e.jsxs(
           "div",
           {
@@ -1104,13 +1104,13 @@ const pt = a.memo(function({ items: t }) {
             className: "z-50 rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2",
             children: [
               /* @__PURE__ */ e.jsx("div", { className: "p-1.5 border-b", children: /* @__PURE__ */ e.jsxs("div", { className: "relative", children: [
-                /* @__PURE__ */ e.jsx(Oe, { className: "absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" }),
+                /* @__PURE__ */ e.jsx(Ae, { className: "absolute left-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" }),
                 /* @__PURE__ */ e.jsx(
                   "input",
                   {
                     ref: re,
                     type: "text",
-                    value: V,
+                    value: O,
                     onChange: (s) => J(s.target.value),
                     placeholder: "Search effects...",
                     className: "w-full h-7 pl-7 pr-2 text-xs bg-transparent rounded-sm border border-input placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -1175,15 +1175,15 @@ const pt = a.memo(function({ items: t }) {
             ]
           }
         ),
-        Ke() ?? document.body
+        Ie() ?? document.body
       ),
       l.length > 0 && /* @__PURE__ */ e.jsx(
-        A,
+        W,
         {
           variant: "outline",
           size: "sm",
           className: "h-7 px-2",
-          onClick: O,
+          onClick: V,
           title: G ? "Disable all effects" : "Enable all effects",
           children: G ? /* @__PURE__ */ e.jsx(he, { className: "w-3.5 h-3.5" }) : /* @__PURE__ */ e.jsx(me, { className: "w-3.5 h-3.5" })
         }
@@ -1191,7 +1191,7 @@ const pt = a.memo(function({ items: t }) {
     ] }),
     /* @__PURE__ */ e.jsx("div", { className: "space-y-0", children: l.map((s) => {
       if (s.effect.type === "gpu-effect") {
-        const u = s.effect, y = Ae(u.gpuEffectType);
+        const u = s.effect, y = Ke(u.gpuEffectType);
         return y ? u.gpuEffectType === "gpu-curves" ? /* @__PURE__ */ e.jsx(
           st,
           {
@@ -1214,14 +1214,14 @@ const pt = a.memo(function({ items: t }) {
             onParamChange: j,
             onParamLiveChange: T,
             onParamsBatchChange: P,
-            onParamsBatchLiveChange: W,
+            onParamsBatchLiveChange: K,
             onReset: z,
             onToggle: L,
             onRemove: Z
           },
           s.id
         ) : /* @__PURE__ */ e.jsx(
-          Ve,
+          Oe,
           {
             effect: s,
             gpuEffect: u,

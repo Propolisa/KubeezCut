@@ -5,7 +5,7 @@ import { r as c } from "./react-vendor-18pR7s9b.js";
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const l = (t) => t.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), i = (...t) => t.filter((e, y, h) => !!e && e.trim() !== "" && h.indexOf(e) === y).join(" ").trim();
+const l = (t) => t.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), n = (...t) => t.filter((e, y, h) => !!e && e.trim() !== "" && h.indexOf(e) === y).join(" ").trim();
 /**
  * @license lucide-react v0.468.0 - ISC
  *
@@ -37,7 +37,7 @@ const M = c.forwardRef(
     absoluteStrokeWidth: h,
     className: r = "",
     children: k,
-    iconNode: n,
+    iconNode: i,
     ...o
   }, p) => c.createElement(
     "svg",
@@ -48,11 +48,11 @@ const M = c.forwardRef(
       height: e,
       stroke: t,
       strokeWidth: h ? Number(y) * 24 / Number(e) : y,
-      className: i("lucide", r),
+      className: n("lucide", r),
       ...o
     },
     [
-      ...n.map(([d, s]) => c.createElement(d, s)),
+      ...i.map(([d, s]) => c.createElement(d, s)),
       ...Array.isArray(k) ? k : [k]
     ]
   )
@@ -68,7 +68,7 @@ const a = (t, e) => {
     ({ className: h, ...r }, k) => c.createElement(M, {
       ref: k,
       iconNode: e,
-      className: i(`lucide-${l(t)}`, h),
+      className: n(`lucide-${l(t)}`, h),
       ...r
     })
   );
@@ -259,7 +259,7 @@ const b = a("ArrowLeftRight", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const j = a("ArrowLeftToLine", [
+const V = a("ArrowLeftToLine", [
   ["path", { d: "M3 19V5", key: "rwsyhb" }],
   ["path", { d: "m13 6-6 6 6 6", key: "1yhaz7" }],
   ["path", { d: "M7 12h14", key: "uoisry" }]
@@ -270,7 +270,7 @@ const j = a("ArrowLeftToLine", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const q = a("ArrowLeft", [
+const j = a("ArrowLeft", [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ]);
@@ -280,7 +280,7 @@ const q = a("ArrowLeft", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const C = a("ArrowRightToLine", [
+const q = a("ArrowRightToLine", [
   ["path", { d: "M17 12H3", key: "8awo09" }],
   ["path", { d: "m11 18 6-6-6-6", key: "8c2y43" }],
   ["path", { d: "M21 5v14", key: "nzette" }]
@@ -291,7 +291,7 @@ const C = a("ArrowRightToLine", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const V = a("ArrowRight", [
+const C = a("ArrowRight", [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ]);
@@ -324,7 +324,7 @@ const R = a("ArrowUp", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const F = a("Blend", [
+const D = a("Blend", [
   ["circle", { cx: "9", cy: "9", r: "7", key: "p2h5vp" }],
   ["circle", { cx: "15", cy: "15", r: "7", key: "19ennj" }]
 ]);
@@ -334,7 +334,7 @@ const F = a("Blend", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const D = a("Bold", [
+const F = a("Bold", [
   [
     "path",
     { d: "M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8", key: "mg9rjx" }
@@ -397,7 +397,7 @@ const U = a("ChevronLeft", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const I = a("ChevronRight", [
+const O = a("ChevronRight", [
   ["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]
 ]);
 /**
@@ -406,7 +406,7 @@ const I = a("ChevronRight", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const O = a("ChevronUp", [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]]);
+const I = a("ChevronUp", [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]]);
 /**
  * @license lucide-react v0.468.0 - ISC
  *
@@ -424,7 +424,7 @@ const B = a("CircleX", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const G = a("Circle", [
+const W = a("Circle", [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ]);
 /**
@@ -433,7 +433,7 @@ const G = a("Circle", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const N = a("ClipboardPaste", [
+const X = a("ClipboardPaste", [
   [
     "path",
     { d: "M15 2H9a1 1 0 0 0-1 1v2c0 .6.4 1 1 1h6c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1Z", key: "1pp7kr" }
@@ -453,7 +453,7 @@ const N = a("ClipboardPaste", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const W = a("Clock", [
+const G = a("Clock", [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
 ]);
@@ -463,7 +463,7 @@ const W = a("Clock", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const X = a("Columns2", [
+const N = a("Columns2", [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M12 3v18", key: "108xh3" }]
 ]);
@@ -508,7 +508,18 @@ const J = a("Diamond", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Q = a("Droplet", [
+const Q = a("Download", [
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
+  ["polyline", { points: "7 10 12 15 17 10", key: "2ggqvy" }],
+  ["line", { x1: "12", x2: "12", y1: "15", y2: "3", key: "1vk2je" }]
+]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Y = a("Droplet", [
   [
     "path",
     {
@@ -523,7 +534,7 @@ const Q = a("Droplet", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Y = a("EllipsisVertical", [
+const _ = a("EllipsisVertical", [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "12", cy: "5", r: "1", key: "gxeob9" }],
   ["circle", { cx: "12", cy: "19", r: "1", key: "lyex9k" }]
@@ -534,7 +545,7 @@ const Y = a("EllipsisVertical", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const _ = a("Ellipsis", [
+const a1 = a("Ellipsis", [
   ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
   ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
   ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
@@ -545,7 +556,7 @@ const _ = a("Ellipsis", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const a1 = a("EyeOff", [
+const e1 = a("EyeOff", [
   [
     "path",
     {
@@ -569,7 +580,7 @@ const a1 = a("EyeOff", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const e1 = a("Eye", [
+const t1 = a("Eye", [
   [
     "path",
     {
@@ -585,7 +596,7 @@ const e1 = a("Eye", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const t1 = a("FileAudio", [
+const y1 = a("FileAudio", [
   ["path", { d: "M17.5 22h.5a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3", key: "rslqgf" }],
   ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
   [
@@ -602,7 +613,7 @@ const t1 = a("FileAudio", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const y1 = a("FileType", [
+const h1 = a("FileType", [
   ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
   ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
   ["path", { d: "M9 13v-1h6v1", key: "1bb014" }],
@@ -615,7 +626,7 @@ const y1 = a("FileType", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const h1 = a("Film", [
+const k1 = a("Film", [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M7 3v18", key: "bbkbws" }],
   ["path", { d: "M3 7.5h4", key: "zfgn84" }],
@@ -631,7 +642,7 @@ const h1 = a("Film", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const k1 = a("Filter", [
+const c1 = a("Filter", [
   ["polygon", { points: "22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3", key: "1yg77f" }]
 ]);
 /**
@@ -640,7 +651,7 @@ const k1 = a("Filter", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const c1 = a("Flag", [
+const r1 = a("Flag", [
   ["path", { d: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z", key: "i9b6wo" }],
   ["line", { x1: "4", x2: "4", y1: "22", y2: "15", key: "1cm3nv" }]
 ]);
@@ -650,7 +661,7 @@ const c1 = a("Flag", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const r1 = a("FlipHorizontal", [
+const n1 = a("FlipHorizontal", [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3", key: "1i73f7" }],
   ["path", { d: "M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3", key: "saxlbk" }],
   ["path", { d: "M12 20v2", key: "1lh1kg" }],
@@ -678,7 +689,7 @@ const i1 = a("FlipVertical", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const n1 = a("FolderOpen", [
+const o1 = a("FolderOpen", [
   [
     "path",
     {
@@ -693,7 +704,7 @@ const n1 = a("FolderOpen", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const o1 = a("Folder", [
+const p1 = a("Folder", [
   [
     "path",
     {
@@ -708,7 +719,7 @@ const o1 = a("Folder", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const p1 = a("Gauge", [
+const d1 = a("Gauge", [
   ["path", { d: "m12 14 4-4", key: "9kzdfg" }],
   ["path", { d: "M3.34 19a10 10 0 1 1 17.32 0", key: "19p75a" }]
 ]);
@@ -718,7 +729,7 @@ const p1 = a("Gauge", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const d1 = a("Grid3x3", [
+const s1 = a("Grid3x3", [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M3 9h18", key: "1pudct" }],
   ["path", { d: "M3 15h18", key: "5xshup" }],
@@ -731,7 +742,7 @@ const d1 = a("Grid3x3", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const s1 = a("HardDrive", [
+const l1 = a("HardDrive", [
   ["line", { x1: "22", x2: "2", y1: "12", y2: "12", key: "1y58io" }],
   [
     "path",
@@ -749,7 +760,7 @@ const s1 = a("HardDrive", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const l1 = a("Heart", [
+const x1 = a("Heart", [
   [
     "path",
     {
@@ -764,7 +775,7 @@ const l1 = a("Heart", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const x1 = a("Hexagon", [
+const M1 = a("Hexagon", [
   [
     "path",
     {
@@ -779,7 +790,7 @@ const x1 = a("Hexagon", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const M1 = a("Image", [
+const v1 = a("Image", [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
   ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
   ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
@@ -790,7 +801,7 @@ const M1 = a("Image", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const v1 = a("Info", [
+const g1 = a("Info", [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 16v-4", key: "1dtifu" }],
   ["path", { d: "M12 8h.01", key: "e9boi3" }]
@@ -801,7 +812,7 @@ const v1 = a("Info", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const g1 = a("Italic", [
+const m1 = a("Italic", [
   ["line", { x1: "19", x2: "10", y1: "4", y2: "4", key: "15jd3p" }],
   ["line", { x1: "14", x2: "5", y1: "20", y2: "20", key: "bu0au3" }],
   ["line", { x1: "15", x2: "9", y1: "4", y2: "20", key: "uljnxc" }]
@@ -812,7 +823,7 @@ const g1 = a("Italic", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const m1 = a("Layers", [
+const w1 = a("Layers", [
   [
     "path",
     {
@@ -841,7 +852,7 @@ const m1 = a("Layers", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const w1 = a("LayoutDashboard", [
+const u1 = a("LayoutDashboard", [
   ["rect", { width: "7", height: "9", x: "3", y: "3", rx: "1", key: "10lvy0" }],
   ["rect", { width: "7", height: "5", x: "14", y: "3", rx: "1", key: "16une8" }],
   ["rect", { width: "7", height: "9", x: "14", y: "12", rx: "1", key: "1hutg5" }],
@@ -853,7 +864,7 @@ const w1 = a("LayoutDashboard", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const u1 = a("Link2Off", [
+const f1 = a("Link2Off", [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7", key: "10o201" }],
   ["path", { d: "M15 7h2a5 5 0 0 1 4 8", key: "1d3206" }],
   ["line", { x1: "8", x2: "12", y1: "12", y2: "12", key: "rvw6j4" }],
@@ -865,7 +876,7 @@ const u1 = a("Link2Off", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const f1 = a("Link2", [
+const z1 = a("Link2", [
   ["path", { d: "M9 17H7A5 5 0 0 1 7 7h2", key: "8i5ue5" }],
   ["path", { d: "M15 7h2a5 5 0 1 1 0 10h-2", key: "1b9ql8" }],
   ["line", { x1: "8", x2: "16", y1: "12", y2: "12", key: "1jonct" }]
@@ -876,7 +887,7 @@ const f1 = a("Link2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const z1 = a("List", [
+const H1 = a("List", [
   ["path", { d: "M3 12h.01", key: "nlz23k" }],
   ["path", { d: "M3 18h.01", key: "1tta3j" }],
   ["path", { d: "M3 6h.01", key: "1rqtza" }],
@@ -890,7 +901,7 @@ const z1 = a("List", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const H1 = a("LoaderCircle", [
+const L1 = a("LoaderCircle", [
   ["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]
 ]);
 /**
@@ -899,7 +910,17 @@ const H1 = a("LoaderCircle", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const L1 = a("Lock", [
+const A1 = a("LockOpen", [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 9.9-1", key: "1mm8w8" }]
+]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const b1 = a("Lock", [
   ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
   ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
 ]);
@@ -909,7 +930,7 @@ const L1 = a("Lock", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const A1 = a("Magnet", [
+const V1 = a("Magnet", [
   [
     "path",
     {
@@ -926,7 +947,7 @@ const A1 = a("Magnet", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const b1 = a("MapPin", [
+const j1 = a("MapPin", [
   [
     "path",
     {
@@ -942,7 +963,7 @@ const b1 = a("MapPin", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const j1 = a("Maximize2", [
+const q1 = a("Maximize2", [
   ["polyline", { points: "15 3 21 3 21 9", key: "mznyad" }],
   ["polyline", { points: "9 21 3 21 3 15", key: "1avn1i" }],
   ["line", { x1: "21", x2: "14", y1: "3", y2: "10", key: "ota7mn" }],
@@ -954,7 +975,7 @@ const j1 = a("Maximize2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const q1 = a("Minimize2", [
+const C1 = a("Minimize2", [
   ["polyline", { points: "4 14 10 14 10 20", key: "11kfnr" }],
   ["polyline", { points: "20 10 14 10 14 4", key: "rlmsce" }],
   ["line", { x1: "14", x2: "21", y1: "10", y2: "3", key: "o5lafz" }],
@@ -966,7 +987,14 @@ const q1 = a("Minimize2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const C1 = a("MousePointer2", [
+const S1 = a("Minus", [["path", { d: "M5 12h14", key: "1ays0h" }]]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const R1 = a("MousePointer2", [
   [
     "path",
     {
@@ -981,7 +1009,7 @@ const C1 = a("MousePointer2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const V1 = a("MoveDown", [
+const D1 = a("MoveDown", [
   ["path", { d: "M8 18L12 22L16 18", key: "cskvfv" }],
   ["path", { d: "M12 2V22", key: "r89rzk" }]
 ]);
@@ -991,7 +1019,7 @@ const V1 = a("MoveDown", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const S1 = a("MoveHorizontal", [
+const F1 = a("MoveHorizontal", [
   ["path", { d: "m18 8 4 4-4 4", key: "1ak13k" }],
   ["path", { d: "M2 12h20", key: "9i4pu4" }],
   ["path", { d: "m6 8-4 4 4 4", key: "15zrgr" }]
@@ -1002,7 +1030,7 @@ const S1 = a("MoveHorizontal", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const R1 = a("MoveLeft", [
+const T1 = a("MoveLeft", [
   ["path", { d: "M6 8L2 12L6 16", key: "kyvwex" }],
   ["path", { d: "M2 12H22", key: "1m8cig" }]
 ]);
@@ -1012,7 +1040,7 @@ const R1 = a("MoveLeft", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const F1 = a("MoveRight", [
+const P1 = a("MoveRight", [
   ["path", { d: "M18 8L22 12L18 16", key: "1r0oui" }],
   ["path", { d: "M2 12H22", key: "1m8cig" }]
 ]);
@@ -1022,7 +1050,7 @@ const F1 = a("MoveRight", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const D1 = a("MoveUp", [
+const E1 = a("MoveUp", [
   ["path", { d: "M8 6L12 2L16 6", key: "1yvkyx" }],
   ["path", { d: "M12 2V22", key: "r89rzk" }]
 ]);
@@ -1032,7 +1060,7 @@ const D1 = a("MoveUp", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const T1 = a("MoveVertical", [
+const Z1 = a("MoveVertical", [
   ["path", { d: "M12 2v20", key: "t6zp3m" }],
   ["path", { d: "m8 18 4 4 4-4", key: "bh5tu3" }],
   ["path", { d: "m8 6 4-4 4 4", key: "ybng9g" }]
@@ -1043,7 +1071,7 @@ const T1 = a("MoveVertical", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const P1 = a("Move", [
+const U1 = a("Move", [
   ["path", { d: "M12 2v20", key: "t6zp3m" }],
   ["path", { d: "m15 19-3 3-3-3", key: "11eu04" }],
   ["path", { d: "m19 9 3 3-3 3", key: "1mg7y2" }],
@@ -1057,7 +1085,7 @@ const P1 = a("Move", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const E1 = a("Music", [
+const O1 = a("Music", [
   ["path", { d: "M9 18V5l12-2v13", key: "1jmyc2" }],
   ["circle", { cx: "6", cy: "18", r: "3", key: "fqmcym" }],
   ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
@@ -1068,7 +1096,7 @@ const E1 = a("Music", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Z1 = a("Pause", [
+const I1 = a("Pause", [
   ["rect", { x: "14", y: "4", width: "4", height: "16", rx: "1", key: "zuxfzm" }],
   ["rect", { x: "6", y: "4", width: "4", height: "16", rx: "1", key: "1okwgv" }]
 ]);
@@ -1078,7 +1106,7 @@ const Z1 = a("Pause", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const U1 = a("Pen", [
+const B1 = a("Pen", [
   [
     "path",
     {
@@ -1093,7 +1121,7 @@ const U1 = a("Pen", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const I1 = a("Pentagon", [
+const W1 = a("Pentagon", [
   [
     "path",
     {
@@ -1108,7 +1136,7 @@ const I1 = a("Pentagon", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const O1 = a("Play", [
+const X1 = a("Play", [
   ["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]
 ]);
 /**
@@ -1117,7 +1145,7 @@ const O1 = a("Play", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const B1 = a("Plus", [
+const G1 = a("Plus", [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ]);
@@ -1127,7 +1155,7 @@ const B1 = a("Plus", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const G1 = a("RectangleHorizontal", [
+const N1 = a("RectangleHorizontal", [
   ["rect", { width: "20", height: "12", x: "2", y: "6", rx: "2", key: "9lu3g6" }]
 ]);
 /**
@@ -1136,7 +1164,7 @@ const G1 = a("RectangleHorizontal", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const N1 = a("RectangleVertical", [
+const $1 = a("RectangleVertical", [
   ["rect", { width: "12", height: "20", x: "6", y: "2", rx: "2", key: "1oxtiu" }]
 ]);
 /**
@@ -1145,7 +1173,7 @@ const N1 = a("RectangleVertical", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const W1 = a("RefreshCw", [
+const K1 = a("RefreshCw", [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
@@ -1157,7 +1185,7 @@ const W1 = a("RefreshCw", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const X1 = a("Repeat", [
+const J1 = a("Repeat", [
   ["path", { d: "m17 2 4 4-4 4", key: "nntrym" }],
   ["path", { d: "M3 11v-1a4 4 0 0 1 4-4h14", key: "84bu3i" }],
   ["path", { d: "m7 22-4-4 4-4", key: "1wqhfi" }],
@@ -1169,7 +1197,7 @@ const X1 = a("Repeat", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const $1 = a("Replace", [
+const Q1 = a("Replace", [
   ["path", { d: "M14 4a2 2 0 0 1 2-2", key: "1w2hp7" }],
   ["path", { d: "M16 10a2 2 0 0 1-2-2", key: "shjach" }],
   ["path", { d: "M20 2a2 2 0 0 1 2 2", key: "188mtx" }],
@@ -1184,7 +1212,7 @@ const $1 = a("Replace", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const K1 = a("RotateCcw", [
+const Y1 = a("RotateCcw", [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ]);
@@ -1194,7 +1222,24 @@ const K1 = a("RotateCcw", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const J1 = a("Scissors", [
+const _1 = a("Save", [
+  [
+    "path",
+    {
+      d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+      key: "1c8476"
+    }
+  ],
+  ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
+  ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
+]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const a2 = a("Scissors", [
   ["circle", { cx: "6", cy: "6", r: "3", key: "1lh9wr" }],
   ["path", { d: "M8.12 8.12 12 12", key: "1alkpv" }],
   ["path", { d: "M20 4 8.12 15.88", key: "xgtan2" }],
@@ -1207,7 +1252,7 @@ const J1 = a("Scissors", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Q1 = a("Search", [
+const e2 = a("Search", [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["path", { d: "m21 21-4.3-4.3", key: "1qie3q" }]
 ]);
@@ -1217,7 +1262,7 @@ const Q1 = a("Search", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Y1 = a("Settings2", [
+const t2 = a("Settings2", [
   ["path", { d: "M20 7h-9", key: "3s1dr2" }],
   ["path", { d: "M14 17H5", key: "gfn3mx" }],
   ["circle", { cx: "17", cy: "17", r: "3", key: "18b49y" }],
@@ -1229,7 +1274,23 @@ const Y1 = a("Settings2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const _1 = a("Shapes", [
+const y2 = a("Settings", [
+  [
+    "path",
+    {
+      d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z",
+      key: "1qme2f"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+]);
+/**
+ * @license lucide-react v0.468.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const h2 = a("Shapes", [
   [
     "path",
     {
@@ -1246,7 +1307,7 @@ const _1 = a("Shapes", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const a2 = a("SkipBack", [
+const k2 = a("SkipBack", [
   ["polygon", { points: "19 20 9 12 19 4 19 20", key: "o2sva" }],
   ["line", { x1: "5", x2: "5", y1: "19", y2: "5", key: "1ocqjk" }]
 ]);
@@ -1256,7 +1317,7 @@ const a2 = a("SkipBack", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const e2 = a("SkipForward", [
+const c2 = a("SkipForward", [
   ["polygon", { points: "5 4 15 12 5 20 5 4", key: "16p6eg" }],
   ["line", { x1: "19", x2: "19", y1: "5", y2: "19", key: "futhcm" }]
 ]);
@@ -1266,7 +1327,7 @@ const e2 = a("SkipForward", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const t2 = a("Snowflake", [
+const r2 = a("Snowflake", [
   ["line", { x1: "2", x2: "22", y1: "12", y2: "12", key: "1dnqot" }],
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "m20 16-4-4 4-4", key: "rquw4f" }],
@@ -1280,7 +1341,7 @@ const t2 = a("Snowflake", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const y2 = a("Sparkles", [
+const n2 = a("Sparkles", [
   [
     "path",
     {
@@ -1299,7 +1360,7 @@ const y2 = a("Sparkles", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const h2 = a("Square", [
+const i2 = a("Square", [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]
 ]);
 /**
@@ -1308,7 +1369,7 @@ const h2 = a("Square", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const k2 = a("Star", [
+const o2 = a("Star", [
   [
     "path",
     {
@@ -1323,7 +1384,7 @@ const k2 = a("Star", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const c2 = a("Sun", [
+const p2 = a("Sun", [
   ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
   ["path", { d: "M12 2v2", key: "tus03m" }],
   ["path", { d: "M12 20v2", key: "1lh1kg" }],
@@ -1340,7 +1401,7 @@ const c2 = a("Sun", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const r2 = a("Timer", [
+const d2 = a("Timer", [
   ["line", { x1: "10", x2: "14", y1: "2", y2: "2", key: "14vaq8" }],
   ["line", { x1: "12", x2: "15", y1: "14", y2: "11", key: "17fdiu" }],
   ["circle", { cx: "12", cy: "14", r: "8", key: "1e1u0o" }]
@@ -1351,7 +1412,7 @@ const r2 = a("Timer", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const i2 = a("Trash2", [
+const s2 = a("Trash2", [
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
   ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
@@ -1364,7 +1425,7 @@ const i2 = a("Trash2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const n2 = a("TriangleAlert", [
+const l2 = a("TriangleAlert", [
   [
     "path",
     {
@@ -1381,7 +1442,7 @@ const n2 = a("TriangleAlert", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const o2 = a("Triangle", [
+const x2 = a("Triangle", [
   [
     "path",
     { d: "M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z", key: "14u9p9" }
@@ -1393,7 +1454,7 @@ const o2 = a("Triangle", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const p2 = a("Type", [
+const M2 = a("Type", [
   ["polyline", { points: "4 7 4 4 20 4 20 7", key: "1nosan" }],
   ["line", { x1: "9", x2: "15", y1: "20", y2: "20", key: "swin9y" }],
   ["line", { x1: "12", x2: "12", y1: "4", y2: "20", key: "1tx1rr" }]
@@ -1404,7 +1465,7 @@ const p2 = a("Type", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const d2 = a("Underline", [
+const v2 = a("Underline", [
   ["path", { d: "M6 4v6a6 6 0 0 0 12 0V4", key: "9kb039" }],
   ["line", { x1: "4", x2: "20", y1: "20", y2: "20", key: "nun2al" }]
 ]);
@@ -1414,7 +1475,7 @@ const d2 = a("Underline", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const s2 = a("Upload", [
+const g2 = a("Upload", [
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["polyline", { points: "17 8 12 3 7 8", key: "t8dd8p" }],
   ["line", { x1: "12", x2: "12", y1: "3", y2: "15", key: "widbto" }]
@@ -1425,7 +1486,7 @@ const s2 = a("Upload", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const l2 = a("Video", [
+const m2 = a("Video", [
   [
     "path",
     {
@@ -1441,7 +1502,7 @@ const l2 = a("Video", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const x2 = a("Volume2", [
+const w2 = a("Volume2", [
   [
     "path",
     {
@@ -1458,7 +1519,7 @@ const x2 = a("Volume2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const M2 = a("VolumeX", [
+const u2 = a("VolumeX", [
   [
     "path",
     {
@@ -1475,7 +1536,7 @@ const M2 = a("VolumeX", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const v2 = a("WandSparkles", [
+const f2 = a("WandSparkles", [
   [
     "path",
     {
@@ -1497,7 +1558,7 @@ const v2 = a("WandSparkles", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const g2 = a("X", [
+const z2 = a("X", [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ]);
@@ -1507,7 +1568,7 @@ const g2 = a("X", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const m2 = a("Zap", [
+const H2 = a("Zap", [
   [
     "path",
     {
@@ -1522,7 +1583,7 @@ const m2 = a("Zap", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const w2 = a("ZoomIn", [
+const L2 = a("ZoomIn", [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["line", { x1: "21", x2: "16.65", y1: "21", y2: "16.65", key: "13gj7c" }],
   ["line", { x1: "11", x2: "11", y1: "8", y2: "14", key: "1vmskp" }],
@@ -1534,122 +1595,127 @@ const w2 = a("ZoomIn", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const u2 = a("ZoomOut", [
+const A2 = a("ZoomOut", [
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }],
   ["line", { x1: "21", x2: "16.65", y1: "21", y2: "16.65", key: "13gj7c" }],
   ["line", { x1: "8", x2: "14", y1: "11", y2: "11", key: "durymu" }]
 ]);
 export {
-  n1 as $,
+  I1 as $,
   g as A,
-  h1 as B,
+  e2 as B,
   Z as C,
   J as D,
-  _ as E,
-  c1 as F,
-  p1 as G,
-  s1 as H,
+  e1 as E,
+  r1 as F,
+  d1 as G,
+  l1 as H,
   v1 as I,
-  t1 as J,
-  M1 as K,
-  L1 as L,
-  j1 as M,
-  m2 as N,
-  h2 as O,
-  B1 as P,
-  O1 as Q,
-  K1 as R,
-  J1 as S,
-  i2 as T,
-  Y as U,
-  l2 as V,
-  s2 as W,
-  g2 as X,
-  m1 as Y,
-  u2 as Z,
-  o1 as _,
-  O as a,
-  Q1 as a0,
-  v2 as a1,
-  k1 as a2,
-  S as a3,
-  d1 as a4,
-  z1 as a5,
-  q as a6,
-  y2 as a7,
-  c2 as a8,
-  G as a9,
-  k2 as aA,
-  x1 as aB,
-  l1 as aC,
-  U1 as aD,
-  w1 as aE,
-  b as aF,
-  P1 as aG,
-  Q as aH,
-  K as aI,
-  D as aJ,
-  g1 as aK,
-  d2 as aL,
-  f as aM,
-  w as aN,
-  z as aO,
-  H as aP,
-  m as aQ,
-  u as aR,
-  _1 as aS,
-  b1 as aT,
-  Y1 as aU,
-  X as aV,
-  i1 as aa,
-  r1 as ab,
-  D1 as ac,
-  V1 as ad,
-  R1 as ae,
-  F1 as af,
-  R as ag,
-  A as ah,
-  V as ai,
-  F as aj,
-  a2 as ak,
-  Z1 as al,
-  e2 as am,
-  T as an,
-  X1 as ao,
-  j as ap,
-  C as aq,
-  B as ar,
-  L as as,
-  $1 as at,
-  q1 as au,
-  N1 as av,
-  G1 as aw,
-  p2 as ax,
-  I1 as ay,
-  o2 as az,
+  c1 as J,
+  S as K,
+  b1 as L,
+  q1 as M,
+  s1 as N,
+  w1 as O,
+  G1 as P,
+  p1 as Q,
+  Y1 as R,
+  r2 as S,
+  s2 as T,
+  g2 as U,
+  m2 as V,
+  J1 as W,
+  z2 as X,
+  B as Y,
+  A2 as Z,
+  k2 as _,
+  I as a,
+  c2 as a0,
+  M2 as a1,
+  t2 as a2,
+  j1 as a3,
+  T as a4,
+  C1 as a5,
+  S1 as a6,
+  A1 as a7,
+  y2 as a8,
+  Q as a9,
+  q as aA,
+  L as aB,
+  Q1 as aC,
+  $1 as aD,
+  N1 as aE,
+  W1 as aF,
+  x2 as aG,
+  o2 as aH,
+  M1 as aI,
+  x1 as aJ,
+  B1 as aK,
+  u1 as aL,
+  b as aM,
+  U1 as aN,
+  Y as aO,
+  K as aP,
+  F as aQ,
+  m1 as aR,
+  v2 as aS,
+  f as aT,
+  w as aU,
+  z as aV,
+  H as aW,
+  m as aX,
+  u as aY,
+  h2 as aZ,
+  N as a_,
+  _1 as aa,
+  a1 as ab,
+  a2 as ac,
+  F1 as ad,
+  Z1 as ae,
+  L1 as af,
+  H2 as ag,
+  i2 as ah,
+  _ as ai,
+  f2 as aj,
+  H1 as ak,
+  j as al,
+  n2 as am,
+  p2 as an,
+  W as ao,
+  i1 as ap,
+  n1 as aq,
+  E1 as ar,
+  D1 as as,
+  T1 as at,
+  P1 as au,
+  R as av,
+  A as aw,
+  C as ax,
+  D as ay,
+  V as az,
   E as b,
   U as c,
-  I as d,
-  w2 as e,
+  O as d,
+  L2 as e,
   P as f,
-  r2 as g,
+  d2 as g,
   $ as h,
-  N as i,
-  S1 as j,
-  T1 as k,
-  f1 as l,
-  u1 as m,
-  n2 as n,
-  W1 as o,
-  C1 as p,
-  H1 as q,
-  t2 as r,
-  A1 as s,
-  E1 as t,
-  a1 as u,
-  e1 as v,
-  M2 as w,
-  x2 as x,
-  y1 as y,
-  W as z
+  X as i,
+  R1 as j,
+  V1 as k,
+  z1 as l,
+  f1 as m,
+  O1 as n,
+  t1 as o,
+  u2 as p,
+  w2 as q,
+  l2 as r,
+  K1 as s,
+  X1 as t,
+  y1 as u,
+  h1 as v,
+  G as w,
+  k1 as x,
+  g1 as y,
+  o1 as z
 };

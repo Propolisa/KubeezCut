@@ -1,8 +1,8 @@
 import { r as n, j as e, b as ss } from "./react-vendor-18pR7s9b.js";
-import { B as Ze, c as Pe, u as Us, a as Hi, b as he, d as _e, e as Pt, f as nd, Z as pn, g as Pn, h as ba, E as St, i as Zr, j as Ue, k as rd, l as on, m as Qr, n as Ps, o as $i, s as Bi, p as Xi, q as sd, R as od, r as ad, t as id, v as ld, T as cd, w as Vi, x as Ko, y as dd, z as jr, A as ud, C as md, W as Ki, D as Wi, F as Wn, G as fd, H as me, I as $t, J as pd, K as va, L as hd, M as lt, N as gd, O as xd, P as bd, Q as vd, S as yd, U as Nn, V as Fs, X as Mo, Y as wd, _ as Id, $ as ya, a0 as Cd, a1 as Ls, a2 as Xn, a3 as Sd, a4 as Ro, a5 as jd, a6 as kd, a7 as Gi, a8 as wa, a9 as Ia, aa as Td, ab as Nd, ac as gr, ad as Ca, ae as Do, af as Bn, ag as Eo, ah as ur, ai as mn, aj as Md, ak as Rd, al as Dd, am as Ed, an as Pd, ao as Fd, ap as Ld, aq as As, ar as Sa, as as ks, at as Po, au as Fo, av as ja, aw as En, ax as xs, ay as Ui, az as Ad, aA as rn, aB as Od, aC as _d, aD as zd, aE as Yi, aF as Zi, aG as qi, aH as Ji, aI as ka, aJ as Lo, aK as Gt, aL as Hd, aM as zr, aN as Ta, aO as Na, aP as Ma, aQ as $d, aR as Ra, aS as Bd, aT as Xd, aU as Da, aV as Vd, aW as bs, aX as fo, aY as po, aZ as Ea, a_ as vs, a$ as Kd, b0 as Wd, b1 as Gd, b2 as Ud, b3 as Yd, b4 as Zd, b5 as Pa, b6 as qd, b7 as Jd, b8 as xr, b9 as yr, ba as Qd, bb as jt, bc as eu, bd as Fa, be as ho, bf as Ts, bg as Ao, bh as La, bi as Aa, bj as go, bk as Qi, bl as tu, bm as nu, bn as ru, bo as Oa, bp as su, bq as ou, br as au, bs as iu, bt as lu, bu as cu, bv as _a, bw as Vn, bx as du, by as uu, bz as Oo, bA as za, bB as qr, bC as Ha, bD as Os, bE as Ns, bF as mu, bG as _o, bH as _s, bI as kn, bJ as fu, bK as zs, bL as Hs, bM as zo, bN as Gr, bO as Hr, bP as Ys, bQ as pu, bR as hu, bS as $a, bT as gu, bU as xu, bV as bu, bW as wr, bX as vu, bY as yu, bZ as $s, b_ as br, b$ as Kn, c0 as el, c1 as Ba, c2 as wu, c3 as vr, c4 as Xa, c5 as Jr, c6 as tl, c7 as Iu, c8 as Wo, c9 as Cu, ca as Su, cb as ju, cc as ku, cd as Go, ce as Tu, cf as Nu, cg as Mu, ch as fr, ci as pr, cj as Ru, ck as Du, cl as Va, cm as Eu, cn as Pu, co as es, cp as ts, cq as ns, cr as Et, cs as Fu, ct as Lu, cu as Au, cv as Ou, cw as wn, cx as hr, cy as Sn, cz as _u, cA as zu, cB as Hu, cC as $u, cD as Ka, cE as xo, cF as bo, cG as Wa, cH as Bu, cI as Xu, cJ as Ga, cK as Ua, cL as Ya, cM as Za, cN as vo, cO as Bs, cP as Vu, cQ as Ku, cR as Wu, cS as Gu, cT as Xs, cU as Uu, cV as jn, cW as Ho, cX as nl, cY as Yu, cZ as rl, c_ as Ms, c$ as sl, d0 as ol, d1 as al, d2 as il, d3 as ll, d4 as cl, d5 as dl, d6 as Zu, d7 as ul, d8 as qu, d9 as Ju, da as Qu } from "./feature-editing-core-DTxPXeIc.js";
+import { A as Qr, B as Ze, R as Ln, c as Pe, u as Us, a as $i, b as he, d as _e, e as Ft, f as rd, Z as pn, g as Pn, h as ba, E as St, M as sd, i as Zr, G as od, F as ad, j as Ue, S as id, k as ld, L as Bi, l as cd, m as dd, n as ud, o as md, p as on, q as es, r as Ps, s as Xi, t as Vi, v as Ki, w as fd, x as pd, y as hd, z as gd, C as xd, T as bd, D as Wi, H as Ko, I as vd, J as jr, K as yd, N as wd, W as Gi, O as Ui, P as Wn, Q as Id, U as me, V as $t, X as Cd, Y as va, _ as Sd, $ as lt, a0 as jd, a1 as kd, a2 as Td, a3 as Nd, a4 as Md, a5 as Rd, a6 as wr, a7 as Ys, a8 as Nn, a9 as Fs, aa as Mo, ab as Dd, ac as Ed, ad as ya, ae as Pd, af as Ls, ag as Xn, ah as Fd, ai as Ro, aj as Ld, ak as Ad, al as Yi, am as wa, an as Ia, ao as Od, ap as _d, aq as gr, ar as Ca, as as Do, at as Bn, au as Eo, av as ur, aw as mn, ax as zd, ay as Hd, az as $d, aA as Bd, aB as Xd, aC as Vd, aD as Kd, aE as As, aF as Sa, aG as ks, aH as Po, aI as Fo, aJ as ja, aK as En, aL as xs, aM as Zi, aN as Wd, aO as rn, aP as Gd, aQ as Ud, aR as Yd, aS as qi, aT as Ji, aU as Qi, aV as el, aW as ka, aX as Lo, aY as Gt, aZ as Zd, a_ as zr, a$ as Ta, b0 as Na, b1 as Ma, b2 as qd, b3 as Ra, b4 as Jd, b5 as Qd, b6 as Da, b7 as eu, b8 as bs, b9 as fo, ba as po, bb as Ea, bc as vs, bd as tu, be as nu, bf as ru, bg as su, bh as ou, bi as au, bj as Pa, bk as iu, bl as lu, bm as xr, bn as yr, bo as cu, bp as jt, bq as du, br as Fa, bs as ho, bt as Ts, bu as Ao, bv as La, bw as Aa, bx as go, by as tl, bz as uu, bA as mu, bB as fu, bC as Oa, bD as pu, bE as hu, bF as gu, bG as xu, bH as bu, bI as vu, bJ as _a, bK as sn, bL as Vn, bM as yu, bN as wu, bO as Oo, bP as za, bQ as qr, bR as Ha, bS as Os, bT as Ns, bU as Iu, bV as _o, bW as _s, bX as kn, bY as Cu, bZ as zs, b_ as Hs, b$ as zo, c0 as Gr, c1 as Hr, c2 as Zs, c3 as Su, c4 as ju, c5 as $a, c6 as ku, c7 as Tu, c8 as Nu, c9 as Ir, ca as Mu, cb as Ru, cc as $s, cd as br, ce as Kn, cf as nl, cg as Ba, ch as Xa, ci as vr, cj as Va, ck as Jr, cl as rl, cm as Du, cn as Wo, co as Eu, cp as Pu, cq as Fu, cr as Lu, cs as Go, ct as Au, cu as Ou, cv as hn, cw as sl, cx as _u, cy as zu, cz as ol, cA as al, cB as Hu, cC as $u, cD as fr, cE as pr, cF as Bu, cG as Xu, cH as Ka, cI as Vu, cJ as Ku, cK as ts, cL as ns, cM as Wu, cN as rs, cO as Pt, cP as Gu, cQ as Uu, cR as Yu, cS as Zu, cT as Gn, cU as wn, cV as hr, cW as Sn, cX as qu, cY as Ju, cZ as Qu, c_ as em, c$ as Wa, d0 as xo, d1 as bo, d2 as Ga, d3 as tm, d4 as nm, d5 as Ua, d6 as Ya, d7 as Za, d8 as qa, d9 as vo, da as il, db as rm, dc as Bs, dd as sm, de as om, df as am, dg as im, dh as lm, di as Xs, dj as cm, dk as dm, dl as Cr, dm as um, dn as mm, dp as ll, dq as Un, dr as An, ds as jn, dt as Ho, du as cl, dv as fm, dw as Ja, dx as dl, dy as Ms, dz as ul, dA as ml, dB as fl, dC as pl, dD as hl, dE as gl, dF as xl, dG as Ur, dH as bl, dI as pm, dJ as vl, dK as hm, dL as gm, dM as yl, dN as qs, dO as xm, dP as bm, dQ as vm, dR as ym, dS as wm, dT as Im } from "./feature-editing-core-CMGBJc-E.js";
 import "./gif-processing-CfWcW1Gl.js";
-import { A as ml, B as em, D as tm, E as nm, F as fl, H as pl, J as hl, K as rm, M as gl, N as xl, O as bl, Q as sm, U as om, W as am, X as vl, Y as im, Z as yl, _ as wl, $ as Il, a0 as Cl, a1 as Sl, a2 as lm, a3 as jl, a4 as cm, a5 as kl, a6 as dm, a7 as Tl, a8 as Nl, a9 as um, aa as mm, ab as Ml, ac as fm, ad as pm } from "./vendor-ui-KmnPcjbe.js";
-import { n as rs, o as Ln, p as hm, S as Rl, G as gm, F as xm, q as Qt, r as bm, s as vm, l as Dl, A as ym, Z as wm, e as Im, D as Cm, m as Ir, d as Zs, T as sn, V as hn, t as El, u as Sm, v as jm, w as Pl, x as Fl, L as km, P as Tm, X as Gn, h as Ll, i as Nm, y as Mm, z as Rm, M as Dm, B as Cr, H as Em, I as Al, J as Un, K as An, N as Ur, O as qa, Q as Ja, U as Qa, W as Ol, Y as Yr, _ as Pm, $ as _l, a0 as qs, a1 as Fm, a2 as Lm, a3 as Am, a4 as Om, a5 as _m, a6 as zm, b as Hm } from "./vendor-icons-BsfPWTmk.js";
+import { A as wl, B as Cm, D as Sm, E as jm, F as Il, H as Cl, J as Sl, K as km, M as jl, N as kl, O as Tl, Q as Tm, U as Nm, W as Mm, X as Nl, Y as Rm, Z as Ml, _ as Rl, $ as Dl, a0 as El, a1 as Pl, a2 as Dm, a3 as Fl, a4 as Em, a5 as Ll, a6 as Pm, a7 as Al, a8 as Ol, a9 as Fm, aa as Lm, ab as _l, ac as Am, ad as Om } from "./vendor-ui-KmnPcjbe.js";
+import { ac as zl, af as Qt, ag as Yr, ah as Qa, ai as ei, aj as _m, ak as zm, al as Hm } from "./vendor-icons-Ce83X_M4.js";
 import { c as Js, u as Jt } from "./state-vendor-Ctus6aXD.js";
 import { c as an } from "./core-logger-Dau_Juxv.js";
 class $m extends n.Component {
@@ -24,7 +24,7 @@ class $m extends n.Component {
         return this.props.fallback;
       const { level: t = "component" } = this.props;
       return /* @__PURE__ */ e.jsxs("div", { className: "flex flex-col items-center justify-center p-8 gap-4 text-center", children: [
-        /* @__PURE__ */ e.jsx(rs, { className: "h-12 w-12 text-destructive" }),
+        /* @__PURE__ */ e.jsx(Qr, { className: "h-12 w-12 text-destructive" }),
         /* @__PURE__ */ e.jsxs("div", { children: [
           /* @__PURE__ */ e.jsxs("h2", { className: "text-lg font-semibold", children: [
             t === "app" && "Application Error",
@@ -47,7 +47,7 @@ class $m extends n.Component {
   }
 }
 const Uo = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsxs(
-  ml,
+  wl,
   {
     ref: s,
     className: Pe(
@@ -56,15 +56,15 @@ const Uo = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsxs(
     ),
     ...t,
     children: [
-      /* @__PURE__ */ e.jsx(em, { className: "relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20", children: /* @__PURE__ */ e.jsx(tm, { className: "absolute h-full bg-primary" }) }),
-      /* @__PURE__ */ e.jsx(nm, { className: "block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" })
+      /* @__PURE__ */ e.jsx(Cm, { className: "relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20", children: /* @__PURE__ */ e.jsx(Sm, { className: "absolute h-full bg-primary" }) }),
+      /* @__PURE__ */ e.jsx(jm, { className: "block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" })
     ]
   }
 ));
-Uo.displayName = ml.displayName;
+Uo.displayName = wl.displayName;
 const $o = n.forwardRef(
   ({ className: r, orientation: t = "horizontal", decorative: s = !0, ...o }, i) => /* @__PURE__ */ e.jsx(
-    fl,
+    Il,
     {
       ref: i,
       decorative: s,
@@ -78,7 +78,7 @@ const $o = n.forwardRef(
     }
   )
 );
-$o.displayName = fl.displayName;
+$o.displayName = Il.displayName;
 const Bm = n.memo(function({
   onZoomChange: t,
   onZoomIn: s,
@@ -86,13 +86,13 @@ const Bm = n.memo(function({
   isScopesPanelOpen: i = !1,
   onToggleScopesPanel: c
 }) {
-  const m = Us(), { zoomLevel: d, zoomIn: b, zoomOut: M, setZoom: R } = Hi(), N = he((z) => z.snapEnabled), w = he((z) => z.toggleSnap), f = he((z) => z.addMarker), T = _e((z) => z.activeTool), H = _e((z) => z.setActiveTool), E = Pt((z) => z.linkedSelectionEnabled), K = Pt((z) => z.setLinkedSelectionEnabled), $ = { width: St.toolbarButtonSize, height: St.toolbarButtonSize }, v = n.useRef(0), Y = n.useRef(d), S = n.useRef(0), J = n.useRef(null), A = n.useRef(null), p = n.useRef(null), u = n.useRef(!1), L = n.useRef(d);
+  const m = Us(), { zoomLevel: d, zoomIn: b, zoomOut: M, setZoom: R } = $i(), N = he((z) => z.snapEnabled), w = he((z) => z.toggleSnap), f = he((z) => z.addMarker), T = _e((z) => z.activeTool), H = _e((z) => z.setActiveTool), E = Ft((z) => z.linkedSelectionEnabled), K = Ft((z) => z.setLinkedSelectionEnabled), $ = { width: St.toolbarButtonSize, height: St.toolbarButtonSize }, v = n.useRef(0), Y = n.useRef(d), S = n.useRef(0), J = n.useRef(null), A = n.useRef(null), p = n.useRef(null), u = n.useRef(!1), L = n.useRef(d);
   L.current = d;
   const [I, h] = n.useState(!1), V = n.useCallback(async () => {
     if (!I) {
       h(!0);
       try {
-        await nd();
+        await rd();
       } finally {
         h(!1);
       }
@@ -109,7 +109,7 @@ const Bm = n.memo(function({
           v.current = 0, J.current = null;
           return;
         }
-        v.current *= rd, J.current = requestAnimationFrame(z);
+        v.current *= md, J.current = requestAnimationFrame(z);
       } else
         v.current = 0, J.current = null;
     };
@@ -149,7 +149,7 @@ const Bm = n.memo(function({
               onClick: () => H("select"),
               "aria-label": "Select tool",
               "data-tooltip": "Select Tool (V)",
-              children: /* @__PURE__ */ e.jsx(hm, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(sd, { className: "w-3.5 h-3.5" })
             }
           ),
           /* @__PURE__ */ e.jsx(
@@ -162,7 +162,7 @@ const Bm = n.memo(function({
               onClick: () => H(T === "razor" ? "select" : "razor"),
               "aria-label": "Razor tool",
               "data-tooltip": "Razor Tool (C)",
-              children: /* @__PURE__ */ e.jsx(Rl, { className: "w-3.5 h-3.5 -rotate-90" })
+              children: /* @__PURE__ */ e.jsx(zl, { className: "w-3.5 h-3.5 -rotate-90" })
             }
           ),
           /* @__PURE__ */ e.jsx(
@@ -175,7 +175,7 @@ const Bm = n.memo(function({
               onClick: () => H(T === "rate-stretch" ? "select" : "rate-stretch"),
               "aria-label": "Rate stretch tool",
               "data-tooltip": `Rate stretch (${Zr(m.RATE_STRETCH_TOOL)})`,
-              children: /* @__PURE__ */ e.jsx(gm, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(od, { className: "w-3.5 h-3.5" })
             }
           ),
           /* @__PURE__ */ e.jsx($o, { orientation: "vertical", className: "mx-1 h-4" }),
@@ -188,7 +188,7 @@ const Bm = n.memo(function({
               onClick: () => f(Ue.getState().currentFrame),
               "aria-label": "Add marker",
               "data-tooltip": "Add Marker (M)",
-              children: /* @__PURE__ */ e.jsx(xm, { className: "w-3.5 h-3.5", style: { color: "var(--color-timeline-marker)" } })
+              children: /* @__PURE__ */ e.jsx(ad, { className: "w-3.5 h-3.5", style: { color: "var(--color-timeline-marker)" } })
             }
           ),
           /* @__PURE__ */ e.jsx(
@@ -203,7 +203,7 @@ const Bm = n.memo(function({
               },
               "aria-label": "Freeze frame",
               "data-tooltip": "Freeze Frame — capture current frame, split clip, insert still (≈1s)",
-              children: I ? /* @__PURE__ */ e.jsx(Qt, { className: "w-3.5 h-3.5 animate-spin" }) : /* @__PURE__ */ e.jsx(bm, { className: "w-3.5 h-3.5" })
+              children: I ? /* @__PURE__ */ e.jsx(Qt, { className: "w-3.5 h-3.5 animate-spin" }) : /* @__PURE__ */ e.jsx(id, { className: "w-3.5 h-3.5" })
             }
           ),
           /* @__PURE__ */ e.jsx($o, { orientation: "vertical", className: "mx-1 h-4" }),
@@ -217,7 +217,7 @@ const Bm = n.memo(function({
               onClick: w,
               "aria-label": N ? "Disable snapping" : "Enable snapping",
               "data-tooltip": N ? "Snap on" : "Snap off",
-              children: /* @__PURE__ */ e.jsx(vm, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(ld, { className: "w-3.5 h-3.5" })
             }
           ),
           /* @__PURE__ */ e.jsx(
@@ -231,7 +231,7 @@ const Bm = n.memo(function({
               "aria-label": E ? "Disable linked selection" : "Enable linked selection",
               "aria-pressed": E,
               "data-tooltip": `${E ? "Linked selection on" : "Linked selection off"} (${Zr(m.TOGGLE_LINKED_SELECTION)})`,
-              children: /* @__PURE__ */ e.jsx(Dl, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(Bi, { className: "w-3.5 h-3.5" })
             }
           ),
           c && /* @__PURE__ */ e.jsx(
@@ -245,7 +245,7 @@ const Bm = n.memo(function({
               "aria-label": i ? "Hide color scopes" : "Show color scopes",
               "aria-pressed": i,
               "data-tooltip": i ? "Hide color scopes" : "Show color scopes",
-              children: /* @__PURE__ */ e.jsx(ym, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(cd, { className: "w-3.5 h-3.5" })
             }
           )
         ] }),
@@ -262,7 +262,7 @@ const Bm = n.memo(function({
               },
               "aria-label": "Zoom out",
               "data-tooltip": "Zoom out",
-              children: /* @__PURE__ */ e.jsx(wm, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(dd, { className: "w-3.5 h-3.5" })
             }
           ),
           /* @__PURE__ */ e.jsx(
@@ -289,7 +289,7 @@ const Bm = n.memo(function({
               },
               "aria-label": "Zoom in",
               "data-tooltip": "Zoom in",
-              children: /* @__PURE__ */ e.jsx(Im, { className: "w-3.5 h-3.5" })
+              children: /* @__PURE__ */ e.jsx(ud, { className: "w-3.5 h-3.5" })
             }
           )
         ] })
@@ -300,7 +300,7 @@ const Bm = n.memo(function({
 function Xm(r, t) {
   return !(r.right < t.left || r.left > t.right || r.bottom < t.top || r.top > t.bottom);
 }
-function zl(r, t, s, o) {
+function Hl(r, t, s, o) {
   const i = Math.min(r, s), c = Math.min(t, o), m = Math.max(r, s), d = Math.max(t, o);
   return {
     left: i,
@@ -315,7 +315,7 @@ let Bo = !1;
 function Vm() {
   return Bo;
 }
-function Hl({
+function $l({
   containerRef: r,
   hitAreaRef: t,
   items: s,
@@ -340,7 +340,7 @@ function Hl({
   }, [i]);
   const Y = n.useCallback(() => {
     if (!r.current) return;
-    const p = r.current, u = p.getBoundingClientRect(), L = b.current, I = zl(
+    const p = r.current, u = p.getBoundingClientRect(), L = b.current, I = Hl(
       L.startX - p.scrollLeft + u.left,
       L.startY - p.scrollTop + u.top,
       L.currentX - p.scrollLeft + u.left,
@@ -605,19 +605,19 @@ const Km = n.memo(function() {
       ]
     }
   );
-}), ei = 20, ti = 0.3, ys = 30, In = 1e3;
+}), ti = 20, ni = 0.3, ys = 30, In = 1e3;
 function Um(r) {
   const t = Math.log2(1.05), s = Math.round(Math.log2(r) / t) * t;
   return Math.pow(2, s);
 }
-function ni(r, t, s, o, i, c, m) {
+function ri(r, t, s, o, i, c, m) {
   const d = r.getContext("2d");
   if (!d) return;
   const b = window.devicePixelRatio || 1, M = t * s, R = Math.min(s, m - M);
   r.width = Math.ceil(R * b), r.height = Math.ceil(o * b), r.style.width = `${R}px`, r.style.height = `${o}px`, d.scale(b, b), d.clearRect(0, 0, R, o);
   const N = c(1);
   if (N <= 0) return;
-  const { labelIntervalSeconds: w, tickIntervalSeconds: f } = Xi({
+  const { labelIntervalSeconds: w, tickIntervalSeconds: f } = Ki({
     pixelsPerSecond: N,
     fps: Math.max(1, i)
   });
@@ -626,8 +626,8 @@ function ni(r, t, s, o, i, c, m) {
   for (let L = K; L <= $; L += 1) {
     const I = L * f, V = c(I) - M;
     if (V < -1 || V > R + 1) continue;
-    const C = Math.round(V) + 0.5, D = ad({ time: I, labelIntervalSeconds: w }), G = id(I, w);
-    if (!(!D && !G && v < od))
+    const C = Math.round(V) + 0.5, D = hd({ time: I, labelIntervalSeconds: w }), G = gd(I, w);
+    if (!(!D && !G && v < pd))
       if (D)
         d.strokeStyle = A, d.lineWidth = 1, d.beginPath(), d.moveTo(C, Y), d.lineTo(C, S), d.stroke();
       else if (G) {
@@ -639,17 +639,17 @@ function ni(r, t, s, o, i, c, m) {
       }
   }
 }
-const ri = 100, Ym = 100;
-let si = 0, oi = 0;
+const si = 100, Ym = 100;
+let oi = 0, ai = 0;
 function Zm(r, t, s, o, i, c) {
-  const { labelIntervalSeconds: m } = Xi({
+  const { labelIntervalSeconds: m } = Ki({
     pixelsPerSecond: i,
     fps: Math.max(1, c)
   }), d = m, b = d * i;
   if (b <= 0) return;
-  const M = i !== si || c !== oi;
-  M && (si = i, oi = c);
-  const R = o || 1e3, N = Math.max(0, s - ri), w = s + R + ri, f = Math.max(0, Math.floor(N / b)), T = Math.min(
+  const M = i !== oi || c !== ai;
+  M && (oi = i, ai = c);
+  const R = o || 1e3, N = Math.max(0, s - si), w = s + R + si, f = Math.max(0, Math.floor(N / b)), T = Math.min(
     Math.ceil(w / b),
     f + Ym
   ), H = /* @__PURE__ */ new Set();
@@ -659,7 +659,7 @@ function Zm(r, t, s, o, i, c) {
     const $ = !K;
     if (K || (K = document.createElement("span"), K.className = "absolute text-[10px] font-medium leading-none tracking-tight text-muted-foreground/90 tabular-nums select-none whitespace-nowrap", K.style.top = "auto", K.style.bottom = "3px", K.style.fontFamily = "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif", K.style.fontFeatureSettings = '"tnum"', K.style.textShadow = "0 1px 0 rgba(0, 0, 0, 0.45)", K.style.zIndex = "24", r.appendChild(K), t.set(E, K)), $ || M) {
       const v = E * d;
-      K.style.left = `${v * i}px`, K.style.transform = "translateX(-50%)", K.textContent = sd({ timeInSeconds: v, fps: c });
+      K.style.left = `${v * i}px`, K.style.transform = "translateX(-50%)", K.textContent = fd({ timeInSeconds: v, fps: c });
     }
   }
   t.forEach((E, K) => {
@@ -670,7 +670,7 @@ function qm(r) {
   r.forEach((t) => t.remove()), r.clear();
 }
 const Jm = n.memo(function({ duration: t, width: s }) {
-  const o = Qr((ue) => ue.editorDensity), i = $i(o), { timeToPixels: c, pixelsPerSecond: m, pixelsToFrame: d } = on(), b = he((ue) => ue.fps), M = he((ue) => ue.inPoint), R = he((ue) => ue.outPoint), N = he((ue) => ue.markDirty), w = Ue((ue) => ue.setCurrentFrame), f = Ue((ue) => ue.setScrubFrame), T = Ue((ue) => ue.pause), H = _e((ue) => ue.selectMarker), E = n.useRef(null), K = n.useRef(null), $ = n.useRef(/* @__PURE__ */ new Map()), v = n.useRef(/* @__PURE__ */ new Map()), Y = n.useRef(0), S = n.useRef(null), J = n.useRef(/* @__PURE__ */ new Map()), [A, p] = n.useState(0), [u, L] = n.useState(!1), [I, h] = n.useState(!1), V = n.useRef(d), C = n.useRef(w), D = n.useRef(f), G = n.useRef(Ue.getState().setPreviewFrame);
+  const o = es((ue) => ue.editorDensity), i = Xi(o), { timeToPixels: c, pixelsPerSecond: m, pixelsToFrame: d } = on(), b = he((ue) => ue.fps), M = he((ue) => ue.inPoint), R = he((ue) => ue.outPoint), N = he((ue) => ue.markDirty), w = Ue((ue) => ue.setCurrentFrame), f = Ue((ue) => ue.setScrubFrame), T = Ue((ue) => ue.pause), H = _e((ue) => ue.selectMarker), E = n.useRef(null), K = n.useRef(null), $ = n.useRef(/* @__PURE__ */ new Map()), v = n.useRef(/* @__PURE__ */ new Map()), Y = n.useRef(0), S = n.useRef(null), J = n.useRef(/* @__PURE__ */ new Map()), [A, p] = n.useState(0), [u, L] = n.useState(!1), [I, h] = n.useState(!1), V = n.useRef(d), C = n.useRef(w), D = n.useRef(f), G = n.useRef(Ue.getState().setPreviewFrame);
   n.useEffect(() => Ue.subscribe((ue) => {
     G.current = ue.setPreviewFrame;
   }), []);
@@ -734,13 +734,13 @@ const Jm = n.memo(function({ duration: t, width: s }) {
       if (Me.dataset.ck === ut) continue;
       const Ut = P.get(ut);
       if (Ut) {
-        const Ft = dt * In, Ot = Math.min(In, nt - Ft);
+        const Mt = dt * In, Ot = Math.min(In, nt - Mt);
         Me.width = Math.ceil(Ot * ae), Me.height = Math.ceil(Je * ae), Me.style.width = `${Ot}px`, Me.style.height = `${Je}px`;
         const Yt = Me.getContext("2d");
         Yt && Yt.drawImage(Ut, 0, 0), Me.dataset.ck = ut;
       } else
-        ni(Me, dt, In, Je, at, Be, nt), Me.dataset.ck = ut, createImageBitmap(Me).then((Ft) => {
-          v.current === P ? P.set(ut, Ft) : Ft.close();
+        ri(Me, dt, In, Je, at, Be, nt), Me.dataset.ck = ut, createImageBitmap(Me).then((Mt) => {
+          v.current === P ? P.set(ut, Mt) : Mt.close();
         }).catch(() => {
         });
     }
@@ -757,8 +757,8 @@ const Jm = n.memo(function({ duration: t, width: s }) {
           const ut = `${Me}-${kt}`;
           if (P.has(ut)) continue;
           const Ut = document.createElement("canvas");
-          ni(Ut, Me, In, Je, at, Be, nt), createImageBitmap(Ut).then((Ft) => {
-            v.current === P ? P.set(ut, Ft) : Ft.close();
+          ri(Ut, Me, In, Je, at, Be, nt), createImageBitmap(Ut).then((Mt) => {
+            v.current === P ? P.set(ut, Mt) : Mt.close();
           }).catch(() => {
           });
         }
@@ -780,12 +780,12 @@ const Jm = n.memo(function({ duration: t, width: s }) {
     if (ue) {
       const pt = ue.getBoundingClientRect(), kt = pt.left, ht = pt.right, l = kt - Ne, X = Ne - ht, P = Ne - kt, be = ht - Ne, ae = ue.scrollLeft > 0, Be = ue.scrollLeft + ue.clientWidth < ue.scrollWidth, at = P >= 0 && P < ys, Ge = l > 0;
       if ((Ge || at) && ae) {
-        const Me = Ge ? l : (ys - P) * 0.5, ut = Math.min(Me * ti, ei);
+        const Me = Ge ? l : (ys - P) * 0.5, ut = Math.min(Me * ni, ti);
         ue.scrollLeft -= ut;
       }
       const Ve = be >= 0 && be < ys, dt = X > 0;
       if ((dt || Ve) && Be) {
-        const Me = dt ? X : (ys - be) * 0.5, ut = Math.min(Me * ti, ei);
+        const Me = dt ? X : (ys - be) * 0.5, ut = Math.min(Me * ni, ti);
         ue.scrollLeft += ut;
       }
     }
@@ -798,7 +798,7 @@ const Jm = n.memo(function({ duration: t, width: s }) {
       Fe = Ne - pt.left;
     }
     const qe = Math.floor(te.current * ge.current), nt = Math.min(qe, Math.max(0, Math.round(V.current(Fe)))), Je = performance.now();
-    Bi({
+    Vi({
       state: fe.current,
       pointerX: Fe,
       targetFrame: nt,
@@ -945,7 +945,7 @@ const Jm = n.memo(function({ duration: t, width: s }) {
     }
   );
 });
-function ai({ inRuler: r = !1, maxFrame: t }) {
+function ii({ inRuler: r = !1, maxFrame: t }) {
   const s = Ue((u) => u.setCurrentFrame), o = Ue((u) => u.setScrubFrame), { frameToPixels: i, pixelsToFrame: c, pixelsPerSecond: m } = on(), [d, b] = n.useState(!1), [M, R] = n.useState(!1), N = n.useRef(null), w = n.useRef(_e.getState().activeTool);
   n.useEffect(() => _e.subscribe((u) => {
     w.current = u.activeTool;
@@ -998,7 +998,7 @@ function ai({ inRuler: r = !1, maxFrame: t }) {
       E.current !== void 0 && (G = Math.min(G, E.current)), v.current = G, Y.current = D, S.current === null && (S.current = requestAnimationFrame(() => {
         if (S.current = null, v.current !== null && Y.current !== null) {
           const le = v.current, B = Y.current;
-          Bi({
+          Vi({
             state: J.current,
             pointerX: B,
             targetFrame: le,
@@ -1075,7 +1075,7 @@ function ai({ inRuler: r = !1, maxFrame: t }) {
     }
   );
 }
-function ii({ inRuler: r = !1, maxFrame: t }) {
+function li({ inRuler: r = !1, maxFrame: t }) {
   const { frameToPixels: s, fps: o } = on(), i = n.useRef(null), c = n.useRef(null), m = n.useRef(null), d = n.useRef(null), b = n.useRef(s), M = n.useRef(o), R = n.useRef(t);
   return n.useEffect(() => {
     b.current = s, M.current = o, R.current = t;
@@ -1089,7 +1089,7 @@ function ii({ inRuler: r = !1, maxFrame: t }) {
       let f = Math.max(0, w);
       R.current !== void 0 && (f = Math.min(f, R.current));
       const T = Math.round(b.current(f));
-      i.current.style.display = "", i.current.style.left = `${T}px`, c.current && (c.current.textContent = ld(f, M.current));
+      i.current.style.display = "", i.current.style.left = `${T}px`, c.current && (c.current.textContent = xd(f, M.current));
     };
     return N(Ue.getState().hoverFrame), Ue.subscribe((w) => {
       N(w.hoverFrame);
@@ -1162,7 +1162,7 @@ function ii({ inRuler: r = !1, maxFrame: t }) {
     }
   );
 }
-const $l = "application/x-kubeez-transition", Kt = Js()((r) => ({
+const Bl = "application/x-kubeez-transition", Kt = Js()((r) => ({
   draggedTransition: null,
   preview: null,
   invalidHint: null,
@@ -1171,9 +1171,9 @@ const $l = "application/x-kubeez-transition", Kt = Js()((r) => ({
   setInvalidHint: (t) => r({ invalidHint: t }),
   clearPreview: () => r({ preview: null }),
   clearDrag: () => r({ draggedTransition: null, preview: null, invalidHint: null })
-})), li = n.memo(function({
+})), ci = n.memo(function({
   clipWidth: t,
-  height: s = cd,
+  height: s = bd,
   className: o = ""
 }) {
   return /* @__PURE__ */ e.jsx(
@@ -1190,12 +1190,12 @@ const $l = "application/x-kubeez-transition", Kt = Js()((r) => ({
           rgba(255,255,255,0.03) 50%,
           transparent 100%
         )`,
-        backgroundSize: `${Vi * 2}px 100%`,
+        backgroundSize: `${Wi * 2}px 100%`,
         animation: "filmstrip-shimmer 1.5s ease-in-out infinite"
       }
     }
   );
-}), Qm = an("ClipFilmstrip"), ef = 80, ci = 0.75, tf = 60, nf = 32, rf = 24, sf = 16, of = 260, af = 2, lf = 1, di = 8, ui = 12, mi = 18, Bl = 120, Xl = 170;
+}), Qm = an("ClipFilmstrip"), ef = 80, di = 0.75, tf = 60, nf = 32, rf = 24, sf = 16, of = 260, af = 2, lf = 1, ui = 8, mi = 12, fi = 18, Xl = 120, Vl = 170;
 function cf(r, t) {
   if (r.length === 0) return null;
   let s = 0, o = r.length - 1, i = r[0], c = Math.abs(i.timestamp - t);
@@ -1209,10 +1209,10 @@ function df(r, t) {
   return r <= t ? 1 : Math.ceil(r / t);
 }
 function uf(r) {
-  return !Number.isFinite(r) || r <= 0 ? 1 : r >= Xl ? Math.max(1, Math.round(r / mi) * mi) : r >= Bl ? Math.max(1, Math.round(r / ui) * ui) : Math.max(1, Math.round(r / di) * di);
+  return !Number.isFinite(r) || r <= 0 ? 1 : r >= Vl ? Math.max(1, Math.round(r / fi) * fi) : r >= Xl ? Math.max(1, Math.round(r / mi) * mi) : Math.max(1, Math.round(r / ui) * ui);
 }
 function mf(r) {
-  return r >= Xl ? sf : r >= Bl ? rf : nf;
+  return r >= Vl ? sf : r >= Xl ? rf : nf;
 }
 const ff = n.memo(function({
   src: t,
@@ -1277,7 +1277,7 @@ const ff = n.memo(function({
       }
     }
   );
-}), fi = n.memo(function({
+}), pi = n.memo(function({
   mediaId: t,
   clipWidth: s,
   sourceStart: o,
@@ -1302,7 +1302,7 @@ const ff = n.memo(function({
     const U = new ResizeObserver(te);
     return z.parentElement && U.observe(z.parentElement), () => U.disconnect();
   }, []);
-  const J = Math.round(f * (16 / 9)) || Vi, A = R, p = s, u = Math.max(0, o + c), L = !N && v, I = L ? uf(A) : A, h = n.useRef(R);
+  const J = Math.round(f * (16 / 9)) || Wi, A = R, p = s, u = Math.max(0, o + c), L = !N && v, I = L ? uf(A) : A, h = n.useRef(R);
   n.useEffect(() => {
     N || h.current !== R && (h.current = R, Y(!0), S.current && clearTimeout(S.current), S.current = setTimeout(() => {
       Y(!1), S.current = null;
@@ -1314,9 +1314,9 @@ const ff = n.memo(function({
     if (L || i <= 0 || A <= 0 || p <= 0)
       return null;
     const z = p / A * m, te = Math.min(
-      z + ci * 2,
+      z + di * 2,
       tf
-    ), U = Math.max(0, u - ci), De = Math.min(i, U + te);
+    ), U = Math.max(0, u - di), De = Math.min(i, U + te);
     return De <= U ? null : { startTime: U, endTime: De };
   }, [
     i,
@@ -1342,7 +1342,7 @@ const ff = n.memo(function({
       z = !1;
     };
   }, [t, d, $, E]);
-  const { frames: C, isLoading: D, isComplete: G, error: le } = dd({
+  const { frames: C, isLoading: D, isComplete: G, error: le } = vd({
     mediaId: t,
     blobUrl: H,
     duration: i,
@@ -1384,8 +1384,8 @@ const ff = n.memo(function({
     M,
     L
   ]);
-  return le ? null : !C || C.length === 0 || f === 0 ? !D && f > 0 ? /* @__PURE__ */ e.jsx("div", { ref: w, className: "absolute inset-0" }) : /* @__PURE__ */ e.jsx("div", { ref: w, className: "absolute inset-0", children: /* @__PURE__ */ e.jsx(li, { clipWidth: s, height: f || 40 }) }) : /* @__PURE__ */ e.jsxs("div", { ref: w, className: "absolute inset-0", children: [
-    !G && /* @__PURE__ */ e.jsx(li, { clipWidth: s, height: f }),
+  return le ? null : !C || C.length === 0 || f === 0 ? !D && f > 0 ? /* @__PURE__ */ e.jsx("div", { ref: w, className: "absolute inset-0" }) : /* @__PURE__ */ e.jsx("div", { ref: w, className: "absolute inset-0", children: /* @__PURE__ */ e.jsx(ci, { clipWidth: s, height: f || 40 }) }) : /* @__PURE__ */ e.jsxs("div", { ref: w, className: "absolute inset-0", children: [
+    !G && /* @__PURE__ */ e.jsx(ci, { clipWidth: s, height: f }),
     /* @__PURE__ */ e.jsx(
       "div",
       {
@@ -1434,7 +1434,7 @@ const ff = n.memo(function({
       style: { left: s, width: o, height: i, objectFit: "cover" }
     }
   );
-}), pi = 2, gf = n.memo(function({
+}), hi = 2, gf = n.memo(function({
   mediaId: t,
   isAnimated: s,
   animationFormat: o = "gif",
@@ -1471,7 +1471,7 @@ const ff = n.memo(function({
       I = !1;
     };
   }, [t, c, v, K]);
-  const { frames: Y, durations: S, totalDuration: J } = ud({
+  const { frames: Y, durations: S, totalDuration: J } = yd({
     mediaId: t,
     blobUrl: E,
     isVisible: c,
@@ -1482,7 +1482,7 @@ const ff = n.memo(function({
       return [];
     const I = Math.ceil(i / A);
     if (I <= 0) return [];
-    const h = i * Math.max(0, Math.min(1, R)), V = i * Math.max(R, Math.min(1, N)), C = Math.max(0, h - A * pi), D = Math.min(i, V + A * pi), G = Math.max(0, Math.floor(C / A)), le = Math.min(I, Math.ceil(D / A)), B = [];
+    const h = i * Math.max(0, Math.min(1, R)), V = i * Math.max(R, Math.min(1, N)), C = Math.max(0, h - A * hi), D = Math.min(i, V + A * hi), G = Math.max(0, Math.floor(C / A)), le = Math.min(I, Math.ceil(D / A)), B = [];
     let ge = 0;
     for (const te of S)
       ge += te, B.push(ge);
@@ -1534,7 +1534,7 @@ const ff = n.memo(function({
       }
     }
   ) });
-}), yo = 1e3, Vl = n.memo(function({
+}), yo = 1e3, Kl = n.memo(function({
   width: t,
   height: s,
   renderTile: o,
@@ -1630,7 +1630,7 @@ const ff = n.memo(function({
       try {
         const G = await Wn.getMedia(t);
         if (!C) return;
-        const le = G ? G.audioCodecSupported !== !1 || fd(G.audioCodec) : !0;
+        const le = G ? G.audioCodecSupported !== !1 || Id(G.audioCodec) : !0;
         if ($(le), !le)
           return;
         const B = await jr(t);
@@ -1642,7 +1642,7 @@ const ff = n.memo(function({
       C = !1;
     };
   }, [t, b, E]);
-  const { peaks: v, duration: Y, sampleRate: S, isLoading: J, progress: A, error: p } = md({
+  const { peaks: v, duration: Y, sampleRate: S, isLoading: J, progress: A, error: p } = wd({
     mediaId: t,
     blobUrl: f,
     isVisible: !0,
@@ -1690,7 +1690,7 @@ const ff = n.memo(function({
         C.lineTo(U, ge - te[U]);
       for (let U = le; U >= 0; U--)
         C.lineTo(U, ge + te[U]);
-      C.closePath(), C.fillStyle = Ki, C.fill(), C.strokeStyle = Wi, C.lineWidth = 0.75, C.stroke();
+      C.closePath(), C.fillStyle = Gi, C.fill(), C.strokeStyle = Ui, C.lineWidth = 0.75, C.stroke();
     },
     [v, Y, S, M, o, c, m, i, N, u]
   );
@@ -1708,7 +1708,7 @@ const ff = n.memo(function({
   return /* @__PURE__ */ e.jsxs("div", { ref: R, className: "absolute inset-0", children: [
     J && /* @__PURE__ */ e.jsx(Vs, { clipWidth: s, height: N }),
     /* @__PURE__ */ e.jsx(
-      Vl,
+      Kl,
       {
         width: s,
         height: N,
@@ -1743,7 +1743,7 @@ const ff = n.memo(function({
       C[D] = G?.fps;
     return C;
   }, [K]), Y = n.useMemo(
-    () => pd({
+    () => Cd({
       items: t.items,
       tracks: t.tracks,
       fps: t.fps,
@@ -1791,7 +1791,7 @@ const ff = n.memo(function({
       B = !0;
     };
   }, [c, S, J]);
-  const A = n.useMemo(() => Y.length === 0 || N.size === 0 ? null : hd({
+  const A = n.useMemo(() => Y.length === 0 || N.size === 0 ? null : Sd({
     sources: Y,
     waveformsByMediaId: N,
     durationInFrames: t.durationInFrames,
@@ -1834,7 +1834,7 @@ const ff = n.memo(function({
       C.lineTo(te, B - z[te]);
     for (let te = le; te >= 0; te -= 1)
       C.lineTo(te, B + z[te]);
-    C.closePath(), C.fillStyle = Ki, C.fill(), C.strokeStyle = Wi, C.lineWidth = 0.75, C.stroke();
+    C.closePath(), C.fillStyle = Gi, C.fill(), C.strokeStyle = Ui, C.lineWidth = 0.75, C.stroke();
   }, [M, L, p, m, u, i, o]);
   if (H)
     return /* @__PURE__ */ e.jsx("div", { ref: d, className: "absolute inset-0 flex items-center", children: /* @__PURE__ */ e.jsx("div", { className: "w-full h-[1px] bg-foreground/20", style: { marginTop: 0 } }) });
@@ -1844,7 +1844,7 @@ const ff = n.memo(function({
   return /* @__PURE__ */ e.jsxs("div", { ref: d, className: "absolute inset-0", children: [
     f && /* @__PURE__ */ e.jsx(Vs, { clipWidth: s, height: M }),
     /* @__PURE__ */ e.jsx(
-      Vl,
+      Kl,
       {
         width: s,
         height: M,
@@ -1866,16 +1866,16 @@ const ff = n.memo(function({
   audioWaveformScale: R = 1,
   linkedSyncOffsetFrames: N = null
 }) {
-  const w = Qr((re) => re.showWaveforms), f = Qr((re) => re.showFilmstrips), T = t.type === "audio" && !!t.compositionId, H = t.type === "composition" || T ? t.compositionId : void 0, E = $t(
+  const w = es((re) => re.showWaveforms), f = es((re) => re.showFilmstrips), T = t.type === "audio" && !!t.compositionId, H = t.type === "composition" || T ? t.compositionId : void 0, E = $t(
     n.useCallback((re) => H ? re.compositionById[H] ?? null : null, [H])
   ), K = $t(
     n.useCallback((re) => H ? re.compositionById : Cf, [H])
   ), $ = lt(
     n.useCallback(
-      (re) => t.type === "composition" && gd(re.items, t),
+      (re) => t.type === "composition" && jd(re.items, t),
       [t]
     )
-  ), v = n.useMemo(() => E ? xd({
+  ), v = n.useMemo(() => E ? kd({
     items: E.items,
     tracks: E.tracks,
     fps: E.fps,
@@ -1886,7 +1886,7 @@ const ff = n.memo(function({
     hasOwnedAudio: !1,
     hasMultipleOwnedAudioSources: !1,
     visualSource: null
-  }, [E, K]), Y = v.visualSource, S = Y?.mediaId ?? null, J = w && v.hasOwnedAudio && !$, A = N === null ? null : bd(N, o), p = n.useCallback((re) => /* @__PURE__ */ e.jsxs("div", { className: "flex min-w-0 items-center gap-1.5 overflow-hidden", children: [
+  }, [E, K]), Y = v.visualSource, S = Y?.mediaId ?? null, J = w && v.hasOwnedAudio && !$, A = N === null ? null : Td(N, o), p = n.useCallback((re) => /* @__PURE__ */ e.jsxs("div", { className: "flex min-w-0 items-center gap-1.5 overflow-hidden", children: [
     A && /* @__PURE__ */ e.jsx(
       "span",
       {
@@ -1900,7 +1900,7 @@ const ff = n.memo(function({
       {
         className: `inline-flex shrink-0 items-center justify-center rounded p-0.5 ${A ? "bg-destructive/85 text-destructive-foreground" : "bg-black/55 text-white/90"}`,
         title: A ? `Linked audio/video pair out of sync by ${A}` : "Linked audio/video pair",
-        children: /* @__PURE__ */ e.jsx(Dl, { className: "h-3 w-3" })
+        children: /* @__PURE__ */ e.jsx(Bi, { className: "h-3 w-3" })
       }
     ),
     /* @__PURE__ */ e.jsx("span", { className: "min-w-0 truncate", children: re })
@@ -1946,7 +1946,7 @@ const ff = n.memo(function({
         }
       ),
       /* @__PURE__ */ e.jsx("div", { className: "relative overflow-hidden flex-1 min-h-0", children: f && /* @__PURE__ */ e.jsx(
-        fi,
+        pi,
         {
           mediaId: t.mediaId,
           clipWidth: s,
@@ -2025,7 +2025,7 @@ const ff = n.memo(function({
     return S ? /* @__PURE__ */ e.jsxs("div", { className: "absolute inset-0 flex flex-col", children: [
       Ie(t.label || "Compound Clip"),
       /* @__PURE__ */ e.jsx("div", { className: "relative overflow-hidden flex-1 min-h-0", children: f && /* @__PURE__ */ e.jsx(
-        fi,
+        pi,
         {
           mediaId: S,
           clipWidth: s,
@@ -2081,7 +2081,7 @@ const ff = n.memo(function({
     ] });
   }
   if (t.type === "image" && t.src && t.mediaId) {
-    const re = me.getState().mediaById[t.mediaId]?.mimeType, j = re === "image/gif" || vd(t.src), x = re === "image/webp" || yd(t.src), se = j || x;
+    const re = me.getState().mediaById[t.mediaId]?.mimeType, j = re === "image/gif" || Nd(t.src), x = re === "image/webp" || Md(t.src), se = j || x;
     return /* @__PURE__ */ e.jsxs("div", { className: "absolute inset-0 flex flex-col", children: [
       /* @__PURE__ */ e.jsx(
         "div",
@@ -2134,7 +2134,7 @@ const ff = n.memo(function({
         className: "absolute right-1 z-10 pointer-events-none flex items-center gap-1",
         style: { top: 0, height: St.timelineClipLabelRowHeight },
         children: [
-          t && /* @__PURE__ */ e.jsx("span", { title: "Has keyframe animations", children: /* @__PURE__ */ e.jsx(Cm, { className: "w-3 h-3 text-primary fill-primary/50" }) }),
+          t && /* @__PURE__ */ e.jsx("span", { title: "Has keyframe animations", children: /* @__PURE__ */ e.jsx(Rd, { className: "w-3 h-3 text-primary fill-primary/50" }) }),
           b && d && /* @__PURE__ */ e.jsx(
             "span",
             {
@@ -2162,7 +2162,7 @@ const ff = n.memo(function({
       {
         className: "absolute bottom-1 right-1 p-0.5 rounded bg-destructive/90 text-destructive-foreground",
         title: "Media file missing - relink in Media Library",
-        children: /* @__PURE__ */ e.jsx(Ir, { className: "w-3 h-3" })
+        children: /* @__PURE__ */ e.jsx(wr, { className: "w-3 h-3" })
       }
     ),
     /* @__PURE__ */ e.jsx(
@@ -2194,8 +2194,8 @@ const Xo = {
   edge: "rgba(74, 222, 128, 0.9)",
   glow: "0 0 8px rgba(74, 222, 128, 0.5)",
   fade: "rgba(74, 222, 128, 0.3)"
-}, On = sm, _n = om, Io = am, Rs = n.forwardRef(({ className: r, inset: t, children: s, ...o }, i) => /* @__PURE__ */ e.jsxs(
-  pl,
+}, On = Tm, _n = Nm, Io = Mm, Rs = n.forwardRef(({ className: r, inset: t, children: s, ...o }, i) => /* @__PURE__ */ e.jsxs(
+  Cl,
   {
     ref: i,
     className: Pe(
@@ -2206,13 +2206,13 @@ const Xo = {
     ...o,
     children: [
       s,
-      /* @__PURE__ */ e.jsx(Zs, { className: "ml-auto" })
+      /* @__PURE__ */ e.jsx(Ys, { className: "ml-auto" })
     ]
   }
 ));
-Rs.displayName = pl.displayName;
+Rs.displayName = Cl.displayName;
 const Ds = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  hl,
+  Sl,
   {
     ref: s,
     className: Pe(
@@ -2222,9 +2222,9 @@ const Ds = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
     ...t
   }
 ));
-Ds.displayName = hl.displayName;
-const Tn = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(rm, { container: Nn(), children: /* @__PURE__ */ e.jsx(
-  gl,
+Ds.displayName = Sl.displayName;
+const Tn = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(km, { container: Nn(), children: /* @__PURE__ */ e.jsx(
+  jl,
   {
     ref: s,
     className: Pe(
@@ -2234,9 +2234,9 @@ const Tn = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(rm,
     ...t
   }
 ) }));
-Tn.displayName = gl.displayName;
+Tn.displayName = jl.displayName;
 const it = n.forwardRef(({ className: r, inset: t, ...s }, o) => /* @__PURE__ */ e.jsx(
-  xl,
+  kl,
   {
     ref: o,
     className: Pe(
@@ -2247,16 +2247,16 @@ const it = n.forwardRef(({ className: r, inset: t, ...s }, o) => /* @__PURE__ */
     ...s
   }
 ));
-it.displayName = xl.displayName;
+it.displayName = kl.displayName;
 const Vt = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  bl,
+  Tl,
   {
     ref: s,
     className: Pe("-mx-1 my-1 h-px bg-border", r),
     ...t
   }
 ));
-Vt.displayName = bl.displayName;
+Vt.displayName = Tl.displayName;
 const qt = ({
   className: r,
   ...t
@@ -2284,7 +2284,7 @@ const Nf = {
   glow: "0 0 8px rgba(251, 191, 36, 0.6)",
   fade: "rgba(251, 191, 36, 0.35)"
 };
-function hi(r, t, s, o) {
+function gi(r, t, s, o) {
   return s ? o ? Xo : Vo : t ? Rf : r === "ripple" ? Mf : Nf;
 }
 const Df = n.memo(function({
@@ -2307,12 +2307,12 @@ const Df = n.memo(function({
   onJoinLeft: K,
   onJoinRight: $
 }) {
-  const v = d === "roll-start", Y = d === "roll-end", S = b === "start", J = b === "end", A = M?.start ?? !1, p = M?.end ?? !1, u = !!M && A && (M.constrainedEdge === "start" || M.constrainedEdge === "both"), L = !!M && p && (M.constrainedEdge === "end" || M.constrainedEdge === "both"), I = !t && (!s || o || A) && (c === "select" || c === "trim-edit") && (m === "start" || o && i === "start" || S || A), h = !t && (!s || o || p) && (c === "select" || c === "trim-edit") && (m === "end" || o && i === "end" || J || p), V = hi(
+  const v = d === "roll-start", Y = d === "roll-end", S = b === "start", J = b === "end", A = M?.start ?? !1, p = M?.end ?? !1, u = !!M && A && (M.constrainedEdge === "start" || M.constrainedEdge === "both"), L = !!M && p && (M.constrainedEdge === "end" || M.constrainedEdge === "both"), I = !t && (!s || o || A) && (c === "select" || c === "trim-edit") && (m === "start" || o && i === "start" || S || A), h = !t && (!s || o || p) && (c === "select" || c === "trim-edit") && (m === "end" || o && i === "end" || J || p), V = gi(
     w,
     v || S,
     o && i === "start" || A,
     u
-  ), C = hi(
+  ), C = gi(
     f,
     Y || J,
     o && i === "end" || p,
@@ -2828,7 +2828,7 @@ const Of = n.memo(function({
   warning: "bg-amber-500/90 text-black ring-amber-50/30",
   error: "bg-destructive/90 text-destructive-foreground ring-destructive-foreground/20"
 };
-function gi(r) {
+function xi(r) {
   return `${Math.max(0, Math.min(100, Math.round(r)))}%`;
 }
 const Bf = n.memo(function({
@@ -2841,10 +2841,10 @@ const Bf = n.memo(function({
         "flex max-w-full items-center gap-2 rounded-md px-2 py-1 text-[10px] font-medium shadow-lg ring-1 backdrop-blur-sm",
         $f[s.tone ?? "neutral"]
       ),
-      title: s.progress === void 0 ? s.label : `${s.label} ${gi(s.progress)}`,
+      title: s.progress === void 0 ? s.label : `${s.label} ${xi(s.progress)}`,
       children: [
         /* @__PURE__ */ e.jsx("span", { className: "truncate", children: s.label }),
-        s.progress !== void 0 && /* @__PURE__ */ e.jsx("span", { className: "shrink-0 font-mono tabular-nums", children: gi(s.progress) })
+        s.progress !== void 0 && /* @__PURE__ */ e.jsx("span", { className: "shrink-0 font-mono tabular-nums", children: xi(s.progress) })
       ]
     },
     s.id
@@ -2877,7 +2877,7 @@ const Bf = n.memo(function({
     }
   ) });
 });
-function xi(r) {
+function bi(r) {
   return r.type === "video" || r.type === "composition" || r.type === "image";
 }
 function Vf({
@@ -2905,7 +2905,7 @@ function Wf({
   return r && !t && s === "none";
 }
 const Gf = "--editor-timeline-clip-label-row-height";
-function bi(r) {
+function vi(r) {
   const t = window.getComputedStyle(r).getPropertyValue(Gf).trim(), s = Number.parseFloat(t);
   return Number.isFinite(s) ? s : Mo.timelineClipLabelRowHeight;
 }
@@ -2928,10 +2928,10 @@ function Yf(r, t, s) {
     i.leftClipId === r && o.add(i.rightClipId), i.rightClipId === r && o.add(i.leftClipId);
   return s && o.add(s), o;
 }
-function vi(r, t, s, o, i, c, m, d) {
+function yi(r, t, s, o, i, c, m, d) {
   let b = Ls(r, i, c, o).clampedAmount;
   const M = Xn(r, i, t, s), R = m ? M : null;
-  if (d || (b = Sd(
+  if (d || (b = Fd(
     r,
     i,
     b,
@@ -2941,7 +2941,7 @@ function vi(r, t, s, o, i, c, m, d) {
     const w = Ls(R, i === "end" ? "start" : "end", b, o).clampedAmount;
     Math.abs(w) < Math.abs(b) && (b = w);
     const f = Ro(s, r.id, i);
-    b = jd(
+    b = Ld(
       r,
       i,
       b,
@@ -2952,7 +2952,7 @@ function vi(r, t, s, o, i, c, m, d) {
   }
   if (d) {
     const N = Ro(s, r.id, i);
-    b = kd(
+    b = Ad(
       r,
       i,
       b,
@@ -2969,13 +2969,13 @@ function Zf(r, t) {
     return null;
   const o = r.speed ?? 1, i = r.sourceFps ?? t, c = r.sourceStart ?? 0, m = r.type === "image";
   let d;
-  return r.sourceEnd !== void 0 ? d = Math.max(1, r.sourceEnd - c) : r.sourceDuration !== void 0 ? d = Math.max(1, r.sourceDuration - c) : d = Math.max(1, Gi(r.durationInFrames, o, t, i)), {
+  return r.sourceEnd !== void 0 ? d = Math.max(1, r.sourceEnd - c) : r.sourceDuration !== void 0 ? d = Math.max(1, r.sourceDuration - c) : d = Math.max(1, Yi(r.durationInFrames, o, t, i)), {
     sourceDuration: d,
     sourceFps: i,
     isLoopingMedia: m
   };
 }
-function yi(r, t, s, o, i) {
+function wi(r, t, s, o, i) {
   let c = t;
   if (r.from + c < 0 && (c = -r.from), s) {
     const m = Ls(s, "end", c, i).clampedAmount;
@@ -3000,7 +3000,7 @@ function qf({
   currentLeftPx: M,
   currentRightPx: R
 }) {
-  const N = r.from, w = r.from + r.durationInFrames, f = vi(
+  const N = r.from, w = r.from + r.durationInFrames, f = yi(
     r,
     t,
     s,
@@ -3009,7 +3009,7 @@ function qf({
     -Sr,
     m,
     d
-  ), T = vi(
+  ), T = yi(
     r,
     t,
     s,
@@ -3074,7 +3074,7 @@ function Jf({
       constrained: i,
       mode: "stretch"
     };
-  const { sourceDuration: b, sourceFps: M } = d, R = Id(b, !1, M, t), N = wd(b, R.max, M, t).duration, w = r.from, f = r.from + r.durationInFrames, T = o === "start" ? Fn(Math.min(w, f - N), f, s) : Fn(w, Math.max(f, w + N), s);
+  const { sourceDuration: b, sourceFps: M } = d, R = Ed(b, !1, M, t), N = Dd(b, R.max, M, t).duration, w = r.from, f = r.from + r.durationInFrames, T = o === "start" ? Fn(Math.min(w, f - N), f, s) : Fn(w, Math.max(f, w + N), s);
   return {
     ...T,
     limitEdgePositionsPx: Qs(T.boxLeftPx, T.boxWidthPx),
@@ -3084,7 +3084,7 @@ function Jf({
     mode: "stretch"
   };
 }
-function wi({
+function Ii({
   item: r,
   items: t,
   transitions: s,
@@ -3106,7 +3106,7 @@ function wi({
   if (f !== void 0 && T !== void 0)
     K = f, $ = T;
   else {
-    if (K = yi(r, -Sr, c, m, o), $ = yi(r, Sr, c, m, o), K = ya(r, K, c, m, t, s, o), $ = ya(r, $, c, m, t, s, o), N != null) {
+    if (K = wi(r, -Sr, c, m, o), $ = wi(r, Sr, c, m, o), K = ya(r, K, c, m, t, s, o), $ = ya(r, $, c, m, t, s, o), N != null) {
       const Y = -(H - N);
       Y > K && (K = Y);
     }
@@ -3129,7 +3129,7 @@ function wi({
     mode: "slide"
   };
 }
-function Ii({
+function Ci({
   item: r,
   fps: t,
   frameToPixels: s,
@@ -3148,7 +3148,7 @@ function Ii({
       constrained: i,
       mode: "slip"
     };
-  const { sourceStart: d, sourceEnd: b, sourceDuration: M, sourceFps: R, speed: N } = Cd(r);
+  const { sourceStart: d, sourceEnd: b, sourceDuration: M, sourceFps: R, speed: N } = Pd(r);
   if (b === void 0 || M === void 0)
     return {
       boxLeftPx: null,
@@ -3284,7 +3284,7 @@ const Qf = n.memo(function({
   // canDetectScenes, isDetectingScenes, onDetectScenes — disabled pending optical flow tuning
 }) {
   const te = Us(), U = _e((O) => O.selectedItemIds.length), De = n.useMemo(() => b ? b.filter((O) => O.keyframes.length > 0) : [], [b]), Ce = n.useMemo(
-    () => Td.filter((O) => O.value !== I),
+    () => Od.filter((O) => O.value !== I),
     [I]
   ), ye = De.length > 0;
   return /* @__PURE__ */ e.jsxs(On, { children: [
@@ -3332,7 +3332,7 @@ const Qf = n.memo(function({
               it,
               {
                 onClick: () => v?.(O),
-                children: Nd[O]
+                children: _d[O]
               },
               O
             ))
@@ -3435,7 +3435,7 @@ const Qf = n.memo(function({
   itemIds: [],
   open: (t) => r({ isOpen: !0, itemIds: t }),
   close: () => r({ isOpen: !1, itemIds: [] })
-})), $r = "caption-generation", ws = "scene-detection", op = [], Ci = [
+})), $r = "caption-generation", ws = "scene-detection", op = [], Si = [
   "timeline-cursor-trim-left",
   "timeline-cursor-trim-right",
   "timeline-cursor-ripple-left",
@@ -3445,16 +3445,16 @@ const Qf = n.memo(function({
   "timeline-cursor-slide-smart",
   "timeline-cursor-gauge",
   "timeline-cursor-track-push"
-], Si = Ao, Is = 6, ji = 14, ki = 120;
+], ji = Ao, Is = 6, ki = 14, Ti = 120;
 function ap(r, t) {
-  const s = r >= ki ? Is : Math.round(Is + (ji - Is) * (1 - r / ki));
-  return Math.max(Is, Math.min(s, t, ji));
+  const s = r >= Ti ? Is : Math.round(Is + (ki - Is) * (1 - r / Ti));
+  return Math.max(Is, Math.min(s, t, ki));
 }
-const Br = 1e-4, Ht = 1e-4, Ti = 0.05, Cn = 100, ip = 120, lp = 4;
-function Ni(r) {
+const Br = 1e-4, Ht = 1e-4, Ni = 0.05, Cn = 100, ip = 120, lp = 4;
+function Mi(r) {
   const t = Kt.getState().draggedTransition;
   if (t) return t;
-  const s = r.dataTransfer.getData($l);
+  const s = r.dataTransfer.getData(Bl);
   if (!s) return null;
   try {
     const o = JSON.parse(s);
@@ -3486,7 +3486,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       ),
       [t.durationInFrames, t.from, t.id, t.mediaId]
     )
-  ), f = Qr((a) => a.defaultWhisperModel), T = lt(
+  ), f = es((a) => a.defaultWhisperModel), T = lt(
     n.useCallback((a) => Ca(a.items, t.id), [t.id])
   ), H = lt(
     n.useCallback(
@@ -3497,7 +3497,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       },
       [t.id, t.type]
     )
-  ), E = Pt((a) => a.linkedSelectionEnabled), K = Bn(
+  ), E = Ft((a) => a.linkedSelectionEnabled), K = Bn(
     n.useCallback((a) => a.overlaysByItemId[t.id] ?? op, [t.id])
   ), $ = Eo(
     n.useCallback(
@@ -3536,13 +3536,13 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       window.removeEventListener("dragend", a), window.removeEventListener("drop", a);
     };
   }, [B]);
-  const [De, Ce] = n.useState({ left: !1, right: !1 }), ye = n.useRef(null), O = n.useRef(null), { isDragging: W, dragOffset: Ie, handleDragStart: re } = Md(t, s, o, ye), { isTrimming: j, trimHandle: x, trimDelta: se, isRollingEdit: ne, isRippleEdit: oe, trimConstrained: fe, handleTrimStart: je } = Rd(t, s, o), { isStretching: xe, stretchHandle: ve, stretchConstrained: F, handleStretchStart: _, getVisualFeedback: ce } = Dd(t, s, o), {
+  const [De, Ce] = n.useState({ left: !1, right: !1 }), ye = n.useRef(null), O = n.useRef(null), { isDragging: W, dragOffset: Ie, handleDragStart: re } = zd(t, s, o, ye), { isTrimming: j, trimHandle: x, trimDelta: se, isRollingEdit: ne, isRippleEdit: oe, trimConstrained: fe, handleTrimStart: je } = Hd(t, s, o), { isStretching: xe, stretchHandle: ve, stretchConstrained: F, handleStretchStart: _, getVisualFeedback: ce } = $d(t, s, o), {
     isSlipSlideActive: ie,
     slipSlideMode: Te,
     slipSlideConstrained: ze,
     slipSlideConstraintEdge: Se,
     handleSlipSlideStart: Ae
-  } = Ed(t, s, o), { isTrackPushActive: We, handleTrackPushStart: et } = Pd(t, s, o), Ye = n.useMemo(() => {
+  } = Bd(t, s, o), { isTrackPushActive: We, handleTrackPushStart: et } = Xd(t, s, o), Ye = n.useMemo(() => {
     if (j) {
       if (x === "start")
         return ne ? "timeline-cursor-trim-center" : oe ? "timeline-cursor-ripple-left" : "timeline-cursor-trim-left";
@@ -3558,15 +3558,15 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     isSlipSlideActive: ie,
     slipSlideMode: Te
   }), [ne, oe, ie, xe, j, Te]);
-  n.useEffect(() => (document.body.classList.remove(...Ci), Ye && document.body.classList.add(Ye), () => {
-    document.body.classList.remove(...Ci);
+  n.useEffect(() => (document.body.classList.remove(...Si), Ye && document.body.classList.add(Ye), () => {
+    document.body.classList.remove(...Si);
   }), [Ye]);
   const vt = n.useRef(!1);
   n.useEffect(() => {
     const a = ye.current;
     if (a)
-      return Fd(t.id, a), () => {
-        Ld(t.id, a);
+      return Vd(t.id, a), () => {
+        Kd(t.id, a);
       };
   }, [t.id]);
   const ft = n.useRef(!1), ue = n.useRef(!1), Ne = n.useRef(0), Fe = n.useRef(null), qe = n.useRef(t.from), nt = n.useRef(t.durationInFrames), Je = n.useRef(t.trackId);
@@ -3589,9 +3589,9 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           (Ct) => Ct.id !== t.id && Ct.trackId === $e && Ct.from + Ct.durationInFrames === Oe
         ), gt = Le.find(
           (Ct) => Ct.id !== t.id && Ct.trackId === $e && Ct.from === Oe + st
-        ), It = !!(ot.includes(t.id) || wt && ot.includes(wt.id)), Dt = !!(ot.includes(t.id) || gt && ot.includes(gt.id));
+        ), It = !!(ot.includes(t.id) || wt && ot.includes(wt.id)), Et = !!(ot.includes(t.id) || gt && ot.includes(gt.id));
         Ce(
-          (Ct) => Ct.left === It && Ct.right === Dt ? Ct : { left: It, right: Dt }
+          (Ct) => Ct.left === It && Ct.right === Et ? Ct : { left: It, right: Et }
         );
       } else Re && !ke && Ce(
         (ot) => !ot.left && !ot.right ? ot : { left: !1, right: !1 }
@@ -3640,7 +3640,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         return k;
       }, [t.id, ut])
     )
-  ), Ft = Kt((a) => a.draggedTransition), Ot = Kt(
+  ), Mt = Kt((a) => a.draggedTransition), Ot = Kt(
     n.useCallback((a) => !a.preview || a.preview.existingTransitionId ? null : a.preview.leftClipId === t.id ? a.preview : null, [t.id])
   ), Yt = lt(
     n.useCallback((a) => Ot ? a.itemById[Ot.rightClipId] ?? null : null, [Ot])
@@ -3676,17 +3676,17 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     Jt(
       n.useCallback((a) => a.itemId ? { minDelta: a.minDelta, maxDelta: a.maxDelta } : null, [])
     )
-  ), Mt = En(
+  ), Rt = En(
     n.useCallback((a) => a.itemId === t.id ? a.leftNeighborId : null, [t.id])
   ), y = En(
     n.useCallback((a) => a.itemId === t.id ? a.rightNeighborId : null, [t.id])
   ), Q = lt(
-    n.useCallback((a) => Mt ? a.itemById[Mt] ?? null : null, [Mt])
+    n.useCallback((a) => Rt ? a.itemById[Rt] ?? null : null, [Rt])
   ), pe = lt(
     n.useCallback((a) => y ? a.itemById[y] ?? null : null, [y])
   ), rt = n.useMemo(() => {
     if (!Ot || !Yt) return null;
-    const a = Ui(
+    const a = Zi(
       ae.from,
       ae.durationInFrames,
       Yt.from,
@@ -3704,10 +3704,10 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     ae.from,
     Ot,
     Yt
-  ]), Ke = we + (Qe === "right" ? Ee : 0), mt = (Qe === "left" ? Ee : 0) + (Qe === "right" ? -Ee : 0), Rt = Math.round(c((ae.from + Ke + en + Zn) / Ve)), Lt = Math.round(c((ae.from + ae.durationInFrames + mt + Ke + en + Zn) / Ve)), Nt = Lt - Rt, tn = ae.sourceFps ?? Ve, Bt = n.useMemo(() => {
+  ]), Ke = we + (Qe === "right" ? Ee : 0), mt = (Qe === "left" ? Ee : 0) + (Qe === "right" ? -Ee : 0), Dt = Math.round(c((ae.from + Ke + en + Zn) / Ve)), Lt = Math.round(c((ae.from + ae.durationInFrames + mt + Ke + en + Zn) / Ve)), Nt = Lt - Dt, tn = ae.sourceFps ?? Ve, Bt = n.useMemo(() => {
     let a = ae, k = 0, Z = 0;
     if (j && x && (x === "start" ? (k += se, Z += -se) : Z += se), yt !== 0 && (xt === "end" ? (k += yt, Z += -yt) : xt === "start" && (Z += yt)), Qe && Ee !== 0 && (Qe === "right" ? (k += Ee, Z += -Ee) : Z += Ee), (a.type === "video" || a.type === "audio") && we !== 0) {
-      const ee = Ad(
+      const ee = Wd(
         a,
         Q,
         pe,
@@ -3729,7 +3729,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       };
     }
     if ((ae.type === "video" || ae.type === "audio") && k !== 0) {
-      const ee = Gi(
+      const ee = Yi(
         k,
         a.speed ?? 1,
         Ve,
@@ -3760,7 +3760,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     Ve,
     tn
   ]), cn = j || ie || yt !== 0 || en !== 0 || ln !== 0 || we !== 0 || Ee !== 0, { visualLeft: dn, visualWidth: ct } = n.useMemo(() => {
-    let a = Rt, k = Nt;
+    let a = Dt, k = Nt;
     if (ln !== 0)
       k = Math.round(
         c((ae.from + ae.durationInFrames + ln) / Ve)
@@ -3770,7 +3770,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         const Re = Math.round(m(ae.from + se));
         a = Re, k = Lt - Re;
       } else
-        k = Math.round(m(ae.from + ae.durationInFrames + se)) - Rt;
+        k = Math.round(m(ae.from + ae.durationInFrames + se)) - Dt;
     if (yt !== 0)
       if (xt === "end") {
         const Re = Math.round(m(ae.from + yt));
@@ -3780,11 +3780,11 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     xe && Be && (Z = Math.round(c(Be.from / Ve)), ee = Math.round(c((Be.from + Be.duration) / Ve)) - Z);
     const de = ln !== 0 || j || yt !== 0;
     return {
-      visualLeft: xe ? Z : de ? a : Rt,
+      visualLeft: xe ? Z : de ? a : Dt,
       visualWidth: xe ? ee : de ? k : Nt
     };
   }, [
-    Rt,
+    Dt,
     Nt,
     j,
     x,
@@ -3830,7 +3830,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         currentRightPx: k
       });
     if (ie && Te === "slide") {
-      const { items: Z } = he.getState(), { transitions: ee } = rn.getState(), Re = Pt.getState().linkedSelectionEnabled ? Od(Z, t.id) : [t];
+      const { items: Z } = he.getState(), { transitions: ee } = rn.getState(), Re = Ft.getState().linkedSelectionEnabled ? Gd(Z, t.id) : [t];
       let ke = null, He = null;
       for (const tt of Re) {
         const ot = tt.from + tt.durationInFrames, bt = new Set(Re.map((Oe) => Oe.id));
@@ -3839,7 +3839,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           if (Oe.trackId !== tt.trackId || Oe.id === tt.id) continue;
           (Oe.from + Oe.durationInFrames === tt.from || Oe.from === ot) && bt.add(Oe.id);
         }
-        const Le = _d(tt, Z);
+        const Le = Ud(tt, Z);
         if (Le.leftNeighbor && !bt.has(Le.leftNeighbor.id)) {
           const Oe = Le.leftNeighbor.from + Le.leftNeighbor.durationInFrames, st = -(tt.from - Oe), $e = t.from + st;
           (ke === null || $e > ke) && (ke = $e);
@@ -3849,7 +3849,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           (He === null || $e < He) && (He = $e);
         }
       }
-      return wi({
+      return Ii({
         item: t,
         items: Z,
         transitions: ee,
@@ -3867,7 +3867,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         effectiveMaxDelta: Tt?.maxDelta
       });
     }
-    return ie && Te === "slip" ? Ii({
+    return ie && Te === "slip" ? Ci({
       item: Bt,
       fps: Ve,
       frameToPixels: m,
@@ -3875,7 +3875,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       constrained: ze,
       currentLeftPx: a,
       currentRightPx: k
-    }) : q && Tt ? wi({
+    }) : q && Tt ? Ii({
       item: t,
       items: [],
       transitions: [],
@@ -3889,7 +3889,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       currentRightPx: k,
       effectiveMinDelta: Tt.minDelta,
       effectiveMaxDelta: Tt.maxDelta
-    }) : g ? Ii({
+    }) : g ? Ci({
       item: ae,
       fps: Ve,
       frameToPixels: m,
@@ -3922,7 +3922,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     g,
     q,
     ae
-  ]), _t = j && x ? { start: x === "start", end: x === "end", constrainedEdge: fe ? ne ? "both" : x : null } : xt ? { start: xt === "end", end: xt === "start", constrainedEdge: Yn ? "both" : null } : ie ? { start: !0, end: !0, constrainedEdge: ze ? Se ?? "both" : null } : g || q ? { start: !0, end: !0, constrainedEdge: null } : xe ? { start: ve === "start", end: ve === "end", constrainedEdge: F ? ve : null } : null, Pr = zd(dn, ct), rc = n.useMemo(() => {
+  ]), _t = j && x ? { start: x === "start", end: x === "end", constrainedEdge: fe ? ne ? "both" : x : null } : xt ? { start: xt === "end", end: xt === "start", constrainedEdge: Yn ? "both" : null } : ie ? { start: !0, end: !0, constrainedEdge: ze ? Se ?? "both" : null } : g || q ? { start: !0, end: !0, constrainedEdge: null } : xe ? { start: ve === "start", end: ve === "end", constrainedEdge: F ? ve : null } : null, Pr = Yd(dn, ct), sc = n.useMemo(() => {
     switch (t.type) {
       case "video":
         return "bg-timeline-video border-timeline-video";
@@ -3941,18 +3941,18 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       default:
         return "bg-timeline-video border-timeline-video";
     }
-  }, [t.type]), sc = n.useCallback((a) => {
+  }, [t.type]), oc = n.useCallback((a) => {
     if (a.stopPropagation(), o || Tf(A.current, ue.current)) return;
     if (A.current === "razor") {
       const ke = a.currentTarget.closest(".timeline-tracks"), He = ke?.getBoundingClientRect(), tt = He ? a.clientX - He.left + ke.scrollLeft : m(t.from) + (a.clientX - a.currentTarget.getBoundingClientRect().left), { currentFrame: ot, isPlaying: bt } = Ue.getState();
       let Le;
       if (a.shiftKey) {
-        const wt = he.getState(), gt = rn.getState().transitions, It = Yi(wt.tracks);
-        Le = Zi(wt.items, gt, It), Le.push({ frame: Math.round(ot), type: "playhead" });
-        for (const Dt of qi.getState().markers)
-          Le.push({ frame: Dt.frame, type: "marker" });
+        const wt = he.getState(), gt = rn.getState().transitions, It = qi(wt.tracks);
+        Le = Ji(wt.items, gt, It), Le.push({ frame: Math.round(ot), type: "playhead" });
+        for (const Et of Qi.getState().markers)
+          Le.push({ frame: Et.frame, type: "marker" });
       }
-      const { splitFrame: Oe } = Ji({
+      const { splitFrame: Oe } = el({
         cursorX: tt,
         currentFrame: ot,
         isPlaying: bt,
@@ -3962,7 +3962,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         snapTargets: Le
       });
       he.getState().splitItem(t.id, Oe);
-      const st = he.getState().items, $e = Pt.getState().linkedSelectionEnabled;
+      const st = he.getState().items, $e = Ft.getState().linkedSelectionEnabled;
       _e.getState().selectItems(
         $e ? xs(st, t.id) : [t.id]
       );
@@ -3982,7 +3982,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         }
       }
     }
-    const { selectedItemIds: k, selectItems: Z } = _e.getState(), ee = he.getState().items, de = Pt.getState().linkedSelectionEnabled, Re = de ? xs(ee, t.id) : [t.id];
+    const { selectedItemIds: k, selectItems: Z } = _e.getState(), ee = he.getState().items, de = Ft.getState().linkedSelectionEnabled, Re = de ? xs(ee, t.id) : [t.id];
     if (a.metaKey || a.ctrlKey)
       if (Re.some((He) => k.includes(He))) {
         const He = new Set(Re);
@@ -3991,15 +3991,15 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         Z(de ? Lo(ee, [...k, ...Re]) : Array.from(/* @__PURE__ */ new Set([...k, ...Re])));
     else
       Z(Re);
-  }, [o, m, d, t.from, t.id]), oc = n.useCallback((a) => {
+  }, [o, m, d, t.from, t.id]), ac = n.useCallback((a) => {
     if (a.stopPropagation(), o || A.current === "razor") return;
     if ((t.type === "composition" || t.type === "audio" && t.compositionId) && t.compositionId) {
       Gt.getState().enterComposition(t.compositionId, t.label, t.id);
       return;
     }
     if (!t.mediaId) return;
-    const k = Hd.getState();
-    k.setCurrentMediaId(t.mediaId), k.clearInOutPoints(), t.sourceStart !== void 0 && k.setInPoint(t.sourceStart), t.sourceEnd !== void 0 && k.setOutPoint(t.sourceEnd), k.setPendingSeekFrame(t.sourceStart ?? 0), Pt.getState().setSourcePreviewMediaId(t.mediaId);
+    const k = Zd.getState();
+    k.setCurrentMediaId(t.mediaId), k.clearInOutPoints(), t.sourceStart !== void 0 && k.setInPoint(t.sourceStart), t.sourceEnd !== void 0 && k.setOutPoint(t.sourceEnd), k.setPendingSeekFrame(t.sourceStart ?? 0), Ft.getState().setSourcePreviewMediaId(t.mediaId);
   }, [o, t]), Mn = n.useRef(p);
   Mn.current = p;
   const un = n.useRef(L);
@@ -4012,7 +4012,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     un.current = a, I(a);
   }, []), Rn = n.useCallback((a) => {
     xn.current = a, V(a);
-  }, []), ac = n.useCallback((a) => {
+  }, []), ic = n.useCallback((a) => {
     if (o || A.current === "razor" || ft.current) {
       Mn.current !== null && bn(null), un.current !== null && qn(null), xn.current !== null && Rn(null);
       return;
@@ -4053,7 +4053,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       const st = Na({
         y: ee,
         height: k.height,
-        labelRowHeight: bi(a.currentTarget),
+        labelRowHeight: vi(a.currentTarget),
         isMediaItem: t.type === "video" || t.type === "audio" || t.type === "composition",
         currentIntent: xn.current
       });
@@ -4064,23 +4064,23 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       Mn.current !== null && bn(null);
       return;
     }
-    Z <= Si ? Mn.current !== "start" && bn("start") : Z >= de - Si ? Mn.current !== "end" && bn("end") : Mn.current !== null && bn(null);
-  }, [t, bn, Rn, qn, o]), ic = o ? "cursor-not-allowed opacity-60" : S === "razor" ? "cursor-scissors" : (S === "trim-edit" || S === "select") && L === "roll-start" || (S === "trim-edit" || S === "select") && L === "roll-end" ? "cursor-trim-center" : (S === "trim-edit" || S === "select") && L === "ripple-start" ? "cursor-ripple-left" : (S === "trim-edit" || S === "select") && L === "ripple-end" ? "cursor-ripple-right" : (S === "trim-edit" || S === "select") && L === "trim-start" ? "cursor-trim-left" : (S === "trim-edit" || S === "select") && L === "trim-end" ? "cursor-trim-right" : S === "trim-edit" && h === "slide-body" ? "cursor-slide-smart" : S === "trim-edit" && h === "slip-body" ? "cursor-slip-smart" : S === "trim-edit" && h !== null || p !== null && S === "trim-edit" ? "cursor-ew-resize" : S === "rate-stretch" ? "cursor-gauge" : S === "slip" || S === "slide" ? t.type === "video" || t.type === "audio" || t.type === "composition" ? "cursor-ew-resize" : "cursor-not-allowed" : l ? "cursor-grabbing" : "cursor-default", lc = n.useCallback(() => {
+    Z <= ji ? Mn.current !== "start" && bn("start") : Z >= de - ji ? Mn.current !== "end" && bn("end") : Mn.current !== null && bn(null);
+  }, [t, bn, Rn, qn, o]), lc = o ? "cursor-not-allowed opacity-60" : S === "razor" ? "cursor-scissors" : (S === "trim-edit" || S === "select") && L === "roll-start" || (S === "trim-edit" || S === "select") && L === "roll-end" ? "cursor-trim-center" : (S === "trim-edit" || S === "select") && L === "ripple-start" ? "cursor-ripple-left" : (S === "trim-edit" || S === "select") && L === "ripple-end" ? "cursor-ripple-right" : (S === "trim-edit" || S === "select") && L === "trim-start" ? "cursor-trim-left" : (S === "trim-edit" || S === "select") && L === "trim-end" ? "cursor-trim-right" : S === "trim-edit" && h === "slide-body" ? "cursor-slide-smart" : S === "trim-edit" && h === "slip-body" ? "cursor-slip-smart" : S === "trim-edit" && h !== null || p !== null && S === "trim-edit" ? "cursor-ew-resize" : S === "rate-stretch" ? "cursor-gauge" : S === "slip" || S === "slide" ? t.type === "video" || t.type === "audio" || t.type === "composition" ? "cursor-ew-resize" : "cursor-not-allowed" : l ? "cursor-grabbing" : "cursor-default", cc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     if (a.length < 2) return !1;
     const k = he.getState().items, Z = a.map((ee) => k.find((de) => de.id === ee)).filter((ee) => ee !== void 0);
     return Ma(Z);
-  }, [t.id]), cc = n.useCallback(() => {
+  }, [t.id]), dc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     if (a.length < 2) return !1;
     const k = he.getState().items;
-    return $d(k, a);
-  }, [t.id]), dc = n.useCallback(() => {
+    return qd(k, a);
+  }, [t.id]), uc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     if (a.length === 0) return !1;
     const k = he.getState().items;
     return a.some((Z) => Ca(k, Z));
-  }, []), uc = lt(
+  }, []), mc = lt(
     n.useCallback((a) => {
       const k = a.itemsByTrackId[t.trackId];
       if (!k) return "|";
@@ -4103,8 +4103,8 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     };
   }, [t]), { leftNeighbor: as, rightNeighbor: oo, hasJoinableLeft: ao, hasJoinableRight: io } = n.useMemo(
     () => qo(),
-    [qo, uc]
-  ), lo = t.from > 0 && !as, mc = n.useMemo(() => {
+    [qo, mc]
+  ), lo = t.from > 0 && !as, fc = n.useMemo(() => {
     if (!lo) return 0;
     const a = lt.getState().itemsByTrackId[t.trackId] ?? [];
     let k = 0;
@@ -4114,7 +4114,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       ee <= t.from && ee > k && (k = ee);
     }
     return Math.round(m(t.from - k));
-  }, [lo, t.trackId, t.id, t.from, t.durationInFrames, m]), fc = n.useCallback(() => {
+  }, [lo, t.trackId, t.id, t.from, t.durationInFrames, m]), pc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     if (a.length >= 2) {
       const k = lt.getState().itemById, Z = a.map((ee) => k[ee]).filter((ee) => ee !== void 0);
@@ -4124,29 +4124,29 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     as && he.getState().joinItems([as.id, t.id]);
   }, [as, t.id]), Qo = n.useCallback(() => {
     oo && he.getState().joinItems([t.id, oo.id]);
-  }, [oo, t.id]), pc = n.useCallback(() => {
+  }, [oo, t.id]), hc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     a.length > 0 && he.getState().removeItems(a);
-  }, []), hc = n.useCallback(() => {
-    const a = _e.getState().selectedItemIds;
-    a.length > 0 && he.getState().rippleDeleteItems(a);
   }, []), gc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
-    Bd(a);
+    a.length > 0 && he.getState().rippleDeleteItems(a);
   }, []), xc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
-    Xd(a);
+    Jd(a);
   }, []), bc = n.useCallback(() => {
+    const a = _e.getState().selectedItemIds;
+    Qd(a);
+  }, []), vc = n.useCallback(() => {
     Da.getState().openClearAll([t.id]);
-  }, [t.id]), vc = n.useCallback((a) => {
+  }, [t.id]), yc = n.useCallback((a) => {
     Da.getState().openClearProperty([t.id], a);
-  }, [t.id]), yc = n.useCallback(() => {
+  }, [t.id]), wc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
     a.length < 2 || sp.getState().open(a);
-  }, []), wc = n.useCallback(() => {
+  }, []), Ic = n.useCallback(() => {
     if (t.type !== "video") return;
     const { currentFrame: a } = Ue.getState();
-    Vd(t.id, a);
+    eu(t.id, a);
   }, [t.id, t.type]), co = t.type === "text" ? t.text : "", uo = co.trim().length > 0;
   n.useCallback(() => {
     uo && rp.getState().open(co, t.id);
@@ -4169,11 +4169,11 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           onProgress: (gt) => {
             const It = me.getState();
             It.setTranscriptProgress(Z, gt);
-            const Dt = It.transcriptProgress.get(Z) ?? gt;
+            const Et = It.transcriptProgress.get(Z) ?? gt;
             Bn.getState().upsertOverlay(ee, {
               id: $r,
               label: ot,
-              progress: Qi(Dt),
+              progress: tl(Et),
               tone: "info"
             });
           }
@@ -4191,7 +4191,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           message: wt
         });
       } catch (Oe) {
-        if (tu(Oe)) {
+        if (uu(Oe)) {
           de.setTranscriptStatus(Z, ke), de.clearTranscriptProgress(Z);
           return;
         }
@@ -4212,11 +4212,11 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       replaceExisting: !0
     });
   }, [is]);
-  const Ic = K.some(
+  const Cc = K.some(
     (a) => a.id === $r
-  ), Cc = K.some(
+  ), Sc = K.some(
     (a) => a.id === ws
-  ), Sc = n.useCallback(() => {
+  ), jc = n.useCallback(() => {
     if (t.type !== "video" || !t.mediaId || R) return;
     const a = t.mediaId, k = t.id, Z = t.from, ee = Bn.getState();
     (async () => {
@@ -4232,7 +4232,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         He.src = ke, He.muted = !0, He.preload = "auto", await new Promise(($e, wt) => {
           He.onloadedmetadata = () => $e(), He.onerror = () => wt(new Error("Failed to load video for scene detection"));
         });
-        const tt = he.getState().fps, ot = await nu(He, tt, {
+        const tt = he.getState().fps, ot = await mu(He, tt, {
           sampleIntervalMs: 500,
           useGemmaVerification: !1,
           signal: Re.signal,
@@ -4259,7 +4259,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
           jt.info("No scene cuts within clip bounds");
           return;
         }
-        const st = ru(k, Oe);
+        const st = fu(k, Oe);
         st > 0 ? jt.success(`Split clip at ${st} scene cut${st > 1 ? "s" : ""}`) : jt.info("No valid split points found");
       } catch (ke) {
         ke instanceof Error && ke.message.includes("WebGPU") ? jt.error("Scene detection requires WebGPU support") : jt.error("Scene detection failed");
@@ -4267,7 +4267,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         Bn.getState().removeOverlay(k, ws);
       }
     })();
-  }, [t.id, t.type, t.mediaId, t.from, t.durationInFrames, t.sourceStart, R]), Fr = t.type === "composition" || t.type === "audio" && !!t.compositionId, Xt = xi(t), [zt, zn] = n.useState(null), ea = n.useRef(zt);
+  }, [t.id, t.type, t.mediaId, t.from, t.durationInFrames, t.sourceStart, R]), Fr = t.type === "composition" || t.type === "audio" && !!t.compositionId, Xt = bi(t), [zt, zn] = n.useState(null), ea = n.useRef(zt);
   ea.current = zt;
   const Jn = n.useRef(null), [nn, Hn] = n.useState(null), ta = n.useRef(nn);
   ta.current = nn;
@@ -4287,25 +4287,25 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
   ), us = n.useMemo(
     () => Xt ? bs(rr, Ve, m, ct) : 0,
     [rr, Ve, m, Xt, ct]
-  ), jc = 50, vn = n.useMemo(
+  ), kc = 50, vn = n.useMemo(
     () => t.type === "audio" ? bs(sr, Ve, m, ct) : 0,
     [sr, Ve, m, t.type, ct]
   ), yn = n.useMemo(
     () => t.type === "audio" ? bs(or, Ve, m, ct) : 0,
     [or, Ve, m, t.type, ct]
-  ), kc = n.useMemo(
+  ), Tc = n.useMemo(
     () => `Fade In ${sr.toFixed(2)}s`,
     [sr]
-  ), Tc = n.useMemo(
+  ), Nc = n.useMemo(
     () => `Fade Out ${or.toFixed(2)}s`,
     [or]
-  ), Nc = n.useMemo(
+  ), Mc = n.useMemo(
     () => `Fade In ${nr.toFixed(2)}s`,
     [nr]
-  ), Mc = n.useMemo(
+  ), Rc = n.useMemo(
     () => `Fade Out ${rr.toFixed(2)}s`,
     [rr]
-  ), Rc = n.useMemo(() => {
+  ), Dc = n.useMemo(() => {
     if (!Zt) return null;
     const a = tr.current;
     return `Volume ${a >= 0 ? "+" : ""}${a.toFixed(1)} dB`;
@@ -4318,7 +4318,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
   ), ms = n.useMemo(
     () => sa / Cn * 100,
     [sa]
-  ), Dc = t.type === "audio" && (M || Zt !== null) ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0.42)", aa = n.useMemo(
+  ), Ec = t.type === "audio" && (M || Zt !== null) ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0.42)", aa = n.useMemo(
     () => Ea({
       handle: "in",
       fadePixels: vn,
@@ -4336,7 +4336,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       curveX: cr
     }),
     [yn, ir, cr, ct]
-  ), Ec = n.useMemo(
+  ), Pc = n.useMemo(
     () => vs({
       handle: "in",
       fadePixels: vn,
@@ -4345,7 +4345,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       curveX: lr
     }),
     [vn, ar, lr, ct]
-  ), Pc = n.useMemo(
+  ), Fc = n.useMemo(
     () => vs({
       handle: "out",
       fadePixels: yn,
@@ -4354,7 +4354,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       curveX: cr
     }),
     [yn, ir, cr, ct]
-  ), Fc = n.useMemo(
+  ), Lc = n.useMemo(
     () => vs({
       handle: "in",
       fadePixels: ds,
@@ -4363,7 +4363,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       curveX: 0.52
     }),
     [ds, ct]
-  ), Lc = n.useMemo(
+  ), Ac = n.useMemo(
     () => vs({
       handle: "out",
       fadePixels: us,
@@ -4387,8 +4387,8 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
   const Or = n.useCallback((a, k) => {
     if (t.type !== "audio")
       return;
-    const Z = t.volume ?? 0, ee = Math.abs(Z - a) > Ti;
-    if (Ar(a), (!ee || !k?.preserveLiveGainOnCommit) && Kd(t.id), !ee) {
+    const Z = t.volume ?? 0, ee = Math.abs(Z - a) > Ni;
+    if (Ar(a), (!ee || !k?.preserveLiveGainOnCommit) && tu(t.id), !ee) {
       Lr(null);
       return;
     }
@@ -4405,14 +4405,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     const a = nn.handle === "in" ? t.audioFadeIn ?? 0 : t.audioFadeOut ?? 0, k = nn.handle === "in" ? nn.previewFadeIn : nn.previewFadeOut;
     Math.abs(a - k) <= Ht && Hn(null);
   }, [nn, t]), n.useEffect(() => {
-    !Zt?.isCommitting || t.type !== "audio" || Math.abs((t.volume ?? 0) - tr.current) <= Ti && Lr(null);
+    !Zt?.isCommitting || t.type !== "audio" || Math.abs((t.volume ?? 0) - tr.current) <= Ni && Lr(null);
   }, [Zt, t]), n.useEffect(() => {
     if (!At?.isCommitting || t.type !== "audio")
       return;
     const a = At.handle === "in" ? t.audioFadeInCurve ?? 0 : t.audioFadeOutCurve ?? 0, k = At.handle === "in" ? At.previewFadeInCurve : At.previewFadeOutCurve, Z = At.handle === "in" ? t.audioFadeInCurveX ?? 0.52 : t.audioFadeOutCurveX ?? 0.52, ee = At.handle === "in" ? At.previewFadeInCurveX : At.previewFadeOutCurveX;
     Math.abs(a - k) <= Ht && Math.abs(Z - ee) <= Ht && $n(null);
   }, [At, t]);
-  const Ac = n.useCallback((a, k) => {
+  const Oc = n.useCallback((a, k) => {
     if (a.button !== 0 || !Xt || o || S !== "select" || ft.current)
       return;
     a.preventDefault(), a.stopPropagation();
@@ -4448,7 +4448,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     window.addEventListener("mousemove", ot), window.addEventListener("mouseup", bt, { once: !0 }), Jn.current = () => {
       window.removeEventListener("mousemove", ot), window.removeEventListener("mouseup", bt);
     };
-  }, [S, nr, rr, Ve, Xt, t, d, o, Me]), Oc = n.useCallback((a, k) => {
+  }, [S, nr, rr, Ve, Xt, t, d, o, Me]), _c = n.useCallback((a, k) => {
     if (t.type !== "audio" || o || S !== "select" || ft.current)
       return;
     a.preventDefault(), a.stopPropagation();
@@ -4484,7 +4484,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     window.addEventListener("mousemove", ot), window.addEventListener("mouseup", bt, { once: !0 }), Qn.current = () => {
       window.removeEventListener("mousemove", ot), window.removeEventListener("mouseup", bt);
     };
-  }, [S, sr, or, Ve, t, d, o, Me]), _c = n.useCallback((a, k) => {
+  }, [S, sr, or, Ve, t, d, o, Me]), zc = n.useCallback((a, k) => {
     if (t.type !== "audio" || o || S !== "select" || ft.current)
       return;
     const Z = k === "in" ? vn : yn;
@@ -4492,14 +4492,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       return;
     a.preventDefault(), a.stopPropagation();
     const ee = ar, de = ir, Re = lr, ke = cr, He = t.audioFadeInCurve ?? 0, tt = t.audioFadeOutCurve ?? 0, ot = t.audioFadeInCurveX ?? 0.52, bt = t.audioFadeOutCurveX ?? 0.52, Le = (gt, It) => {
-      const Dt = fs.current?.getBoundingClientRect();
-      return Dt ? su({
+      const Et = fs.current?.getBoundingClientRect();
+      return Et ? pu({
         handle: k,
-        pointerOffsetX: gt - Dt.left,
-        pointerOffsetY: It - Dt.top,
+        pointerOffsetX: gt - Et.left,
+        pointerOffsetY: It - Et.top,
         fadePixels: Z,
-        clipWidthPixels: Dt.width,
-        rowHeight: Dt.height
+        clipWidthPixels: Et.width,
+        rowHeight: Et.height
       }) : {
         curve: k === "in" ? ee : de,
         curveX: k === "in" ? Re : ke
@@ -4518,8 +4518,8 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         isCommitting: !1
       });
     }, st = () => {
-      const gt = na.current, It = k === "in" ? gt?.previewFadeInCurve ?? ee : gt?.previewFadeOutCurve ?? de, Dt = k === "in" ? gt?.previewFadeInCurveX ?? Re : gt?.previewFadeOutCurveX ?? ke;
-      er.current?.(), er.current = null, k === "in" ? Math.abs(It - He) > Ht || Math.abs(Dt - ot) > Ht ? ($n((Ct) => Ct && { ...Ct, isCommitting: !0 }), Me(t.id, { audioFadeInCurve: It, audioFadeInCurveX: Dt })) : $n(null) : Math.abs(It - tt) > Ht || Math.abs(Dt - bt) > Ht ? ($n((Ct) => Ct && { ...Ct, isCommitting: !0 }), Me(t.id, { audioFadeOutCurve: It, audioFadeOutCurveX: Dt })) : $n(null);
+      const gt = na.current, It = k === "in" ? gt?.previewFadeInCurve ?? ee : gt?.previewFadeOutCurve ?? de, Et = k === "in" ? gt?.previewFadeInCurveX ?? Re : gt?.previewFadeOutCurveX ?? ke;
+      er.current?.(), er.current = null, k === "in" ? Math.abs(It - He) > Ht || Math.abs(Et - ot) > Ht ? ($n((Ct) => Ct && { ...Ct, isCommitting: !0 }), Me(t.id, { audioFadeInCurve: It, audioFadeInCurveX: Et })) : $n(null) : Math.abs(It - tt) > Ht || Math.abs(Et - bt) > Ht ? ($n((Ct) => Ct && { ...Ct, isCommitting: !0 }), Me(t.id, { audioFadeOutCurve: It, audioFadeOutCurveX: Et })) : $n(null);
     };
     Oe(Le(a.clientX, a.clientY));
     const $e = (gt) => {
@@ -4541,21 +4541,21 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     t,
     o,
     Me
-  ]), zc = n.useCallback((a) => {
+  ]), Hc = n.useCallback((a) => {
     if (t.type !== "audio" || o || S !== "select" || ft.current)
       return;
     a.preventDefault(), a.stopPropagation();
-    const k = t.volume ?? 0, Z = Wd(t.id), ee = a.clientY, de = a.clientX;
+    const k = t.volume ?? 0, Z = nu(t.id), ee = a.clientY, de = a.clientX;
     let Re = ee, ke = de, He = k, tt = !1, ot = null;
     const bt = ee, Le = k, Oe = (Wt) => {
       He = Wt, Ar(Wt);
       const gs = Math.pow(10, (Wt - k) / 20);
-      ou([{ itemId: t.id, gain: Z * gs }]);
+      hu([{ itemId: t.id, gain: Z * gs }]);
     }, st = () => {
       ot !== null && (window.clearTimeout(ot), ot = null);
     }, $e = (Wt) => {
       const gs = fs.current?.getBoundingClientRect();
-      return gs ? au({
+      return gs ? gu({
         startVolumeDb: Le,
         pointerDeltaY: Wt - bt,
         height: gs.height
@@ -4573,12 +4573,12 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       });
     };
     let It = null;
-    const Dt = () => {
+    const Et = () => {
       if (It = null, !tt) return;
-      const Wt = iu();
+      const Wt = xu();
       ls({ clientX: ke, clientY: Re }), Oe($e(Re)), Wt();
     }, Ct = () => {
-      It === null && (It = window.requestAnimationFrame(Dt));
+      It === null && (It = window.requestAnimationFrame(Et));
     }, ha = () => {
       It !== null && (window.cancelAnimationFrame(It), It = null);
     }, ga = (Wt) => {
@@ -4601,9 +4601,9 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     }, ip), Dn.current = () => {
       st(), ha(), window.removeEventListener("mousemove", ga), window.removeEventListener("mouseup", xa);
     };
-  }, [S, Or, t, o]), Hc = n.useCallback(() => {
+  }, [S, Or, t, o]), $c = n.useCallback(() => {
     t.type !== "audio" || o || (Dn.current?.(), Dn.current = null, Or(0));
-  }, [Or, t, o]), $c = n.useCallback((a) => {
+  }, [Or, t, o]), Bc = n.useCallback((a) => {
     if (!(!Xt || o)) {
       if (Jn.current?.(), Jn.current = null, zn(null), a === "in") {
         (t.fadeIn ?? 0) > Br && Me(t.id, { fadeIn: 0 });
@@ -4611,7 +4611,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       }
       (t.fadeOut ?? 0) > Br && Me(t.id, { fadeOut: 0 });
     }
-  }, [t, o, Me]), Bc = n.useCallback((a) => {
+  }, [t, o, Me]), Xc = n.useCallback((a) => {
     if (!(t.type !== "audio" || o)) {
       if (Qn.current?.(), Qn.current = null, Hn(null), a === "in") {
         (t.audioFadeIn ?? 0) > Ht && Me(t.id, { audioFadeIn: 0 });
@@ -4619,7 +4619,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       }
       (t.audioFadeOut ?? 0) > Ht && Me(t.id, { audioFadeOut: 0 });
     }
-  }, [t, o, Me]), Xc = n.useCallback((a) => {
+  }, [t, o, Me]), Vc = n.useCallback((a) => {
     if (!(t.type !== "audio" || o)) {
       if (er.current?.(), er.current = null, $n(null), a === "in") {
         (Math.abs(t.audioFadeInCurve ?? 0) > Ht || Math.abs((t.audioFadeInCurveX ?? 0.52) - 0.52) > Ht) && Me(t.id, { audioFadeInCurve: 0, audioFadeInCurveX: 0.52 });
@@ -4627,7 +4627,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       }
       (Math.abs(t.audioFadeOutCurve ?? 0) > Ht || Math.abs((t.audioFadeOutCurveX ?? 0.52) - 0.52) > Ht) && Me(t.id, { audioFadeOutCurve: 0, audioFadeOutCurveX: 0.52 });
     }
-  }, [Xt, t, o, Me]), _r = n.useMemo(() => xi(Bt) && zt !== null ? {
+  }, [Xt, t, o, Me]), _r = n.useMemo(() => bi(Bt) && zt !== null ? {
     ...Bt,
     fadeIn: zt.previewFadeIn,
     fadeOut: zt.previewFadeOut
@@ -4663,14 +4663,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     slipEditDelta: gn,
     slideEditOffset: we,
     slideNeighborDelta: Ee
-  }), Vc = n.useMemo(() => !ua && ut.length > 0 ? Gd([mo, ...ut], mo.id, Ve, Ut) : null, [ut, mo, Ve, Ut, ua]), Kc = n.useCallback(() => {
+  }), Kc = n.useMemo(() => !ua && ut.length > 0 ? ru([mo, ...ut], mo.id, Ve, Ut) : null, [ut, mo, Ve, Ut, ua]), Wc = n.useCallback(() => {
     const a = _e.getState().selectedItemIds;
-    Ud(void 0, a);
-  }, []), Wc = n.useCallback(() => {
+    su(void 0, a);
+  }, []), Gc = n.useCallback(() => {
     !Fr || !t.compositionId || Gt.getState().enterComposition(t.compositionId, t.label, t.id);
-  }, [Fr, t]), Gc = n.useCallback(() => {
-    Fr && Yd(t.id);
-  }, [Fr, t]), Uc = n.useCallback((a) => {
+  }, [Fr, t]), Uc = n.useCallback(() => {
+    Fr && ou(t.id);
+  }, [Fr, t]), Yc = n.useCallback((a) => {
     const k = a.currentTarget.getBoundingClientRect(), Z = a.clientX - k.left, ee = a.clientY - k.top;
     let de = null;
     if (S === "trim-edit") {
@@ -4690,7 +4690,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       }) || (de = Na({
         y: ee,
         height: k.height,
-        labelRowHeight: bi(a.currentTarget),
+        labelRowHeight: vi(a.currentTarget),
         isMediaItem: t.type === "video" || t.type === "audio" || t.type === "composition",
         currentIntent: xn.current
       }));
@@ -4716,21 +4716,21 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       return;
     }
     o || j || xe || ie || S === "razor" || S === "rate-stretch" || S === "slip" || S === "slide" || p !== null || re(a);
-  }, [S, o, xe, j, ie, p, re, Ae, _, t]), Yc = n.useCallback(() => {
+  }, [S, o, xe, j, ie, p, re, Ae, _, t]), Zc = n.useCallback(() => {
     bn(null), qn(null), Rn(null), ur.getState().clearRollHover(t.id);
-  }, [t.id, bn, Rn, qn]), Zc = n.useCallback((a, k) => {
-    const Z = un.current, ee = A.current === "trim-edit" || A.current === "select" ? Zd(Z) : null, de = A.current === "select" && ee === "ripple" && zr(rn.getState().transitions, t.id, k), Re = de ? null : ee;
+  }, [t.id, bn, Rn, qn]), qc = n.useCallback((a, k) => {
+    const Z = un.current, ee = A.current === "trim-edit" || A.current === "select" ? au(Z) : null, de = A.current === "select" && ee === "ripple" && zr(rn.getState().transitions, t.id, k), Re = de ? null : ee;
     je(a, k, Re || de ? {
       forcedMode: Re,
       destroyTransitionAtHandle: de
     } : void 0);
-  }, [je]), qc = n.useCallback((a) => {
+  }, [je]), Jc = n.useCallback((a) => {
     const k = a.currentTarget.getBoundingClientRect(), Z = a.clientX - k.left, ee = k.width / 2;
     z(Z < ee ? "left" : "right");
-    const { selectedItemIds: de, selectItems: Re } = _e.getState(), ke = he.getState().items, He = Pt.getState().linkedSelectionEnabled, tt = He ? xs(ke, t.id) : [t.id];
+    const { selectedItemIds: de, selectItems: Re } = _e.getState(), ke = he.getState().items, He = Ft.getState().linkedSelectionEnabled, tt = He ? xs(ke, t.id) : [t.id];
     tt.some((bt) => de.includes(bt)) || (de.length === 1 && tt.length === 1 && !de.includes(t.id) ? Re(He ? Lo(ke, [...de, t.id]) : Array.from(/* @__PURE__ */ new Set([...de, t.id]))) : Re(tt));
   }, [t.id]), ma = n.useCallback((a) => (k) => {
-    if (!Ni(k) || o || !Ft) return;
+    if (!Mi(k) || o || !Mt) return;
     const ee = Kt.getState(), de = Pa({
       itemId: t.id,
       edge: a,
@@ -4767,11 +4767,11 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       durationInFrames: de.suggestedDurationInFrames,
       alignment: de.alignment
     });
-  }, [Ft, t.id, o]), fa = n.useCallback(() => {
+  }, [Mt, t.id, o]), fa = n.useCallback(() => {
     const a = Kt.getState(), k = a.preview;
     !k || k.existingTransitionId || ((k.leftClipId === t.id || k.rightClipId === t.id) && a.clearPreview(), a.setInvalidHint(null));
   }, [t.id]), pa = n.useCallback((a) => (k) => {
-    const Z = Ni(k);
+    const Z = Mi(k);
     if (!Z || o) return;
     const ee = Pa({
       itemId: t.id,
@@ -4792,7 +4792,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       Z.direction
     ), Kt.getState().clearDrag();
   }, [t.id, o]), ps = n.useCallback((a) => {
-    const k = qd(a);
+    const k = iu(a);
     return !k || o || t.type === "audio" ? null : k;
   }, [t.type, o]), dr = n.useCallback((a) => {
     if (!ps(a))
@@ -4800,7 +4800,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
     const Z = lt.getState().items, ee = new Map(Z.map((ke) => [ke.id, ke])), de = new Set(
       he.getState().tracks.filter((ke) => ke.locked).map((ke) => ke.id)
     ), Re = _e.getState().selectedItemIds;
-    return Jd({
+    return lu({
       hoveredItemId: t.id,
       items: Z,
       selectedItemIds: Re
@@ -4811,19 +4811,19 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       return;
     }
     mn.getState().setPreview(a, t.id);
-  }, [t.id]), Jc = n.useCallback((a) => {
+  }, [t.id]), Qc = n.useCallback((a) => {
     const k = dr(xr());
     k.length !== 0 && (a.preventDefault(), a.stopPropagation(), hs(k), yr.getState().clearGhostPreviews());
-  }, [dr, hs]), Qc = n.useCallback((a) => {
+  }, [dr, hs]), ed = n.useCallback((a) => {
     const k = dr(xr());
     if (k.length === 0) {
       mn.getState().clearPreview();
       return;
     }
     a.preventDefault(), a.stopPropagation(), a.dataTransfer.dropEffect = "copy", hs(k), yr.getState().clearGhostPreviews();
-  }, [dr, hs]), ed = n.useCallback((a) => {
-    Qd(a, a.currentTarget) || mn.getState().hoveredItemId === t.id && mn.getState().clearPreview();
-  }, [t.id]), td = n.useCallback((a) => {
+  }, [dr, hs]), td = n.useCallback((a) => {
+    cu(a, a.currentTarget) || mn.getState().hoveredItemId === t.id && mn.getState().clearPreview();
+  }, [t.id]), nd = n.useCallback((a) => {
     const k = a.dataTransfer.getData("application/json");
     let Z = xr();
     if (k)
@@ -4841,45 +4841,45 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       {
         trackLocked: o,
         isSelected: M,
-        canJoinSelected: lc(),
+        canJoinSelected: cc(),
         hasJoinableLeft: ao,
         hasJoinableRight: io,
         closerEdge: ge,
         keyframedProperties: v,
-        canLinkSelected: cc(),
-        canUnlinkSelected: dc(),
-        onJoinSelected: fc,
+        canLinkSelected: dc(),
+        canUnlinkSelected: uc(),
+        onJoinSelected: pc,
         onJoinLeft: Jo,
         onJoinRight: Qo,
-        onLinkSelected: gc,
-        onUnlinkSelected: xc,
-        onRippleDelete: hc,
-        onDelete: pc,
-        onClearAllKeyframes: bc,
-        onClearPropertyKeyframes: vc,
-        onBentoLayout: yc,
+        onLinkSelected: xc,
+        onUnlinkSelected: bc,
+        onRippleDelete: gc,
+        onDelete: hc,
+        onClearAllKeyframes: vc,
+        onClearPropertyKeyframes: yc,
+        onBentoLayout: wc,
         isVideoItem: t.type === "video",
         playheadInBounds: (() => {
           const a = Ue.getState().currentFrame;
           return a > t.from && a < t.from + t.durationInFrames;
         })(),
-        onFreezeFrame: wc,
+        onFreezeFrame: Ic,
         isTextItem: t.type === "text" && uo,
         onGenerateAudioFromText: void 0,
         canGenerateCaptions: (t.type === "video" || t.type === "audio") && !!t.mediaId && !R,
         canRegenerateCaptions: w,
-        isGeneratingCaptions: Ic || N === "transcribing",
+        isGeneratingCaptions: Cc || N === "transcribing",
         defaultCaptionModel: f,
         onGenerateCaptions: void 0,
         onRegenerateCaptions: void 0,
         isCompositionItem: Fr,
-        onEnterComposition: Wc,
-        onDissolveComposition: Gc,
+        onEnterComposition: Gc,
+        onDissolveComposition: Uc,
         canCreatePreComp: M,
-        onCreatePreComp: Kc,
+        onCreatePreComp: Wc,
         canDetectScenes: t.type === "video" && !!t.mediaId && !R,
-        isDetectingScenes: Cc,
-        onDetectScenes: Sc,
+        isDetectingScenes: Sc,
+        onDetectScenes: jc,
         children: /* @__PURE__ */ e.jsxs(
           "div",
           {
@@ -4888,8 +4888,8 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
             "data-item-type": t.type,
             className: Pe(
               "absolute inset-y-px rounded overflow-visible group/timeline-item",
-              rc,
-              ic,
+              sc,
+              lc,
               !l && !xe && !o && "hover:brightness-110"
             ),
             style: {
@@ -4902,22 +4902,22 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
               transition: l ? "none" : void 0,
               contain: "layout style paint",
               contentVisibility: "auto",
-              containIntrinsicSize: `0 ${eu}px`,
+              containIntrinsicSize: `0 ${du}px`,
               "--timeline-audio-volume-line-y": `${t.type === "audio" && Zt !== null ? fo(tr.current, Cn) / Cn * 100 : ms}%`,
               "--timeline-audio-waveform-scale": String(
                 t.type === "audio" && Zt !== null ? po(tr.current) : oa
               )
             },
-            onClick: sc,
-            onDoubleClick: oc,
-            onMouseDown: Uc,
-            onMouseMove: ac,
-            onMouseLeave: Yc,
-            onContextMenu: qc,
-            onDragEnter: Jc,
-            onDragOver: Qc,
-            onDragLeave: ed,
-            onDrop: td,
+            onClick: oc,
+            onDoubleClick: ac,
+            onMouseDown: Yc,
+            onMouseMove: ic,
+            onMouseLeave: Zc,
+            onContextMenu: Jc,
+            onDragEnter: Qc,
+            onDragOver: ed,
+            onDragLeave: td,
+            onDrop: nd,
             children: [
               M && !o && !J && /* @__PURE__ */ e.jsx("div", { className: "absolute inset-0 rounded pointer-events-none z-20 border border-primary" }),
               B && /* @__PURE__ */ e.jsx(
@@ -4948,14 +4948,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                           ds > 0 && /* @__PURE__ */ e.jsx(
                             "path",
                             {
-                              d: Fc,
+                              d: Lc,
                               fill: "rgba(15,23,42,0.46)"
                             }
                           ),
                           us > 0 && /* @__PURE__ */ e.jsx(
                             "path",
                             {
-                              d: Lc,
+                              d: Ac,
                               fill: "rgba(15,23,42,0.46)"
                             }
                           )
@@ -4977,7 +4977,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                           className: "absolute left-0 right-0 h-px -translate-y-1/2 pointer-events-none",
                           style: {
                             top: `var(--timeline-audio-volume-line-y, ${ms}%)`,
-                            backgroundColor: Dc
+                            backgroundColor: Ec
                           }
                         }
                       ),
@@ -4991,14 +4991,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                             vn > 0 && /* @__PURE__ */ e.jsx(
                               "path",
                               {
-                                d: Ec,
+                                d: Pc,
                                 fill: "rgba(0,0,0,0.5)"
                               }
                             ),
                             yn > 0 && /* @__PURE__ */ e.jsx(
                               "path",
                               {
-                                d: Pc,
+                                d: Fc,
                                 fill: "rgba(0,0,0,0.5)"
                               }
                             )
@@ -5021,7 +5021,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                     pixelsPerSecond: b,
                     preferImmediateRendering: cn,
                     audioWaveformScale: oa,
-                    linkedSyncOffsetFrames: H ? null : Vc
+                    linkedSyncOffsetFrames: H ? null : Kc
                   }
                 ),
                 /* @__PURE__ */ e.jsx(
@@ -5049,15 +5049,15 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                       trackLocked: o,
                       activeTool: S,
                       clipWidth: ct,
-                      lineYPercent: jc,
+                      lineYPercent: kc,
                       fadeInPixels: ds,
                       fadeOutPixels: us,
                       isSelected: M,
                       isEditing: zt !== null,
-                      fadeInLabel: Nc,
-                      fadeOutLabel: Mc,
-                      onFadeHandleMouseDown: Ac,
-                      onFadeHandleDoubleClick: $c
+                      fadeInLabel: Mc,
+                      fadeOutLabel: Rc,
+                      onFadeHandleMouseDown: Oc,
+                      onFadeHandleDoubleClick: Bc
                     }
                   )
                 }
@@ -5080,14 +5080,14 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                         isSelected: M,
                         isEditing: nn !== null,
                         curveEditingHandle: At?.handle ?? null,
-                        fadeInLabel: kc,
-                        fadeOutLabel: Tc,
+                        fadeInLabel: Tc,
+                        fadeOutLabel: Nc,
                         fadeInCurveDot: vn > 0 ? { x: aa.x, yPercent: aa.y } : null,
                         fadeOutCurveDot: yn > 0 ? { x: ia.x, yPercent: ia.y } : null,
-                        onFadeHandleMouseDown: Oc,
-                        onFadeHandleDoubleClick: Bc,
-                        onFadeCurveDotMouseDown: _c,
-                        onFadeCurveDotDoubleClick: Xc
+                        onFadeHandleMouseDown: _c,
+                        onFadeHandleDoubleClick: Xc,
+                        onFadeCurveDotMouseDown: zc,
+                        onFadeCurveDotDoubleClick: Vc
                       }
                     ),
                     /* @__PURE__ */ e.jsx(
@@ -5097,10 +5097,10 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                         activeTool: S,
                         lineYPercent: ms,
                         isEditing: Zt !== null,
-                        editLabel: Rc,
+                        editLabel: Dc,
                         editLabelViewport: ra,
-                        onVolumeMouseDown: zc,
-                        onVolumeDoubleClick: Hc
+                        onVolumeMouseDown: Hc,
+                        onVolumeDoubleClick: $c
                       }
                     )
                   ]
@@ -5124,7 +5124,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                   endTone: L === "ripple-end" || j && x === "end" && oe ? "ripple" : "default",
                   hasJoinableLeft: ao,
                   hasJoinableRight: io,
-                  onTrimStart: Zc,
+                  onTrimStart: qc,
                   onJoinLeft: Jo,
                   onJoinRight: Qo
                 }
@@ -5154,7 +5154,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
                   isBeingDragged: l
                 }
               ),
-              Ft && !o && (t.type === "video" || t.type === "image") && /* @__PURE__ */ e.jsxs(e.Fragment, { children: [
+              Mt && !o && (t.type === "video" || t.type === "image") && /* @__PURE__ */ e.jsxs(e.Fragment, { children: [
                 /* @__PURE__ */ e.jsx(
                   "div",
                   {
@@ -5185,7 +5185,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
         enabled: lo && !o && S === "trim-edit",
         isActive: We,
         clipLeftPx: dn,
-        zonePx: ap(b, mc),
+        zonePx: ap(b, fc),
         onMouseDown: et
       }
     ),
@@ -5242,7 +5242,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       {
         isAltDrag: kt,
         isDragging: W,
-        left: Rt,
+        left: Dt,
         width: Nt,
         dragOffset: Ie
       }
@@ -5251,7 +5251,7 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
       ep,
       {
         ref: O,
-        left: Rt,
+        left: Dt,
         width: Nt
       }
     ),
@@ -5260,11 +5260,11 @@ const cp = n.memo(function({ item: t, timelineDuration: s = 30, trackLocked: o =
 }, (r, t) => {
   const s = r.item, o = t.item, i = s.type === "shape" ? s.isMask : void 0, c = o.type === "shape" ? o.isMask : void 0;
   return s.id === o.id && s.from === o.from && s.durationInFrames === o.durationInFrames && s.trackId === o.trackId && s.type === o.type && s.label === o.label && s.mediaId === o.mediaId && s.sourceStart === o.sourceStart && s.sourceEnd === o.sourceEnd && s.sourceDuration === o.sourceDuration && s.sourceFps === o.sourceFps && s.trimStart === o.trimStart && s.speed === o.speed && s.volume === o.volume && s.effects === o.effects && s.audioFadeIn === o.audioFadeIn && s.audioFadeOut === o.audioFadeOut && s.audioFadeInCurve === o.audioFadeInCurve && s.audioFadeOutCurve === o.audioFadeOutCurve && s.audioFadeInCurveX === o.audioFadeInCurveX && s.audioFadeOutCurveX === o.audioFadeOutCurveX && s.fadeIn === o.fadeIn && s.fadeOut === o.fadeOut && i === c && r.timelineDuration === t.timelineDuration && r.trackLocked === t.trackLocked && r.trackHidden === t.trackHidden;
-}), Cs = 6, Mi = 24;
-function Ri(r) {
+}), Cs = 6, Ri = 24;
+function Di(r) {
   const t = Kt.getState().draggedTransition;
   if (t) return t;
-  const s = r.dataTransfer.getData($l);
+  const s = r.dataTransfer.getData(Bl);
   if (!s) return null;
   try {
     const o = JSON.parse(s);
@@ -5295,7 +5295,7 @@ const dp = n.memo(function({
     )
   ), R = _e(
     (j) => j.selectTransition
-  ), { isResizing: N, handleResizeStart: w, previewDuration: f } = lu(t), T = ks(
+  ), { isResizing: N, handleResizeStart: w, previewDuration: f } = bu(t), T = ks(
     Jt(
       n.useCallback(
         (j) => j.trimmedItemId === t.leftClipId || j.trimmedItemId === t.rightClipId || j.neighborItemId === t.leftClipId || j.neighborItemId === t.rightClipId ? {
@@ -5349,7 +5349,7 @@ const dp = n.memo(function({
         [t.leftClipId, t.rightClipId]
       )
     )
-  ), K = cu(
+  ), K = vu(
     n.useCallback((j) => j.itemId === t.leftClipId && j.handle === "end" || j.itemId === t.rightClipId && j.handle === "start", [t.leftClipId, t.rightClipId])
   ), $ = As(
     Jt(
@@ -5419,7 +5419,7 @@ const dp = n.memo(function({
     }
   ) : null, [b, T, H, E, v, S]), V = n.useMemo(() => {
     if (!I || !h) return null;
-    const j = Ui(
+    const j = Zi(
       I.from,
       I.durationInFrames,
       h.from,
@@ -5450,7 +5450,7 @@ const dp = n.memo(function({
   }, [w, R, t.id]), te = n.useCallback(() => {
     c(t.id);
   }, [t.id, c]), U = n.useCallback((j) => {
-    if (!Ri(j) || !D) return;
+    if (!Di(j) || !D) return;
     j.preventDefault(), j.stopPropagation(), j.dataTransfer.dropEffect = "copy";
     const se = Kt.getState();
     se.setInvalidHint(null), se.setPreview({
@@ -5464,7 +5464,7 @@ const dp = n.memo(function({
     const j = Kt.getState();
     j.preview?.existingTransitionId === t.id && j.clearPreview(), j.setInvalidHint(null);
   }, [t.id]), Ce = n.useCallback((j) => {
-    const x = Ri(j);
+    const x = Di(j);
     x && (j.preventDefault(), j.stopPropagation(), m(t.id, {
       presentation: x.presentation,
       direction: x.direction
@@ -5472,9 +5472,9 @@ const dp = n.memo(function({
   }, [t.id, m]);
   if (!V || !I || !h || K)
     return null;
-  const ye = t.presentation?.charAt(0).toUpperCase() + t.presentation?.slice(1) || "Fade", O = J ? "ew-resize" : "pointer", W = Math.max(0, V.cutOffset - Mi / 2 - Cs), Ie = Math.min(
+  const ye = t.presentation?.charAt(0).toUpperCase() + t.presentation?.slice(1) || "Fade", O = J ? "ew-resize" : "pointer", W = Math.max(0, V.cutOffset - Ri / 2 - Cs), Ie = Math.min(
     V.width - Cs,
-    V.cutOffset + Mi / 2
+    V.cutOffset + Ri / 2
   ), re = Math.max(0, V.width - Cs - Ie);
   return /* @__PURE__ */ e.jsxs(On, { children: [
     /* @__PURE__ */ e.jsx(_n, { asChild: !0, children: /* @__PURE__ */ e.jsxs(
@@ -5625,7 +5625,7 @@ const dp = n.memo(function({
       )
     }
   );
-}), Di = an("TimelineTrack");
+}), Ei = an("TimelineTrack");
 function mp(r) {
   return r.some((t) => t.type === "audio") ? "border-timeline-audio/60 bg-timeline-audio/10" : r.some((t) => t.type === "video") ? "border-timeline-video/60 bg-timeline-video/10" : r.some((t) => t.type === "text") ? "border-timeline-text/60 bg-timeline-text/10" : r.some((t) => t.type === "shape") ? "border-timeline-shape/60 bg-timeline-shape/10" : r.some((t) => t.type === "adjustment") ? "border-slate-400/60 bg-slate-400/10" : r.some((t) => t.type === "image") ? "border-timeline-image/60 bg-timeline-image/10" : r.some((t) => t.type === "composition") ? "border-violet-400/60 bg-violet-600/10" : r.some((t) => t.type === "external-file") ? "border-primary/60 bg-primary/10" : "border-primary/50 bg-primary/10";
 }
@@ -5633,17 +5633,17 @@ function So(r) {
   const t = "absolute inset-y-0 rounded border-2 border-dashed pointer-events-none z-20 flex items-center px-2";
   return r === "composition" ? `${t} border-violet-400 bg-violet-600/20` : r === "external-file" ? `${t} border-primary bg-primary/15` : r === "video" ? `${t} border-timeline-video bg-timeline-video/20` : r === "audio" ? `${t} border-timeline-audio bg-timeline-audio/20` : r === "text" ? `${t} border-timeline-text bg-timeline-text/20` : r === "shape" ? `${t} border-timeline-shape bg-timeline-shape/20` : r === "adjustment" ? `${t} border-slate-400 bg-slate-400/15` : `${t} border-timeline-image bg-timeline-image/20`;
 }
-function Ei(r) {
+function Pi(r) {
   return typeof r == "string" && r.trim().length > 0;
 }
-function Kl(r) {
+function Wl(r) {
   return r === "video" || r === "audio" || r === "image";
 }
 function Xr(r, t, s, o) {
   if (!o || kn(t) !== "audio" || !s)
     return !1;
   const i = s.getBoundingClientRect();
-  return i.height <= 0 ? !1 : (r - i.top) / i.height >= 1 - fu;
+  return i.height <= 0 ? !1 : (r - i.top) / i.height >= 1 - Cu;
 }
 function fp(r) {
   const t = Array.from(r.items).filter((s) => s.kind === "file");
@@ -5652,19 +5652,19 @@ function fp(r) {
 function pp(r) {
   if (!r || typeof r != "object") return !1;
   const t = r;
-  return Ei(t.mediaId) && Kl(t.mediaType) && Ei(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
+  return Pi(t.mediaId) && Wl(t.mediaType) && Pi(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
 }
 function hp(r, t) {
   return r.track === t.track && r.timelineWidth === t.timelineWidth;
 }
 const gp = n.memo(function({ track: t }) {
   const [s, o] = n.useState(!1), [i, c] = n.useState(!1), [m, d] = n.useState(null), [b, M] = n.useState(0), R = n.useRef(null), N = n.useRef(null), w = n.useRef(0), f = n.useRef(null), T = n.useRef(null), H = n.useRef(null), E = n.useRef(0), K = n.useRef(0), $ = n.useRef(0), v = n.useRef(!1), Y = he((F) => {
-    const _ = du(F.tracks).find((ie) => ie.id === t.id);
+    const _ = yu(F.tracks).find((ie) => ie.id === t.id);
     if (!_) return t.locked;
     if (_.locked) return !0;
     const ce = _.kind;
     return ce === "audio" ? _.muted : ce === "video" ? _.visible === !1 : _.visible === !1 || _.muted;
-  }), { visibleItems: S, visibleTransitions: J } = uu(t.id), A = lt((F) => (F.itemsByTrackId[t.id]?.length ?? 0) > 0), p = he((F) => F.fps), u = he((F) => F.closeGapOnTrackAtPosition), L = yr((F) => F.ghostPreviews), I = yr((F) => F.setGhostPreviews), h = yr((F) => F.clearGhostPreviews), V = me((F) => F.mediaItems), { pixelsToFrame: C, frameToPixels: D } = on(), G = n.useMemo(
+  }), { visibleItems: S, visibleTransitions: J } = wu(t.id), A = lt((F) => (F.itemsByTrackId[t.id]?.length ?? 0) > 0), p = he((F) => F.fps), u = he((F) => F.closeGapOnTrackAtPosition), L = yr((F) => F.ghostPreviews), I = yr((F) => F.setGhostPreviews), h = yr((F) => F.clearGhostPreviews), V = me((F) => F.mediaItems), { pixelsToFrame: C, frameToPixels: D } = on(), G = n.useMemo(
     () => L.filter((F) => F.targetTrackId === t.id),
     [L, t.id]
   ), le = n.useMemo(
@@ -5726,7 +5726,7 @@ const gp = n.memo(function({ track: t }) {
   }, [p, D, t.id]), Ce = n.useCallback((F, _) => {
     if (!Ns(F))
       return [];
-    const ce = he.getState(), ie = _o(p), Te = mu({
+    const ce = he.getState(), ie = _o(p), Te = Iu({
       tracks: ce.tracks,
       items: ce.items,
       itemType: F.itemType,
@@ -5775,7 +5775,7 @@ const gp = n.memo(function({ track: t }) {
         );
       }
     })().catch((Te) => {
-      ce === E.current && (H.current = null, Di.warn("Failed to build external drag preview:", Te));
+      ce === E.current && (H.current = null, Ei.warn("Failed to build external drag preview:", Te));
     });
     H.current = ie;
   }, [U, ye, I, t]), W = lt((F) => F.itemsByTrackId[t.id]), Ie = n.useMemo(() => W?.map((F) => F.id) ?? [], [W]), re = _e(
@@ -5947,7 +5947,7 @@ const gp = n.memo(function({ track: t }) {
     }
     if (_.type === "media-items" && _.items) {
       const ze = Array.isArray(_.items) ? _.items : [], Se = ze.filter(pp);
-      Se.length !== ze.length && Di.warn("Skipping invalid media-items preview payload entries", {
+      Se.length !== ze.length && Ei.warn("Skipping invalid media-items preview payload entries", {
         invalidCount: ze.length - Se.length
       });
       const Ae = new Map(V.map((Xe) => [Xe.id, Xe])), We = Se.length > 0 && Se.every((Xe) => Xe.mediaType === "audio"), et = Xr(F.clientY, t, R.current, We);
@@ -5967,7 +5967,7 @@ const gp = n.memo(function({ track: t }) {
     }
     if (_.type === "media-item" && _.mediaId && _.mediaType && _.fileName) {
       const ze = V.find((et) => et.id === _.mediaId);
-      if (!ze || !Kl(_.mediaType)) {
+      if (!ze || !Wl(_.mediaType)) {
         h();
         return;
       }
@@ -6133,18 +6133,18 @@ function xp({ activeSnapTarget: r }) {
   ) });
 }
 const fn = an("TimelineMediaDropZone"), bp = 3;
-function Pi(r) {
+function Fi(r) {
   return typeof r == "string" && r.trim().length > 0;
 }
 function Es(r) {
   return r === "video" || r === "audio" || r === "image";
 }
-function Fi(r) {
+function Li(r) {
   if (!r || typeof r != "object") return !1;
   const t = r;
-  return Pi(t.mediaId) && Es(t.mediaType) && Pi(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
+  return Fi(t.mediaId) && Es(t.mediaType) && Fi(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
 }
-const Li = n.memo(function({
+const Ai = n.memo(function({
   height: t,
   zone: s,
   anchorTrackId: o,
@@ -6176,7 +6176,7 @@ const Li = n.memo(function({
     }), j = Ie[0]?.placements[0]?.trackId;
     return j ? { trackId: j, tracks: re } : null;
   }, [o]), C = n.useCallback(() => {
-    const O = Ys.getState().currentProject;
+    const O = Zs.getState().currentProject;
     return {
       width: O?.metadata.width ?? 1920,
       height: O?.metadata.height ?? 1080
@@ -6198,7 +6198,7 @@ const Li = n.memo(function({
       preferredTrackHeight: re
     });
     return j.length === 0 ? { items: [], tracks: x } : {
-      items: (await pu(
+      items: (await Su(
         j,
         bp,
         async (ne) => {
@@ -6209,7 +6209,7 @@ const Li = n.memo(function({
           if (!ve)
             return fn.error("Failed to get media blob URL for", oe.label), null;
           const _ = fe.find((Te) => Te.mediaType !== "audio") ?? fe[0], ce = fe.find((Te) => Te.mediaType === "audio"), ie = C();
-          return hu({
+          return ju({
             media: je.media,
             mediaId: je.mediaId,
             mediaType: oe.mediaType,
@@ -6305,7 +6305,7 @@ const Li = n.memo(function({
       return null;
     const se = C();
     return {
-      item: gu({
+      item: ku({
         template: O,
         placement: {
           trackId: re.trackId,
@@ -6429,7 +6429,7 @@ const Li = n.memo(function({
         return;
       }
       if (W.type === "media-items" && W.items) {
-        const x = Array.isArray(W.items) ? W.items : [], se = x.filter(Fi);
+        const x = Array.isArray(W.items) ? W.items : [], se = x.filter(Li);
         se.length !== x.length && fn.warn("Skipping invalid media-items preview payload entries", {
           invalidCount: x.length - se.length
         });
@@ -6521,7 +6521,7 @@ const Li = n.memo(function({
             return;
           }
           We !== ie && he.getState().setTracks(We);
-          const Ye = xu({
+          const Ye = Tu({
             compositionId: F,
             composition: Se,
             label: _,
@@ -6545,7 +6545,7 @@ const Li = n.memo(function({
         }
         let je = [];
         if (fe.type === "media-items") {
-          const ve = Array.isArray(fe.items) ? fe.items : [], F = ve.filter(Fi);
+          const ve = Array.isArray(fe.items) ? fe.items : [], F = ve.filter(Li);
           F.length !== ve.length && fn.warn("Skipping invalid media-items payload entries", {
             invalidCount: ve.length - F.length
           });
@@ -6596,7 +6596,7 @@ const Li = n.memo(function({
     if (x.length > 0 && jt.error(`Some files were rejected: ${x.join(", ")}`), j.length === 0)
       return;
     try {
-      await bu(j);
+      await Nu(j);
     } catch (fe) {
       jt.error("Unable to inspect dropped file.", {
         description: fe instanceof Error ? fe.message : "Please try again."
@@ -6609,7 +6609,7 @@ const Li = n.memo(function({
       return;
     }
     const ne = se.flatMap((fe) => {
-      const je = wr(fe.mimeType);
+      const je = Ir(fe.mimeType);
       return Es(je) ? [{
         media: fe,
         mediaId: fe.id,
@@ -6682,7 +6682,7 @@ const Li = n.memo(function({
     }
   );
 });
-function Wl({
+function Gl({
   children: r,
   className: t,
   multipleLanes: s = !1,
@@ -6728,8 +6728,8 @@ function Wl({
     )
   ] });
 }
-function Gl({ className: r, onMouseDown: t }) {
-  return /* @__PURE__ */ e.jsxs("div", { className: Pe("relative", r), style: { height: `${vu}px` }, children: [
+function Ul({ className: r, onMouseDown: t }) {
+  return /* @__PURE__ */ e.jsxs("div", { className: Pe("relative", r), style: { height: `${Mu}px` }, children: [
     /* @__PURE__ */ e.jsx(
       "div",
       {
@@ -6750,9 +6750,9 @@ function Gl({ className: r, onMouseDown: t }) {
     )
   ] });
 }
-function Ul({ marqueeState: r, className: t }) {
+function Yl({ marqueeState: r, className: t }) {
   if (!r.active) return null;
-  const s = zl(
+  const s = Hl(
     r.startX,
     r.startY,
     r.currentX,
@@ -6798,7 +6798,7 @@ const vp = [
   onZoomHandlersReady: R,
   onMetricsChange: N
 }) {
-  yu();
+  Ru();
   const w = he((y) => y.fps), f = n.useMemo(
     () => s.filter((y) => kn(y) === "video"),
     [s]
@@ -6817,7 +6817,7 @@ const vp = [
   ), A = n.useMemo(
     () => $s(b, S),
     [b, S]
-  ), p = lt((y) => y.maxItemEndFrame), u = Math.floor(Math.max(p / w, 10) * w), { timeToPixels: L, frameToPixels: I, pixelsToFrame: h, setZoom: V, setZoomImmediate: C, zoomLevel: D } = Hi({
+  ), p = lt((y) => y.maxItemEndFrame), u = Math.floor(Math.max(p / w, 10) * w), { timeToPixels: L, frameToPixels: I, pixelsToFrame: h, setZoom: V, setZoomImmediate: C, zoomLevel: D } = $i({
     minZoom: pn,
     maxZoom: Pn
   }), G = br((y) => y.pendingInitialZoomFit), le = br((y) => y.isTimelineLoading), B = _e((y) => y.selectItems), ge = _e((y) => y.selectMarker), z = _e((y) => y.clearItemSelection), te = _e((y) => !!y.dragState?.isDragging), U = _e((y) => y.dragState?.activeSnapTarget ?? null), De = _e((y) => y.activeTrackId), Ce = n.useRef(null), ye = n.useRef(null), [O, W] = n.useState(0), Ie = n.useRef(!1), re = n.useRef(!1), j = n.useRef(!1), x = n.useRef(null), se = n.useRef(null), ne = Ue((y) => y.setPreviewFrame), oe = n.useRef(ne);
@@ -6936,11 +6936,11 @@ const vp = [
       }
     })),
     [pt]
-  ), { marqueeState: ht } = Hl({
+  ), { marqueeState: ht } = $l({
     containerRef: Ce,
     items: kt,
     onSelectionChange: (y) => {
-      const Q = Pt.getState().linkedSelectionEnabled;
+      const Q = Ft.getState().linkedSelectionEnabled;
       B(Q ? Lo(he.getState().items, y) : y);
     },
     enabled: !0,
@@ -6982,11 +6982,11 @@ const vp = [
       return;
     y.target.closest("[data-item-id]") || (z(), ge(null));
   }, X = n.useCallback(() => {
-    const y = he.getState().items, Q = he.getState().tracks, pe = rn.getState().transitions, rt = Yi(Q), Ke = Zi(y, pe, rt);
+    const y = he.getState().items, Q = he.getState().tracks, pe = rn.getState().transitions, rt = qi(Q), Ke = Ji(y, pe, rt);
     Ke.push({ frame: Math.round(_.current), type: "playhead" });
-    const mt = qi.getState().markers;
-    for (const Rt of mt)
-      Ke.push({ frame: Rt.frame, type: "marker" });
+    const mt = Qi.getState().markers;
+    for (const Dt of mt)
+      Ke.push({ frame: Dt.frame, type: "marker" });
     return Ke;
   }, []), P = n.useCallback((y) => {
     if (y.button !== 0) return;
@@ -6997,9 +6997,9 @@ const vp = [
       return;
     const Ke = Ce.current;
     if (!Ke) return;
-    const mt = Ke.getBoundingClientRect(), Rt = y.clientX - mt.left + Ke.scrollLeft, Lt = Math.max(
+    const mt = Ke.getBoundingClientRect(), Dt = y.clientX - mt.left + Ke.scrollLeft, Lt = Math.max(
       0,
-      Math.min(Math.round(ve.current(Rt)), F.current)
+      Math.min(Math.round(ve.current(Dt)), F.current)
     ), Nt = Ue.getState();
     Nt.isPlaying ? Nt.setCurrentFrame(Lt) : Nt.setScrubFrame(Lt), j.current = !0, x.current !== null && clearTimeout(x.current), x.current = setTimeout(() => {
       j.current = !1, x.current = null;
@@ -7025,10 +7025,10 @@ const vp = [
     if (Ie.current || re.current || j.current) return;
     const mt = Ce.current;
     if (!mt) return;
-    const Rt = mt.getBoundingClientRect(), Lt = y.clientX - Rt.left + mt.scrollLeft, Nt = _e.getState().activeTool === "razor";
+    const Dt = mt.getBoundingClientRect(), Lt = y.clientX - Dt.left + mt.scrollLeft, Nt = _e.getState().activeTool === "razor";
     let tn;
     if (Nt) {
-      const _t = y.shiftKey ? X() : void 0, { splitFrame: Pr } = Ji({
+      const _t = y.shiftKey ? X() : void 0, { splitFrame: Pr } = el({
         cursorX: Lt,
         currentFrame: _.current,
         isPlaying: !1,
@@ -7053,7 +7053,7 @@ const vp = [
     const y = p / w, Q = Math.max(y, 10), pe = O > 0 ? O : 1920, rt = L(Q);
     return {
       actualDuration: Q,
-      timelineWidth: el({
+      timelineWidth: nl({
         contentWidth: rt,
         viewportWidth: pe
       })
@@ -7071,8 +7071,8 @@ const vp = [
     if (!Q) return;
     const pe = ie.current, rt = Math.max(pn, Math.min(Pn, y));
     if (rt === pe) return;
-    const Ke = ze.current, mt = Q.scrollLeft + Ke, Rt = pe * 100, Lt = Math.min(
-      mt / Rt,
+    const Ke = ze.current, mt = Q.scrollLeft + Ke, Dt = pe * 100, Lt = Math.min(
+      mt / Dt,
       Te.current
     ), Nt = rt * 100, Bt = Lt * Nt - Ke, cn = Math.max(0, Bt);
     et.current = cn, ue.current = cn, C(rt);
@@ -7091,13 +7091,13 @@ const vp = [
     if (!y) return;
     const Q = ut.current > 0 ? ut.current : y.clientWidth, pe = Te.current, rt = Ba(Q, pe);
     V(rt), y.scrollLeft = 0;
-  }, [V]), Ft = n.useCallback((y) => {
+  }, [V]), Mt = n.useCallback((y) => {
     const Q = Ce.current;
     if (!Q) return;
     const pe = he.getState().fps, rt = y / pe * 100, Ke = ut.current > 0 ? ut.current : Q.clientWidth, mt = Math.max(0, rt - Ke / 2);
     et.current = mt, ue.current = mt, C(1);
   }, [C]);
-  n.useEffect(() => () => wu(), [Ft]), n.useEffect(() => {
+  n.useEffect(() => (Xa(Mt), () => Xa(null)), [Mt]), n.useEffect(() => {
     R && R({
       handleZoomChange: Ve,
       handleZoomIn: dt,
@@ -7119,7 +7119,7 @@ const vp = [
       const Q = Se.current;
       if (Se.current = 0, Q === 0)
         return;
-      const pe = Math.sign(Q) * Math.min(Math.abs(Q), Cu), rt = Math.exp(-pe / Iu);
+      const pe = Math.sign(Q) * Math.min(Math.abs(Q), Eu), rt = Math.exp(-pe / Du);
       ze.current = We.current;
       const Ke = ie.current, mt = Math.max(pn, Math.min(Pn, Ke * rt));
       mt !== Ke && Ge(mt);
@@ -7141,13 +7141,13 @@ const vp = [
         const Nt = (pe.target instanceof Element ? pe.target.closest("[data-track-section-scroll]") : null)?.dataset.trackSectionScroll;
         if (Nt) {
           pe.preventDefault();
-          const tn = pe.deltaY > 0 ? -4 : 4, Bt = lt.getState().tracks, cn = tl(Bt, Nt, tn);
+          const tn = pe.deltaY > 0 ? -4 : 4, Bt = lt.getState().tracks, cn = rl(Bt, Nt, tn);
           cn !== Bt && (lt.getState().setTracks(cn), br.getState().markDirty());
         }
         return;
       }
       if (pe.preventDefault(), pe.shiftKey || Math.abs(pe.deltaX) > Math.abs(pe.deltaY)) {
-        const Lt = Math.abs(pe.deltaX) > Math.abs(pe.deltaY) ? pe.deltaX : pe.deltaY, Nt = Math.sign(Lt) * Math.min(Math.abs(Lt), Su);
+        const Lt = Math.abs(pe.deltaX) > Math.abs(pe.deltaY) ? pe.deltaX : pe.deltaY, Nt = Math.sign(Lt) * Math.min(Math.abs(Lt), Pu);
         y.scrollLeft = Math.max(0, y.scrollLeft + Nt), ue.current = y.scrollLeft, vt(), Ne.current === null && (Ne.current = setTimeout(() => {
           Ne.current = null, qe(ue.current);
         }, 50));
@@ -7162,10 +7162,10 @@ const vp = [
         );
         return;
       }
-      const Rt = y.querySelector(
+      const Dt = y.querySelector(
         "[data-track-section-scroll]"
       );
-      Rt && (Rt.scrollTop = Math.max(0, Rt.scrollTop + pe.deltaY));
+      Dt && (Dt.scrollTop = Math.max(0, Dt.scrollTop + pe.deltaY));
     };
     return y.addEventListener("wheel", Q, { passive: !1 }), () => {
       y.removeEventListener("wheel", Q), Ae.current !== null && (cancelAnimationFrame(Ae.current), Ae.current = null);
@@ -7181,7 +7181,7 @@ const vp = [
     vr(y) && y.preventDefault();
   }, []), en = n.useCallback((y) => {
     if (!vr(y)) return;
-    const Q = Xa(y.clientX, y.clientY), pe = xt(), rt = Q ?? pe;
+    const Q = Va(y.clientX, y.clientY), pe = xt(), rt = Q ?? pe;
     if (!rt || Jr(rt)) {
       y.preventDefault(), y.dataTransfer.dropEffect = "none";
       return;
@@ -7198,7 +7198,7 @@ const vp = [
     y.preventDefault(), y.dataTransfer.dropEffect = "copy";
   }, [xt]), Zn = n.useCallback(async (y) => {
     y.preventDefault(), y.stopPropagation();
-    const Q = Xa(y.clientX, y.clientY) ?? xt();
+    const Q = Va(y.clientX, y.clientY) ?? xt();
     if (!Q)
       return;
     const pe = yt(y);
@@ -7227,7 +7227,7 @@ const vp = [
       dropFrame: pe,
       dropTargetTrackId: Q
     });
-  }, [yt, xt]), q = f.length > 0 ? f : T, we = f.length > 0 ? "video" : "audio", Ee = f.length > 0 ? d : b, Qe = f.length > 0 ? J : A, Tt = f.length > 0 ? $ : v, Mt = (y, Q) => /* @__PURE__ */ e.jsx(
+  }, [yt, xt]), q = f.length > 0 ? f : T, we = f.length > 0 ? "video" : "audio", Ee = f.length > 0 ? d : b, Qe = f.length > 0 ? J : A, Tt = f.length > 0 ? $ : v, Rt = (y, Q) => /* @__PURE__ */ e.jsx(
     "div",
     {
       ref: Q.scrollRef,
@@ -7236,7 +7236,7 @@ const vp = [
       style: { height: `${Q.height}px` },
       children: /* @__PURE__ */ e.jsx("div", { className: `relative flex min-w-0 flex-col ${Q.section === "audio" ? "min-h-full" : ""}`, children: /* @__PURE__ */ e.jsxs("div", { className: "relative flex w-full min-w-0 flex-col", children: [
         Q.section === "video" && Q.anchorTrackId && /* @__PURE__ */ e.jsx(
-          Li,
+          Ai,
           {
             height: Wo,
             zone: "video",
@@ -7245,7 +7245,7 @@ const vp = [
           }
         ),
         y.map((pe, rt) => /* @__PURE__ */ e.jsx(
-          Wl,
+          Gl,
           {
             multipleLanes: y.length > 1,
             showTopDivider: Q.showTopDividerForFirstTrack && rt === 0,
@@ -7254,7 +7254,7 @@ const vp = [
           pe.id
         )),
         Q.section === "audio" && Q.anchorTrackId && /* @__PURE__ */ e.jsx(
-          Li,
+          Ai,
           {
             height: Q.zoneHeight,
             zone: "audio",
@@ -7283,7 +7283,7 @@ const vp = [
       onMouseMove: be,
       onMouseLeave: ae,
       children: [
-        /* @__PURE__ */ e.jsx(Ul, { marqueeState: ht }),
+        /* @__PURE__ */ e.jsx(Yl, { marqueeState: ht }),
         /* @__PURE__ */ e.jsxs(
           "div",
           {
@@ -7293,8 +7293,8 @@ const vp = [
             onDrop: Zn,
             children: [
               /* @__PURE__ */ e.jsx(Jm, { duration: Be, width: at }),
-              /* @__PURE__ */ e.jsx(ii, { inRuler: !0, maxFrame: u }),
-              /* @__PURE__ */ e.jsx(ai, { inRuler: !0, maxFrame: u })
+              /* @__PURE__ */ e.jsx(li, { inRuler: !0, maxFrame: u }),
+              /* @__PURE__ */ e.jsx(ii, { inRuler: !0, maxFrame: u })
             ]
           }
         ),
@@ -7312,7 +7312,7 @@ const vp = [
             onDrop: g,
             children: [
               H ? /* @__PURE__ */ e.jsxs(e.Fragment, { children: [
-                Mt(f, {
+                Rt(f, {
                   section: "video",
                   height: d,
                   zoneHeight: 0,
@@ -7320,8 +7320,8 @@ const vp = [
                   showTopDividerForFirstTrack: !0,
                   scrollRef: c
                 }),
-                /* @__PURE__ */ e.jsx(Gl, { onMouseDown: M }),
-                Mt(T, {
+                /* @__PURE__ */ e.jsx(Ul, { onMouseDown: M }),
+                Rt(T, {
                   section: "audio",
                   height: b,
                   zoneHeight: A,
@@ -7329,7 +7329,7 @@ const vp = [
                   showTopDividerForFirstTrack: !1,
                   scrollRef: m
                 })
-              ] }) : Mt(q, {
+              ] }) : Rt(q, {
                 section: we,
                 height: Ee,
                 zoneHeight: Qe,
@@ -7343,21 +7343,21 @@ const vp = [
                   activeSnapTarget: U
                 }
               ),
-              /* @__PURE__ */ e.jsx(ii, { maxFrame: u }),
-              /* @__PURE__ */ e.jsx(ai, { maxFrame: u })
+              /* @__PURE__ */ e.jsx(li, { maxFrame: u }),
+              /* @__PURE__ */ e.jsx(ii, { maxFrame: u })
             ]
           }
         )
       ]
     }
   );
-}), Yl = 40;
+}), Zl = 40;
 function wp({
   timelineWidth: r,
   viewportWidth: t,
   trackWidth: s,
   scrollLeft: o,
-  minThumbWidth: i = Yl
+  minThumbWidth: i = Zl
 }) {
   const c = Math.max(r, t || 0, 1), m = Math.max(0, c - t), d = t > 0 ? Math.min(1, t / c) : 1, b = s > 0 ? d >= 1 ? s : Math.max(i, d * s) : 0, M = Math.max(0, s - b), R = m > 0 && M > 0 ? o / m * M : 0;
   return {
@@ -7376,9 +7376,9 @@ function Ip({
   trackWidth: i,
   viewportWidth: c,
   contentDuration: m,
-  minThumbWidth: d = Yl
+  minThumbWidth: d = Zl
 }) {
-  const b = r === "left" ? Math.max(d, Math.min(i, o - t)) : Math.max(d, Math.min(i, o + t)), M = c > 0 ? Math.max(c, c * i / b) : Math.max(i, 1), R = ju(c), N = Math.max(0, M - R), w = Math.max(0.01, Math.min(2, N / (m * 100))), f = m * w * 100, T = el({
+  const b = r === "left" ? Math.max(d, Math.min(i, o - t)) : Math.max(d, Math.min(i, o + t)), M = c > 0 ? Math.max(c, c * i / b) : Math.max(i, 1), R = Fu(c), N = Math.max(0, M - R), w = Math.max(0.01, Math.min(2, N / (m * 100))), f = m * w * 100, T = nl({
     contentWidth: f,
     viewportWidth: c
   }), H = Math.max(0, T - c), E = Math.max(0, i - b), K = s + o, $ = r === "left" ? Math.max(0, Math.min(E, K - b)) : Math.max(0, Math.min(E, s)), v = E > 0 && H > 0 ? $ / E * H : 0;
@@ -7397,7 +7397,7 @@ function Cp({
   timelineWidth: t,
   scrollContainerRef: s
 }) {
-  const o = n.useRef(null), i = n.useRef(null), c = he((h) => h.fps), m = ku((h) => h.setZoomLevelImmediate), d = Kn((h) => h.scrollLeft), b = Kn((h) => h.viewportWidth), [M, R] = n.useState(0), [N, w] = n.useState(null), [f, T] = n.useState(0), [H, E] = n.useState(0), [K, $] = n.useState(0), v = he(
+  const o = n.useRef(null), i = n.useRef(null), c = he((h) => h.fps), m = Lu((h) => h.setZoomLevelImmediate), d = Kn((h) => h.scrollLeft), b = Kn((h) => h.viewportWidth), [M, R] = n.useState(0), [N, w] = n.useState(null), [f, T] = n.useState(0), [H, E] = n.useState(0), [K, $] = n.useState(0), v = he(
     (h) => h.items.reduce((V, C) => Math.max(V, C.from + C.durationInFrames), 0)
   ), Y = n.useMemo(() => {
     const h = v / c;
@@ -7518,8 +7518,8 @@ function Cp({
     }
   ) });
 }
-const os = lm, Sp = im, Zl = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  vl,
+const os = Dm, Sp = Rm, ql = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
+  Nl,
   {
     className: Pe(
       "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -7529,11 +7529,11 @@ const os = lm, Sp = im, Zl = n.forwardRef(({ className: r, ...t }, s) => /* @__P
     ref: s
   }
 ));
-Zl.displayName = vl.displayName;
+ql.displayName = Nl.displayName;
 const kr = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsxs(Sp, { container: Nn(), children: [
-  /* @__PURE__ */ e.jsx(Zl, {}),
+  /* @__PURE__ */ e.jsx(ql, {}),
   /* @__PURE__ */ e.jsx(
-    yl,
+    Ml,
     {
       ref: s,
       className: Pe(
@@ -7544,7 +7544,7 @@ const kr = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsxs(Sp
     }
   )
 ] }));
-kr.displayName = yl.displayName;
+kr.displayName = Ml.displayName;
 const Tr = ({
   className: r,
   ...t
@@ -7574,34 +7574,34 @@ const Nr = ({
 );
 Nr.displayName = "AlertDialogFooter";
 const Mr = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  wl,
+  Rl,
   {
     ref: s,
     className: Pe("text-lg font-semibold", r),
     ...t
   }
 ));
-Mr.displayName = wl.displayName;
+Mr.displayName = Rl.displayName;
 const Rr = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  Il,
+  Dl,
   {
     ref: s,
     className: Pe("text-sm text-muted-foreground", r),
     ...t
   }
 ));
-Rr.displayName = Il.displayName;
+Rr.displayName = Dl.displayName;
 const Dr = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  Cl,
+  El,
   {
     ref: s,
     className: Pe(Go(), r),
     ...t
   }
 ));
-Dr.displayName = Cl.displayName;
+Dr.displayName = El.displayName;
 const Er = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  Sl,
+  Pl,
   {
     ref: s,
     className: Pe(
@@ -7612,7 +7612,7 @@ const Er = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
     ...t
   }
 ));
-Er.displayName = Sl.displayName;
+Er.displayName = Pl.displayName;
 function jp(r, t) {
   return r.track === t.track && r.isActive === t.isActive && r.isSelected === t.isSelected && r.canDeleteTrack === t.canDeleteTrack && r.canDeleteEmptyTracks === t.canDeleteEmptyTracks;
 }
@@ -7631,7 +7631,7 @@ const kp = n.memo(function({
   onDeleteTrack: w,
   onDeleteEmptyTracks: f
 }) {
-  const [T, H] = n.useState(!1), E = kn(t), K = t.muted, $ = t.visible === !1, v = i && !t.locked, { handleDragStart: Y } = Tu(t), S = () => {
+  const [T, H] = n.useState(!1), E = kn(t), K = t.muted, $ = t.visible === !1, v = i && !t.locked, { handleDragStart: Y } = Au(t), S = () => {
     v && H(!0);
   }, J = (u) => {
     if (vr(u)) {
@@ -7665,7 +7665,7 @@ const kp = n.memo(function({
           style: {
             height: `${t.height}px`,
             contentVisibility: "auto",
-            containIntrinsicSize: `${Nu}px ${t.height}px`
+            containIntrinsicSize: `${Ou}px ${t.height}px`
           },
           onClick: M,
           onMouseDown: Y,
@@ -7674,7 +7674,7 @@ const kp = n.memo(function({
           "data-track-id": t.id,
           children: [
             E === "video" && /* @__PURE__ */ e.jsx(hn, { className: "size-3.5 shrink-0 text-muted-foreground opacity-70", "aria-hidden": !0 }),
-            E === "audio" && /* @__PURE__ */ e.jsx(El, { className: "size-3.5 shrink-0 text-muted-foreground opacity-70", "aria-hidden": !0 }),
+            E === "audio" && /* @__PURE__ */ e.jsx(sl, { className: "size-3.5 shrink-0 text-muted-foreground opacity-70", "aria-hidden": !0 }),
             /* @__PURE__ */ e.jsx("span", { className: "min-w-0 flex-1 truncate text-left text-xs font-medium leading-none", children: t.name }),
             /* @__PURE__ */ e.jsxs("div", { className: "flex shrink-0 items-center gap-0.5", children: [
               E === "video" && /* @__PURE__ */ e.jsx(
@@ -7690,7 +7690,7 @@ const kp = n.memo(function({
                   onMouseDown: (u) => u.stopPropagation(),
                   "aria-label": $ ? "Show track" : "Hide track",
                   "data-tooltip": $ ? "Show track" : "Hide track",
-                  children: $ ? /* @__PURE__ */ e.jsx(Sm, { className: "size-3.5 text-destructive" }) : /* @__PURE__ */ e.jsx(jm, { className: "size-3.5 text-muted-foreground" })
+                  children: $ ? /* @__PURE__ */ e.jsx(_u, { className: "size-3.5 text-destructive" }) : /* @__PURE__ */ e.jsx(zu, { className: "size-3.5 text-muted-foreground" })
                 }
               ),
               E === "audio" && /* @__PURE__ */ e.jsx(
@@ -7706,7 +7706,7 @@ const kp = n.memo(function({
                   onMouseDown: (u) => u.stopPropagation(),
                   "aria-label": K ? "Unmute track" : "Mute track",
                   "data-tooltip": K ? "Unmute track" : "Mute track",
-                  children: K ? /* @__PURE__ */ e.jsx(Pl, { className: "size-3.5 text-destructive" }) : /* @__PURE__ */ e.jsx(Fl, { className: "size-3.5 text-muted-foreground" })
+                  children: K ? /* @__PURE__ */ e.jsx(ol, { className: "size-3.5 text-destructive" }) : /* @__PURE__ */ e.jsx(al, { className: "size-3.5 text-muted-foreground" })
                 }
               ),
               /* @__PURE__ */ e.jsx(
@@ -7735,7 +7735,7 @@ const kp = n.memo(function({
       ) }),
       /* @__PURE__ */ e.jsxs(Tn, { className: "w-52", children: [
         /* @__PURE__ */ e.jsxs(it, { onClick: b, children: [
-          /* @__PURE__ */ e.jsx(km, { className: "mr-2 size-3.5" }),
+          /* @__PURE__ */ e.jsx(Hu, { className: "mr-2 size-3.5" }),
           t.locked ? "Unlock track" : "Lock track"
         ] }),
         /* @__PURE__ */ e.jsx(Vt, {}),
@@ -7804,7 +7804,7 @@ const kp = n.memo(function({
   return t.length <= 1 ? null : /* @__PURE__ */ e.jsx("div", { className: "flex items-center gap-1 px-3 py-1.5 bg-background/80 backdrop-blur-sm border-b border-border text-xs", children: t.map((o, i) => {
     const c = i === t.length - 1;
     return /* @__PURE__ */ e.jsxs("span", { className: "flex items-center gap-1", children: [
-      i > 0 && /* @__PURE__ */ e.jsx(Zs, { className: "h-3 w-3 text-muted-foreground" }),
+      i > 0 && /* @__PURE__ */ e.jsx(Ys, { className: "h-3 w-3 text-muted-foreground" }),
       c ? /* @__PURE__ */ e.jsx("span", { className: "text-foreground font-medium", children: o.label }) : /* @__PURE__ */ e.jsx(
         "button",
         {
@@ -7835,14 +7835,14 @@ const kp = n.memo(function({
     }
   );
 }), Rp = an("Timeline"), fh = n.memo(function({ duration: t }) {
-  const s = Us(), o = Pt((l) => l.colorScopesOpen), i = Pt((l) => l.toggleColorScopesOpen), c = Qr((l) => l.editorDensity), m = $i(c), {
+  const s = Us(), o = Ft((l) => l.colorScopesOpen), i = Ft((l) => l.toggleColorScopesOpen), c = es((l) => l.editorDensity), m = Xi(c), {
     tracks: d,
     addTrack: b,
     removeTracks: M,
     toggleTrackMute: R,
     toggleTrackVisibility: N,
     toggleTrackLock: w
-  } = Mu(), f = _e((l) => l.activeTrackId), T = _e((l) => l.selectedTrackIds), H = _e((l) => l.setActiveTrack), E = _e((l) => l.toggleTrackSelection), K = _e((l) => l.selectTracks), $ = n.useMemo(() => new Set(T), [T]), v = d, Y = lt(
+  } = $u(), f = _e((l) => l.activeTrackId), T = _e((l) => l.selectedTrackIds), H = _e((l) => l.setActiveTrack), E = _e((l) => l.toggleTrackSelection), K = _e((l) => l.selectTracks), $ = n.useMemo(() => new Set(T), [T]), v = d, Y = lt(
     n.useCallback((l) => {
       let X = 0;
       for (const P of d)
@@ -7861,7 +7861,7 @@ const kp = n.memo(function({
   }), Ce = Kn((l) => l.viewportWidth), ye = n.useMemo(
     () => U.timelineWidth > 0 && Ce > 0 && U.timelineWidth > Ce,
     [U.timelineWidth, Ce]
-  ), [O, W] = n.useState(0), [Ie, re] = n.useState(null), j = Pt((l) => l.toggleKeyframeEditorOpen), x = he((l) => l.setTracks);
+  ), [O, W] = n.useState(0), [Ie, re] = n.useState(null), j = Ft((l) => l.toggleKeyframeEditorOpen), x = he((l) => l.setTracks);
   fr(
     s.TOGGLE_KEYFRAME_EDITOR,
     (l) => {
@@ -7872,7 +7872,7 @@ const kp = n.memo(function({
   );
   const [se, ne] = n.useState(-1), oe = _e(
     (l) => (l.dragState?.isDragging && l.dragState.draggedTrackIds && l.dragState.draggedTrackIds.length > 0) ?? !1
-  ), fe = n.useMemo(() => Ru({
+  ), fe = n.useMemo(() => Bu({
     viewportHeight: O,
     tracks: v,
     sectionDividerPosition: Ie,
@@ -7883,7 +7883,7 @@ const kp = n.memo(function({
     audioPaneHeight: ve,
     videoSectionHeight: F,
     audioSectionHeight: _
-  } = fe, { handleTrackResizeStart: ce, handleTrackResizeReset: ie } = Du(), Te = n.useMemo(
+  } = fe, { handleTrackResizeStart: ce, handleTrackResizeReset: ie } = Xu(), Te = n.useMemo(
     () => $s(xe, F),
     [xe, F]
   ), ze = n.useMemo(
@@ -7940,7 +7940,7 @@ const kp = n.memo(function({
       P.preventDefault();
       const ae = (P.target instanceof Element ? P.target.closest("[data-track-section-scroll]") : null)?.dataset.trackSectionScroll;
       if (!ae) return;
-      const Be = P.deltaY > 0 ? -4 : 4, at = lt.getState().tracks, Ge = tl(at, ae, Be);
+      const Be = P.deltaY > 0 ? -4 : 4, at = lt.getState().tracks, Ge = rl(at, ae, Be);
       Ge !== at && (lt.getState().setTracks(Ge), br.getState().markDirty());
     };
     return l.addEventListener("wheel", X, { passive: !1 }), () => l.removeEventListener("wheel", X);
@@ -7955,7 +7955,7 @@ const kp = n.memo(function({
       const ae = ge.current;
       if (!ae) return;
       const Be = be.clientY - ae.startY;
-      re(Fu({
+      re(Gu({
         viewportHeight: O,
         tracks: v,
         requestedDividerPosition: ae.startDividerPosition + Be,
@@ -8010,7 +8010,7 @@ const kp = n.memo(function({
     }
     let l;
     const X = () => {
-      const P = Lu.current;
+      const P = Uu.current;
       ne((be) => be !== P ? P : be), l = requestAnimationFrame(X);
     };
     return l = requestAnimationFrame(X), () => {
@@ -8024,7 +8024,7 @@ const kp = n.memo(function({
     if (!P) return;
     let be;
     const ae = () => {
-      const Be = Au.current, at = P.querySelectorAll("[data-track-id]");
+      const Be = Yu.current, at = P.querySelectorAll("[data-track-id]");
       for (const Ge of at) {
         const Ve = Ge.getAttribute("data-track-id");
         Ve && X.has(Ve) && (Ge.style.transform = `translateY(${Be}px) scale(1.02)`, Ge.style.zIndex = "100", Ge.style.opacity = "0.5", Ge.style.transition = "none", Ge.style.boxShadow = "0 4px 6px -1px rgba(0,0,0,0.1)");
@@ -8085,7 +8085,7 @@ const kp = n.memo(function({
     }
     be.activeTrackId && !P.has(be.activeTrackId) || be.setActiveTrack(X);
   }, []), Xe = n.useCallback(() => {
-    const l = Va({
+    const l = Ka({
       tracks: d,
       kind: "video",
       order: 0,
@@ -8095,10 +8095,10 @@ const kp = n.memo(function({
       H(l.id);
     }, 0);
   }, [b, m.timelineTrackHeight, H, d]), vt = n.useCallback(() => {
-    const l = J[J.length - 1] ?? S[S.length - 1] ?? d[d.length - 1] ?? null, X = Va({
+    const l = J[J.length - 1] ?? S[S.length - 1] ?? d[d.length - 1] ?? null, X = Ka({
       tracks: d,
       kind: "audio",
-      order: l ? Eu(d, l, "below") : 0,
+      order: l ? Vu(d, l, "below") : 0,
       height: m.timelineTrackHeight
     });
     x([...d, X]), setTimeout(() => {
@@ -8118,7 +8118,7 @@ const kp = n.memo(function({
     const at = d.filter((Ge) => Ge.id !== l);
     Ye([l], at[0]?.id ?? null);
   }, [M, Ye, d]), ue = n.useCallback((l) => {
-    const X = Pu(
+    const X = Ku(
       d,
       lt.getState().itemsByTrackId,
       l
@@ -8131,7 +8131,7 @@ const kp = n.memo(function({
   }, [M, Ye, d]), Ne = oe && se >= 0 && se <= S.length ? se : -1, Fe = oe && se >= S.length && se <= v.length ? se - S.length : -1, qe = S.length > 0 ? "video" : "audio", nt = S.length > 0 ? S : J, Je = S.length > 0 ? xe : ve, pt = S.length > 0 ? Te : ze, kt = !A && oe && se >= 0 && se <= v.length ? se : -1, ht = (l, X) => /* @__PURE__ */ e.jsx("div", { className: "relative min-h-0 overflow-hidden", style: { height: `${X.height}px` }, "data-track-section-scroll": X.section, children: /* @__PURE__ */ e.jsx("div", { ref: X.scrollRef, className: "h-full overflow-hidden", children: /* @__PURE__ */ e.jsx("div", { className: "relative flex min-h-full min-w-0 flex-col", children: /* @__PURE__ */ e.jsxs("div", { className: "relative flex w-full min-w-0 flex-col", children: [
     X.section === "video" && /* @__PURE__ */ e.jsx(Mp, {}),
     l.map((P, be) => /* @__PURE__ */ e.jsx(
-      Wl,
+      Gl,
       {
         multipleLanes: l.length > 1,
         showTopDivider: X.showTopDividerForFirstTrack && be === 0,
@@ -8155,7 +8155,7 @@ const kp = n.memo(function({
             onDeleteTrack: () => ft(P.id),
             onDeleteEmptyTracks: () => ue(P.id),
             onSelect: (ae) => {
-              if (!Ou.current)
+              if (!Zu.current)
                 if (ae.shiftKey && f) {
                   const Be = v.findIndex((Ge) => Ge.id === f), at = v.findIndex((Ge) => Ge.id === P.id);
                   if (Be !== -1 && at !== -1) {
@@ -8230,8 +8230,8 @@ const kp = n.memo(function({
                   {
                     className: "flex flex-shrink-0 items-center justify-end border-b border-border bg-secondary/20 px-2",
                     style: { height: St.timelineTracksHeaderHeight },
-                    children: /* @__PURE__ */ e.jsxs(es, { children: [
-                      /* @__PURE__ */ e.jsx(ts, { asChild: !0, children: /* @__PURE__ */ e.jsx(
+                    children: /* @__PURE__ */ e.jsxs(ts, { children: [
+                      /* @__PURE__ */ e.jsx(ns, { asChild: !0, children: /* @__PURE__ */ e.jsx(
                         Ze,
                         {
                           type: "button",
@@ -8239,12 +8239,12 @@ const kp = n.memo(function({
                           size: "icon",
                           className: "h-5 w-5",
                           "aria-label": "Add track",
-                          children: /* @__PURE__ */ e.jsx(Tm, { className: "h-3 w-3" })
+                          children: /* @__PURE__ */ e.jsx(Wu, { className: "h-3 w-3" })
                         }
                       ) }),
-                      /* @__PURE__ */ e.jsxs(ns, { align: "end", children: [
-                        /* @__PURE__ */ e.jsx(Et, { onClick: Xe, children: "Add video track" }),
-                        /* @__PURE__ */ e.jsx(Et, { onClick: vt, children: "Add audio track" })
+                      /* @__PURE__ */ e.jsxs(rs, { align: "end", children: [
+                        /* @__PURE__ */ e.jsx(Pt, { onClick: Xe, children: "Add video track" }),
+                        /* @__PURE__ */ e.jsx(Pt, { onClick: vt, children: "Add audio track" })
                       ] })
                     ] })
                   }
@@ -8263,7 +8263,7 @@ const kp = n.memo(function({
                         dropIndicatorLocalIndex: Ne,
                         showTopDividerForFirstTrack: !0
                       }),
-                      /* @__PURE__ */ e.jsx(Gl, { onMouseDown: Ae }),
+                      /* @__PURE__ */ e.jsx(Ul, { onMouseDown: Ae }),
                       ht(J, {
                         section: "audio",
                         height: ve,
@@ -8323,8 +8323,8 @@ const kp = n.memo(function({
       ]
     }
   );
-}), Yo = um, Dp = cm, ql = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  jl,
+}), Yo = Fm, Dp = Em, Jl = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
+  Fl,
   {
     ref: s,
     className: Pe(
@@ -8334,11 +8334,11 @@ const kp = n.memo(function({
     ...t
   }
 ));
-ql.displayName = jl.displayName;
+Jl.displayName = Fl.displayName;
 const eo = n.forwardRef(({ className: r, children: t, hideCloseButton: s, overlayClassName: o, ...i }, c) => /* @__PURE__ */ e.jsxs(Dp, { container: Nn(), children: [
-  /* @__PURE__ */ e.jsx(ql, { className: o }),
+  /* @__PURE__ */ e.jsx(Jl, { className: o }),
   /* @__PURE__ */ e.jsxs(
-    kl,
+    Ll,
     {
       ref: c,
       className: Pe(
@@ -8348,7 +8348,7 @@ const eo = n.forwardRef(({ className: r, children: t, hideCloseButton: s, overla
       ...i,
       children: [
         t,
-        !s && /* @__PURE__ */ e.jsxs(dm, { className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground", children: [
+        !s && /* @__PURE__ */ e.jsxs(Pm, { className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground", children: [
           /* @__PURE__ */ e.jsx(Gn, { className: "h-4 w-4" }),
           /* @__PURE__ */ e.jsx("span", { className: "sr-only", children: "Close" })
         ] })
@@ -8356,7 +8356,7 @@ const eo = n.forwardRef(({ className: r, children: t, hideCloseButton: s, overla
     }
   )
 ] }));
-eo.displayName = kl.displayName;
+eo.displayName = Ll.displayName;
 const to = ({
   className: r,
   ...t
@@ -8386,7 +8386,7 @@ const Zo = ({
 );
 Zo.displayName = "DialogFooter";
 const no = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  Tl,
+  Al,
   {
     ref: s,
     className: Pe(
@@ -8396,17 +8396,17 @@ const no = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
     ...t
   }
 ));
-no.displayName = Tl.displayName;
+no.displayName = Al.displayName;
 const ro = n.forwardRef(({ className: r, ...t }, s) => /* @__PURE__ */ e.jsx(
-  Nl,
+  Ol,
   {
     ref: s,
     className: Pe("text-sm text-muted-foreground", r),
     ...t
   }
 ));
-ro.displayName = Nl.displayName;
-const mr = 32, jo = 6, Ep = 0.6, Vr = 100, Pp = 500, Fp = 0.8, Jl = "timeline:keyframeEditorMode", Ai = [
+ro.displayName = Ol.displayName;
+const mr = 32, jo = 6, Ep = 0.6, Vr = 100, Pp = 500, Fp = 0.8, Ql = "timeline:keyframeEditorMode", Oi = [
   { value: "linear", label: "Linear" },
   { value: "ease-in", label: "Ease In" },
   { value: "ease-in-out", label: "Ease In-Out" },
@@ -8429,10 +8429,10 @@ function Op(r, t, s) {
   return r;
 }
 function To(r, t, s) {
-  return t === "volume" ? r.volume ?? 0 : Wu(r, s, Gu(r))[t];
+  return t === "volume" ? r.volume ?? 0 : am(r, s, im(r))[t];
 }
 function Kr(r, t) {
-  const s = Ku(r);
+  const s = om(r);
   if (s)
     return {
       type: "cubic-bezier",
@@ -8449,7 +8449,7 @@ function Kr(r, t) {
       spring: t?.type === "spring" && t.spring ? t.spring : { ...Sn }
     };
 }
-function Oi(r, t) {
+function _i(r, t) {
   return r.x1 === t.x1 && r.y1 === t.y1 && r.x2 === t.x2 && r.y2 === t.y2;
 }
 function _p(r, t) {
@@ -8467,7 +8467,7 @@ function zp(r, t) {
 }
 function Hp() {
   try {
-    const r = localStorage.getItem(Jl);
+    const r = localStorage.getItem(Ql);
     if (r === "graph" || r === "dopesheet" || r === "split")
       return r;
   } catch {
@@ -8548,7 +8548,7 @@ const ph = n.memo(function({
         (q) => q.leftClipId === u.id || q.rightClipId === u.id
       ) : [], [u])
     )
-  ), h = Eo((g) => g._updateKeyframe), V = Ys((g) => g.currentProject), C = n.useRef(null), D = wn((g) => g.selectedKeyframes), G = wn((g) => g.selectKeyframe), le = wn((g) => g.selectKeyframes), B = wn((g) => g.clearSelection), ge = wn((g) => g.clipboard), z = wn((g) => g.isCut), te = wn((g) => g.copySelectedKeyframes), U = wn((g) => g.cutSelectedKeyframes), De = wn((g) => g.clearClipboard), Ce = Ue((g) => g.currentFrame), [ye, O] = n.useState(null), [W, Ie] = n.useState(() => Hp()), [re, j] = n.useState(0), [x, se] = n.useState({
+  ), h = Eo((g) => g._updateKeyframe), V = Zs((g) => g.currentProject), C = n.useRef(null), D = wn((g) => g.selectedKeyframes), G = wn((g) => g.selectKeyframe), le = wn((g) => g.selectKeyframes), B = wn((g) => g.clearSelection), ge = wn((g) => g.clipboard), z = wn((g) => g.isCut), te = wn((g) => g.copySelectedKeyframes), U = wn((g) => g.cutSelectedKeyframes), De = wn((g) => g.clearClipboard), Ce = Ue((g) => g.currentFrame), [ye, O] = n.useState(null), [W, Ie] = n.useState(() => Hp()), [re, j] = n.useState(0), [x, se] = n.useState({
     x1: String(hr.x1),
     y1: String(hr.y1),
     x2: String(hr.x2),
@@ -8560,7 +8560,7 @@ const ph = n.memo(function({
   }), fe = n.useRef(null);
   n.useEffect(() => {
     try {
-      localStorage.setItem(Jl, W);
+      localStorage.setItem(Ql, W);
     } catch {
     }
   }, [W]);
@@ -8569,7 +8569,7 @@ const ph = n.memo(function({
     height: V?.metadata.height ?? 1080,
     fps: V?.metadata.fps ?? 30
   }), [V]), xe = n.useMemo(
-    () => u ? _u(u) : [],
+    () => u ? qu(u) : [],
     [u]
   );
   n.useEffect(() => {
@@ -8608,9 +8608,9 @@ const ph = n.memo(function({
       return null;
     const g = Kr("cubic-bezier", _[0]?.keyframe.easingConfig);
     return g?.type !== "cubic-bezier" || !g.bezier ? { ...hr } : g.bezier;
-  }, [ce, _]), Te = n.useMemo(() => ie ? ko.find((q) => Oi(q.points, ie))?.value ?? "custom" : "custom", [ie]), ze = n.useMemo(() => ie ? _.some(({ keyframe: g }) => {
+  }, [ce, _]), Te = n.useMemo(() => ie ? ko.find((q) => _i(q.points, ie))?.value ?? "custom" : "custom", [ie]), ze = n.useMemo(() => ie ? _.some(({ keyframe: g }) => {
     const q = Kr("cubic-bezier", g.easingConfig);
-    return !q?.bezier || !Oi(q.bezier, ie);
+    return !q?.bezier || !_i(q.bezier, ie);
   }) : !1, [ie, _]), Se = n.useMemo(() => {
     if (ce !== "spring" || _.length === 0)
       return null;
@@ -8619,7 +8619,7 @@ const ph = n.memo(function({
   }, [ce, _]), Ae = n.useMemo(() => Se ? _.some(({ keyframe: g }) => {
     const we = Kr("spring", g.easingConfig)?.spring;
     return !we || we.tension !== Se.tension || we.friction !== Se.friction || we.mass !== Se.mass;
-  }) : !1, [_, Se]), We = n.useMemo(() => u ? Math.max(0, Ce - u.from) : 0, [Ce, u]), et = n.useMemo(() => u ? zu(
+  }) : !1, [_, Se]), We = n.useMemo(() => u ? Math.max(0, Ce - u.from) : 0, [Ce, u]), et = n.useMemo(() => u ? Ju(
     u.id,
     u,
     I
@@ -8651,16 +8651,16 @@ const ph = n.memo(function({
     return we.observe(g), () => we.disconnect();
   }, [ce, _.length, b]);
   const Ye = n.useCallback(() => {
-    C.current = Hu();
+    C.current = Qu();
   }, []), Xe = n.useCallback(() => {
     const g = C.current;
-    g && ($u.getState().addUndoEntry(
+    g && (em.getState().addUndoEntry(
       { type: "MOVE_KEYFRAME_GRAPH", payload: {} },
       g
     ), br.getState().markDirty(), C.current = null);
   }, []), vt = n.useCallback(
     (g, q, we) => {
-      const Qe = L?.properties.find((Mt) => Mt.property === g.property)?.keyframes.find((Mt) => Mt.id === g.keyframeId)?.frame ?? q, Tt = Op(
+      const Qe = L?.properties.find((Rt) => Rt.property === g.property)?.keyframes.find((Rt) => Rt.id === g.keyframeId)?.frame ?? q, Tt = Op(
         Math.max(0, Math.round(q)),
         Qe,
         et
@@ -8710,7 +8710,7 @@ const ph = n.memo(function({
     (g) => {
       if (_.length === 0) return;
       const q = g;
-      Ka(
+      Wa(
         _.map(({ ref: we, keyframe: Ee }) => ({
           itemId: we.itemId,
           property: we.property,
@@ -8725,7 +8725,7 @@ const ph = n.memo(function({
     [_]
   ), Je = n.useCallback(
     (g) => {
-      _.length !== 0 && Ka(
+      _.length !== 0 && Wa(
         _.map(({ ref: q, keyframe: we }) => ({
           itemId: q.itemId,
           property: q.property,
@@ -8866,13 +8866,13 @@ const ph = n.memo(function({
       });
       return;
     }
-    const Mt = xo(we).map((Ke, mt) => ({
+    const Rt = xo(we).map((Ke, mt) => ({
       itemId: u.id,
       property: we[mt].property,
       keyframeId: Ke
     }));
-    Mt.length > 0 ? le(Mt) : B(), z && De();
-    const y = Mt.length, Q = Ee + Qe, pe = z ? "Moved" : "Pasted", rt = `${y} keyframe${y === 1 ? "" : "s"}`;
+    Rt.length > 0 ? le(Rt) : B(), z && De();
+    const y = Rt.length, Q = Ee + Qe, pe = z ? "Moved" : "Pasted", rt = `${y} keyframe${y === 1 ? "" : "s"}`;
     if (Q > 0) {
       const Ke = [];
       Ee > 0 && Ke.push(
@@ -8954,7 +8954,7 @@ const ph = n.memo(function({
     (g, q) => {
       if (!u) return;
       const we = ve[g] ?? [], Ee = To(u, g, je), Qe = bo(we, q, Ee);
-      Wa(
+      Ga(
         u.id,
         g,
         q,
@@ -8966,12 +8966,12 @@ const ph = n.memo(function({
     (g) => {
       if (!u || g.length === 0) return;
       const q = g.map(({ property: we, frame: Ee }) => {
-        const Qe = ve[we] ?? [], Tt = To(u, we, je), Mt = bo(Qe, Ee, Tt);
+        const Qe = ve[we] ?? [], Tt = To(u, we, je), Rt = bo(Qe, Ee, Tt);
         return {
           itemId: u.id,
           property: we,
           frame: Ee,
-          value: Mt
+          value: Rt
         };
       });
       xo(q);
@@ -8980,7 +8980,7 @@ const ph = n.memo(function({
   ), Ve = n.useCallback(
     (g) => {
       if (!u || g.length === 0) return;
-      const q = g.flatMap(({ ref: Qe, frame: Tt, value: Mt }) => {
+      const q = g.flatMap(({ ref: Qe, frame: Tt, value: Rt }) => {
         const y = ve[Qe.property]?.find(
           (Q) => Q.id === Qe.keyframeId
         );
@@ -8988,7 +8988,7 @@ const ph = n.memo(function({
           itemId: u.id,
           property: Qe.property,
           frame: Tt,
-          value: Mt,
+          value: Rt,
           easing: y.easing,
           easingConfig: y.easingConfig
         }] : [];
@@ -9017,7 +9017,7 @@ const ph = n.memo(function({
         (Tt) => Tt.frame === We
       );
       if (Ee) {
-        Bu(
+        tm(
           u.id,
           g,
           Ee.id,
@@ -9031,7 +9031,7 @@ const ph = n.memo(function({
       }
       if (we?.allowCreate === !1)
         return;
-      const Qe = Wa(
+      const Qe = Ga(
         u.id,
         g,
         We,
@@ -9046,7 +9046,7 @@ const ph = n.memo(function({
     [ve, We, G, u]
   ), ut = n.useCallback(
     (g) => {
-      g.length !== 0 && Xu(g);
+      g.length !== 0 && nm(g);
     },
     []
   ), Ut = n.useCallback(
@@ -9056,7 +9056,7 @@ const ph = n.memo(function({
       Ue.getState().setCurrentFrame(q);
     },
     [u]
-  ), Ft = Math.min(H, $), Ot = t ? mr + jo + Ft : mr, Yt = Math.max(0, b - 16), yt = ce === "cubic-bezier", xt = ce === "spring", Yn = yt || xt, en = c && w > 0 ? Math.max(Vr, w - mr) : 0, ln = c ? R > 0 ? R : en > 0 ? en : Ft : Ft, Zn = Math.max(
+  ), Mt = Math.min(H, $), Ot = t ? mr + jo + Mt : mr, Yt = Math.max(0, b - 16), yt = ce === "cubic-bezier", xt = ce === "spring", Yn = yt || xt, en = c && w > 0 ? Math.max(Vr, w - mr) : 0, ln = c ? R > 0 ? R : en > 0 ? en : Mt : Mt, Zn = Math.max(
     0,
     ln - 16 - re - (Yn ? 8 : 0)
   );
@@ -9144,28 +9144,28 @@ const ph = n.memo(function({
                 ),
                 /* @__PURE__ */ e.jsx("div", { className: "w-px h-4 bg-border/70 mx-1" }),
                 /* @__PURE__ */ e.jsxs(
-                  Ga,
+                  Ua,
                   {
                     value: ce,
                     onValueChange: nt,
                     disabled: _.length === 0,
                     children: [
                       /* @__PURE__ */ e.jsx(
-                        Ua,
+                        Ya,
                         {
                           className: "h-5 w-[110px] px-1.5 text-[10px] focus:ring-0 focus:ring-offset-0",
                           onClick: (g) => g.stopPropagation(),
                           onPointerDown: (g) => g.stopPropagation(),
                           "aria-label": "Selected keyframe interpolation",
                           children: /* @__PURE__ */ e.jsx(
-                            Ya,
+                            Za,
                             {
                               placeholder: _.length === 0 ? "Interpolation" : "Mixed easing"
                             }
                           )
                         }
                       ),
-                      /* @__PURE__ */ e.jsx(Za, { children: Ai.map((g) => /* @__PURE__ */ e.jsx(vo, { value: g.value, className: "text-xs", children: g.label }, g.value)) })
+                      /* @__PURE__ */ e.jsx(qa, { children: Oi.map((g) => /* @__PURE__ */ e.jsx(vo, { value: g.value, className: "text-xs", children: g.label }, g.value)) })
                     ]
                   }
                 ),
@@ -9180,7 +9180,7 @@ const ph = n.memo(function({
                     },
                     disabled: _.length === 0,
                     title: "Copy selected keyframes",
-                    children: /* @__PURE__ */ e.jsx(Ll, { className: "w-3 h-3" })
+                    children: /* @__PURE__ */ e.jsx(il, { className: "w-3 h-3" })
                   }
                 ),
                 /* @__PURE__ */ e.jsx(
@@ -9194,7 +9194,7 @@ const ph = n.memo(function({
                     },
                     disabled: _.length === 0,
                     title: "Cut selected keyframes",
-                    children: /* @__PURE__ */ e.jsx(Rl, { className: "w-3 h-3" })
+                    children: /* @__PURE__ */ e.jsx(zl, { className: "w-3 h-3" })
                   }
                 ),
                 /* @__PURE__ */ e.jsx(
@@ -9208,7 +9208,7 @@ const ph = n.memo(function({
                     },
                     disabled: !u || !ge,
                     title: z ? "Move keyframes from clipboard" : "Paste keyframes",
-                    children: /* @__PURE__ */ e.jsx(Nm, { className: "w-3 h-3" })
+                    children: /* @__PURE__ */ e.jsx(rm, { className: "w-3 h-3" })
                   }
                 ),
                 z && ge && /* @__PURE__ */ e.jsx("span", { className: "text-[10px] font-medium text-primary", children: "Cut" }),
@@ -9236,7 +9236,7 @@ const ph = n.memo(function({
               "flex min-h-0 flex-col p-2",
               c && "min-h-0 flex-1 overflow-auto"
             ),
-            style: c ? void 0 : { height: Ft },
+            style: c ? void 0 : { height: Mt },
             children: [
               Yn && /* @__PURE__ */ e.jsxs(
                 "div",
@@ -9246,9 +9246,9 @@ const ph = n.memo(function({
                   children: [
                     yt && ie && /* @__PURE__ */ e.jsxs("div", { className: "flex flex-wrap items-center gap-2 text-xs", children: [
                       /* @__PURE__ */ e.jsx("span", { className: "font-medium text-foreground", children: "Bezier" }),
-                      /* @__PURE__ */ e.jsxs(Ga, { value: Te, onValueChange: pt, children: [
-                        /* @__PURE__ */ e.jsx(Ua, { className: "h-7 w-[130px] text-xs focus:ring-0 focus:ring-offset-0", children: /* @__PURE__ */ e.jsx(Ya, { placeholder: "Preset" }) }),
-                        /* @__PURE__ */ e.jsxs(Za, { children: [
+                      /* @__PURE__ */ e.jsxs(Ua, { value: Te, onValueChange: pt, children: [
+                        /* @__PURE__ */ e.jsx(Ya, { className: "h-7 w-[130px] text-xs focus:ring-0 focus:ring-offset-0", children: /* @__PURE__ */ e.jsx(Za, { placeholder: "Preset" }) }),
+                        /* @__PURE__ */ e.jsxs(qa, { children: [
                           ko.map((g) => /* @__PURE__ */ e.jsx(vo, { value: g.value, className: "text-xs", children: g.label }, g.value)),
                           /* @__PURE__ */ e.jsx(vo, { value: "custom", className: "text-xs", children: "Custom" })
                         ] })
@@ -9326,7 +9326,7 @@ const ph = n.memo(function({
                 }
               ),
               u && b > 0 ? /* @__PURE__ */ e.jsx($m, { level: "component", children: /* @__PURE__ */ e.jsx(
-                Vu,
+                sm,
                 {
                   itemId: u.id,
                   keyframesByProperty: ve,
@@ -9359,7 +9359,7 @@ const ph = n.memo(function({
                   hasKeyframeClipboard: !!ge?.keyframes.length,
                   isKeyframeClipboardCut: z,
                   selectedInterpolation: ce,
-                  interpolationOptions: Ai,
+                  interpolationOptions: Oi,
                   onInterpolationChange: nt,
                   interpolationDisabled: _.length === 0,
                   onNavigateToKeyframe: Ut,
@@ -9373,8 +9373,8 @@ const ph = n.memo(function({
       ]
     }
   );
-}), $p = fm, Bp = pm, Ql = n.forwardRef(({ className: r, align: t = "center", sideOffset: s = 4, ...o }, i) => /* @__PURE__ */ e.jsx(mm, { container: Nn(), children: /* @__PURE__ */ e.jsx(
-  Ml,
+}), $p = Am, Bp = Om, ec = n.forwardRef(({ className: r, align: t = "center", sideOffset: s = 4, ...o }, i) => /* @__PURE__ */ e.jsx(Lm, { container: Nn(), children: /* @__PURE__ */ e.jsx(
+  _l,
   {
     ref: i,
     align: t,
@@ -9391,14 +9391,14 @@ const ph = n.memo(function({
     ...o
   }
 ) }));
-Ql.displayName = Ml.displayName;
-function _i({ media: r, triggerClassName: t }) {
-  const s = wr(r.mimeType), o = s === "video" ? "Video" : s === "audio" ? "Audio" : "Image", i = [];
-  if (i.push({ icon: /* @__PURE__ */ e.jsx(Mm, { className: "w-3 h-3" }), label: "Type", value: `${o} (${r.mimeType.split("/")[1]})` }), (s === "video" || s === "audio") && r.duration > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(Rm, { className: "w-3 h-3" }), label: "Duration", value: Xs(r.duration) }), (s === "video" || s === "image") && r.width > 0 && r.height > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(Dm, { className: "w-3 h-3" }), label: "Dimensions", value: `${r.width} × ${r.height}` }), r.codec && r.codec !== "importing...") {
+ec.displayName = _l.displayName;
+function zi({ media: r, triggerClassName: t }) {
+  const s = Ir(r.mimeType), o = s === "video" ? "Video" : s === "audio" ? "Audio" : "Image", i = [];
+  if (i.push({ icon: /* @__PURE__ */ e.jsx(lm, { className: "w-3 h-3" }), label: "Type", value: `${o} (${r.mimeType.split("/")[1]})` }), (s === "video" || s === "audio") && r.duration > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(cm, { className: "w-3 h-3" }), label: "Duration", value: Xs(r.duration) }), (s === "video" || s === "image") && r.width > 0 && r.height > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(dm, { className: "w-3 h-3" }), label: "Dimensions", value: `${r.width} × ${r.height}` }), r.codec && r.codec !== "importing...") {
     let c = r.codec;
     r.audioCodec && (c += ` / ${r.audioCodec}`), i.push({ icon: /* @__PURE__ */ e.jsx(Cr, { className: "w-3 h-3" }), label: "Codec", value: c });
   }
-  return i.push({ icon: /* @__PURE__ */ e.jsx(Em, { className: "w-3 h-3" }), label: "Size", value: Uu(r.fileSize) }), s === "video" && r.fps > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(Cr, { className: "w-3 h-3" }), label: "Frame Rate", value: `${r.fps.toFixed(2)} fps` }), /* @__PURE__ */ e.jsxs($p, { children: [
+  return i.push({ icon: /* @__PURE__ */ e.jsx(mm, { className: "w-3 h-3" }), label: "Size", value: um(r.fileSize) }), s === "video" && r.fps > 0 && i.push({ icon: /* @__PURE__ */ e.jsx(Cr, { className: "w-3 h-3" }), label: "Frame Rate", value: `${r.fps.toFixed(2)} fps` }), /* @__PURE__ */ e.jsxs($p, { children: [
     /* @__PURE__ */ e.jsx(Bp, { asChild: !0, children: /* @__PURE__ */ e.jsx(
       "button",
       {
@@ -9406,11 +9406,11 @@ function _i({ media: r, triggerClassName: t }) {
         onClick: (c) => c.stopPropagation(),
         className: t ?? "p-0.5 rounded bg-black/60 text-white/80 hover:text-white hover:bg-black/80 transition-colors",
         title: "Media info",
-        children: /* @__PURE__ */ e.jsx(Al, { className: "w-3 h-3" })
+        children: /* @__PURE__ */ e.jsx(ll, { className: "w-3 h-3" })
       }
     ) }),
     /* @__PURE__ */ e.jsxs(
-      Ql,
+      ec,
       {
         side: "right",
         align: "start",
@@ -9434,19 +9434,19 @@ function _i({ media: r, triggerClassName: t }) {
     )
   ] });
 }
-const ec = "group relative panel-bg border-2 rounded-lg overflow-hidden transition-colors aspect-square flex flex-col", tc = "group panel-bg border rounded overflow-hidden transition-colors flex items-center gap-2 px-2 py-1", Ks = {
+const tc = "group relative panel-bg border-2 rounded-lg overflow-hidden transition-colors aspect-square flex flex-col", nc = "group panel-bg border rounded overflow-hidden transition-colors flex items-center gap-2 px-2 py-1", Ks = {
   contain: "layout style paint",
   contentVisibility: "auto"
 };
 function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubleClick: i, onDelete: c, onRelink: m, viewMode: d = "grid" }) {
   const [b, M] = n.useState(null), [R, N] = n.useState(null), w = me((x) => x.selectedMediaIds), f = me((x) => x.mediaItems), T = me((x) => x.importingIds), H = me((x) => x.proxyStatus.get(r.id)), E = me((x) => x.proxyProgress.get(r.id));
   me((x) => x.transcriptStatus.get(r.id) ?? "idle");
-  const K = me((x) => x.transcriptProgress.get(r.id)), $ = wr(r.mimeType), v = T.includes(r.id), Y = rl, S = jn.needsProxy(
+  const K = me((x) => x.transcriptProgress.get(r.id)), $ = Ir(r.mimeType), v = T.includes(r.id), Y = dl, S = jn.needsProxy(
     r.width,
     r.height,
     r.mimeType,
     r.audioCodec
-  ), J = H === "ready", [A, p] = n.useState(!1), u = n.useRef(null), L = n.useRef(null), I = n.useRef(null), h = n.useRef(null), V = Pt((x) => x.setMediaSkimPreview), C = Pt((x) => x.clearMediaSkimPreview), D = $ === "audio" && !s && !v;
+  ), J = H === "ready", [A, p] = n.useState(!1), u = n.useRef(null), L = n.useRef(null), I = n.useRef(null), h = n.useRef(null), V = Ft((x) => x.setMediaSkimPreview), C = Ft((x) => x.clearMediaSkimPreview), D = $ === "audio" && !s && !v;
   n.useEffect(() => {
     let x = !0;
     return (async () => {
@@ -9488,7 +9488,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
         type: "media-items",
         items: w.map((ve) => f.find((F) => F.id === ve)).filter((ve) => ve !== void 0).map((ve) => ({
           mediaId: ve.id,
-          mediaType: wr(ve.mimeType),
+          mediaType: Ir(ve.mimeType),
           fileName: ve.fileName,
           duration: ve.duration
         }))
@@ -9512,7 +9512,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
       _.src = oe.src, _.style.cssText = "width:100%;height:100%;object-fit:cover;", F.appendChild(_), document.body.appendChild(F), h.current = F, x.dataTransfer.setDragImage(F, xe / 2, ve / 2);
     }
   }, [w, r.id, r.fileName, r.duration, f, $]), z = n.useCallback(() => {
-    nl(), h.current && (document.body.removeChild(h.current), h.current = null);
+    cl(), h.current && (document.body.removeChild(h.current), h.current = null);
   }, []), te = (x) => {
     o?.(x);
   }, U = ($ === "video" || $ === "image") && !s && !v, De = $ === "video" && r.duration > 0 && !s && !v, Ce = n.useCallback((x) => {
@@ -9536,7 +9536,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
   n.useEffect(() => {
     if (U)
       return () => {
-        Pt.getState().mediaSkimPreviewMediaId === r.id && C();
+        Ft.getState().mediaSkimPreviewMediaId === r.id && C();
       };
   }, [U, C, r.id]), n.useEffect(() => () => {
     u.current && (u.current.pause(), URL.revokeObjectURL(u.current.src), u.current = null);
@@ -9569,7 +9569,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
       }
     }
   }, [A, r.id]);
-  K && `${Yu(K.stage)}${Math.round(Qi(K))}`;
+  K && `${fm(K.stage)}${Math.round(tl(K))}`;
   const j = () => {
     switch ($) {
       case "video":
@@ -9587,7 +9587,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
     {
       style: Ks,
       className: `
-          ${tc} cursor-pointer
+          ${nc} cursor-pointer
           ${t ? "border-primary ring-1 ring-primary/20" : "border-border hover:border-primary/50"}
           ${v ? "opacity-80 cursor-default" : ""}
         `,
@@ -9617,9 +9617,9 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
                 }
               ) : /* @__PURE__ */ e.jsx("div", { className: "w-full h-full flex items-center justify-center", children: j() }),
               v && /* @__PURE__ */ e.jsx("div", { className: "absolute inset-0 bg-black/60 flex items-center justify-center", children: /* @__PURE__ */ e.jsx(Qt, { className: "w-4 h-4 text-white animate-spin" }) }),
-              s && !v && /* @__PURE__ */ e.jsx("div", { className: "absolute top-0.5 right-0.5 p-0.5 rounded bg-destructive/90 text-destructive-foreground", children: /* @__PURE__ */ e.jsx(Ir, { className: "w-2.5 h-2.5" }) }),
+              s && !v && /* @__PURE__ */ e.jsx("div", { className: "absolute top-0.5 right-0.5 p-0.5 rounded bg-destructive/90 text-destructive-foreground", children: /* @__PURE__ */ e.jsx(wr, { className: "w-2.5 h-2.5" }) }),
               !s && !v && H === "generating" && /* @__PURE__ */ e.jsx("div", { className: "absolute bottom-0.5 right-0.5 p-0.5 rounded bg-primary/90 text-primary-foreground", children: /* @__PURE__ */ e.jsx(Qt, { className: "w-2.5 h-2.5 animate-spin" }) }),
-              !s && !v && J && /* @__PURE__ */ e.jsx("div", { className: "absolute bottom-0.5 right-0.5 p-0.5 rounded bg-green-500/90 text-black", children: /* @__PURE__ */ e.jsx(Ur, { className: "w-2.5 h-2.5" }) }),
+              !s && !v && J && /* @__PURE__ */ e.jsx("div", { className: "absolute bottom-0.5 right-0.5 p-0.5 rounded bg-green-500/90 text-black", children: /* @__PURE__ */ e.jsx(Yr, { className: "w-2.5 h-2.5" }) }),
               De && R !== null && /* @__PURE__ */ e.jsx(
                 "div",
                 {
@@ -9635,7 +9635,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
                   "aria-label": A ? "Stop audio" : "Play audio",
                   "aria-pressed": A,
                   className: "absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/30 transition-colors",
-                  children: /* @__PURE__ */ e.jsx("div", { className: `w-6 h-6 rounded-full flex items-center justify-center ${A ? "bg-white/90 text-black" : "bg-black/50 text-white"}`, children: A ? /* @__PURE__ */ e.jsx(qa, { className: "w-2.5 h-2.5 fill-current" }) : /* @__PURE__ */ e.jsx(Ja, { className: "w-3 h-3 fill-current ml-0.5" }) })
+                  children: /* @__PURE__ */ e.jsx("div", { className: `w-6 h-6 rounded-full flex items-center justify-center ${A ? "bg-white/90 text-black" : "bg-black/50 text-white"}`, children: A ? /* @__PURE__ */ e.jsx(Qa, { className: "w-2.5 h-2.5 fill-current" }) : /* @__PURE__ */ e.jsx(Ja, { className: "w-3 h-3 fill-current ml-0.5" }) })
                 }
               )
             ]
@@ -9652,45 +9652,45 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
         ] }) }),
         !v && /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-0.5 flex-shrink-0", children: [
           /* @__PURE__ */ e.jsx(
-            _i,
+            zi,
             {
               media: r,
               triggerClassName: "p-1 rounded text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-colors"
             }
           ),
-          /* @__PURE__ */ e.jsxs(es, { children: [
-            /* @__PURE__ */ e.jsx(ts, { asChild: !0, onClick: (x) => x.stopPropagation(), children: /* @__PURE__ */ e.jsx(
+          /* @__PURE__ */ e.jsxs(ts, { children: [
+            /* @__PURE__ */ e.jsx(ns, { asChild: !0, onClick: (x) => x.stopPropagation(), children: /* @__PURE__ */ e.jsx(
               Ze,
               {
                 variant: "ghost",
                 size: "icon",
                 className: "h-6 w-6 transition-all hover:bg-primary/20 hover:text-primary flex-shrink-0",
-                children: /* @__PURE__ */ e.jsx(Qa, { className: "w-3 h-3" })
+                children: /* @__PURE__ */ e.jsx(ei, { className: "w-3 h-3" })
               }
             ) }),
-            /* @__PURE__ */ e.jsxs(ns, { align: "start", onClick: (x) => x.stopPropagation(), children: [
-              s && m && /* @__PURE__ */ e.jsxs(Et, { onClick: (x) => {
+            /* @__PURE__ */ e.jsxs(rs, { align: "start", onClick: (x) => x.stopPropagation(), children: [
+              s && m && /* @__PURE__ */ e.jsxs(Pt, { onClick: (x) => {
                 x.stopPropagation(), m();
               }, className: "text-primary focus:text-primary", children: [
                 /* @__PURE__ */ e.jsx(Ln, { className: "w-3 h-3 mr-2" }),
                 "Relink File..."
               ] }),
-              S && !J && H !== "generating" && /* @__PURE__ */ e.jsxs(Et, { onClick: le, children: [
-                /* @__PURE__ */ e.jsx(Ur, { className: "w-3 h-3 mr-2" }),
+              S && !J && H !== "generating" && /* @__PURE__ */ e.jsxs(Pt, { onClick: le, children: [
+                /* @__PURE__ */ e.jsx(Yr, { className: "w-3 h-3 mr-2" }),
                 "Generate Proxy"
               ] }),
               Y,
               Y,
-              H === "generating" && /* @__PURE__ */ e.jsxs(Et, { disabled: !0, children: [
+              H === "generating" && /* @__PURE__ */ e.jsxs(Pt, { disabled: !0, children: [
                 /* @__PURE__ */ e.jsx(Qt, { className: "w-3 h-3 mr-2 animate-spin" }),
                 "Generating Proxy",
                 E != null ? ` (${Math.round(E * 100)}%)` : "..."
               ] }),
-              J && /* @__PURE__ */ e.jsxs(Et, { onClick: B, className: "text-destructive focus:text-destructive", children: [
+              J && /* @__PURE__ */ e.jsxs(Pt, { onClick: B, className: "text-destructive focus:text-destructive", children: [
                 /* @__PURE__ */ e.jsx(sn, { className: "w-3 h-3 mr-2" }),
                 "Delete Proxy"
               ] }),
-              /* @__PURE__ */ e.jsxs(Et, { onClick: G, className: "text-destructive focus:text-destructive", children: [
+              /* @__PURE__ */ e.jsxs(Pt, { onClick: G, className: "text-destructive focus:text-destructive", children: [
                 /* @__PURE__ */ e.jsx(sn, { className: "w-3 h-3 mr-2" }),
                 "Delete"
               ] })
@@ -9704,7 +9704,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
     {
       style: Ks,
       className: `
-        ${ec} cursor-pointer
+        ${tc} cursor-pointer
         ${t ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"}
         ${v ? "cursor-default" : ""}
       `,
@@ -9742,10 +9742,10 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
                 /* @__PURE__ */ e.jsx("div", { className: "text-[9px] text-white/60 uppercase tracking-wider", children: "Importing" })
               ] }),
               !v && /* @__PURE__ */ e.jsxs("div", { className: "absolute top-1 right-1 z-10 flex flex-col items-end gap-0.5", children: [
-                s && /* @__PURE__ */ e.jsx("div", { className: "p-1 rounded bg-destructive/90 text-destructive-foreground", children: /* @__PURE__ */ e.jsx(Ir, { className: "w-3 h-3" }) }),
+                s && /* @__PURE__ */ e.jsx("div", { className: "p-1 rounded bg-destructive/90 text-destructive-foreground", children: /* @__PURE__ */ e.jsx(wr, { className: "w-3 h-3" }) }),
                 !s && H === "generating" && /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-amber-500/90 text-black pointer-events-none", children: /* @__PURE__ */ e.jsx(Qt, { className: "w-2.5 h-2.5 animate-spin" }) }),
-                !s && J && /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-green-500/90 text-black pointer-events-none", children: /* @__PURE__ */ e.jsx(Ur, { className: "w-2.5 h-2.5" }) }),
-                /* @__PURE__ */ e.jsx("div", { className: "opacity-0 group-hover:opacity-100 transition-opacity", children: /* @__PURE__ */ e.jsx(_i, { media: r }) })
+                !s && J && /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-green-500/90 text-black pointer-events-none", children: /* @__PURE__ */ e.jsx(Yr, { className: "w-2.5 h-2.5" }) }),
+                /* @__PURE__ */ e.jsx("div", { className: "opacity-0 group-hover:opacity-100 transition-opacity", children: /* @__PURE__ */ e.jsx(zi, { media: r }) })
               ] }),
               D && /* @__PURE__ */ e.jsx(
                 "button",
@@ -9755,7 +9755,7 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
                   "aria-label": A ? "Stop audio" : "Play audio",
                   "aria-pressed": A,
                   className: "absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/30 transition-colors group/play",
-                  children: /* @__PURE__ */ e.jsx("div", { className: `w-10 h-10 rounded-full flex items-center justify-center transition-all ${A ? "bg-white/90 text-black" : "bg-black/50 text-white group-hover/play:bg-white/90 group-hover/play:text-black"}`, children: A ? /* @__PURE__ */ e.jsx(qa, { className: "w-4 h-4 fill-current" }) : /* @__PURE__ */ e.jsx(Ja, { className: "w-5 h-5 fill-current ml-0.5" }) })
+                  children: /* @__PURE__ */ e.jsx("div", { className: `w-10 h-10 rounded-full flex items-center justify-center transition-all ${A ? "bg-white/90 text-black" : "bg-black/50 text-white group-hover/play:bg-white/90 group-hover/play:text-black"}`, children: A ? /* @__PURE__ */ e.jsx(Qa, { className: "w-4 h-4 fill-current" }) : /* @__PURE__ */ e.jsx(Ja, { className: "w-5 h-5 fill-current ml-0.5" }) })
                 }
               ),
               !v && /* @__PURE__ */ e.jsxs("div", { className: "absolute inset-x-0 bottom-0 px-1.5 py-1 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-between gap-1 pointer-events-none", children: [
@@ -9778,39 +9778,39 @@ function Xp({ media: r, selected: t = !1, isBroken: s = !1, onSelect: o, onDoubl
         ),
         /* @__PURE__ */ e.jsx("div", { className: "px-1.5 py-1 bg-panel-bg/50 flex-shrink-0", children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center justify-between gap-1", children: [
           /* @__PURE__ */ e.jsx("div", { className: "flex-1 min-w-0", children: /* @__PURE__ */ e.jsx("h3", { className: "text-[10px] font-medium text-foreground truncate group-hover:text-primary transition-colors", children: r.fileName }) }),
-          !v && /* @__PURE__ */ e.jsxs(es, { children: [
-            /* @__PURE__ */ e.jsx(ts, { asChild: !0, onClick: (x) => x.stopPropagation(), children: /* @__PURE__ */ e.jsx(
+          !v && /* @__PURE__ */ e.jsxs(ts, { children: [
+            /* @__PURE__ */ e.jsx(ns, { asChild: !0, onClick: (x) => x.stopPropagation(), children: /* @__PURE__ */ e.jsx(
               Ze,
               {
                 variant: "ghost",
                 size: "icon",
                 className: "h-5 w-5 transition-all hover:bg-primary/20 hover:text-primary flex-shrink-0",
-                children: /* @__PURE__ */ e.jsx(Qa, { className: "w-2.5 h-2.5" })
+                children: /* @__PURE__ */ e.jsx(ei, { className: "w-2.5 h-2.5" })
               }
             ) }),
-            /* @__PURE__ */ e.jsxs(ns, { align: "start", onClick: (x) => x.stopPropagation(), children: [
-              s && m && /* @__PURE__ */ e.jsxs(Et, { onClick: (x) => {
+            /* @__PURE__ */ e.jsxs(rs, { align: "start", onClick: (x) => x.stopPropagation(), children: [
+              s && m && /* @__PURE__ */ e.jsxs(Pt, { onClick: (x) => {
                 x.stopPropagation(), m();
               }, className: "text-primary focus:text-primary", children: [
                 /* @__PURE__ */ e.jsx(Ln, { className: "w-3 h-3 mr-2" }),
                 "Relink File..."
               ] }),
-              S && !J && H !== "generating" && /* @__PURE__ */ e.jsxs(Et, { onClick: le, children: [
-                /* @__PURE__ */ e.jsx(Ur, { className: "w-3 h-3 mr-2" }),
+              S && !J && H !== "generating" && /* @__PURE__ */ e.jsxs(Pt, { onClick: le, children: [
+                /* @__PURE__ */ e.jsx(Yr, { className: "w-3 h-3 mr-2" }),
                 "Generate Proxy"
               ] }),
               Y,
               Y,
-              H === "generating" && /* @__PURE__ */ e.jsxs(Et, { disabled: !0, children: [
+              H === "generating" && /* @__PURE__ */ e.jsxs(Pt, { disabled: !0, children: [
                 /* @__PURE__ */ e.jsx(Qt, { className: "w-3 h-3 mr-2 animate-spin" }),
                 "Generating Proxy",
                 E != null ? ` (${Math.round(E * 100)}%)` : "..."
               ] }),
-              J && /* @__PURE__ */ e.jsxs(Et, { onClick: B, className: "text-destructive focus:text-destructive", children: [
+              J && /* @__PURE__ */ e.jsxs(Pt, { onClick: B, className: "text-destructive focus:text-destructive", children: [
                 /* @__PURE__ */ e.jsx(sn, { className: "w-3 h-3 mr-2" }),
                 "Delete Proxy"
               ] }),
-              /* @__PURE__ */ e.jsxs(Et, { onClick: G, className: "text-destructive focus:text-destructive", children: [
+              /* @__PURE__ */ e.jsxs(Pt, { onClick: G, className: "text-destructive focus:text-destructive", children: [
                 /* @__PURE__ */ e.jsx(sn, { className: "w-3 h-3 mr-2" }),
                 "Delete"
               ] })
@@ -9906,18 +9906,18 @@ const Ws = {
   3: "gap-2",
   4: "gap-3",
   5: "gap-3"
-}, No = an("MediaGrid"), nc = n.memo(function({
+}, No = an("MediaGrid"), rc = n.memo(function({
   onMediaSelect: t,
   viewMode: s = "grid",
   itemSize: o = 3,
   items: i,
   kubeezPendingForCategory: c
 }) {
-  const [m, d] = n.useState(!1), [b, M] = n.useState(null), R = n.useRef(null), N = sl(), w = i ?? N, f = me((B) => B.currentProjectId), T = me((B) => B.kubeezPendingGenerations), H = me((B) => B.isLoading), E = n.useMemo(() => {
+  const [m, d] = n.useState(!1), [b, M] = n.useState(null), R = n.useRef(null), N = ul(), w = i ?? N, f = me((B) => B.currentProjectId), T = me((B) => B.kubeezPendingGenerations), H = me((B) => B.isLoading), E = n.useMemo(() => {
     if (!f) return [];
     const B = T.filter((z) => z.projectId === f);
     return i !== void 0 ? c == null ? [] : B.filter((z) => z.filterMimeCategory === c) : B;
-  }, [f, T, c, i]), K = w.length > 0 || E.length > 0, $ = me((B) => B.selectedMediaIds), v = me((B) => B.selectedCompositionIds), Y = me((B) => B.brokenMediaIds), S = me((B) => B.toggleMediaSelection), J = me((B) => B.setSelection), A = me((B) => B.deleteMedia), p = me((B) => B.relinkMedia), u = me((B) => B.importMedia), L = Pt((B) => B.setSourcePreviewMediaId), I = n.useMemo(() => b ? ol([b]) : { itemIds: [], rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [b]), h = (B, ge) => {
+  }, [f, T, c, i]), K = w.length > 0 || E.length > 0, $ = me((B) => B.selectedMediaIds), v = me((B) => B.selectedCompositionIds), Y = me((B) => B.brokenMediaIds), S = me((B) => B.toggleMediaSelection), J = me((B) => B.setSelection), A = me((B) => B.deleteMedia), p = me((B) => B.relinkMedia), u = me((B) => B.importMedia), L = Ft((B) => B.setSourcePreviewMediaId), I = n.useMemo(() => b ? ml([b]) : { itemIds: [], rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [b]), h = (B, ge) => {
     if (ge?.shiftKey && R.current) {
       const z = w.findIndex((U) => U.id === R.current), te = w.findIndex((U) => U.id === B);
       if (z !== -1 && te !== -1) {
@@ -9936,7 +9936,7 @@ const Ws = {
     if (b) {
       d(!1);
       try {
-        I.itemIds.length > 0 && al(I.itemIds), await A(b);
+        I.itemIds.length > 0 && pl(I.itemIds), await A(b);
       } catch (B) {
         No.error("Failed to delete media:", B);
       } finally {
@@ -9988,7 +9988,7 @@ const Ws = {
         {
           className: "w-16 h-16 mx-auto mb-3 rounded-full border-2 border-dashed border-border flex items-center justify-center bg-secondary hover:border-primary/50 hover:bg-secondary/80 cursor-pointer transition-colors",
           onClick: le,
-          children: /* @__PURE__ */ e.jsx(Ol, { className: "w-8 h-8 text-muted-foreground" })
+          children: /* @__PURE__ */ e.jsx(fl, { className: "w-8 h-8 text-muted-foreground" })
         }
       ),
       /* @__PURE__ */ e.jsx("p", { className: "text-base font-bold text-foreground mb-1 tracking-wide", children: "NO MEDIA FILES" }),
@@ -10042,7 +10042,7 @@ const Ws = {
             '"? This action cannot be undone.'
           ] }),
           I.totalReferenceCount > 0 && /* @__PURE__ */ e.jsxs("div", { className: "flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-md", children: [
-            /* @__PURE__ */ e.jsx(rs, { className: "w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" }),
+            /* @__PURE__ */ e.jsx(Qr, { className: "w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" }),
             /* @__PURE__ */ e.jsxs("div", { className: "text-sm text-yellow-600 dark:text-yellow-400", children: [
               /* @__PURE__ */ e.jsx("p", { className: "font-medium", children: "Timeline clips will be removed" }),
               /* @__PURE__ */ e.jsxs("p", { className: "text-xs mt-1 text-yellow-600/80 dark:text-yellow-400/80", children: [
@@ -10091,7 +10091,7 @@ function Wp() {
     },
     [r, d, m, M, b]
   ), A = () => {
-    w && (ul([w.id]), M({
+    w && (vl([w.id]), M({
       mediaIds: m,
       compositionIds: d.filter((I) => I !== w.id)
     }), f(null));
@@ -10103,13 +10103,13 @@ function Wp() {
       return;
     }
     const h = E.trim();
-    h && h !== $t.getState().getComposition(I)?.name && Zu(I, h), H(null);
-  }, L = w ? il([w.id]) : { totalReferenceCount: 0 };
+    h && h !== $t.getState().getComposition(I)?.name && pm(I, h), H(null);
+  }, L = w ? hl([w.id]) : { totalReferenceCount: 0 };
   return r.length === 0 ? null : /* @__PURE__ */ e.jsxs(e.Fragment, { children: [
-    /* @__PURE__ */ e.jsxs(ll, { open: R, onOpenChange: N, children: [
-      /* @__PURE__ */ e.jsxs(cl, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
+    /* @__PURE__ */ e.jsxs(gl, { open: R, onOpenChange: N, children: [
+      /* @__PURE__ */ e.jsxs(xl, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
         /* @__PURE__ */ e.jsx(
-          Zs,
+          Ys,
           {
             className: Pe(
               "w-3 h-3 text-muted-foreground transition-transform",
@@ -10117,12 +10117,12 @@ function Wp() {
             )
           }
         ),
-        /* @__PURE__ */ e.jsx(Yr, { className: "w-3 h-3 text-violet-400" }),
+        /* @__PURE__ */ e.jsx(Ur, { className: "w-3 h-3 text-violet-400" }),
         /* @__PURE__ */ e.jsx("span", { className: "text-xs font-semibold tracking-wide uppercase text-muted-foreground", children: "Compound Clips" }),
         /* @__PURE__ */ e.jsx("span", { className: "text-[10px] tabular-nums text-muted-foreground/60", children: r.length })
       ] }),
       /* @__PURE__ */ e.jsx(
-        dl,
+        bl,
         {
           className: Pe(
             "pt-1 pb-2",
@@ -10211,16 +10211,16 @@ function Gp({
 }) {
   const f = n.useRef(null), T = n.useRef(null), [H, E] = n.useState(null), [K, $] = n.useState(null), v = $t(
     n.useCallback((z) => z.compositionById[r.id], [r.id])
-  ), Y = Pt((z) => z.setCompoundClipSkimPreview), S = Pt((z) => z.clearCompoundClipSkimPreview);
+  ), Y = Ft((z) => z.setCompoundClipSkimPreview), S = Ft((z) => z.clearCompoundClipSkimPreview);
   n.useEffect(() => {
     i && f.current && (f.current.focus(), f.current.select());
   }, [i]), n.useEffect(() => {
     let z = !0;
     return (async () => {
-      const U = await qu.getThumbnailBlobUrl(r.id);
+      const U = await hm.getThumbnailBlobUrl(r.id);
       z && E(U);
     })(), () => {
-      z = !1, Pt.getState().compoundClipSkimPreviewCompositionId === r.id && S();
+      z = !1, Ft.getState().compoundClipSkimPreviewCompositionId === r.id && S();
     };
   }, [S, r.id, v]);
   const J = n.useCallback(
@@ -10241,7 +10241,7 @@ function Gp({
     },
     [r, o]
   ), A = n.useCallback(() => {
-    nl();
+    cl();
   }, []), p = n.useCallback(() => {
     b(r);
   }, [r, b]), u = n.useCallback(
@@ -10283,7 +10283,7 @@ function Gp({
         onDoubleClick: p,
         style: Ks,
         className: Pe(
-          ec,
+          tc,
           o ? "opacity-50 cursor-not-allowed border-border" : Pe(
             "cursor-grab",
             s ? "border-violet-500 ring-2 ring-violet-500/20 shadow-lg shadow-violet-500/10" : "border-border hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/10"
@@ -10306,9 +10306,9 @@ function Gp({
                     alt: r.name,
                     className: "w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   }
-                ) : /* @__PURE__ */ e.jsx(Yr, { className: "w-8 h-8 text-violet-400/70" }),
+                ) : /* @__PURE__ */ e.jsx(Ur, { className: "w-8 h-8 text-violet-400/70" }),
                 /* @__PURE__ */ e.jsxs("div", { className: "absolute inset-x-0 bottom-0 px-1.5 py-1 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-between gap-1 pointer-events-none", children: [
-                  /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-violet-600/90 text-white", children: /* @__PURE__ */ e.jsx(Yr, { className: "w-2.5 h-2.5" }) }),
+                  /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-violet-600/90 text-white", children: /* @__PURE__ */ e.jsx(Ur, { className: "w-2.5 h-2.5" }) }),
                   /* @__PURE__ */ e.jsx("div", { className: "px-1 py-0.5 bg-black/70 border border-white/20 rounded text-[8px] font-mono text-white", children: ge })
                 ] }),
                 K !== null && /* @__PURE__ */ e.jsx(
@@ -10361,7 +10361,7 @@ function Gp({
         onDoubleClick: p,
         style: Ks,
         className: Pe(
-          tc,
+          nc,
           o ? "opacity-50 cursor-not-allowed border-border" : Pe(
             "cursor-grab",
             s ? "border-violet-500 ring-1 ring-violet-500/20" : "border-border hover:border-violet-500/50"
@@ -10384,7 +10384,7 @@ function Gp({
                     alt: r.name,
                     className: "w-full h-full object-contain"
                   }
-                ) : /* @__PURE__ */ e.jsx(Yr, { className: "w-5 h-5 text-violet-400" }),
+                ) : /* @__PURE__ */ e.jsx(Ur, { className: "w-5 h-5 text-violet-400" }),
                 K !== null && /* @__PURE__ */ e.jsx(
                   "div",
                   {
@@ -10408,7 +10408,7 @@ function Gp({
               }
             ) : /* @__PURE__ */ e.jsx("h3", { className: "text-xs font-medium text-foreground truncate", children: r.name }),
             /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-2 mt-0.5", children: [
-              /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-violet-600/90 text-white flex-shrink-0", children: /* @__PURE__ */ e.jsx(Yr, { className: "w-2.5 h-2.5" }) }),
+              /* @__PURE__ */ e.jsx("div", { className: "p-0.5 rounded bg-violet-600/90 text-white flex-shrink-0", children: /* @__PURE__ */ e.jsx(Ur, { className: "w-2.5 h-2.5" }) }),
               /* @__PURE__ */ e.jsxs("span", { className: "text-[10px] text-muted-foreground", children: [
                 ge,
                 " · ",
@@ -10437,7 +10437,7 @@ function Gp({
 }
 const Wr = an("MissingMediaDialog");
 function Up() {
-  const r = me((h) => h.showMissingMediaDialog), t = me((h) => h.closeMissingMediaDialog), s = me((h) => h.brokenMediaInfo), o = me((h) => h.relinkMedia), i = me((h) => h.relinkMediaBatch), c = me((h) => h.markMediaHealthy), m = Ys((h) => h.currentProject), d = m?.rootFolderHandle, b = m?.rootFolderName, [M, R] = n.useState(null), [N, w] = n.useState(!1), [f, T] = n.useState(!1), [H, E] = n.useState(/* @__PURE__ */ new Set()), [K, $] = n.useState(!1), v = n.useMemo(
+  const r = me((h) => h.showMissingMediaDialog), t = me((h) => h.closeMissingMediaDialog), s = me((h) => h.brokenMediaInfo), o = me((h) => h.relinkMedia), i = me((h) => h.relinkMediaBatch), c = me((h) => h.markMediaHealthy), m = Zs((h) => h.currentProject), d = m?.rootFolderHandle, b = m?.rootFolderName, [M, R] = n.useState(null), [N, w] = n.useState(!1), [f, T] = n.useState(!1), [H, E] = n.useState(/* @__PURE__ */ new Set()), [K, $] = n.useState(!1), v = n.useMemo(
     () => Array.from(s.values()).filter(
       (h) => !H.has(h.mediaId)
     ),
@@ -10528,7 +10528,7 @@ function Up() {
   return r && v.length === 0 ? (I(), null) : /* @__PURE__ */ e.jsx(Yo, { open: r, onOpenChange: (h) => !h && I(), children: /* @__PURE__ */ e.jsxs(eo, { className: "sm:max-w-[600px] max-h-[80vh]", children: [
     /* @__PURE__ */ e.jsxs(to, { children: [
       /* @__PURE__ */ e.jsxs(no, { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ e.jsx(Ir, { className: "w-5 h-5 text-destructive" }),
+        /* @__PURE__ */ e.jsx(wr, { className: "w-5 h-5 text-destructive" }),
         "Missing Media Files"
       ] }),
       /* @__PURE__ */ e.jsxs(ro, { children: [
@@ -10541,7 +10541,7 @@ function Up() {
     /* @__PURE__ */ e.jsxs("div", { className: "space-y-4 py-4", children: [
       /* @__PURE__ */ e.jsxs("div", { className: "flex gap-2 text-xs", children: [
         Y.length > 0 && /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-1 px-2 py-1 bg-yellow-500/10 border border-yellow-500/30 rounded", children: [
-          /* @__PURE__ */ e.jsx(rs, { className: "w-3 h-3 text-yellow-500" }),
+          /* @__PURE__ */ e.jsx(Qr, { className: "w-3 h-3 text-yellow-500" }),
           /* @__PURE__ */ e.jsxs("span", { children: [
             Y.length,
             " need permission"
@@ -10563,7 +10563,7 @@ function Up() {
           onClick: A,
           disabled: f,
           children: [
-            f ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(Pm, { className: "w-4 h-4 mr-2" }),
+            f ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(gm, { className: "w-4 h-4 mr-2" }),
             "Scan Project Folder (",
             b,
             ")"
@@ -10578,7 +10578,7 @@ function Up() {
           onClick: u,
           disabled: N,
           children: [
-            N ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(_l, { className: "w-4 h-4 mr-2" }),
+            N ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(yl, { className: "w-4 h-4 mr-2" }),
             d ? "Browse Another Folder..." : "Locate Folder (auto-match by filename)"
           ]
         }
@@ -10592,7 +10592,7 @@ function Up() {
               "div",
               {
                 className: `p-1.5 rounded ${h.errorType === "permission_denied" ? "bg-yellow-500/20" : "bg-destructive/20"}`,
-                children: h.errorType === "permission_denied" ? /* @__PURE__ */ e.jsx(rs, { className: "w-4 h-4 text-yellow-500" }) : /* @__PURE__ */ e.jsx(Gn, { className: "w-4 h-4 text-destructive" })
+                children: h.errorType === "permission_denied" ? /* @__PURE__ */ e.jsx(Qr, { className: "w-4 h-4 text-yellow-500" }) : /* @__PURE__ */ e.jsx(Gn, { className: "w-4 h-4 text-destructive" })
               }
             ),
             /* @__PURE__ */ e.jsxs("div", { className: "flex-1 min-w-0", children: [
@@ -10641,7 +10641,7 @@ function Zp({
   media: r,
   onSelect: t
 }) {
-  const [s, o] = n.useState(null), i = wr(r.mimeType), c = Yp[i] || Cr;
+  const [s, o] = n.useState(null), i = Ir(r.mimeType), c = Yp[i] || Cr;
   return n.useEffect(() => {
     let m = !0;
     return Wn.getThumbnailBlobUrl(r.id).then((d) => {
@@ -10732,7 +10732,7 @@ function qp({
 }
 const Ss = an("OrphanedClipsDialog"), Jp = {
   video: hn,
-  audio: El,
+  audio: sl,
   image: An
 };
 function Qp() {
@@ -10742,7 +10742,7 @@ function Qp() {
   ), K = n.useCallback(async () => {
     M(!0);
     try {
-      const p = Ju(E, o);
+      const p = xm(E, o);
       if (p.size === 0) {
         Ss.info("No auto-matches found");
         return;
@@ -10784,7 +10784,7 @@ function Qp() {
     /* @__PURE__ */ e.jsx(Yo, { open: r, onOpenChange: (p) => !p && A(), children: /* @__PURE__ */ e.jsxs(eo, { className: "max-h-[80vh] w-[min(92vw,960px)] max-w-[960px]", children: [
       /* @__PURE__ */ e.jsxs(to, { children: [
         /* @__PURE__ */ e.jsxs(no, { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ e.jsx(Ir, { className: "w-5 h-5 text-destructive" }),
+          /* @__PURE__ */ e.jsx(wr, { className: "w-5 h-5 text-destructive" }),
           "Missing Media References"
         ] }),
         /* @__PURE__ */ e.jsxs(ro, { children: [
@@ -10805,7 +10805,7 @@ function Qp() {
             onClick: K,
             disabled: b || o.length === 0,
             children: [
-              b ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(Fm, { className: "w-4 h-4 mr-2" }),
+              b ? /* @__PURE__ */ e.jsx(Ln, { className: "w-4 h-4 mr-2 animate-spin" }) : /* @__PURE__ */ e.jsx(_m, { className: "w-4 h-4 mr-2" }),
               "Auto-match from Library (by filename)"
             ]
           }
@@ -10905,7 +10905,7 @@ function eh({
   return /* @__PURE__ */ e.jsx(os, { open: r, onOpenChange: (i) => !i && o(), children: /* @__PURE__ */ e.jsxs(kr, { className: "sm:max-w-[500px] overflow-hidden", children: [
     /* @__PURE__ */ e.jsxs(Tr, { className: "overflow-hidden", children: [
       /* @__PURE__ */ e.jsxs(Mr, { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ e.jsx(Pl, { className: "w-5 h-5 text-yellow-500 shrink-0" }),
+        /* @__PURE__ */ e.jsx(ol, { className: "w-5 h-5 text-yellow-500 shrink-0" }),
         "Unsupported Audio Codec"
       ] }),
       /* @__PURE__ */ e.jsx(Rr, { asChild: !0, children: /* @__PURE__ */ e.jsxs("div", { className: "space-y-3", children: [
@@ -10919,7 +10919,7 @@ function eh({
           {
             className: "grid grid-cols-[auto_1fr_auto] items-center gap-2 p-2 bg-secondary/50 rounded text-sm",
             children: [
-              /* @__PURE__ */ e.jsx(Fl, { className: "w-4 h-4 text-muted-foreground" }),
+              /* @__PURE__ */ e.jsx(al, { className: "w-4 h-4 text-muted-foreground" }),
               /* @__PURE__ */ e.jsx("span", { className: "truncate", title: i.fileName, children: i.fileName }),
               /* @__PURE__ */ e.jsx("span", { className: "text-xs text-muted-foreground px-1.5 py-0.5 bg-secondary rounded uppercase whitespace-nowrap", children: i.audioCodec })
             ]
@@ -10950,7 +10950,7 @@ function nh({ text: r }) {
       onClick: o,
       className: "inline-flex items-center justify-center h-5 w-5 rounded hover:bg-muted transition-colors",
       title: "Copy to clipboard",
-      children: t ? /* @__PURE__ */ e.jsx(Hm, { className: "h-3 w-3 text-green-500" }) : /* @__PURE__ */ e.jsx(Ll, { className: "h-3 w-3 text-muted-foreground" })
+      children: t ? /* @__PURE__ */ e.jsx(Im, { className: "h-3 w-3 text-green-500" }) : /* @__PURE__ */ e.jsx(il, { className: "h-3 w-3 text-muted-foreground" })
     }
   );
 }
@@ -10960,7 +10960,7 @@ const rh = {
   image: An,
   gif: Cr
 };
-function zi(r) {
+function Hi(r) {
   return r === "video" ? "video" : r === "audio" ? "audio" : r === "image" ? "image" : null;
 }
 const sh = n.memo(function({
@@ -10975,15 +10975,15 @@ const sh = n.memo(function({
   itemSize: M
 }) {
   const R = rh[o], N = me((T) => T.currentProjectId), w = me((T) => T.kubeezPendingGenerations), f = n.useMemo(() => {
-    const T = zi(t);
+    const T = Hi(t);
     return !N || !T ? 0 : w.filter(
       (H) => H.projectId === N && H.filterMimeCategory === T
     ).length;
   }, [N, t, w]);
-  return /* @__PURE__ */ e.jsxs(ll, { open: c, onOpenChange: (T) => m(t, T), children: [
-    /* @__PURE__ */ e.jsxs(cl, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
+  return /* @__PURE__ */ e.jsxs(gl, { open: c, onOpenChange: (T) => m(t, T), children: [
+    /* @__PURE__ */ e.jsxs(xl, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
       /* @__PURE__ */ e.jsx(
-        Zs,
+        Ys,
         {
           className: Pe(
             "w-3 h-3 text-muted-foreground transition-transform",
@@ -10995,27 +10995,27 @@ const sh = n.memo(function({
       /* @__PURE__ */ e.jsx("span", { className: "text-xs font-semibold tracking-wide uppercase text-muted-foreground", children: s }),
       /* @__PURE__ */ e.jsx("span", { className: "text-[10px] tabular-nums text-muted-foreground/60", children: i.length + f })
     ] }),
-    /* @__PURE__ */ e.jsx(dl, { className: "pt-1 pb-2", children: /* @__PURE__ */ e.jsx(
-      nc,
+    /* @__PURE__ */ e.jsx(bl, { className: "pt-1 pb-2", children: /* @__PURE__ */ e.jsx(
+      rc,
       {
         items: i,
         onMediaSelect: d,
         viewMode: b,
         itemSize: M,
-        kubeezPendingForCategory: zi(t)
+        kubeezPendingForCategory: Hi(t)
       }
     ) })
   ] });
 }), hh = n.memo(function({ onMediaSelect: t }) {
   const s = n.useRef(null), o = n.useRef(null), i = n.useRef(!1), [c, m] = n.useState(!1), [d, b] = n.useState({ mediaIds: [], compositionIds: [] }), [M, R] = n.useState(() => /* @__PURE__ */ new Set(["video", "audio", "image", "gif"])), [N, w] = n.useState(!1);
   th((l) => l.open);
-  const f = me((l) => l.currentProjectId), T = me((l) => l.setCurrentProject), H = me((l) => l.loadMediaItems), E = me((l) => l.importMedia), K = me((l) => l.importHandles), $ = me((l) => l.deleteMediaBatch), v = me((l) => l.showNotification), Y = me((l) => l.searchQuery), S = me((l) => l.setSearchQuery), J = me((l) => l.filterByType), A = me((l) => l.setFilterByType), p = me((l) => l.sortBy), u = me((l) => l.setSortBy), L = me((l) => l.viewMode), I = me((l) => l.setViewMode), h = me((l) => l.mediaItemSize), V = me((l) => l.setMediaItemSize), C = me((l) => l.selectedMediaIds), D = me((l) => l.selectedCompositionIds), G = me((l) => l.setSelection), le = me((l) => l.mediaById), B = me((l) => l.clearSelection), ge = me((l) => l.error), z = me((l) => l.errorLink), te = me((l) => l.clearError), U = me((l) => l.notification), De = me((l) => l.clearNotification), Ce = me((l) => l.brokenMediaIds), ye = me((l) => l.openMissingMediaDialog), O = Ys((l) => l.currentProject?.id ?? null), W = me((l) => l.proxyStatus), Ie = me((l) => l.proxyProgress), re = me((l) => l.kubeezPendingGenerations), j = sl(), x = n.useMemo(() => {
+  const f = me((l) => l.currentProjectId), T = me((l) => l.setCurrentProject), H = me((l) => l.loadMediaItems), E = me((l) => l.importMedia), K = me((l) => l.importHandles), $ = me((l) => l.deleteMediaBatch), v = me((l) => l.showNotification), Y = me((l) => l.searchQuery), S = me((l) => l.setSearchQuery), J = me((l) => l.filterByType), A = me((l) => l.setFilterByType), p = me((l) => l.sortBy), u = me((l) => l.setSortBy), L = me((l) => l.viewMode), I = me((l) => l.setViewMode), h = me((l) => l.mediaItemSize), V = me((l) => l.setMediaItemSize), C = me((l) => l.selectedMediaIds), D = me((l) => l.selectedCompositionIds), G = me((l) => l.setSelection), le = me((l) => l.mediaById), B = me((l) => l.clearSelection), ge = me((l) => l.error), z = me((l) => l.errorLink), te = me((l) => l.clearError), U = me((l) => l.notification), De = me((l) => l.clearNotification), Ce = me((l) => l.brokenMediaIds), ye = me((l) => l.openMissingMediaDialog), O = Zs((l) => l.currentProject?.id ?? null), W = me((l) => l.proxyStatus), Ie = me((l) => l.proxyProgress), re = me((l) => l.kubeezPendingGenerations), j = ul(), x = n.useMemo(() => {
     const l = [], X = [], P = [], be = [], ae = [];
     for (const Me of j)
       if (Me.mimeType === "image/gif")
         be.push(Me);
       else {
-        const ut = wr(Me.mimeType);
+        const ut = Ir(Me.mimeType);
         ut === "video" ? X.push(Me) : ut === "audio" ? P.push(Me) : ae.push(Me);
       }
     const Be = f, at = (Me) => Be ? re.filter((ut) => ut.projectId === Be && ut.filterMimeCategory === Me).length : 0, Ge = at("video") > 0, Ve = at("audio") > 0, dt = at("image") > 0;
@@ -11062,7 +11062,7 @@ const sh = n.memo(function({
       }))
     ],
     [se, j]
-  ), { marqueeState: Te } = Hl({
+  ), { marqueeState: Te } = $l({
     containerRef: o,
     items: ie,
     enabled: ie.length > 0,
@@ -11158,7 +11158,7 @@ const sh = n.memo(function({
   }).length, [C, le, W]), Fe = n.useMemo(() => {
     const l = [];
     return d.mediaIds.length > 0 && l.push(`${d.mediaIds.length} media item${d.mediaIds.length === 1 ? "" : "s"}`), d.compositionIds.length > 0 && l.push(`${d.compositionIds.length} compound clip${d.compositionIds.length === 1 ? "" : "s"}`), l.join(" and ");
-  }, [d.compositionIds.length, d.mediaIds.length]), qe = n.useMemo(() => d.mediaIds.length > 0 ? ol(d.mediaIds) : { itemIds: [], rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [d.mediaIds]), nt = n.useMemo(() => d.compositionIds.length > 0 ? il(d.compositionIds) : { rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [d.compositionIds]), Je = qe.totalReferenceCount + nt.totalReferenceCount, pt = () => {
+  }, [d.compositionIds.length, d.mediaIds.length]), qe = n.useMemo(() => d.mediaIds.length > 0 ? ml(d.mediaIds) : { itemIds: [], rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [d.mediaIds]), nt = n.useMemo(() => d.compositionIds.length > 0 ? hl(d.compositionIds) : { rootReferenceCount: 0, nestedReferenceCount: 0, totalReferenceCount: 0 }, [d.compositionIds]), Je = qe.totalReferenceCount + nt.totalReferenceCount, pt = () => {
     _ !== 0 && (b({
       mediaIds: [...C],
       compositionIds: [...D]
@@ -11166,7 +11166,7 @@ const sh = n.memo(function({
   }, kt = async () => {
     m(!1);
     try {
-      qe.itemIds.length > 0 && al(qe.itemIds), d.mediaIds.length > 0 && await $(d.mediaIds), d.compositionIds.length > 0 && ul(d.compositionIds), B(), b({ mediaIds: [], compositionIds: [] });
+      qe.itemIds.length > 0 && pl(qe.itemIds), d.mediaIds.length > 0 && await $(d.mediaIds), d.compositionIds.length > 0 && vl(d.compositionIds), B(), b({ mediaIds: [], compositionIds: [] });
     } catch (l) {
       js.error("Delete failed:", l), b({ mediaIds: [], compositionIds: [] });
     }
@@ -11188,12 +11188,12 @@ const sh = n.memo(function({
               transition-colors duration-150`,
           title: "Import media files",
           children: [
-            /* @__PURE__ */ e.jsx(_l, { className: "w-3.5 h-3.5" }),
+            /* @__PURE__ */ e.jsx(yl, { className: "w-3.5 h-3.5" }),
             /* @__PURE__ */ e.jsx("span", { children: "Import" })
           ]
         }
       ),
-      rl,
+      dl,
       Ce.length > 0 && /* @__PURE__ */ e.jsxs(
         "button",
         {
@@ -11204,7 +11204,7 @@ const sh = n.memo(function({
                 transition-colors duration-150`,
           title: "View missing media files",
           children: [
-            /* @__PURE__ */ e.jsx(Ir, { className: "w-3.5 h-3.5" }),
+            /* @__PURE__ */ e.jsx(wr, { className: "w-3.5 h-3.5" }),
             /* @__PURE__ */ e.jsxs("span", { children: [
               Ce.length,
               " Missing"
@@ -11236,7 +11236,7 @@ const sh = n.memo(function({
                     transition-colors duration-150`,
             title: "Generate proxies for selected",
             children: [
-              /* @__PURE__ */ e.jsx(Ur, { className: "w-3 h-3" }),
+              /* @__PURE__ */ e.jsx(Yr, { className: "w-3 h-3" }),
               /* @__PURE__ */ e.jsxs("span", { children: [
                 "Proxy (",
                 Ne,
@@ -11282,7 +11282,7 @@ const sh = n.memo(function({
     ] }) }),
     U && /* @__PURE__ */ e.jsx("div", { className: `mx-4 mt-3 p-2.5 rounded text-xs animate-in slide-in-from-top-2 duration-200 ${U.type === "info" ? "bg-primary/10 border border-primary/30" : U.type === "warning" ? "bg-yellow-500/10 border border-yellow-500/30" : U.type === "success" ? "bg-green-500/10 border border-green-500/30" : "bg-destructive/10 border border-destructive/50"}`, children: /* @__PURE__ */ e.jsxs("div", { className: "flex items-center justify-between gap-2", children: [
       /* @__PURE__ */ e.jsxs("div", { className: "flex items-center gap-2 flex-1 min-w-0", children: [
-        /* @__PURE__ */ e.jsx(Al, { className: `w-3.5 h-3.5 flex-shrink-0 ${U.type === "info" ? "text-primary" : U.type === "warning" ? "text-yellow-500" : U.type === "success" ? "text-green-500" : "text-destructive"}` }),
+        /* @__PURE__ */ e.jsx(ll, { className: `w-3.5 h-3.5 flex-shrink-0 ${U.type === "info" ? "text-primary" : U.type === "warning" ? "text-yellow-500" : U.type === "success" ? "text-green-500" : "text-destructive"}` }),
         /* @__PURE__ */ e.jsx("p", { className: `leading-relaxed line-clamp-2 ${U.type === "info" ? "text-primary" : U.type === "warning" ? "text-yellow-600 dark:text-yellow-400" : U.type === "success" ? "text-green-600 dark:text-green-400" : "text-destructive"}`, children: U.message })
       ] }),
       /* @__PURE__ */ e.jsx(
@@ -11316,31 +11316,31 @@ const sh = n.memo(function({
         )
       ] }),
       /* @__PURE__ */ e.jsxs("div", { className: "@container flex items-center gap-1.5 min-w-0", children: [
-        /* @__PURE__ */ e.jsxs(es, { children: [
-          /* @__PURE__ */ e.jsx(ts, { asChild: !0, children: /* @__PURE__ */ e.jsxs(
+        /* @__PURE__ */ e.jsxs(ts, { children: [
+          /* @__PURE__ */ e.jsx(ns, { asChild: !0, children: /* @__PURE__ */ e.jsxs(
             Ze,
             {
               variant: "outline",
               size: "sm",
               className: `h-6 bg-secondary border text-[10px] px-2 flex-shrink-0 ${J ? "border-primary text-primary hover:bg-primary/10" : "border-border text-muted-foreground hover:border-primary/50 hover:text-primary"}`,
               children: [
-                /* @__PURE__ */ e.jsx(Lm, { className: "w-2.5 h-2.5" }),
+                /* @__PURE__ */ e.jsx(bm, { className: "w-2.5 h-2.5" }),
                 /* @__PURE__ */ e.jsx("span", { className: "hidden @[280px]:inline ml-1", children: J ? J.toUpperCase() : "ALL" })
               ]
             }
           ) }),
-          /* @__PURE__ */ e.jsxs(ns, { align: "start", className: "bg-popover border border-border", children: [
+          /* @__PURE__ */ e.jsxs(rs, { align: "start", className: "bg-popover border border-border", children: [
             /* @__PURE__ */ e.jsx(
-              Et,
+              Pt,
               {
                 onClick: () => A(null),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
                 children: "All Types"
               }
             ),
-            /* @__PURE__ */ e.jsx(Qu, { className: "bg-border" }),
+            /* @__PURE__ */ e.jsx(vm, { className: "bg-border" }),
             /* @__PURE__ */ e.jsxs(
-              Et,
+              Pt,
               {
                 onClick: () => A("video"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11351,7 +11351,7 @@ const sh = n.memo(function({
               }
             ),
             /* @__PURE__ */ e.jsxs(
-              Et,
+              Pt,
               {
                 onClick: () => A("audio"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11362,7 +11362,7 @@ const sh = n.memo(function({
               }
             ),
             /* @__PURE__ */ e.jsxs(
-              Et,
+              Pt,
               {
                 onClick: () => A("image"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11374,22 +11374,22 @@ const sh = n.memo(function({
             )
           ] })
         ] }),
-        /* @__PURE__ */ e.jsxs(es, { children: [
-          /* @__PURE__ */ e.jsx(ts, { asChild: !0, children: /* @__PURE__ */ e.jsxs(
+        /* @__PURE__ */ e.jsxs(ts, { children: [
+          /* @__PURE__ */ e.jsx(ns, { asChild: !0, children: /* @__PURE__ */ e.jsxs(
             Ze,
             {
               variant: "outline",
               size: "sm",
               className: "h-6 bg-secondary border border-border text-muted-foreground hover:border-primary/50 hover:text-primary text-[10px] px-2 flex-shrink-0",
               children: [
-                /* @__PURE__ */ e.jsx(Am, { className: "w-2.5 h-2.5" }),
+                /* @__PURE__ */ e.jsx(ym, { className: "w-2.5 h-2.5" }),
                 /* @__PURE__ */ e.jsx("span", { className: "hidden @[280px]:inline ml-1", children: p === "name" ? "NAME" : p === "date" ? "DATE" : "SIZE" })
               ]
             }
           ) }),
-          /* @__PURE__ */ e.jsxs(ns, { align: "start", className: "bg-popover border border-border", children: [
+          /* @__PURE__ */ e.jsxs(rs, { align: "start", className: "bg-popover border border-border", children: [
             /* @__PURE__ */ e.jsx(
-              Et,
+              Pt,
               {
                 onClick: () => u("date"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11397,7 +11397,7 @@ const sh = n.memo(function({
               }
             ),
             /* @__PURE__ */ e.jsx(
-              Et,
+              Pt,
               {
                 onClick: () => u("name"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11405,7 +11405,7 @@ const sh = n.memo(function({
               }
             ),
             /* @__PURE__ */ e.jsx(
-              Et,
+              Pt,
               {
                 onClick: () => u("size"),
                 className: "text-xs hover:bg-accent hover:text-accent-foreground",
@@ -11435,7 +11435,7 @@ const sh = n.memo(function({
                 size: "sm",
                 onClick: () => I("grid"),
                 className: `h-6 w-6 p-0 rounded-none rounded-l ${L === "grid" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"}`,
-                children: /* @__PURE__ */ e.jsx(Om, { className: "w-3 h-3" })
+                children: /* @__PURE__ */ e.jsx(wm, { className: "w-3 h-3" })
               }
             ),
             /* @__PURE__ */ e.jsx(
@@ -11445,7 +11445,7 @@ const sh = n.memo(function({
                 size: "sm",
                 onClick: () => I("list"),
                 className: `h-6 w-6 p-0 rounded-none rounded-r ${L === "list" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground"}`,
-                children: /* @__PURE__ */ e.jsx(_m, { className: "w-3 h-3" })
+                children: /* @__PURE__ */ e.jsx(zm, { className: "w-3 h-3" })
               }
             )
           ] })
@@ -11459,7 +11459,7 @@ const sh = n.memo(function({
           onClick: fe,
           className: "flex items-center gap-1.5 text-xs text-violet-300 hover:text-violet-100 transition-colors",
           children: [
-            /* @__PURE__ */ e.jsx(zm, { className: "w-3.5 h-3.5" }),
+            /* @__PURE__ */ e.jsx(Hm, { className: "w-3.5 h-3.5" }),
             /* @__PURE__ */ e.jsx("span", { children: "Back" })
           ]
         }
@@ -11479,7 +11479,7 @@ const sh = n.memo(function({
           onDragLeave: Ye,
           onDrop: Xe,
           children: [
-            /* @__PURE__ */ e.jsx(Ul, { marqueeState: Te }),
+            /* @__PURE__ */ e.jsx(Yl, { marqueeState: Te }),
             /* @__PURE__ */ e.jsx(Wp, {}),
             x.map((l) => /* @__PURE__ */ e.jsx(
               sh,
@@ -11500,7 +11500,7 @@ const sh = n.memo(function({
               l.key
             )),
             x.length === 0 && /* @__PURE__ */ e.jsx(
-              nc,
+              rc,
               {
                 onMediaSelect: t,
                 viewMode: L,
@@ -11516,7 +11516,7 @@ const sh = n.memo(function({
         /* @__PURE__ */ e.jsx("div", { className: "absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-primary" }),
         /* @__PURE__ */ e.jsx("div", { className: "absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-primary" }),
         /* @__PURE__ */ e.jsxs("div", { className: "flex flex-col items-center gap-4", children: [
-          /* @__PURE__ */ e.jsx("div", { className: "w-16 h-16 rounded-full flex items-center justify-center bg-primary/20 border-2 border-primary", children: /* @__PURE__ */ e.jsx(Ol, { className: "w-7 h-7 text-primary animate-bounce" }) }),
+          /* @__PURE__ */ e.jsx("div", { className: "w-16 h-16 rounded-full flex items-center justify-center bg-primary/20 border-2 border-primary", children: /* @__PURE__ */ e.jsx(fl, { className: "w-7 h-7 text-primary animate-bounce" }) }),
           /* @__PURE__ */ e.jsx("p", { className: "text-base font-bold tracking-wide text-primary", children: "DROP FILES HERE" }),
           /* @__PURE__ */ e.jsxs("div", { className: "flex flex-wrap justify-center gap-2 mt-2", children: [
             /* @__PURE__ */ e.jsx("span", { className: "px-2 py-0.5 bg-secondary border border-border rounded text-xs font-mono text-muted-foreground", children: "MP4" }),
@@ -11572,7 +11572,7 @@ const sh = n.memo(function({
                 "? This action cannot be undone."
               ] }),
               Je > 0 && /* @__PURE__ */ e.jsxs("div", { className: "flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-md", children: [
-                /* @__PURE__ */ e.jsx(rs, { className: "w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" }),
+                /* @__PURE__ */ e.jsx(Qr, { className: "w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" }),
                 /* @__PURE__ */ e.jsxs("div", { className: "text-sm text-yellow-600 dark:text-yellow-400", children: [
                   /* @__PURE__ */ e.jsx("p", { className: "font-medium", children: "Linked instances will be removed" }),
                   /* @__PURE__ */ e.jsxs("p", { className: "text-xs mt-1 text-yellow-600/80 dark:text-yellow-400/80", children: [
@@ -11615,10 +11615,10 @@ const sh = n.memo(function({
 export {
   $m as E,
   ph as K,
-  Ul as M,
+  Yl as M,
   $o as S,
-  $l as T,
-  Hl as a,
+  Bl as T,
+  $l as a,
   hh as b,
   fh as c,
   Vm as i,
