@@ -1,4 +1,173 @@
-import { aq as C, ao as b, D as f } from "./sample-Ct6b2DQW.js";
+const $i = /(^|[^a-z0-9])(ac-?3|ec-?3|e-?ac-?3|eac3)([^a-z0-9]|$)/i;
+let bt = null;
+function zi(t) {
+  if (!t) return !1;
+  const x = t.toLowerCase().trim();
+  return $i.test(x) ? !0 : x.replace(/[_-]+/g, " ").includes("dolby digital");
+}
+async function Vi() {
+  return bt || (bt = (async () => {
+    const { registerAc3Decoder: t } = await Promise.resolve().then(function() {
+      return j8;
+    });
+    try {
+      t();
+    } catch (x) {
+      const e = x instanceof Error ? x.message : String(x);
+      if (!/already registered/i.test(e))
+        throw x;
+    }
+  })()), bt;
+}
+const Ct = /* @__PURE__ */ new Map();
+async function Ki() {
+  return Promise.resolve().then(function() {
+    return f8;
+  });
+}
+self.onmessage = async (t) => {
+  const { type: x } = t.data;
+  if (x === "abort") {
+    const n = Ct.get(t.data.requestId);
+    n && (n.aborted = !0);
+    return;
+  }
+  if (x !== "generate") return;
+  const { requestId: e, blobUrl: A, samplesPerSecond: r, binDurationSec: F = 30 } = t.data, i = { aborted: !1 };
+  Ct.set(e, i);
+  let s = null;
+  try {
+    self.postMessage({ type: "progress", requestId: e, progress: 5 });
+    const n = await Ki(), { Input: a, UrlSource: o, AudioSampleSink: f, ALL_FORMATS: c } = n;
+    if (i.aborted) throw new Error("Aborted");
+    const v = new a({
+      source: new o(A),
+      formats: c
+    });
+    s = v;
+    const u = await v.getPrimaryAudioTrack();
+    if (!u) {
+      const H = await v.computeDuration(), O = typeof H == "number" && Number.isFinite(H) && H > 0 ? H : 1;
+      if (i.aborted)
+        throw new Error("Aborted");
+      const $ = !1, K = 1, Z = Math.max(1, Math.ceil(O * r)), f0 = new Float32Array(Z), h0 = Math.max(1, Math.round(r * F));
+      self.postMessage({ type: "progress", requestId: e, progress: 20 }), self.postMessage({
+        type: "init",
+        requestId: e,
+        duration: O,
+        channels: K,
+        sampleRate: r,
+        totalSamples: f0.length,
+        stereo: $
+      });
+      let G0 = 0;
+      for (; G0 < f0.length; ) {
+        const w0 = Math.min(G0 + h0, f0.length), _e = f0.slice(G0, w0);
+        self.postMessage(
+          {
+            type: "chunk",
+            requestId: e,
+            startIndex: G0,
+            peaks: _e
+          },
+          { transfer: [_e.buffer] }
+        ), G0 = w0;
+      }
+      self.postMessage({ type: "progress", requestId: e, progress: 95 }), self.postMessage({
+        type: "complete",
+        requestId: e,
+        maxPeak: 0
+      });
+      return;
+    }
+    const l = typeof u.codec == "string" ? u.codec : void 0;
+    zi(l) && await Vi(), self.postMessage({ type: "progress", requestId: e, progress: 10 });
+    const D = u.sampleRate || 0, b = D > 0 ? D : 48e3, B = u.numberOfChannels || 1, j = await u.computeDuration();
+    if (i.aborted) throw new Error("Aborted");
+    const E = new f(u), h = B >= 2, m = Math.max(1, Math.ceil(j * r)), k = m * (h ? 2 : 1), p = new Float32Array(k), g = Math.max(1, Math.round(r * F * (h ? 2 : 1)));
+    let q = 0, S = 0, P = 0;
+    self.postMessage({ type: "progress", requestId: e, progress: 20 }), self.postMessage({
+      type: "init",
+      requestId: e,
+      duration: j,
+      channels: B,
+      sampleRate: r,
+      totalSamples: k,
+      stereo: h
+    });
+    const _ = (H, O) => {
+      if (O <= H) return;
+      const $ = p.slice(H, O);
+      self.postMessage(
+        {
+          type: "chunk",
+          requestId: e,
+          startIndex: H,
+          peaks: $
+        },
+        { transfer: [$.buffer] }
+      );
+    };
+    for await (const H of E.samples())
+      try {
+        if (i.aborted)
+          throw new Error("Aborted");
+        const O = H.numberOfFrames, $ = Math.max(1, H.numberOfChannels), K = H, Z = K.sampleRate && K.sampleRate > 0 ? K.sampleRate : b, f0 = K.duration && K.duration > 0 ? K.duration : O / Z, h0 = Number.isFinite(K.timestamp) ? Math.max(0, K.timestamp) : q, G0 = Math.max(0, Math.floor(h0 * r)), w0 = [];
+        for (let m0 = 0; m0 < $; m0++) {
+          const Dx = new Float32Array(O);
+          H.copyTo(Dx, { planeIndex: m0, format: "f32-planar" }), w0.push(Dx);
+        }
+        for (let m0 = 0; m0 < O; m0++) {
+          const Dx = Math.min(
+            m - 1,
+            G0 + Math.floor(m0 * r / Z)
+          );
+          if (h) {
+            const Bx = Math.abs(w0[0][m0] ?? 0), V0 = Math.abs(w0[Math.min(1, $ - 1)][m0] ?? 0), Rx = Dx * 2, ir = Dx * 2 + 1;
+            Bx > p[Rx] && (p[Rx] = Bx, Bx > P && (P = Bx)), V0 > p[ir] && (p[ir] = V0, V0 > P && (P = V0));
+          } else {
+            let Bx = 0;
+            for (let Rx = 0; Rx < $; Rx++)
+              Bx += w0[Rx][m0] ?? 0;
+            const V0 = Math.abs(Bx / $);
+            V0 > p[Dx] && (p[Dx] = V0, V0 > P && (P = V0));
+          }
+        }
+        q = Math.max(
+          q,
+          h0 + f0
+        );
+        const _e = Math.min(
+          k,
+          Math.floor(q * r) * (h ? 2 : 1)
+        );
+        for (; S + g <= _e; ) {
+          const m0 = S + g;
+          _(S, m0), S = m0;
+        }
+        const Oi = 20 + Math.min(
+          60,
+          Math.round(q / Math.max(j, 1e-3) * 60)
+        );
+        self.postMessage({ type: "progress", requestId: e, progress: Oi });
+      } finally {
+        H.close();
+      }
+    if (i.aborted) throw new Error("Aborted");
+    self.postMessage({ type: "progress", requestId: e, progress: 80 }), S < k && _(S, k), self.postMessage({ type: "progress", requestId: e, progress: 90 }), self.postMessage({ type: "progress", requestId: e, progress: 95 });
+    const z = {
+      type: "complete",
+      requestId: e,
+      maxPeak: P
+    };
+    self.postMessage(z);
+  } catch (n) {
+    const a = n instanceof Error ? n.message : "Unknown error";
+    a !== "Aborted" && self.postMessage({ type: "error", requestId: e, error: a });
+  } finally {
+    s?.dispose?.(), Ct.delete(e);
+  }
+};
 /*!
  * Copyright (c) 2026-present, Vanilagy and contributors
  *
@@ -6,34 +175,19211 @@ import { aq as C, ao as b, D as f } from "./sample-Ct6b2DQW.js";
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-var t = /* @__PURE__ */ ((x) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(x, {
-  get: (v, A) => (typeof require < "u" ? require : v)[A]
-}) : x)(function(x) {
-  if (typeof require < "u") return require.apply(this, arguments);
-  throw Error('Dynamic require of "' + x + '" is not supported');
-});
-function e(x) {
-  if (!x)
+function d(t) {
+  if (!t)
     throw new Error("Assertion failed.");
 }
-async function k(x) {
-  if (typeof Worker < "u" && typeof Bun > "u") {
-    const v = new Blob([x], { type: "text/javascript" }), A = URL.createObjectURL(v), F = new Worker(A, { type: typeof Deno < "u" ? "module" : void 0 });
-    return URL.revokeObjectURL(A), F;
-  } else {
-    let v;
-    try {
-      v = (await import("./__vite-browser-external-DJvW0Gyj.js").then(function(F) {
-        return F.n;
-      })).Worker;
-    } catch {
-      v = t("worker_threads").Worker;
-    }
-    return new v(x, { eval: !0 });
+const xt = (t) => {
+  const x = (t % 360 + 360) % 360;
+  if (x === 0 || x === 90 || x === 180 || x === 270)
+    return x;
+  throw new Error(`Invalid rotation ${t}.`);
+}, x0 = (t) => t && t[t.length - 1], Xx = (t) => t >= 0 && t < 2 ** 32, y = (t) => {
+  let x = 0;
+  for (; t.readBits(1) === 0 && x < 32; )
+    x++;
+  if (x >= 32)
+    throw new Error("Invalid exponential-Golomb code.");
+  return (1 << x) - 1 + t.readBits(x);
+}, Y0 = (t) => {
+  const x = y(t);
+  return (x & 1) === 0 ? -(x >> 1) : x + 1 >> 1;
+}, Wi = (t, x, e, A) => {
+  for (let r = x; r < e; r++) {
+    const F = Math.floor(r / 8);
+    let i = t[F];
+    const s = 7 - (r & 7);
+    i &= ~(1 << s), i |= (A & 1 << e - r - 1) >> e - r - 1 << s, t[F] = i;
+  }
+}, Q = (t) => t.constructor === Uint8Array ? t : ArrayBuffer.isView(t) ? new Uint8Array(t.buffer, t.byteOffset, t.byteLength) : new Uint8Array(t), U = (t) => t.constructor === DataView ? t : ArrayBuffer.isView(t) ? new DataView(t.buffer, t.byteOffset, t.byteLength) : new DataView(t), P0 = /* @__PURE__ */ new TextDecoder(), Y = /* @__PURE__ */ new TextEncoder(), Lx = (t) => {
+  for (let x = 0; x < t.length; x++)
+    if (t.charCodeAt(x) > 255)
+      return !1;
+  return !0;
+}, CA = (t) => Object.fromEntries(Object.entries(t).map(([x, e]) => [e, x])), _x = {
+  bt709: 1,
+  // ITU-R BT.709
+  bt470bg: 5,
+  // ITU-R BT.470BG
+  smpte170m: 6,
+  // ITU-R BT.601 525 - SMPTE 170M
+  bt2020: 9,
+  // ITU-R BT.202
+  smpte432: 12
+  // SMPTE EG 432-1
+}, Le = /* @__PURE__ */ CA(_x), Ix = {
+  bt709: 1,
+  // ITU-R BT.709
+  smpte170m: 6,
+  // SMPTE 170M
+  linear: 8,
+  // Linear transfer characteristics
+  "iec61966-2-1": 13,
+  // IEC 61966-2-1
+  pq: 16,
+  // Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system
+  hlg: 18
+  // Rec. ITU-R BT.2100-2 hybrid loggamma (HLG) system
+}, Ue = /* @__PURE__ */ CA(Ix), qx = {
+  rgb: 0,
+  // Identity
+  bt709: 1,
+  // ITU-R BT.709
+  bt470bg: 5,
+  // ITU-R BT.470BG
+  smpte170m: 6,
+  // SMPTE 170M
+  "bt2020-ncl": 9
+  // ITU-R BT.2020-2 (non-constant luminance)
+}, Oe = /* @__PURE__ */ CA(qx), Kr = (t) => !!t && !!t.primaries && !!t.transfer && !!t.matrix && t.fullRange !== void 0, et = (t) => t instanceof ArrayBuffer || typeof SharedArrayBuffer < "u" && t instanceof SharedArrayBuffer || ArrayBuffer.isView(t);
+class xe {
+  constructor() {
+    this.currentPromise = Promise.resolve(), this.pending = 0;
+  }
+  async acquire() {
+    let x;
+    const e = new Promise((r) => {
+      let F = !1;
+      x = () => {
+        F || (r(), this.pending--, F = !0);
+      };
+    }), A = this.currentPromise;
+    return this.currentPromise = e, this.pending++, await A, x;
   }
 }
-function a() {
-  return k(`var Fr=Object.defineProperty;var Ir=(e,a,r)=>a in e?Fr(e,a,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[a]=r;var FA=(e=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(e,{get:(a,r)=>(typeof require!="undefined"?require:a)[r]}):e)(function(e){if(typeof require!="undefined")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')});var IA=(e,a,r)=>Ir(e,typeof a!="symbol"?a+"":a,r);async function gr(e={}){var _A,bA,PA;var a,r=e,u=!!globalThis.window,o=!!globalThis.WorkerGlobalScope,E=((bA=(_A=globalThis.process)==null?void 0:_A.versions)==null?void 0:bA.node)&&((PA=globalThis.process)==null?void 0:PA.type)!="renderer",v=[],l="./this.program",q=(A,j)=>{throw j},F="",I="",R,g;if(u||o){try{I=new URL(".",F).href}catch(A){}o&&(g=A=>{var j=new XMLHttpRequest;return j.open("GET",A,!1),j.responseType="arraybuffer",j.send(null),new Uint8Array(j.response)}),R=async A=>{var j=await fetch(A,{credentials:"same-origin"});if(j.ok)return j.arrayBuffer();throw new Error(j.status+" : "+j.url)}}var G=console.log.bind(console),p=console.error.bind(console),f,_=!1,K;function Aj(A){for(var j=0,t=A.length,n=new Uint8Array(t),k;j<t;++j)k=A.charCodeAt(j),n[j]=~k>>8&k;return n}var N,T,O,x,z,jj,rj,b,tj,nj,y,ej,Z=!1;function AA(){var A=S.buffer;O=new Int8Array(A),z=new Int16Array(A),r.HEAPU8=x=new Uint8Array(A),jj=new Uint16Array(A),rj=new Int32Array(A),b=new Uint32Array(A),tj=new Float32Array(A),nj=new Float64Array(A),y=new BigInt64Array(A),ej=new BigUint64Array(A)}function kj(){if(r.preRun)for(typeof r.preRun=="function"&&(r.preRun=[r.preRun]);r.preRun.length;)Ej(r.preRun.shift());tA(eA)}function aj(){Z=!0,M.s()}function lj(){if(r.postRun)for(typeof r.postRun=="function"&&(r.postRun=[r.postRun]);r.postRun.length;)cj(r.postRun.shift());tA(nA)}function jA(A){var t;(t=r.onAbort)==null||t.call(r,A),A="Aborted("+A+")",p(A),_=!0,A+=". Build with -sASSERTIONS for more info.";var j=new WebAssembly.RuntimeError(A);throw T==null||T(j),j}var U;function ij(){return Aj(\`\\0asm\\0\\0\\0\\xFEG\\\`\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\0\\\`\\x7F\\x7F\\\`\\0\\0\\\`\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x07\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\\`||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F~~~~\\0\\\`\\0\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F}\\x7F\\0\\\`\\x7F~~\\x7F\\0\\\`\\x7F~\\0\\\`\\x7F}\\\`\\b\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`|||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\0|\\\`\\x7F\\x7F|\\\`\\x7F|\\x7F\\0\\\`\\x7F\\x7F{\\x7F\\0\\\`|\\x7F|\\\`\\x7F|\\0\\\`}\\x7F\\\`||\\x7F|\\\`}}\\\`\\x7F|\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F~~~\\0\\\`\\x7F~\\x7F~\\\`\\x7F\\x7F\\x7F}}\\0\\\`\\x7F\\x7F|\\x7F\\0\\\`\\x7F~\\x7F\\x7F\\\`\\x7F|\\x7F\\\`\\x7F~\\x7F\\x7F\\x7F\\\`}~\\\`\\x7F||\\\`\\x7F|||\\\`|\\x7F\\\`~~~\\x7F~\\\`|~\\\`~~~~\\x7F\\\`~\\x7F\\x7F\\\`\\x7F\\x7F~~~\\0\\\`\\x7F\\x7F\\x7F|\\x7F~\\x7F\\\`\\x7F\\x7F\\x7F~~\\\`~~|\\\`\\b\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`	\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`|\\x7F\\x7F\\\`\\x7F\\x7F~\\x7F\\\`\\f\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`
+const sr = (t) => [...t].map((x) => x.toString(16).padStart(2, "0")).join(""), nr = (t) => (t = t >> 1 & 1431655765 | (t & 1431655765) << 1, t = t >> 2 & 858993459 | (t & 858993459) << 2, t = t >> 4 & 252645135 | (t & 252645135) << 4, t = t >> 8 & 16711935 | (t & 16711935) << 8, t = t >> 16 & 65535 | (t & 65535) << 16, t >>> 0), Pe = (t, x, e) => {
+  let A = 0, r = t.length - 1, F = -1;
+  for (; A <= r; ) {
+    const i = A + r >> 1, s = e(t[i]);
+    s === x ? (F = i, r = i - 1) : s < x ? A = i + 1 : r = i - 1;
+  }
+  return F;
+}, J = (t, x, e) => {
+  let A = 0, r = t.length - 1, F = -1;
+  for (; A <= r; ) {
+    const i = A + (r - A + 1) / 2 | 0;
+    e(t[i]) <= x ? (F = i, A = i + 1) : r = i - 1;
+  }
+  return F;
+}, ar = (t, x, e) => {
+  const A = J(t, e(x), e);
+  t.splice(A + 1, 0, x);
+}, t0 = () => {
+  let t, x;
+  return { promise: new Promise((A, r) => {
+    t = A, x = r;
+  }), resolve: t, reject: x };
+}, Wr = (t, x) => {
+  for (let e = t.length - 1; e >= 0; e--)
+    if (x(t[e]))
+      return t[e];
+}, jA = (t, x) => {
+  for (let e = t.length - 1; e >= 0; e--)
+    if (x(t[e]))
+      return e;
+  return -1;
+}, Ji = async function* (t) {
+  Symbol.iterator in t ? yield* t[Symbol.iterator]() : yield* t[Symbol.asyncIterator]();
+}, Xi = (t) => {
+  if (!(Symbol.iterator in t) && !(Symbol.asyncIterator in t))
+    throw new TypeError("Argument must be an iterable or async iterable.");
+}, u0 = (t) => {
+  throw new Error(`Unexpected value: ${t}`);
+}, tt = (t, x, e) => {
+  const A = t.getUint8(x), r = t.getUint8(x + 1), F = t.getUint8(x + 2);
+  return e ? A | r << 8 | F << 16 : A << 16 | r << 8 | F;
+}, Qi = (t, x, e) => tt(t, x, e) << 8 >> 8, At = (t, x, e, A) => {
+  e = e >>> 0, e = e & 16777215, A ? (t.setUint8(x, e & 255), t.setUint8(x + 1, e >>> 8 & 255), t.setUint8(x + 2, e >>> 16 & 255)) : (t.setUint8(x, e >>> 16 & 255), t.setUint8(x + 1, e >>> 8 & 255), t.setUint8(x + 2, e & 255));
+}, Yi = (t, x, e, A) => {
+  e = n0(e, -8388608, 8388607), e < 0 && (e = e + 16777216 & 16777215), At(t, x, e, A);
+}, Zi = (t, x, e, A) => {
+  t.setUint32(x + 0, e, !0), t.setInt32(x + 4, Math.floor(e / 2 ** 32), !0);
+}, $e = (t, x) => ({
+  async next() {
+    const e = await t.next();
+    return e.done ? { value: void 0, done: !0 } : { value: x(e.value), done: !1 };
+  },
+  return() {
+    return t.return();
+  },
+  throw(e) {
+    return t.throw(e);
+  },
+  [Symbol.asyncIterator]() {
+    return this;
+  }
+}), n0 = (t, x, e) => Math.max(x, Math.min(e, t)), b0 = "und", Ee = (t) => {
+  const x = Math.round(t);
+  return Math.abs(t / x - 1) < 10 * Number.EPSILON ? x : t;
+}, zt = (t, x) => Math.round(t / x) * x, jt = (t, x) => Math.floor(t / x) * x, xs = (t) => {
+  let x = 0;
+  for (; t; )
+    x++, t >>= 1;
+  return x;
+}, es = /^[a-z]{3}$/, he = (t) => es.test(t), nx = 1e6 * (1 + Number.EPSILON), or = (t, x) => {
+  const e = { ...t, ...x };
+  if (t.headers || x.headers) {
+    const A = t.headers ? fr(t.headers) : {}, r = x.headers ? fr(x.headers) : {}, F = { ...A };
+    Object.entries(r).forEach(([i, s]) => {
+      const n = Object.keys(F).find((a) => a.toLowerCase() === i.toLowerCase());
+      n && delete F[n], F[i] = s;
+    }), e.headers = F;
+  }
+  return e;
+}, fr = (t) => {
+  if (t instanceof Headers) {
+    const x = {};
+    return t.forEach((e, A) => {
+      x[A] = e;
+    }), x;
+  }
+  if (Array.isArray(t)) {
+    const x = {};
+    return t.forEach(([e, A]) => {
+      x[e] = A;
+    }), x;
+  }
+  return t;
+}, cr = async (t, x, e, A, r) => {
+  let F = 0;
+  for (; ; )
+    try {
+      return await t(x, e);
+    } catch (i) {
+      if (r())
+        throw i;
+      F++;
+      const s = A(F, i, x);
+      if (s === null)
+        throw i;
+      if (console.error("Retrying failed fetch. Error:", i), !Number.isFinite(s) || s < 0)
+        throw new TypeError("Retry delay must be a non-negative finite number.");
+      if (s > 0 && await new Promise((n) => setTimeout(n, 1e3 * s)), r())
+        throw i;
+    }
+}, ts = (t, x) => {
+  const e = t < 0 ? -1 : 1;
+  t = Math.abs(t);
+  let A = 0, r = 1, F = 1, i = 0, s = t;
+  for (; ; ) {
+    const n = Math.floor(s), a = n * F + A, o = n * i + r;
+    if (o > x)
+      return {
+        numerator: e * F,
+        denominator: i
+      };
+    if (A = F, r = i, F = a, i = o, s = 1 / (s - n), !isFinite(s))
+      break;
+  }
+  return {
+    numerator: e * F,
+    denominator: i
+  };
+};
+class rt {
+  constructor() {
+    this.currentPromise = Promise.resolve();
+  }
+  call(x) {
+    return this.currentPromise = this.currentPromise.then(x);
+  }
+}
+let Et = null;
+const ue = () => Et !== null ? Et : Et = !!(typeof navigator < "u" && (navigator.vendor?.match(/apple/i) || /AppleWebKit/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) || /\b(iPad|iPhone|iPod)\b/.test(navigator.userAgent)));
+let ht = null;
+const Qx = () => ht !== null ? ht : ht = typeof navigator < "u" && navigator.userAgent?.includes("Firefox");
+let mt = null;
+const Vt = () => mt !== null ? mt : mt = !!(typeof navigator < "u" && (navigator.vendor?.includes("Google Inc") || /Chrome/.test(navigator.userAgent)));
+let pt = null;
+const As = () => {
+  if (pt !== null)
+    return pt;
+  if (typeof navigator > "u")
+    return null;
+  const t = /\bChrome\/(\d+)/.exec(navigator.userAgent);
+  return t ? pt = Number(t[1]) : null;
+}, Ux = (t, x) => t !== -1 ? t : x, Kt = (t, x, e, A) => t <= A && e <= x, ee = function* (t) {
+  for (const x in t) {
+    const e = t[x];
+    e !== void 0 && (yield { key: x, value: e });
+  }
+}, rs = (t) => {
+  switch (t.toLowerCase()) {
+    case "image/jpeg":
+    case "image/jpg":
+      return ".jpg";
+    case "image/png":
+      return ".png";
+    case "image/gif":
+      return ".gif";
+    case "image/webp":
+      return ".webp";
+    case "image/bmp":
+      return ".bmp";
+    case "image/svg+xml":
+      return ".svg";
+    case "image/tiff":
+      return ".tiff";
+    case "image/avif":
+      return ".avif";
+    case "image/x-icon":
+    case "image/vnd.microsoft.icon":
+      return ".ico";
+    default:
+      return null;
+  }
+}, Fs = (t) => {
+  const x = atob(t), e = new Uint8Array(x.length);
+  for (let A = 0; A < x.length; A++)
+    e[A] = x.charCodeAt(A);
+  return e;
+}, is = (t) => {
+  let x = "";
+  for (let e = 0; e < t.length; e++)
+    x += String.fromCharCode(t[e]);
+  return btoa(x);
+}, ss = (t, x) => {
+  if (t.length !== x.length)
+    return !1;
+  for (let e = 0; e < t.length; e++)
+    if (t[e] !== x[e])
+      return !1;
+  return !0;
+}, Jr = () => {
+  Symbol.dispose ??= Symbol("Symbol.dispose");
+}, te = (t) => typeof t == "number" && !Number.isNaN(t), Ft = (t) => {
+  d(t.den !== 0);
+  let x = Math.abs(t.num), e = Math.abs(t.den);
+  for (; e !== 0; ) {
+    const r = x % e;
+    x = e, e = r;
+  }
+  const A = x || 1;
+  return {
+    num: t.num / A,
+    den: t.den / A
+  };
+}, vr = (t, x) => {
+  if (typeof t != "object" || !t)
+    throw new TypeError(`${x} must be an object.`);
+  if (!Number.isInteger(t.left) || t.left < 0)
+    throw new TypeError(`${x}.left must be a non-negative integer.`);
+  if (!Number.isInteger(t.top) || t.top < 0)
+    throw new TypeError(`${x}.top must be a non-negative integer.`);
+  if (!Number.isInteger(t.width) || t.width < 0)
+    throw new TypeError(`${x}.width must be a non-negative integer.`);
+  if (!Number.isInteger(t.height) || t.height < 0)
+    throw new TypeError(`${x}.height must be a non-negative integer.`);
+};
+let ae, ns = 1;
+const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () => typeof window > "u", as = () => {
+  const t = /* @__PURE__ */ new Map(), x = /* @__PURE__ */ new Map();
+  self.onmessage = (e) => {
+    const A = e.data;
+    switch (A.type) {
+      case "set-timeout":
+        {
+          const r = setTimeout(() => {
+            t.delete(A.timerId), self.postMessage({ type: "fire", timerId: A.timerId });
+          }, A.delay);
+          t.set(A.timerId, r);
+        }
+        break;
+      case "set-interval":
+        {
+          const r = setInterval(() => {
+            self.postMessage({ type: "fire", timerId: A.timerId });
+          }, A.delay);
+          x.set(A.timerId, r);
+        }
+        break;
+      case "clear-timeout":
+        {
+          const r = t.get(A.timerId);
+          r !== void 0 && (clearTimeout(r), t.delete(A.timerId));
+        }
+        break;
+      case "clear-interval":
+        {
+          const r = x.get(A.timerId);
+          r !== void 0 && (clearInterval(r), x.delete(A.timerId));
+        }
+        break;
+    }
+  };
+}, Qr = () => {
+  if (ae)
+    return ae;
+  const t = `(${as.toString()})();`, x = URL.createObjectURL(new Blob([t], { type: "text/javascript" }));
+  return ae = new Worker(x), URL.revokeObjectURL(x), ae.onmessage = (e) => {
+    const A = e.data, r = lr.get(A.timerId);
+    if (r) {
+      lr.delete(A.timerId), r();
+      return;
+    }
+    const F = EA.get(A.timerId);
+    F && F();
+  }, ae;
+}, os = (t, x) => {
+  if (Xr())
+    return { id: setInterval(t, x) };
+  const e = ns++;
+  return EA.set(e, () => {
+    t();
+  }), Qr().postMessage({
+    type: "set-interval",
+    timerId: e,
+    delay: x
+  }), { id: e };
+}, fs = (t) => {
+  if (Xr()) {
+    clearInterval(t.id);
+    return;
+  }
+  d(typeof t.id == "number"), EA.delete(t.id), Qr().postMessage({
+    type: "clear-interval",
+    timerId: t.id
+  });
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class wx {
+  /** Creates a new {@link RichImageData}. */
+  constructor(x, e) {
+    if (this.data = x, this.mimeType = e, !(x instanceof Uint8Array))
+      throw new TypeError("data must be a Uint8Array.");
+    if (typeof e != "string")
+      throw new TypeError("mimeType must be a string.");
+  }
+}
+class it {
+  /** Creates a new {@link AttachedFile}. */
+  constructor(x, e, A, r) {
+    if (this.data = x, this.mimeType = e, this.name = A, this.description = r, !(x instanceof Uint8Array))
+      throw new TypeError("data must be a Uint8Array.");
+    if (e !== void 0 && typeof e != "string")
+      throw new TypeError("mimeType, when provided, must be a string.");
+    if (A !== void 0 && typeof A != "string")
+      throw new TypeError("name, when provided, must be a string.");
+    if (r !== void 0 && typeof r != "string")
+      throw new TypeError("description, when provided, must be a string.");
+  }
+}
+const Wt = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("tags must be an object.");
+  if (t.title !== void 0 && typeof t.title != "string")
+    throw new TypeError("tags.title, when provided, must be a string.");
+  if (t.description !== void 0 && typeof t.description != "string")
+    throw new TypeError("tags.description, when provided, must be a string.");
+  if (t.artist !== void 0 && typeof t.artist != "string")
+    throw new TypeError("tags.artist, when provided, must be a string.");
+  if (t.album !== void 0 && typeof t.album != "string")
+    throw new TypeError("tags.album, when provided, must be a string.");
+  if (t.albumArtist !== void 0 && typeof t.albumArtist != "string")
+    throw new TypeError("tags.albumArtist, when provided, must be a string.");
+  if (t.trackNumber !== void 0 && (!Number.isInteger(t.trackNumber) || t.trackNumber <= 0))
+    throw new TypeError("tags.trackNumber, when provided, must be a positive integer.");
+  if (t.tracksTotal !== void 0 && (!Number.isInteger(t.tracksTotal) || t.tracksTotal <= 0))
+    throw new TypeError("tags.tracksTotal, when provided, must be a positive integer.");
+  if (t.discNumber !== void 0 && (!Number.isInteger(t.discNumber) || t.discNumber <= 0))
+    throw new TypeError("tags.discNumber, when provided, must be a positive integer.");
+  if (t.discsTotal !== void 0 && (!Number.isInteger(t.discsTotal) || t.discsTotal <= 0))
+    throw new TypeError("tags.discsTotal, when provided, must be a positive integer.");
+  if (t.genre !== void 0 && typeof t.genre != "string")
+    throw new TypeError("tags.genre, when provided, must be a string.");
+  if (t.date !== void 0 && (!(t.date instanceof Date) || Number.isNaN(t.date.getTime())))
+    throw new TypeError("tags.date, when provided, must be a valid Date.");
+  if (t.lyrics !== void 0 && typeof t.lyrics != "string")
+    throw new TypeError("tags.lyrics, when provided, must be a string.");
+  if (t.images !== void 0) {
+    if (!Array.isArray(t.images))
+      throw new TypeError("tags.images, when provided, must be an array.");
+    for (const x of t.images) {
+      if (!x || typeof x != "object")
+        throw new TypeError("Each image in tags.images must be an object.");
+      if (!(x.data instanceof Uint8Array))
+        throw new TypeError("Each image.data must be a Uint8Array.");
+      if (typeof x.mimeType != "string")
+        throw new TypeError("Each image.mimeType must be a string.");
+      if (!["coverFront", "coverBack", "unknown"].includes(x.kind))
+        throw new TypeError("Each image.kind must be 'coverFront', 'coverBack', or 'unknown'.");
+    }
+  }
+  if (t.comment !== void 0 && typeof t.comment != "string")
+    throw new TypeError("tags.comment, when provided, must be a string.");
+  if (t.raw !== void 0) {
+    if (!t.raw || typeof t.raw != "object")
+      throw new TypeError("tags.raw, when provided, must be an object.");
+    for (const x of Object.values(t.raw))
+      if (x !== null && typeof x != "string" && !(x instanceof Uint8Array) && !(x instanceof wx) && !(x instanceof it))
+        throw new TypeError("Each value in tags.raw must be a string, Uint8Array, RichImageData, AttachedFile, or null.");
+  }
+}, me = (t) => t.title === void 0 && t.description === void 0 && t.artist === void 0 && t.album === void 0 && t.albumArtist === void 0 && t.trackNumber === void 0 && t.tracksTotal === void 0 && t.discNumber === void 0 && t.discsTotal === void 0 && t.genre === void 0 && t.date === void 0 && t.lyrics === void 0 && (!t.images || t.images.length === 0) && t.comment === void 0 && (t.raw === void 0 || Object.keys(t.raw).length === 0), vx = {
+  default: !0,
+  forced: !1,
+  original: !1,
+  commentary: !1,
+  hearingImpaired: !1,
+  visuallyImpaired: !1
+}, cs = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("disposition must be an object.");
+  if (t.default !== void 0 && typeof t.default != "boolean")
+    throw new TypeError("disposition.default must be a boolean.");
+  if (t.forced !== void 0 && typeof t.forced != "boolean")
+    throw new TypeError("disposition.forced must be a boolean.");
+  if (t.original !== void 0 && typeof t.original != "boolean")
+    throw new TypeError("disposition.original must be a boolean.");
+  if (t.commentary !== void 0 && typeof t.commentary != "boolean")
+    throw new TypeError("disposition.commentary must be a boolean.");
+  if (t.hearingImpaired !== void 0 && typeof t.hearingImpaired != "boolean")
+    throw new TypeError("disposition.hearingImpaired must be a boolean.");
+  if (t.visuallyImpaired !== void 0 && typeof t.visuallyImpaired != "boolean")
+    throw new TypeError("disposition.visuallyImpaired must be a boolean.");
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class N {
+  constructor(x) {
+    this.bytes = x, this.pos = 0;
+  }
+  seekToByte(x) {
+    this.pos = 8 * x;
+  }
+  readBit() {
+    const x = Math.floor(this.pos / 8), e = this.bytes[x] ?? 0, A = 7 - (this.pos & 7), r = (e & 1 << A) >> A;
+    return this.pos++, r;
+  }
+  readBits(x) {
+    if (x === 1)
+      return this.readBit();
+    let e = 0;
+    for (let A = 0; A < x; A++)
+      e <<= 1, e |= this.readBit();
+    return e;
+  }
+  writeBits(x, e) {
+    const A = this.pos + x;
+    for (let r = this.pos; r < A; r++) {
+      const F = Math.floor(r / 8);
+      let i = this.bytes[F];
+      const s = 7 - (r & 7);
+      i &= ~(1 << s), i |= (e & 1 << A - r - 1) >> A - r - 1 << s, this.bytes[F] = i;
+    }
+    this.pos = A;
+  }
+  readAlignedByte() {
+    if (this.pos % 8 !== 0)
+      throw new Error("Bitstream is not byte-aligned.");
+    const x = this.pos / 8, e = this.bytes[x] ?? 0;
+    return this.pos += 8, e;
+  }
+  skipBits(x) {
+    this.pos += x;
+  }
+  getBitsLeft() {
+    return this.bytes.length * 8 - this.pos;
+  }
+  clone() {
+    const x = new N(this.bytes);
+    return x.pos = this.pos, x;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const cx = [
+  96e3,
+  88200,
+  64e3,
+  48e3,
+  44100,
+  32e3,
+  24e3,
+  22050,
+  16e3,
+  12e3,
+  11025,
+  8e3,
+  7350
+], Ae = [-1, 1, 2, 3, 4, 5, 6, 8], Se = (t) => {
+  if (!t || t.byteLength < 2)
+    throw new TypeError("AAC description must be at least 2 bytes long.");
+  const x = new N(t);
+  let e = x.readBits(5);
+  e === 31 && (e = 32 + x.readBits(6));
+  const A = x.readBits(4);
+  let r = null;
+  A === 15 ? r = x.readBits(24) : A < cx.length && (r = cx[A]);
+  const F = x.readBits(4);
+  let i = null;
+  return F >= 1 && F <= 7 && (i = Ae[F]), {
+    objectType: e,
+    frequencyIndex: A,
+    sampleRate: r,
+    channelConfiguration: F,
+    numberOfChannels: i
+  };
+}, hA = (t) => {
+  let x = cx.indexOf(t.sampleRate), e = null;
+  x === -1 && (x = 15, e = t.sampleRate);
+  const A = Ae.indexOf(t.numberOfChannels);
+  if (A === -1)
+    throw new TypeError(`Unsupported number of channels: ${t.numberOfChannels}`);
+  let r = 13;
+  t.objectType >= 32 && (r += 6), x === 15 && (r += 24);
+  const F = Math.ceil(r / 8), i = new Uint8Array(F), s = new N(i);
+  return t.objectType < 32 ? s.writeBits(5, t.objectType) : (s.writeBits(5, 31), s.writeBits(6, t.objectType - 32)), s.writeBits(4, x), x === 15 && s.writeBits(24, e), s.writeBits(4, A), i;
+}, Yr = (t) => {
+  const x = new Uint8Array(7), e = new N(x), { objectType: A, frequencyIndex: r, channelConfiguration: F } = t, i = A - 1;
+  return e.writeBits(12, 4095), e.writeBits(1, 0), e.writeBits(2, 0), e.writeBits(1, 1), e.writeBits(2, i), e.writeBits(4, r), e.writeBits(1, 0), e.writeBits(3, F), e.writeBits(1, 0), e.writeBits(1, 0), e.writeBits(1, 0), e.writeBits(1, 0), e.skipBits(13), e.writeBits(11, 2047), e.writeBits(2, 0), { header: x, bitstream: e };
+}, Zr = (t, x) => {
+  t.pos = 30, t.writeBits(13, x);
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const v0 = [
+  "avc",
+  "hevc",
+  "vp9",
+  "av1",
+  "vp8"
+], r0 = [
+  "pcm-s16",
+  // We don't prefix 'le' so we're compatible with the WebCodecs-registered PCM codec strings
+  "pcm-s16be",
+  "pcm-s24",
+  "pcm-s24be",
+  "pcm-s32",
+  "pcm-s32be",
+  "pcm-f32",
+  "pcm-f32be",
+  "pcm-f64",
+  "pcm-f64be",
+  "pcm-u8",
+  "pcm-s8",
+  "ulaw",
+  "alaw"
+], yx = [
+  "aac",
+  "opus",
+  "mp3",
+  "vorbis",
+  "flac",
+  "ac3",
+  "eac3"
+], D0 = [
+  ...yx,
+  ...r0
+], L0 = [
+  "webvtt"
+], ze = [
+  { maxMacroblocks: 99, maxBitrate: 64e3, maxDpbMbs: 396, level: 10 },
+  // Level 1
+  { maxMacroblocks: 396, maxBitrate: 192e3, maxDpbMbs: 900, level: 11 },
+  // Level 1.1
+  { maxMacroblocks: 396, maxBitrate: 384e3, maxDpbMbs: 2376, level: 12 },
+  // Level 1.2
+  { maxMacroblocks: 396, maxBitrate: 768e3, maxDpbMbs: 2376, level: 13 },
+  // Level 1.3
+  { maxMacroblocks: 396, maxBitrate: 2e6, maxDpbMbs: 2376, level: 20 },
+  // Level 2
+  { maxMacroblocks: 792, maxBitrate: 4e6, maxDpbMbs: 4752, level: 21 },
+  // Level 2.1
+  { maxMacroblocks: 1620, maxBitrate: 4e6, maxDpbMbs: 8100, level: 22 },
+  // Level 2.2
+  { maxMacroblocks: 1620, maxBitrate: 1e7, maxDpbMbs: 8100, level: 30 },
+  // Level 3
+  { maxMacroblocks: 3600, maxBitrate: 14e6, maxDpbMbs: 18e3, level: 31 },
+  // Level 3.1
+  { maxMacroblocks: 5120, maxBitrate: 2e7, maxDpbMbs: 20480, level: 32 },
+  // Level 3.2
+  { maxMacroblocks: 8192, maxBitrate: 2e7, maxDpbMbs: 32768, level: 40 },
+  // Level 4
+  { maxMacroblocks: 8192, maxBitrate: 5e7, maxDpbMbs: 32768, level: 41 },
+  // Level 4.1
+  { maxMacroblocks: 8704, maxBitrate: 5e7, maxDpbMbs: 34816, level: 42 },
+  // Level 4.2
+  { maxMacroblocks: 22080, maxBitrate: 135e6, maxDpbMbs: 110400, level: 50 },
+  // Level 5
+  { maxMacroblocks: 36864, maxBitrate: 24e7, maxDpbMbs: 184320, level: 51 },
+  // Level 5.1
+  { maxMacroblocks: 36864, maxBitrate: 24e7, maxDpbMbs: 184320, level: 52 },
+  // Level 5.2
+  { maxMacroblocks: 139264, maxBitrate: 24e7, maxDpbMbs: 696320, level: 60 },
+  // Level 6
+  { maxMacroblocks: 139264, maxBitrate: 48e7, maxDpbMbs: 696320, level: 61 },
+  // Level 6.1
+  { maxMacroblocks: 139264, maxBitrate: 8e8, maxDpbMbs: 696320, level: 62 }
+  // Level 6.2
+], dr = [
+  { maxPictureSize: 36864, maxBitrate: 128e3, tier: "L", level: 30 },
+  // Level 1 (Low Tier)
+  { maxPictureSize: 122880, maxBitrate: 15e5, tier: "L", level: 60 },
+  // Level 2 (Low Tier)
+  { maxPictureSize: 245760, maxBitrate: 3e6, tier: "L", level: 63 },
+  // Level 2.1 (Low Tier)
+  { maxPictureSize: 552960, maxBitrate: 6e6, tier: "L", level: 90 },
+  // Level 3 (Low Tier)
+  { maxPictureSize: 983040, maxBitrate: 1e7, tier: "L", level: 93 },
+  // Level 3.1 (Low Tier)
+  { maxPictureSize: 2228224, maxBitrate: 12e6, tier: "L", level: 120 },
+  // Level 4 (Low Tier)
+  { maxPictureSize: 2228224, maxBitrate: 3e7, tier: "H", level: 120 },
+  // Level 4 (High Tier)
+  { maxPictureSize: 2228224, maxBitrate: 2e7, tier: "L", level: 123 },
+  // Level 4.1 (Low Tier)
+  { maxPictureSize: 2228224, maxBitrate: 5e7, tier: "H", level: 123 },
+  // Level 4.1 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 25e6, tier: "L", level: 150 },
+  // Level 5 (Low Tier)
+  { maxPictureSize: 8912896, maxBitrate: 1e8, tier: "H", level: 150 },
+  // Level 5 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 4e7, tier: "L", level: 153 },
+  // Level 5.1 (Low Tier)
+  { maxPictureSize: 8912896, maxBitrate: 16e7, tier: "H", level: 153 },
+  // Level 5.1 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 6e7, tier: "L", level: 156 },
+  // Level 5.2 (Low Tier)
+  { maxPictureSize: 8912896, maxBitrate: 24e7, tier: "H", level: 156 },
+  // Level 5.2 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 6e7, tier: "L", level: 180 },
+  // Level 6 (Low Tier)
+  { maxPictureSize: 35651584, maxBitrate: 24e7, tier: "H", level: 180 },
+  // Level 6 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 12e7, tier: "L", level: 183 },
+  // Level 6.1 (Low Tier)
+  { maxPictureSize: 35651584, maxBitrate: 48e7, tier: "H", level: 183 },
+  // Level 6.1 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 24e7, tier: "L", level: 186 },
+  // Level 6.2 (Low Tier)
+  { maxPictureSize: 35651584, maxBitrate: 8e8, tier: "H", level: 186 }
+  // Level 6.2 (High Tier)
+], ax = [
+  { maxPictureSize: 36864, maxBitrate: 2e5, level: 10 },
+  // Level 1
+  { maxPictureSize: 73728, maxBitrate: 8e5, level: 11 },
+  // Level 1.1
+  { maxPictureSize: 122880, maxBitrate: 18e5, level: 20 },
+  // Level 2
+  { maxPictureSize: 245760, maxBitrate: 36e5, level: 21 },
+  // Level 2.1
+  { maxPictureSize: 552960, maxBitrate: 72e5, level: 30 },
+  // Level 3
+  { maxPictureSize: 983040, maxBitrate: 12e6, level: 31 },
+  // Level 3.1
+  { maxPictureSize: 2228224, maxBitrate: 18e6, level: 40 },
+  // Level 4
+  { maxPictureSize: 2228224, maxBitrate: 3e7, level: 41 },
+  // Level 4.1
+  { maxPictureSize: 8912896, maxBitrate: 6e7, level: 50 },
+  // Level 5
+  { maxPictureSize: 8912896, maxBitrate: 12e7, level: 51 },
+  // Level 5.1
+  { maxPictureSize: 8912896, maxBitrate: 18e7, level: 52 },
+  // Level 5.2
+  { maxPictureSize: 35651584, maxBitrate: 18e7, level: 60 },
+  // Level 6
+  { maxPictureSize: 35651584, maxBitrate: 24e7, level: 61 },
+  // Level 6.1
+  { maxPictureSize: 35651584, maxBitrate: 48e7, level: 62 }
+  // Level 6.2
+], ur = [
+  { maxPictureSize: 147456, maxBitrate: 15e5, tier: "M", level: 0 },
+  // Level 2.0 (Main Tier)
+  { maxPictureSize: 278784, maxBitrate: 3e6, tier: "M", level: 1 },
+  // Level 2.1 (Main Tier)
+  { maxPictureSize: 665856, maxBitrate: 6e6, tier: "M", level: 4 },
+  // Level 3.0 (Main Tier)
+  { maxPictureSize: 1065024, maxBitrate: 1e7, tier: "M", level: 5 },
+  // Level 3.1 (Main Tier)
+  { maxPictureSize: 2359296, maxBitrate: 12e6, tier: "M", level: 8 },
+  // Level 4.0 (Main Tier)
+  { maxPictureSize: 2359296, maxBitrate: 3e7, tier: "H", level: 8 },
+  // Level 4.0 (High Tier)
+  { maxPictureSize: 2359296, maxBitrate: 2e7, tier: "M", level: 9 },
+  // Level 4.1 (Main Tier)
+  { maxPictureSize: 2359296, maxBitrate: 5e7, tier: "H", level: 9 },
+  // Level 4.1 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 3e7, tier: "M", level: 12 },
+  // Level 5.0 (Main Tier)
+  { maxPictureSize: 8912896, maxBitrate: 1e8, tier: "H", level: 12 },
+  // Level 5.0 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 4e7, tier: "M", level: 13 },
+  // Level 5.1 (Main Tier)
+  { maxPictureSize: 8912896, maxBitrate: 16e7, tier: "H", level: 13 },
+  // Level 5.1 (High Tier)
+  { maxPictureSize: 8912896, maxBitrate: 6e7, tier: "M", level: 14 },
+  // Level 5.2 (Main Tier)
+  { maxPictureSize: 8912896, maxBitrate: 24e7, tier: "H", level: 14 },
+  // Level 5.2 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 6e7, tier: "M", level: 15 },
+  // Level 5.3 (Main Tier)
+  { maxPictureSize: 35651584, maxBitrate: 24e7, tier: "H", level: 15 },
+  // Level 5.3 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 6e7, tier: "M", level: 16 },
+  // Level 6.0 (Main Tier)
+  { maxPictureSize: 35651584, maxBitrate: 24e7, tier: "H", level: 16 },
+  // Level 6.0 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 1e8, tier: "M", level: 17 },
+  // Level 6.1 (Main Tier)
+  { maxPictureSize: 35651584, maxBitrate: 48e7, tier: "H", level: 17 },
+  // Level 6.1 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 16e7, tier: "M", level: 18 },
+  // Level 6.2 (Main Tier)
+  { maxPictureSize: 35651584, maxBitrate: 8e8, tier: "H", level: 18 },
+  // Level 6.2 (High Tier)
+  { maxPictureSize: 35651584, maxBitrate: 16e7, tier: "M", level: 19 },
+  // Level 6.3 (Main Tier)
+  { maxPictureSize: 35651584, maxBitrate: 8e8, tier: "H", level: 19 }
+  // Level 6.3 (High Tier)
+], Dr = ".01.01.01.01.00", Br = ".0.110.01.01.01.0", vs = (t, x, e, A) => {
+  if (t === "avc") {
+    const F = Math.ceil(x / 16) * Math.ceil(e / 16), i = ze.find((f) => F <= f.maxMacroblocks && A <= f.maxBitrate) ?? x0(ze), s = i ? i.level : 0, n = "64".padStart(2, "0"), a = "00", o = s.toString(16).padStart(2, "0");
+    return `avc1.${n}${a}${o}`;
+  } else if (t === "hevc") {
+    const r = "", i = "6", s = x * e, n = dr.find((o) => s <= o.maxPictureSize && A <= o.maxBitrate) ?? x0(dr);
+    return `hev1.${r}1.${i}.${n.tier}${n.level}.B0`;
+  } else {
+    if (t === "vp8")
+      return "vp8";
+    if (t === "vp9") {
+      const r = "00", F = x * e, i = ax.find((n) => F <= n.maxPictureSize && A <= n.maxBitrate) ?? x0(ax);
+      return `vp09.${r}.${i.level.toString().padStart(2, "0")}.08`;
+    } else if (t === "av1") {
+      const F = x * e, i = ur.find((a) => F <= a.maxPictureSize && A <= a.maxBitrate) ?? x0(ur);
+      return `av01.0.${i.level.toString().padStart(2, "0")}${i.tier}.08`;
+    }
+  }
+  throw new TypeError(`Unhandled codec '${t}'.`);
+}, ls = (t) => {
+  const x = t.split("."), e = Number(x[1]), A = Number(x[2]), r = Number(x[3]), F = x[4] ? Number(x[4]) : 1;
+  return [
+    1,
+    1,
+    e,
+    2,
+    1,
+    A,
+    3,
+    1,
+    r,
+    4,
+    1,
+    F
+  ];
+}, xF = (t) => {
+  const x = t.split("."), r = (1 << 7) + 1, F = Number(x[1]), i = x[2], s = Number(i.slice(0, -1)), n = (F << 5) + s, a = i.slice(-1) === "H" ? 1 : 0, f = Number(x[3]) === 8 ? 0 : 1, c = 0, v = x[4] ? Number(x[4]) : 0, u = x[5] ? Number(x[5][0]) : 1, l = x[5] ? Number(x[5][1]) : 1, D = x[5] ? Number(x[5][2]) : 0, b = (a << 7) + (f << 6) + (c << 5) + (v << 4) + (u << 3) + (l << 2) + D;
+  return [r, n, b, 0];
+}, mA = (t) => {
+  const { codec: x, codecDescription: e, colorSpace: A, avcCodecInfo: r, hevcCodecInfo: F, vp9CodecInfo: i, av1CodecInfo: s } = t;
+  if (x === "avc") {
+    if (d(t.avcType !== null), r) {
+      const n = new Uint8Array([
+        r.avcProfileIndication,
+        r.profileCompatibility,
+        r.avcLevelIndication
+      ]);
+      return `avc${t.avcType}.${sr(n)}`;
+    }
+    if (!e || e.byteLength < 4)
+      throw new TypeError("AVC decoder description is not provided or is not at least 4 bytes long.");
+    return `avc${t.avcType}.${sr(e.subarray(1, 4))}`;
+  } else if (x === "hevc") {
+    let n, a, o, f, c, v;
+    if (F)
+      n = F.generalProfileSpace, a = F.generalProfileIdc, o = nr(F.generalProfileCompatibilityFlags), f = F.generalTierFlag, c = F.generalLevelIdc, v = [...F.generalConstraintIndicatorFlags];
+    else {
+      if (!e || e.byteLength < 23)
+        throw new TypeError("HEVC decoder description is not provided or is not at least 23 bytes long.");
+      const l = U(e), D = l.getUint8(1);
+      n = D >> 6 & 3, a = D & 31, o = nr(l.getUint32(2)), f = D >> 5 & 1, c = l.getUint8(12), v = [];
+      for (let b = 0; b < 6; b++)
+        v.push(l.getUint8(6 + b));
+    }
+    let u = "hev1.";
+    for (u += ["", "A", "B", "C"][n] + a, u += ".", u += o.toString(16).toUpperCase(), u += ".", u += f === 0 ? "L" : "H", u += c; v.length > 0 && v[v.length - 1] === 0; )
+      v.pop();
+    return v.length > 0 && (u += ".", u += v.map((l) => l.toString(16).toUpperCase()).join(".")), u;
+  } else {
+    if (x === "vp8")
+      return "vp8";
+    if (x === "vp9") {
+      if (!i) {
+        const b = t.width * t.height;
+        let B = x0(ax).level;
+        for (const j of ax)
+          if (b <= j.maxPictureSize) {
+            B = j.level;
+            break;
+          }
+        return `vp09.00.${B.toString().padStart(2, "0")}.08`;
+      }
+      const n = i.profile.toString().padStart(2, "0"), a = i.level.toString().padStart(2, "0"), o = i.bitDepth.toString().padStart(2, "0"), f = i.chromaSubsampling.toString().padStart(2, "0"), c = i.colourPrimaries.toString().padStart(2, "0"), v = i.transferCharacteristics.toString().padStart(2, "0"), u = i.matrixCoefficients.toString().padStart(2, "0"), l = i.videoFullRangeFlag.toString().padStart(2, "0");
+      let D = `vp09.${n}.${a}.${o}.${f}`;
+      return D += `.${c}.${v}.${u}.${l}`, D.endsWith(Dr) && (D = D.slice(0, -Dr.length)), D;
+    } else if (x === "av1") {
+      if (!s) {
+        const j = t.width * t.height;
+        let E = x0(ax).level;
+        for (const h of ax)
+          if (j <= h.maxPictureSize) {
+            E = h.level;
+            break;
+          }
+        return `av01.0.${E.toString().padStart(2, "0")}M.08`;
+      }
+      const n = s.profile, a = s.level.toString().padStart(2, "0"), o = s.tier ? "H" : "M", f = s.bitDepth.toString().padStart(2, "0"), c = s.monochrome ? "1" : "0", v = 100 * s.chromaSubsamplingX + 10 * s.chromaSubsamplingY + 1 * (s.chromaSubsamplingX && s.chromaSubsamplingY ? s.chromaSamplePosition : 0), u = A?.primaries ? _x[A.primaries] : 1, l = A?.transfer ? Ix[A.transfer] : 1, D = A?.matrix ? qx[A.matrix] : 1, b = A?.fullRange ? 1 : 0;
+      let B = `av01.${n}.${a}${o}.${f}`;
+      return B += `.${c}.${v.toString().padStart(3, "0")}`, B += `.${u.toString().padStart(2, "0")}`, B += `.${l.toString().padStart(2, "0")}`, B += `.${D.toString().padStart(2, "0")}`, B += `.${b}`, B.endsWith(Br) && (B = B.slice(0, -Br.length)), B;
+    }
+  }
+  throw new TypeError(`Unhandled codec '${x}'.`);
+}, ds = (t, x, e) => {
+  if (t === "aac")
+    return x >= 2 && e <= 24e3 ? "mp4a.40.29" : e <= 24e3 ? "mp4a.40.5" : "mp4a.40.2";
+  if (t === "mp3")
+    return "mp3";
+  if (t === "opus")
+    return "opus";
+  if (t === "vorbis")
+    return "vorbis";
+  if (t === "flac")
+    return "flac";
+  if (t === "ac3")
+    return "ac-3";
+  if (t === "eac3")
+    return "ec-3";
+  if (r0.includes(t))
+    return t;
+  throw new TypeError(`Unhandled codec '${t}'.`);
+}, pA = (t) => {
+  const { codec: x, codecDescription: e, aacCodecInfo: A } = t;
+  if (x === "aac") {
+    if (!A)
+      throw new TypeError("AAC codec info must be provided.");
+    if (A.isMpeg2)
+      return "mp4a.67";
+    {
+      let r;
+      return A.objectType !== null ? r = A.objectType : r = Se(e).objectType, `mp4a.40.${r}`;
+    }
+  } else {
+    if (x === "mp3")
+      return "mp3";
+    if (x === "opus")
+      return "opus";
+    if (x === "vorbis")
+      return "vorbis";
+    if (x === "flac")
+      return "flac";
+    if (x === "ac3")
+      return "ac-3";
+    if (x === "eac3")
+      return "ec-3";
+    if (x && r0.includes(x))
+      return x;
+  }
+  throw new TypeError(`Unhandled codec '${x}'.`);
+}, re = 48e3, eF = /^pcm-([usf])(\d+)+(be)?$/, O0 = (t) => {
+  if (d(r0.includes(t)), t === "ulaw")
+    return { dataType: "ulaw", sampleSize: 1, littleEndian: !0, silentValue: 255 };
+  if (t === "alaw")
+    return { dataType: "alaw", sampleSize: 1, littleEndian: !0, silentValue: 213 };
+  const x = eF.exec(t);
+  d(x);
+  let e;
+  x[1] === "u" ? e = "unsigned" : x[1] === "s" ? e = "signed" : e = "float";
+  const A = Number(x[2]) / 8, r = x[3] !== "be", F = t === "pcm-u8" ? 2 ** 7 : 0;
+  return { dataType: e, sampleSize: A, littleEndian: r, silentValue: F };
+}, tF = (t) => t.startsWith("avc1") || t.startsWith("avc3") ? "avc" : t.startsWith("hev1") || t.startsWith("hvc1") ? "hevc" : t === "vp8" ? "vp8" : t.startsWith("vp09") ? "vp9" : t.startsWith("av01") ? "av1" : t.startsWith("mp4a.40") || t === "mp4a.67" ? "aac" : t === "mp3" || t === "mp4a.69" || t === "mp4a.6B" || t === "mp4a.6b" ? "mp3" : t === "opus" ? "opus" : t === "vorbis" ? "vorbis" : t === "flac" ? "flac" : t === "ac-3" || t === "ac3" ? "ac3" : t === "ec-3" || t === "eac3" ? "eac3" : t === "ulaw" ? "ulaw" : t === "alaw" ? "alaw" : eF.test(t) ? t : t === "webvtt" ? "webvtt" : null, us = (t) => t === "avc" ? {
+  avc: {
+    format: "avc"
+    // Ensure the format is not Annex B
+  }
+} : t === "hevc" ? {
+  hevc: {
+    format: "hevc"
+    // Ensure the format is not Annex B
+  }
+} : {}, Ds = (t) => t === "aac" ? {
+  aac: {
+    format: "aac"
+    // Ensure the format is not ADTS
+  }
+} : t === "opus" ? {
+  opus: {
+    format: "opus"
+  }
+} : {}, Bs = ["avc1", "avc3", "hev1", "hvc1", "vp8", "vp09", "av01"], bs = /^(avc1|avc3)\.[0-9a-fA-F]{6}$/, Cs = /^(hev1|hvc1)\.(?:[ABC]?\d+)\.[0-9a-fA-F]{1,8}\.[LH]\d+(?:\.[0-9a-fA-F]{1,2}){0,6}$/, js = /^vp09(?:\.\d{2}){3}(?:(?:\.\d{2}){5})?$/, Es = /^av01\.\d\.\d{2}[MH]\.\d{2}(?:\.\d\.\d{3}\.\d{2}\.\d{2}\.\d{2}\.\d)?$/, kA = (t) => {
+  if (!t)
+    throw new TypeError("Video chunk metadata must be provided.");
+  if (typeof t != "object")
+    throw new TypeError("Video chunk metadata must be an object.");
+  if (!t.decoderConfig)
+    throw new TypeError("Video chunk metadata must include a decoder configuration.");
+  if (typeof t.decoderConfig != "object")
+    throw new TypeError("Video chunk metadata decoder configuration must be an object.");
+  if (typeof t.decoderConfig.codec != "string")
+    throw new TypeError("Video chunk metadata decoder configuration must specify a codec string.");
+  if (!Bs.some((x) => t.decoderConfig.codec.startsWith(x)))
+    throw new TypeError("Video chunk metadata decoder configuration codec string must be a valid video codec string as specified in the Mediabunny Codec Registry.");
+  if (!Number.isInteger(t.decoderConfig.codedWidth) || t.decoderConfig.codedWidth <= 0)
+    throw new TypeError("Video chunk metadata decoder configuration must specify a valid codedWidth (positive integer).");
+  if (!Number.isInteger(t.decoderConfig.codedHeight) || t.decoderConfig.codedHeight <= 0)
+    throw new TypeError("Video chunk metadata decoder configuration must specify a valid codedHeight (positive integer).");
+  if (t.decoderConfig.description !== void 0 && !et(t.decoderConfig.description))
+    throw new TypeError("Video chunk metadata decoder configuration description, when defined, must be an ArrayBuffer or an ArrayBuffer view.");
+  if (t.decoderConfig.colorSpace !== void 0) {
+    const { colorSpace: x } = t.decoderConfig;
+    if (typeof x != "object")
+      throw new TypeError("Video chunk metadata decoder configuration colorSpace, when provided, must be an object.");
+    const e = Object.keys(_x);
+    if (x.primaries != null && !e.includes(x.primaries))
+      throw new TypeError(`Video chunk metadata decoder configuration colorSpace primaries, when defined, must be one of ${e.join(", ")}.`);
+    const A = Object.keys(Ix);
+    if (x.transfer != null && !A.includes(x.transfer))
+      throw new TypeError(`Video chunk metadata decoder configuration colorSpace transfer, when defined, must be one of ${A.join(", ")}.`);
+    const r = Object.keys(qx);
+    if (x.matrix != null && !r.includes(x.matrix))
+      throw new TypeError(`Video chunk metadata decoder configuration colorSpace matrix, when defined, must be one of ${r.join(", ")}.`);
+    if (x.fullRange != null && typeof x.fullRange != "boolean")
+      throw new TypeError("Video chunk metadata decoder configuration colorSpace fullRange, when defined, must be a boolean.");
+  }
+  if (t.decoderConfig.codec.startsWith("avc1") || t.decoderConfig.codec.startsWith("avc3")) {
+    if (!bs.test(t.decoderConfig.codec))
+      throw new TypeError("Video chunk metadata decoder configuration codec string for AVC must be a valid AVC codec string as specified in Section 3.4 of RFC 6381.");
+  } else if (t.decoderConfig.codec.startsWith("hev1") || t.decoderConfig.codec.startsWith("hvc1")) {
+    if (!Cs.test(t.decoderConfig.codec))
+      throw new TypeError("Video chunk metadata decoder configuration codec string for HEVC must be a valid HEVC codec string as specified in Section E.3 of ISO 14496-15.");
+  } else if (t.decoderConfig.codec.startsWith("vp8")) {
+    if (t.decoderConfig.codec !== "vp8")
+      throw new TypeError('Video chunk metadata decoder configuration codec string for VP8 must be "vp8".');
+  } else if (t.decoderConfig.codec.startsWith("vp09")) {
+    if (!js.test(t.decoderConfig.codec))
+      throw new TypeError('Video chunk metadata decoder configuration codec string for VP9 must be a valid VP9 codec string as specified in Section "Codecs Parameter String" of https://www.webmproject.org/vp9/mp4/.');
+  } else if (t.decoderConfig.codec.startsWith("av01") && !Es.test(t.decoderConfig.codec))
+    throw new TypeError('Video chunk metadata decoder configuration codec string for AV1 must be a valid AV1 codec string as specified in Section "Codecs Parameter String" of https://aomediacodec.github.io/av1-isobmff/.');
+}, hs = [
+  "mp4a",
+  "mp3",
+  "opus",
+  "vorbis",
+  "flac",
+  "ulaw",
+  "alaw",
+  "pcm",
+  "ac-3",
+  "ec-3"
+], Mx = (t) => {
+  if (!t)
+    throw new TypeError("Audio chunk metadata must be provided.");
+  if (typeof t != "object")
+    throw new TypeError("Audio chunk metadata must be an object.");
+  if (!t.decoderConfig)
+    throw new TypeError("Audio chunk metadata must include a decoder configuration.");
+  if (typeof t.decoderConfig != "object")
+    throw new TypeError("Audio chunk metadata decoder configuration must be an object.");
+  if (typeof t.decoderConfig.codec != "string")
+    throw new TypeError("Audio chunk metadata decoder configuration must specify a codec string.");
+  if (!hs.some((x) => t.decoderConfig.codec.startsWith(x)))
+    throw new TypeError("Audio chunk metadata decoder configuration codec string must be a valid audio codec string as specified in the Mediabunny Codec Registry.");
+  if (!Number.isInteger(t.decoderConfig.sampleRate) || t.decoderConfig.sampleRate <= 0)
+    throw new TypeError("Audio chunk metadata decoder configuration must specify a valid sampleRate (positive integer).");
+  if (!Number.isInteger(t.decoderConfig.numberOfChannels) || t.decoderConfig.numberOfChannels <= 0)
+    throw new TypeError("Audio chunk metadata decoder configuration must specify a valid numberOfChannels (positive integer).");
+  if (t.decoderConfig.description !== void 0 && !et(t.decoderConfig.description))
+    throw new TypeError("Audio chunk metadata decoder configuration description, when defined, must be an ArrayBuffer or an ArrayBuffer view.");
+  if (t.decoderConfig.codec.startsWith("mp4a") && t.decoderConfig.codec !== "mp4a.69" && t.decoderConfig.codec !== "mp4a.6B" && t.decoderConfig.codec !== "mp4a.6b") {
+    if (!["mp4a.40.2", "mp4a.40.02", "mp4a.40.5", "mp4a.40.05", "mp4a.40.29", "mp4a.67"].includes(t.decoderConfig.codec))
+      throw new TypeError("Audio chunk metadata decoder configuration codec string for AAC must be a valid AAC codec string as specified in https://www.w3.org/TR/webcodecs-aac-codec-registration/.");
+  } else if (t.decoderConfig.codec.startsWith("mp3") || t.decoderConfig.codec.startsWith("mp4a")) {
+    if (t.decoderConfig.codec !== "mp3" && t.decoderConfig.codec !== "mp4a.69" && t.decoderConfig.codec !== "mp4a.6B" && t.decoderConfig.codec !== "mp4a.6b")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for MP3 must be "mp3", "mp4a.69" or "mp4a.6B".');
+  } else if (t.decoderConfig.codec.startsWith("opus")) {
+    if (t.decoderConfig.codec !== "opus")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for Opus must be "opus".');
+    if (t.decoderConfig.description && t.decoderConfig.description.byteLength < 18)
+      throw new TypeError("Audio chunk metadata decoder configuration description, when specified, is expected to be an Identification Header as specified in Section 5.1 of RFC 7845.");
+  } else if (t.decoderConfig.codec.startsWith("vorbis")) {
+    if (t.decoderConfig.codec !== "vorbis")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for Vorbis must be "vorbis".');
+    if (!t.decoderConfig.description)
+      throw new TypeError("Audio chunk metadata decoder configuration for Vorbis must include a description, which is expected to adhere to the format described in https://www.w3.org/TR/webcodecs-vorbis-codec-registration/.");
+  } else if (t.decoderConfig.codec.startsWith("flac")) {
+    if (t.decoderConfig.codec !== "flac")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for FLAC must be "flac".');
+    if (!t.decoderConfig.description || t.decoderConfig.description.byteLength < 42)
+      throw new TypeError("Audio chunk metadata decoder configuration for FLAC must include a description, which is expected to adhere to the format described in https://www.w3.org/TR/webcodecs-flac-codec-registration/.");
+  } else if (t.decoderConfig.codec.startsWith("ac-3") || t.decoderConfig.codec.startsWith("ac3")) {
+    if (t.decoderConfig.codec !== "ac-3")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for AC-3 must be "ac-3".');
+  } else if (t.decoderConfig.codec.startsWith("ec-3") || t.decoderConfig.codec.startsWith("eac3")) {
+    if (t.decoderConfig.codec !== "ec-3")
+      throw new TypeError('Audio chunk metadata decoder configuration codec string for EC-3 must be "ec-3".');
+  } else if ((t.decoderConfig.codec.startsWith("pcm") || t.decoderConfig.codec.startsWith("ulaw") || t.decoderConfig.codec.startsWith("alaw")) && !r0.includes(t.decoderConfig.codec))
+    throw new TypeError(`Audio chunk metadata decoder configuration codec string for PCM must be one of the supported PCM codecs (${r0.join(", ")}).`);
+}, AF = (t) => {
+  if (!t)
+    throw new TypeError("Subtitle metadata must be provided.");
+  if (typeof t != "object")
+    throw new TypeError("Subtitle metadata must be an object.");
+  if (!t.config)
+    throw new TypeError("Subtitle metadata must include a config object.");
+  if (typeof t.config != "object")
+    throw new TypeError("Subtitle metadata config must be an object.");
+  if (typeof t.config.description != "string")
+    throw new TypeError("Subtitle metadata config description must be a string.");
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const De = 4, ms = [44100, 48e3, 32e3], Jt = [
+  // lowSamplingFrequency === 0
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  // layer = 0
+  -1,
+  32,
+  40,
+  48,
+  56,
+  64,
+  80,
+  96,
+  112,
+  128,
+  160,
+  192,
+  224,
+  256,
+  320,
+  -1,
+  // layer 1
+  -1,
+  32,
+  48,
+  56,
+  64,
+  80,
+  96,
+  112,
+  128,
+  160,
+  192,
+  224,
+  256,
+  320,
+  384,
+  -1,
+  // layer = 2
+  -1,
+  32,
+  64,
+  96,
+  128,
+  160,
+  192,
+  224,
+  256,
+  288,
+  320,
+  352,
+  384,
+  416,
+  448,
+  -1,
+  // layer = 3
+  // lowSamplingFrequency === 1
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  // layer = 0
+  -1,
+  8,
+  16,
+  24,
+  32,
+  40,
+  48,
+  56,
+  64,
+  80,
+  96,
+  112,
+  128,
+  144,
+  160,
+  -1,
+  // layer = 1
+  -1,
+  8,
+  16,
+  24,
+  32,
+  40,
+  48,
+  56,
+  64,
+  80,
+  96,
+  112,
+  128,
+  144,
+  160,
+  -1,
+  // layer = 2
+  -1,
+  32,
+  48,
+  56,
+  64,
+  80,
+  96,
+  112,
+  128,
+  144,
+  160,
+  176,
+  192,
+  224,
+  256,
+  -1
+  // layer = 3
+], st = 1483304551, gA = 1231971951, Xt = (t, x, e, A, r) => x === 0 ? 0 : x === 1 ? Math.floor(144 * e / (A << t)) + r : x === 2 ? Math.floor(144 * e / A) + r : (Math.floor(12 * e / A) + r) * 4, nt = (t, x) => t === 3 ? x === 3 ? 21 : 36 : x === 3 ? 13 : 21, at = (t, x) => {
+  const e = t >>> 24, A = t >>> 16 & 255, r = t >>> 8 & 255, F = t & 255;
+  if (e !== 255 && A !== 255 && r !== 255 && F !== 255)
+    return {
+      header: null,
+      bytesAdvanced: 4
+    };
+  if (e !== 255)
+    return { header: null, bytesAdvanced: 1 };
+  if ((A & 224) !== 224)
+    return { header: null, bytesAdvanced: 1 };
+  let i = 0, s = 0;
+  A & 16 ? i = A & 8 ? 0 : 1 : (i = 1, s = 1);
+  const n = A >> 3 & 3, a = A >> 1 & 3, o = r >> 4 & 15, f = (r >> 2 & 3) % 3, c = r >> 1 & 1, v = F >> 6 & 3, u = F >> 4 & 3, l = F >> 3 & 1, D = F >> 2 & 1, b = F & 3, B = Jt[i * 16 * 4 + a * 16 + o];
+  if (B === -1)
+    return { header: null, bytesAdvanced: 1 };
+  const j = B * 1e3, E = ms[f] >> i + s, h = Xt(i, a, j, E, c);
+  if (x !== null && x < h)
+    return { header: null, bytesAdvanced: 1 };
+  let m;
+  return n === 3 ? m = a === 3 ? 384 : 1152 : a === 3 ? m = 384 : a === 2 ? m = 1152 : m = 576, {
+    header: {
+      totalSize: h,
+      mpegVersionId: n,
+      layer: a,
+      bitrate: j,
+      frequencyIndex: f,
+      sampleRate: E,
+      channel: v,
+      modeExtension: u,
+      copyright: l,
+      original: D,
+      emphasis: b,
+      audioSamplesInFrame: m
+    },
+    bytesAdvanced: 1
+  };
+}, ps = (t) => {
+  let x = 127, e = 0, A = t;
+  for (; (x ^ 2147483647) !== 0; )
+    e = A & ~x, e <<= 1, e |= A & x, x = (x + 1 << 8) - 1, A = e;
+  return e;
+}, Qt = (t) => {
+  let x = 2130706432, e = 0;
+  for (; x !== 0; )
+    e >>= 1, e |= t & x, x >>= 8;
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const ot = [48e3, 44100, 32e3], rF = [24e3, 22050, 16e3];
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var T0;
+(function(t) {
+  t[t.NON_IDR_SLICE = 1] = "NON_IDR_SLICE", t[t.SLICE_DPA = 2] = "SLICE_DPA", t[t.SLICE_DPB = 3] = "SLICE_DPB", t[t.SLICE_DPC = 4] = "SLICE_DPC", t[t.IDR = 5] = "IDR", t[t.SEI = 6] = "SEI", t[t.SPS = 7] = "SPS", t[t.PPS = 8] = "PPS", t[t.AUD = 9] = "AUD", t[t.SPS_EXT = 13] = "SPS_EXT";
+})(T0 || (T0 = {}));
+var A0;
+(function(t) {
+  t[t.RASL_N = 8] = "RASL_N", t[t.RASL_R = 9] = "RASL_R", t[t.BLA_W_LP = 16] = "BLA_W_LP", t[t.RSV_IRAP_VCL23 = 23] = "RSV_IRAP_VCL23", t[t.VPS_NUT = 32] = "VPS_NUT", t[t.SPS_NUT = 33] = "SPS_NUT", t[t.PPS_NUT = 34] = "PPS_NUT", t[t.AUD_NUT = 35] = "AUD_NUT", t[t.PREFIX_SEI_NUT = 39] = "PREFIX_SEI_NUT", t[t.SUFFIX_SEI_NUT = 40] = "SUFFIX_SEI_NUT";
+})(A0 || (A0 = {}));
+const Fe = function* (t) {
+  let x = 0, e = -1;
+  for (; x < t.length - 2; ) {
+    const A = t.indexOf(0, x);
+    if (A === -1 || A >= t.length - 2)
+      break;
+    x = A;
+    let r = 0;
+    if (x + 3 < t.length && t[x + 1] === 0 && t[x + 2] === 0 && t[x + 3] === 1 ? r = 4 : t[x + 1] === 0 && t[x + 2] === 1 && (r = 3), r === 0) {
+      x++;
+      continue;
+    }
+    e !== -1 && x > e && (yield {
+      offset: e,
+      length: x - e
+    }), e = x + r, x = e;
+  }
+  e !== -1 && e < t.length && (yield {
+    offset: e,
+    length: t.length - e
+  });
+}, wA = function* (t, x) {
+  let e = 0;
+  const A = new DataView(t.buffer, t.byteOffset, t.byteLength);
+  for (; e + x <= t.length; ) {
+    let r;
+    x === 1 ? r = A.getUint8(e) : x === 2 ? r = A.getUint16(e, !1) : x === 3 ? r = tt(A, e, !1) : (d(x === 4), r = A.getUint32(e, !1)), e += x, yield {
+      offset: e,
+      length: r
+    }, e += r;
+  }
+}, FF = (t, x) => {
+  if (x.description) {
+    const r = (Q(x.description)[4] & 3) + 1;
+    return wA(t, r);
+  } else
+    return Fe(t);
+}, Yx = (t) => t & 31, ft = (t) => {
+  const x = [], e = t.length;
+  for (let A = 0; A < e; A++)
+    A + 2 < e && t[A] === 0 && t[A + 1] === 0 && t[A + 2] === 3 ? (x.push(0, 0), A += 2) : x.push(t[A]);
+  return new Uint8Array(x);
+}, kt = new Uint8Array([0, 0, 0, 1]), Yt = (t) => {
+  const x = t.reduce((r, F) => r + kt.byteLength + F.byteLength, 0), e = new Uint8Array(x);
+  let A = 0;
+  for (const r of t)
+    e.set(kt, A), A += kt.byteLength, e.set(r, A), A += r.byteLength;
+  return e;
+}, iF = (t, x) => {
+  const e = t.reduce((F, i) => F + x + i.byteLength, 0), A = new Uint8Array(e);
+  let r = 0;
+  for (const F of t) {
+    const i = new DataView(A.buffer, A.byteOffset, A.byteLength);
+    switch (x) {
+      case 1:
+        i.setUint8(r, F.byteLength);
+        break;
+      case 2:
+        i.setUint16(r, F.byteLength, !1);
+        break;
+      case 3:
+        At(i, r, F.byteLength, !1);
+        break;
+      case 4:
+        i.setUint32(r, F.byteLength, !1);
+        break;
+    }
+    r += x, A.set(F, r), r += F.byteLength;
+  }
+  return A;
+}, ks = (t, x) => {
+  if (x.description) {
+    const r = (Q(x.description)[4] & 3) + 1;
+    return iF(t, r);
+  } else
+    return Yt(t);
+}, yA = (t) => {
+  try {
+    const x = [], e = [], A = [];
+    for (const s of Fe(t)) {
+      const n = t.subarray(s.offset, s.offset + s.length), a = Yx(n[0]);
+      a === T0.SPS ? x.push(n) : a === T0.PPS ? e.push(n) : a === T0.SPS_EXT && A.push(n);
+    }
+    if (x.length === 0 || e.length === 0)
+      return null;
+    const r = x[0], F = TA(r);
+    d(F !== null);
+    const i = F.profileIdc === 100 || F.profileIdc === 110 || F.profileIdc === 122 || F.profileIdc === 144;
+    return {
+      configurationVersion: 1,
+      avcProfileIndication: F.profileIdc,
+      profileCompatibility: F.constraintFlags,
+      avcLevelIndication: F.levelIdc,
+      lengthSizeMinusOne: 3,
+      // Typically 4 bytes for length field
+      sequenceParameterSets: x,
+      pictureParameterSets: e,
+      chromaFormat: i ? F.chromaFormatIdc : null,
+      bitDepthLumaMinus8: i ? F.bitDepthLumaMinus8 : null,
+      bitDepthChromaMinus8: i ? F.bitDepthChromaMinus8 : null,
+      sequenceParameterSetExt: i ? A : null
+    };
+  } catch (x) {
+    return console.error("Error building AVC Decoder Configuration Record:", x), null;
+  }
+}, gs = (t) => {
+  const x = [];
+  x.push(t.configurationVersion), x.push(t.avcProfileIndication), x.push(t.profileCompatibility), x.push(t.avcLevelIndication), x.push(252 | t.lengthSizeMinusOne & 3), x.push(224 | t.sequenceParameterSets.length & 31);
+  for (const e of t.sequenceParameterSets) {
+    const A = e.byteLength;
+    x.push(A >> 8), x.push(A & 255);
+    for (let r = 0; r < A; r++)
+      x.push(e[r]);
+  }
+  x.push(t.pictureParameterSets.length);
+  for (const e of t.pictureParameterSets) {
+    const A = e.byteLength;
+    x.push(A >> 8), x.push(A & 255);
+    for (let r = 0; r < A; r++)
+      x.push(e[r]);
+  }
+  if (t.avcProfileIndication === 100 || t.avcProfileIndication === 110 || t.avcProfileIndication === 122 || t.avcProfileIndication === 144) {
+    d(t.chromaFormat !== null), d(t.bitDepthLumaMinus8 !== null), d(t.bitDepthChromaMinus8 !== null), d(t.sequenceParameterSetExt !== null), x.push(252 | t.chromaFormat & 3), x.push(248 | t.bitDepthLumaMinus8 & 7), x.push(248 | t.bitDepthChromaMinus8 & 7), x.push(t.sequenceParameterSetExt.length);
+    for (const e of t.sequenceParameterSetExt) {
+      const A = e.byteLength;
+      x.push(A >> 8), x.push(A & 255);
+      for (let r = 0; r < A; r++)
+        x.push(e[r]);
+    }
+  }
+  return new Uint8Array(x);
+}, sF = (t) => {
+  try {
+    const x = U(t);
+    let e = 0;
+    const A = x.getUint8(e++), r = x.getUint8(e++), F = x.getUint8(e++), i = x.getUint8(e++), s = x.getUint8(e++) & 3, n = x.getUint8(e++) & 31, a = [];
+    for (let v = 0; v < n; v++) {
+      const u = x.getUint16(e, !1);
+      e += 2, a.push(t.subarray(e, e + u)), e += u;
+    }
+    const o = x.getUint8(e++), f = [];
+    for (let v = 0; v < o; v++) {
+      const u = x.getUint16(e, !1);
+      e += 2, f.push(t.subarray(e, e + u)), e += u;
+    }
+    const c = {
+      configurationVersion: A,
+      avcProfileIndication: r,
+      profileCompatibility: F,
+      avcLevelIndication: i,
+      lengthSizeMinusOne: s,
+      sequenceParameterSets: a,
+      pictureParameterSets: f,
+      chromaFormat: null,
+      bitDepthLumaMinus8: null,
+      bitDepthChromaMinus8: null,
+      sequenceParameterSetExt: null
+    };
+    if ((r === 100 || r === 110 || r === 122 || r === 144) && e + 4 <= t.length) {
+      const v = x.getUint8(e++) & 3, u = x.getUint8(e++) & 7, l = x.getUint8(e++) & 7, D = x.getUint8(e++);
+      c.chromaFormat = v, c.bitDepthLumaMinus8 = u, c.bitDepthChromaMinus8 = l;
+      const b = [];
+      for (let B = 0; B < D; B++) {
+        const j = x.getUint16(e, !1);
+        e += 2, b.push(t.subarray(e, e + j)), e += j;
+      }
+      c.sequenceParameterSetExt = b;
+    }
+    return c;
+  } catch (x) {
+    return console.error("Error deserializing AVC Decoder Configuration Record:", x), null;
+  }
+}, nF = {
+  1: { num: 1, den: 1 },
+  2: { num: 12, den: 11 },
+  3: { num: 10, den: 11 },
+  4: { num: 16, den: 11 },
+  5: { num: 40, den: 33 },
+  6: { num: 24, den: 11 },
+  7: { num: 20, den: 11 },
+  8: { num: 32, den: 11 },
+  9: { num: 80, den: 33 },
+  10: { num: 18, den: 11 },
+  11: { num: 15, den: 11 },
+  12: { num: 64, den: 33 },
+  13: { num: 160, den: 99 },
+  14: { num: 4, den: 3 },
+  15: { num: 3, den: 2 },
+  16: { num: 2, den: 1 }
+}, TA = (t) => {
+  try {
+    const x = new N(ft(t));
+    if (x.skipBits(1), x.skipBits(2), x.readBits(5) !== 7)
+      return null;
+    const A = x.readAlignedByte(), r = x.readAlignedByte(), F = x.readAlignedByte();
+    y(x);
+    let i = 1, s = 0, n = 0, a = 0;
+    if ((A === 100 || A === 110 || A === 122 || A === 244 || A === 44 || A === 83 || A === 86 || A === 118 || A === 128) && (i = y(x), i === 3 && (a = x.readBits(1)), s = y(x), n = y(x), x.skipBits(1), x.readBits(1))) {
+      for (let P = 0; P < (i !== 3 ? 8 : 12); P++)
+        if (x.readBits(1)) {
+          const z = P < 6 ? 16 : 64;
+          let H = 8, O = 8;
+          for (let $ = 0; $ < z; $++) {
+            if (O !== 0) {
+              const K = Y0(x);
+              O = (H + K + 256) % 256;
+            }
+            H = O === 0 ? H : O;
+          }
+        }
+    }
+    y(x);
+    const o = y(x);
+    if (o === 0)
+      y(x);
+    else if (o === 1) {
+      x.skipBits(1), Y0(x), Y0(x);
+      const S = y(x);
+      for (let P = 0; P < S; P++)
+        Y0(x);
+    }
+    y(x), x.skipBits(1);
+    const f = y(x), c = y(x), v = 16 * (f + 1), u = 16 * (c + 1);
+    let l = v, D = u;
+    const b = x.readBits(1);
+    if (b || x.skipBits(1), x.skipBits(1), x.readBits(1)) {
+      const S = y(x), P = y(x), _ = y(x), z = y(x);
+      let H, O;
+      if ((a === 0 ? i : 0) === 0)
+        H = 1, O = 2 - b;
+      else {
+        const K = i === 3 ? 1 : 2, Z = i === 1 ? 2 : 1;
+        H = K, O = Z * (2 - b);
+      }
+      l -= H * (S + P), D -= O * (_ + z);
+    }
+    let j = 2, E = 2, h = 2, m = 0, k = { num: 1, den: 1 }, p = null, g = null;
+    if (x.readBits(1)) {
+      if (x.readBits(1)) {
+        const Z = x.readBits(8);
+        if (Z === 255)
+          k = {
+            num: x.readBits(16),
+            den: x.readBits(16)
+          };
+        else {
+          const f0 = nF[Z];
+          f0 && (k = f0);
+        }
+      }
+      x.readBits(1) && x.skipBits(1), x.readBits(1) && (x.skipBits(3), m = x.readBits(1), x.readBits(1) && (j = x.readBits(8), E = x.readBits(8), h = x.readBits(8))), x.readBits(1) && (y(x), y(x)), x.readBits(1) && (x.skipBits(32), x.skipBits(32), x.skipBits(1));
+      const O = x.readBits(1);
+      O && br(x);
+      const $ = x.readBits(1);
+      $ && br(x), (O || $) && x.skipBits(1), x.skipBits(1), x.readBits(1) && (x.skipBits(1), y(x), y(x), y(x), y(x), p = y(x), g = y(x));
+    }
+    if (p === null) {
+      d(g === null);
+      const S = r & 16;
+      if ((A === 44 || A === 86 || A === 100 || A === 110 || A === 122 || A === 244) && S)
+        p = 0, g = 0;
+      else {
+        const P = f + 1, _ = c + 1, z = (2 - b) * _, H = ze.find(($) => $.level >= F) ?? x0(ze), O = Math.min(Math.floor(H.maxDpbMbs / (P * z)), 16);
+        p = O, g = O;
+      }
+    }
+    return d(g !== null), {
+      profileIdc: A,
+      constraintFlags: r,
+      levelIdc: F,
+      frameMbsOnlyFlag: b,
+      chromaFormatIdc: i,
+      bitDepthLumaMinus8: s,
+      bitDepthChromaMinus8: n,
+      codedWidth: v,
+      codedHeight: u,
+      displayWidth: l,
+      displayHeight: D,
+      pixelAspectRatio: k,
+      colourPrimaries: j,
+      matrixCoefficients: h,
+      transferCharacteristics: E,
+      fullRangeFlag: m,
+      numReorderFrames: p,
+      maxDecFrameBuffering: g
+    };
+  } catch (x) {
+    return console.error("Error parsing AVC SPS:", x), null;
+  }
+}, br = (t) => {
+  const x = y(t);
+  t.skipBits(4), t.skipBits(4);
+  for (let e = 0; e <= x; e++)
+    y(t), y(t), t.skipBits(1);
+  t.skipBits(5), t.skipBits(5), t.skipBits(5), t.skipBits(5);
+}, aF = (t, x) => {
+  if (x.description) {
+    const r = (Q(x.description)[21] & 3) + 1;
+    return wA(t, r);
+  } else
+    return Fe(t);
+}, Tx = (t) => t >> 1 & 63, oF = (t) => {
+  try {
+    const x = new N(ft(t));
+    x.skipBits(16), x.readBits(4);
+    const e = x.readBits(3), A = x.readBits(1), { general_profile_space: r, general_tier_flag: F, general_profile_idc: i, general_profile_compatibility_flags: s, general_constraint_indicator_flags: n, general_level_idc: a } = ws(x, e);
+    y(x);
+    const o = y(x);
+    let f = 0;
+    o === 3 && (f = x.readBits(1));
+    const c = y(x), v = y(x);
+    let u = c, l = v;
+    if (x.readBits(1)) {
+      const P = y(x), _ = y(x), z = y(x), H = y(x);
+      let O = 1, $ = 1;
+      const K = f === 0 ? o : 0;
+      K === 1 ? (O = 2, $ = 2) : K === 2 && (O = 2, $ = 1), u -= (P + _) * O, l -= (z + H) * $;
+    }
+    const D = y(x), b = y(x);
+    y(x);
+    const j = x.readBits(1) ? 0 : e;
+    let E = 0;
+    for (let P = j; P <= e; P++)
+      y(x), E = y(x), y(x);
+    y(x), y(x), y(x), y(x), y(x), y(x), x.readBits(1) && x.readBits(1) && ys(x), x.skipBits(1), x.skipBits(1), x.readBits(1) && (x.skipBits(4), x.skipBits(4), y(x), y(x), x.skipBits(1));
+    const h = y(x);
+    if (Ts(x, h), x.readBits(1)) {
+      const P = y(x);
+      for (let _ = 0; _ < P; _++)
+        y(x), x.skipBits(1);
+    }
+    x.skipBits(1), x.skipBits(1);
+    let m = 2, k = 2, p = 2, g = 0, q = 0, S = { num: 1, den: 1 };
+    if (x.readBits(1)) {
+      const P = Ss(x, e);
+      S = P.pixelAspectRatio, m = P.colourPrimaries, k = P.transferCharacteristics, p = P.matrixCoefficients, g = P.fullRangeFlag, q = P.minSpatialSegmentationIdc;
+    }
+    return {
+      displayWidth: u,
+      displayHeight: l,
+      pixelAspectRatio: S,
+      colourPrimaries: m,
+      transferCharacteristics: k,
+      matrixCoefficients: p,
+      fullRangeFlag: g,
+      maxDecFrameBuffering: E + 1,
+      spsMaxSubLayersMinus1: e,
+      spsTemporalIdNestingFlag: A,
+      generalProfileSpace: r,
+      generalTierFlag: F,
+      generalProfileIdc: i,
+      generalProfileCompatibilityFlags: s,
+      generalConstraintIndicatorFlags: n,
+      generalLevelIdc: a,
+      chromaFormatIdc: o,
+      bitDepthLumaMinus8: D,
+      bitDepthChromaMinus8: b,
+      minSpatialSegmentationIdc: q
+    };
+  } catch (x) {
+    return console.error("Error parsing HEVC SPS:", x), null;
+  }
+}, PA = (t) => {
+  try {
+    const x = [], e = [], A = [], r = [];
+    for (const a of Fe(t)) {
+      const o = t.subarray(a.offset, a.offset + a.length), f = Tx(o[0]);
+      f === A0.VPS_NUT ? x.push(o) : f === A0.SPS_NUT ? e.push(o) : f === A0.PPS_NUT ? A.push(o) : (f === A0.PREFIX_SEI_NUT || f === A0.SUFFIX_SEI_NUT) && r.push(o);
+    }
+    if (e.length === 0 || A.length === 0)
+      return null;
+    const F = oF(e[0]);
+    if (!F)
+      return null;
+    let i = 0;
+    if (A.length > 0) {
+      const a = A[0], o = new N(ft(a));
+      o.skipBits(16), y(o), y(o), o.skipBits(1), o.skipBits(1), o.skipBits(3), o.skipBits(1), o.skipBits(1), y(o), y(o), Y0(o), o.skipBits(1), o.skipBits(1), o.readBits(1) && y(o), Y0(o), Y0(o), o.skipBits(1), o.skipBits(1), o.skipBits(1), o.skipBits(1);
+      const f = o.readBits(1), c = o.readBits(1);
+      !f && !c ? i = 0 : f && !c ? i = 2 : !f && c ? i = 3 : i = 0;
+    }
+    const s = [
+      ...x.length ? [
+        {
+          arrayCompleteness: 1,
+          nalUnitType: A0.VPS_NUT,
+          nalUnits: x
+        }
+      ] : [],
+      ...e.length ? [
+        {
+          arrayCompleteness: 1,
+          nalUnitType: A0.SPS_NUT,
+          nalUnits: e
+        }
+      ] : [],
+      ...A.length ? [
+        {
+          arrayCompleteness: 1,
+          nalUnitType: A0.PPS_NUT,
+          nalUnits: A
+        }
+      ] : [],
+      ...r.length ? [
+        {
+          arrayCompleteness: 1,
+          nalUnitType: Tx(r[0][0]),
+          nalUnits: r
+        }
+      ] : []
+    ];
+    return {
+      configurationVersion: 1,
+      generalProfileSpace: F.generalProfileSpace,
+      generalTierFlag: F.generalTierFlag,
+      generalProfileIdc: F.generalProfileIdc,
+      generalProfileCompatibilityFlags: F.generalProfileCompatibilityFlags,
+      generalConstraintIndicatorFlags: F.generalConstraintIndicatorFlags,
+      generalLevelIdc: F.generalLevelIdc,
+      minSpatialSegmentationIdc: F.minSpatialSegmentationIdc,
+      parallelismType: i,
+      chromaFormatIdc: F.chromaFormatIdc,
+      bitDepthLumaMinus8: F.bitDepthLumaMinus8,
+      bitDepthChromaMinus8: F.bitDepthChromaMinus8,
+      avgFrameRate: 0,
+      constantFrameRate: 0,
+      numTemporalLayers: F.spsMaxSubLayersMinus1 + 1,
+      temporalIdNested: F.spsTemporalIdNestingFlag,
+      lengthSizeMinusOne: 3,
+      arrays: s
+    };
+  } catch (x) {
+    return console.error("Error building HEVC Decoder Configuration Record:", x), null;
+  }
+}, ws = (t, x) => {
+  const e = t.readBits(2), A = t.readBits(1), r = t.readBits(5);
+  let F = 0;
+  for (let o = 0; o < 32; o++)
+    F = F << 1 | t.readBits(1);
+  const i = new Uint8Array(6);
+  for (let o = 0; o < 6; o++)
+    i[o] = t.readBits(8);
+  const s = t.readBits(8), n = [], a = [];
+  for (let o = 0; o < x; o++)
+    n.push(t.readBits(1)), a.push(t.readBits(1));
+  if (x > 0)
+    for (let o = x; o < 8; o++)
+      t.skipBits(2);
+  for (let o = 0; o < x; o++)
+    n[o] && t.skipBits(88), a[o] && t.skipBits(8);
+  return {
+    general_profile_space: e,
+    general_tier_flag: A,
+    general_profile_idc: r,
+    general_profile_compatibility_flags: F,
+    general_constraint_indicator_flags: i,
+    general_level_idc: s
+  };
+}, ys = (t) => {
+  for (let x = 0; x < 4; x++)
+    for (let e = 0; e < (x === 3 ? 2 : 6); e++)
+      if (!t.readBits(1))
+        y(t);
+      else {
+        const r = Math.min(64, 1 << 4 + (x << 1));
+        x > 1 && Y0(t);
+        for (let F = 0; F < r; F++)
+          Y0(t);
+      }
+}, Ts = (t, x) => {
+  const e = [];
+  for (let A = 0; A < x; A++)
+    e[A] = Ps(t, A, x, e);
+}, Ps = (t, x, e, A) => {
+  let r = 0, F = 0, i = 0;
+  if (x !== 0 && (F = t.readBits(1)), F) {
+    if (x === e) {
+      const n = y(t);
+      i = x - (n + 1);
+    } else
+      i = x - 1;
+    t.readBits(1), y(t);
+    const s = A[i] ?? 0;
+    for (let n = 0; n <= s; n++)
+      t.readBits(1) || t.readBits(1);
+    r = A[i];
+  } else {
+    const s = y(t), n = y(t);
+    for (let a = 0; a < s; a++)
+      y(t), t.readBits(1);
+    for (let a = 0; a < n; a++)
+      y(t), t.readBits(1);
+    r = s + n;
+  }
+  return r;
+}, Ss = (t, x) => {
+  let e = 2, A = 2, r = 2, F = 0, i = 0, s = { num: 1, den: 1 };
+  if (t.readBits(1)) {
+    const n = t.readBits(8);
+    if (n === 255)
+      s = {
+        num: t.readBits(16),
+        den: t.readBits(16)
+      };
+    else {
+      const a = nF[n];
+      a && (s = a);
+    }
+  }
+  return t.readBits(1) && t.readBits(1), t.readBits(1) && (t.readBits(3), F = t.readBits(1), t.readBits(1) && (e = t.readBits(8), A = t.readBits(8), r = t.readBits(8))), t.readBits(1) && (y(t), y(t)), t.readBits(1), t.readBits(1), t.readBits(1), t.readBits(1) && (y(t), y(t), y(t), y(t)), t.readBits(1) && (t.readBits(32), t.readBits(32), t.readBits(1) && y(t), t.readBits(1) && _s(t, !0, x)), t.readBits(1) && (t.readBits(1), t.readBits(1), t.readBits(1), i = y(t), y(t), y(t), y(t), y(t)), {
+    pixelAspectRatio: s,
+    colourPrimaries: e,
+    transferCharacteristics: A,
+    matrixCoefficients: r,
+    fullRangeFlag: F,
+    minSpatialSegmentationIdc: i
+  };
+}, _s = (t, x, e) => {
+  let A = !1, r = !1, F = !1;
+  A = t.readBits(1) === 1, r = t.readBits(1) === 1, (A || r) && (F = t.readBits(1) === 1, F && (t.readBits(8), t.readBits(5), t.readBits(1), t.readBits(5)), t.readBits(4), t.readBits(4), F && t.readBits(4), t.readBits(5), t.readBits(5), t.readBits(5));
+  for (let i = 0; i <= e; i++) {
+    const s = t.readBits(1) === 1;
+    let n = !0;
+    s || (n = t.readBits(1) === 1);
+    let a = !1;
+    n ? y(t) : a = t.readBits(1) === 1;
+    let o = 1;
+    a || (o = y(t) + 1), A && Cr(t, o, F), r && Cr(t, o, F);
+  }
+}, Cr = (t, x, e) => {
+  for (let A = 0; A < x; A++)
+    y(t), y(t), e && (y(t), y(t)), t.readBits(1);
+}, Is = (t) => {
+  const x = [];
+  x.push(t.configurationVersion), x.push((t.generalProfileSpace & 3) << 6 | (t.generalTierFlag & 1) << 5 | t.generalProfileIdc & 31), x.push(t.generalProfileCompatibilityFlags >>> 24 & 255), x.push(t.generalProfileCompatibilityFlags >>> 16 & 255), x.push(t.generalProfileCompatibilityFlags >>> 8 & 255), x.push(t.generalProfileCompatibilityFlags & 255), x.push(...t.generalConstraintIndicatorFlags), x.push(t.generalLevelIdc & 255), x.push(240 | t.minSpatialSegmentationIdc >> 8 & 15), x.push(t.minSpatialSegmentationIdc & 255), x.push(252 | t.parallelismType & 3), x.push(252 | t.chromaFormatIdc & 3), x.push(248 | t.bitDepthLumaMinus8 & 7), x.push(248 | t.bitDepthChromaMinus8 & 7), x.push(t.avgFrameRate >> 8 & 255), x.push(t.avgFrameRate & 255), x.push((t.constantFrameRate & 3) << 6 | (t.numTemporalLayers & 7) << 3 | (t.temporalIdNested & 1) << 2 | t.lengthSizeMinusOne & 3), x.push(t.arrays.length & 255);
+  for (const e of t.arrays) {
+    x.push((e.arrayCompleteness & 1) << 7 | 0 | e.nalUnitType & 63), x.push(e.nalUnits.length >> 8 & 255), x.push(e.nalUnits.length & 255);
+    for (const A of e.nalUnits) {
+      x.push(A.length >> 8 & 255), x.push(A.length & 255);
+      for (let r = 0; r < A.length; r++)
+        x.push(A[r]);
+    }
+  }
+  return new Uint8Array(x);
+}, qs = (t) => {
+  try {
+    const x = U(t);
+    let e = 0;
+    const A = x.getUint8(e++), r = x.getUint8(e++), F = r >> 6 & 3, i = r >> 5 & 1, s = r & 31, n = x.getUint32(e, !1);
+    e += 4;
+    const a = t.subarray(e, e + 6);
+    e += 6;
+    const o = x.getUint8(e++), f = (x.getUint8(e++) & 15) << 8 | x.getUint8(e++), c = x.getUint8(e++) & 3, v = x.getUint8(e++) & 3, u = x.getUint8(e++) & 7, l = x.getUint8(e++) & 7, D = x.getUint16(e, !1);
+    e += 2;
+    const b = x.getUint8(e++), B = b >> 6 & 3, j = b >> 3 & 7, E = b >> 2 & 1, h = b & 3, m = x.getUint8(e++), k = [];
+    for (let p = 0; p < m; p++) {
+      const g = x.getUint8(e++), q = g >> 7 & 1, S = g & 63, P = x.getUint16(e, !1);
+      e += 2;
+      const _ = [];
+      for (let z = 0; z < P; z++) {
+        const H = x.getUint16(e, !1);
+        e += 2, _.push(t.subarray(e, e + H)), e += H;
+      }
+      k.push({
+        arrayCompleteness: q,
+        nalUnitType: S,
+        nalUnits: _
+      });
+    }
+    return {
+      configurationVersion: A,
+      generalProfileSpace: F,
+      generalTierFlag: i,
+      generalProfileIdc: s,
+      generalProfileCompatibilityFlags: n,
+      generalConstraintIndicatorFlags: a,
+      generalLevelIdc: o,
+      minSpatialSegmentationIdc: f,
+      parallelismType: c,
+      chromaFormatIdc: v,
+      bitDepthLumaMinus8: u,
+      bitDepthChromaMinus8: l,
+      avgFrameRate: D,
+      constantFrameRate: B,
+      numTemporalLayers: j,
+      temporalIdNested: E,
+      lengthSizeMinusOne: h,
+      arrays: k
+    };
+  } catch (x) {
+    return console.error("Error deserializing HEVC Decoder Configuration Record:", x), null;
+  }
+}, fF = (t) => {
+  const x = new N(t);
+  if (x.readBits(2) !== 2)
+    return null;
+  const A = x.readBits(1), F = (x.readBits(1) << 1) + A;
+  if (F === 3 && x.skipBits(1), x.readBits(1) === 1 || x.readBits(1) !== 0 || (x.skipBits(2), x.readBits(24) !== 4817730))
+    return null;
+  let a = 8;
+  F >= 2 && (a = x.readBits(1) ? 12 : 10);
+  const o = x.readBits(3);
+  let f = 0, c = 0;
+  if (o !== 7)
+    if (c = x.readBits(1), F === 1 || F === 3) {
+      const k = x.readBits(1), p = x.readBits(1);
+      f = !k && !p ? 3 : k && !p ? 2 : 1, x.skipBits(1);
+    } else
+      f = 1;
+  else
+    f = 3, c = 1;
+  const v = x.readBits(16), u = x.readBits(16), l = v + 1, D = u + 1, b = l * D;
+  let B = x0(ax).level;
+  for (const m of ax)
+    if (b <= m.maxPictureSize) {
+      B = m.level;
+      break;
+    }
+  return {
+    profile: F,
+    level: B,
+    bitDepth: a,
+    chromaSubsampling: f,
+    videoFullRangeFlag: c,
+    colourPrimaries: o === 2 ? 1 : o === 1 ? 6 : 2,
+    transferCharacteristics: o === 2 ? 1 : o === 1 ? 6 : 2,
+    matrixCoefficients: o === 7 ? 0 : o === 2 ? 1 : o === 1 ? 6 : 2
+  };
+}, cF = function* (t) {
+  const x = new N(t), e = () => {
+    let A = 0;
+    for (let r = 0; r < 8; r++) {
+      const F = x.readAlignedByte();
+      if (A |= (F & 127) << r * 7, !(F & 128))
+        break;
+      if (r === 7 && F & 128)
+        return null;
+    }
+    return A >= 2 ** 32 - 1 ? null : A;
+  };
+  for (; x.getBitsLeft() >= 8; ) {
+    x.skipBits(1);
+    const A = x.readBits(4), r = x.readBits(1), F = x.readBits(1);
+    x.skipBits(1), r && x.skipBits(8);
+    let i;
+    if (F) {
+      const s = e();
+      if (s === null)
+        return;
+      i = s;
+    } else
+      i = Math.floor(x.getBitsLeft() / 8);
+    d(x.pos % 8 === 0), yield {
+      type: A,
+      data: t.subarray(x.pos / 8, x.pos / 8 + i)
+    }, x.skipBits(i * 8);
+  }
+}, vF = (t) => {
+  for (const { type: x, data: e } of cF(t)) {
+    if (x !== 1)
+      continue;
+    const A = new N(e), r = A.readBits(3);
+    A.readBits(1);
+    const F = A.readBits(1);
+    let i = 0, s = 0, n = 0;
+    if (F)
+      i = A.readBits(5);
+    else {
+      if (A.readBits(1) && (A.skipBits(32), A.skipBits(32), A.readBits(1)))
+        return null;
+      const h = A.readBits(1);
+      h && (n = A.readBits(5), A.skipBits(32), A.skipBits(5), A.skipBits(5));
+      const m = A.readBits(5);
+      for (let k = 0; k <= m; k++) {
+        A.skipBits(12);
+        const p = A.readBits(5);
+        if (k === 0 && (i = p), p > 7) {
+          const q = A.readBits(1);
+          k === 0 && (s = q);
+        }
+        if (h && A.readBits(1)) {
+          const S = n + 1;
+          A.skipBits(S), A.skipBits(S), A.skipBits(1);
+        }
+        A.readBits(1) && A.skipBits(4);
+      }
+    }
+    const a = A.readBits(4), o = A.readBits(4), f = a + 1;
+    A.skipBits(f);
+    const c = o + 1;
+    A.skipBits(c);
+    let v = 0;
+    if (F ? v = 0 : v = A.readBits(1), v && (A.skipBits(4), A.skipBits(3)), A.skipBits(1), A.skipBits(1), A.skipBits(1), !F) {
+      A.skipBits(1), A.skipBits(1), A.skipBits(1), A.skipBits(1);
+      const E = A.readBits(1);
+      E && (A.skipBits(1), A.skipBits(1));
+      const h = A.readBits(1);
+      let m = 0;
+      h ? m = 2 : m = A.readBits(1), m > 0 && (A.readBits(1) || A.skipBits(1)), E && A.skipBits(3);
+    }
+    A.skipBits(1), A.skipBits(1), A.skipBits(1);
+    const u = A.readBits(1);
+    let l = 8;
+    r === 2 && u ? l = A.readBits(1) ? 12 : 10 : r <= 2 && (l = u ? 10 : 8);
+    let D = 0;
+    r !== 1 && (D = A.readBits(1));
+    let b = 1, B = 1, j = 0;
+    return D || (r === 0 ? (b = 1, B = 1) : r === 1 ? (b = 0, B = 0) : l === 12 && (b = A.readBits(1), b && (B = A.readBits(1))), b && B && (j = A.readBits(2))), {
+      profile: r,
+      level: i,
+      tier: s,
+      bitDepth: l,
+      monochrome: D,
+      chromaSubsamplingX: b,
+      chromaSubsamplingY: B,
+      chromaSamplePosition: j
+    };
+  }
+  return null;
+}, ct = (t) => {
+  const x = U(t), e = x.getUint8(9), A = x.getUint16(10, !0), r = x.getUint32(12, !0), F = x.getInt16(16, !0), i = x.getUint8(18);
+  let s = null;
+  return i && (s = t.subarray(19, 21 + e)), {
+    outputChannelCount: e,
+    preSkip: A,
+    inputSampleRate: r,
+    outputGain: F,
+    channelMappingFamily: i,
+    channelMappingTable: s
+  };
+}, Ms = [
+  480,
+  960,
+  1920,
+  2880,
+  480,
+  960,
+  1920,
+  2880,
+  480,
+  960,
+  1920,
+  2880,
+  480,
+  960,
+  480,
+  960,
+  120,
+  240,
+  480,
+  960,
+  120,
+  240,
+  480,
+  960,
+  120,
+  240,
+  480,
+  960,
+  120,
+  240,
+  480,
+  960
+], Gs = (t) => {
+  const x = t[0] >> 3;
+  return {
+    durationInSamples: Ms[x]
+  };
+}, lF = (t) => {
+  if (t.length < 7)
+    throw new Error("Setup header is too short.");
+  if (t[0] !== 5)
+    throw new Error("Wrong packet type in Setup header.");
+  if (String.fromCharCode(...t.slice(1, 7)) !== "vorbis")
+    throw new Error("Invalid packet signature in Setup header.");
+  const e = t.length, A = new Uint8Array(e);
+  for (let f = 0; f < e; f++)
+    A[f] = t[e - 1 - f];
+  const r = new N(A);
+  let F = 0;
+  for (; r.getBitsLeft() > 97; )
+    if (r.readBits(1) === 1) {
+      F = r.pos;
+      break;
+    }
+  if (F === 0)
+    throw new Error("Invalid Setup header: framing bit not found.");
+  let i = 0, s = !1, n = 0;
+  for (; r.getBitsLeft() >= 97; ) {
+    const f = r.pos, c = r.readBits(8), v = r.readBits(16), u = r.readBits(16);
+    if (c > 63 || v !== 0 || u !== 0) {
+      r.pos = f;
+      break;
+    }
+    if (r.skipBits(1), i++, i > 64)
+      break;
+    r.clone().readBits(6) + 1 === i && (s = !0, n = i);
+  }
+  if (!s)
+    throw new Error("Invalid Setup header: mode header not found.");
+  if (n > 63)
+    throw new Error(`Unsupported mode count: ${n}.`);
+  const a = n;
+  r.pos = 0, r.skipBits(F);
+  const o = Array(a).fill(0);
+  for (let f = a - 1; f >= 0; f--)
+    r.skipBits(40), o[f] = r.readBits(1);
+  return { modeBlockflags: o };
+}, dF = (t, x, e) => {
+  switch (t) {
+    case "avc": {
+      for (const A of FF(e, x)) {
+        const r = e[A.offset], F = Yx(r);
+        if (F >= T0.NON_IDR_SLICE && F <= T0.SLICE_DPC)
+          return "delta";
+        if (F === T0.IDR)
+          return "key";
+        if (F === T0.SEI && (!Vt() || As() >= 144)) {
+          const i = e.subarray(A.offset, A.offset + A.length), s = ft(i);
+          let n = 1;
+          do {
+            let a = 0;
+            for (; ; ) {
+              const c = s[n++];
+              if (c === void 0 || (a += c, c < 255))
+                break;
+            }
+            let o = 0;
+            for (; ; ) {
+              const c = s[n++];
+              if (c === void 0 || (o += c, c < 255))
+                break;
+            }
+            if (a === 6) {
+              const c = new N(s);
+              c.pos = 8 * n;
+              const v = y(c), u = c.readBits(1);
+              if (v === 0 && u === 1)
+                return "key";
+            }
+            n += o;
+          } while (n < s.length - 1);
+        }
+      }
+      return "delta";
+    }
+    case "hevc": {
+      for (const A of aF(e, x)) {
+        const r = Tx(e[A.offset]);
+        if (r < A0.BLA_W_LP)
+          return "delta";
+        if (r <= A0.RSV_IRAP_VCL23)
+          return "key";
+      }
+      return "delta";
+    }
+    case "vp8":
+      return (e[0] & 1) === 0 ? "key" : "delta";
+    case "vp9": {
+      const A = new N(e);
+      if (A.readBits(2) !== 2)
+        return null;
+      const r = A.readBits(1);
+      return (A.readBits(1) << 1) + r === 3 && A.skipBits(1), A.readBits(1) ? null : A.readBits(1) === 0 ? "key" : "delta";
+    }
+    case "av1": {
+      let A = !1;
+      for (const { type: r, data: F } of cF(e))
+        if (r === 1) {
+          const i = new N(F);
+          i.skipBits(4), A = !!i.readBits(1);
+        } else if (r === 3 || r === 6 || r === 7) {
+          if (A)
+            return "key";
+          const i = new N(F);
+          return i.readBits(1) ? null : i.readBits(2) === 0 ? "key" : "delta";
+        }
+      return null;
+    }
+    default:
+      u0(t), d(!1);
+  }
+};
+var Z0;
+(function(t) {
+  t[t.STREAMINFO = 0] = "STREAMINFO", t[t.VORBIS_COMMENT = 4] = "VORBIS_COMMENT", t[t.PICTURE = 6] = "PICTURE";
+})(Z0 || (Z0 = {}));
+const Zt = (t, x) => {
+  const e = U(t);
+  let A = 0;
+  const r = e.getUint32(A, !0);
+  A += 4;
+  const F = P0.decode(t.subarray(A, A + r));
+  A += r, r > 0 && (x.raw ??= {}, x.raw.vendor ??= F);
+  const i = e.getUint32(A, !0);
+  A += 4;
+  for (let s = 0; s < i; s++) {
+    const n = e.getUint32(A, !0);
+    A += 4;
+    const a = P0.decode(t.subarray(A, A + n));
+    A += n;
+    const o = a.indexOf("=");
+    if (o === -1)
+      continue;
+    const f = a.slice(0, o).toUpperCase(), c = a.slice(o + 1);
+    switch (x.raw ??= {}, x.raw[f] ??= c, f) {
+      case "TITLE":
+        x.title ??= c;
+        break;
+      case "DESCRIPTION":
+        x.description ??= c;
+        break;
+      case "ARTIST":
+        x.artist ??= c;
+        break;
+      case "ALBUM":
+        x.album ??= c;
+        break;
+      case "ALBUMARTIST":
+        x.albumArtist ??= c;
+        break;
+      case "COMMENT":
+        x.comment ??= c;
+        break;
+      case "LYRICS":
+        x.lyrics ??= c;
+        break;
+      case "TRACKNUMBER":
+        {
+          const v = c.split("/"), u = Number.parseInt(v[0], 10), l = v[1] && Number.parseInt(v[1], 10);
+          Number.isInteger(u) && u > 0 && (x.trackNumber ??= u), l && Number.isInteger(l) && l > 0 && (x.tracksTotal ??= l);
+        }
+        break;
+      case "TRACKTOTAL":
+        {
+          const v = Number.parseInt(c, 10);
+          Number.isInteger(v) && v > 0 && (x.tracksTotal ??= v);
+        }
+        break;
+      case "DISCNUMBER":
+        {
+          const v = c.split("/"), u = Number.parseInt(v[0], 10), l = v[1] && Number.parseInt(v[1], 10);
+          Number.isInteger(u) && u > 0 && (x.discNumber ??= u), l && Number.isInteger(l) && l > 0 && (x.discsTotal ??= l);
+        }
+        break;
+      case "DISCTOTAL":
+        {
+          const v = Number.parseInt(c, 10);
+          Number.isInteger(v) && v > 0 && (x.discsTotal ??= v);
+        }
+        break;
+      case "DATE":
+        {
+          const v = new Date(c);
+          Number.isNaN(v.getTime()) || (x.date ??= v);
+        }
+        break;
+      case "GENRE":
+        x.genre ??= c;
+        break;
+      case "METADATA_BLOCK_PICTURE":
+        {
+          const v = Fs(c), u = U(v), l = u.getUint32(0, !1), D = u.getUint32(4, !1), b = String.fromCharCode(...v.subarray(8, 8 + D)), B = u.getUint32(8 + D, !1), j = P0.decode(v.subarray(12 + D, 12 + D + B)), E = u.getUint32(D + B + 28), h = v.subarray(D + B + 32, D + B + 32 + E);
+          x.images ??= [], x.images.push({
+            data: h,
+            mimeType: b,
+            kind: l === 3 ? "coverFront" : l === 4 ? "coverBack" : "unknown",
+            name: void 0,
+            description: j || void 0
+          });
+        }
+        break;
+    }
+  }
+}, xA = (t, x, e) => {
+  const A = [
+    t
+  ], F = Y.encode("Mediabunny");
+  let i = new Uint8Array(4 + F.length), s = new DataView(i.buffer);
+  s.setUint32(0, F.length, !0), i.set(F, 4), A.push(i);
+  const n = /* @__PURE__ */ new Set(), a = (u, l) => {
+    const D = `${u}=${l}`, b = Y.encode(D);
+    i = new Uint8Array(4 + b.length), s = new DataView(i.buffer), s.setUint32(0, b.length, !0), i.set(b, 4), A.push(i), n.add(u);
+  };
+  for (const { key: u, value: l } of ee(x))
+    switch (u) {
+      case "title":
+        a("TITLE", l);
+        break;
+      case "description":
+        a("DESCRIPTION", l);
+        break;
+      case "artist":
+        a("ARTIST", l);
+        break;
+      case "album":
+        a("ALBUM", l);
+        break;
+      case "albumArtist":
+        a("ALBUMARTIST", l);
+        break;
+      case "genre":
+        a("GENRE", l);
+        break;
+      case "date":
+        {
+          const D = x.raw?.DATE ?? x.raw?.date;
+          D && typeof D == "string" ? a("DATE", D) : a("DATE", l.toISOString().slice(0, 10));
+        }
+        break;
+      case "comment":
+        a("COMMENT", l);
+        break;
+      case "lyrics":
+        a("LYRICS", l);
+        break;
+      case "trackNumber":
+        a("TRACKNUMBER", l.toString());
+        break;
+      case "tracksTotal":
+        a("TRACKTOTAL", l.toString());
+        break;
+      case "discNumber":
+        a("DISCNUMBER", l.toString());
+        break;
+      case "discsTotal":
+        a("DISCTOTAL", l.toString());
+        break;
+      case "images":
+        {
+          if (!e)
+            break;
+          for (const D of l) {
+            const b = D.kind === "coverFront" ? 3 : D.kind === "coverBack" ? 4 : 0, B = new Uint8Array(D.mimeType.length);
+            for (let k = 0; k < D.mimeType.length; k++)
+              B[k] = D.mimeType.charCodeAt(k);
+            const j = Y.encode(D.description ?? ""), E = new Uint8Array(8 + B.length + 4 + j.length + 16 + 4 + D.data.length), h = U(E);
+            h.setUint32(0, b, !1), h.setUint32(4, B.length, !1), E.set(B, 8), h.setUint32(8 + B.length, j.length, !1), E.set(j, 12 + B.length), h.setUint32(28 + B.length + j.length, D.data.length, !1), E.set(D.data, 32 + B.length + j.length);
+            const m = is(E);
+            a("METADATA_BLOCK_PICTURE", m);
+          }
+        }
+        break;
+      case "raw":
+        break;
+      default:
+        u0(u);
+    }
+  if (x.raw)
+    for (const u in x.raw) {
+      const l = x.raw[u] ?? x.raw[u.toLowerCase()];
+      u === "vendor" || l == null || n.has(u) || typeof l == "string" && a(u, l);
+    }
+  const o = new Uint8Array(4);
+  U(o).setUint32(0, n.size, !0), A.splice(2, 0, o);
+  const f = A.reduce((u, l) => u + l.length, 0), c = new Uint8Array(f);
+  let v = 0;
+  for (const u of A)
+    c.set(u, v), v += u.length;
+  return c;
+}, SA = [2, 1, 2, 3, 3, 4, 4, 5], uF = (t) => {
+  if (t.length < 7 || t[0] !== 11 || t[1] !== 119)
+    return null;
+  const x = new N(t);
+  x.skipBits(16), x.skipBits(16);
+  const e = x.readBits(2);
+  if (e === 3)
+    return null;
+  const A = x.readBits(6), r = x.readBits(5);
+  if (r > 8)
+    return null;
+  const F = x.readBits(3), i = x.readBits(3);
+  (i & 1) !== 0 && i !== 1 && x.skipBits(2), (i & 4) !== 0 && x.skipBits(2), i === 2 && x.skipBits(2);
+  const s = x.readBits(1), n = Math.floor(A / 2);
+  return { fscod: e, bsid: r, bsmod: F, acmod: i, lfeon: s, bitRateCode: n };
+}, Rs = [
+  // frmsizecod, [48kHz, 44.1kHz, 32kHz] in bytes
+  64 * 2,
+  69 * 2,
+  96 * 2,
+  64 * 2,
+  70 * 2,
+  96 * 2,
+  80 * 2,
+  87 * 2,
+  120 * 2,
+  80 * 2,
+  88 * 2,
+  120 * 2,
+  96 * 2,
+  104 * 2,
+  144 * 2,
+  96 * 2,
+  105 * 2,
+  144 * 2,
+  112 * 2,
+  121 * 2,
+  168 * 2,
+  112 * 2,
+  122 * 2,
+  168 * 2,
+  128 * 2,
+  139 * 2,
+  192 * 2,
+  128 * 2,
+  140 * 2,
+  192 * 2,
+  160 * 2,
+  174 * 2,
+  240 * 2,
+  160 * 2,
+  175 * 2,
+  240 * 2,
+  192 * 2,
+  208 * 2,
+  288 * 2,
+  192 * 2,
+  209 * 2,
+  288 * 2,
+  224 * 2,
+  243 * 2,
+  336 * 2,
+  224 * 2,
+  244 * 2,
+  336 * 2,
+  256 * 2,
+  278 * 2,
+  384 * 2,
+  256 * 2,
+  279 * 2,
+  384 * 2,
+  320 * 2,
+  348 * 2,
+  480 * 2,
+  320 * 2,
+  349 * 2,
+  480 * 2,
+  384 * 2,
+  417 * 2,
+  576 * 2,
+  384 * 2,
+  418 * 2,
+  576 * 2,
+  448 * 2,
+  487 * 2,
+  672 * 2,
+  448 * 2,
+  488 * 2,
+  672 * 2,
+  512 * 2,
+  557 * 2,
+  768 * 2,
+  512 * 2,
+  558 * 2,
+  768 * 2,
+  640 * 2,
+  696 * 2,
+  960 * 2,
+  640 * 2,
+  697 * 2,
+  960 * 2,
+  768 * 2,
+  835 * 2,
+  1152 * 2,
+  768 * 2,
+  836 * 2,
+  1152 * 2,
+  896 * 2,
+  975 * 2,
+  1344 * 2,
+  896 * 2,
+  976 * 2,
+  1344 * 2,
+  1024 * 2,
+  1114 * 2,
+  1536 * 2,
+  1024 * 2,
+  1115 * 2,
+  1536 * 2,
+  1152 * 2,
+  1253 * 2,
+  1728 * 2,
+  1152 * 2,
+  1254 * 2,
+  1728 * 2,
+  1280 * 2,
+  1393 * 2,
+  1920 * 2,
+  1280 * 2,
+  1394 * 2,
+  1920 * 2
+], Hs = 1536, Ie = new Uint8Array([5, 4, 65, 67, 45, 51]), qe = new Uint8Array([5, 4, 69, 65, 67, 51]), DF = [1, 2, 3, 6], BF = (t) => {
+  if (t.length < 6 || t[0] !== 11 || t[1] !== 119)
+    return null;
+  const x = new N(t);
+  x.skipBits(16);
+  const e = x.readBits(2);
+  if (x.skipBits(3), e !== 0 && e !== 2)
+    return null;
+  const A = x.readBits(11), r = x.readBits(2);
+  let F = 0, i;
+  r === 3 ? (F = x.readBits(2), i = 3) : i = x.readBits(2);
+  const s = x.readBits(3), n = x.readBits(1), a = x.readBits(5);
+  if (a < 11 || a > 16)
+    return null;
+  const o = DF[i];
+  let f;
+  return r < 3 ? f = ot[r] / 1e3 : f = rF[F] / 1e3, {
+    dataRate: Math.round((A + 1) * f / (o * 16)),
+    substreams: [{
+      fscod: r,
+      fscod2: F,
+      bsid: a,
+      bsmod: 0,
+      acmod: s,
+      lfeon: n,
+      numDepSub: 0,
+      chanLoc: 0
+    }]
+  };
+}, Ns = (t) => {
+  if (t.length < 2)
+    return null;
+  const x = new N(t), e = x.readBits(13), A = x.readBits(3), r = [];
+  for (let F = 0; F <= A && !(Math.ceil(x.pos / 8) + 3 > t.length); F++) {
+    const i = x.readBits(2), s = x.readBits(5);
+    x.skipBits(1), x.skipBits(1);
+    const n = x.readBits(3), a = x.readBits(3), o = x.readBits(1);
+    x.skipBits(3);
+    const f = x.readBits(4);
+    let c = 0;
+    f > 0 ? c = x.readBits(9) : x.skipBits(1), r.push({
+      fscod: i,
+      fscod2: null,
+      bsid: s,
+      bsmod: n,
+      acmod: a,
+      lfeon: o,
+      numDepSub: f,
+      chanLoc: c
+    });
+  }
+  return r.length === 0 ? null : { dataRate: e, substreams: r };
+}, bF = (t) => {
+  const x = t.substreams[0];
+  return d(x), x.fscod < 3 ? ot[x.fscod] : x.fscod2 !== null && x.fscod2 < 3 ? rF[x.fscod2] : null;
+}, CF = (t) => {
+  const x = t.substreams[0];
+  d(x);
+  let e = SA[x.acmod] + x.lfeon;
+  if (x.numDepSub > 0) {
+    const A = [2, 2, 1, 1, 2, 2, 2, 1, 1];
+    for (let r = 0; r < 9; r++)
+      x.chanLoc & 1 << 8 - r && (e += A[r]);
+  }
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class lx {
+  constructor(x) {
+    this.input = x;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class jF {
+  /** Returns true if and only if the decoder can decode the given codec configuration. */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static supports(x, e) {
+    return !1;
+  }
+}
+class _A {
+  /** Returns true if and only if the decoder can decode the given codec configuration. */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static supports(x, e) {
+    return !1;
+  }
+}
+class EF {
+  /** Returns true if and only if the encoder can encode the given codec configuration. */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static supports(x, e) {
+    return !1;
+  }
+}
+class hF {
+  /** Returns true if and only if the encoder can encode the given codec configuration. */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static supports(x, e) {
+    return !1;
+  }
+}
+const Ve = [], Ke = [], pe = [], ke = [], mF = (t) => {
+  if (t.prototype instanceof jF) {
+    const x = t;
+    if (Ve.includes(x)) {
+      console.warn("Video decoder already registered.");
+      return;
+    }
+    Ve.push(x);
+  } else if (t.prototype instanceof _A) {
+    const x = t;
+    if (Ke.includes(x)) {
+      console.warn("Audio decoder already registered.");
+      return;
+    }
+    Ke.push(x);
+  } else
+    throw new TypeError("Decoder must be a CustomVideoDecoder or CustomAudioDecoder.");
+}, Ls = (t) => {
+  if (t.prototype instanceof EF) {
+    const x = t;
+    if (pe.includes(x)) {
+      console.warn("Video encoder already registered.");
+      return;
+    }
+    pe.push(x);
+  } else if (t.prototype instanceof hF) {
+    const x = t;
+    if (ke.includes(x)) {
+      console.warn("Audio encoder already registered.");
+      return;
+    }
+    ke.push(x);
+  } else
+    throw new TypeError("Encoder must be a CustomVideoEncoder or CustomAudioEncoder.");
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const g0 = /* @__PURE__ */ new Uint8Array(0);
+class X {
+  /** Creates a new {@link EncodedPacket} from raw bytes and timing information. */
+  constructor(x, e, A, r, F = -1, i, s) {
+    if (this.data = x, this.type = e, this.timestamp = A, this.duration = r, this.sequenceNumber = F, x === g0 && i === void 0)
+      throw new Error("Internal error: byteLength must be explicitly provided when constructing metadata-only packets.");
+    if (i === void 0 && (i = x.byteLength), !(x instanceof Uint8Array))
+      throw new TypeError("data must be a Uint8Array.");
+    if (e !== "key" && e !== "delta")
+      throw new TypeError('type must be either "key" or "delta".');
+    if (!Number.isFinite(A))
+      throw new TypeError("timestamp must be a number.");
+    if (!Number.isFinite(r) || r < 0)
+      throw new TypeError("duration must be a non-negative number.");
+    if (!Number.isFinite(F))
+      throw new TypeError("sequenceNumber must be a number.");
+    if (!Number.isInteger(i) || i < 0)
+      throw new TypeError("byteLength must be a non-negative integer.");
+    if (s !== void 0 && (typeof s != "object" || !s))
+      throw new TypeError("sideData, when provided, must be an object.");
+    if (s?.alpha !== void 0 && !(s.alpha instanceof Uint8Array))
+      throw new TypeError("sideData.alpha, when provided, must be a Uint8Array.");
+    if (s?.alphaByteLength !== void 0 && (!Number.isInteger(s.alphaByteLength) || s.alphaByteLength < 0))
+      throw new TypeError("sideData.alphaByteLength, when provided, must be a non-negative integer.");
+    this.byteLength = i, this.sideData = s ?? {}, this.sideData.alpha && this.sideData.alphaByteLength === void 0 && (this.sideData.alphaByteLength = this.sideData.alpha.byteLength);
+  }
+  /**
+   * If this packet is a metadata-only packet. Metadata-only packets don't contain their packet data. They are the
+   * result of retrieving packets with {@link PacketRetrievalOptions.metadataOnly} set to `true`.
+   */
+  get isMetadataOnly() {
+    return this.data === g0;
+  }
+  /** The timestamp of this packet in microseconds. */
+  get microsecondTimestamp() {
+    return Math.trunc(nx * this.timestamp);
+  }
+  /** The duration of this packet in microseconds. */
+  get microsecondDuration() {
+    return Math.trunc(nx * this.duration);
+  }
+  /** Converts this packet to an
+   * [`EncodedVideoChunk`](https://developer.mozilla.org/en-US/docs/Web/API/EncodedVideoChunk) for use with the
+   * WebCodecs API. */
+  toEncodedVideoChunk() {
+    if (this.isMetadataOnly)
+      throw new TypeError("Metadata-only packets cannot be converted to a video chunk.");
+    if (typeof EncodedVideoChunk > "u")
+      throw new Error("Your browser does not support EncodedVideoChunk.");
+    return new EncodedVideoChunk({
+      data: this.data,
+      type: this.type,
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration
+    });
+  }
+  /**
+   * Converts this packet to an
+   * [`EncodedVideoChunk`](https://developer.mozilla.org/en-US/docs/Web/API/EncodedVideoChunk) for use with the
+   * WebCodecs API, using the alpha side data instead of the color data. Throws if no alpha side data is defined.
+   */
+  alphaToEncodedVideoChunk(x = this.type) {
+    if (!this.sideData.alpha)
+      throw new TypeError("This packet does not contain alpha side data.");
+    if (this.isMetadataOnly)
+      throw new TypeError("Metadata-only packets cannot be converted to a video chunk.");
+    if (typeof EncodedVideoChunk > "u")
+      throw new Error("Your browser does not support EncodedVideoChunk.");
+    return new EncodedVideoChunk({
+      data: this.sideData.alpha,
+      type: x,
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration
+    });
+  }
+  /** Converts this packet to an
+   * [`EncodedAudioChunk`](https://developer.mozilla.org/en-US/docs/Web/API/EncodedAudioChunk) for use with the
+   * WebCodecs API. */
+  toEncodedAudioChunk() {
+    if (this.isMetadataOnly)
+      throw new TypeError("Metadata-only packets cannot be converted to an audio chunk.");
+    if (typeof EncodedAudioChunk > "u")
+      throw new Error("Your browser does not support EncodedAudioChunk.");
+    return new EncodedAudioChunk({
+      data: this.data,
+      type: this.type,
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration
+    });
+  }
+  /**
+   * Creates an {@link EncodedPacket} from an
+   * [`EncodedVideoChunk`](https://developer.mozilla.org/en-US/docs/Web/API/EncodedVideoChunk) or
+   * [`EncodedAudioChunk`](https://developer.mozilla.org/en-US/docs/Web/API/EncodedAudioChunk). This method is useful
+   * for converting chunks from the WebCodecs API to `EncodedPacket` instances.
+   */
+  static fromEncodedChunk(x, e) {
+    if (!(x instanceof EncodedVideoChunk || x instanceof EncodedAudioChunk))
+      throw new TypeError("chunk must be an EncodedVideoChunk or EncodedAudioChunk.");
+    const A = new Uint8Array(x.byteLength);
+    return x.copyTo(A), new X(A, x.type, x.timestamp / 1e6, (x.duration ?? 0) / 1e6, void 0, void 0, e);
+  }
+  /** Clones this packet while optionally modifying the new packet's data. */
+  clone(x) {
+    if (x !== void 0 && (typeof x != "object" || x === null))
+      throw new TypeError("options, when provided, must be an object.");
+    if (x?.data !== void 0 && !(x.data instanceof Uint8Array))
+      throw new TypeError("options.data, when provided, must be a Uint8Array.");
+    if (x?.type !== void 0 && x.type !== "key" && x.type !== "delta")
+      throw new TypeError('options.type, when provided, must be either "key" or "delta".');
+    if (x?.timestamp !== void 0 && !Number.isFinite(x.timestamp))
+      throw new TypeError("options.timestamp, when provided, must be a number.");
+    if (x?.duration !== void 0 && !Number.isFinite(x.duration))
+      throw new TypeError("options.duration, when provided, must be a number.");
+    if (x?.sequenceNumber !== void 0 && !Number.isFinite(x.sequenceNumber))
+      throw new TypeError("options.sequenceNumber, when provided, must be a number.");
+    if (x?.sideData !== void 0 && (typeof x.sideData != "object" || x.sideData === null))
+      throw new TypeError("options.sideData, when provided, must be an object.");
+    return new X(x?.data ?? this.data, x?.type ?? this.type, x?.timestamp ?? this.timestamp, x?.duration ?? this.duration, x?.sequenceNumber ?? this.sequenceNumber, this.byteLength, x?.sideData ?? this.sideData);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Us = (t) => {
+  let A = t, r = 4096, F = 0, i = 12, s = 0;
+  for (A < 0 && (A = -A, F = 128), A += 33, A > 8191 && (A = 8191); (A & r) !== r && i >= 5; )
+    r >>= 1, i--;
+  return s = A >> i - 4 & 15, ~(F | i - 5 << 4 | s) & 255;
+}, Os = (t) => {
+  let e = 0, A = 0, r = ~t;
+  r & 128 && (r &= -129, e = -1), A = ((r & 240) >> 4) + 5;
+  const F = (1 << A | (r & 15) << A - 4 | 1 << A - 5) - 33;
+  return e === 0 ? F : -F;
+}, $s = (t) => {
+  let e = 2048, A = 0, r = 11, F = 0, i = t;
+  for (i < 0 && (i = -i, A = 128), i > 4095 && (i = 4095); (i & e) !== e && r >= 5; )
+    e >>= 1, r--;
+  return F = i >> (r === 4 ? 1 : r - 4) & 15, (A | r - 4 << 4 | F) ^ 85;
+}, zs = (t) => {
+  let x = 0, e = 0, A = t ^ 85;
+  A & 128 && (A &= -129, x = -1), e = ((A & 240) >> 4) + 4;
+  let r = 0;
+  return e !== 4 ? r = 1 << e | (A & 15) << e - 4 | 1 << e - 5 : r = A << 1 | 1, x === 0 ? r : -r;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+Jr();
+let jr = -1 / 0, Er = -1 / 0, ge = null;
+typeof FinalizationRegistry < "u" && (ge = new FinalizationRegistry((t) => {
+  const x = Date.now();
+  t.type === "video" ? (x - jr >= 1e3 && (console.error("A VideoSample was garbage collected without first being closed. For proper resource management, make sure to call close() on all your VideoSamples as soon as you're done using them."), jr = x), typeof VideoFrame < "u" && t.data instanceof VideoFrame && t.data.close()) : (x - Er >= 1e3 && (console.error("An AudioSample was garbage collected without first being closed. For proper resource management, make sure to call close() on all your AudioSamples as soon as you're done using them."), Er = x), typeof AudioData < "u" && t.data instanceof AudioData && t.data.close());
+}));
+const IA = [
+  // 4:2:0 Y, U, V
+  "I420",
+  "I420P10",
+  "I420P12",
+  // 4:2:0 Y, U, V, A
+  "I420A",
+  "I420AP10",
+  "I420AP12",
+  // 4:2:2 Y, U, V
+  "I422",
+  "I422P10",
+  "I422P12",
+  // 4:2:2 Y, U, V, A
+  "I422A",
+  "I422AP10",
+  "I422AP12",
+  // 4:4:4 Y, U, V
+  "I444",
+  "I444P10",
+  "I444P12",
+  // 4:4:4 Y, U, V, A
+  "I444A",
+  "I444AP10",
+  "I444AP12",
+  // 4:2:0 Y, UV
+  "NV12",
+  // 4:4:4 RGBA
+  "RGBA",
+  // 4:4:4 RGBX (opaque)
+  "RGBX",
+  // 4:4:4 BGRA
+  "BGRA",
+  // 4:4:4 BGRX (opaque)
+  "BGRX"
+], Vs = new Set(IA);
+class i0 {
+  /** The width of the frame in pixels. */
+  get codedWidth() {
+    return this.visibleRect.width;
+  }
+  /** The height of the frame in pixels. */
+  get codedHeight() {
+    return this.visibleRect.height;
+  }
+  /** The display width of the frame in pixels, after aspect ratio adjustment and rotation. */
+  get displayWidth() {
+    return this.rotation % 180 === 0 ? this.squarePixelWidth : this.squarePixelHeight;
+  }
+  /** The display height of the frame in pixels, after aspect ratio adjustment and rotation. */
+  get displayHeight() {
+    return this.rotation % 180 === 0 ? this.squarePixelHeight : this.squarePixelWidth;
+  }
+  /** The presentation timestamp of the frame in microseconds. */
+  get microsecondTimestamp() {
+    return Math.trunc(nx * this.timestamp);
+  }
+  /** The duration of the frame in microseconds. */
+  get microsecondDuration() {
+    return Math.trunc(nx * this.duration);
+  }
+  /**
+   * Whether this sample uses a pixel format that can hold transparency data. Note that this doesn't necessarily mean
+   * that the sample is transparent.
+   */
+  get hasAlpha() {
+    return this.format && this.format.includes("A");
+  }
+  constructor(x, e) {
+    if (this._closed = !1, x instanceof ArrayBuffer || typeof SharedArrayBuffer < "u" && x instanceof SharedArrayBuffer || ArrayBuffer.isView(x)) {
+      if (!e || typeof e != "object")
+        throw new TypeError("init must be an object.");
+      if (e.format === void 0 || !Vs.has(e.format))
+        throw new TypeError("init.format must be one of: " + IA.join(", "));
+      if (!Number.isInteger(e.codedWidth) || e.codedWidth <= 0)
+        throw new TypeError("init.codedWidth must be a positive integer.");
+      if (!Number.isInteger(e.codedHeight) || e.codedHeight <= 0)
+        throw new TypeError("init.codedHeight must be a positive integer.");
+      if (e.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+        throw new TypeError("init.rotation, when provided, must be 0, 90, 180, or 270.");
+      if (!Number.isFinite(e.timestamp))
+        throw new TypeError("init.timestamp must be a number.");
+      if (e.duration !== void 0 && (!Number.isFinite(e.duration) || e.duration < 0))
+        throw new TypeError("init.duration, when provided, must be a non-negative number.");
+      if (e.layout !== void 0) {
+        if (!Array.isArray(e.layout))
+          throw new TypeError("init.layout, when provided, must be an array.");
+        for (const A of e.layout) {
+          if (!A || typeof A != "object" || Array.isArray(A))
+            throw new TypeError("Each entry in init.layout must be an object.");
+          if (!Number.isInteger(A.offset) || A.offset < 0)
+            throw new TypeError("plane.offset must be a non-negative integer.");
+          if (!Number.isInteger(A.stride) || A.stride < 0)
+            throw new TypeError("plane.stride must be a non-negative integer.");
+        }
+      }
+      if (e.visibleRect !== void 0 && vr(e.visibleRect, "init.visibleRect"), e.displayWidth !== void 0 && (!Number.isInteger(e.displayWidth) || e.displayWidth <= 0))
+        throw new TypeError("init.displayWidth, when provided, must be a positive integer.");
+      if (e.displayHeight !== void 0 && (!Number.isInteger(e.displayHeight) || e.displayHeight <= 0))
+        throw new TypeError("init.displayHeight, when provided, must be a positive integer.");
+      if (e.displayWidth !== void 0 != (e.displayHeight !== void 0))
+        throw new TypeError("init.displayWidth and init.displayHeight must be either both provided or both omitted.");
+      this._data = Q(x).slice(), this._layout = e.layout ?? Ks(e.format, e.codedWidth, e.codedHeight), this.format = e.format, this.rotation = e.rotation ?? 0, this.timestamp = e.timestamp, this.duration = e.duration ?? 0, this.colorSpace = new Re(e.colorSpace), this.visibleRect = {
+        left: e.visibleRect?.left ?? 0,
+        top: e.visibleRect?.top ?? 0,
+        width: e.visibleRect?.width ?? e.codedWidth,
+        height: e.visibleRect?.height ?? e.codedHeight
+      }, e.displayWidth !== void 0 ? (this.squarePixelWidth = this.rotation % 180 === 0 ? e.displayWidth : e.displayHeight, this.squarePixelHeight = this.rotation % 180 === 0 ? e.displayHeight : e.displayWidth) : (this.squarePixelWidth = this.codedWidth, this.squarePixelHeight = this.codedHeight);
+    } else if (typeof VideoFrame < "u" && x instanceof VideoFrame) {
+      if (e?.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+        throw new TypeError("init.rotation, when provided, must be 0, 90, 180, or 270.");
+      if (e?.timestamp !== void 0 && !Number.isFinite(e?.timestamp))
+        throw new TypeError("init.timestamp, when provided, must be a number.");
+      if (e?.duration !== void 0 && (!Number.isFinite(e.duration) || e.duration < 0))
+        throw new TypeError("init.duration, when provided, must be a non-negative number.");
+      e?.visibleRect !== void 0 && vr(e.visibleRect, "init.visibleRect"), this._data = x, this._layout = null, this.format = x.format, this.visibleRect = {
+        left: x.visibleRect?.x ?? 0,
+        top: x.visibleRect?.y ?? 0,
+        width: x.visibleRect?.width ?? x.codedWidth,
+        height: x.visibleRect?.height ?? x.codedHeight
+      }, this.rotation = e?.rotation ?? 0, this.squarePixelWidth = x.displayWidth, this.squarePixelHeight = x.displayHeight, this.timestamp = e?.timestamp ?? x.timestamp / 1e6, this.duration = e?.duration ?? (x.duration ?? 0) / 1e6, this.colorSpace = new Re(x.colorSpace);
+    } else if (typeof HTMLImageElement < "u" && x instanceof HTMLImageElement || typeof SVGImageElement < "u" && x instanceof SVGImageElement || typeof ImageBitmap < "u" && x instanceof ImageBitmap || typeof HTMLVideoElement < "u" && x instanceof HTMLVideoElement || typeof HTMLCanvasElement < "u" && x instanceof HTMLCanvasElement || typeof OffscreenCanvas < "u" && x instanceof OffscreenCanvas) {
+      if (!e || typeof e != "object")
+        throw new TypeError("init must be an object.");
+      if (e.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+        throw new TypeError("init.rotation, when provided, must be 0, 90, 180, or 270.");
+      if (!Number.isFinite(e.timestamp))
+        throw new TypeError("init.timestamp must be a number.");
+      if (e.duration !== void 0 && (!Number.isFinite(e.duration) || e.duration < 0))
+        throw new TypeError("init.duration, when provided, must be a non-negative number.");
+      if (typeof VideoFrame < "u")
+        return new i0(new VideoFrame(x, {
+          timestamp: Math.trunc(e.timestamp * nx),
+          // Drag 0 to undefined
+          duration: Math.trunc((e.duration ?? 0) * nx) || void 0
+        }), e);
+      let A = 0, r = 0;
+      if ("naturalWidth" in x ? (A = x.naturalWidth, r = x.naturalHeight) : "videoWidth" in x ? (A = x.videoWidth, r = x.videoHeight) : "width" in x && (A = Number(x.width), r = Number(x.height)), !A || !r)
+        throw new TypeError("Could not determine dimensions.");
+      const F = new OffscreenCanvas(A, r), i = F.getContext("2d", {
+        alpha: Qx(),
+        // Firefox has VideoFrame glitches with opaque canvases
+        willReadFrequently: !0
+      });
+      d(i), i.drawImage(x, 0, 0), this._data = F, this._layout = null, this.format = "RGBX", this.visibleRect = { left: 0, top: 0, width: A, height: r }, this.squarePixelWidth = A, this.squarePixelHeight = r, this.rotation = e.rotation ?? 0, this.timestamp = e.timestamp, this.duration = e.duration ?? 0, this.colorSpace = new Re({
+        matrix: "rgb",
+        primaries: "bt709",
+        transfer: "iec61966-2-1",
+        fullRange: !0
+      });
+    } else
+      throw new TypeError("Invalid data type: Must be a BufferSource or CanvasImageSource.");
+    this.pixelAspectRatio = Ft({
+      num: this.squarePixelWidth * this.codedHeight,
+      den: this.squarePixelHeight * this.codedWidth
+    }), ge?.register(this, { type: "video", data: this._data }, this);
+  }
+  /** Clones this video sample. */
+  clone() {
+    if (this._closed)
+      throw new Error("VideoSample is closed.");
+    return d(this._data !== null), bx(this._data) ? new i0(this._data.clone(), {
+      timestamp: this.timestamp,
+      duration: this.duration,
+      rotation: this.rotation
+    }) : this._data instanceof Uint8Array ? (d(this._layout), new i0(this._data, {
+      format: this.format,
+      layout: this._layout,
+      codedWidth: this.codedWidth,
+      codedHeight: this.codedHeight,
+      timestamp: this.timestamp,
+      duration: this.duration,
+      colorSpace: this.colorSpace,
+      rotation: this.rotation,
+      visibleRect: this.visibleRect,
+      displayWidth: this.displayWidth,
+      displayHeight: this.displayHeight
+    })) : new i0(this._data, {
+      format: this.format,
+      codedWidth: this.codedWidth,
+      codedHeight: this.codedHeight,
+      timestamp: this.timestamp,
+      duration: this.duration,
+      colorSpace: this.colorSpace,
+      rotation: this.rotation,
+      visibleRect: this.visibleRect,
+      displayWidth: this.displayWidth,
+      displayHeight: this.displayHeight
+    });
+  }
+  /**
+   * Closes this video sample, releasing held resources. Video samples should be closed as soon as they are not
+   * needed anymore.
+   */
+  close() {
+    this._closed || (ge?.unregister(this), bx(this._data) ? this._data.close() : this._data = null, this._closed = !0);
+  }
+  /**
+   * Returns the number of bytes required to hold this video sample's pixel data. Throws if `format` is `null`.
+   */
+  allocationSize(x = {}) {
+    if (hr(x), this._closed)
+      throw new Error("VideoSample is closed.");
+    if (this.format === null)
+      throw new Error("Cannot get allocation size when format is null. Sorry!");
+    if (d(this._data !== null), !bx(this._data) && (x.colorSpace || x.format && x.format !== this.format || x.layout || x.rect)) {
+      const e = this.toVideoFrame(), A = e.allocationSize(x);
+      return e.close(), A;
+    }
+    return bx(this._data) ? this._data.allocationSize(x) : this._data instanceof Uint8Array ? this._data.byteLength : this.codedWidth * this.codedHeight * 4;
+  }
+  /**
+   * Copies this video sample's pixel data to an ArrayBuffer or ArrayBufferView. Throws if `format` is `null`.
+   * @returns The byte layout of the planes of the copied data.
+   */
+  async copyTo(x, e = {}) {
+    if (!et(x))
+      throw new TypeError("destination must be an ArrayBuffer or an ArrayBuffer view.");
+    if (hr(e), this._closed)
+      throw new Error("VideoSample is closed.");
+    if (this.format === null)
+      throw new Error("Cannot copy video sample data when format is null. Sorry!");
+    if (d(this._data !== null), !bx(this._data) && (e.colorSpace || e.format && e.format !== this.format || e.layout || e.rect)) {
+      const A = this.toVideoFrame(), r = await A.copyTo(x, e);
+      return A.close(), r;
+    }
+    if (bx(this._data))
+      return this._data.copyTo(x, e);
+    if (this._data instanceof Uint8Array)
+      return d(this._layout), Q(x).set(this._data), this._layout;
+    {
+      const r = this._data.getContext("2d");
+      d(r);
+      const F = r.getImageData(0, 0, this.codedWidth, this.codedHeight);
+      return Q(x).set(F.data), [{
+        offset: 0,
+        stride: 4 * this.codedWidth
+      }];
+    }
+  }
+  /**
+   * Converts this video sample to a VideoFrame for use with the WebCodecs API. The VideoFrame returned by this
+   * method *must* be closed separately from this video sample.
+   */
+  toVideoFrame() {
+    if (this._closed)
+      throw new Error("VideoSample is closed.");
+    return d(this._data !== null), bx(this._data) ? new VideoFrame(this._data, {
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration || void 0
+      // Drag 0 duration to undefined, glitches some codecs
+    }) : this._data instanceof Uint8Array ? new VideoFrame(this._data, {
+      format: this.format,
+      codedWidth: this.codedWidth,
+      codedHeight: this.codedHeight,
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration || void 0,
+      colorSpace: this.colorSpace
+    }) : new VideoFrame(this._data, {
+      timestamp: this.microsecondTimestamp,
+      duration: this.microsecondDuration || void 0
+    });
+  }
+  draw(x, e, A, r, F, i, s, n, a) {
+    let o = 0, f = 0, c = this.displayWidth, v = this.displayHeight, u = 0, l = 0, D = this.displayWidth, b = this.displayHeight;
+    if (i !== void 0 ? (o = e, f = A, c = r, v = F, u = i, l = s, n !== void 0 ? (D = n, b = a) : (D = c, b = v)) : (u = e, l = A, r !== void 0 && (D = r, b = F)), !(typeof CanvasRenderingContext2D < "u" && x instanceof CanvasRenderingContext2D || typeof OffscreenCanvasRenderingContext2D < "u" && x instanceof OffscreenCanvasRenderingContext2D))
+      throw new TypeError("context must be a CanvasRenderingContext2D or OffscreenCanvasRenderingContext2D.");
+    if (!Number.isFinite(o))
+      throw new TypeError("sx must be a number.");
+    if (!Number.isFinite(f))
+      throw new TypeError("sy must be a number.");
+    if (!Number.isFinite(c) || c < 0)
+      throw new TypeError("sWidth must be a non-negative number.");
+    if (!Number.isFinite(v) || v < 0)
+      throw new TypeError("sHeight must be a non-negative number.");
+    if (!Number.isFinite(u))
+      throw new TypeError("dx must be a number.");
+    if (!Number.isFinite(l))
+      throw new TypeError("dy must be a number.");
+    if (!Number.isFinite(D) || D < 0)
+      throw new TypeError("dWidth must be a non-negative number.");
+    if (!Number.isFinite(b) || b < 0)
+      throw new TypeError("dHeight must be a non-negative number.");
+    if (this._closed)
+      throw new Error("VideoSample is closed.");
+    ({ sx: o, sy: f, sWidth: c, sHeight: v } = this._rotateSourceRegion(o, f, c, v, this.rotation));
+    const B = this.toCanvasImageSource();
+    x.save();
+    const j = u + D / 2, E = l + b / 2;
+    x.translate(j, E), x.rotate(this.rotation * Math.PI / 180);
+    const h = this.rotation % 180 === 0 ? 1 : D / b;
+    x.scale(1 / h, h), x.drawImage(B, o, f, c, v, -D / 2, -b / 2, D, b), x.restore();
+  }
+  /**
+   * Draws the sample in the middle of the canvas corresponding to the context with the specified fit behavior.
+   */
+  drawWithFit(x, e) {
+    if (!(typeof CanvasRenderingContext2D < "u" && x instanceof CanvasRenderingContext2D || typeof OffscreenCanvasRenderingContext2D < "u" && x instanceof OffscreenCanvasRenderingContext2D))
+      throw new TypeError("context must be a CanvasRenderingContext2D or OffscreenCanvasRenderingContext2D.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (!["fill", "contain", "cover"].includes(e.fit))
+      throw new TypeError("options.fit must be 'fill', 'contain', or 'cover'.");
+    if (e.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+      throw new TypeError("options.rotation, when provided, must be 0, 90, 180, or 270.");
+    e.crop !== void 0 && MA(e.crop, "options.");
+    const A = x.canvas.width, r = x.canvas.height, F = e.rotation ?? this.rotation, [i, s] = F % 180 === 0 ? [this.squarePixelWidth, this.squarePixelHeight] : [this.squarePixelHeight, this.squarePixelWidth];
+    e.crop && qA(e.crop, i, s);
+    let n, a, o, f;
+    const { sx: c, sy: v, sWidth: u, sHeight: l } = this._rotateSourceRegion(e.crop?.left ?? 0, e.crop?.top ?? 0, e.crop?.width ?? i, e.crop?.height ?? s, F);
+    if (e.fit === "fill")
+      n = 0, a = 0, o = A, f = r;
+    else {
+      const [b, B] = e.crop ? [e.crop.width, e.crop.height] : [i, s], j = e.fit === "contain" ? Math.min(A / b, r / B) : Math.max(A / b, r / B);
+      o = b * j, f = B * j, n = (A - o) / 2, a = (r - f) / 2;
+    }
+    x.save();
+    const D = F % 180 === 0 ? 1 : o / f;
+    x.translate(A / 2, r / 2), x.rotate(F * Math.PI / 180), x.scale(1 / D, D), x.translate(-A / 2, -r / 2), x.drawImage(this.toCanvasImageSource(), c, v, u, l, n, a, o, f), x.restore();
+  }
+  /** @internal */
+  _rotateSourceRegion(x, e, A, r, F) {
+    return F === 90 ? [x, e, A, r] = [
+      e,
+      this.squarePixelHeight - x - A,
+      r,
+      A
+    ] : F === 180 ? [x, e] = [
+      this.squarePixelWidth - x - A,
+      this.squarePixelHeight - e - r
+    ] : F === 270 && ([x, e, A, r] = [
+      this.squarePixelWidth - e - r,
+      x,
+      r,
+      A
+    ]), { sx: x, sy: e, sWidth: A, sHeight: r };
+  }
+  /**
+   * Converts this video sample to a
+   * [`CanvasImageSource`](https://udn.realityripple.com/docs/Web/API/CanvasImageSource) for drawing to a canvas.
+   *
+   * You must use the value returned by this method immediately, as any VideoFrame created internally will
+   * automatically be closed in the next microtask.
+   */
+  toCanvasImageSource() {
+    if (this._closed)
+      throw new Error("VideoSample is closed.");
+    if (d(this._data !== null), this._data instanceof Uint8Array) {
+      const x = this.toVideoFrame();
+      return queueMicrotask(() => x.close()), x;
+    } else
+      return this._data;
+  }
+  /** Sets the rotation metadata of this video sample. */
+  setRotation(x) {
+    if (![0, 90, 180, 270].includes(x))
+      throw new TypeError("newRotation must be 0, 90, 180, or 270.");
+    this.rotation = x;
+  }
+  /** Sets the presentation timestamp of this video sample, in seconds. */
+  setTimestamp(x) {
+    if (!Number.isFinite(x))
+      throw new TypeError("newTimestamp must be a number.");
+    this.timestamp = x;
+  }
+  /** Sets the duration of this video sample, in seconds. */
+  setDuration(x) {
+    if (!Number.isFinite(x) || x < 0)
+      throw new TypeError("newDuration must be a non-negative number.");
+    this.duration = x;
+  }
+  /** Calls `.close()`. */
+  [Symbol.dispose]() {
+    this.close();
+  }
+}
+class Re {
+  /** Creates a new VideoSampleColorSpace. */
+  constructor(x) {
+    if (x !== void 0) {
+      if (!x || typeof x != "object")
+        throw new TypeError("init.colorSpace, when provided, must be an object.");
+      const e = Object.keys(_x);
+      if (x.primaries != null && !e.includes(x.primaries))
+        throw new TypeError(`init.colorSpace.primaries, when provided, must be one of ${e.join(", ")}.`);
+      const A = Object.keys(Ix);
+      if (x.transfer != null && !A.includes(x.transfer))
+        throw new TypeError(`init.colorSpace.transfer, when provided, must be one of ${A.join(", ")}.`);
+      const r = Object.keys(qx);
+      if (x.matrix != null && !r.includes(x.matrix))
+        throw new TypeError(`init.colorSpace.matrix, when provided, must be one of ${r.join(", ")}.`);
+      if (x.fullRange != null && typeof x.fullRange != "boolean")
+        throw new TypeError("init.colorSpace.fullRange, when provided, must be a boolean.");
+    }
+    this.primaries = x?.primaries ?? null, this.transfer = x?.transfer ?? null, this.matrix = x?.matrix ?? null, this.fullRange = x?.fullRange ?? null;
+  }
+  /** Serializes the color space to a JSON object. */
+  toJSON() {
+    return {
+      primaries: this.primaries,
+      transfer: this.transfer,
+      matrix: this.matrix,
+      fullRange: this.fullRange
+    };
+  }
+}
+const bx = (t) => typeof VideoFrame < "u" && t instanceof VideoFrame, qA = (t, x, e) => {
+  t.left = Math.min(t.left, x), t.top = Math.min(t.top, e), t.width = Math.min(t.width, x - t.left), t.height = Math.min(t.height, e - t.top), d(t.width >= 0), d(t.height >= 0);
+}, MA = (t, x) => {
+  if (!t || typeof t != "object")
+    throw new TypeError(x + "crop, when provided, must be an object.");
+  if (!Number.isInteger(t.left) || t.left < 0)
+    throw new TypeError(x + "crop.left must be a non-negative integer.");
+  if (!Number.isInteger(t.top) || t.top < 0)
+    throw new TypeError(x + "crop.top must be a non-negative integer.");
+  if (!Number.isInteger(t.width) || t.width < 0)
+    throw new TypeError(x + "crop.width must be a non-negative integer.");
+  if (!Number.isInteger(t.height) || t.height < 0)
+    throw new TypeError(x + "crop.height must be a non-negative integer.");
+}, hr = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("options must be an object.");
+  if (t.colorSpace !== void 0 && !["display-p3", "srgb"].includes(t.colorSpace))
+    throw new TypeError("options.colorSpace, when provided, must be 'display-p3' or 'srgb'.");
+  if (t.format !== void 0 && typeof t.format != "string")
+    throw new TypeError("options.format, when provided, must be a string.");
+  if (t.layout !== void 0) {
+    if (!Array.isArray(t.layout))
+      throw new TypeError("options.layout, when provided, must be an array.");
+    for (const x of t.layout) {
+      if (!x || typeof x != "object")
+        throw new TypeError("Each entry in options.layout must be an object.");
+      if (!Number.isInteger(x.offset) || x.offset < 0)
+        throw new TypeError("plane.offset must be a non-negative integer.");
+      if (!Number.isInteger(x.stride) || x.stride < 0)
+        throw new TypeError("plane.stride must be a non-negative integer.");
+    }
+  }
+  if (t.rect !== void 0) {
+    if (!t.rect || typeof t.rect != "object")
+      throw new TypeError("options.rect, when provided, must be an object.");
+    if (t.rect.x !== void 0 && (!Number.isInteger(t.rect.x) || t.rect.x < 0))
+      throw new TypeError("options.rect.x, when provided, must be a non-negative integer.");
+    if (t.rect.y !== void 0 && (!Number.isInteger(t.rect.y) || t.rect.y < 0))
+      throw new TypeError("options.rect.y, when provided, must be a non-negative integer.");
+    if (t.rect.width !== void 0 && (!Number.isInteger(t.rect.width) || t.rect.width < 0))
+      throw new TypeError("options.rect.width, when provided, must be a non-negative integer.");
+    if (t.rect.height !== void 0 && (!Number.isInteger(t.rect.height) || t.rect.height < 0))
+      throw new TypeError("options.rect.height, when provided, must be a non-negative integer.");
+  }
+}, Ks = (t, x, e) => {
+  const A = Ws(t), r = [];
+  let F = 0;
+  for (const i of A) {
+    const s = Math.ceil(x / i.widthDivisor), n = Math.ceil(e / i.heightDivisor), a = s * i.sampleBytes, o = a * n;
+    r.push({
+      offset: F,
+      stride: a
+    }), F += o;
+  }
+  return r;
+}, Ws = (t) => {
+  const x = (e, A, r, F, i) => {
+    const s = [
+      { sampleBytes: e, widthDivisor: 1, heightDivisor: 1 },
+      { sampleBytes: A, widthDivisor: r, heightDivisor: F },
+      { sampleBytes: A, widthDivisor: r, heightDivisor: F }
+    ];
+    return i && s.push({ sampleBytes: e, widthDivisor: 1, heightDivisor: 1 }), s;
+  };
+  switch (t) {
+    case "I420":
+      return x(1, 1, 2, 2, !1);
+    case "I420P10":
+    case "I420P12":
+      return x(2, 2, 2, 2, !1);
+    case "I420A":
+      return x(1, 1, 2, 2, !0);
+    case "I420AP10":
+    case "I420AP12":
+      return x(2, 2, 2, 2, !0);
+    case "I422":
+      return x(1, 1, 2, 1, !1);
+    case "I422P10":
+    case "I422P12":
+      return x(2, 2, 2, 1, !1);
+    case "I422A":
+      return x(1, 1, 2, 1, !0);
+    case "I422AP10":
+    case "I422AP12":
+      return x(2, 2, 2, 1, !0);
+    case "I444":
+      return x(1, 1, 1, 1, !1);
+    case "I444P10":
+    case "I444P12":
+      return x(2, 2, 1, 1, !1);
+    case "I444A":
+      return x(1, 1, 1, 1, !0);
+    case "I444AP10":
+    case "I444AP12":
+      return x(2, 2, 1, 1, !0);
+    case "NV12":
+      return [
+        { sampleBytes: 1, widthDivisor: 1, heightDivisor: 1 },
+        { sampleBytes: 2, widthDivisor: 2, heightDivisor: 2 }
+        // Interleaved U and V
+      ];
+    case "RGBA":
+    case "RGBX":
+    case "BGRA":
+    case "BGRX":
+      return [
+        { sampleBytes: 4, widthDivisor: 1, heightDivisor: 1 }
+      ];
+    default:
+      u0(t), d(!1);
+  }
+}, gt = /* @__PURE__ */ new Set(["f32", "f32-planar", "s16", "s16-planar", "s32", "s32-planar", "u8", "u8-planar"]);
+class o0 {
+  /** The presentation timestamp of the sample in microseconds. */
+  get microsecondTimestamp() {
+    return Math.trunc(nx * this.timestamp);
+  }
+  /** The duration of the sample in microseconds. */
+  get microsecondDuration() {
+    return Math.trunc(nx * this.duration);
+  }
+  /**
+   * Creates a new {@link AudioSample}, either from an existing
+   * [`AudioData`](https://developer.mozilla.org/en-US/docs/Web/API/AudioData) or from raw bytes specified in
+   * {@link AudioSampleInit}.
+   */
+  constructor(x) {
+    if (this._closed = !1, oe(x)) {
+      if (x.format === null)
+        throw new TypeError("AudioData with null format is not supported.");
+      this._data = x, this.format = x.format, this.sampleRate = x.sampleRate, this.numberOfFrames = x.numberOfFrames, this.numberOfChannels = x.numberOfChannels, this.timestamp = x.timestamp / 1e6, this.duration = x.numberOfFrames / x.sampleRate;
+    } else {
+      if (!x || typeof x != "object")
+        throw new TypeError("Invalid AudioDataInit: must be an object.");
+      if (!gt.has(x.format))
+        throw new TypeError("Invalid AudioDataInit: invalid format.");
+      if (!Number.isFinite(x.sampleRate) || x.sampleRate <= 0)
+        throw new TypeError("Invalid AudioDataInit: sampleRate must be > 0.");
+      if (!Number.isInteger(x.numberOfChannels) || x.numberOfChannels === 0)
+        throw new TypeError("Invalid AudioDataInit: numberOfChannels must be an integer > 0.");
+      if (!Number.isFinite(x?.timestamp))
+        throw new TypeError("init.timestamp must be a number.");
+      const e = x.data.byteLength / (mx(x.format) * x.numberOfChannels);
+      if (!Number.isInteger(e))
+        throw new TypeError("Invalid AudioDataInit: data size is not a multiple of frame size.");
+      this.format = x.format, this.sampleRate = x.sampleRate, this.numberOfFrames = e, this.numberOfChannels = x.numberOfChannels, this.timestamp = x.timestamp, this.duration = e / x.sampleRate;
+      let A;
+      if (x.data instanceof ArrayBuffer)
+        A = new Uint8Array(x.data);
+      else if (ArrayBuffer.isView(x.data))
+        A = new Uint8Array(x.data.buffer, x.data.byteOffset, x.data.byteLength);
+      else
+        throw new TypeError("Invalid AudioDataInit: data is not a BufferSource.");
+      const r = this.numberOfFrames * this.numberOfChannels * mx(this.format);
+      if (A.byteLength < r)
+        throw new TypeError("Invalid AudioDataInit: insufficient data size.");
+      this._data = A;
+    }
+    ge?.register(this, { type: "audio", data: this._data }, this);
+  }
+  /** Returns the number of bytes required to hold the audio sample's data as specified by the given options. */
+  allocationSize(x) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (!Number.isInteger(x.planeIndex) || x.planeIndex < 0)
+      throw new TypeError("planeIndex must be a non-negative integer.");
+    if (x.format !== void 0 && !gt.has(x.format))
+      throw new TypeError("Invalid format.");
+    if (x.frameOffset !== void 0 && (!Number.isInteger(x.frameOffset) || x.frameOffset < 0))
+      throw new TypeError("frameOffset must be a non-negative integer.");
+    if (x.frameCount !== void 0 && (!Number.isInteger(x.frameCount) || x.frameCount < 0))
+      throw new TypeError("frameCount must be a non-negative integer.");
+    if (this._closed)
+      throw new Error("AudioSample is closed.");
+    const e = x.format ?? this.format, A = x.frameOffset ?? 0;
+    if (A >= this.numberOfFrames)
+      throw new RangeError("frameOffset out of range");
+    const r = x.frameCount !== void 0 ? x.frameCount : this.numberOfFrames - A;
+    if (r > this.numberOfFrames - A)
+      throw new RangeError("frameCount out of range");
+    const F = mx(e), i = zx(e);
+    if (i && x.planeIndex >= this.numberOfChannels)
+      throw new RangeError("planeIndex out of range");
+    if (!i && x.planeIndex !== 0)
+      throw new RangeError("planeIndex out of range");
+    return (i ? r : r * this.numberOfChannels) * F;
+  }
+  /** Copies the audio sample's data to an ArrayBuffer or ArrayBufferView as specified by the given options. */
+  copyTo(x, e) {
+    if (!et(x))
+      throw new TypeError("destination must be an ArrayBuffer or an ArrayBuffer view.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (!Number.isInteger(e.planeIndex) || e.planeIndex < 0)
+      throw new TypeError("planeIndex must be a non-negative integer.");
+    if (e.format !== void 0 && !gt.has(e.format))
+      throw new TypeError("Invalid format.");
+    if (e.frameOffset !== void 0 && (!Number.isInteger(e.frameOffset) || e.frameOffset < 0))
+      throw new TypeError("frameOffset must be a non-negative integer.");
+    if (e.frameCount !== void 0 && (!Number.isInteger(e.frameCount) || e.frameCount < 0))
+      throw new TypeError("frameCount must be a non-negative integer.");
+    if (this._closed)
+      throw new Error("AudioSample is closed.");
+    const { planeIndex: A, format: r, frameCount: F, frameOffset: i } = e, s = this.format, n = r ?? this.format;
+    if (!n)
+      throw new Error("Destination format not determined");
+    const a = this.numberOfFrames, o = this.numberOfChannels, f = i ?? 0;
+    if (f >= a)
+      throw new RangeError("frameOffset out of range");
+    const c = F !== void 0 ? F : a - f;
+    if (c > a - f)
+      throw new RangeError("frameCount out of range");
+    const v = mx(n), u = zx(n);
+    if (u && A >= o)
+      throw new RangeError("planeIndex out of range");
+    if (!u && A !== 0)
+      throw new RangeError("planeIndex out of range");
+    const D = (u ? c : c * o) * v;
+    if (x.byteLength < D)
+      throw new RangeError("Destination buffer is too small");
+    const b = U(x), B = kF(n);
+    if (oe(this._data))
+      ue() && o > 2 && n !== s ? Js(this._data, b, s, n, o, A, f, c) : this._data.copyTo(x, {
+        planeIndex: A,
+        frameOffset: f,
+        frameCount: c,
+        format: n
+      });
+    else {
+      const j = this._data, E = U(j), h = pF(s), m = mx(s), k = zx(s);
+      for (let p = 0; p < c; p++)
+        if (u) {
+          const g = p * v;
+          let q;
+          k ? q = (A * a + (p + f)) * m : q = ((p + f) * o + A) * m;
+          const S = h(E, q);
+          B(b, g, S);
+        } else
+          for (let g = 0; g < o; g++) {
+            const S = (p * o + g) * v;
+            let P;
+            k ? P = (g * a + (p + f)) * m : P = ((p + f) * o + g) * m;
+            const _ = h(E, P);
+            B(b, S, _);
+          }
+    }
+  }
+  /** Clones this audio sample. */
+  clone() {
+    if (this._closed)
+      throw new Error("AudioSample is closed.");
+    if (oe(this._data)) {
+      const x = new o0(this._data.clone());
+      return x.setTimestamp(this.timestamp), x;
+    } else
+      return new o0({
+        format: this.format,
+        sampleRate: this.sampleRate,
+        numberOfFrames: this.numberOfFrames,
+        numberOfChannels: this.numberOfChannels,
+        timestamp: this.timestamp,
+        data: this._data
+      });
+  }
+  /**
+   * Closes this audio sample, releasing held resources. Audio samples should be closed as soon as they are not
+   * needed anymore.
+   */
+  close() {
+    this._closed || (ge?.unregister(this), oe(this._data) ? this._data.close() : this._data = new Uint8Array(0), this._closed = !0);
+  }
+  /**
+   * Converts this audio sample to an AudioData for use with the WebCodecs API. The AudioData returned by this
+   * method *must* be closed separately from this audio sample.
+   */
+  toAudioData() {
+    if (this._closed)
+      throw new Error("AudioSample is closed.");
+    if (oe(this._data)) {
+      if (this._data.timestamp === this.microsecondTimestamp)
+        return this._data.clone();
+      if (zx(this.format)) {
+        const x = this.allocationSize({ planeIndex: 0, format: this.format }), e = new ArrayBuffer(x * this.numberOfChannels);
+        for (let A = 0; A < this.numberOfChannels; A++)
+          this.copyTo(new Uint8Array(e, A * x, x), { planeIndex: A, format: this.format });
+        return new AudioData({
+          format: this.format,
+          sampleRate: this.sampleRate,
+          numberOfFrames: this.numberOfFrames,
+          numberOfChannels: this.numberOfChannels,
+          timestamp: this.microsecondTimestamp,
+          data: e
+        });
+      } else {
+        const x = new ArrayBuffer(this.allocationSize({ planeIndex: 0, format: this.format }));
+        return this.copyTo(x, { planeIndex: 0, format: this.format }), new AudioData({
+          format: this.format,
+          sampleRate: this.sampleRate,
+          numberOfFrames: this.numberOfFrames,
+          numberOfChannels: this.numberOfChannels,
+          timestamp: this.microsecondTimestamp,
+          data: x
+        });
+      }
+    } else
+      return new AudioData({
+        format: this.format,
+        sampleRate: this.sampleRate,
+        numberOfFrames: this.numberOfFrames,
+        numberOfChannels: this.numberOfChannels,
+        timestamp: this.microsecondTimestamp,
+        data: this._data.buffer instanceof ArrayBuffer ? this._data.buffer : this._data.slice()
+        // In the case of SharedArrayBuffer, convert to ArrayBuffer
+      });
+  }
+  /** Convert this audio sample to an AudioBuffer for use with the Web Audio API. */
+  toAudioBuffer() {
+    if (this._closed)
+      throw new Error("AudioSample is closed.");
+    const x = new AudioBuffer({
+      numberOfChannels: this.numberOfChannels,
+      length: this.numberOfFrames,
+      sampleRate: this.sampleRate
+    }), e = new Float32Array(this.allocationSize({ planeIndex: 0, format: "f32-planar" }) / 4);
+    for (let A = 0; A < this.numberOfChannels; A++)
+      this.copyTo(e, { planeIndex: A, format: "f32-planar" }), x.copyToChannel(e, A);
+    return x;
+  }
+  /** Sets the presentation timestamp of this audio sample, in seconds. */
+  setTimestamp(x) {
+    if (!Number.isFinite(x))
+      throw new TypeError("newTimestamp must be a number.");
+    this.timestamp = x;
+  }
+  /** Calls `.close()`. */
+  [Symbol.dispose]() {
+    this.close();
+  }
+  /** @internal */
+  static *_fromAudioBuffer(x, e) {
+    if (!(x instanceof AudioBuffer))
+      throw new TypeError("audioBuffer must be an AudioBuffer.");
+    const A = 48e3 * 5, r = x.numberOfChannels, F = x.sampleRate, i = x.length, s = Math.floor(A / r);
+    let n = 0, a = i;
+    for (; a > 0; ) {
+      const o = Math.min(s, a), f = new Float32Array(r * o);
+      for (let c = 0; c < r; c++)
+        x.copyFromChannel(f.subarray(c * o, (c + 1) * o), c, n);
+      yield new o0({
+        format: "f32-planar",
+        sampleRate: F,
+        numberOfFrames: o,
+        numberOfChannels: r,
+        timestamp: e + n / F,
+        data: f
+      }), n += o, a -= o;
+    }
+  }
+  /**
+   * Creates AudioSamples from an AudioBuffer, starting at the given timestamp in seconds. Typically creates exactly
+   * one sample, but may create multiple if the AudioBuffer is exceedingly large.
+   */
+  static fromAudioBuffer(x, e) {
+    if (!(x instanceof AudioBuffer))
+      throw new TypeError("audioBuffer must be an AudioBuffer.");
+    const A = 48e3 * 5, r = x.numberOfChannels, F = x.sampleRate, i = x.length, s = Math.floor(A / r);
+    let n = 0, a = i;
+    const o = [];
+    for (; a > 0; ) {
+      const f = Math.min(s, a), c = new Float32Array(r * f);
+      for (let u = 0; u < r; u++)
+        x.copyFromChannel(c.subarray(u * f, (u + 1) * f), u, n);
+      const v = new o0({
+        format: "f32-planar",
+        sampleRate: F,
+        numberOfFrames: f,
+        numberOfChannels: r,
+        timestamp: e + n / F,
+        data: c
+      });
+      o.push(v), n += f, a -= f;
+    }
+    return o;
+  }
+}
+const mx = (t) => {
+  switch (t) {
+    case "u8":
+    case "u8-planar":
+      return 1;
+    case "s16":
+    case "s16-planar":
+      return 2;
+    case "s32":
+    case "s32-planar":
+      return 4;
+    case "f32":
+    case "f32-planar":
+      return 4;
+    default:
+      throw new Error("Unknown AudioSampleFormat");
+  }
+}, zx = (t) => {
+  switch (t) {
+    case "u8-planar":
+    case "s16-planar":
+    case "s32-planar":
+    case "f32-planar":
+      return !0;
+    default:
+      return !1;
+  }
+}, pF = (t) => {
+  switch (t) {
+    case "u8":
+    case "u8-planar":
+      return (x, e) => (x.getUint8(e) - 128) / 128;
+    case "s16":
+    case "s16-planar":
+      return (x, e) => x.getInt16(e, !0) / 32768;
+    case "s32":
+    case "s32-planar":
+      return (x, e) => x.getInt32(e, !0) / 2147483648;
+    case "f32":
+    case "f32-planar":
+      return (x, e) => x.getFloat32(e, !0);
+  }
+}, kF = (t) => {
+  switch (t) {
+    case "u8":
+    case "u8-planar":
+      return (x, e, A) => x.setUint8(e, n0((A + 1) * 127.5, 0, 255));
+    case "s16":
+    case "s16-planar":
+      return (x, e, A) => x.setInt16(e, n0(Math.round(A * 32767), -32768, 32767), !0);
+    case "s32":
+    case "s32-planar":
+      return (x, e, A) => x.setInt32(e, n0(Math.round(A * 2147483647), -2147483648, 2147483647), !0);
+    case "f32":
+    case "f32-planar":
+      return (x, e, A) => x.setFloat32(e, A, !0);
+  }
+}, oe = (t) => typeof AudioData < "u" && t instanceof AudioData, Js = (t, x, e, A, r, F, i, s) => {
+  const n = pF(e), a = kF(A), o = mx(e), f = mx(A), c = zx(e);
+  if (zx(A))
+    if (c) {
+      const u = new ArrayBuffer(s * o), l = U(u);
+      t.copyTo(u, {
+        planeIndex: F,
+        frameOffset: i,
+        frameCount: s,
+        format: e
+      });
+      for (let D = 0; D < s; D++) {
+        const b = D * o, B = D * f, j = n(l, b);
+        a(x, B, j);
+      }
+    } else {
+      const u = new ArrayBuffer(s * r * o), l = U(u);
+      t.copyTo(u, {
+        planeIndex: 0,
+        frameOffset: i,
+        frameCount: s,
+        format: e
+      });
+      for (let D = 0; D < s; D++) {
+        const b = (D * r + F) * o, B = D * f, j = n(l, b);
+        a(x, B, j);
+      }
+    }
+  else if (c) {
+    const u = s * o, l = new ArrayBuffer(u), D = U(l);
+    for (let b = 0; b < r; b++) {
+      t.copyTo(l, {
+        planeIndex: b,
+        frameOffset: i,
+        frameCount: s,
+        format: e
+      });
+      for (let B = 0; B < s; B++) {
+        const j = B * o, E = (B * r + b) * f, h = n(D, j);
+        a(x, E, h);
+      }
+    }
+  } else {
+    const u = new ArrayBuffer(s * r * o), l = U(u);
+    t.copyTo(u, {
+      planeIndex: 0,
+      frameOffset: i,
+      frameCount: s,
+      format: e
+    });
+    for (let D = 0; D < s; D++)
+      for (let b = 0; b < r; b++) {
+        const B = D * r + b, j = B * o, E = B * f, h = n(l, j);
+        a(x, E, h);
+      }
+  }
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Cx = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("options must be an object.");
+  if (t.metadataOnly !== void 0 && typeof t.metadataOnly != "boolean")
+    throw new TypeError("options.metadataOnly, when defined, must be a boolean.");
+  if (t.verifyKeyPackets !== void 0 && typeof t.verifyKeyPackets != "boolean")
+    throw new TypeError("options.verifyKeyPackets, when defined, must be a boolean.");
+  if (t.verifyKeyPackets && t.metadataOnly)
+    throw new TypeError("options.verifyKeyPackets and options.metadataOnly cannot be enabled together.");
+}, xx = (t) => {
+  if (!te(t))
+    throw new TypeError("timestamp must be a number.");
+}, wt = (t, x, e) => e.verifyKeyPackets ? x.then(async (A) => {
+  if (!A || A.type === "delta")
+    return A;
+  const r = await t.determinePacketType(A);
+  return r && (A.type = r), A;
+}) : x;
+class Zx {
+  /** Creates a new {@link EncodedPacketSink} for the given {@link InputTrack}. */
+  constructor(x) {
+    if (!(x instanceof vt))
+      throw new TypeError("track must be an InputTrack.");
+    this._track = x;
+  }
+  /**
+   * Retrieves the track's first packet (in decode order), or null if it has no packets. The first packet is very
+   * likely to be a key packet.
+   */
+  getFirstPacket(x = {}) {
+    if (Cx(x), this._track.input._disposed)
+      throw new B0();
+    return wt(this._track, this._track._backing.getFirstPacket(x), x);
+  }
+  /** Retrieves the track's first key packet (in decode order), or null if it has no key packets. */
+  async getFirstKeyPacket(x = {}) {
+    Cx(x);
+    const e = await this.getFirstPacket(x);
+    return e ? e.type === "key" ? e : this.getNextKeyPacket(e, x) : null;
+  }
+  /**
+   * Retrieves the packet corresponding to the given timestamp, in seconds. More specifically, returns the last packet
+   * (in presentation order) with a start timestamp less than or equal to the given timestamp. This method can be
+   * used to retrieve a track's last packet using `getPacket(Infinity)`. The method returns null if the timestamp
+   * is before the first packet in the track.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  getPacket(x, e = {}) {
+    if (xx(x), Cx(e), this._track.input._disposed)
+      throw new B0();
+    return wt(this._track, this._track._backing.getPacket(x, e), e);
+  }
+  /**
+   * Retrieves the packet following the given packet (in decode order), or null if the given packet is the
+   * last packet.
+   */
+  getNextPacket(x, e = {}) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    if (Cx(e), this._track.input._disposed)
+      throw new B0();
+    return wt(this._track, this._track._backing.getNextPacket(x, e), e);
+  }
+  /**
+   * Retrieves the key packet corresponding to the given timestamp, in seconds. More specifically, returns the last
+   * key packet (in presentation order) with a start timestamp less than or equal to the given timestamp. A key packet
+   * is a packet that doesn't require previous packets to be decoded. This method can be used to retrieve a track's
+   * last key packet using `getKeyPacket(Infinity)`. The method returns null if the timestamp is before the first
+   * key packet in the track.
+   *
+   * To ensure that the returned packet is guaranteed to be a real key frame, enable `options.verifyKeyPackets`.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  async getKeyPacket(x, e = {}) {
+    if (xx(x), Cx(e), this._track.input._disposed)
+      throw new B0();
+    if (!e.verifyKeyPackets)
+      return this._track._backing.getKeyPacket(x, e);
+    const A = await this._track._backing.getKeyPacket(x, e);
+    return A && (d(A.type === "key"), await this._track.determinePacketType(A) === "delta" ? this.getKeyPacket(A.timestamp - 1 / this._track.timeResolution, e) : A);
+  }
+  /**
+   * Retrieves the key packet following the given packet (in decode order), or null if the given packet is the last
+   * key packet.
+   *
+   * To ensure that the returned packet is guaranteed to be a real key frame, enable `options.verifyKeyPackets`.
+   */
+  async getNextKeyPacket(x, e = {}) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    if (Cx(e), this._track.input._disposed)
+      throw new B0();
+    if (!e.verifyKeyPackets)
+      return this._track._backing.getNextKeyPacket(x, e);
+    const A = await this._track._backing.getNextKeyPacket(x, e);
+    return A && (d(A.type === "key"), await this._track.determinePacketType(A) === "delta" ? this.getNextKeyPacket(A, e) : A);
+  }
+  /**
+   * Creates an async iterator that yields the packets in this track in decode order. To enable fast iteration, this
+   * method will intelligently preload packets based on the speed of the consumer.
+   *
+   * @param startPacket - (optional) The packet from which iteration should begin. This packet will also be yielded.
+   * @param endTimestamp - (optional) The timestamp at which iteration should end. This packet will _not_ be yielded.
+   */
+  packets(x, e, A = {}) {
+    if (x !== void 0 && !(x instanceof X))
+      throw new TypeError("startPacket must be an EncodedPacket.");
+    if (x !== void 0 && x.isMetadataOnly && !A?.metadataOnly)
+      throw new TypeError("startPacket can only be metadata-only if options.metadataOnly is enabled.");
+    if (e !== void 0 && !(e instanceof X))
+      throw new TypeError("endPacket must be an EncodedPacket.");
+    if (Cx(A), this._track.input._disposed)
+      throw new B0();
+    const r = [];
+    let { promise: F, resolve: i } = t0(), { promise: s, resolve: n } = t0(), a = !1, o = !1, f = null;
+    const c = [], v = () => Math.max(2, c.length);
+    (async () => {
+      let l = x ?? await this.getFirstPacket(A);
+      for (; l && !o && !this._track.input._disposed && !(e && l.sequenceNumber >= e?.sequenceNumber); ) {
+        if (r.length > v()) {
+          ({ promise: s, resolve: n } = t0()), await s;
+          continue;
+        }
+        r.push(l), i(), { promise: F, resolve: i } = t0(), l = await this.getNextPacket(l, A);
+      }
+      a = !0, i();
+    })().catch((l) => {
+      f || (f = l, i());
+    });
+    const u = this._track;
+    return {
+      async next() {
+        for (; ; ) {
+          if (u.input._disposed)
+            throw new B0();
+          if (o)
+            return { value: void 0, done: !0 };
+          if (f)
+            throw f;
+          if (r.length > 0) {
+            const l = r.shift(), D = performance.now();
+            for (c.push(D); c.length > 0 && D - c[0] >= 1e3; )
+              c.shift();
+            return n(), { value: l, done: !1 };
+          } else {
+            if (a)
+              return { value: void 0, done: !0 };
+            await F;
+          }
+        }
+      },
+      async return() {
+        return o = !0, n(), i(), { value: void 0, done: !0 };
+      },
+      async throw(l) {
+        throw l;
+      },
+      [Symbol.asyncIterator]() {
+        return this;
+      }
+    };
+  }
+}
+class GA {
+  constructor(x, e) {
+    this.onSample = x, this.onError = e;
+  }
+}
+class RA {
+  /** @internal */
+  mediaSamplesInRange(x = 0, e = 1 / 0) {
+    xx(x), xx(e);
+    const A = [];
+    let r = !1, F = null, { promise: i, resolve: s } = t0(), { promise: n, resolve: a } = t0(), o = !1, f = !1, c = !1, v = null;
+    (async () => {
+      const D = await this._createDecoder((m) => {
+        if (a(), m.timestamp >= e && (f = !0), f) {
+          m.close();
+          return;
+        }
+        F && (m.timestamp > x ? (A.push(F), r = !0) : F.close()), m.timestamp >= x && (A.push(m), r = !0), F = r ? null : m, A.length > 0 && (s(), { promise: i, resolve: s } = t0());
+      }, (m) => {
+        v || (v = m, s());
+      }), b = this._createPacketSink(), B = await b.getKeyPacket(x, { verifyKeyPackets: !0 }) ?? await b.getFirstKeyPacket({ verifyKeyPackets: !0 });
+      let j = B;
+      const h = b.packets(B ?? void 0, void 0);
+      for (await h.next(); j && !f && !this._track.input._disposed; ) {
+        const m = mr(A.length);
+        if (A.length + D.getDecodeQueueSize() > m) {
+          ({ promise: n, resolve: a } = t0()), await n;
+          continue;
+        }
+        D.decode(j);
+        const k = await h.next();
+        if (k.done)
+          break;
+        j = k.value;
+      }
+      await h.return(), !c && !this._track.input._disposed && await D.flush(), D.close(), !r && F && A.push(F), o = !0, s();
+    })().catch((D) => {
+      v || (v = D, s());
+    });
+    const u = this._track, l = () => {
+      F?.close();
+      for (const D of A)
+        D.close();
+    };
+    return {
+      async next() {
+        for (; ; ) {
+          if (u.input._disposed)
+            throw l(), new B0();
+          if (c)
+            return { value: void 0, done: !0 };
+          if (v)
+            throw l(), v;
+          if (A.length > 0) {
+            const D = A.shift();
+            return a(), { value: D, done: !1 };
+          } else if (!o)
+            await i;
+          else
+            return { value: void 0, done: !0 };
+        }
+      },
+      async return() {
+        return c = !0, f = !0, a(), s(), l(), { value: void 0, done: !0 };
+      },
+      async throw(D) {
+        throw D;
+      },
+      [Symbol.asyncIterator]() {
+        return this;
+      }
+    };
+  }
+  /** @internal */
+  mediaSamplesAtTimestamps(x) {
+    Xi(x);
+    const e = Ji(x), A = [], r = [];
+    let { promise: F, resolve: i } = t0(), { promise: s, resolve: n } = t0(), a = !1, o = !1, f = null;
+    const c = (l) => {
+      r.push(l), i(), { promise: F, resolve: i } = t0();
+    };
+    (async () => {
+      const l = await this._createDecoder((m) => {
+        if (n(), o) {
+          m.close();
+          return;
+        }
+        let k = 0;
+        for (; A.length > 0 && m.timestamp - A[0] > -1e-10; )
+          k++, A.shift();
+        if (k > 0)
+          for (let p = 0; p < k; p++)
+            c(p < k - 1 ? m.clone() : m);
+        else
+          m.close();
+      }, (m) => {
+        f || (f = m, i());
+      }), D = this._createPacketSink();
+      let b = null, B = null, j = -1;
+      const E = async () => {
+        d(B);
+        let m = B;
+        for (l.decode(m); m.sequenceNumber < j; ) {
+          const k = mr(r.length);
+          for (; r.length + l.getDecodeQueueSize() > k && !o; )
+            ({ promise: s, resolve: n } = t0()), await s;
+          if (o)
+            break;
+          const p = await D.getNextPacket(m);
+          d(p), l.decode(p), m = p;
+        }
+        j = -1;
+      }, h = async () => {
+        await l.flush();
+        for (let m = 0; m < A.length; m++)
+          c(null);
+        A.length = 0;
+      };
+      for await (const m of e) {
+        if (xx(m), o || this._track.input._disposed)
+          break;
+        const k = await D.getPacket(m), p = k && await D.getKeyPacket(m, { verifyKeyPackets: !0 });
+        if (!p) {
+          j !== -1 && (await E(), await h()), c(null), b = null;
+          continue;
+        }
+        b && (p.sequenceNumber !== B.sequenceNumber || k.timestamp < b.timestamp) && (await E(), await h()), A.push(k.timestamp), j = Math.max(k.sequenceNumber, j), b = k, B = p;
+      }
+      !o && !this._track.input._disposed && (j !== -1 && await E(), await h()), l.close(), a = !0, i();
+    })().catch((l) => {
+      f || (f = l, i());
+    });
+    const v = this._track, u = () => {
+      for (const l of r)
+        l?.close();
+    };
+    return {
+      async next() {
+        for (; ; ) {
+          if (v.input._disposed)
+            throw u(), new B0();
+          if (o)
+            return { value: void 0, done: !0 };
+          if (f)
+            throw u(), f;
+          if (r.length > 0) {
+            const l = r.shift();
+            return d(l !== void 0), n(), { value: l, done: !1 };
+          } else if (!a)
+            await F;
+          else
+            return { value: void 0, done: !0 };
+        }
+      },
+      async return() {
+        return o = !0, n(), i(), u(), { value: void 0, done: !0 };
+      },
+      async throw(l) {
+        throw l;
+      },
+      [Symbol.asyncIterator]() {
+        return this;
+      }
+    };
+  }
+}
+const mr = (t) => t === 0 ? 40 : 8;
+class Xs extends GA {
+  constructor(x, e, A, r, F, i) {
+    super(x, e), this.codec = A, this.decoderConfig = r, this.rotation = F, this.timeResolution = i, this.decoder = null, this.customDecoder = null, this.customDecoderCallSerializer = new rt(), this.customDecoderQueueSize = 0, this.inputTimestamps = [], this.sampleQueue = [], this.currentPacketIndex = 0, this.raslSkipped = !1, this.alphaDecoder = null, this.alphaHadKeyframe = !1, this.colorQueue = [], this.alphaQueue = [], this.merger = null, this.mergerCreationFailed = !1, this.decodedAlphaChunkCount = 0, this.alphaDecoderQueueSize = 0, this.nullAlphaFrameQueue = [], this.currentAlphaPacketIndex = 0, this.alphaRaslSkipped = !1;
+    const s = Ve.find((n) => n.supports(A, r));
+    if (s)
+      this.customDecoder = new s(), this.customDecoder.codec = A, this.customDecoder.config = r, this.customDecoder.onSample = (n) => {
+        if (!(n instanceof i0))
+          throw new TypeError("The argument passed to onSample must be a VideoSample.");
+        this.finalizeAndEmitSample(n);
+      }, this.customDecoderCallSerializer.call(() => this.customDecoder.init());
+    else {
+      const n = (o) => {
+        if (this.alphaQueue.length > 0) {
+          const f = this.alphaQueue.shift();
+          d(f !== void 0), this.mergeAlpha(o, f);
+        } else
+          this.colorQueue.push(o);
+      };
+      if (A === "avc" && this.decoderConfig.description && Vt()) {
+        const o = sF(Q(this.decoderConfig.description));
+        if (o && o.sequenceParameterSets.length > 0) {
+          const f = TA(o.sequenceParameterSets[0]);
+          f && f.frameMbsOnlyFlag === 0 && (this.decoderConfig = {
+            ...this.decoderConfig,
+            hardwareAcceleration: "prefer-software"
+          });
+        }
+      }
+      const a = new Error("Decoding error").stack;
+      this.decoder = new VideoDecoder({
+        output: (o) => {
+          try {
+            n(o);
+          } catch (f) {
+            this.onError(f);
+          }
+        },
+        error: (o) => {
+          o.stack = a, this.onError(o);
+        }
+      }), this.decoder.configure(this.decoderConfig);
+    }
+  }
+  getDecodeQueueSize() {
+    return this.customDecoder ? this.customDecoderQueueSize : (d(this.decoder), Math.max(this.decoder.decodeQueueSize, this.alphaDecoder?.decodeQueueSize ?? 0));
+  }
+  decode(x) {
+    if (this.codec === "hevc" && this.currentPacketIndex > 0 && !this.raslSkipped) {
+      if (this.hasHevcRaslPicture(x.data))
+        return;
+      this.raslSkipped = !0;
+    }
+    if (this.customDecoder)
+      this.customDecoderQueueSize++, this.customDecoderCallSerializer.call(() => this.customDecoder.decode(x)).then(() => this.customDecoderQueueSize--);
+    else {
+      if (d(this.decoder), ue() || ar(this.inputTimestamps, x.timestamp, (e) => e), Vt() && this.currentPacketIndex === 0 && this.codec === "avc") {
+        const e = [];
+        for (const r of FF(x.data, this.decoderConfig)) {
+          const F = Yx(x.data[r.offset]);
+          F >= 20 && F <= 31 || e.push(x.data.subarray(r.offset, r.offset + r.length));
+        }
+        const A = ks(e, this.decoderConfig);
+        x = new X(A, x.type, x.timestamp, x.duration);
+      }
+      this.decoder.decode(x.toEncodedVideoChunk()), this.decodeAlphaData(x);
+    }
+    this.currentPacketIndex++;
+  }
+  decodeAlphaData(x) {
+    if (!x.sideData.alpha || this.mergerCreationFailed) {
+      this.pushNullAlphaFrame();
+      return;
+    }
+    if (!this.merger)
+      try {
+        this.merger = new Qs();
+      } catch (A) {
+        console.error("Due to an error, only color data will be decoded.", A), this.mergerCreationFailed = !0, this.decodeAlphaData(x);
+        return;
+      }
+    if (!this.alphaDecoder) {
+      const A = (F) => {
+        if (this.alphaDecoderQueueSize--, this.colorQueue.length > 0) {
+          const i = this.colorQueue.shift();
+          d(i !== void 0), this.mergeAlpha(i, F);
+        } else
+          this.alphaQueue.push(F);
+        for (this.decodedAlphaChunkCount++; this.nullAlphaFrameQueue.length > 0 && this.nullAlphaFrameQueue[0] === this.decodedAlphaChunkCount; )
+          if (this.nullAlphaFrameQueue.shift(), this.colorQueue.length > 0) {
+            const i = this.colorQueue.shift();
+            d(i !== void 0), this.mergeAlpha(i, null);
+          } else
+            this.alphaQueue.push(null);
+      }, r = new Error("Decoding error").stack;
+      this.alphaDecoder = new VideoDecoder({
+        output: (F) => {
+          try {
+            A(F);
+          } catch (i) {
+            this.onError(i);
+          }
+        },
+        error: (F) => {
+          F.stack = r, this.onError(F);
+        }
+      }), this.alphaDecoder.configure(this.decoderConfig);
+    }
+    const e = dF(this.codec, this.decoderConfig, x.sideData.alpha);
+    if (this.alphaHadKeyframe || (this.alphaHadKeyframe = e === "key"), this.alphaHadKeyframe) {
+      if (this.codec === "hevc" && this.currentAlphaPacketIndex > 0 && !this.alphaRaslSkipped) {
+        if (this.hasHevcRaslPicture(x.sideData.alpha)) {
+          this.pushNullAlphaFrame();
+          return;
+        }
+        this.alphaRaslSkipped = !0;
+      }
+      this.currentAlphaPacketIndex++, this.alphaDecoder.decode(x.alphaToEncodedVideoChunk(e ?? x.type)), this.alphaDecoderQueueSize++;
+    } else
+      this.pushNullAlphaFrame();
+  }
+  pushNullAlphaFrame() {
+    this.alphaDecoderQueueSize === 0 ? this.alphaQueue.push(null) : this.nullAlphaFrameQueue.push(this.decodedAlphaChunkCount + this.alphaDecoderQueueSize);
+  }
+  /**
+   * If we're using HEVC, we need to make sure to skip any RASL slices that follow a non-IDR key frame such as
+   * CRA_NUT. This is because RASL slices cannot be decoded without data before the CRA_NUT. Browsers behave
+   * differently here: Chromium drops the packets, Safari throws a decoder error. Either way, it's not good
+   * and causes bugs upstream. So, let's take the dropping into our own hands.
+   */
+  hasHevcRaslPicture(x) {
+    for (const e of aF(x, this.decoderConfig)) {
+      const A = Tx(x[e.offset]);
+      if (A === A0.RASL_N || A === A0.RASL_R)
+        return !0;
+    }
+    return !1;
+  }
+  /** Handler for the WebCodecs VideoDecoder for ironing out browser differences. */
+  sampleHandler(x) {
+    if (ue()) {
+      if (this.sampleQueue.length > 0 && x.timestamp >= x0(this.sampleQueue).timestamp) {
+        for (const e of this.sampleQueue)
+          this.finalizeAndEmitSample(e);
+        this.sampleQueue.length = 0;
+      }
+      ar(this.sampleQueue, x, (e) => e.timestamp);
+    } else {
+      const e = this.inputTimestamps.shift();
+      d(e !== void 0), x.setTimestamp(e), this.finalizeAndEmitSample(x);
+    }
+  }
+  finalizeAndEmitSample(x) {
+    x.setTimestamp(Math.round(x.timestamp * this.timeResolution) / this.timeResolution), x.setDuration(Math.round(x.duration * this.timeResolution) / this.timeResolution), x.setRotation(this.rotation), this.onSample(x);
+  }
+  mergeAlpha(x, e) {
+    if (!e) {
+      const F = new i0(x);
+      this.sampleHandler(F);
+      return;
+    }
+    d(this.merger), this.merger.update(x, e), x.close(), e.close();
+    const A = new VideoFrame(this.merger.canvas, {
+      timestamp: x.timestamp,
+      duration: x.duration ?? void 0
+    }), r = new i0(A);
+    this.sampleHandler(r);
+  }
+  async flush() {
+    if (this.customDecoder ? await this.customDecoderCallSerializer.call(() => this.customDecoder.flush()) : (d(this.decoder), await Promise.all([
+      this.decoder.flush(),
+      this.alphaDecoder?.flush()
+    ]), this.colorQueue.forEach((x) => x.close()), this.colorQueue.length = 0, this.alphaQueue.forEach((x) => x?.close()), this.alphaQueue.length = 0, this.alphaHadKeyframe = !1, this.decodedAlphaChunkCount = 0, this.alphaDecoderQueueSize = 0, this.nullAlphaFrameQueue.length = 0, this.currentAlphaPacketIndex = 0, this.alphaRaslSkipped = !1), ue()) {
+      for (const x of this.sampleQueue)
+        this.finalizeAndEmitSample(x);
+      this.sampleQueue.length = 0;
+    }
+    this.currentPacketIndex = 0, this.raslSkipped = !1;
+  }
+  close() {
+    this.customDecoder ? this.customDecoderCallSerializer.call(() => this.customDecoder.close()) : (d(this.decoder), this.decoder.close(), this.alphaDecoder?.close(), this.colorQueue.forEach((x) => x.close()), this.colorQueue.length = 0, this.alphaQueue.forEach((x) => x?.close()), this.alphaQueue.length = 0, this.merger?.close());
+    for (const x of this.sampleQueue)
+      x.close();
+    this.sampleQueue.length = 0;
+  }
+}
+class Qs {
+  constructor() {
+    typeof OffscreenCanvas < "u" ? this.canvas = new OffscreenCanvas(300, 150) : this.canvas = document.createElement("canvas");
+    const x = this.canvas.getContext("webgl2", {
+      premultipliedAlpha: !1
+    });
+    if (!x)
+      throw new Error("Couldn't acquire WebGL 2 context.");
+    this.gl = x, this.program = this.createProgram(), this.vao = this.createVAO(), this.colorTexture = this.createTexture(), this.alphaTexture = this.createTexture(), this.gl.useProgram(this.program), this.gl.uniform1i(this.gl.getUniformLocation(this.program, "u_colorTexture"), 0), this.gl.uniform1i(this.gl.getUniformLocation(this.program, "u_alphaTexture"), 1);
+  }
+  createProgram() {
+    const x = this.createShader(this.gl.VERTEX_SHADER, `#version 300 es
+			in vec2 a_position;
+			in vec2 a_texCoord;
+			out vec2 v_texCoord;
+			
+			void main() {
+				gl_Position = vec4(a_position, 0.0, 1.0);
+				v_texCoord = a_texCoord;
+			}
+		`), e = this.createShader(this.gl.FRAGMENT_SHADER, `#version 300 es
+			precision highp float;
+			
+			uniform sampler2D u_colorTexture;
+			uniform sampler2D u_alphaTexture;
+			in vec2 v_texCoord;
+			out vec4 fragColor;
+			
+			void main() {
+				vec3 color = texture(u_colorTexture, v_texCoord).rgb;
+				float alpha = texture(u_alphaTexture, v_texCoord).r;
+				fragColor = vec4(color, alpha);
+			}
+		`), A = this.gl.createProgram();
+    return this.gl.attachShader(A, x), this.gl.attachShader(A, e), this.gl.linkProgram(A), A;
+  }
+  createShader(x, e) {
+    const A = this.gl.createShader(x);
+    return this.gl.shaderSource(A, e), this.gl.compileShader(A), A;
+  }
+  createVAO() {
+    const x = this.gl.createVertexArray();
+    this.gl.bindVertexArray(x);
+    const e = new Float32Array([
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0
+    ]), A = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, A), this.gl.bufferData(this.gl.ARRAY_BUFFER, e, this.gl.STATIC_DRAW);
+    const r = this.gl.getAttribLocation(this.program, "a_position"), F = this.gl.getAttribLocation(this.program, "a_texCoord");
+    return this.gl.enableVertexAttribArray(r), this.gl.vertexAttribPointer(r, 2, this.gl.FLOAT, !1, 16, 0), this.gl.enableVertexAttribArray(F), this.gl.vertexAttribPointer(F, 2, this.gl.FLOAT, !1, 16, 8), x;
+  }
+  createTexture() {
+    const x = this.gl.createTexture();
+    return this.gl.bindTexture(this.gl.TEXTURE_2D, x), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR), x;
+  }
+  update(x, e) {
+    (x.displayWidth !== this.canvas.width || x.displayHeight !== this.canvas.height) && (this.canvas.width = x.displayWidth, this.canvas.height = x.displayHeight), this.gl.activeTexture(this.gl.TEXTURE0), this.gl.bindTexture(this.gl.TEXTURE_2D, this.colorTexture), this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, x), this.gl.activeTexture(this.gl.TEXTURE1), this.gl.bindTexture(this.gl.TEXTURE_2D, this.alphaTexture), this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, e), this.gl.viewport(0, 0, this.canvas.width, this.canvas.height), this.gl.clear(this.gl.COLOR_BUFFER_BIT), this.gl.bindVertexArray(this.vao), this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
+  }
+  close() {
+    this.gl.getExtension("WEBGL_lose_context")?.loseContext(), this.gl = null;
+  }
+}
+class We extends RA {
+  /** Creates a new {@link VideoSampleSink} for the given {@link InputVideoTrack}. */
+  constructor(x) {
+    if (!(x instanceof Gx))
+      throw new TypeError("videoTrack must be an InputVideoTrack.");
+    super(), this._track = x;
+  }
+  /** @internal */
+  async _createDecoder(x, e) {
+    if (!await this._track.canDecode())
+      throw new Error("This video track cannot be decoded by this browser. Make sure to check decodability before using a track.");
+    const A = this._track.codec, r = this._track.rotation, F = await this._track.getDecoderConfig(), i = this._track.timeResolution;
+    return d(A && F), new Xs(x, e, A, F, r, i);
+  }
+  /** @internal */
+  _createPacketSink() {
+    return new Zx(this._track);
+  }
+  /**
+   * Retrieves the video sample (frame) corresponding to the given timestamp, in seconds. More specifically, returns
+   * the last video sample (in presentation order) with a start timestamp less than or equal to the given timestamp.
+   * Returns null if the timestamp is before the track's first timestamp.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  async getSample(x) {
+    xx(x);
+    for await (const e of this.mediaSamplesAtTimestamps([x]))
+      return e;
+    throw new Error("Internal error: Iterator returned nothing.");
+  }
+  /**
+   * Creates an async iterator that yields the video samples (frames) of this track in presentation order. This method
+   * will intelligently pre-decode a few frames ahead to enable fast iteration.
+   *
+   * @param startTimestamp - The timestamp in seconds at which to start yielding samples (inclusive).
+   * @param endTimestamp - The timestamp in seconds at which to stop yielding samples (exclusive).
+   */
+  samples(x = 0, e = 1 / 0) {
+    return this.mediaSamplesInRange(x, e);
+  }
+  /**
+   * Creates an async iterator that yields a video sample (frame) for each timestamp in the argument. This method
+   * uses an optimized decoding pipeline if these timestamps are monotonically sorted, decoding each packet at most
+   * once, and is therefore more efficient than manually getting the sample for every timestamp. The iterator may
+   * yield null if no frame is available for a given timestamp.
+   *
+   * @param timestamps - An iterable or async iterable of timestamps in seconds.
+   */
+  samplesAtTimestamps(x) {
+    return this.mediaSamplesAtTimestamps(x);
+  }
+}
+class gF {
+  /** Creates a new {@link CanvasSink} for the given {@link InputVideoTrack}. */
+  constructor(x, e = {}) {
+    if (this._nextCanvasIndex = 0, !(x instanceof Gx))
+      throw new TypeError("videoTrack must be an InputVideoTrack.");
+    if (e && typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (e.alpha !== void 0 && typeof e.alpha != "boolean")
+      throw new TypeError("options.alpha, when provided, must be a boolean.");
+    if (e.width !== void 0 && (!Number.isInteger(e.width) || e.width <= 0))
+      throw new TypeError("options.width, when defined, must be a positive integer.");
+    if (e.height !== void 0 && (!Number.isInteger(e.height) || e.height <= 0))
+      throw new TypeError("options.height, when defined, must be a positive integer.");
+    if (e.fit !== void 0 && !["fill", "contain", "cover"].includes(e.fit))
+      throw new TypeError('options.fit, when provided, must be one of "fill", "contain", or "cover".');
+    if (e.width !== void 0 && e.height !== void 0 && e.fit === void 0)
+      throw new TypeError("When both options.width and options.height are provided, options.fit must also be provided.");
+    if (e.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+      throw new TypeError("options.rotation, when provided, must be 0, 90, 180 or 270.");
+    if (e.crop !== void 0 && MA(e.crop, "options."), e.poolSize !== void 0 && (typeof e.poolSize != "number" || !Number.isInteger(e.poolSize) || e.poolSize < 0))
+      throw new TypeError("poolSize must be a non-negative integer.");
+    const A = e.rotation ?? x.rotation, [r, F] = A % 180 === 0 ? [x.squarePixelWidth, x.squarePixelHeight] : [x.squarePixelHeight, x.squarePixelWidth], i = e.crop;
+    i && qA(i, r, F);
+    let [s, n] = i ? [i.width, i.height] : [r, F];
+    const a = s / n;
+    e.width !== void 0 && e.height === void 0 ? (s = e.width, n = Math.round(s / a)) : e.width === void 0 && e.height !== void 0 ? (n = e.height, s = Math.round(n * a)) : e.width !== void 0 && e.height !== void 0 && (s = e.width, n = e.height), this._videoTrack = x, this._alpha = e.alpha ?? !1, this._width = s, this._height = n, this._rotation = A, this._crop = i, this._fit = e.fit ?? "fill", this._videoSampleSink = new We(x), this._canvasPool = Array.from({ length: e.poolSize ?? 0 }, () => null);
+  }
+  /** @internal */
+  _videoSampleToWrappedCanvas(x) {
+    let e = this._canvasPool[this._nextCanvasIndex], A = !1;
+    e || (typeof document < "u" ? (e = document.createElement("canvas"), e.width = this._width, e.height = this._height) : e = new OffscreenCanvas(this._width, this._height), this._canvasPool.length > 0 && (this._canvasPool[this._nextCanvasIndex] = e), A = !0), this._canvasPool.length > 0 && (this._nextCanvasIndex = (this._nextCanvasIndex + 1) % this._canvasPool.length);
+    const r = e.getContext("2d", {
+      alpha: this._alpha || Qx()
+      // Firefox has VideoFrame glitches with opaque canvases
+    });
+    d(r), r.resetTransform(), A || (!this._alpha && Qx() ? (r.fillStyle = "black", r.fillRect(0, 0, this._width, this._height)) : r.clearRect(0, 0, this._width, this._height)), x.drawWithFit(r, {
+      fit: this._fit,
+      rotation: this._rotation,
+      crop: this._crop
+    });
+    const F = {
+      canvas: e,
+      timestamp: x.timestamp,
+      duration: x.duration
+    };
+    return x.close(), F;
+  }
+  /**
+   * Retrieves a canvas with the video frame corresponding to the given timestamp, in seconds. More specifically,
+   * returns the last video frame (in presentation order) with a start timestamp less than or equal to the given
+   * timestamp. Returns null if the timestamp is before the track's first timestamp.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  async getCanvas(x) {
+    xx(x);
+    const e = await this._videoSampleSink.getSample(x);
+    return e && this._videoSampleToWrappedCanvas(e);
+  }
+  /**
+   * Creates an async iterator that yields canvases with the video frames of this track in presentation order. This
+   * method will intelligently pre-decode a few frames ahead to enable fast iteration.
+   *
+   * @param startTimestamp - The timestamp in seconds at which to start yielding canvases (inclusive).
+   * @param endTimestamp - The timestamp in seconds at which to stop yielding canvases (exclusive).
+   */
+  canvases(x = 0, e = 1 / 0) {
+    return $e(this._videoSampleSink.samples(x, e), (A) => this._videoSampleToWrappedCanvas(A));
+  }
+  /**
+   * Creates an async iterator that yields a canvas for each timestamp in the argument. This method uses an optimized
+   * decoding pipeline if these timestamps are monotonically sorted, decoding each packet at most once, and is
+   * therefore more efficient than manually getting the canvas for every timestamp. The iterator may yield null if
+   * no frame is available for a given timestamp.
+   *
+   * @param timestamps - An iterable or async iterable of timestamps in seconds.
+   */
+  canvasesAtTimestamps(x) {
+    return $e(this._videoSampleSink.samplesAtTimestamps(x), (e) => e && this._videoSampleToWrappedCanvas(e));
+  }
+}
+class Ys extends GA {
+  constructor(x, e, A, r) {
+    super(x, e), this.decoder = null, this.customDecoder = null, this.customDecoderCallSerializer = new rt(), this.customDecoderQueueSize = 0, this.currentTimestamp = null;
+    const F = (s) => {
+      (this.currentTimestamp === null || Math.abs(s.timestamp - this.currentTimestamp) >= s.duration) && (this.currentTimestamp = s.timestamp);
+      const n = this.currentTimestamp;
+      if (this.currentTimestamp += s.duration, s.numberOfFrames === 0) {
+        s.close();
+        return;
+      }
+      const a = r.sampleRate;
+      s.setTimestamp(Math.round(n * a) / a), x(s);
+    }, i = Ke.find((s) => s.supports(A, r));
+    if (i)
+      this.customDecoder = new i(), this.customDecoder.codec = A, this.customDecoder.config = r, this.customDecoder.onSample = (s) => {
+        if (!(s instanceof o0))
+          throw new TypeError("The argument passed to onSample must be an AudioSample.");
+        F(s);
+      }, this.customDecoderCallSerializer.call(() => this.customDecoder.init());
+    else {
+      const s = new Error("Decoding error").stack;
+      this.decoder = new AudioDecoder({
+        output: (n) => {
+          try {
+            F(new o0(n));
+          } catch (a) {
+            this.onError(a);
+          }
+        },
+        error: (n) => {
+          n.stack = s, this.onError(n);
+        }
+      }), this.decoder.configure(r);
+    }
+  }
+  getDecodeQueueSize() {
+    return this.customDecoder ? this.customDecoderQueueSize : (d(this.decoder), this.decoder.decodeQueueSize);
+  }
+  decode(x) {
+    this.customDecoder ? (this.customDecoderQueueSize++, this.customDecoderCallSerializer.call(() => this.customDecoder.decode(x)).then(() => this.customDecoderQueueSize--)) : (d(this.decoder), this.decoder.decode(x.toEncodedAudioChunk()));
+  }
+  flush() {
+    return this.customDecoder ? this.customDecoderCallSerializer.call(() => this.customDecoder.flush()) : (d(this.decoder), this.decoder.flush());
+  }
+  close() {
+    this.customDecoder ? this.customDecoderCallSerializer.call(() => this.customDecoder.close()) : (d(this.decoder), this.decoder.close());
+  }
+}
+class Zs extends GA {
+  constructor(x, e, A) {
+    super(x, e), this.decoderConfig = A, this.currentTimestamp = null, d(r0.includes(A.codec)), this.codec = A.codec;
+    const { dataType: r, sampleSize: F, littleEndian: i } = O0(this.codec);
+    switch (this.inputSampleSize = F, F) {
+      case 1:
+        r === "unsigned" ? this.readInputValue = (s, n) => s.getUint8(n) - 2 ** 7 : r === "signed" ? this.readInputValue = (s, n) => s.getInt8(n) : r === "ulaw" ? this.readInputValue = (s, n) => Os(s.getUint8(n)) : r === "alaw" ? this.readInputValue = (s, n) => zs(s.getUint8(n)) : d(!1);
+        break;
+      case 2:
+        r === "unsigned" ? this.readInputValue = (s, n) => s.getUint16(n, i) - 2 ** 15 : r === "signed" ? this.readInputValue = (s, n) => s.getInt16(n, i) : d(!1);
+        break;
+      case 3:
+        r === "unsigned" ? this.readInputValue = (s, n) => tt(s, n, i) - 2 ** 23 : r === "signed" ? this.readInputValue = (s, n) => Qi(s, n, i) : d(!1);
+        break;
+      case 4:
+        r === "unsigned" ? this.readInputValue = (s, n) => s.getUint32(n, i) - 2 ** 31 : r === "signed" ? this.readInputValue = (s, n) => s.getInt32(n, i) : r === "float" ? this.readInputValue = (s, n) => s.getFloat32(n, i) : d(!1);
+        break;
+      case 8:
+        r === "float" ? this.readInputValue = (s, n) => s.getFloat64(n, i) : d(!1);
+        break;
+      default:
+        u0(F), d(!1);
+    }
+    switch (F) {
+      case 1:
+        r === "ulaw" || r === "alaw" ? (this.outputSampleSize = 2, this.outputFormat = "s16", this.writeOutputValue = (s, n, a) => s.setInt16(n, a, !0)) : (this.outputSampleSize = 1, this.outputFormat = "u8", this.writeOutputValue = (s, n, a) => s.setUint8(n, a + 2 ** 7));
+        break;
+      case 2:
+        this.outputSampleSize = 2, this.outputFormat = "s16", this.writeOutputValue = (s, n, a) => s.setInt16(n, a, !0);
+        break;
+      case 3:
+        this.outputSampleSize = 4, this.outputFormat = "s32", this.writeOutputValue = (s, n, a) => s.setInt32(n, a << 8, !0);
+        break;
+      case 4:
+        this.outputSampleSize = 4, r === "float" ? (this.outputFormat = "f32", this.writeOutputValue = (s, n, a) => s.setFloat32(n, a, !0)) : (this.outputFormat = "s32", this.writeOutputValue = (s, n, a) => s.setInt32(n, a, !0));
+        break;
+      case 8:
+        this.outputSampleSize = 4, this.outputFormat = "f32", this.writeOutputValue = (s, n, a) => s.setFloat32(n, a, !0);
+        break;
+      default:
+        u0(F), d(!1);
+    }
+  }
+  getDecodeQueueSize() {
+    return 0;
+  }
+  decode(x) {
+    const e = U(x.data), A = x.byteLength / this.decoderConfig.numberOfChannels / this.inputSampleSize, r = A * this.decoderConfig.numberOfChannels * this.outputSampleSize, F = new ArrayBuffer(r), i = new DataView(F);
+    for (let o = 0; o < A * this.decoderConfig.numberOfChannels; o++) {
+      const f = o * this.inputSampleSize, c = o * this.outputSampleSize, v = this.readInputValue(e, f);
+      this.writeOutputValue(i, c, v);
+    }
+    const s = A / this.decoderConfig.sampleRate;
+    (this.currentTimestamp === null || Math.abs(x.timestamp - this.currentTimestamp) >= s) && (this.currentTimestamp = x.timestamp);
+    const n = this.currentTimestamp;
+    this.currentTimestamp += s;
+    const a = new o0({
+      format: this.outputFormat,
+      data: F,
+      numberOfChannels: this.decoderConfig.numberOfChannels,
+      sampleRate: this.decoderConfig.sampleRate,
+      numberOfFrames: A,
+      timestamp: n
+    });
+    this.onSample(a);
+  }
+  async flush() {
+  }
+  close() {
+  }
+}
+class Je extends RA {
+  /** Creates a new {@link AudioSampleSink} for the given {@link InputAudioTrack}. */
+  constructor(x) {
+    if (!(x instanceof S0))
+      throw new TypeError("audioTrack must be an InputAudioTrack.");
+    super(), this._track = x;
+  }
+  /** @internal */
+  async _createDecoder(x, e) {
+    if (!await this._track.canDecode())
+      throw new Error("This audio track cannot be decoded by this browser. Make sure to check decodability before using a track.");
+    const A = this._track.codec, r = await this._track.getDecoderConfig();
+    return d(A && r), r0.includes(r.codec) ? new Zs(x, e, r) : new Ys(x, e, A, r);
+  }
+  /** @internal */
+  _createPacketSink() {
+    return new Zx(this._track);
+  }
+  /**
+   * Retrieves the audio sample corresponding to the given timestamp, in seconds. More specifically, returns
+   * the last audio sample (in presentation order) with a start timestamp less than or equal to the given timestamp.
+   * Returns null if the timestamp is before the track's first timestamp.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  async getSample(x) {
+    xx(x);
+    for await (const e of this.mediaSamplesAtTimestamps([x]))
+      return e;
+    throw new Error("Internal error: Iterator returned nothing.");
+  }
+  /**
+   * Creates an async iterator that yields the audio samples of this track in presentation order. This method
+   * will intelligently pre-decode a few samples ahead to enable fast iteration.
+   *
+   * @param startTimestamp - The timestamp in seconds at which to start yielding samples (inclusive).
+   * @param endTimestamp - The timestamp in seconds at which to stop yielding samples (exclusive).
+   */
+  samples(x = 0, e = 1 / 0) {
+    return this.mediaSamplesInRange(x, e);
+  }
+  /**
+   * Creates an async iterator that yields an audio sample for each timestamp in the argument. This method
+   * uses an optimized decoding pipeline if these timestamps are monotonically sorted, decoding each packet at most
+   * once, and is therefore more efficient than manually getting the sample for every timestamp. The iterator may
+   * yield null if no sample is available for a given timestamp.
+   *
+   * @param timestamps - An iterable or async iterable of timestamps in seconds.
+   */
+  samplesAtTimestamps(x) {
+    return this.mediaSamplesAtTimestamps(x);
+  }
+}
+class xn {
+  /** Creates a new {@link AudioBufferSink} for the given {@link InputAudioTrack}. */
+  constructor(x) {
+    if (!(x instanceof S0))
+      throw new TypeError("audioTrack must be an InputAudioTrack.");
+    this._audioSampleSink = new Je(x);
+  }
+  /** @internal */
+  _audioSampleToWrappedArrayBuffer(x) {
+    const e = {
+      buffer: x.toAudioBuffer(),
+      timestamp: x.timestamp,
+      duration: x.duration
+    };
+    return x.close(), e;
+  }
+  /**
+   * Retrieves the audio buffer corresponding to the given timestamp, in seconds. More specifically, returns
+   * the last audio buffer (in presentation order) with a start timestamp less than or equal to the given timestamp.
+   * Returns null if the timestamp is before the track's first timestamp.
+   *
+   * @param timestamp - The timestamp used for retrieval, in seconds.
+   */
+  async getBuffer(x) {
+    xx(x);
+    const e = await this._audioSampleSink.getSample(x);
+    return e && this._audioSampleToWrappedArrayBuffer(e);
+  }
+  /**
+   * Creates an async iterator that yields audio buffers of this track in presentation order. This method
+   * will intelligently pre-decode a few buffers ahead to enable fast iteration.
+   *
+   * @param startTimestamp - The timestamp in seconds at which to start yielding buffers (inclusive).
+   * @param endTimestamp - The timestamp in seconds at which to stop yielding buffers (exclusive).
+   */
+  buffers(x = 0, e = 1 / 0) {
+    return $e(this._audioSampleSink.samples(x, e), (A) => this._audioSampleToWrappedArrayBuffer(A));
+  }
+  /**
+   * Creates an async iterator that yields an audio buffer for each timestamp in the argument. This method
+   * uses an optimized decoding pipeline if these timestamps are monotonically sorted, decoding each packet at most
+   * once, and is therefore more efficient than manually getting the buffer for every timestamp. The iterator may
+   * yield null if no buffer is available for a given timestamp.
+   *
+   * @param timestamps - An iterable or async iterable of timestamps in seconds.
+   */
+  buffersAtTimestamps(x) {
+    return $e(this._audioSampleSink.samplesAtTimestamps(x), (e) => e && this._audioSampleToWrappedArrayBuffer(e));
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class vt {
+  /** @internal */
+  constructor(x, e) {
+    this.input = x, this._backing = e;
+  }
+  /** Returns true if and only if this track is a video track. */
+  isVideoTrack() {
+    return this instanceof Gx;
+  }
+  /** Returns true if and only if this track is an audio track. */
+  isAudioTrack() {
+    return this instanceof S0;
+  }
+  /** The unique ID of this track in the input file. */
+  get id() {
+    return this._backing.getId();
+  }
+  /**
+   * The 1-based index of this track among all tracks of the same type in the input file. For example, the first
+   * video track has number 1, the second video track has number 2, and so on. The index refers to the order in
+   * which the tracks are returned by {@link Input.getTracks}.
+   */
+  get number() {
+    return this._backing.getNumber();
+  }
+  /**
+   * The identifier of the codec used internally by the container. It is not homogenized by Mediabunny
+   * and depends entirely on the container format.
+   *
+   * This field can be used to determine the codec of a track in case Mediabunny doesn't know that codec.
+   *
+   * - For ISOBMFF files, this field returns the name of the Sample Description Box (e.g. `'avc1'`).
+   * - For Matroska files, this field returns the value of the `CodecID` element.
+   * - For WAVE files, this field returns the value of the format tag in the `'fmt '` chunk.
+   * - For ADTS files, this field contains the `MPEG-4 Audio Object Type`.
+   * - For MPEG-TS files, this field contains the `streamType` value from the Program Map Table.
+   * - In all other cases, this field is `null`.
+   */
+  get internalCodecId() {
+    return this._backing.getInternalCodecId();
+  }
+  /**
+   * The ISO 639-2/T language code for this track. If the language is unknown, this field is `'und'` (undetermined).
+   */
+  get languageCode() {
+    return this._backing.getLanguageCode();
+  }
+  /** A user-defined name for this track. */
+  get name() {
+    return this._backing.getName();
+  }
+  /**
+   * A positive number x such that all timestamps and durations of all packets of this track are
+   * integer multiples of 1/x.
+   */
+  get timeResolution() {
+    return this._backing.getTimeResolution();
+  }
+  /** The track's disposition, i.e. information about its intended usage. */
+  get disposition() {
+    return this._backing.getDisposition();
+  }
+  /**
+   * Returns the start timestamp of the first packet of this track, in seconds. While often near zero, this value
+   * may be positive or even negative. A negative starting timestamp means the track's timing has been offset. Samples
+   * with a negative timestamp should not be presented.
+   */
+  getFirstTimestamp() {
+    return this._backing.getFirstTimestamp();
+  }
+  /** Returns the end timestamp of the last packet of this track, in seconds. */
+  computeDuration() {
+    return this._backing.computeDuration();
+  }
+  /**
+   * Computes aggregate packet statistics for this track, such as average packet rate or bitrate.
+   *
+   * @param targetPacketCount - This optional parameter sets a target for how many packets this method must have
+   * looked at before it can return early; this means, you can use it to aggregate only a subset (prefix) of all
+   * packets. This is very useful for getting a great estimate of video frame rate without having to scan through the
+   * entire file.
+   */
+  async computePacketStats(x = 1 / 0) {
+    const e = new Zx(this);
+    let A = 1 / 0, r = -1 / 0, F = 0, i = 0;
+    for await (const s of e.packets(void 0, void 0, { metadataOnly: !0 })) {
+      if (F >= x && s.timestamp >= r)
+        break;
+      A = Math.min(A, s.timestamp), r = Math.max(r, s.timestamp + s.duration), F++, i += s.byteLength;
+    }
+    return {
+      packetCount: F,
+      averagePacketRate: F ? Number((F / (r - A)).toPrecision(16)) : 0,
+      averageBitrate: F ? Number((8 * i / (r - A)).toPrecision(16)) : 0
+    };
+  }
+}
+class Gx extends vt {
+  /** @internal */
+  constructor(x, e) {
+    super(x, e), this._backing = e, this.pixelAspectRatio = Ft({
+      num: this._backing.getSquarePixelWidth() * this._backing.getCodedHeight(),
+      den: this._backing.getSquarePixelHeight() * this._backing.getCodedWidth()
+    });
+  }
+  get type() {
+    return "video";
+  }
+  get codec() {
+    return this._backing.getCodec();
+  }
+  /** The width in pixels of the track's coded samples, before any transformations or rotations. */
+  get codedWidth() {
+    return this._backing.getCodedWidth();
+  }
+  /** The height in pixels of the track's coded samples, before any transformations or rotations. */
+  get codedHeight() {
+    return this._backing.getCodedHeight();
+  }
+  /** The angle in degrees by which the track's frames should be rotated (clockwise). */
+  get rotation() {
+    return this._backing.getRotation();
+  }
+  /** The width of the track's frames in square pixels, adjusted for pixel aspect ratio but before rotation. */
+  get squarePixelWidth() {
+    return this._backing.getSquarePixelWidth();
+  }
+  /** The height of the track's frames in square pixels, adjusted for pixel aspect ratio but before rotation. */
+  get squarePixelHeight() {
+    return this._backing.getSquarePixelHeight();
+  }
+  /** The display width of the track's frames in pixels, after aspect ratio adjustment and rotation. */
+  get displayWidth() {
+    return this._backing.getRotation() % 180 === 0 ? this.squarePixelWidth : this.squarePixelHeight;
+  }
+  /** The display height of the track's frames in pixels, after aspect ratio adjustment and rotation. */
+  get displayHeight() {
+    return this._backing.getRotation() % 180 === 0 ? this.squarePixelHeight : this.squarePixelWidth;
+  }
+  /** Returns the color space of the track's samples. */
+  getColorSpace() {
+    return this._backing.getColorSpace();
+  }
+  /** If this method returns true, the track's samples use a high dynamic range (HDR). */
+  async hasHighDynamicRange() {
+    const x = await this._backing.getColorSpace();
+    return x.primaries === "bt2020" || x.primaries === "smpte432" || x.transfer === "pg" || x.transfer === "hlg" || x.matrix === "bt2020-ncl";
+  }
+  /** Checks if this track may contain transparent samples with alpha data. */
+  canBeTransparent() {
+    return this._backing.canBeTransparent();
+  }
+  /**
+   * Returns the [decoder configuration](https://www.w3.org/TR/webcodecs/#video-decoder-config) for decoding the
+   * track's packets using a [`VideoDecoder`](https://developer.mozilla.org/en-US/docs/Web/API/VideoDecoder). Returns
+   * null if the track's codec is unknown.
+   */
+  getDecoderConfig() {
+    return this._backing.getDecoderConfig();
+  }
+  async getCodecParameterString() {
+    return (await this._backing.getDecoderConfig())?.codec ?? null;
+  }
+  async canDecode() {
+    try {
+      const x = await this._backing.getDecoderConfig();
+      if (!x)
+        return !1;
+      const e = this._backing.getCodec();
+      return d(e !== null), Ve.some((r) => r.supports(e, x)) ? !0 : typeof VideoDecoder > "u" ? !1 : (await VideoDecoder.isConfigSupported(x)).supported === !0;
+    } catch (x) {
+      return console.error("Error during decodability check:", x), !1;
+    }
+  }
+  async determinePacketType(x) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    if (x.isMetadataOnly)
+      throw new TypeError("packet must not be metadata-only to determine its type.");
+    if (this.codec === null)
+      return null;
+    const e = await this.getDecoderConfig();
+    return d(e), dF(this.codec, e, x.data);
+  }
+}
+class S0 extends vt {
+  /** @internal */
+  constructor(x, e) {
+    super(x, e), this._backing = e;
+  }
+  get type() {
+    return "audio";
+  }
+  get codec() {
+    return this._backing.getCodec();
+  }
+  /** The number of audio channels in the track. */
+  get numberOfChannels() {
+    return this._backing.getNumberOfChannels();
+  }
+  /** The track's audio sample rate in hertz. */
+  get sampleRate() {
+    return this._backing.getSampleRate();
+  }
+  /**
+   * Returns the [decoder configuration](https://www.w3.org/TR/webcodecs/#audio-decoder-config) for decoding the
+   * track's packets using an [`AudioDecoder`](https://developer.mozilla.org/en-US/docs/Web/API/AudioDecoder). Returns
+   * null if the track's codec is unknown.
+   */
+  getDecoderConfig() {
+    return this._backing.getDecoderConfig();
+  }
+  async getCodecParameterString() {
+    return (await this._backing.getDecoderConfig())?.codec ?? null;
+  }
+  async canDecode() {
+    try {
+      const x = await this._backing.getDecoderConfig();
+      if (!x)
+        return !1;
+      const e = this._backing.getCodec();
+      return d(e !== null), Ke.some((A) => A.supports(e, x)) || x.codec.startsWith("pcm-") ? !0 : typeof AudioDecoder > "u" ? !1 : (await AudioDecoder.isConfigSupported(x)).supported === !0;
+    } catch (x) {
+      return console.error("Error during decodability check:", x), !1;
+    }
+  }
+  async determinePacketType(x) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    return this.codec === null ? null : "key";
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const wF = (t) => {
+  let e = (t.hasVideo ? "video/" : t.hasAudio ? "audio/" : "application/") + (t.isQuickTime ? "quicktime" : "mp4");
+  if (t.codecStrings.length > 0) {
+    const A = [...new Set(t.codecStrings)];
+    e += `; codecs="${A.join(", ")}"`;
+  }
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const X0 = 8, px = 16, ix = (t) => {
+  let x = T(t);
+  const e = a0(t, 4);
+  let A = 8;
+  x === 1 && (x = I0(t), A = 16);
+  const F = x - A;
+  return F < 0 ? null : { name: e, totalSize: x, headerSize: A, contentSize: F };
+}, jx = (t) => gx(t) / 65536, yt = (t) => gx(t) / 1073741824, Tt = (t) => {
+  let x = 0;
+  for (let e = 0; e < 4; e++) {
+    x <<= 7;
+    const A = I(t);
+    if (x |= A & 127, (A & 128) === 0)
+      break;
+  }
+  return x;
+}, R0 = (t) => {
+  let x = s0(t);
+  return t.skip(2), x = Math.min(x, t.remainingLength), P0.decode(R(t, x));
+}, en = (t) => {
+  const x = ix(t);
+  if (!x || x.name !== "data" || t.remainingLength < 8)
+    return null;
+  const e = T(t);
+  t.skip(4);
+  const A = R(t, x.contentSize - 8);
+  switch (e) {
+    case 1:
+      return P0.decode(A);
+    // UTF-8
+    case 2:
+      return new TextDecoder("utf-16be").decode(A);
+    // UTF-16-BE
+    case 13:
+      return new wx(A, "image/jpeg");
+    case 14:
+      return new wx(A, "image/png");
+    case 27:
+      return new wx(A, "image/bmp");
+    default:
+      return A;
+  }
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class tn extends lx {
+  constructor(x) {
+    super(x), this.moovSlice = null, this.currentTrack = null, this.tracks = [], this.metadataPromise = null, this.movieTimescale = -1, this.movieDurationInTimescale = -1, this.isQuickTime = !1, this.metadataTags = {}, this.currentMetadataKeys = null, this.isFragmented = !1, this.fragmentTrackDefaults = [], this.currentFragment = null, this.lastReadFragment = null, this.reader = x._reader;
+  }
+  async computeDuration() {
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.computeDuration()));
+    return Math.max(0, ...e);
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks.map((x) => x.inputTrack);
+  }
+  async getMimeType() {
+    await this.readMetadata();
+    const x = await Promise.all(this.tracks.map((e) => e.inputTrack.getCodecParameterString()));
+    return wF({
+      isQuickTime: this.isQuickTime,
+      hasVideo: this.tracks.some((e) => e.info?.type === "video"),
+      hasAudio: this.tracks.some((e) => e.info?.type === "audio"),
+      codecStrings: x.filter(Boolean)
+    });
+  }
+  async getMetadataTags() {
+    return await this.readMetadata(), this.metadataTags;
+  }
+  readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      let x = 0;
+      for (; ; ) {
+        let e = this.reader.requestSliceRange(x, X0, px);
+        if (e instanceof Promise && (e = await e), !e)
+          break;
+        const A = x, r = ix(e);
+        if (!r)
+          break;
+        if (r.name === "ftyp") {
+          const F = a0(e, 4);
+          this.isQuickTime = F === "qt  ";
+        } else if (r.name === "moov") {
+          let F = this.reader.requestSlice(e.filePos, r.contentSize);
+          if (F instanceof Promise && (F = await F), !F)
+            break;
+          this.moovSlice = F, this.readContiguousBoxes(this.moovSlice), this.tracks.sort((i, s) => Number(s.disposition.default) - Number(i.disposition.default));
+          for (const i of this.tracks) {
+            const s = i.editListPreviousSegmentDurations / this.movieTimescale;
+            i.editListOffset -= Math.round(s * i.timescale);
+          }
+          break;
+        }
+        x = A + r.totalSize;
+      }
+      if (this.isFragmented && this.reader.fileSize !== null) {
+        let e = this.reader.requestSlice(this.reader.fileSize - 4, 4);
+        e instanceof Promise && (e = await e), d(e);
+        const A = T(e), r = this.reader.fileSize - A;
+        if (r >= 0 && r <= this.reader.fileSize - px) {
+          let F = this.reader.requestSliceRange(r, X0, px);
+          if (F instanceof Promise && (F = await F), F) {
+            const i = ix(F);
+            if (i && i.name === "mfra") {
+              let s = this.reader.requestSlice(F.filePos, i.contentSize);
+              s instanceof Promise && (s = await s), s && this.readContiguousBoxes(s);
+            }
+          }
+        }
+      }
+    })();
+  }
+  getSampleTableForTrack(x) {
+    if (x.sampleTable)
+      return x.sampleTable;
+    const e = {
+      sampleTimingEntries: [],
+      sampleCompositionTimeOffsets: [],
+      sampleSizes: [],
+      keySampleIndices: null,
+      chunkOffsets: [],
+      sampleToChunk: [],
+      presentationTimestamps: null,
+      presentationTimestampIndexMap: null
+    };
+    x.sampleTable = e, d(this.moovSlice);
+    const A = this.moovSlice.slice(x.sampleTableByteOffset);
+    if (this.currentTrack = x, this.traverseBox(A), this.currentTrack = null, x.info?.type === "audio" && x.info.codec && r0.includes(x.info.codec) && e.sampleCompositionTimeOffsets.length === 0) {
+      d(x.info?.type === "audio");
+      const F = O0(x.info.codec), i = [], s = [];
+      for (let n = 0; n < e.sampleToChunk.length; n++) {
+        const a = e.sampleToChunk[n], o = e.sampleToChunk[n + 1], f = (o ? o.startChunkIndex : e.chunkOffsets.length) - a.startChunkIndex;
+        for (let c = 0; c < f; c++) {
+          const v = a.startSampleIndex + c * a.samplesPerChunk, u = v + a.samplesPerChunk, l = J(e.sampleTimingEntries, v, (p) => p.startIndex), D = e.sampleTimingEntries[l], b = J(e.sampleTimingEntries, u, (p) => p.startIndex), B = e.sampleTimingEntries[b], j = D.startDecodeTimestamp + (v - D.startIndex) * D.delta, h = B.startDecodeTimestamp + (u - B.startIndex) * B.delta - j, m = x0(i);
+          m && m.delta === h ? m.count++ : i.push({
+            startIndex: a.startChunkIndex + c,
+            startDecodeTimestamp: j,
+            count: 1,
+            delta: h
+          });
+          const k = a.samplesPerChunk * F.sampleSize * x.info.numberOfChannels;
+          s.push(k);
+        }
+        a.startSampleIndex = a.startChunkIndex, a.samplesPerChunk = 1;
+      }
+      e.sampleTimingEntries = i, e.sampleSizes = s;
+    }
+    if (e.sampleCompositionTimeOffsets.length > 0) {
+      e.presentationTimestamps = [];
+      for (const F of e.sampleTimingEntries)
+        for (let i = 0; i < F.count; i++)
+          e.presentationTimestamps.push({
+            presentationTimestamp: F.startDecodeTimestamp + i * F.delta,
+            sampleIndex: F.startIndex + i
+          });
+      for (const F of e.sampleCompositionTimeOffsets)
+        for (let i = 0; i < F.count; i++) {
+          const s = F.startIndex + i, n = e.presentationTimestamps[s];
+          n && (n.presentationTimestamp += F.offset);
+        }
+      e.presentationTimestamps.sort((F, i) => F.presentationTimestamp - i.presentationTimestamp), e.presentationTimestampIndexMap = Array(e.presentationTimestamps.length).fill(-1);
+      for (let F = 0; F < e.presentationTimestamps.length; F++)
+        e.presentationTimestampIndexMap[e.presentationTimestamps[F].sampleIndex] = F;
+    }
+    return e;
+  }
+  async readFragment(x) {
+    if (this.lastReadFragment?.moofOffset === x)
+      return this.lastReadFragment;
+    let e = this.reader.requestSliceRange(x, X0, px);
+    e instanceof Promise && (e = await e), d(e);
+    const A = ix(e);
+    d(A?.name === "moof");
+    let r = this.reader.requestSlice(x, A.totalSize);
+    r instanceof Promise && (r = await r), d(r), this.traverseBox(r);
+    const F = this.lastReadFragment;
+    d(F && F.moofOffset === x);
+    for (const [, i] of F.trackData) {
+      const s = i.track, { fragmentPositionCache: n } = s;
+      if (!i.startTimestampIsFinal) {
+        const o = s.fragmentLookupTable.find((f) => f.moofOffset === F.moofOffset);
+        if (o)
+          Pt(i, o.timestamp);
+        else {
+          const f = J(n, F.moofOffset - 1, (c) => c.moofOffset);
+          if (f !== -1) {
+            const c = n[f];
+            Pt(i, c.endTimestamp);
+          }
+        }
+        i.startTimestampIsFinal = !0;
+      }
+      const a = J(n, i.startTimestamp, (o) => o.startTimestamp);
+      (a === -1 || n[a].moofOffset !== F.moofOffset) && n.splice(a + 1, 0, {
+        moofOffset: F.moofOffset,
+        startTimestamp: i.startTimestamp,
+        endTimestamp: i.endTimestamp
+      });
+    }
+    return F;
+  }
+  readContiguousBoxes(x) {
+    const e = x.filePos;
+    for (; x.filePos - e <= x.length - X0 && this.traverseBox(x); )
+      ;
+  }
+  // eslint-disable-next-line @stylistic/generator-star-spacing
+  *iterateContiguousBoxes(x) {
+    const e = x.filePos;
+    for (; x.filePos - e <= x.length - X0; ) {
+      const A = x.filePos, r = ix(x);
+      if (!r)
+        break;
+      yield { boxInfo: r, slice: x }, x.filePos = A + r.totalSize;
+    }
+  }
+  traverseBox(x) {
+    const e = x.filePos, A = ix(x);
+    if (!A)
+      return !1;
+    const r = x.filePos, F = e + A.totalSize;
+    switch (A.name) {
+      case "mdia":
+      case "minf":
+      case "dinf":
+      case "mfra":
+      case "edts":
+        this.readContiguousBoxes(x.slice(r, A.contentSize));
+        break;
+      case "mvhd":
+        {
+          const i = I(x);
+          x.skip(3), i === 1 ? (x.skip(16), this.movieTimescale = T(x), this.movieDurationInTimescale = I0(x)) : (x.skip(8), this.movieTimescale = T(x), this.movieDurationInTimescale = T(x));
+        }
+        break;
+      case "trak":
+        {
+          const i = {
+            id: -1,
+            demuxer: this,
+            inputTrack: null,
+            disposition: {
+              ...vx
+            },
+            info: null,
+            timescale: -1,
+            durationInMovieTimescale: -1,
+            durationInMediaTimescale: -1,
+            rotation: 0,
+            internalCodecId: null,
+            name: null,
+            languageCode: b0,
+            sampleTableByteOffset: -1,
+            sampleTable: null,
+            fragmentLookupTable: [],
+            currentFragmentState: null,
+            fragmentPositionCache: [],
+            editListPreviousSegmentDurations: 0,
+            editListOffset: 0
+          };
+          if (this.currentTrack = i, this.readContiguousBoxes(x.slice(r, A.contentSize)), i.id !== -1 && i.timescale !== -1 && i.info !== null) {
+            if (i.info.type === "video" && i.info.width !== -1) {
+              const s = i;
+              i.inputTrack = new Gx(this.input, new An(s)), this.tracks.push(i);
+            } else if (i.info.type === "audio" && i.info.numberOfChannels !== -1) {
+              const s = i;
+              i.inputTrack = new S0(this.input, new rn(s)), this.tracks.push(i);
+            }
+          }
+          this.currentTrack = null;
+        }
+        break;
+      case "tkhd":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          const s = I(x), a = !!($x(x) & 1);
+          if (i.disposition.default = a, s === 0)
+            x.skip(8), i.id = T(x), x.skip(4), i.durationInMovieTimescale = T(x);
+          else if (s === 1)
+            x.skip(16), i.id = T(x), x.skip(4), i.durationInMovieTimescale = I0(x);
+          else
+            throw new Error(`Incorrect track header version ${s}.`);
+          x.skip(2 * 4 + 2 + 2 + 2 + 2);
+          const o = [
+            jx(x),
+            jx(x),
+            yt(x),
+            jx(x),
+            jx(x),
+            yt(x),
+            jx(x),
+            jx(x),
+            yt(x)
+          ], f = xt(zt(an(o), 90));
+          d(f === 0 || f === 90 || f === 180 || f === 270), i.rotation = f;
+        }
+        break;
+      case "elst":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          const s = I(x);
+          x.skip(3);
+          let n = !1, a = 0;
+          const o = T(x);
+          for (let f = 0; f < o; f++) {
+            const c = s === 1 ? I0(x) : T(x), v = s === 1 ? Kn(x) : gx(x), u = jx(x);
+            if (c !== 0) {
+              if (n) {
+                console.warn("Unsupported edit list: multiple edits are not currently supported. Only using first edit.");
+                break;
+              }
+              if (v === -1) {
+                a += c;
+                continue;
+              }
+              if (u !== 1) {
+                console.warn("Unsupported edit list entry: media rate must be 1.");
+                break;
+              }
+              i.editListPreviousSegmentDurations = a, i.editListOffset = v, n = !0;
+            }
+          }
+        }
+        break;
+      case "mdhd":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          const s = I(x);
+          x.skip(3), s === 0 ? (x.skip(8), i.timescale = T(x), i.durationInMediaTimescale = T(x)) : s === 1 && (x.skip(16), i.timescale = T(x), i.durationInMediaTimescale = I0(x));
+          let n = s0(x);
+          if (n > 0) {
+            i.languageCode = "";
+            for (let a = 0; a < 3; a++)
+              i.languageCode = String.fromCharCode(96 + (n & 31)) + i.languageCode, n >>= 5;
+            he(i.languageCode) || (i.languageCode = b0);
+          }
+        }
+        break;
+      case "hdlr":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          x.skip(8);
+          const s = a0(x, 4);
+          s === "vide" ? i.info = {
+            type: "video",
+            width: -1,
+            height: -1,
+            squarePixelWidth: -1,
+            squarePixelHeight: -1,
+            codec: null,
+            codecDescription: null,
+            colorSpace: null,
+            avcType: null,
+            avcCodecInfo: null,
+            hevcCodecInfo: null,
+            vp9CodecInfo: null,
+            av1CodecInfo: null
+          } : s === "soun" && (i.info = {
+            type: "audio",
+            numberOfChannels: -1,
+            sampleRate: -1,
+            codec: null,
+            codecDescription: null,
+            aacCodecInfo: null
+          });
+        }
+        break;
+      case "stbl":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          i.sampleTableByteOffset = e, this.readContiguousBoxes(x.slice(r, A.contentSize));
+        }
+        break;
+      case "stsd":
+        {
+          const i = this.currentTrack;
+          if (!i || i.info === null || i.sampleTable)
+            break;
+          const s = I(x);
+          x.skip(3);
+          const n = T(x);
+          for (let a = 0; a < n; a++) {
+            const o = x.filePos, f = ix(x);
+            if (!f)
+              break;
+            i.internalCodecId = f.name;
+            const c = f.name.toLowerCase();
+            if (i.info.type === "video")
+              c === "avc1" || c === "avc3" ? (i.info.codec = "avc", i.info.avcType = c === "avc1" ? 1 : 3) : c === "hvc1" || c === "hev1" ? i.info.codec = "hevc" : c === "vp08" ? i.info.codec = "vp8" : c === "vp09" ? i.info.codec = "vp9" : c === "av01" ? i.info.codec = "av1" : console.warn(`Unsupported video codec (sample entry type '${f.name}').`), x.skip(6 * 1 + 2 + 2 + 2 + 3 * 4), i.info.width = s0(x), i.info.height = s0(x), i.info.squarePixelWidth = i.info.width, i.info.squarePixelHeight = i.info.height, x.skip(50), this.readContiguousBoxes(x.slice(x.filePos, o + f.totalSize - x.filePos));
+            else {
+              c === "mp4a" || (c === "opus" ? i.info.codec = "opus" : c === "flac" ? i.info.codec = "flac" : c === "twos" || c === "sowt" || c === "raw " || c === "in24" || c === "in32" || c === "fl32" || c === "fl64" || c === "lpcm" || c === "ipcm" || c === "fpcm" || (c === "ulaw" ? i.info.codec = "ulaw" : c === "alaw" ? i.info.codec = "alaw" : c === "ac-3" ? i.info.codec = "ac3" : c === "ec-3" ? i.info.codec = "eac3" : console.warn(`Unsupported audio codec (sample entry type '${f.name}').`))), x.skip(6 * 1 + 2);
+              const v = s0(x);
+              x.skip(3 * 2);
+              let u = s0(x), l = s0(x);
+              x.skip(2 * 2);
+              let D = T(x) / 65536;
+              if (s === 0 && v > 0) {
+                if (v === 1)
+                  x.skip(4), l = 8 * T(x), x.skip(2 * 4);
+                else if (v === 2) {
+                  x.skip(4), D = li(x), u = T(x), x.skip(4), l = T(x);
+                  const b = T(x);
+                  if (x.skip(2 * 4), c === "lpcm") {
+                    const B = l + 7 >> 3, j = !!(b & 1), E = !!(b & 2), h = b & 4 ? -1 : 0;
+                    l > 0 && l <= 64 && (j ? l === 32 && (i.info.codec = E ? "pcm-f32be" : "pcm-f32") : h & 1 << B - 1 ? B === 1 ? i.info.codec = "pcm-s8" : B === 2 ? i.info.codec = E ? "pcm-s16be" : "pcm-s16" : B === 3 ? i.info.codec = E ? "pcm-s24be" : "pcm-s24" : B === 4 && (i.info.codec = E ? "pcm-s32be" : "pcm-s32") : B === 1 && (i.info.codec = "pcm-u8")), i.info.codec === null && console.warn("Unsupported PCM format.");
+                  }
+                }
+              }
+              i.info.codec === "opus" && (D = re), i.info.numberOfChannels = u, i.info.sampleRate = D, c === "twos" ? l === 8 ? i.info.codec = "pcm-s8" : l === 16 ? i.info.codec = "pcm-s16be" : (console.warn(`Unsupported sample size ${l} for codec 'twos'.`), i.info.codec = null) : c === "sowt" ? l === 8 ? i.info.codec = "pcm-s8" : l === 16 ? i.info.codec = "pcm-s16" : (console.warn(`Unsupported sample size ${l} for codec 'sowt'.`), i.info.codec = null) : c === "raw " ? i.info.codec = "pcm-u8" : c === "in24" ? i.info.codec = "pcm-s24be" : c === "in32" ? i.info.codec = "pcm-s32be" : c === "fl32" ? i.info.codec = "pcm-f32be" : c === "fl64" ? i.info.codec = "pcm-f64be" : c === "ipcm" ? i.info.codec = "pcm-s16be" : c === "fpcm" && (i.info.codec = "pcm-f32be"), this.readContiguousBoxes(x.slice(x.filePos, o + f.totalSize - x.filePos));
+            }
+          }
+        }
+        break;
+      case "avcC":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info), i.info.codecDescription = R(x, A.contentSize);
+        }
+        break;
+      case "hvcC":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info), i.info.codecDescription = R(x, A.contentSize);
+        }
+        break;
+      case "vpcC":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "video"), x.skip(4);
+          const s = I(x), n = I(x), a = I(x), o = a >> 4, f = a >> 1 & 7, c = a & 1, v = I(x), u = I(x), l = I(x);
+          i.info.vp9CodecInfo = {
+            profile: s,
+            level: n,
+            bitDepth: o,
+            chromaSubsampling: f,
+            videoFullRangeFlag: c,
+            colourPrimaries: v,
+            transferCharacteristics: u,
+            matrixCoefficients: l
+          };
+        }
+        break;
+      case "av1C":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "video"), x.skip(1);
+          const s = I(x), n = s >> 5, a = s & 31, o = I(x), f = o >> 7, c = o >> 6 & 1, v = o >> 5 & 1, u = o >> 4 & 1, l = o >> 3 & 1, D = o >> 2 & 1, b = o & 3, B = n === 2 && c ? v ? 12 : 10 : c ? 10 : 8;
+          i.info.av1CodecInfo = {
+            profile: n,
+            level: a,
+            tier: f,
+            bitDepth: B,
+            monochrome: u,
+            chromaSubsamplingX: l,
+            chromaSubsamplingY: D,
+            chromaSamplePosition: b
+          };
+        }
+        break;
+      case "colr":
+        {
+          const i = this.currentTrack;
+          if (!i || (d(i.info?.type === "video"), a0(x, 4) !== "nclx"))
+            break;
+          const n = s0(x), a = s0(x), o = s0(x), f = !!(I(x) & 128);
+          i.info.colorSpace = {
+            primaries: Le[n],
+            transfer: Ue[a],
+            matrix: Oe[o],
+            fullRange: f
+          };
+        }
+        break;
+      case "pasp":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "video");
+          const s = T(x), n = T(x);
+          s > n ? i.info.squarePixelWidth = Math.round(i.info.width * s / n) : i.info.squarePixelHeight = Math.round(i.info.height * n / s);
+        }
+        break;
+      case "wave":
+        this.readContiguousBoxes(x.slice(r, A.contentSize));
+        break;
+      case "esds":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio"), x.skip(4);
+          const s = I(x);
+          d(s === 3), Tt(x), x.skip(2);
+          const n = I(x), a = (n & 128) !== 0, o = (n & 64) !== 0, f = (n & 32) !== 0;
+          if (a && x.skip(2), o) {
+            const D = I(x);
+            x.skip(D);
+          }
+          f && x.skip(2);
+          const c = I(x);
+          d(c === 4);
+          const v = Tt(x), u = x.filePos, l = I(x);
+          if (l === 64 || l === 103 ? (i.info.codec = "aac", i.info.aacCodecInfo = {
+            isMpeg2: l === 103,
+            objectType: null
+          }) : l === 105 || l === 107 ? i.info.codec = "mp3" : l === 221 ? i.info.codec = "vorbis" : console.warn(`Unsupported audio codec (objectTypeIndication ${l}) - discarding track.`), x.skip(12), v > x.filePos - u) {
+            const D = I(x);
+            d(D === 5);
+            const b = Tt(x);
+            if (i.info.codecDescription = R(x, b), i.info.codec === "aac") {
+              const B = Se(i.info.codecDescription);
+              B.numberOfChannels !== null && (i.info.numberOfChannels = B.numberOfChannels), B.sampleRate !== null && (i.info.sampleRate = B.sampleRate);
+            }
+          }
+        }
+        break;
+      case "enda":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio"), s0(x) & 255 && (i.info.codec === "pcm-s16be" ? i.info.codec = "pcm-s16" : i.info.codec === "pcm-s24be" ? i.info.codec = "pcm-s24" : i.info.codec === "pcm-s32be" ? i.info.codec = "pcm-s32" : i.info.codec === "pcm-f32be" ? i.info.codec = "pcm-f32" : i.info.codec === "pcm-f64be" && (i.info.codec = "pcm-f64"));
+        }
+        break;
+      case "pcmC": {
+        const i = this.currentTrack;
+        if (!i)
+          break;
+        d(i.info?.type === "audio"), x.skip(4);
+        const n = !!(I(x) & 1), a = I(x);
+        i.info.codec === "pcm-s16be" ? n ? a === 16 ? i.info.codec = "pcm-s16" : a === 24 ? i.info.codec = "pcm-s24" : a === 32 ? i.info.codec = "pcm-s32" : (console.warn(`Invalid ipcm sample size ${a}.`), i.info.codec = null) : a === 16 ? i.info.codec = "pcm-s16be" : a === 24 ? i.info.codec = "pcm-s24be" : a === 32 ? i.info.codec = "pcm-s32be" : (console.warn(`Invalid ipcm sample size ${a}.`), i.info.codec = null) : i.info.codec === "pcm-f32be" && (n ? a === 32 ? i.info.codec = "pcm-f32" : a === 64 ? i.info.codec = "pcm-f64" : (console.warn(`Invalid fpcm sample size ${a}.`), i.info.codec = null) : a === 32 ? i.info.codec = "pcm-f32be" : a === 64 ? i.info.codec = "pcm-f64be" : (console.warn(`Invalid fpcm sample size ${a}.`), i.info.codec = null));
+        break;
+      }
+      case "dOps":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio"), x.skip(1);
+          const s = I(x), n = s0(x), a = T(x), o = nA(x), f = I(x);
+          let c;
+          f !== 0 ? c = R(x, 2 + s) : c = new Uint8Array(0);
+          const v = new Uint8Array(19 + c.byteLength), u = new DataView(v.buffer);
+          u.setUint32(0, 1332770163, !1), u.setUint32(4, 1214603620, !1), u.setUint8(8, 1), u.setUint8(9, s), u.setUint16(10, n, !0), u.setUint32(12, a, !0), u.setInt16(16, o, !0), u.setUint8(18, f), v.set(c, 19), i.info.codecDescription = v, i.info.numberOfChannels = s;
+        }
+        break;
+      case "dfLa":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio"), x.skip(4);
+          const s = 127, n = 128, a = x.filePos;
+          for (; x.filePos < F; ) {
+            const u = I(x), l = $x(x);
+            if ((u & s) === Z0.STREAMINFO) {
+              x.skip(10);
+              const b = T(x), B = b >>> 12, j = (b >> 9 & 7) + 1;
+              i.info.sampleRate = B, i.info.numberOfChannels = j, x.skip(20);
+            } else
+              x.skip(l);
+            if (u & n)
+              break;
+          }
+          const o = x.filePos;
+          x.filePos = a;
+          const f = R(x, o - a), c = new Uint8Array(4 + f.byteLength);
+          new DataView(c.buffer).setUint32(0, 1716281667, !1), c.set(f, 4), i.info.codecDescription = c;
+        }
+        break;
+      case "dac3":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio");
+          const s = R(x, 3), n = new N(s), a = n.readBits(2);
+          n.skipBits(8);
+          const o = n.readBits(3), f = n.readBits(1);
+          a < 3 && (i.info.sampleRate = ot[a]), i.info.numberOfChannels = SA[o] + f;
+        }
+        break;
+      case "dec3":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.info?.type === "audio");
+          const s = R(x, A.contentSize), n = Ns(s);
+          if (!n) {
+            console.warn("Invalid dec3 box contents, ignoring.");
+            break;
+          }
+          const a = bF(n);
+          a !== null && (i.info.sampleRate = a), i.info.numberOfChannels = CF(n);
+        }
+        break;
+      case "stts":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x);
+          let n = 0, a = 0;
+          for (let o = 0; o < s; o++) {
+            const f = T(x), c = T(x);
+            i.sampleTable.sampleTimingEntries.push({
+              startIndex: n,
+              startDecodeTimestamp: a,
+              count: f,
+              delta: c
+            }), n += f, a += f * c;
+          }
+        }
+        break;
+      case "ctts":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x);
+          let n = 0;
+          for (let a = 0; a < s; a++) {
+            const o = T(x), f = gx(x);
+            i.sampleTable.sampleCompositionTimeOffsets.push({
+              startIndex: n,
+              count: o,
+              offset: f
+            }), n += o;
+          }
+        }
+        break;
+      case "stsz":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x), n = T(x);
+          if (s === 0)
+            for (let a = 0; a < n; a++) {
+              const o = T(x);
+              i.sampleTable.sampleSizes.push(o);
+            }
+          else
+            i.sampleTable.sampleSizes.push(s);
+        }
+        break;
+      case "stz2":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4), x.skip(3);
+          const s = I(x), n = T(x), a = R(x, Math.ceil(n * s / 8)), o = new N(a);
+          for (let f = 0; f < n; f++) {
+            const c = o.readBits(s);
+            i.sampleTable.sampleSizes.push(c);
+          }
+        }
+        break;
+      case "stss":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4), i.sampleTable.keySampleIndices = [];
+          const s = T(x);
+          for (let n = 0; n < s; n++) {
+            const a = T(x) - 1;
+            i.sampleTable.keySampleIndices.push(a);
+          }
+          i.sampleTable.keySampleIndices[0] !== 0 && i.sampleTable.keySampleIndices.unshift(0);
+        }
+        break;
+      case "stsc":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x);
+          for (let a = 0; a < s; a++) {
+            const o = T(x) - 1, f = T(x), c = T(x);
+            i.sampleTable.sampleToChunk.push({
+              startSampleIndex: -1,
+              startChunkIndex: o,
+              samplesPerChunk: f,
+              sampleDescriptionIndex: c
+            });
+          }
+          let n = 0;
+          for (let a = 0; a < i.sampleTable.sampleToChunk.length; a++)
+            if (i.sampleTable.sampleToChunk[a].startSampleIndex = n, a < i.sampleTable.sampleToChunk.length - 1) {
+              const f = i.sampleTable.sampleToChunk[a + 1].startChunkIndex - i.sampleTable.sampleToChunk[a].startChunkIndex;
+              n += f * i.sampleTable.sampleToChunk[a].samplesPerChunk;
+            }
+        }
+        break;
+      case "stco":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x);
+          for (let n = 0; n < s; n++) {
+            const a = T(x);
+            i.sampleTable.chunkOffsets.push(a);
+          }
+        }
+        break;
+      case "co64":
+        {
+          const i = this.currentTrack;
+          if (!i || !i.sampleTable)
+            break;
+          x.skip(4);
+          const s = T(x);
+          for (let n = 0; n < s; n++) {
+            const a = I0(x);
+            i.sampleTable.chunkOffsets.push(a);
+          }
+        }
+        break;
+      case "mvex":
+        this.isFragmented = !0, this.readContiguousBoxes(x.slice(r, A.contentSize));
+        break;
+      case "mehd":
+        {
+          const i = I(x);
+          x.skip(3);
+          const s = i === 1 ? I0(x) : T(x);
+          this.movieDurationInTimescale = s;
+        }
+        break;
+      case "trex":
+        {
+          x.skip(4);
+          const i = T(x), s = T(x), n = T(x), a = T(x), o = T(x);
+          this.fragmentTrackDefaults.push({
+            trackId: i,
+            defaultSampleDescriptionIndex: s,
+            defaultSampleDuration: n,
+            defaultSampleSize: a,
+            defaultSampleFlags: o
+          });
+        }
+        break;
+      case "tfra":
+        {
+          const i = I(x);
+          x.skip(3);
+          const s = T(x), n = this.tracks.find((B) => B.id === s);
+          if (!n)
+            break;
+          const a = T(x), o = (a & 48) >> 4, f = (a & 12) >> 2, c = a & 3, v = [I, s0, $x, T], u = v[o], l = v[f], D = v[c], b = T(x);
+          for (let B = 0; B < b; B++) {
+            const j = i === 1 ? I0(x) : T(x), E = i === 1 ? I0(x) : T(x);
+            u(x), l(x), D(x), n.fragmentLookupTable.push({
+              timestamp: j,
+              moofOffset: E
+            });
+          }
+          n.fragmentLookupTable.sort((B, j) => B.timestamp - j.timestamp);
+          for (let B = 0; B < n.fragmentLookupTable.length - 1; B++) {
+            const j = n.fragmentLookupTable[B], E = n.fragmentLookupTable[B + 1];
+            j.timestamp === E.timestamp && (n.fragmentLookupTable.splice(B + 1, 1), B--);
+          }
+        }
+        break;
+      case "moof":
+        this.currentFragment = {
+          moofOffset: e,
+          moofSize: A.totalSize,
+          implicitBaseDataOffset: e,
+          trackData: /* @__PURE__ */ new Map()
+        }, this.readContiguousBoxes(x.slice(r, A.contentSize)), this.lastReadFragment = this.currentFragment, this.currentFragment = null;
+        break;
+      case "traf":
+        if (d(this.currentFragment), this.readContiguousBoxes(x.slice(r, A.contentSize)), this.currentTrack) {
+          const i = this.currentFragment.trackData.get(this.currentTrack.id);
+          if (i) {
+            const { currentFragmentState: s } = this.currentTrack;
+            d(s), s.startTimestamp !== null && (Pt(i, s.startTimestamp), i.startTimestampIsFinal = !0);
+          }
+          this.currentTrack.currentFragmentState = null, this.currentTrack = null;
+        }
+        break;
+      case "tfhd":
+        {
+          d(this.currentFragment), x.skip(1);
+          const i = $x(x), s = !!(i & 1), n = !!(i & 2), a = !!(i & 8), o = !!(i & 16), f = !!(i & 32), c = !!(i & 65536), v = !!(i & 131072), u = T(x), l = this.tracks.find((b) => b.id === u);
+          if (!l)
+            break;
+          const D = this.fragmentTrackDefaults.find((b) => b.trackId === u);
+          this.currentTrack = l, l.currentFragmentState = {
+            baseDataOffset: this.currentFragment.implicitBaseDataOffset,
+            sampleDescriptionIndex: D?.defaultSampleDescriptionIndex ?? null,
+            defaultSampleDuration: D?.defaultSampleDuration ?? null,
+            defaultSampleSize: D?.defaultSampleSize ?? null,
+            defaultSampleFlags: D?.defaultSampleFlags ?? null,
+            startTimestamp: null
+          }, s ? l.currentFragmentState.baseDataOffset = I0(x) : v && (l.currentFragmentState.baseDataOffset = this.currentFragment.moofOffset), n && (l.currentFragmentState.sampleDescriptionIndex = T(x)), a && (l.currentFragmentState.defaultSampleDuration = T(x)), o && (l.currentFragmentState.defaultSampleSize = T(x)), f && (l.currentFragmentState.defaultSampleFlags = T(x)), c && (l.currentFragmentState.defaultSampleDuration = 0);
+        }
+        break;
+      case "tfdt":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          d(i.currentFragmentState);
+          const s = I(x);
+          x.skip(3);
+          const n = s === 0 ? T(x) : I0(x);
+          i.currentFragmentState.startTimestamp = n;
+        }
+        break;
+      case "trun":
+        {
+          const i = this.currentTrack;
+          if (!i)
+            break;
+          if (d(this.currentFragment), d(i.currentFragmentState), this.currentFragment.trackData.has(i.id)) {
+            console.warn("Can't have two trun boxes for the same track in one fragment. Ignoring...");
+            break;
+          }
+          const s = I(x), n = $x(x), a = !!(n & 1), o = !!(n & 4), f = !!(n & 256), c = !!(n & 512), v = !!(n & 1024), u = !!(n & 2048), l = T(x);
+          let D = i.currentFragmentState.baseDataOffset;
+          a && (D += gx(x));
+          let b = null;
+          o && (b = T(x));
+          let B = D;
+          if (l === 0) {
+            this.currentFragment.implicitBaseDataOffset = B;
+            break;
+          }
+          let j = 0;
+          const E = {
+            track: i,
+            startTimestamp: 0,
+            endTimestamp: 0,
+            firstKeyFrameTimestamp: null,
+            samples: [],
+            presentationTimestamps: [],
+            startTimestampIsFinal: !1
+          };
+          this.currentFragment.trackData.set(i.id, E);
+          for (let k = 0; k < l; k++) {
+            let p;
+            f ? p = T(x) : (d(i.currentFragmentState.defaultSampleDuration !== null), p = i.currentFragmentState.defaultSampleDuration);
+            let g;
+            c ? g = T(x) : (d(i.currentFragmentState.defaultSampleSize !== null), g = i.currentFragmentState.defaultSampleSize);
+            let q;
+            v ? q = T(x) : (d(i.currentFragmentState.defaultSampleFlags !== null), q = i.currentFragmentState.defaultSampleFlags), k === 0 && b !== null && (q = b);
+            let S = 0;
+            u && (s === 0 ? S = T(x) : S = gx(x));
+            const P = !(q & 65536);
+            E.samples.push({
+              presentationTimestamp: j + S,
+              duration: p,
+              byteOffset: B,
+              byteSize: g,
+              isKeyFrame: P
+            }), B += g, j += p;
+          }
+          E.presentationTimestamps = E.samples.map((k, p) => ({ presentationTimestamp: k.presentationTimestamp, sampleIndex: p })).sort((k, p) => k.presentationTimestamp - p.presentationTimestamp);
+          for (let k = 0; k < E.presentationTimestamps.length; k++) {
+            const p = E.presentationTimestamps[k], g = E.samples[p.sampleIndex];
+            if (E.firstKeyFrameTimestamp === null && g.isKeyFrame && (E.firstKeyFrameTimestamp = g.presentationTimestamp), k < E.presentationTimestamps.length - 1) {
+              const q = E.presentationTimestamps[k + 1];
+              g.duration = q.presentationTimestamp - p.presentationTimestamp;
+            }
+          }
+          const h = E.samples[E.presentationTimestamps[0].sampleIndex], m = E.samples[x0(E.presentationTimestamps).sampleIndex];
+          E.startTimestamp = h.presentationTimestamp, E.endTimestamp = m.presentationTimestamp + m.duration, this.currentFragment.implicitBaseDataOffset = B;
+        }
+        break;
+      // Metadata section
+      // https://exiftool.org/TagNames/QuickTime.html
+      // https://mp4workshop.com/about
+      case "udta":
+        {
+          const i = this.iterateContiguousBoxes(x.slice(r, A.contentSize));
+          for (const { boxInfo: s, slice: n } of i) {
+            if (s.name !== "meta" && !this.currentTrack) {
+              const a = n.filePos;
+              this.metadataTags.raw ??= {}, s.name[0] === "©" ? this.metadataTags.raw[s.name] ??= R0(n) : this.metadataTags.raw[s.name] ??= R(n, s.contentSize), n.filePos = a;
+            }
+            switch (s.name) {
+              case "meta":
+                n.skip(-s.headerSize), this.traverseBox(n);
+                break;
+              case "©nam":
+              case "name":
+                this.currentTrack ? this.currentTrack.name = P0.decode(R(n, s.contentSize)) : this.metadataTags.title ??= R0(n);
+                break;
+              case "©des":
+                this.currentTrack || (this.metadataTags.description ??= R0(n));
+                break;
+              case "©ART":
+                this.currentTrack || (this.metadataTags.artist ??= R0(n));
+                break;
+              case "©alb":
+                this.currentTrack || (this.metadataTags.album ??= R0(n));
+                break;
+              case "albr":
+                this.currentTrack || (this.metadataTags.albumArtist ??= R0(n));
+                break;
+              case "©gen":
+                this.currentTrack || (this.metadataTags.genre ??= R0(n));
+                break;
+              case "©day":
+                if (!this.currentTrack) {
+                  const a = new Date(R0(n));
+                  Number.isNaN(a.getTime()) || (this.metadataTags.date ??= a);
+                }
+                break;
+              case "©cmt":
+                this.currentTrack || (this.metadataTags.comment ??= R0(n));
+                break;
+              case "©lyr":
+                this.currentTrack || (this.metadataTags.lyrics ??= R0(n));
+                break;
+            }
+          }
+        }
+        break;
+      case "meta":
+        {
+          if (this.currentTrack)
+            break;
+          const s = T(x) !== 0;
+          this.currentMetadataKeys = /* @__PURE__ */ new Map(), s ? this.readContiguousBoxes(x.slice(r, A.contentSize)) : this.readContiguousBoxes(x.slice(r + 4, A.contentSize - 4)), this.currentMetadataKeys = null;
+        }
+        break;
+      case "keys":
+        {
+          if (!this.currentMetadataKeys)
+            break;
+          x.skip(4);
+          const i = T(x);
+          for (let s = 0; s < i; s++) {
+            const n = T(x);
+            x.skip(4);
+            const a = P0.decode(R(x, n - 8));
+            this.currentMetadataKeys.set(s + 1, a);
+          }
+        }
+        break;
+      case "ilst":
+        {
+          if (!this.currentMetadataKeys)
+            break;
+          const i = this.iterateContiguousBoxes(x.slice(r, A.contentSize));
+          for (const { boxInfo: s, slice: n } of i) {
+            let a = s.name;
+            const o = (a.charCodeAt(0) << 24) + (a.charCodeAt(1) << 16) + (a.charCodeAt(2) << 8) + a.charCodeAt(3);
+            this.currentMetadataKeys.has(o) && (a = this.currentMetadataKeys.get(o));
+            const f = en(n);
+            switch (this.metadataTags.raw ??= {}, this.metadataTags.raw[a] ??= f, a) {
+              case "©nam":
+              case "titl":
+              case "com.apple.quicktime.title":
+              case "title":
+                typeof f == "string" && (this.metadataTags.title ??= f);
+                break;
+              case "©des":
+              case "desc":
+              case "dscp":
+              case "com.apple.quicktime.description":
+              case "description":
+                typeof f == "string" && (this.metadataTags.description ??= f);
+                break;
+              case "©ART":
+              case "com.apple.quicktime.artist":
+              case "artist":
+                typeof f == "string" && (this.metadataTags.artist ??= f);
+                break;
+              case "©alb":
+              case "albm":
+              case "com.apple.quicktime.album":
+              case "album":
+                typeof f == "string" && (this.metadataTags.album ??= f);
+                break;
+              case "aART":
+              case "album_artist":
+                typeof f == "string" && (this.metadataTags.albumArtist ??= f);
+                break;
+              case "©cmt":
+              case "com.apple.quicktime.comment":
+              case "comment":
+                typeof f == "string" && (this.metadataTags.comment ??= f);
+                break;
+              case "©gen":
+              case "gnre":
+              case "com.apple.quicktime.genre":
+              case "genre":
+                typeof f == "string" && (this.metadataTags.genre ??= f);
+                break;
+              case "©lyr":
+              case "lyrics":
+                typeof f == "string" && (this.metadataTags.lyrics ??= f);
+                break;
+              case "©day":
+              case "rldt":
+              case "com.apple.quicktime.creationdate":
+              case "date":
+                if (typeof f == "string") {
+                  const c = new Date(f);
+                  Number.isNaN(c.getTime()) || (this.metadataTags.date ??= c);
+                }
+                break;
+              case "covr":
+              case "com.apple.quicktime.artwork":
+                f instanceof wx ? (this.metadataTags.images ??= [], this.metadataTags.images.push({
+                  data: f.data,
+                  kind: "coverFront",
+                  mimeType: f.mimeType
+                })) : f instanceof Uint8Array && (this.metadataTags.images ??= [], this.metadataTags.images.push({
+                  data: f,
+                  kind: "coverFront",
+                  mimeType: "image/*"
+                }));
+                break;
+              case "track":
+                if (typeof f == "string") {
+                  const c = f.split("/"), v = Number.parseInt(c[0], 10), u = c[1] && Number.parseInt(c[1], 10);
+                  Number.isInteger(v) && v > 0 && (this.metadataTags.trackNumber ??= v), u && Number.isInteger(u) && u > 0 && (this.metadataTags.tracksTotal ??= u);
+                }
+                break;
+              case "trkn":
+                if (f instanceof Uint8Array && f.length >= 6) {
+                  const c = U(f), v = c.getUint16(2, !1), u = c.getUint16(4, !1);
+                  v > 0 && (this.metadataTags.trackNumber ??= v), u > 0 && (this.metadataTags.tracksTotal ??= u);
+                }
+                break;
+              case "disc":
+              case "disk":
+                if (f instanceof Uint8Array && f.length >= 6) {
+                  const c = U(f), v = c.getUint16(2, !1), u = c.getUint16(4, !1);
+                  v > 0 && (this.metadataTags.discNumber ??= v), u > 0 && (this.metadataTags.discsTotal ??= u);
+                }
+                break;
+            }
+          }
+        }
+        break;
+    }
+    return x.filePos = F, !0;
+  }
+}
+class yF {
+  constructor(x) {
+    this.internalTrack = x, this.packetToSampleIndex = /* @__PURE__ */ new WeakMap(), this.packetToFragmentLocation = /* @__PURE__ */ new WeakMap();
+  }
+  getId() {
+    return this.internalTrack.id;
+  }
+  getNumber() {
+    const x = this.internalTrack.demuxer, A = this.internalTrack.inputTrack.type;
+    let r = 0;
+    for (const F of x.tracks)
+      if (F.inputTrack.type === A && r++, F === this.internalTrack)
+        break;
+    return r;
+  }
+  getCodec() {
+    throw new Error("Not implemented on base class.");
+  }
+  getInternalCodecId() {
+    return this.internalTrack.internalCodecId;
+  }
+  getName() {
+    return this.internalTrack.name;
+  }
+  getLanguageCode() {
+    return this.internalTrack.languageCode;
+  }
+  getTimeResolution() {
+    return this.internalTrack.timescale;
+  }
+  getDisposition() {
+    return this.internalTrack.disposition;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  async getFirstTimestamp() {
+    return (await this.getFirstPacket({ metadataOnly: !0 }))?.timestamp ?? 0;
+  }
+  async getFirstPacket(x) {
+    const e = await this.fetchPacketForSampleIndex(0, x);
+    return e || !this.internalTrack.demuxer.isFragmented ? e : this.performFragmentedLookup(
+      null,
+      (A) => A.trackData.get(this.internalTrack.id) ? {
+        sampleIndex: 0,
+        correctSampleFound: !0
+      } : {
+        sampleIndex: -1,
+        correctSampleFound: !1
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the lookup entries
+      1 / 0,
+      x
+    );
+  }
+  mapTimestampIntoTimescale(x) {
+    return Ee(x * this.internalTrack.timescale) + this.internalTrack.editListOffset;
+  }
+  async getPacket(x, e) {
+    const A = this.mapTimestampIntoTimescale(x), r = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), F = eA(r, A), i = await this.fetchPacketForSampleIndex(F, e);
+    return !pr(r) || !this.internalTrack.demuxer.isFragmented ? i : this.performFragmentedLookup(null, (s) => {
+      const n = s.trackData.get(this.internalTrack.id);
+      if (!n)
+        return { sampleIndex: -1, correctSampleFound: !1 };
+      const a = J(n.presentationTimestamps, A, (c) => c.presentationTimestamp), o = a !== -1 ? n.presentationTimestamps[a].sampleIndex : -1, f = a !== -1 && A < n.endTimestamp;
+      return { sampleIndex: o, correctSampleFound: f };
+    }, A, A, e);
+  }
+  async getNextPacket(x, e) {
+    const A = this.packetToSampleIndex.get(x);
+    if (A !== void 0)
+      return this.fetchPacketForSampleIndex(A + 1, e);
+    const r = this.packetToFragmentLocation.get(x);
+    if (r === void 0)
+      throw new Error("Packet was not created from this track.");
+    return this.performFragmentedLookup(
+      r.fragment,
+      (F) => {
+        if (F === r.fragment) {
+          const i = F.trackData.get(this.internalTrack.id);
+          if (r.sampleIndex + 1 < i.samples.length)
+            return {
+              sampleIndex: r.sampleIndex + 1,
+              correctSampleFound: !0
+            };
+        } else if (F.trackData.get(this.internalTrack.id))
+          return {
+            sampleIndex: 0,
+            correctSampleFound: !0
+          };
+        return {
+          sampleIndex: -1,
+          correctSampleFound: !1
+        };
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the lookup entries
+      1 / 0,
+      e
+    );
+  }
+  async getKeyPacket(x, e) {
+    const A = this.mapTimestampIntoTimescale(x), r = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), F = Fn(r, A), i = await this.fetchPacketForSampleIndex(F, e);
+    return !pr(r) || !this.internalTrack.demuxer.isFragmented ? i : this.performFragmentedLookup(null, (s) => {
+      const n = s.trackData.get(this.internalTrack.id);
+      if (!n)
+        return { sampleIndex: -1, correctSampleFound: !1 };
+      const a = jA(n.presentationTimestamps, (c) => n.samples[c.sampleIndex].isKeyFrame && c.presentationTimestamp <= A), o = a !== -1 ? n.presentationTimestamps[a].sampleIndex : -1, f = a !== -1 && A < n.endTimestamp;
+      return { sampleIndex: o, correctSampleFound: f };
+    }, A, A, e);
+  }
+  async getNextKeyPacket(x, e) {
+    const A = this.packetToSampleIndex.get(x);
+    if (A !== void 0) {
+      const F = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), i = nn(F, A);
+      return this.fetchPacketForSampleIndex(i, e);
+    }
+    const r = this.packetToFragmentLocation.get(x);
+    if (r === void 0)
+      throw new Error("Packet was not created from this track.");
+    return this.performFragmentedLookup(
+      r.fragment,
+      (F) => {
+        if (F === r.fragment) {
+          const s = F.trackData.get(this.internalTrack.id).samples.findIndex((n, a) => n.isKeyFrame && a > r.sampleIndex);
+          if (s !== -1)
+            return {
+              sampleIndex: s,
+              correctSampleFound: !0
+            };
+        } else {
+          const i = F.trackData.get(this.internalTrack.id);
+          if (i && i.firstKeyFrameTimestamp !== null) {
+            const s = i.samples.findIndex((n) => n.isKeyFrame);
+            return d(s !== -1), {
+              sampleIndex: s,
+              correctSampleFound: !0
+            };
+          }
+        }
+        return {
+          sampleIndex: -1,
+          correctSampleFound: !1
+        };
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the lookup entries
+      1 / 0,
+      e
+    );
+  }
+  async fetchPacketForSampleIndex(x, e) {
+    if (x === -1)
+      return null;
+    const A = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), r = sn(A, x);
+    if (!r)
+      return null;
+    let F;
+    if (e.metadataOnly)
+      F = g0;
+    else {
+      let a = this.internalTrack.demuxer.reader.requestSlice(r.sampleOffset, r.sampleSize);
+      a instanceof Promise && (a = await a), d(a), F = R(a, r.sampleSize);
+    }
+    const i = (r.presentationTimestamp - this.internalTrack.editListOffset) / this.internalTrack.timescale, s = r.duration / this.internalTrack.timescale, n = new X(F, r.isKeyFrame ? "key" : "delta", i, s, x, r.sampleSize);
+    return this.packetToSampleIndex.set(n, x), n;
+  }
+  async fetchPacketInFragment(x, e, A) {
+    if (e === -1)
+      return null;
+    const F = x.trackData.get(this.internalTrack.id).samples[e];
+    d(F);
+    let i;
+    if (A.metadataOnly)
+      i = g0;
+    else {
+      let o = this.internalTrack.demuxer.reader.requestSlice(F.byteOffset, F.byteSize);
+      o instanceof Promise && (o = await o), d(o), i = R(o, F.byteSize);
+    }
+    const s = (F.presentationTimestamp - this.internalTrack.editListOffset) / this.internalTrack.timescale, n = F.duration / this.internalTrack.timescale, a = new X(i, F.isKeyFrame ? "key" : "delta", s, n, x.moofOffset + e, F.byteSize);
+    return this.packetToFragmentLocation.set(a, { fragment: x, sampleIndex: e }), a;
+  }
+  /** Looks for a packet in the fragments while trying to load as few fragments as possible to retrieve it. */
+  async performFragmentedLookup(x, e, A, r, F) {
+    const i = this.internalTrack.demuxer;
+    let s = null, n = null, a = -1;
+    if (x) {
+      const { sampleIndex: D, correctSampleFound: b } = e(x);
+      if (b)
+        return this.fetchPacketInFragment(x, D, F);
+      D !== -1 && (n = x, a = D);
+    }
+    const o = J(this.internalTrack.fragmentLookupTable, A, (D) => D.timestamp), f = o !== -1 ? this.internalTrack.fragmentLookupTable[o] : null, c = J(this.internalTrack.fragmentPositionCache, A, (D) => D.startTimestamp), v = c !== -1 ? this.internalTrack.fragmentPositionCache[c] : null, u = Math.max(f?.moofOffset ?? 0, v?.moofOffset ?? 0) || null;
+    let l;
+    for (x ? u === null || x.moofOffset >= u ? (l = x.moofOffset + x.moofSize, s = x) : l = u : l = u ?? 0; ; ) {
+      if (s) {
+        const j = s.trackData.get(this.internalTrack.id);
+        if (j && j.startTimestamp > r)
+          break;
+      }
+      let D = i.reader.requestSliceRange(l, X0, px);
+      if (D instanceof Promise && (D = await D), !D)
+        break;
+      const b = l, B = ix(D);
+      if (!B)
+        break;
+      if (B.name === "moof") {
+        s = await i.readFragment(b);
+        const { sampleIndex: j, correctSampleFound: E } = e(s);
+        if (E)
+          return this.fetchPacketInFragment(s, j, F);
+        j !== -1 && (n = s, a = j);
+      }
+      l = b + B.totalSize;
+    }
+    if (f && (!n || n.moofOffset < f.moofOffset)) {
+      const D = this.internalTrack.fragmentLookupTable[o - 1];
+      d(!D || D.timestamp < f.timestamp);
+      const b = D?.timestamp ?? -1 / 0;
+      return this.performFragmentedLookup(null, e, b, r, F);
+    }
+    return n ? this.fetchPacketInFragment(n, a, F) : null;
+  }
+}
+class An extends yF {
+  constructor(x) {
+    super(x), this.decoderConfigPromise = null, this.internalTrack = x;
+  }
+  getCodec() {
+    return this.internalTrack.info.codec;
+  }
+  getCodedWidth() {
+    return this.internalTrack.info.width;
+  }
+  getCodedHeight() {
+    return this.internalTrack.info.height;
+  }
+  getSquarePixelWidth() {
+    return this.internalTrack.info.squarePixelWidth;
+  }
+  getSquarePixelHeight() {
+    return this.internalTrack.info.squarePixelHeight;
+  }
+  getRotation() {
+    return this.internalTrack.rotation;
+  }
+  async getColorSpace() {
+    return {
+      primaries: this.internalTrack.info.colorSpace?.primaries,
+      transfer: this.internalTrack.info.colorSpace?.transfer,
+      matrix: this.internalTrack.info.colorSpace?.matrix,
+      fullRange: this.internalTrack.info.colorSpace?.fullRange
+    };
+  }
+  async canBeTransparent() {
+    return !1;
+  }
+  async getDecoderConfig() {
+    return this.internalTrack.info.codec ? this.decoderConfigPromise ??= (async () => {
+      if (this.internalTrack.info.codec === "vp9" && !this.internalTrack.info.vp9CodecInfo) {
+        const x = await this.getFirstPacket({});
+        this.internalTrack.info.vp9CodecInfo = x && fF(x.data);
+      } else if (this.internalTrack.info.codec === "av1" && !this.internalTrack.info.av1CodecInfo) {
+        const x = await this.getFirstPacket({});
+        this.internalTrack.info.av1CodecInfo = x && vF(x.data);
+      }
+      return {
+        codec: mA(this.internalTrack.info),
+        codedWidth: this.internalTrack.info.width,
+        codedHeight: this.internalTrack.info.height,
+        displayAspectWidth: this.internalTrack.info.squarePixelWidth,
+        displayAspectHeight: this.internalTrack.info.squarePixelHeight,
+        description: this.internalTrack.info.codecDescription ?? void 0,
+        colorSpace: this.internalTrack.info.colorSpace ?? void 0
+      };
+    })() : null;
+  }
+}
+class rn extends yF {
+  constructor(x) {
+    super(x), this.decoderConfig = null, this.internalTrack = x;
+  }
+  getCodec() {
+    return this.internalTrack.info.codec;
+  }
+  getNumberOfChannels() {
+    return this.internalTrack.info.numberOfChannels;
+  }
+  getSampleRate() {
+    return this.internalTrack.info.sampleRate;
+  }
+  async getDecoderConfig() {
+    return this.internalTrack.info.codec ? this.decoderConfig ??= {
+      codec: pA(this.internalTrack.info),
+      numberOfChannels: this.internalTrack.info.numberOfChannels,
+      sampleRate: this.internalTrack.info.sampleRate,
+      description: this.internalTrack.info.codecDescription ?? void 0
+    } : null;
+  }
+}
+const eA = (t, x) => {
+  if (t.presentationTimestamps) {
+    const e = J(t.presentationTimestamps, x, (A) => A.presentationTimestamp);
+    return e === -1 ? -1 : t.presentationTimestamps[e].sampleIndex;
+  } else {
+    const e = J(t.sampleTimingEntries, x, (r) => r.startDecodeTimestamp);
+    if (e === -1)
+      return -1;
+    const A = t.sampleTimingEntries[e];
+    return A.startIndex + Math.min(Math.floor((x - A.startDecodeTimestamp) / A.delta), A.count - 1);
+  }
+}, Fn = (t, x) => {
+  if (!t.keySampleIndices)
+    return eA(t, x);
+  if (t.presentationTimestamps) {
+    const e = J(t.presentationTimestamps, x, (A) => A.presentationTimestamp);
+    if (e === -1)
+      return -1;
+    for (let A = e; A >= 0; A--) {
+      const r = t.presentationTimestamps[A].sampleIndex;
+      if (Pe(t.keySampleIndices, r, (i) => i) !== -1)
+        return r;
+    }
+    return -1;
+  } else {
+    const e = eA(t, x), A = J(t.keySampleIndices, e, (r) => r);
+    return t.keySampleIndices[A] ?? -1;
+  }
+}, sn = (t, x) => {
+  const e = J(t.sampleTimingEntries, x, (b) => b.startIndex), A = t.sampleTimingEntries[e];
+  if (!A || A.startIndex + A.count <= x)
+    return null;
+  let F = A.startDecodeTimestamp + (x - A.startIndex) * A.delta;
+  const i = J(t.sampleCompositionTimeOffsets, x, (b) => b.startIndex), s = t.sampleCompositionTimeOffsets[i];
+  s && x - s.startIndex < s.count && (F += s.offset);
+  const n = t.sampleSizes[Math.min(x, t.sampleSizes.length - 1)], a = J(t.sampleToChunk, x, (b) => b.startSampleIndex), o = t.sampleToChunk[a];
+  d(o);
+  const f = o.startChunkIndex + Math.floor((x - o.startSampleIndex) / o.samplesPerChunk), c = t.chunkOffsets[f], v = o.startSampleIndex + (f - o.startChunkIndex) * o.samplesPerChunk;
+  let u = 0, l = c;
+  if (t.sampleSizes.length === 1)
+    l += n * (x - v), u += n * o.samplesPerChunk;
+  else
+    for (let b = v; b < v + o.samplesPerChunk; b++) {
+      const B = t.sampleSizes[b];
+      b < x && (l += B), u += B;
+    }
+  let D = A.delta;
+  if (t.presentationTimestamps) {
+    const b = t.presentationTimestampIndexMap[x];
+    d(b !== void 0), b < t.presentationTimestamps.length - 1 && (D = t.presentationTimestamps[b + 1].presentationTimestamp - F);
+  }
+  return {
+    presentationTimestamp: F,
+    duration: D,
+    sampleOffset: l,
+    sampleSize: n,
+    chunkOffset: c,
+    chunkSize: u,
+    isKeyFrame: t.keySampleIndices ? Pe(t.keySampleIndices, x, (b) => b) !== -1 : !0
+  };
+}, nn = (t, x) => {
+  if (!t.keySampleIndices)
+    return x + 1;
+  const e = J(t.keySampleIndices, x, (A) => A);
+  return t.keySampleIndices[e + 1] ?? -1;
+}, Pt = (t, x) => {
+  t.startTimestamp += x, t.endTimestamp += x;
+  for (const e of t.samples)
+    e.presentationTimestamp += x;
+  for (const e of t.presentationTimestamps)
+    e.presentationTimestamp += x;
+}, an = (t) => {
+  const [x, , , e] = t, A = Math.hypot(x, e), r = x / A, F = e / A, i = -Math.atan2(F, r) * (180 / Math.PI);
+  return Number.isFinite(i) ? i : 0;
+}, pr = (t) => t.sampleSizes.length === 0;
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class tA {
+  constructor(x) {
+    this.value = x;
+  }
+}
+class AA {
+  constructor(x) {
+    this.value = x;
+  }
+}
+class TF {
+  constructor(x) {
+    this.value = x;
+  }
+}
+class rx {
+  constructor(x) {
+    this.value = x;
+  }
+}
+var C;
+(function(t) {
+  t[t.EBML = 440786851] = "EBML", t[t.EBMLVersion = 17030] = "EBMLVersion", t[t.EBMLReadVersion = 17143] = "EBMLReadVersion", t[t.EBMLMaxIDLength = 17138] = "EBMLMaxIDLength", t[t.EBMLMaxSizeLength = 17139] = "EBMLMaxSizeLength", t[t.DocType = 17026] = "DocType", t[t.DocTypeVersion = 17031] = "DocTypeVersion", t[t.DocTypeReadVersion = 17029] = "DocTypeReadVersion", t[t.Void = 236] = "Void", t[t.Segment = 408125543] = "Segment", t[t.SeekHead = 290298740] = "SeekHead", t[t.Seek = 19899] = "Seek", t[t.SeekID = 21419] = "SeekID", t[t.SeekPosition = 21420] = "SeekPosition", t[t.Duration = 17545] = "Duration", t[t.Info = 357149030] = "Info", t[t.TimestampScale = 2807729] = "TimestampScale", t[t.MuxingApp = 19840] = "MuxingApp", t[t.WritingApp = 22337] = "WritingApp", t[t.Tracks = 374648427] = "Tracks", t[t.TrackEntry = 174] = "TrackEntry", t[t.TrackNumber = 215] = "TrackNumber", t[t.TrackUID = 29637] = "TrackUID", t[t.TrackType = 131] = "TrackType", t[t.FlagEnabled = 185] = "FlagEnabled", t[t.FlagDefault = 136] = "FlagDefault", t[t.FlagForced = 21930] = "FlagForced", t[t.FlagOriginal = 21934] = "FlagOriginal", t[t.FlagHearingImpaired = 21931] = "FlagHearingImpaired", t[t.FlagVisualImpaired = 21932] = "FlagVisualImpaired", t[t.FlagCommentary = 21935] = "FlagCommentary", t[t.FlagLacing = 156] = "FlagLacing", t[t.Name = 21358] = "Name", t[t.Language = 2274716] = "Language", t[t.LanguageBCP47 = 2274717] = "LanguageBCP47", t[t.CodecID = 134] = "CodecID", t[t.CodecPrivate = 25506] = "CodecPrivate", t[t.CodecDelay = 22186] = "CodecDelay", t[t.SeekPreRoll = 22203] = "SeekPreRoll", t[t.DefaultDuration = 2352003] = "DefaultDuration", t[t.Video = 224] = "Video", t[t.PixelWidth = 176] = "PixelWidth", t[t.PixelHeight = 186] = "PixelHeight", t[t.DisplayWidth = 21680] = "DisplayWidth", t[t.DisplayHeight = 21690] = "DisplayHeight", t[t.DisplayUnit = 21682] = "DisplayUnit", t[t.AlphaMode = 21440] = "AlphaMode", t[t.Audio = 225] = "Audio", t[t.SamplingFrequency = 181] = "SamplingFrequency", t[t.Channels = 159] = "Channels", t[t.BitDepth = 25188] = "BitDepth", t[t.SimpleBlock = 163] = "SimpleBlock", t[t.BlockGroup = 160] = "BlockGroup", t[t.Block = 161] = "Block", t[t.BlockAdditions = 30113] = "BlockAdditions", t[t.BlockMore = 166] = "BlockMore", t[t.BlockAdditional = 165] = "BlockAdditional", t[t.BlockAddID = 238] = "BlockAddID", t[t.BlockDuration = 155] = "BlockDuration", t[t.ReferenceBlock = 251] = "ReferenceBlock", t[t.Cluster = 524531317] = "Cluster", t[t.Timestamp = 231] = "Timestamp", t[t.Cues = 475249515] = "Cues", t[t.CuePoint = 187] = "CuePoint", t[t.CueTime = 179] = "CueTime", t[t.CueTrackPositions = 183] = "CueTrackPositions", t[t.CueTrack = 247] = "CueTrack", t[t.CueClusterPosition = 241] = "CueClusterPosition", t[t.Colour = 21936] = "Colour", t[t.MatrixCoefficients = 21937] = "MatrixCoefficients", t[t.TransferCharacteristics = 21946] = "TransferCharacteristics", t[t.Primaries = 21947] = "Primaries", t[t.Range = 21945] = "Range", t[t.Projection = 30320] = "Projection", t[t.ProjectionType = 30321] = "ProjectionType", t[t.ProjectionPoseRoll = 30325] = "ProjectionPoseRoll", t[t.Attachments = 423732329] = "Attachments", t[t.AttachedFile = 24999] = "AttachedFile", t[t.FileDescription = 18046] = "FileDescription", t[t.FileName = 18030] = "FileName", t[t.FileMediaType = 18016] = "FileMediaType", t[t.FileData = 18012] = "FileData", t[t.FileUID = 18094] = "FileUID", t[t.Chapters = 272869232] = "Chapters", t[t.Tags = 307544935] = "Tags", t[t.Tag = 29555] = "Tag", t[t.Targets = 25536] = "Targets", t[t.TargetTypeValue = 26826] = "TargetTypeValue", t[t.TargetType = 25546] = "TargetType", t[t.TagTrackUID = 25541] = "TagTrackUID", t[t.TagEditionUID = 25545] = "TagEditionUID", t[t.TagChapterUID = 25540] = "TagChapterUID", t[t.TagAttachmentUID = 25542] = "TagAttachmentUID", t[t.SimpleTag = 26568] = "SimpleTag", t[t.TagName = 17827] = "TagName", t[t.TagLanguage = 17530] = "TagLanguage", t[t.TagString = 17543] = "TagString", t[t.TagBinary = 17541] = "TagBinary", t[t.ContentEncodings = 28032] = "ContentEncodings", t[t.ContentEncoding = 25152] = "ContentEncoding", t[t.ContentEncodingOrder = 20529] = "ContentEncodingOrder", t[t.ContentEncodingScope = 20530] = "ContentEncodingScope", t[t.ContentCompression = 20532] = "ContentCompression", t[t.ContentCompAlgo = 16980] = "ContentCompAlgo", t[t.ContentCompSettings = 16981] = "ContentCompSettings", t[t.ContentEncryption = 20533] = "ContentEncryption";
+})(C || (C = {}));
+const on = [
+  C.EBML,
+  C.Segment
+], we = [
+  C.SeekHead,
+  C.Info,
+  C.Cluster,
+  C.Tracks,
+  C.Cues,
+  C.Attachments,
+  C.Chapters,
+  C.Tags
+], He = [
+  ...on,
+  ...we
+], kr = (t) => t < 256 ? 1 : t < 65536 ? 2 : t < 1 << 24 ? 3 : t < 2 ** 32 ? 4 : t < 2 ** 40 ? 5 : 6, gr = (t) => t < 1n << 8n ? 1 : t < 1n << 16n ? 2 : t < 1n << 24n ? 3 : t < 1n << 32n ? 4 : t < 1n << 40n ? 5 : t < 1n << 48n ? 6 : t < 1n << 56n ? 7 : 8, wr = (t) => t >= -64 && t < 64 ? 1 : t >= -8192 && t < 8192 ? 2 : t >= -1048576 && t < 1 << 20 ? 3 : t >= -134217728 && t < 1 << 27 ? 4 : t >= -17179869184 && t < 2 ** 34 ? 5 : 6, fn = (t) => {
+  if (t < 127)
+    return 1;
+  if (t < 16383)
+    return 2;
+  if (t < (1 << 21) - 1)
+    return 3;
+  if (t < (1 << 28) - 1)
+    return 4;
+  if (t < 2 ** 35 - 1)
+    return 5;
+  if (t < 2 ** 42 - 1)
+    return 6;
+  throw new Error("EBML varint size not supported " + t);
+};
+class cn {
+  constructor(x) {
+    this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer), this.offsets = /* @__PURE__ */ new WeakMap(), this.dataOffsets = /* @__PURE__ */ new WeakMap();
+  }
+  writeByte(x) {
+    this.helperView.setUint8(0, x), this.writer.write(this.helper.subarray(0, 1));
+  }
+  writeFloat32(x) {
+    this.helperView.setFloat32(0, x, !1), this.writer.write(this.helper.subarray(0, 4));
+  }
+  writeFloat64(x) {
+    this.helperView.setFloat64(0, x, !1), this.writer.write(this.helper);
+  }
+  writeUnsignedInt(x, e = kr(x)) {
+    let A = 0;
+    switch (e) {
+      case 6:
+        this.helperView.setUint8(A++, x / 2 ** 40 | 0);
+      // eslint-disable-next-line no-fallthrough
+      case 5:
+        this.helperView.setUint8(A++, x / 2 ** 32 | 0);
+      // eslint-disable-next-line no-fallthrough
+      case 4:
+        this.helperView.setUint8(A++, x >> 24);
+      // eslint-disable-next-line no-fallthrough
+      case 3:
+        this.helperView.setUint8(A++, x >> 16);
+      // eslint-disable-next-line no-fallthrough
+      case 2:
+        this.helperView.setUint8(A++, x >> 8);
+      // eslint-disable-next-line no-fallthrough
+      case 1:
+        this.helperView.setUint8(A++, x);
+        break;
+      default:
+        throw new Error("Bad unsigned int size " + e);
+    }
+    this.writer.write(this.helper.subarray(0, A));
+  }
+  writeUnsignedBigInt(x, e = gr(x)) {
+    let A = 0;
+    for (let r = e - 1; r >= 0; r--)
+      this.helperView.setUint8(A++, Number(x >> BigInt(r * 8) & 0xffn));
+    this.writer.write(this.helper.subarray(0, A));
+  }
+  writeSignedInt(x, e = wr(x)) {
+    x < 0 && (x += 2 ** (e * 8)), this.writeUnsignedInt(x, e);
+  }
+  writeVarInt(x, e = fn(x)) {
+    let A = 0;
+    switch (e) {
+      case 1:
+        this.helperView.setUint8(A++, 128 | x);
+        break;
+      case 2:
+        this.helperView.setUint8(A++, 64 | x >> 8), this.helperView.setUint8(A++, x);
+        break;
+      case 3:
+        this.helperView.setUint8(A++, 32 | x >> 16), this.helperView.setUint8(A++, x >> 8), this.helperView.setUint8(A++, x);
+        break;
+      case 4:
+        this.helperView.setUint8(A++, 16 | x >> 24), this.helperView.setUint8(A++, x >> 16), this.helperView.setUint8(A++, x >> 8), this.helperView.setUint8(A++, x);
+        break;
+      case 5:
+        this.helperView.setUint8(A++, 8 | x / 2 ** 32 & 7), this.helperView.setUint8(A++, x >> 24), this.helperView.setUint8(A++, x >> 16), this.helperView.setUint8(A++, x >> 8), this.helperView.setUint8(A++, x);
+        break;
+      case 6:
+        this.helperView.setUint8(A++, 4 | x / 2 ** 40 & 3), this.helperView.setUint8(A++, x / 2 ** 32 | 0), this.helperView.setUint8(A++, x >> 24), this.helperView.setUint8(A++, x >> 16), this.helperView.setUint8(A++, x >> 8), this.helperView.setUint8(A++, x);
+        break;
+      default:
+        throw new Error("Bad EBML varint size " + e);
+    }
+    this.writer.write(this.helper.subarray(0, A));
+  }
+  writeAsciiString(x) {
+    this.writer.write(new Uint8Array(x.split("").map((e) => e.charCodeAt(0))));
+  }
+  writeEBML(x) {
+    if (x !== null)
+      if (x instanceof Uint8Array)
+        this.writer.write(x);
+      else if (Array.isArray(x))
+        for (const e of x)
+          this.writeEBML(e);
+      else if (this.offsets.set(x, this.writer.getPos()), this.writeUnsignedInt(x.id), Array.isArray(x.data)) {
+        const e = this.writer.getPos(), A = x.size === -1 ? 1 : x.size ?? 4;
+        x.size === -1 ? this.writeByte(255) : this.writer.seek(this.writer.getPos() + A);
+        const r = this.writer.getPos();
+        if (this.dataOffsets.set(x, r), this.writeEBML(x.data), x.size !== -1) {
+          const F = this.writer.getPos() - r, i = this.writer.getPos();
+          this.writer.seek(e), this.writeVarInt(F, A), this.writer.seek(i);
+        }
+      } else if (typeof x.data == "number") {
+        const e = x.size ?? kr(x.data);
+        this.writeVarInt(e), this.writeUnsignedInt(x.data, e);
+      } else if (typeof x.data == "bigint") {
+        const e = x.size ?? gr(x.data);
+        this.writeVarInt(e), this.writeUnsignedBigInt(x.data, e);
+      } else if (typeof x.data == "string")
+        this.writeVarInt(x.data.length), this.writeAsciiString(x.data);
+      else if (x.data instanceof Uint8Array)
+        this.writeVarInt(x.data.byteLength, x.size), this.writer.write(x.data);
+      else if (x.data instanceof tA)
+        this.writeVarInt(4), this.writeFloat32(x.data.value);
+      else if (x.data instanceof AA)
+        this.writeVarInt(8), this.writeFloat64(x.data.value);
+      else if (x.data instanceof TF) {
+        const e = x.size ?? wr(x.data.value);
+        this.writeVarInt(e), this.writeSignedInt(x.data.value, e);
+      } else if (x.data instanceof rx) {
+        const e = Y.encode(x.data.value);
+        this.writeVarInt(e.length), this.writer.write(e);
+      } else
+        u0(x.data);
+  }
+}
+const rA = 8, y0 = 2, Q0 = 2 * rA, PF = (t) => {
+  if (t.remainingLength < 1)
+    return null;
+  const x = I(t);
+  if (t.skip(-1), x === 0)
+    return null;
+  let e = 1, A = 128;
+  for (; (x & A) === 0; )
+    e++, A >>= 1;
+  return t.remainingLength < e ? null : e;
+}, de = (t) => {
+  if (t.remainingLength < 1)
+    return null;
+  const x = I(t);
+  if (x === 0)
+    return null;
+  let e = 1, A = 128;
+  for (; (x & A) === 0; )
+    e++, A >>= 1;
+  if (t.remainingLength < e - 1)
+    return null;
+  let r = x & A - 1;
+  for (let F = 1; F < e; F++)
+    r *= 256, r += I(t);
+  return r;
+}, L = (t, x) => {
+  if (x < 1 || x > 8)
+    throw new Error("Bad unsigned int size " + x);
+  let e = 0;
+  for (let A = 0; A < x; A++)
+    e *= 256, e += I(t);
+  return e;
+}, vn = (t, x) => {
+  if (x < 1)
+    throw new Error("Bad unsigned int size " + x);
+  let e = 0n;
+  for (let A = 0; A < x; A++)
+    e <<= 8n, e += BigInt(I(t));
+  return e;
+}, HA = (t) => {
+  const x = PF(t);
+  return x === null || t.remainingLength < x ? null : L(t, x);
+}, SF = (t) => {
+  if (t.remainingLength < 1)
+    return null;
+  if (I(t) === 255)
+    return;
+  t.skip(-1);
+  const e = de(t);
+  if (e === null)
+    return null;
+  if (e !== 72057594037927940)
+    return e;
+}, W0 = (t) => {
+  d(t.remainingLength >= y0);
+  const x = HA(t);
+  if (x === null)
+    return null;
+  const e = SF(t);
+  return e === null ? null : { id: x, size: e };
+}, Ox = (t, x) => {
+  const e = R(t, x);
+  let A = 0;
+  for (; A < x && e[A] !== 0; )
+    A += 1;
+  return String.fromCharCode(...e.subarray(0, A));
+}, fe = (t, x) => {
+  const e = R(t, x);
+  let A = 0;
+  for (; A < x && e[A] !== 0; )
+    A += 1;
+  return P0.decode(e.subarray(0, A));
+}, St = (t, x) => {
+  if (x === 0)
+    return 0;
+  if (x !== 4 && x !== 8)
+    throw new Error("Bad float size " + x);
+  return x === 4 ? Jn(t) : li(t);
+}, FA = async (t, x, e, A) => {
+  const r = new Set(e);
+  let F = x;
+  for (; A === null || F < A; ) {
+    let i = t.requestSliceRange(F, y0, Q0);
+    if (i instanceof Promise && (i = await i), !i)
+      break;
+    const s = W0(i);
+    if (!s)
+      break;
+    if (r.has(s.id))
+      return { pos: F, found: !0 };
+    Fx(s.size), F = i.filePos + s.size;
+  }
+  return { pos: A !== null && A > F ? A : F, found: !1 };
+}, _F = async (t, x, e, A) => {
+  const F = new Set(e);
+  let i = x;
+  for (; i < A; ) {
+    let s = t.requestSliceRange(i, 0, Math.min(65536, A - i));
+    if (s instanceof Promise && (s = await s), !s || s.length < rA)
+      break;
+    for (let n = 0; n < s.length - rA; n++) {
+      s.filePos = i;
+      const a = HA(s);
+      if (a !== null && F.has(a))
+        return i;
+      i++;
+    }
+  }
+  return null;
+}, p0 = {
+  avc: "V_MPEG4/ISO/AVC",
+  hevc: "V_MPEGH/ISO/HEVC",
+  vp8: "V_VP8",
+  vp9: "V_VP9",
+  av1: "V_AV1",
+  aac: "A_AAC",
+  mp3: "A_MPEG/L3",
+  opus: "A_OPUS",
+  vorbis: "A_VORBIS",
+  flac: "A_FLAC",
+  ac3: "A_AC3",
+  eac3: "A_EAC3",
+  "pcm-u8": "A_PCM/INT/LIT",
+  "pcm-s16": "A_PCM/INT/LIT",
+  "pcm-s16be": "A_PCM/INT/BIG",
+  "pcm-s24": "A_PCM/INT/LIT",
+  "pcm-s24be": "A_PCM/INT/BIG",
+  "pcm-s32": "A_PCM/INT/LIT",
+  "pcm-s32be": "A_PCM/INT/BIG",
+  "pcm-f32": "A_PCM/FLOAT/IEEE",
+  "pcm-f64": "A_PCM/FLOAT/IEEE",
+  webvtt: "S_TEXT/WEBVTT"
+};
+function Fx(t) {
+  if (t === void 0)
+    throw new Error("Undefined element size is used in a place where it is not supported.");
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const IF = (t) => {
+  let e = (t.hasVideo ? "video/" : t.hasAudio ? "audio/" : "application/") + (t.isWebM ? "webm" : "x-matroska");
+  if (t.codecStrings.length > 0) {
+    const A = [...new Set(t.codecStrings.filter(Boolean))];
+    e += `; codecs="${A.join(", ")}"`;
+  }
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var K0;
+(function(t) {
+  t[t.None = 0] = "None", t[t.Xiph = 1] = "Xiph", t[t.FixedSize = 2] = "FixedSize", t[t.Ebml = 3] = "Ebml";
+})(K0 || (K0 = {}));
+var Xe;
+(function(t) {
+  t[t.Block = 1] = "Block", t[t.Private = 2] = "Private", t[t.Next = 4] = "Next";
+})(Xe || (Xe = {}));
+var Be;
+(function(t) {
+  t[t.Zlib = 0] = "Zlib", t[t.Bzlib = 1] = "Bzlib", t[t.lzo1x = 2] = "lzo1x", t[t.HeaderStripping = 3] = "HeaderStripping";
+})(Be || (Be = {}));
+const _t = [
+  { id: C.SeekHead, flag: "seekHeadSeen" },
+  { id: C.Info, flag: "infoSeen" },
+  { id: C.Tracks, flag: "tracksSeen" },
+  { id: C.Cues, flag: "cuesSeen" }
+], qF = 10 * 2 ** 20;
+class ln extends lx {
+  constructor(x) {
+    super(x), this.readMetadataPromise = null, this.segments = [], this.currentSegment = null, this.currentTrack = null, this.currentCluster = null, this.currentBlock = null, this.currentBlockAdditional = null, this.currentCueTime = null, this.currentDecodingInstruction = null, this.currentTagTargetIsMovie = !0, this.currentSimpleTagName = null, this.currentAttachedFile = null, this.isWebM = !1, this.reader = x._reader;
+  }
+  async computeDuration() {
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.computeDuration()));
+    return Math.max(0, ...e);
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.segments.flatMap((x) => x.tracks.map((e) => e.inputTrack));
+  }
+  async getMimeType() {
+    await this.readMetadata();
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.getCodecParameterString()));
+    return IF({
+      isWebM: this.isWebM,
+      hasVideo: this.segments.some((A) => A.tracks.some((r) => r.info?.type === "video")),
+      hasAudio: this.segments.some((A) => A.tracks.some((r) => r.info?.type === "audio")),
+      codecStrings: e.filter(Boolean)
+    });
+  }
+  async getMetadataTags() {
+    await this.readMetadata();
+    for (const e of this.segments)
+      e.metadataTagsCollected || (this.reader.fileSize !== null && await this.loadSegmentMetadata(e), e.metadataTagsCollected = !0);
+    let x = {};
+    for (const e of this.segments)
+      x = { ...x, ...e.metadataTags };
+    return x;
+  }
+  readMetadata() {
+    return this.readMetadataPromise ??= (async () => {
+      let x = 0;
+      for (; ; ) {
+        let e = this.reader.requestSliceRange(x, y0, Q0);
+        if (e instanceof Promise && (e = await e), !e)
+          break;
+        const A = W0(e);
+        if (!A)
+          break;
+        const r = A.id;
+        let F = A.size;
+        const i = e.filePos;
+        if (r === C.EBML) {
+          Fx(F);
+          let s = this.reader.requestSlice(i, F);
+          if (s instanceof Promise && (s = await s), !s)
+            break;
+          this.readContiguousElements(s);
+        } else if (r === C.Segment) {
+          if (await this.readSegment(i, F), F === void 0 || this.reader.fileSize === null)
+            break;
+        } else if (r === C.Cluster) {
+          if (this.reader.fileSize === null)
+            break;
+          F === void 0 && (F = (await FA(this.reader, i, He, this.reader.fileSize)).pos - i);
+          const s = x0(this.segments);
+          s && (s.elementEndPos = i + F);
+        }
+        Fx(F), x = i + F;
+      }
+    })();
+  }
+  async readSegment(x, e) {
+    this.currentSegment = {
+      seekHeadSeen: !1,
+      infoSeen: !1,
+      tracksSeen: !1,
+      cuesSeen: !1,
+      tagsSeen: !1,
+      attachmentsSeen: !1,
+      timestampScale: -1,
+      timestampFactor: -1,
+      duration: -1,
+      seekEntries: [],
+      tracks: [],
+      cuePoints: [],
+      dataStartPos: x,
+      elementEndPos: e === void 0 ? null : x + e,
+      clusterSeekStartPos: x,
+      lastReadCluster: null,
+      metadataTags: {},
+      metadataTagsCollected: !1
+    }, this.segments.push(this.currentSegment);
+    let A = x;
+    for (; this.currentSegment.elementEndPos === null || A < this.currentSegment.elementEndPos; ) {
+      let s = this.reader.requestSliceRange(A, y0, Q0);
+      if (s instanceof Promise && (s = await s), !s)
+        break;
+      const n = A, a = W0(s);
+      if (!a || !we.includes(a.id) && a.id !== C.Void) {
+        const u = await _F(this.reader, n, we, Math.min(this.currentSegment.elementEndPos ?? 1 / 0, n + qF));
+        if (u) {
+          A = u;
+          continue;
+        } else
+          break;
+      }
+      const { id: o, size: f } = a, c = s.filePos, v = _t.findIndex((u) => u.id === o);
+      if (v !== -1) {
+        const u = _t[v].flag;
+        this.currentSegment[u] = !0, Fx(f);
+        let l = this.reader.requestSlice(c, f);
+        l instanceof Promise && (l = await l), l && this.readContiguousElements(l);
+      } else if (o === C.Tags || o === C.Attachments) {
+        o === C.Tags ? this.currentSegment.tagsSeen = !0 : this.currentSegment.attachmentsSeen = !0, Fx(f);
+        let u = this.reader.requestSlice(c, f);
+        u instanceof Promise && (u = await u), u && this.readContiguousElements(u);
+      } else if (o === C.Cluster) {
+        this.currentSegment.clusterSeekStartPos = n;
+        break;
+      }
+      if (f === void 0)
+        break;
+      A = c + f;
+    }
+    if (this.currentSegment.seekEntries.sort((s, n) => s.segmentPosition - n.segmentPosition), this.reader.fileSize !== null)
+      for (const s of this.currentSegment.seekEntries) {
+        const n = _t.find((u) => u.id === s.id);
+        if (!n || this.currentSegment[n.flag])
+          continue;
+        let a = this.reader.requestSliceRange(x + s.segmentPosition, y0, Q0);
+        if (a instanceof Promise && (a = await a), !a)
+          continue;
+        const o = W0(a);
+        if (!o)
+          continue;
+        const { id: f, size: c } = o;
+        if (f !== n.id)
+          continue;
+        Fx(c), this.currentSegment[n.flag] = !0;
+        let v = this.reader.requestSlice(a.filePos, c);
+        v instanceof Promise && (v = await v), v && this.readContiguousElements(v);
+      }
+    this.currentSegment.timestampScale === -1 && (this.currentSegment.timestampScale = 1e6, this.currentSegment.timestampFactor = 1e9 / 1e6);
+    for (const s of this.currentSegment.tracks)
+      s.defaultDurationNs !== null && (s.defaultDuration = this.currentSegment.timestampFactor * s.defaultDurationNs / 1e9);
+    this.currentSegment.tracks.sort((s, n) => Number(n.disposition.default) - Number(s.disposition.default));
+    const r = new Map(this.currentSegment.tracks.map((s) => [s.id, s]));
+    for (const s of this.currentSegment.cuePoints) {
+      const n = r.get(s.trackId);
+      n && n.cuePoints.push(s);
+    }
+    for (const s of this.currentSegment.tracks) {
+      s.cuePoints.sort((n, a) => n.time - a.time);
+      for (let n = 0; n < s.cuePoints.length - 1; n++) {
+        const a = s.cuePoints[n], o = s.cuePoints[n + 1];
+        a.time === o.time && (s.cuePoints.splice(n + 1, 1), n--);
+      }
+    }
+    let F = null, i = -1 / 0;
+    for (const s of this.currentSegment.tracks)
+      s.cuePoints.length > i && (i = s.cuePoints.length, F = s);
+    for (const s of this.currentSegment.tracks)
+      s.cuePoints.length === 0 && (s.cuePoints = F.cuePoints);
+    this.currentSegment = null;
+  }
+  async readCluster(x, e) {
+    if (e.lastReadCluster?.elementStartPos === x)
+      return e.lastReadCluster;
+    let A = this.reader.requestSliceRange(x, y0, Q0);
+    A instanceof Promise && (A = await A), d(A);
+    const r = x, F = W0(A);
+    d(F);
+    const i = F.id;
+    d(i === C.Cluster);
+    let s = F.size;
+    const n = A.filePos;
+    s === void 0 && (s = (await FA(this.reader, n, He, e.elementEndPos)).pos - n);
+    let a = this.reader.requestSlice(n, s);
+    a instanceof Promise && (a = await a);
+    const o = {
+      segment: e,
+      elementStartPos: r,
+      elementEndPos: n + s,
+      dataStartPos: n,
+      timestamp: -1,
+      trackData: /* @__PURE__ */ new Map()
+    };
+    if (this.currentCluster = o, a) {
+      const f = this.readContiguousElements(a, He);
+      o.elementEndPos = f;
+    }
+    for (const [, f] of o.trackData) {
+      const c = f.track;
+      d(f.blocks.length > 0);
+      let v = !1;
+      for (let b = 0; b < f.blocks.length; b++) {
+        const B = f.blocks[b];
+        B.timestamp += o.timestamp, v ||= B.lacing !== K0.None;
+      }
+      f.presentationTimestamps = f.blocks.map((b, B) => ({ timestamp: b.timestamp, blockIndex: B })).sort((b, B) => b.timestamp - B.timestamp);
+      for (let b = 0; b < f.presentationTimestamps.length; b++) {
+        const B = f.presentationTimestamps[b], j = f.blocks[B.blockIndex];
+        if (f.firstKeyFrameTimestamp === null && j.isKeyFrame && (f.firstKeyFrameTimestamp = j.timestamp), b < f.presentationTimestamps.length - 1) {
+          const E = f.presentationTimestamps[b + 1];
+          j.duration = E.timestamp - j.timestamp;
+        } else j.duration === 0 && c.defaultDuration != null && j.lacing === K0.None && (j.duration = c.defaultDuration);
+      }
+      v && (this.expandLacedBlocks(f.blocks, c), f.presentationTimestamps = f.blocks.map((b, B) => ({ timestamp: b.timestamp, blockIndex: B })).sort((b, B) => b.timestamp - B.timestamp));
+      const u = f.blocks[f.presentationTimestamps[0].blockIndex], l = f.blocks[x0(f.presentationTimestamps).blockIndex];
+      f.startTimestamp = u.timestamp, f.endTimestamp = l.timestamp + l.duration;
+      const D = J(c.clusterPositionCache, f.startTimestamp, (b) => b.startTimestamp);
+      (D === -1 || c.clusterPositionCache[D].elementStartPos !== r) && c.clusterPositionCache.splice(D + 1, 0, {
+        elementStartPos: o.elementStartPos,
+        startTimestamp: f.startTimestamp
+      });
+    }
+    return e.lastReadCluster = o, o;
+  }
+  getTrackDataInCluster(x, e) {
+    let A = x.trackData.get(e);
+    if (!A) {
+      const r = x.segment.tracks.find((F) => F.id === e);
+      if (!r)
+        return null;
+      A = {
+        track: r,
+        startTimestamp: 0,
+        endTimestamp: 0,
+        firstKeyFrameTimestamp: null,
+        blocks: [],
+        presentationTimestamps: []
+      }, x.trackData.set(e, A);
+    }
+    return A;
+  }
+  expandLacedBlocks(x, e) {
+    for (let A = 0; A < x.length; A++) {
+      const r = x[A];
+      if (r.lacing === K0.None)
+        continue;
+      r.decoded || (r.data = this.decodeBlockData(e, r.data), r.decoded = !0);
+      const F = C0.tempFromBytes(r.data), i = [], s = I(F) + 1;
+      switch (r.lacing) {
+        case K0.Xiph:
+          {
+            let a = 0;
+            for (let o = 0; o < s - 1; o++) {
+              let f = 0;
+              for (; F.bufferPos < F.length; ) {
+                const c = I(F);
+                if (f += c, c < 255) {
+                  i.push(f), a += f;
+                  break;
+                }
+              }
+            }
+            i.push(F.length - (F.bufferPos + a));
+          }
+          break;
+        case K0.FixedSize:
+          {
+            const a = F.length - 1, o = Math.floor(a / s);
+            for (let f = 0; f < s; f++)
+              i.push(o);
+          }
+          break;
+        case K0.Ebml:
+          {
+            const a = de(F);
+            d(a !== null);
+            let o = a;
+            i.push(o);
+            let f = o;
+            for (let c = 1; c < s - 1; c++) {
+              const v = F.bufferPos, u = de(F);
+              d(u !== null);
+              const l = u, b = (1 << (F.bufferPos - v) * 7 - 1) - 1, B = l - b;
+              o += B, i.push(o), f += o;
+            }
+            i.push(F.length - (F.bufferPos + f));
+          }
+          break;
+        default:
+          d(!1);
+      }
+      d(i.length === s), x.splice(A, 1);
+      const n = r.duration || s * (e.defaultDuration ?? 0);
+      for (let a = 0; a < s; a++) {
+        const o = i[a], f = R(F, o), c = r.timestamp + n * a / s, v = n / s;
+        x.splice(A + a, 0, {
+          timestamp: c,
+          duration: v,
+          isKeyFrame: r.isKeyFrame,
+          data: f,
+          lacing: K0.None,
+          decoded: !0,
+          mainAdditional: r.mainAdditional
+        });
+      }
+      A += s, A--;
+    }
+  }
+  async loadSegmentMetadata(x) {
+    for (const e of x.seekEntries) {
+      if (!(e.id === C.Tags && !x.tagsSeen)) {
+        if (!(e.id === C.Attachments && !x.attachmentsSeen)) continue;
+      }
+      let A = this.reader.requestSliceRange(x.dataStartPos + e.segmentPosition, y0, Q0);
+      if (A instanceof Promise && (A = await A), !A)
+        continue;
+      const r = W0(A);
+      if (!r || r.id !== e.id)
+        continue;
+      const { size: F } = r;
+      Fx(F), d(!this.currentSegment), this.currentSegment = x;
+      let i = this.reader.requestSlice(A.filePos, F);
+      i instanceof Promise && (i = await i), i && this.readContiguousElements(i), this.currentSegment = null, e.id === C.Tags ? x.tagsSeen = !0 : e.id === C.Attachments && (x.attachmentsSeen = !0);
+    }
+  }
+  readContiguousElements(x, e) {
+    for (; x.remainingLength >= y0; ) {
+      const A = x.filePos;
+      if (!this.traverseElement(x, e))
+        return A;
+    }
+    return x.filePos;
+  }
+  traverseElement(x, e) {
+    const A = W0(x);
+    if (!A || e && e.includes(A.id))
+      return !1;
+    const { id: r, size: F } = A, i = x.filePos;
+    switch (Fx(F), r) {
+      case C.DocType:
+        this.isWebM = Ox(x, F) === "webm";
+        break;
+      case C.Seek:
+        {
+          if (!this.currentSegment)
+            break;
+          const s = { id: -1, segmentPosition: -1 };
+          this.currentSegment.seekEntries.push(s), this.readContiguousElements(x.slice(i, F)), (s.id === -1 || s.segmentPosition === -1) && this.currentSegment.seekEntries.pop();
+        }
+        break;
+      case C.SeekID:
+        {
+          const s = this.currentSegment?.seekEntries[this.currentSegment.seekEntries.length - 1];
+          if (!s)
+            break;
+          s.id = L(x, F);
+        }
+        break;
+      case C.SeekPosition:
+        {
+          const s = this.currentSegment?.seekEntries[this.currentSegment.seekEntries.length - 1];
+          if (!s)
+            break;
+          s.segmentPosition = L(x, F);
+        }
+        break;
+      case C.TimestampScale:
+        {
+          if (!this.currentSegment)
+            break;
+          this.currentSegment.timestampScale = L(x, F), this.currentSegment.timestampFactor = 1e9 / this.currentSegment.timestampScale;
+        }
+        break;
+      case C.Duration:
+        {
+          if (!this.currentSegment)
+            break;
+          this.currentSegment.duration = St(x, F);
+        }
+        break;
+      case C.TrackEntry:
+        {
+          if (!this.currentSegment || (this.currentTrack = {
+            id: -1,
+            segment: this.currentSegment,
+            demuxer: this,
+            clusterPositionCache: [],
+            cuePoints: [],
+            disposition: {
+              ...vx
+            },
+            inputTrack: null,
+            codecId: null,
+            codecPrivate: null,
+            defaultDuration: null,
+            defaultDurationNs: null,
+            name: null,
+            languageCode: b0,
+            decodingInstructions: [],
+            info: null
+          }, this.readContiguousElements(x.slice(i, F)), !this.currentTrack))
+            break;
+          if (this.currentTrack.decodingInstructions.some((s) => s.data?.type !== "decompress" || s.scope !== Xe.Block || s.data.algorithm !== Be.HeaderStripping) && (console.warn(`Track #${this.currentTrack.id} has an unsupported content encoding; dropping.`), this.currentTrack = null), this.currentTrack && this.currentTrack.id !== -1 && this.currentTrack.codecId && this.currentTrack.info) {
+            const s = this.currentTrack.codecId.indexOf("/"), n = s === -1 ? this.currentTrack.codecId : this.currentTrack.codecId.slice(0, s);
+            if (this.currentTrack.info.type === "video" && this.currentTrack.info.width !== -1 && this.currentTrack.info.height !== -1) {
+              if (this.currentTrack.info.squarePixelWidth = this.currentTrack.info.width, this.currentTrack.info.squarePixelHeight = this.currentTrack.info.height, this.currentTrack.info.displayWidth !== null && this.currentTrack.info.displayHeight !== null) {
+                const f = this.currentTrack.info.displayWidth * this.currentTrack.info.height, c = this.currentTrack.info.displayHeight * this.currentTrack.info.width;
+                f > c ? this.currentTrack.info.squarePixelWidth = Math.round(this.currentTrack.info.width * f / c) : this.currentTrack.info.squarePixelHeight = Math.round(this.currentTrack.info.height * c / f);
+              }
+              this.currentTrack.codecId === p0.avc ? (this.currentTrack.info.codec = "avc", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === p0.hevc ? (this.currentTrack.info.codec = "hevc", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.vp8 ? this.currentTrack.info.codec = "vp8" : n === p0.vp9 ? this.currentTrack.info.codec = "vp9" : n === p0.av1 && (this.currentTrack.info.codec = "av1");
+              const a = this.currentTrack, o = new Gx(this.input, new dn(a));
+              this.currentTrack.inputTrack = o, this.currentSegment.tracks.push(this.currentTrack);
+            } else if (this.currentTrack.info.type === "audio" && this.currentTrack.info.numberOfChannels !== -1 && this.currentTrack.info.sampleRate !== -1) {
+              n === p0.aac ? (this.currentTrack.info.codec = "aac", this.currentTrack.info.aacCodecInfo = {
+                isMpeg2: this.currentTrack.codecId.includes("MPEG2"),
+                objectType: null
+              }, this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === p0.mp3 ? this.currentTrack.info.codec = "mp3" : n === p0.opus ? (this.currentTrack.info.codec = "opus", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate, this.currentTrack.info.sampleRate = re) : n === p0.vorbis ? (this.currentTrack.info.codec = "vorbis", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.flac ? (this.currentTrack.info.codec = "flac", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.ac3 ? (this.currentTrack.info.codec = "ac3", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.eac3 ? (this.currentTrack.info.codec = "eac3", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === "A_PCM/INT/LIT" ? this.currentTrack.info.bitDepth === 8 ? this.currentTrack.info.codec = "pcm-u8" : this.currentTrack.info.bitDepth === 16 ? this.currentTrack.info.codec = "pcm-s16" : this.currentTrack.info.bitDepth === 24 ? this.currentTrack.info.codec = "pcm-s24" : this.currentTrack.info.bitDepth === 32 && (this.currentTrack.info.codec = "pcm-s32") : this.currentTrack.codecId === "A_PCM/INT/BIG" ? this.currentTrack.info.bitDepth === 8 ? this.currentTrack.info.codec = "pcm-u8" : this.currentTrack.info.bitDepth === 16 ? this.currentTrack.info.codec = "pcm-s16be" : this.currentTrack.info.bitDepth === 24 ? this.currentTrack.info.codec = "pcm-s24be" : this.currentTrack.info.bitDepth === 32 && (this.currentTrack.info.codec = "pcm-s32be") : this.currentTrack.codecId === "A_PCM/FLOAT/IEEE" && (this.currentTrack.info.bitDepth === 32 ? this.currentTrack.info.codec = "pcm-f32" : this.currentTrack.info.bitDepth === 64 && (this.currentTrack.info.codec = "pcm-f64"));
+              const a = this.currentTrack, o = new S0(this.input, new un(a));
+              this.currentTrack.inputTrack = o, this.currentSegment.tracks.push(this.currentTrack);
+            }
+          }
+          this.currentTrack = null;
+        }
+        break;
+      case C.TrackNumber:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.id = L(x, F);
+        }
+        break;
+      case C.TrackType:
+        {
+          if (!this.currentTrack)
+            break;
+          const s = L(x, F);
+          s === 1 ? this.currentTrack.info = {
+            type: "video",
+            width: -1,
+            height: -1,
+            displayWidth: null,
+            displayHeight: null,
+            displayUnit: null,
+            squarePixelWidth: -1,
+            squarePixelHeight: -1,
+            rotation: 0,
+            codec: null,
+            codecDescription: null,
+            colorSpace: null,
+            alphaMode: !1
+          } : s === 2 && (this.currentTrack.info = {
+            type: "audio",
+            numberOfChannels: -1,
+            sampleRate: -1,
+            bitDepth: -1,
+            codec: null,
+            codecDescription: null,
+            aacCodecInfo: null
+          });
+        }
+        break;
+      case C.FlagEnabled:
+        {
+          if (!this.currentTrack)
+            break;
+          L(x, F) || (this.currentTrack = null);
+        }
+        break;
+      case C.FlagDefault:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.default = !!L(x, F);
+        }
+        break;
+      case C.FlagForced:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.forced = !!L(x, F);
+        }
+        break;
+      case C.FlagOriginal:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.original = !!L(x, F);
+        }
+        break;
+      case C.FlagHearingImpaired:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.hearingImpaired = !!L(x, F);
+        }
+        break;
+      case C.FlagVisualImpaired:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.visuallyImpaired = !!L(x, F);
+        }
+        break;
+      case C.FlagCommentary:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.disposition.commentary = !!L(x, F);
+        }
+        break;
+      case C.CodecID:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.codecId = Ox(x, F);
+        }
+        break;
+      case C.CodecPrivate:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.codecPrivate = R(x, F);
+        }
+        break;
+      case C.DefaultDuration:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.defaultDurationNs = L(x, F);
+        }
+        break;
+      case C.Name:
+        {
+          if (!this.currentTrack)
+            break;
+          this.currentTrack.name = fe(x, F);
+        }
+        break;
+      case C.Language:
+        {
+          if (!this.currentTrack || this.currentTrack.languageCode !== b0)
+            break;
+          this.currentTrack.languageCode = Ox(x, F), he(this.currentTrack.languageCode) || (this.currentTrack.languageCode = b0);
+        }
+        break;
+      case C.LanguageBCP47:
+        {
+          if (!this.currentTrack)
+            break;
+          const n = Ox(x, F).split("-")[0];
+          n ? this.currentTrack.languageCode = n : this.currentTrack.languageCode = b0;
+        }
+        break;
+      case C.Video:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.PixelWidth:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.width = L(x, F);
+        }
+        break;
+      case C.PixelHeight:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.height = L(x, F);
+        }
+        break;
+      case C.DisplayWidth:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.displayWidth = L(x, F);
+        }
+        break;
+      case C.DisplayHeight:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.displayHeight = L(x, F);
+        }
+        break;
+      case C.DisplayUnit:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.displayUnit = L(x, F);
+        }
+        break;
+      case C.AlphaMode:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.alphaMode = L(x, F) === 1;
+        }
+        break;
+      case C.Colour:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.currentTrack.info.colorSpace = {}, this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.MatrixCoefficients:
+        {
+          if (this.currentTrack?.info?.type !== "video" || !this.currentTrack.info.colorSpace)
+            break;
+          const s = L(x, F), n = Oe[s] ?? null;
+          this.currentTrack.info.colorSpace.matrix = n;
+        }
+        break;
+      case C.Range:
+        {
+          if (this.currentTrack?.info?.type !== "video" || !this.currentTrack.info.colorSpace)
+            break;
+          this.currentTrack.info.colorSpace.fullRange = L(x, F) === 2;
+        }
+        break;
+      case C.TransferCharacteristics:
+        {
+          if (this.currentTrack?.info?.type !== "video" || !this.currentTrack.info.colorSpace)
+            break;
+          const s = L(x, F), n = Ue[s] ?? null;
+          this.currentTrack.info.colorSpace.transfer = n;
+        }
+        break;
+      case C.Primaries:
+        {
+          if (this.currentTrack?.info?.type !== "video" || !this.currentTrack.info.colorSpace)
+            break;
+          const s = L(x, F), n = Le[s] ?? null;
+          this.currentTrack.info.colorSpace.primaries = n;
+        }
+        break;
+      case C.Projection:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.ProjectionPoseRoll:
+        {
+          if (this.currentTrack?.info?.type !== "video")
+            break;
+          const n = -St(x, F);
+          try {
+            this.currentTrack.info.rotation = xt(n);
+          } catch {
+          }
+        }
+        break;
+      case C.Audio:
+        {
+          if (this.currentTrack?.info?.type !== "audio")
+            break;
+          this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.SamplingFrequency:
+        {
+          if (this.currentTrack?.info?.type !== "audio")
+            break;
+          this.currentTrack.info.sampleRate = St(x, F);
+        }
+        break;
+      case C.Channels:
+        {
+          if (this.currentTrack?.info?.type !== "audio")
+            break;
+          this.currentTrack.info.numberOfChannels = L(x, F);
+        }
+        break;
+      case C.BitDepth:
+        {
+          if (this.currentTrack?.info?.type !== "audio")
+            break;
+          this.currentTrack.info.bitDepth = L(x, F);
+        }
+        break;
+      case C.CuePoint:
+        {
+          if (!this.currentSegment)
+            break;
+          this.readContiguousElements(x.slice(i, F)), this.currentCueTime = null;
+        }
+        break;
+      case C.CueTime:
+        this.currentCueTime = L(x, F);
+        break;
+      case C.CueTrackPositions:
+        {
+          if (this.currentCueTime === null)
+            break;
+          d(this.currentSegment);
+          const s = { time: this.currentCueTime, trackId: -1, clusterPosition: -1 };
+          this.currentSegment.cuePoints.push(s), this.readContiguousElements(x.slice(i, F)), (s.trackId === -1 || s.clusterPosition === -1) && this.currentSegment.cuePoints.pop();
+        }
+        break;
+      case C.CueTrack:
+        {
+          const s = this.currentSegment?.cuePoints[this.currentSegment.cuePoints.length - 1];
+          if (!s)
+            break;
+          s.trackId = L(x, F);
+        }
+        break;
+      case C.CueClusterPosition:
+        {
+          const s = this.currentSegment?.cuePoints[this.currentSegment.cuePoints.length - 1];
+          if (!s)
+            break;
+          d(this.currentSegment), s.clusterPosition = this.currentSegment.dataStartPos + L(x, F);
+        }
+        break;
+      case C.Timestamp:
+        {
+          if (!this.currentCluster)
+            break;
+          this.currentCluster.timestamp = L(x, F);
+        }
+        break;
+      case C.SimpleBlock:
+        {
+          if (!this.currentCluster)
+            break;
+          const s = de(x);
+          if (s === null)
+            break;
+          const n = this.getTrackDataInCluster(this.currentCluster, s);
+          if (!n)
+            break;
+          const a = nA(x), o = I(x), f = o >> 1 & 3;
+          let c = !!(o & 128);
+          n.track.info?.type === "audio" && n.track.info.codec && (c = !0);
+          const v = R(x, F - (x.filePos - i)), u = n.track.decodingInstructions.length > 0;
+          n.blocks.push({
+            timestamp: a,
+            // We'll add the cluster's timestamp to this later
+            duration: 0,
+            // Will set later
+            isKeyFrame: c,
+            data: v,
+            lacing: f,
+            decoded: !u,
+            mainAdditional: null
+          });
+        }
+        break;
+      case C.BlockGroup:
+        {
+          if (!this.currentCluster)
+            break;
+          this.readContiguousElements(x.slice(i, F)), this.currentBlock = null;
+        }
+        break;
+      case C.Block:
+        {
+          if (!this.currentCluster)
+            break;
+          const s = de(x);
+          if (s === null)
+            break;
+          const n = this.getTrackDataInCluster(this.currentCluster, s);
+          if (!n)
+            break;
+          const a = nA(x), f = I(x) >> 1 & 3, c = R(x, F - (x.filePos - i)), v = n.track.decodingInstructions.length > 0;
+          this.currentBlock = {
+            timestamp: a,
+            // We'll add the cluster's timestamp to this later
+            duration: 0,
+            // Will set later
+            isKeyFrame: !0,
+            data: c,
+            lacing: f,
+            decoded: !v,
+            mainAdditional: null
+          }, n.blocks.push(this.currentBlock);
+        }
+        break;
+      case C.BlockAdditions:
+        this.readContiguousElements(x.slice(i, F));
+        break;
+      case C.BlockMore:
+        {
+          if (!this.currentBlock)
+            break;
+          this.currentBlockAdditional = {
+            addId: 1,
+            data: null
+          }, this.readContiguousElements(x.slice(i, F)), this.currentBlockAdditional.data && this.currentBlockAdditional.addId === 1 && (this.currentBlock.mainAdditional = this.currentBlockAdditional.data), this.currentBlockAdditional = null;
+        }
+        break;
+      case C.BlockAdditional:
+        {
+          if (!this.currentBlockAdditional)
+            break;
+          this.currentBlockAdditional.data = R(x, F);
+        }
+        break;
+      case C.BlockAddID:
+        {
+          if (!this.currentBlockAdditional)
+            break;
+          this.currentBlockAdditional.addId = L(x, F);
+        }
+        break;
+      case C.BlockDuration:
+        {
+          if (!this.currentBlock)
+            break;
+          this.currentBlock.duration = L(x, F);
+        }
+        break;
+      case C.ReferenceBlock:
+        {
+          if (!this.currentBlock)
+            break;
+          this.currentBlock.isKeyFrame = !1;
+        }
+        break;
+      case C.Tag:
+        this.currentTagTargetIsMovie = !0, this.readContiguousElements(x.slice(i, F));
+        break;
+      case C.Targets:
+        this.readContiguousElements(x.slice(i, F));
+        break;
+      case C.TargetTypeValue:
+        L(x, F) !== 50 && (this.currentTagTargetIsMovie = !1);
+        break;
+      case C.TagTrackUID:
+      case C.TagEditionUID:
+      case C.TagChapterUID:
+      case C.TagAttachmentUID:
+        this.currentTagTargetIsMovie = !1;
+        break;
+      case C.SimpleTag:
+        {
+          if (!this.currentTagTargetIsMovie)
+            break;
+          this.currentSimpleTagName = null, this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.TagName:
+        this.currentSimpleTagName = fe(x, F);
+        break;
+      case C.TagString:
+        {
+          if (!this.currentSimpleTagName)
+            break;
+          const s = fe(x, F);
+          this.processTagValue(this.currentSimpleTagName, s);
+        }
+        break;
+      case C.TagBinary:
+        {
+          if (!this.currentSimpleTagName)
+            break;
+          const s = R(x, F);
+          this.processTagValue(this.currentSimpleTagName, s);
+        }
+        break;
+      case C.AttachedFile:
+        {
+          if (!this.currentSegment)
+            break;
+          this.currentAttachedFile = {
+            fileUid: null,
+            fileName: null,
+            fileMediaType: null,
+            fileData: null,
+            fileDescription: null
+          }, this.readContiguousElements(x.slice(i, F));
+          const s = this.currentSegment.metadataTags;
+          if (this.currentAttachedFile.fileUid && this.currentAttachedFile.fileData && (s.raw ??= {}, s.raw[this.currentAttachedFile.fileUid.toString()] = new it(this.currentAttachedFile.fileData, this.currentAttachedFile.fileMediaType ?? void 0, this.currentAttachedFile.fileName ?? void 0, this.currentAttachedFile.fileDescription ?? void 0)), this.currentAttachedFile.fileMediaType?.startsWith("image/") && this.currentAttachedFile.fileData) {
+            const n = this.currentAttachedFile.fileName;
+            let a = "unknown";
+            if (n) {
+              const o = n.toLowerCase();
+              o.startsWith("cover.") ? a = "coverFront" : o.startsWith("back.") && (a = "coverBack");
+            }
+            s.images ??= [], s.images.push({
+              data: this.currentAttachedFile.fileData,
+              mimeType: this.currentAttachedFile.fileMediaType,
+              kind: a,
+              name: this.currentAttachedFile.fileName ?? void 0,
+              description: this.currentAttachedFile.fileDescription ?? void 0
+            });
+          }
+          this.currentAttachedFile = null;
+        }
+        break;
+      case C.FileUID:
+        {
+          if (!this.currentAttachedFile)
+            break;
+          this.currentAttachedFile.fileUid = vn(x, F);
+        }
+        break;
+      case C.FileName:
+        {
+          if (!this.currentAttachedFile)
+            break;
+          this.currentAttachedFile.fileName = fe(x, F);
+        }
+        break;
+      case C.FileMediaType:
+        {
+          if (!this.currentAttachedFile)
+            break;
+          this.currentAttachedFile.fileMediaType = Ox(x, F);
+        }
+        break;
+      case C.FileData:
+        {
+          if (!this.currentAttachedFile)
+            break;
+          this.currentAttachedFile.fileData = R(x, F);
+        }
+        break;
+      case C.FileDescription:
+        {
+          if (!this.currentAttachedFile)
+            break;
+          this.currentAttachedFile.fileDescription = fe(x, F);
+        }
+        break;
+      case C.ContentEncodings:
+        {
+          if (!this.currentTrack)
+            break;
+          this.readContiguousElements(x.slice(i, F)), this.currentTrack.decodingInstructions.sort((s, n) => n.order - s.order);
+        }
+        break;
+      case C.ContentEncoding:
+        this.currentDecodingInstruction = {
+          order: 0,
+          scope: Xe.Block,
+          data: null
+        }, this.readContiguousElements(x.slice(i, F)), this.currentDecodingInstruction.data && this.currentTrack.decodingInstructions.push(this.currentDecodingInstruction), this.currentDecodingInstruction = null;
+        break;
+      case C.ContentEncodingOrder:
+        {
+          if (!this.currentDecodingInstruction)
+            break;
+          this.currentDecodingInstruction.order = L(x, F);
+        }
+        break;
+      case C.ContentEncodingScope:
+        {
+          if (!this.currentDecodingInstruction)
+            break;
+          this.currentDecodingInstruction.scope = L(x, F);
+        }
+        break;
+      case C.ContentCompression:
+        {
+          if (!this.currentDecodingInstruction)
+            break;
+          this.currentDecodingInstruction.data = {
+            type: "decompress",
+            algorithm: Be.Zlib,
+            settings: null
+          }, this.readContiguousElements(x.slice(i, F));
+        }
+        break;
+      case C.ContentCompAlgo:
+        {
+          if (this.currentDecodingInstruction?.data?.type !== "decompress")
+            break;
+          this.currentDecodingInstruction.data.algorithm = L(x, F);
+        }
+        break;
+      case C.ContentCompSettings:
+        {
+          if (this.currentDecodingInstruction?.data?.type !== "decompress")
+            break;
+          this.currentDecodingInstruction.data.settings = R(x, F);
+        }
+        break;
+      case C.ContentEncryption:
+        {
+          if (!this.currentDecodingInstruction)
+            break;
+          this.currentDecodingInstruction.data = {
+            type: "decrypt"
+          };
+        }
+        break;
+    }
+    return x.filePos = i + F, !0;
+  }
+  decodeBlockData(x, e) {
+    d(x.decodingInstructions.length > 0);
+    let A = e;
+    for (const r of x.decodingInstructions)
+      switch (d(r.data), r.data.type) {
+        case "decompress":
+          switch (r.data.algorithm) {
+            case Be.HeaderStripping:
+              if (r.data.settings && r.data.settings.length > 0) {
+                const F = r.data.settings, i = new Uint8Array(F.length + A.length);
+                i.set(F, 0), i.set(A, F.length), A = i;
+              }
+              break;
+          }
+          break;
+      }
+    return A;
+  }
+  processTagValue(x, e) {
+    if (!this.currentSegment?.metadataTags)
+      return;
+    const A = this.currentSegment.metadataTags;
+    if (A.raw ??= {}, A.raw[x] ??= e, typeof e == "string")
+      switch (x.toLowerCase()) {
+        case "title":
+          A.title ??= e;
+          break;
+        case "description":
+          A.description ??= e;
+          break;
+        case "artist":
+          A.artist ??= e;
+          break;
+        case "album":
+          A.album ??= e;
+          break;
+        case "album_artist":
+          A.albumArtist ??= e;
+          break;
+        case "genre":
+          A.genre ??= e;
+          break;
+        case "comment":
+          A.comment ??= e;
+          break;
+        case "lyrics":
+          A.lyrics ??= e;
+          break;
+        case "date":
+          {
+            const r = new Date(e);
+            Number.isNaN(r.getTime()) || (A.date ??= r);
+          }
+          break;
+        case "track_number":
+        case "part_number":
+          {
+            const r = e.split("/"), F = Number.parseInt(r[0], 10), i = r[1] && Number.parseInt(r[1], 10);
+            Number.isInteger(F) && F > 0 && (A.trackNumber ??= F), i && Number.isInteger(i) && i > 0 && (A.tracksTotal ??= i);
+          }
+          break;
+        case "disc_number":
+        case "disc":
+          {
+            const r = e.split("/"), F = Number.parseInt(r[0], 10), i = r[1] && Number.parseInt(r[1], 10);
+            Number.isInteger(F) && F > 0 && (A.discNumber ??= F), i && Number.isInteger(i) && i > 0 && (A.discsTotal ??= i);
+          }
+          break;
+      }
+  }
+}
+class MF {
+  constructor(x) {
+    this.internalTrack = x, this.packetToClusterLocation = /* @__PURE__ */ new WeakMap();
+  }
+  getId() {
+    return this.internalTrack.id;
+  }
+  getNumber() {
+    const x = this.internalTrack.demuxer, A = this.internalTrack.inputTrack.type;
+    let r = 0;
+    for (const F of x.segments)
+      for (const i of F.tracks)
+        if (i.inputTrack.type === A && r++, i === this.internalTrack)
+          break;
+    return r;
+  }
+  getCodec() {
+    throw new Error("Not implemented on base class.");
+  }
+  getInternalCodecId() {
+    return this.internalTrack.codecId;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  getName() {
+    return this.internalTrack.name;
+  }
+  getLanguageCode() {
+    return this.internalTrack.languageCode;
+  }
+  async getFirstTimestamp() {
+    return (await this.getFirstPacket({ metadataOnly: !0 }))?.timestamp ?? 0;
+  }
+  getTimeResolution() {
+    return this.internalTrack.segment.timestampFactor;
+  }
+  getDisposition() {
+    return this.internalTrack.disposition;
+  }
+  async getFirstPacket(x) {
+    return this.performClusterLookup(
+      null,
+      (e) => e.trackData.get(this.internalTrack.id) ? {
+        blockIndex: 0,
+        correctBlockFound: !0
+      } : {
+        blockIndex: -1,
+        correctBlockFound: !1
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the cues
+      1 / 0,
+      x
+    );
+  }
+  intoTimescale(x) {
+    return Ee(x * this.internalTrack.segment.timestampFactor);
+  }
+  async getPacket(x, e) {
+    const A = this.intoTimescale(x);
+    return this.performClusterLookup(null, (r) => {
+      const F = r.trackData.get(this.internalTrack.id);
+      if (!F)
+        return { blockIndex: -1, correctBlockFound: !1 };
+      const i = J(F.presentationTimestamps, A, (a) => a.timestamp), s = i !== -1 ? F.presentationTimestamps[i].blockIndex : -1, n = i !== -1 && A < F.endTimestamp;
+      return { blockIndex: s, correctBlockFound: n };
+    }, A, A, e);
+  }
+  async getNextPacket(x, e) {
+    const A = this.packetToClusterLocation.get(x);
+    if (A === void 0)
+      throw new Error("Packet was not created from this track.");
+    return this.performClusterLookup(
+      A.cluster,
+      (r) => {
+        if (r === A.cluster) {
+          const F = r.trackData.get(this.internalTrack.id);
+          if (A.blockIndex + 1 < F.blocks.length)
+            return {
+              blockIndex: A.blockIndex + 1,
+              correctBlockFound: !0
+            };
+        } else if (r.trackData.get(this.internalTrack.id))
+          return {
+            blockIndex: 0,
+            correctBlockFound: !0
+          };
+        return {
+          blockIndex: -1,
+          correctBlockFound: !1
+        };
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the cues
+      1 / 0,
+      e
+    );
+  }
+  async getKeyPacket(x, e) {
+    const A = this.intoTimescale(x);
+    return this.performClusterLookup(null, (r) => {
+      const F = r.trackData.get(this.internalTrack.id);
+      if (!F)
+        return { blockIndex: -1, correctBlockFound: !1 };
+      const i = jA(F.presentationTimestamps, (a) => F.blocks[a.blockIndex].isKeyFrame && a.timestamp <= A), s = i !== -1 ? F.presentationTimestamps[i].blockIndex : -1, n = i !== -1 && A < F.endTimestamp;
+      return { blockIndex: s, correctBlockFound: n };
+    }, A, A, e);
+  }
+  async getNextKeyPacket(x, e) {
+    const A = this.packetToClusterLocation.get(x);
+    if (A === void 0)
+      throw new Error("Packet was not created from this track.");
+    return this.performClusterLookup(
+      A.cluster,
+      (r) => {
+        if (r === A.cluster) {
+          const i = r.trackData.get(this.internalTrack.id).blocks.findIndex((s, n) => s.isKeyFrame && n > A.blockIndex);
+          if (i !== -1)
+            return {
+              blockIndex: i,
+              correctBlockFound: !0
+            };
+        } else {
+          const F = r.trackData.get(this.internalTrack.id);
+          if (F && F.firstKeyFrameTimestamp !== null) {
+            const i = F.blocks.findIndex((s) => s.isKeyFrame);
+            return d(i !== -1), {
+              blockIndex: i,
+              correctBlockFound: !0
+            };
+          }
+        }
+        return {
+          blockIndex: -1,
+          correctBlockFound: !1
+        };
+      },
+      -1 / 0,
+      // Use -Infinity as a search timestamp to avoid using the cues
+      1 / 0,
+      e
+    );
+  }
+  async fetchPacketInCluster(x, e, A) {
+    if (e === -1)
+      return null;
+    const F = x.trackData.get(this.internalTrack.id).blocks[e];
+    d(F), F.decoded || (F.data = this.internalTrack.demuxer.decodeBlockData(this.internalTrack, F.data), F.decoded = !0);
+    const i = A.metadataOnly ? g0 : F.data, s = F.timestamp / this.internalTrack.segment.timestampFactor, n = F.duration / this.internalTrack.segment.timestampFactor, a = {};
+    F.mainAdditional && this.internalTrack.info?.type === "video" && this.internalTrack.info.alphaMode && (a.alpha = A.metadataOnly ? g0 : F.mainAdditional, a.alphaByteLength = F.mainAdditional.byteLength);
+    const o = new X(i, F.isKeyFrame ? "key" : "delta", s, n, x.dataStartPos + e, F.data.byteLength, a);
+    return this.packetToClusterLocation.set(o, { cluster: x, blockIndex: e }), o;
+  }
+  /** Looks for a packet in the clusters while trying to load as few clusters as possible to retrieve it. */
+  async performClusterLookup(x, e, A, r, F) {
+    const { demuxer: i, segment: s } = this.internalTrack;
+    let n = null, a = null, o = -1;
+    if (x) {
+      const { blockIndex: b, correctBlockFound: B } = e(x);
+      if (B)
+        return this.fetchPacketInCluster(x, b, F);
+      b !== -1 && (a = x, o = b);
+    }
+    const f = J(this.internalTrack.cuePoints, A, (b) => b.time), c = f !== -1 ? this.internalTrack.cuePoints[f] : null, v = J(this.internalTrack.clusterPositionCache, A, (b) => b.startTimestamp), u = v !== -1 ? this.internalTrack.clusterPositionCache[v] : null, l = Math.max(c?.clusterPosition ?? 0, u?.elementStartPos ?? 0) || null;
+    let D;
+    for (x ? l === null || x.elementStartPos >= l ? (D = x.elementEndPos, n = x) : D = l : D = l ?? s.clusterSeekStartPos; s.elementEndPos === null || D <= s.elementEndPos - y0; ) {
+      if (n) {
+        const p = n.trackData.get(this.internalTrack.id);
+        if (p && p.startTimestamp > r)
+          break;
+      }
+      let b = i.reader.requestSliceRange(D, y0, Q0);
+      if (b instanceof Promise && (b = await b), !b)
+        break;
+      const B = D, j = W0(b);
+      if (!j || !we.includes(j.id) && j.id !== C.Void) {
+        const p = await _F(i.reader, B, we, Math.min(s.elementEndPos ?? 1 / 0, B + qF));
+        if (p) {
+          D = p;
+          continue;
+        } else
+          break;
+      }
+      const E = j.id;
+      let h = j.size;
+      const m = b.filePos;
+      if (E === C.Cluster) {
+        n = await i.readCluster(B, s), h = n.elementEndPos - m;
+        const { blockIndex: p, correctBlockFound: g } = e(n);
+        if (g)
+          return this.fetchPacketInCluster(n, p, F);
+        p !== -1 && (a = n, o = p);
+      }
+      h === void 0 && (d(E !== C.Cluster), h = (await FA(i.reader, m, He, s.elementEndPos)).pos - m);
+      const k = m + h;
+      if (s.elementEndPos === null) {
+        let p = i.reader.requestSliceRange(k, y0, Q0);
+        if (p instanceof Promise && (p = await p), !p)
+          break;
+        if (HA(p) === C.Segment) {
+          s.elementEndPos = k;
+          break;
+        }
+      }
+      D = k;
+    }
+    if (c && (!a || a.elementStartPos < c.clusterPosition)) {
+      const b = this.internalTrack.cuePoints[f - 1];
+      d(!b || b.time < c.time);
+      const B = b?.time ?? -1 / 0;
+      return this.performClusterLookup(null, e, B, r, F);
+    }
+    return a ? this.fetchPacketInCluster(a, o, F) : null;
+  }
+}
+class dn extends MF {
+  constructor(x) {
+    super(x), this.decoderConfigPromise = null, this.internalTrack = x;
+  }
+  getCodec() {
+    return this.internalTrack.info.codec;
+  }
+  getCodedWidth() {
+    return this.internalTrack.info.width;
+  }
+  getCodedHeight() {
+    return this.internalTrack.info.height;
+  }
+  getSquarePixelWidth() {
+    return this.internalTrack.info.squarePixelWidth;
+  }
+  getSquarePixelHeight() {
+    return this.internalTrack.info.squarePixelHeight;
+  }
+  getRotation() {
+    return this.internalTrack.info.rotation;
+  }
+  async getColorSpace() {
+    return {
+      primaries: this.internalTrack.info.colorSpace?.primaries,
+      transfer: this.internalTrack.info.colorSpace?.transfer,
+      matrix: this.internalTrack.info.colorSpace?.matrix,
+      fullRange: this.internalTrack.info.colorSpace?.fullRange
+    };
+  }
+  async canBeTransparent() {
+    return this.internalTrack.info.alphaMode;
+  }
+  async getDecoderConfig() {
+    return this.internalTrack.info.codec ? this.decoderConfigPromise ??= (async () => {
+      let x = null;
+      return (this.internalTrack.info.codec === "vp9" || this.internalTrack.info.codec === "av1" || this.internalTrack.info.codec === "avc" && !this.internalTrack.info.codecDescription || this.internalTrack.info.codec === "hevc" && !this.internalTrack.info.codecDescription) && (x = await this.getFirstPacket({})), {
+        codec: mA({
+          width: this.internalTrack.info.width,
+          height: this.internalTrack.info.height,
+          codec: this.internalTrack.info.codec,
+          codecDescription: this.internalTrack.info.codecDescription,
+          colorSpace: this.internalTrack.info.colorSpace,
+          avcType: 1,
+          // We don't know better (or do we?) so just assume 'avc1'
+          avcCodecInfo: this.internalTrack.info.codec === "avc" && x ? yA(x.data) : null,
+          hevcCodecInfo: this.internalTrack.info.codec === "hevc" && x ? PA(x.data) : null,
+          vp9CodecInfo: this.internalTrack.info.codec === "vp9" && x ? fF(x.data) : null,
+          av1CodecInfo: this.internalTrack.info.codec === "av1" && x ? vF(x.data) : null
+        }),
+        codedWidth: this.internalTrack.info.width,
+        codedHeight: this.internalTrack.info.height,
+        displayAspectWidth: this.internalTrack.info.squarePixelWidth,
+        displayAspectHeight: this.internalTrack.info.squarePixelHeight,
+        description: this.internalTrack.info.codecDescription ?? void 0,
+        colorSpace: this.internalTrack.info.colorSpace ?? void 0
+      };
+    })() : null;
+  }
+}
+class un extends MF {
+  constructor(x) {
+    super(x), this.decoderConfig = null, this.internalTrack = x;
+  }
+  getCodec() {
+    return this.internalTrack.info.codec;
+  }
+  getNumberOfChannels() {
+    return this.internalTrack.info.numberOfChannels;
+  }
+  getSampleRate() {
+    return this.internalTrack.info.sampleRate;
+  }
+  async getDecoderConfig() {
+    return this.internalTrack.info.codec ? this.decoderConfig ??= {
+      codec: pA({
+        codec: this.internalTrack.info.codec,
+        codecDescription: this.internalTrack.info.codecDescription,
+        aacCodecInfo: this.internalTrack.info.aacCodecInfo
+      }),
+      numberOfChannels: this.internalTrack.info.numberOfChannels,
+      sampleRate: this.internalTrack.info.sampleRate,
+      description: this.internalTrack.info.codecDescription ?? void 0
+    } : null;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const iA = async (t, x, e) => {
+  let A = x;
+  for (; e === null || A < e; ) {
+    let r = t.requestSlice(A, De);
+    if (r instanceof Promise && (r = await r), !r)
+      break;
+    const F = T(r), i = at(F, t.fileSize !== null ? t.fileSize - A : null);
+    if (i.header)
+      return { header: i.header, startPos: A };
+    A += i.bytesAdvanced;
+  }
+  return null;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Dn extends lx {
+  constructor(x) {
+    super(x), this.metadataPromise = null, this.firstFrameHeader = null, this.loadedSamples = [], this.metadataTags = null, this.tracks = [], this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.lastLoadedPos = 0, this.nextTimestampInSamples = 0, this.reader = x._reader;
+  }
+  async readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      for (; !this.firstFrameHeader && !this.lastSampleLoaded; )
+        await this.advanceReader();
+      if (!this.firstFrameHeader)
+        throw new Error("No valid MP3 frame found.");
+      this.tracks = [new S0(this.input, new Bn(this))];
+    })();
+  }
+  async advanceReader() {
+    if (this.lastLoadedPos === 0)
+      for (; ; ) {
+        let s = this.reader.requestSlice(this.lastLoadedPos, tx);
+        if (s instanceof Promise && (s = await s), !s) {
+          this.lastSampleLoaded = !0;
+          return;
+        }
+        const n = Px(s);
+        if (!n)
+          break;
+        this.lastLoadedPos = s.filePos + n.size;
+      }
+    const x = await iA(this.reader, this.lastLoadedPos, this.reader.fileSize);
+    if (!x) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+    const e = x.header;
+    this.lastLoadedPos = x.startPos + e.totalSize - 1;
+    const A = nt(e.mpegVersionId, e.channel);
+    let r = this.reader.requestSlice(x.startPos + A, 4);
+    if (r instanceof Promise && (r = await r), r) {
+      const s = T(r);
+      if (s === st || s === gA)
+        return;
+    }
+    this.firstFrameHeader || (this.firstFrameHeader = e), e.sampleRate !== this.firstFrameHeader.sampleRate && console.warn(`MP3 changed sample rate mid-file: ${this.firstFrameHeader.sampleRate} Hz to ${e.sampleRate} Hz. Might be a bug, so please report this file.`);
+    const F = e.audioSamplesInFrame / this.firstFrameHeader.sampleRate, i = {
+      timestamp: this.nextTimestampInSamples / this.firstFrameHeader.sampleRate,
+      duration: F,
+      dataStart: x.startPos,
+      dataSize: e.totalSize
+    };
+    this.loadedSamples.push(i), this.nextTimestampInSamples += e.audioSamplesInFrame;
+  }
+  async getMimeType() {
+    return "audio/mpeg";
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks;
+  }
+  async computeDuration() {
+    await this.readMetadata();
+    const x = this.tracks[0];
+    return d(x), x.computeDuration();
+  }
+  async getMetadataTags() {
+    const x = await this.readingMutex.acquire();
+    try {
+      if (await this.readMetadata(), this.metadataTags)
+        return this.metadataTags;
+      this.metadataTags = {};
+      let e = 0, A = !1;
+      for (; ; ) {
+        let r = this.reader.requestSlice(e, tx);
+        if (r instanceof Promise && (r = await r), !r)
+          break;
+        const F = Px(r);
+        if (!F)
+          break;
+        A = !0;
+        let i = this.reader.requestSlice(r.filePos, F.size);
+        if (i instanceof Promise && (i = await i), !i)
+          break;
+        zA(i, F, this.metadataTags), e = r.filePos + F.size;
+      }
+      if (!A && this.reader.fileSize !== null && this.reader.fileSize >= Ne) {
+        let r = this.reader.requestSlice(this.reader.fileSize - Ne, Ne);
+        r instanceof Promise && (r = await r), d(r), a0(r, 3) === "TAG" && Xn(r, this.metadataTags);
+      }
+      return this.metadataTags;
+    } finally {
+      x();
+    }
+  }
+}
+class Bn {
+  constructor(x) {
+    this.demuxer = x;
+  }
+  getId() {
+    return 1;
+  }
+  getNumber() {
+    return 1;
+  }
+  async getFirstTimestamp() {
+    return 0;
+  }
+  getTimeResolution() {
+    return d(this.demuxer.firstFrameHeader), this.demuxer.firstFrameHeader.sampleRate / this.demuxer.firstFrameHeader.audioSamplesInFrame;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getCodec() {
+    return "mp3";
+  }
+  getInternalCodecId() {
+    return null;
+  }
+  getNumberOfChannels() {
+    return d(this.demuxer.firstFrameHeader), this.demuxer.firstFrameHeader.channel === 3 ? 1 : 2;
+  }
+  getSampleRate() {
+    return d(this.demuxer.firstFrameHeader), this.demuxer.firstFrameHeader.sampleRate;
+  }
+  getDisposition() {
+    return {
+      ...vx
+    };
+  }
+  async getDecoderConfig() {
+    return d(this.demuxer.firstFrameHeader), {
+      codec: "mp3",
+      numberOfChannels: this.demuxer.firstFrameHeader.channel === 3 ? 1 : 2,
+      sampleRate: this.demuxer.firstFrameHeader.sampleRate
+    };
+  }
+  async getPacketAtIndex(x, e) {
+    if (x === -1)
+      return null;
+    const A = this.demuxer.loadedSamples[x];
+    if (!A)
+      return null;
+    let r;
+    if (e.metadataOnly)
+      r = g0;
+    else {
+      let F = this.demuxer.reader.requestSlice(A.dataStart, A.dataSize);
+      if (F instanceof Promise && (F = await F), !F)
+        return null;
+      r = R(F, A.dataSize);
+    }
+    return new X(r, "key", A.timestamp, A.duration, x, A.dataSize);
+  }
+  getFirstPacket(x) {
+    return this.getPacketAtIndex(0, x);
+  }
+  async getNextPacket(x, e) {
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      const r = Pe(this.demuxer.loadedSamples, x.timestamp, (i) => i.timestamp);
+      if (r === -1)
+        throw new Error("Packet was not created from this track.");
+      const F = r + 1;
+      for (; F >= this.demuxer.loadedSamples.length && !this.demuxer.lastSampleLoaded; )
+        await this.demuxer.advanceReader();
+      return this.getPacketAtIndex(F, e);
+    } finally {
+      A();
+    }
+  }
+  async getPacket(x, e) {
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      for (; ; ) {
+        const r = J(this.demuxer.loadedSamples, x, (F) => F.timestamp);
+        if (r === -1 && this.demuxer.loadedSamples.length > 0)
+          return null;
+        if (this.demuxer.lastSampleLoaded)
+          return this.getPacketAtIndex(r, e);
+        if (r >= 0 && r + 1 < this.demuxer.loadedSamples.length)
+          return this.getPacketAtIndex(r, e);
+        await this.demuxer.advanceReader();
+      }
+    } finally {
+      A();
+    }
+  }
+  getKeyPacket(x, e) {
+    return this.getPacket(x, e);
+  }
+  getNextKeyPacket(x, e) {
+    return this.getNextPacket(x, e);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const NA = 1399285583, bn = 79764919, GF = new Uint32Array(256);
+for (let t = 0; t < 256; t++) {
+  let x = t << 24;
+  for (let e = 0; e < 8; e++)
+    x = x & 2147483648 ? x << 1 ^ bn : x << 1;
+  GF[t] = x >>> 0 & 4294967295;
+}
+const RF = (t) => {
+  const x = U(t), e = x.getUint32(22, !0);
+  x.setUint32(22, 0, !0);
+  let A = 0;
+  for (let r = 0; r < t.length; r++) {
+    const F = t[r];
+    A = (A << 8 ^ GF[A >>> 24 ^ F]) >>> 0;
+  }
+  return x.setUint32(22, e, !0), A;
+}, HF = (t, x, e) => {
+  let A = 0, r = null;
+  if (t.length > 0)
+    if (x.codec === "vorbis") {
+      d(x.vorbisInfo);
+      const F = x.vorbisInfo.modeBlockflags.length, s = (1 << xs(F - 1)) - 1 << 1, n = (t[0] & s) >> 1;
+      if (n >= x.vorbisInfo.modeBlockflags.length)
+        throw new Error("Invalid mode number.");
+      let a = e;
+      const o = x.vorbisInfo.modeBlockflags[n];
+      if (r = x.vorbisInfo.blocksizes[o], o === 1) {
+        const f = (s | 1) + 1, c = t[0] & f ? 1 : 0;
+        a = x.vorbisInfo.blocksizes[c];
+      }
+      A = a !== null ? a + r >> 2 : 0;
+    } else x.codec === "opus" && (A = Gs(t).durationInSamples);
+  return {
+    durationInSamples: A,
+    vorbisBlockSize: r
+  };
+}, NF = (t) => {
+  let x = "audio/ogg";
+  if (t.codecStrings) {
+    const e = [...new Set(t.codecStrings)];
+    x += `; codecs="${e.join(", ")}"`;
+  }
+  return x;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const kx = 27, Jx = 282, LF = Jx + 255 * 255, be = (t) => {
+  const x = t.filePos;
+  if (Vx(t) !== NA)
+    return null;
+  t.skip(1);
+  const A = I(t), r = Wn(t), F = Vx(t), i = Vx(t), s = Vx(t), n = I(t), a = new Uint8Array(n);
+  for (let v = 0; v < n; v++)
+    a[v] = I(t);
+  const o = 27 + n, f = a.reduce((v, u) => v + u, 0), c = o + f;
+  return {
+    headerStartPos: x,
+    totalSize: c,
+    dataStartPos: x + o,
+    dataSize: f,
+    headerType: A,
+    granulePosition: r,
+    serialNumber: F,
+    sequenceNumber: i,
+    checksum: s,
+    lacingValues: a
+  };
+}, Cn = (t, x) => {
+  for (; t.filePos < x - 3; ) {
+    const e = Vx(t), A = e & 255, r = e >>> 8 & 255, F = e >>> 16 & 255, i = e >>> 24 & 255, s = 79;
+    if (!(A !== s && r !== s && F !== s && i !== s)) {
+      if (t.skip(-4), e === NA)
+        return !0;
+      t.skip(1);
+    }
+  }
+  return !1;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class jn extends lx {
+  constructor(x) {
+    super(x), this.metadataPromise = null, this.bitstreams = [], this.tracks = [], this.metadataTags = {}, this.reader = x._reader;
+  }
+  async readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      let x = 0;
+      for (; ; ) {
+        let e = this.reader.requestSliceRange(x, kx, Jx);
+        if (e instanceof Promise && (e = await e), !e)
+          break;
+        const A = be(e);
+        if (!A || !!!(A.headerType & 2))
+          break;
+        this.bitstreams.push({
+          serialNumber: A.serialNumber,
+          bosPage: A,
+          description: null,
+          numberOfChannels: -1,
+          sampleRate: -1,
+          codecInfo: {
+            codec: null,
+            vorbisInfo: null,
+            opusInfo: null
+          },
+          lastMetadataPacket: null
+        }), x = A.headerStartPos + A.totalSize;
+      }
+      for (const e of this.bitstreams) {
+        const A = await this.readPacket(e.bosPage, 0);
+        A && (// Check for Vorbis
+        A.data.byteLength >= 7 && A.data[0] === 1 && A.data[1] === 118 && A.data[2] === 111 && A.data[3] === 114 && A.data[4] === 98 && A.data[5] === 105 && A.data[6] === 115 ? await this.readVorbisMetadata(A, e) : (
+          // Check for Opus
+          A.data.byteLength >= 8 && A.data[0] === 79 && A.data[1] === 112 && A.data[2] === 117 && A.data[3] === 115 && A.data[4] === 72 && A.data[5] === 101 && A.data[6] === 97 && A.data[7] === 100 && await this.readOpusMetadata(A, e)
+        ), e.codecInfo.codec !== null && this.tracks.push(new S0(this.input, new En(e, this))));
+      }
+    })();
+  }
+  async readVorbisMetadata(x, e) {
+    let A = await this.findNextPacketStart(x);
+    if (!A)
+      return;
+    const r = await this.readPacket(A.startPage, A.startSegmentIndex);
+    if (!r || (A = await this.findNextPacketStart(r), !A))
+      return;
+    const F = await this.readPacket(A.startPage, A.startSegmentIndex);
+    if (!F || r.data[0] !== 3 || F.data[0] !== 5)
+      return;
+    const i = [], s = (f) => {
+      for (; i.push(Math.min(255, f)), !(f < 255); )
+        f -= 255;
+    };
+    s(x.data.length), s(r.data.length);
+    const n = new Uint8Array(1 + i.length + x.data.length + r.data.length + F.data.length);
+    n[0] = 2, n.set(i, 1), n.set(x.data, 1 + i.length), n.set(r.data, 1 + i.length + x.data.length), n.set(F.data, 1 + i.length + x.data.length + r.data.length), e.codecInfo.codec = "vorbis", e.description = n, e.lastMetadataPacket = F;
+    const a = U(x.data);
+    e.numberOfChannels = a.getUint8(11), e.sampleRate = a.getUint32(12, !0);
+    const o = a.getUint8(28);
+    e.codecInfo.vorbisInfo = {
+      blocksizes: [
+        1 << (o & 15),
+        1 << (o >> 4)
+      ],
+      modeBlockflags: lF(F.data).modeBlockflags
+    }, Zt(r.data.subarray(7), this.metadataTags);
+  }
+  async readOpusMetadata(x, e) {
+    const A = await this.findNextPacketStart(x);
+    if (!A)
+      return;
+    const r = await this.readPacket(A.startPage, A.startSegmentIndex);
+    if (!r)
+      return;
+    e.codecInfo.codec = "opus", e.description = x.data, e.lastMetadataPacket = r;
+    const F = ct(x.data);
+    e.numberOfChannels = F.outputChannelCount, e.sampleRate = re, e.codecInfo.opusInfo = {
+      preSkip: F.preSkip
+    }, Zt(r.data.subarray(8), this.metadataTags);
+  }
+  async readPacket(x, e) {
+    d(e < x.lacingValues.length);
+    let A = 0;
+    for (let f = 0; f < e; f++)
+      A += x.lacingValues[f];
+    let r = x, F = A, i = e;
+    const s = [];
+    x: for (; ; ) {
+      let f = this.reader.requestSlice(r.dataStartPos, r.dataSize);
+      f instanceof Promise && (f = await f), d(f);
+      const c = R(f, r.dataSize);
+      for (; ; ) {
+        if (i === r.lacingValues.length) {
+          s.push(c.subarray(A, F));
+          break;
+        }
+        const u = r.lacingValues[i];
+        if (F += u, u < 255) {
+          s.push(c.subarray(A, F));
+          break x;
+        }
+        i++;
+      }
+      let v = r.headerStartPos + r.totalSize;
+      for (; ; ) {
+        let u = this.reader.requestSliceRange(v, kx, Jx);
+        if (u instanceof Promise && (u = await u), !u)
+          return null;
+        const l = be(u);
+        if (!l)
+          return null;
+        if (r = l, r.serialNumber === x.serialNumber)
+          break;
+        v = r.headerStartPos + r.totalSize;
+      }
+      A = 0, F = 0, i = 0;
+    }
+    const n = s.reduce((f, c) => f + c.length, 0);
+    if (n === 0)
+      return null;
+    const a = new Uint8Array(n);
+    let o = 0;
+    for (let f = 0; f < s.length; f++) {
+      const c = s[f];
+      a.set(c, o), o += c.length;
+    }
+    return {
+      data: a,
+      endPage: r,
+      endSegmentIndex: i
+    };
+  }
+  async findNextPacketStart(x) {
+    if (x.endSegmentIndex < x.endPage.lacingValues.length - 1)
+      return { startPage: x.endPage, startSegmentIndex: x.endSegmentIndex + 1 };
+    if (!!(x.endPage.headerType & 4))
+      return null;
+    let A = x.endPage.headerStartPos + x.endPage.totalSize;
+    for (; ; ) {
+      let r = this.reader.requestSliceRange(A, kx, Jx);
+      if (r instanceof Promise && (r = await r), !r)
+        return null;
+      const F = be(r);
+      if (!F)
+        return null;
+      if (F.serialNumber === x.endPage.serialNumber)
+        return { startPage: F, startSegmentIndex: 0 };
+      A = F.headerStartPos + F.totalSize;
+    }
+  }
+  async getMimeType() {
+    await this.readMetadata();
+    const x = await Promise.all(this.tracks.map((e) => e.getCodecParameterString()));
+    return NF({
+      codecStrings: x.filter(Boolean)
+    });
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks;
+  }
+  async computeDuration() {
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.computeDuration()));
+    return Math.max(0, ...e);
+  }
+  async getMetadataTags() {
+    return await this.readMetadata(), this.metadataTags;
+  }
+}
+class En {
+  constructor(x, e) {
+    this.bitstream = x, this.demuxer = e, this.encodedPacketToMetadata = /* @__PURE__ */ new WeakMap(), this.sequentialScanCache = [], this.sequentialScanMutex = new xe(), this.internalSampleRate = x.codecInfo.codec === "opus" ? re : x.sampleRate;
+  }
+  getId() {
+    return this.bitstream.serialNumber;
+  }
+  getNumber() {
+    const x = this.demuxer.tracks.findIndex((e) => e._backing.bitstream === this.bitstream);
+    return d(x !== -1), x + 1;
+  }
+  getNumberOfChannels() {
+    return this.bitstream.numberOfChannels;
+  }
+  getSampleRate() {
+    return this.bitstream.sampleRate;
+  }
+  getTimeResolution() {
+    return this.bitstream.sampleRate;
+  }
+  getCodec() {
+    return this.bitstream.codecInfo.codec;
+  }
+  getInternalCodecId() {
+    return null;
+  }
+  async getDecoderConfig() {
+    return d(this.bitstream.codecInfo.codec), {
+      codec: this.bitstream.codecInfo.codec,
+      numberOfChannels: this.bitstream.numberOfChannels,
+      sampleRate: this.bitstream.sampleRate,
+      description: this.bitstream.description ?? void 0
+    };
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getDisposition() {
+    return {
+      ...vx
+    };
+  }
+  async getFirstTimestamp() {
+    return 0;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  granulePositionToTimestampInSamples(x) {
+    return this.bitstream.codecInfo.codec === "opus" ? (d(this.bitstream.codecInfo.opusInfo), x - this.bitstream.codecInfo.opusInfo.preSkip) : x;
+  }
+  createEncodedPacketFromOggPacket(x, e, A) {
+    if (!x)
+      return null;
+    const { durationInSamples: r, vorbisBlockSize: F } = HF(x.data, this.bitstream.codecInfo, e.vorbisLastBlocksize), i = new X(A.metadataOnly ? g0 : x.data, "key", Math.max(0, e.timestampInSamples) / this.internalSampleRate, r / this.internalSampleRate, x.endPage.headerStartPos + x.endSegmentIndex, x.data.byteLength);
+    return this.encodedPacketToMetadata.set(i, {
+      packet: x,
+      timestampInSamples: e.timestampInSamples,
+      durationInSamples: r,
+      vorbisLastBlockSize: e.vorbisLastBlocksize,
+      vorbisBlockSize: F
+    }), i;
+  }
+  async getFirstPacket(x) {
+    d(this.bitstream.lastMetadataPacket);
+    const e = await this.demuxer.findNextPacketStart(this.bitstream.lastMetadataPacket);
+    if (!e)
+      return null;
+    let A = 0;
+    this.bitstream.codecInfo.codec === "opus" && (d(this.bitstream.codecInfo.opusInfo), A -= this.bitstream.codecInfo.opusInfo.preSkip);
+    const r = await this.demuxer.readPacket(e.startPage, e.startSegmentIndex);
+    return this.createEncodedPacketFromOggPacket(r, {
+      timestampInSamples: A,
+      vorbisLastBlocksize: null
+    }, x);
+  }
+  async getNextPacket(x, e) {
+    const A = this.encodedPacketToMetadata.get(x);
+    if (!A)
+      throw new Error("Packet was not created from this track.");
+    const r = await this.demuxer.findNextPacketStart(A.packet);
+    if (!r)
+      return null;
+    const F = A.timestampInSamples + A.durationInSamples, i = await this.demuxer.readPacket(r.startPage, r.startSegmentIndex);
+    return this.createEncodedPacketFromOggPacket(i, {
+      timestampInSamples: F,
+      vorbisLastBlocksize: A.vorbisBlockSize
+    }, e);
+  }
+  async getPacket(x, e) {
+    if (this.demuxer.reader.fileSize === null)
+      return this.getPacketSequential(x, e);
+    const A = Ee(x * this.internalSampleRate);
+    if (A === 0)
+      return this.getFirstPacket(e);
+    if (A < 0)
+      return null;
+    d(this.bitstream.lastMetadataPacket);
+    const r = await this.demuxer.findNextPacketStart(this.bitstream.lastMetadataPacket);
+    if (!r)
+      return null;
+    let F = r.startPage, i = this.demuxer.reader.fileSize;
+    const s = [F];
+    x: for (; F.headerStartPos + F.totalSize < i; ) {
+      const B = F.headerStartPos, j = Math.floor((B + i) / 2);
+      let E = j;
+      for (; ; ) {
+        const h = Math.min(E + LF, i - kx);
+        let m = this.demuxer.reader.requestSlice(E, h - E);
+        if (m instanceof Promise && (m = await m), d(m), !Cn(m, h)) {
+          i = j + kx;
+          continue x;
+        }
+        let p = this.demuxer.reader.requestSliceRange(m.filePos, kx, Jx);
+        p instanceof Promise && (p = await p), d(p);
+        const g = be(p);
+        d(g);
+        let q = !1;
+        if (g.serialNumber === this.bitstream.serialNumber)
+          q = !0;
+        else {
+          let P = this.demuxer.reader.requestSlice(g.headerStartPos, g.totalSize);
+          P instanceof Promise && (P = await P), d(P);
+          const _ = R(P, g.totalSize);
+          q = RF(_) === g.checksum;
+        }
+        if (!q) {
+          E = g.headerStartPos + 4;
+          continue;
+        }
+        if (q && g.serialNumber !== this.bitstream.serialNumber) {
+          E = g.headerStartPos + g.totalSize;
+          continue;
+        }
+        if (g.granulePosition === -1) {
+          E = g.headerStartPos + g.totalSize;
+          continue;
+        }
+        this.granulePositionToTimestampInSamples(g.granulePosition) > A ? i = g.headerStartPos : (F = g, s.push(g));
+        continue x;
+      }
+    }
+    let n = r.startPage;
+    for (const B of s) {
+      if (B.granulePosition === F.granulePosition)
+        break;
+      (!n || B.headerStartPos > n.headerStartPos) && (n = B);
+    }
+    let a = n;
+    const o = [a];
+    for (; !(a.serialNumber === this.bitstream.serialNumber && a.granulePosition === F.granulePosition); ) {
+      const B = a.headerStartPos + a.totalSize;
+      let j = this.demuxer.reader.requestSliceRange(B, kx, Jx);
+      j instanceof Promise && (j = await j), d(j);
+      const E = be(j);
+      d(E), a = E, a.serialNumber === this.bitstream.serialNumber && o.push(a);
+    }
+    d(a.granulePosition !== -1);
+    let f = null, c, v, u = a, l = 0;
+    if (a.headerStartPos === r.startPage.headerStartPos)
+      c = this.granulePositionToTimestampInSamples(0), v = !0, f = 0;
+    else {
+      c = 0, v = !1;
+      for (let E = a.lacingValues.length - 1; E >= 0; E--)
+        if (a.lacingValues[E] < 255) {
+          f = E + 1;
+          break;
+        }
+      if (f === null)
+        throw new Error("Invalid page with granule position: no packets end on this page.");
+      l = f - 1;
+      const B = {
+        data: g0,
+        endPage: u,
+        endSegmentIndex: l
+      };
+      if (await this.demuxer.findNextPacketStart(B)) {
+        const E = Tr(o, a, f);
+        d(E);
+        const h = yr(o, E.page, E.segmentIndex);
+        h && (a = h.page, f = h.segmentIndex);
+      } else
+        for (; ; ) {
+          const E = Tr(o, a, f);
+          if (!E)
+            break;
+          const h = yr(o, E.page, E.segmentIndex);
+          if (!h)
+            break;
+          if (a = h.page, f = h.segmentIndex, E.page.headerStartPos !== u.headerStartPos) {
+            u = E.page, l = E.segmentIndex;
+            break;
+          }
+        }
+    }
+    let D = null, b = null;
+    for (; a !== null; ) {
+      d(f !== null);
+      const B = await this.demuxer.readPacket(a, f);
+      if (!B)
+        break;
+      if (!(a.headerStartPos === r.startPage.headerStartPos && f < r.startSegmentIndex)) {
+        let h = this.createEncodedPacketFromOggPacket(B, {
+          timestampInSamples: c,
+          vorbisLastBlocksize: b?.vorbisBlockSize ?? null
+        }, e);
+        d(h);
+        let m = this.encodedPacketToMetadata.get(h);
+        if (d(m), !v && B.endPage.headerStartPos === u.headerStartPos && B.endSegmentIndex === l ? (c = this.granulePositionToTimestampInSamples(a.granulePosition), v = !0, h = this.createEncodedPacketFromOggPacket(B, {
+          timestampInSamples: c - m.durationInSamples,
+          vorbisLastBlocksize: b?.vorbisBlockSize ?? null
+        }, e), d(h), m = this.encodedPacketToMetadata.get(h), d(m)) : c += m.durationInSamples, D = h, b = m, v && // Next timestamp will be too late
+        (Math.max(c, 0) > A || Math.max(m.timestampInSamples, 0) === A))
+          break;
+      }
+      const E = await this.demuxer.findNextPacketStart(B);
+      if (!E)
+        break;
+      a = E.startPage, f = E.startSegmentIndex;
+    }
+    return D;
+  }
+  // A slower but simpler and sequential algorithm for finding a packet in a file
+  async getPacketSequential(x, e) {
+    const A = await this.sequentialScanMutex.acquire();
+    try {
+      const r = Ee(x * this.internalSampleRate);
+      x = r / this.internalSampleRate;
+      const F = J(this.sequentialScanCache, r, (n) => n.timestampInSamples);
+      let i;
+      if (F !== -1) {
+        const n = this.sequentialScanCache[F];
+        i = this.createEncodedPacketFromOggPacket(n.packet, {
+          timestampInSamples: n.timestampInSamples,
+          vorbisLastBlocksize: n.vorbisLastBlockSize
+        }, e);
+      } else
+        i = await this.getFirstPacket(e);
+      let s = 0;
+      for (; i && i.timestamp < x; ) {
+        const n = await this.getNextPacket(i, e);
+        if (!n || n.timestamp > x)
+          break;
+        if (i = n, s++, s === 100) {
+          s = 0;
+          const a = this.encodedPacketToMetadata.get(i);
+          d(a), this.sequentialScanCache.length > 0 && d(x0(this.sequentialScanCache).timestampInSamples <= a.timestampInSamples), this.sequentialScanCache.push(a);
+        }
+      }
+      return i;
+    } finally {
+      A();
+    }
+  }
+  getKeyPacket(x, e) {
+    return this.getPacket(x, e);
+  }
+  getNextKeyPacket(x, e) {
+    return this.getNextPacket(x, e);
+  }
+}
+const yr = (t, x, e) => {
+  let A = x, r = e;
+  x: for (; ; ) {
+    for (r--, r; r >= 0; r--)
+      if (A.lacingValues[r] < 255) {
+        r++;
+        break x;
+      }
+    if (d(r === -1), !(A.headerType & 1)) {
+      r = 0;
+      break;
+    }
+    const i = Wr(t, (s) => s.headerStartPos < A.headerStartPos);
+    if (!i)
+      return null;
+    A = i, r = A.lacingValues.length;
+  }
+  if (d(r !== -1), r === A.lacingValues.length) {
+    const F = t[t.indexOf(A) + 1];
+    d(F), A = F, r = 0;
+  }
+  return { page: A, segmentIndex: r };
+}, Tr = (t, x, e) => {
+  if (e > 0)
+    return { page: x, segmentIndex: e - 1 };
+  const A = Wr(t, (r) => r.headerStartPos < x.headerStartPos);
+  return A ? { page: A, segmentIndex: A.lacingValues.length - 1 } : null;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var k0;
+(function(t) {
+  t[t.PCM = 1] = "PCM", t[t.IEEE_FLOAT = 3] = "IEEE_FLOAT", t[t.ALAW = 6] = "ALAW", t[t.MULAW = 7] = "MULAW", t[t.EXTENSIBLE = 65534] = "EXTENSIBLE";
+})(k0 || (k0 = {}));
+class hn extends lx {
+  constructor(x) {
+    super(x), this.metadataPromise = null, this.dataStart = -1, this.dataSize = -1, this.audioInfo = null, this.tracks = [], this.lastKnownPacketIndex = 0, this.metadataTags = {}, this.reader = x._reader;
+  }
+  async readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      let x = this.reader.requestSlice(0, 12);
+      x instanceof Promise && (x = await x), d(x);
+      const e = a0(x, 4), A = e !== "RIFX", r = e === "RF64", F = ox(x, A);
+      let i = r ? this.reader.fileSize : Math.min(F + 8, this.reader.fileSize ?? 1 / 0);
+      if (a0(x, 4) !== "WAVE")
+        throw new Error("Invalid WAVE file - wrong format");
+      let n = 0, a = null, o = x.filePos;
+      for (; i === null || o < i; ) {
+        let c = this.reader.requestSlice(o, 8);
+        if (c instanceof Promise && (c = await c), !c)
+          break;
+        const v = a0(c, 4), u = ox(c, A), l = c.filePos;
+        if (r && n === 0 && v !== "ds64")
+          throw new Error('Invalid RF64 file: First chunk must be "ds64".');
+        if (v === "fmt ")
+          await this.parseFmtChunk(l, u, A);
+        else if (v === "data") {
+          if (a ??= u, this.dataStart = c.filePos, this.dataSize = Math.min(a, (i ?? 1 / 0) - this.dataStart), this.reader.fileSize === null)
+            break;
+        } else if (v === "ds64") {
+          let D = this.reader.requestSlice(l, u);
+          if (D instanceof Promise && (D = await D), !D)
+            break;
+          const b = Pr(D, A);
+          a = Pr(D, A), i = Math.min(b + 8, this.reader.fileSize ?? 1 / 0);
+        } else v === "LIST" ? await this.parseListChunk(l, u, A) : (v === "ID3 " || v === "id3 ") && await this.parseId3Chunk(l, u);
+        o = l + u + (u & 1), n++;
+      }
+      if (!this.audioInfo)
+        throw new Error('Invalid WAVE file - missing "fmt " chunk');
+      if (this.dataStart === -1)
+        throw new Error('Invalid WAVE file - missing "data" chunk');
+      const f = this.audioInfo.blockSizeInBytes;
+      this.dataSize = Math.floor(this.dataSize / f) * f, this.tracks.push(new S0(this.input, new mn(this)));
+    })();
+  }
+  async parseFmtChunk(x, e, A) {
+    let r = this.reader.requestSlice(x, e);
+    if (r instanceof Promise && (r = await r), !r)
+      return;
+    let F = ce(r, A);
+    const i = ce(r, A), s = ox(r, A);
+    r.skip(4);
+    const n = ce(r, A);
+    let a;
+    if (e === 14 ? a = 8 : a = ce(r, A), e >= 18 && F !== 357) {
+      const o = ce(r, A), f = e - 18;
+      if (Math.min(f, o) >= 22 && F === k0.EXTENSIBLE) {
+        r.skip(6);
+        const v = R(r, 16);
+        F = v[0] | v[1] << 8;
+      }
+    }
+    (F === k0.MULAW || F === k0.ALAW) && (a = 8), this.audioInfo = {
+      format: F,
+      numberOfChannels: i,
+      sampleRate: s,
+      sampleSizeInBytes: Math.ceil(a / 8),
+      blockSizeInBytes: n
+    };
+  }
+  async parseListChunk(x, e, A) {
+    let r = this.reader.requestSlice(x, e);
+    if (r instanceof Promise && (r = await r), !r)
+      return;
+    const F = a0(r, 4);
+    if (F !== "INFO" && F !== "INF0")
+      return;
+    let i = r.filePos;
+    for (; i <= x + e - 8; ) {
+      r.filePos = i;
+      const s = a0(r, 4), n = ox(r, A), a = R(r, n);
+      let o = 0;
+      for (let c = 0; c < a.length && a[c] !== 0; c++)
+        o++;
+      const f = String.fromCharCode(...a.subarray(0, o));
+      switch (this.metadataTags.raw ??= {}, this.metadataTags.raw[s] = f, s) {
+        case "INAM":
+        case "TITL":
+          this.metadataTags.title ??= f;
+          break;
+        case "TIT3":
+          this.metadataTags.description ??= f;
+          break;
+        case "IART":
+          this.metadataTags.artist ??= f;
+          break;
+        case "IPRD":
+          this.metadataTags.album ??= f;
+          break;
+        case "IPRT":
+        case "ITRK":
+        case "TRCK":
+          {
+            const c = f.split("/"), v = Number.parseInt(c[0], 10), u = c[1] && Number.parseInt(c[1], 10);
+            Number.isInteger(v) && v > 0 && (this.metadataTags.trackNumber ??= v), u && Number.isInteger(u) && u > 0 && (this.metadataTags.tracksTotal ??= u);
+          }
+          break;
+        case "ICRD":
+        case "IDIT":
+          {
+            const c = new Date(f);
+            Number.isNaN(c.getTime()) || (this.metadataTags.date ??= c);
+          }
+          break;
+        case "YEAR":
+          {
+            const c = Number.parseInt(f, 10);
+            Number.isInteger(c) && c > 0 && (this.metadataTags.date ??= new Date(c, 0, 1));
+          }
+          break;
+        case "IGNR":
+        case "GENR":
+          this.metadataTags.genre ??= f;
+          break;
+        case "ICMT":
+        case "CMNT":
+        case "COMM":
+          this.metadataTags.comment ??= f;
+          break;
+      }
+      i += 8 + n + (n & 1);
+    }
+  }
+  async parseId3Chunk(x, e) {
+    let A = this.reader.requestSlice(x, e);
+    if (A instanceof Promise && (A = await A), !A)
+      return;
+    const r = Px(A);
+    if (r) {
+      const F = e - tx;
+      if (r.size = Math.min(r.size, F), r.size > 0) {
+        const i = A.slice(x + tx, r.size);
+        zA(i, r, this.metadataTags);
+      }
+    }
+  }
+  getCodec() {
+    if (d(this.audioInfo), this.audioInfo.format === k0.MULAW)
+      return "ulaw";
+    if (this.audioInfo.format === k0.ALAW)
+      return "alaw";
+    if (this.audioInfo.format === k0.PCM) {
+      if (this.audioInfo.sampleSizeInBytes === 1)
+        return "pcm-u8";
+      if (this.audioInfo.sampleSizeInBytes === 2)
+        return "pcm-s16";
+      if (this.audioInfo.sampleSizeInBytes === 3)
+        return "pcm-s24";
+      if (this.audioInfo.sampleSizeInBytes === 4)
+        return "pcm-s32";
+    }
+    return this.audioInfo.format === k0.IEEE_FLOAT && this.audioInfo.sampleSizeInBytes === 4 ? "pcm-f32" : null;
+  }
+  async getMimeType() {
+    return "audio/wav";
+  }
+  async computeDuration() {
+    await this.readMetadata();
+    const x = this.tracks[0];
+    return d(x), x.computeDuration();
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks;
+  }
+  async getMetadataTags() {
+    return await this.readMetadata(), this.metadataTags;
+  }
+}
+const Hx = 2048;
+class mn {
+  constructor(x) {
+    this.demuxer = x;
+  }
+  getId() {
+    return 1;
+  }
+  getNumber() {
+    return 1;
+  }
+  getCodec() {
+    return this.demuxer.getCodec();
+  }
+  getInternalCodecId() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.format;
+  }
+  async getDecoderConfig() {
+    const x = this.demuxer.getCodec();
+    return x ? (d(this.demuxer.audioInfo), {
+      codec: x,
+      numberOfChannels: this.demuxer.audioInfo.numberOfChannels,
+      sampleRate: this.demuxer.audioInfo.sampleRate
+    }) : null;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  getNumberOfChannels() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.numberOfChannels;
+  }
+  getSampleRate() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.sampleRate;
+  }
+  getTimeResolution() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.sampleRate;
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getDisposition() {
+    return {
+      ...vx
+    };
+  }
+  async getFirstTimestamp() {
+    return 0;
+  }
+  async getPacketAtIndex(x, e) {
+    d(x >= 0), d(this.demuxer.audioInfo);
+    const A = x * Hx * this.demuxer.audioInfo.blockSizeInBytes;
+    if (A >= this.demuxer.dataSize)
+      return null;
+    const r = Math.min(Hx * this.demuxer.audioInfo.blockSizeInBytes, this.demuxer.dataSize - A);
+    if (this.demuxer.reader.fileSize === null) {
+      let n = this.demuxer.reader.requestSlice(this.demuxer.dataStart + A, r);
+      if (n instanceof Promise && (n = await n), !n)
+        return null;
+    }
+    let F;
+    if (e.metadataOnly)
+      F = g0;
+    else {
+      let n = this.demuxer.reader.requestSlice(this.demuxer.dataStart + A, r);
+      n instanceof Promise && (n = await n), d(n), F = R(n, r);
+    }
+    const i = x * Hx / this.demuxer.audioInfo.sampleRate, s = r / this.demuxer.audioInfo.blockSizeInBytes / this.demuxer.audioInfo.sampleRate;
+    return this.demuxer.lastKnownPacketIndex = Math.max(x, this.demuxer.lastKnownPacketIndex), new X(F, "key", i, s, x, r);
+  }
+  getFirstPacket(x) {
+    return this.getPacketAtIndex(0, x);
+  }
+  async getPacket(x, e) {
+    d(this.demuxer.audioInfo);
+    const A = Math.floor(Math.min(x * this.demuxer.audioInfo.sampleRate / Hx, (this.demuxer.dataSize - 1) / (Hx * this.demuxer.audioInfo.blockSizeInBytes)));
+    if (A < 0)
+      return null;
+    const r = await this.getPacketAtIndex(A, e);
+    if (r)
+      return r;
+    if (A === 0)
+      return null;
+    d(this.demuxer.reader.fileSize === null);
+    let F = await this.getPacketAtIndex(this.demuxer.lastKnownPacketIndex, e);
+    for (; F; ) {
+      const i = await this.getNextPacket(F, e);
+      if (!i)
+        break;
+      F = i;
+    }
+    return F;
+  }
+  getNextPacket(x, e) {
+    d(this.demuxer.audioInfo);
+    const A = Math.round(x.timestamp * this.demuxer.audioInfo.sampleRate / Hx);
+    return this.getPacketAtIndex(A + 1, e);
+  }
+  getKeyPacket(x, e) {
+    return this.getPacket(x, e);
+  }
+  getNextKeyPacket(x, e) {
+    return this.getNextPacket(x, e);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const ye = 7, fx = 9, ex = (t) => {
+  const x = t.filePos, e = R(t, 9), A = new N(e);
+  if (A.readBits(12) !== 4095 || (A.skipBits(1), A.readBits(2) !== 0))
+    return null;
+  const i = A.readBits(1), s = A.readBits(2) + 1, n = A.readBits(4);
+  if (n === 15)
+    return null;
+  A.skipBits(1);
+  const a = A.readBits(3);
+  if (a === 0)
+    throw new Error("ADTS frames with channel configuration 0 are not supported.");
+  A.skipBits(1), A.skipBits(1), A.skipBits(1), A.skipBits(1);
+  const o = A.readBits(13);
+  A.skipBits(11);
+  const f = A.readBits(2) + 1;
+  if (f !== 1)
+    throw new Error("ADTS frames with more than one AAC frame are not supported.");
+  let c = null;
+  return i === 1 ? t.filePos -= 2 : c = A.readBits(16), {
+    objectType: s,
+    samplingFrequencyIndex: n,
+    channelConfiguration: a,
+    frameLength: o,
+    numberOfAacFrames: f,
+    crcCheck: c,
+    startPos: x
+  };
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Qe = 1024;
+class pn extends lx {
+  constructor(x) {
+    super(x), this.metadataPromise = null, this.firstFrameHeader = null, this.loadedSamples = [], this.metadataTags = null, this.tracks = [], this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.lastLoadedPos = 0, this.nextTimestampInSamples = 0, this.reader = x._reader;
+  }
+  async readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      for (; !this.firstFrameHeader && !this.lastSampleLoaded; )
+        await this.advanceReader();
+      d(this.firstFrameHeader), this.tracks = [new S0(this.input, new kn(this))];
+    })();
+  }
+  async advanceReader() {
+    if (this.lastLoadedPos === 0)
+      for (; ; ) {
+        let i = this.reader.requestSlice(this.lastLoadedPos, tx);
+        if (i instanceof Promise && (i = await i), !i) {
+          this.lastSampleLoaded = !0;
+          return;
+        }
+        const s = Px(i);
+        if (!s)
+          break;
+        this.lastLoadedPos = i.filePos + s.size;
+      }
+    let x = this.reader.requestSliceRange(this.lastLoadedPos, ye, fx);
+    if (x instanceof Promise && (x = await x), !x) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+    const e = ex(x);
+    if (!e) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+    if (this.reader.fileSize !== null && e.startPos + e.frameLength > this.reader.fileSize) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+    this.firstFrameHeader || (this.firstFrameHeader = e);
+    const A = cx[e.samplingFrequencyIndex];
+    d(A !== void 0);
+    const r = Qe / A, F = {
+      timestamp: this.nextTimestampInSamples / A,
+      duration: r,
+      dataStart: e.startPos,
+      dataSize: e.frameLength
+    };
+    this.loadedSamples.push(F), this.nextTimestampInSamples += Qe, this.lastLoadedPos = e.startPos + e.frameLength;
+  }
+  async getMimeType() {
+    return "audio/aac";
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks;
+  }
+  async computeDuration() {
+    await this.readMetadata();
+    const x = this.tracks[0];
+    return d(x), x.computeDuration();
+  }
+  async getMetadataTags() {
+    const x = await this.readingMutex.acquire();
+    try {
+      if (await this.readMetadata(), this.metadataTags)
+        return this.metadataTags;
+      this.metadataTags = {};
+      let e = 0;
+      for (; ; ) {
+        let A = this.reader.requestSlice(e, tx);
+        if (A instanceof Promise && (A = await A), !A)
+          break;
+        const r = Px(A);
+        if (!r)
+          break;
+        let F = this.reader.requestSlice(A.filePos, r.size);
+        if (F instanceof Promise && (F = await F), !F)
+          break;
+        zA(F, r, this.metadataTags), e = A.filePos + r.size;
+      }
+      return this.metadataTags;
+    } finally {
+      x();
+    }
+  }
+}
+class kn {
+  constructor(x) {
+    this.demuxer = x;
+  }
+  getId() {
+    return 1;
+  }
+  getNumber() {
+    return 1;
+  }
+  async getFirstTimestamp() {
+    return 0;
+  }
+  getTimeResolution() {
+    return this.getSampleRate() / Qe;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getCodec() {
+    return "aac";
+  }
+  getInternalCodecId() {
+    return d(this.demuxer.firstFrameHeader), this.demuxer.firstFrameHeader.objectType;
+  }
+  getNumberOfChannels() {
+    d(this.demuxer.firstFrameHeader);
+    const x = Ae[this.demuxer.firstFrameHeader.channelConfiguration];
+    return d(x !== void 0), x;
+  }
+  getSampleRate() {
+    d(this.demuxer.firstFrameHeader);
+    const x = cx[this.demuxer.firstFrameHeader.samplingFrequencyIndex];
+    return d(x !== void 0), x;
+  }
+  getDisposition() {
+    return {
+      ...vx
+    };
+  }
+  async getDecoderConfig() {
+    return d(this.demuxer.firstFrameHeader), {
+      codec: `mp4a.40.${this.demuxer.firstFrameHeader.objectType}`,
+      numberOfChannels: this.getNumberOfChannels(),
+      sampleRate: this.getSampleRate()
+    };
+  }
+  async getPacketAtIndex(x, e) {
+    if (x === -1)
+      return null;
+    const A = this.demuxer.loadedSamples[x];
+    if (!A)
+      return null;
+    let r;
+    if (e.metadataOnly)
+      r = g0;
+    else {
+      let F = this.demuxer.reader.requestSlice(A.dataStart, A.dataSize);
+      if (F instanceof Promise && (F = await F), !F)
+        return null;
+      r = R(F, A.dataSize);
+    }
+    return new X(r, "key", A.timestamp, A.duration, x, A.dataSize);
+  }
+  getFirstPacket(x) {
+    return this.getPacketAtIndex(0, x);
+  }
+  async getNextPacket(x, e) {
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      const r = Pe(this.demuxer.loadedSamples, x.timestamp, (i) => i.timestamp);
+      if (r === -1)
+        throw new Error("Packet was not created from this track.");
+      const F = r + 1;
+      for (; F >= this.demuxer.loadedSamples.length && !this.demuxer.lastSampleLoaded; )
+        await this.demuxer.advanceReader();
+      return this.getPacketAtIndex(F, e);
+    } finally {
+      A();
+    }
+  }
+  async getPacket(x, e) {
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      for (; ; ) {
+        const r = J(this.demuxer.loadedSamples, x, (F) => F.timestamp);
+        if (r === -1 && this.demuxer.loadedSamples.length > 0)
+          return null;
+        if (this.demuxer.lastSampleLoaded)
+          return this.getPacketAtIndex(r, e);
+        if (r >= 0 && r + 1 < this.demuxer.loadedSamples.length)
+          return this.getPacketAtIndex(r, e);
+        await this.demuxer.advanceReader();
+      }
+    } finally {
+      A();
+    }
+  }
+  getKeyPacket(x, e) {
+    return this.getPacket(x, e);
+  }
+  getNextKeyPacket(x, e) {
+    return this.getNextPacket(x, e);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const UF = (t) => t === 0 ? null : t === 1 ? 192 : t >= 2 && t <= 5 ? 144 * 2 ** t : t === 6 ? "uncommon-u8" : t === 7 ? "uncommon-u16" : t >= 8 && t <= 15 ? 2 ** t : null, gn = (t, x) => {
+  switch (t) {
+    case 0:
+      return x;
+    case 1:
+      return 88200;
+    case 2:
+      return 176400;
+    case 3:
+      return 192e3;
+    case 4:
+      return 8e3;
+    case 5:
+      return 16e3;
+    case 6:
+      return 22050;
+    case 7:
+      return 24e3;
+    case 8:
+      return 32e3;
+    case 9:
+      return 44100;
+    case 10:
+      return 48e3;
+    case 11:
+      return 96e3;
+    case 12:
+      return "uncommon-u8";
+    case 13:
+      return "uncommon-u16";
+    case 14:
+      return "uncommon-u16-10";
+    default:
+      return null;
+  }
+}, OF = (t) => {
+  let x = 0;
+  const e = new N(R(t, 1));
+  for (; e.readBits(1) === 1; )
+    x++;
+  if (x === 0)
+    return e.readBits(7);
+  const A = [], r = x - 1, F = new N(R(t, r)), i = 8 - x - 1;
+  for (let n = 0; n < i; n++)
+    A.unshift(e.readBits(1));
+  for (let n = 0; n < r; n++)
+    for (let a = 0; a < 8; a++) {
+      const o = F.readBits(1);
+      a < 2 || A.unshift(o);
+    }
+  return A.reduce((n, a, o) => n | a << o, 0);
+}, $F = (t, x) => {
+  if (x === "uncommon-u16")
+    return s0(t) + 1;
+  if (x === "uncommon-u8")
+    return I(t) + 1;
+  if (typeof x == "number")
+    return x;
+  u0(x), d(!1);
+}, wn = (t, x) => x === "uncommon-u16" ? s0(t) : x === "uncommon-u16-10" ? s0(t) * 10 : x === "uncommon-u8" ? I(t) : typeof x == "number" ? x : null, yn = (t) => {
+  let e = 0;
+  for (const A of t) {
+    e ^= A;
+    for (let r = 0; r < 8; r++)
+      (e & 128) !== 0 ? e = e << 1 ^ 7 : e <<= 1, e &= 255;
+  }
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Tn extends lx {
+  constructor(x) {
+    super(x), this.loadedSamples = [], this.metadataPromise = null, this.track = null, this.metadataTags = {}, this.audioInfo = null, this.lastLoadedPos = null, this.blockingBit = null, this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.reader = x._reader;
+  }
+  async computeDuration() {
+    return await this.readMetadata(), d(this.track), this.track.computeDuration();
+  }
+  async getMetadataTags() {
+    return await this.readMetadata(), this.metadataTags;
+  }
+  async getTracks() {
+    return await this.readMetadata(), d(this.track), [this.track];
+  }
+  async getMimeType() {
+    return "audio/flac";
+  }
+  async readMetadata() {
+    let x = 4;
+    return this.metadataPromise ??= (async () => {
+      for (; this.reader.fileSize === null || x < this.reader.fileSize; ) {
+        let e = this.reader.requestSlice(x, 4);
+        if (e instanceof Promise && (e = await e), x += 4, e === null)
+          throw new Error(`Metadata block at position ${x} is too small! Corrupted file.`);
+        d(e);
+        const A = I(e), r = $x(e), F = (A & 128) !== 0;
+        switch (A & 127) {
+          case Z0.STREAMINFO: {
+            let s = this.reader.requestSlice(x, r);
+            if (s instanceof Promise && (s = await s), d(s), s === null)
+              throw new Error(`StreamInfo block at position ${x} is too small! Corrupted file.`);
+            const n = R(s, 34), a = new N(n), o = a.readBits(16), f = a.readBits(16), c = a.readBits(24), v = a.readBits(24), u = a.readBits(20), l = a.readBits(3) + 1;
+            a.readBits(5);
+            const D = a.readBits(36);
+            a.skipBits(16 * 8);
+            const b = new Uint8Array(42);
+            b.set(new Uint8Array([102, 76, 97, 67]), 0), b.set(new Uint8Array([128, 0, 0, 34]), 4), b.set(n, 8), this.audioInfo = {
+              numberOfChannels: l,
+              sampleRate: u,
+              totalSamples: D,
+              minimumBlockSize: o,
+              maximumBlockSize: f,
+              minimumFrameSize: c,
+              maximumFrameSize: v,
+              description: b
+            }, this.track = new S0(this.input, new Pn(this));
+            break;
+          }
+          case Z0.VORBIS_COMMENT: {
+            let s = this.reader.requestSlice(x, r);
+            s instanceof Promise && (s = await s), d(s), Zt(R(s, r), this.metadataTags);
+            break;
+          }
+          case Z0.PICTURE: {
+            let s = this.reader.requestSlice(x, r);
+            s instanceof Promise && (s = await s), d(s);
+            const n = T(s), a = T(s), o = P0.decode(R(s, a)), f = T(s), c = P0.decode(R(s, f));
+            s.skip(16);
+            const v = T(s), u = R(s, v);
+            this.metadataTags.images ??= [], this.metadataTags.images.push({
+              data: u,
+              mimeType: o,
+              // https://www.rfc-editor.org/rfc/rfc9639.html#table13
+              kind: n === 3 ? "coverFront" : n === 4 ? "coverBack" : "unknown",
+              description: c
+            });
+            break;
+          }
+        }
+        if (x += r, F) {
+          this.lastLoadedPos = x;
+          break;
+        }
+      }
+    })();
+  }
+  async readNextFlacFrame({ startPos: x, isFirstPacket: e }) {
+    d(this.audioInfo);
+    const A = 6, F = this.audioInfo.maximumFrameSize + 16, i = await this.reader.requestSliceRange(x, this.audioInfo.minimumFrameSize, F);
+    if (!i)
+      return null;
+    const s = this.readFlacFrameHeader({
+      slice: i,
+      isFirstPacket: e
+    });
+    if (!s)
+      return null;
+    for (i.filePos = x + this.audioInfo.minimumFrameSize; ; ) {
+      if (i.filePos > i.end - A)
+        return {
+          num: s.num,
+          blockSize: s.blockSize,
+          sampleRate: s.sampleRate,
+          size: i.end - x,
+          isLastFrame: !0
+        };
+      if (I(i) === 255) {
+        const a = i.filePos, o = I(i), f = this.blockingBit === 1 ? 249 : 248;
+        if (o !== f) {
+          i.filePos = a;
+          continue;
+        }
+        i.skip(-2);
+        const c = i.filePos - x, v = this.readFlacFrameHeader({
+          slice: i,
+          isFirstPacket: !1
+        });
+        if (!v) {
+          i.filePos = a;
+          continue;
+        }
+        if (this.blockingBit === 0) {
+          if (v.num - s.num !== 1) {
+            i.filePos = a;
+            continue;
+          }
+        } else if (v.num - s.num !== s.blockSize) {
+          i.filePos = a;
+          continue;
+        }
+        return {
+          num: s.num,
+          blockSize: s.blockSize,
+          sampleRate: s.sampleRate,
+          size: c,
+          isLastFrame: !1
+        };
+      }
+    }
+  }
+  readFlacFrameHeader({ slice: x, isFirstPacket: e }) {
+    const A = x.filePos, r = R(x, 4), F = new N(r);
+    if (F.readBits(15) !== 32764)
+      return null;
+    if (this.blockingBit === null) {
+      d(e);
+      const D = F.readBits(1);
+      this.blockingBit = D;
+    } else if (this.blockingBit === 1) {
+      if (d(!e), F.readBits(1) !== 1)
+        return null;
+    } else if (this.blockingBit === 0) {
+      if (d(!e), F.readBits(1) !== 0)
+        return null;
+    } else
+      throw new Error("Invalid blocking bit");
+    const s = UF(F.readBits(4));
+    if (!s)
+      return null;
+    d(this.audioInfo);
+    const n = gn(F.readBits(4), this.audioInfo.sampleRate);
+    if (!n || (F.readBits(4), F.readBits(3), F.readBits(1) !== 0))
+      return null;
+    const o = OF(x), f = $F(x, s), c = wn(x, n);
+    if (c === null || c !== this.audioInfo.sampleRate)
+      return null;
+    const v = x.filePos - A, u = I(x);
+    x.skip(-v), x.skip(-1);
+    const l = yn(R(x, v));
+    return u !== l ? null : { num: o, blockSize: f, sampleRate: c };
+  }
+  async advanceReader() {
+    await this.readMetadata(), d(this.lastLoadedPos !== null), d(this.audioInfo);
+    const x = this.lastLoadedPos, e = await this.readNextFlacFrame({
+      startPos: x,
+      isFirstPacket: this.loadedSamples.length === 0
+    });
+    if (!e) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+    const A = this.loadedSamples[this.loadedSamples.length - 1], F = {
+      blockOffset: A ? A.blockOffset + A.blockSize : 0,
+      blockSize: e.blockSize,
+      byteOffset: x,
+      byteSize: e.size
+    };
+    if (this.lastLoadedPos = this.lastLoadedPos + e.size, this.loadedSamples.push(F), e.isLastFrame) {
+      this.lastSampleLoaded = !0;
+      return;
+    }
+  }
+}
+class Pn {
+  constructor(x) {
+    this.demuxer = x;
+  }
+  getId() {
+    return 1;
+  }
+  getNumber() {
+    return 1;
+  }
+  getCodec() {
+    return "flac";
+  }
+  getInternalCodecId() {
+    return null;
+  }
+  getNumberOfChannels() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.numberOfChannels;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  getSampleRate() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.sampleRate;
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getTimeResolution() {
+    return d(this.demuxer.audioInfo), this.demuxer.audioInfo.sampleRate;
+  }
+  getDisposition() {
+    return {
+      ...vx
+    };
+  }
+  async getFirstTimestamp() {
+    return 0;
+  }
+  async getDecoderConfig() {
+    return d(this.demuxer.audioInfo), {
+      codec: "flac",
+      numberOfChannels: this.demuxer.audioInfo.numberOfChannels,
+      sampleRate: this.demuxer.audioInfo.sampleRate,
+      description: this.demuxer.audioInfo.description
+    };
+  }
+  async getPacket(x, e) {
+    if (d(this.demuxer.audioInfo), x < 0)
+      throw new Error("Timestamp cannot be negative");
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      for (; ; ) {
+        const r = J(this.demuxer.loadedSamples, x, (n) => n.blockOffset / this.demuxer.audioInfo.sampleRate);
+        if (r === -1) {
+          await this.demuxer.advanceReader();
+          continue;
+        }
+        const F = this.demuxer.loadedSamples[r], i = F.blockOffset / this.demuxer.audioInfo.sampleRate, s = F.blockSize / this.demuxer.audioInfo.sampleRate;
+        if (i + s <= x) {
+          if (this.demuxer.lastSampleLoaded)
+            return this.getPacketAtIndex(this.demuxer.loadedSamples.length - 1, e);
+          await this.demuxer.advanceReader();
+          continue;
+        }
+        return this.getPacketAtIndex(r, e);
+      }
+    } finally {
+      A();
+    }
+  }
+  async getNextPacket(x, e) {
+    const A = await this.demuxer.readingMutex.acquire();
+    try {
+      const r = x.sequenceNumber + 1;
+      if (this.demuxer.lastSampleLoaded && r >= this.demuxer.loadedSamples.length)
+        return null;
+      for (; r >= this.demuxer.loadedSamples.length && !this.demuxer.lastSampleLoaded; )
+        await this.demuxer.advanceReader();
+      return this.getPacketAtIndex(r, e);
+    } finally {
+      A();
+    }
+  }
+  getKeyPacket(x, e) {
+    return this.getPacket(x, e);
+  }
+  getNextKeyPacket(x, e) {
+    return this.getNextPacket(x, e);
+  }
+  async getPacketAtIndex(x, e) {
+    const A = this.demuxer.loadedSamples[x];
+    if (!A)
+      return null;
+    let r;
+    if (e.metadataOnly)
+      r = g0;
+    else {
+      let s = this.demuxer.reader.requestSlice(A.byteOffset, A.byteSize);
+      if (s instanceof Promise && (s = await s), !s)
+        return null;
+      r = R(s, A.byteSize);
+    }
+    d(this.demuxer.audioInfo);
+    const F = A.blockOffset / this.demuxer.audioInfo.sampleRate, i = A.blockSize / this.demuxer.audioInfo.sampleRate;
+    return new X(r, "key", F, i, x, A.byteSize);
+  }
+  async getFirstPacket(x) {
+    for (; this.demuxer.loadedSamples.length === 0 && !this.demuxer.lastSampleLoaded; )
+      await this.demuxer.advanceReader();
+    return this.getPacketAtIndex(0, x);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const q0 = 9e4, l0 = 188, zF = (t) => {
+  let x = "video/MP2T";
+  const e = [...new Set(t.filter(Boolean))];
+  return e.length > 0 && (x += `; codecs="${e.join(", ")}"`), x;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Sn extends lx {
+  constructor(x) {
+    super(x), this.metadataPromise = null, this.elementaryStreams = [], this.tracks = [], this.packetOffset = 0, this.packetStride = -1, this.sectionEndPositions = [], this.seekChunkSize = 5 * 1024 * 1024, this.minReferencePointByteDistance = -1, this.reader = x._reader;
+  }
+  async readMetadata() {
+    return this.metadataPromise ??= (async () => {
+      const x = l0 + 16 + 1;
+      let e = this.reader.requestSlice(0, x);
+      e instanceof Promise && (e = await e), d(e);
+      const A = R(e, x);
+      if (A[0] === 71 && A[l0] === 71)
+        this.packetOffset = 0, this.packetStride = l0;
+      else if (A[0] === 71 && A[l0 + 16] === 71)
+        this.packetOffset = 0, this.packetStride = l0 + 16;
+      else if (A[4] === 71 && A[4 + l0 + 4] === 71)
+        this.packetOffset = 4, this.packetStride = l0 + 4;
+      else
+        throw new Error("Unreachable.");
+      const r = 256;
+      this.minReferencePointByteDistance = r * this.packetStride;
+      let F = this.packetOffset, i = null, s = !1, n = !1;
+      for (; ; ) {
+        const a = await this.readPacketHeader(F);
+        if (!a)
+          break;
+        if (a.payloadUnitStartIndicator === 0) {
+          F += this.packetStride;
+          continue;
+        }
+        const o = await this.readSection(F, !0, !n);
+        if (!o)
+          break;
+        const f = 3, c = 32;
+        let v = !1;
+        if (!n && o.pid !== 0 && !(o.payload[0] === 0 && o.payload[1] === 0 && o.payload[2] === 1)) {
+          const D = new N(o.payload), b = D.readAlignedByte();
+          D.skipBits(8 * b), v = D.readBits(8) === 2;
+        }
+        if (o.pid === 0 && !s) {
+          const l = new N(o.payload), D = l.readAlignedByte();
+          l.skipBits(8 * D), l.skipBits(14);
+          const b = l.readBits(10);
+          for (l.skipBits(40); 8 * (b + f) - l.pos > c; ) {
+            const B = l.readBits(16);
+            if (l.skipBits(3), B !== 0) {
+              if (i !== null)
+                throw new Error("Only files with a single program are supported.");
+              i = l.readBits(13);
+            }
+          }
+          if (i === null)
+            throw new Error("Program Association Table must link to a Program Map Table.");
+          s = !0;
+        } else if ((o.pid === i || v) && !n) {
+          const l = new N(o.payload), D = l.readAlignedByte();
+          l.skipBits(8 * D), l.skipBits(12);
+          const b = l.readBits(12);
+          l.skipBits(43), l.readBits(13), l.skipBits(6);
+          const B = l.readBits(10);
+          for (l.skipBits(8 * B); 8 * (b + f) - l.pos > c; ) {
+            const j = l.readBits(8);
+            l.skipBits(3);
+            const E = l.readBits(13);
+            l.skipBits(6);
+            const h = l.readBits(10), m = l.pos + 8 * h;
+            let k = !1, p = !1;
+            for (; l.pos < m; ) {
+              const q = l.readBits(8), S = l.readBits(8);
+              q === 106 ? k = !0 : (q === 122 || q === 204) && (p = !0), l.skipBits(8 * S);
+            }
+            let g = null;
+            switch (j) {
+              case 3:
+              case 4:
+              case 15:
+                g = {
+                  type: "audio",
+                  codec: j === 15 ? "aac" : "mp3",
+                  aacCodecInfo: null,
+                  numberOfChannels: -1,
+                  sampleRate: -1
+                };
+                break;
+              case 27:
+              case 36:
+                g = {
+                  type: "video",
+                  codec: j === 27 ? "avc" : "hevc",
+                  avcCodecInfo: null,
+                  hevcCodecInfo: null,
+                  colorSpace: {
+                    primaries: null,
+                    transfer: null,
+                    matrix: null,
+                    fullRange: null
+                  },
+                  width: -1,
+                  height: -1,
+                  squarePixelWidth: -1,
+                  squarePixelHeight: -1,
+                  reorderSize: -1
+                };
+                break;
+              case 129:
+                g = {
+                  type: "audio",
+                  codec: "ac3",
+                  aacCodecInfo: null,
+                  numberOfChannels: -1,
+                  sampleRate: -1
+                };
+                break;
+              case 135:
+                g = {
+                  type: "audio",
+                  codec: "eac3",
+                  aacCodecInfo: null,
+                  numberOfChannels: -1,
+                  sampleRate: -1
+                };
+                break;
+              case 6:
+                p ? g = {
+                  type: "audio",
+                  codec: "eac3",
+                  aacCodecInfo: null,
+                  numberOfChannels: -1,
+                  sampleRate: -1
+                } : k && (g = {
+                  type: "audio",
+                  codec: "ac3",
+                  aacCodecInfo: null,
+                  numberOfChannels: -1,
+                  sampleRate: -1
+                });
+                break;
+              default:
+                console.warn(`Unsupported stream_type 0x${j.toString(16)}; ignoring stream.`);
+            }
+            g && this.elementaryStreams.push({
+              demuxer: this,
+              pid: E,
+              streamType: j,
+              initialized: !1,
+              firstSection: null,
+              info: g,
+              referencePesPackets: []
+            });
+          }
+          n = !0;
+        } else {
+          const l = this.elementaryStreams.find((D) => D.pid === o.pid);
+          if (l && !l.initialized) {
+            const D = Ce(o);
+            if (!D)
+              throw new Error(`Couldn't read first PES packet for Elementary Stream with PID ${l.pid}`);
+            if (l.firstSection = o, l.info.type === "video")
+              if (l.info.codec === "avc") {
+                if (l.info.avcCodecInfo = yA(D.data), !l.info.avcCodecInfo)
+                  throw new Error("Invalid AVC video stream; could not extract AVCDecoderConfigurationRecord from first packet.");
+                const b = l.info.avcCodecInfo.sequenceParameterSets[0];
+                d(b);
+                const B = TA(b);
+                l.info.width = B.displayWidth, l.info.height = B.displayHeight, B.pixelAspectRatio.num > B.pixelAspectRatio.den ? (l.info.squarePixelWidth = Math.round(l.info.width * B.pixelAspectRatio.num / B.pixelAspectRatio.den), l.info.squarePixelHeight = l.info.height) : (l.info.squarePixelWidth = l.info.width, l.info.squarePixelHeight = Math.round(l.info.height * B.pixelAspectRatio.den / B.pixelAspectRatio.num)), l.info.colorSpace = {
+                  primaries: Le[B.colourPrimaries],
+                  transfer: Ue[B.transferCharacteristics],
+                  matrix: Oe[B.matrixCoefficients],
+                  fullRange: !!B.fullRangeFlag
+                }, l.info.reorderSize = B.maxDecFrameBuffering, l.initialized = !0;
+              } else if (l.info.codec === "hevc") {
+                if (l.info.hevcCodecInfo = PA(D.data), !l.info.hevcCodecInfo)
+                  throw new Error("Invalid HEVC video stream; could not extract HVCDecoderConfigurationRecord from first packet.");
+                const B = l.info.hevcCodecInfo.arrays.find((E) => E.nalUnitType === A0.SPS_NUT).nalUnits[0];
+                d(B);
+                const j = oF(B);
+                l.info.width = j.displayWidth, l.info.height = j.displayHeight, j.pixelAspectRatio.num > j.pixelAspectRatio.den ? (l.info.squarePixelWidth = Math.round(l.info.width * j.pixelAspectRatio.num / j.pixelAspectRatio.den), l.info.squarePixelHeight = l.info.height) : (l.info.squarePixelWidth = l.info.width, l.info.squarePixelHeight = Math.round(l.info.height * j.pixelAspectRatio.den / j.pixelAspectRatio.num)), l.info.colorSpace = {
+                  primaries: Le[j.colourPrimaries],
+                  transfer: Ue[j.transferCharacteristics],
+                  matrix: Oe[j.matrixCoefficients],
+                  fullRange: !!j.fullRangeFlag
+                }, l.info.reorderSize = j.maxDecFrameBuffering, l.initialized = !0;
+              } else
+                throw new Error("Unhandled.");
+            else if (l.info.codec === "aac") {
+              const b = C0.tempFromBytes(D.data), B = ex(b);
+              if (!B)
+                throw new Error("Invalid AAC audio stream; could not read ADTS frame header from first packet.");
+              l.info.aacCodecInfo = {
+                isMpeg2: !1,
+                objectType: B.objectType
+              }, l.info.numberOfChannels = Ae[B.channelConfiguration], l.info.sampleRate = cx[B.samplingFrequencyIndex], l.initialized = !0;
+            } else if (l.info.codec === "mp3") {
+              const b = T(C0.tempFromBytes(D.data)), B = at(b, D.data.byteLength);
+              if (!B.header)
+                throw new Error("Invalid MP3 audio stream; could not read frame header from first packet.");
+              l.info.numberOfChannels = B.header.channel === 3 ? 1 : 2, l.info.sampleRate = B.header.sampleRate, l.initialized = !0;
+            } else if (l.info.codec === "ac3") {
+              const b = uF(D.data);
+              if (!b)
+                throw new Error("Invalid AC-3 audio stream; could not read sync frame from first packet.");
+              if (b.fscod === 3)
+                throw new Error("Invalid AC-3 audio stream; reserved sample rate code found in first packet.");
+              l.info.numberOfChannels = SA[b.acmod] + b.lfeon, l.info.sampleRate = ot[b.fscod], l.initialized = !0;
+            } else if (l.info.codec === "eac3") {
+              const b = BF(D.data);
+              if (!b)
+                throw new Error("Invalid E-AC-3 audio stream; could not read sync frame from first packet.");
+              const B = bF(b);
+              if (B === null)
+                throw new Error("Invalid E-AC-3 audio stream; reserved sample rate code found in first packet.");
+              l.info.numberOfChannels = CF(b), l.info.sampleRate = B, l.initialized = !0;
+            } else
+              throw new Error("Unhandled.");
+          }
+        }
+        if (n && this.elementaryStreams.every((l) => l.initialized))
+          break;
+        F += this.packetStride;
+      }
+      if (!n)
+        throw s ? new Error("No Program Map Table found in the file.") : new Error("No Program Association Table found in the file.");
+      for (const a of this.elementaryStreams)
+        a.info.type === "video" ? this.tracks.push(new Gx(this.input, new _n(a))) : this.tracks.push(new S0(this.input, new In(a)));
+    })();
+  }
+  async getTracks() {
+    return await this.readMetadata(), this.tracks;
+  }
+  async getMetadataTags() {
+    return {};
+  }
+  async computeDuration() {
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.computeDuration()));
+    return Math.max(0, ...e);
+  }
+  async getMimeType() {
+    await this.readMetadata();
+    const x = await this.getTracks(), e = await Promise.all(x.map((A) => A.getCodecParameterString()));
+    return zF(e);
+  }
+  async readSection(x, e, A = !1) {
+    let r = x, F = x;
+    const i = [];
+    let s = 0, n = null, a = !0, o = 0;
+    for (; ; ) {
+      const c = await this.readPacket(F);
+      if (F += this.packetStride, !c)
+        break;
+      if (n) {
+        if (c.pid !== n.pid) {
+          if (A)
+            break;
+          continue;
+        }
+        if (c.payloadUnitStartIndicator === 1)
+          break;
+      } else {
+        if (c.payloadUnitStartIndicator === 0)
+          break;
+        n = c;
+      }
+      const v = !!(c.adaptationFieldControl & 2), u = !!(c.adaptationFieldControl & 1);
+      let l = 0;
+      if (v && (l = 1 + c.body[0], c === n && l > 1 && (o = c.body[1] >> 6 & 1)), u && (l === 0 ? (i.push(c.body), s += c.body.byteLength) : (i.push(c.body.subarray(l)), s += c.body.byteLength - l)), r = F, !e && s >= 64) {
+        a = !1;
+        break;
+      }
+      if (Pe(this.sectionEndPositions, r, (b) => b) !== -1) {
+        a = !1;
+        break;
+      }
+    }
+    if (a) {
+      const c = J(this.sectionEndPositions, r, (v) => v);
+      this.sectionEndPositions.splice(c + 1, 0, r);
+    }
+    if (!n)
+      return null;
+    let f;
+    if (i.length === 1)
+      f = i[0];
+    else {
+      const c = i.reduce((u, l) => u + l.length, 0);
+      f = new Uint8Array(c);
+      let v = 0;
+      for (const u of i)
+        f.set(u, v), v += u.length;
+    }
+    return {
+      startPos: x,
+      endPos: e ? r : null,
+      pid: n.pid,
+      payload: f,
+      randomAccessIndicator: o
+    };
+  }
+  async readPacketHeader(x) {
+    let e = this.reader.requestSlice(x, 4);
+    if (e instanceof Promise && (e = await e), !e)
+      return null;
+    if (I(e) !== 71)
+      throw new Error("Invalid TS packet sync byte. Likely an internal bug, please report this file.");
+    const r = s0(e), F = r >> 14 & 1, i = r & 8191, n = I(e) >> 4 & 3;
+    return {
+      payloadUnitStartIndicator: F,
+      pid: i,
+      adaptationFieldControl: n
+    };
+  }
+  async readPacket(x) {
+    let e = this.reader.requestSlice(x, l0);
+    if (e instanceof Promise && (e = await e), !e)
+      return null;
+    const A = R(e, l0);
+    if (A[0] !== 71)
+      throw new Error("Invalid TS packet sync byte. Likely an internal bug, please report this file.");
+    const F = (A[1] << 8) + A[2], i = F >> 14 & 1, s = F & 8191, a = A[3] >> 4 & 3;
+    return {
+      payloadUnitStartIndicator: i,
+      pid: s,
+      adaptationFieldControl: a,
+      body: A.subarray(4)
+    };
+  }
+}
+const Ex = (t) => {
+  if (t.payload.byteLength < 3)
+    return null;
+  const x = new N(t.payload);
+  if (x.readBits(24) !== 1)
+    return null;
+  const A = x.readBits(8);
+  if (x.skipBits(16), A === 188 || A === 190 || A === 191 || A === 240 || A === 241 || A === 255 || A === 242 || A === 248)
+    return null;
+  x.skipBits(8);
+  const r = x.readBits(2);
+  x.skipBits(14);
+  let F = 0;
+  if (r === 2 || r === 3)
+    x.skipBits(4), F += x.readBits(3) * (1 << 30), x.skipBits(1), F += x.readBits(15) * 32768, x.skipBits(1), F += x.readBits(15);
+  else
+    throw new Error("PES packets without PTS are not currently supported. If you think this file should be supported, please report it.");
+  return {
+    sectionStartPos: t.startPos,
+    sectionEndPos: t.endPos,
+    pts: F,
+    randomAccessIndicator: t.randomAccessIndicator
+  };
+}, Ce = (t) => {
+  d(t.endPos !== null);
+  const x = Ex(t);
+  if (!x)
+    return null;
+  const e = new N(t.payload);
+  e.skipBits(32);
+  const A = e.readBits(16), r = 6;
+  e.skipBits(16);
+  const F = e.readBits(8), i = e.pos + 8 * F;
+  e.pos = i;
+  const s = i / 8;
+  d(Number.isInteger(s));
+  const n = t.payload.subarray(
+    s,
+    // "A value of 0 indicates that the PES packet length is neither specified nor bounded and is allowed only in
+    // PES packets whose payload consists of bytes from a video elementary stream contained in
+    // transport stream packets."
+    A > 0 ? r + A : t.payload.byteLength
+  );
+  return {
+    ...x,
+    data: n
+  };
+};
+class lt {
+  constructor(x) {
+    this.elementaryStream = x, this.packetBuffers = /* @__PURE__ */ new WeakMap(), this.packetSectionStarts = /* @__PURE__ */ new WeakMap();
+  }
+  getId() {
+    return this.elementaryStream.pid;
+  }
+  getNumber() {
+    const x = this.elementaryStream.demuxer, e = this.elementaryStream.info.type;
+    let A = 0;
+    for (const r of x.tracks)
+      if (r.type === e && A++, d(r._backing instanceof lt), r._backing.elementaryStream === this.elementaryStream)
+        break;
+    return A;
+  }
+  getCodec() {
+    throw new Error("Not implemented on base class.");
+  }
+  getInternalCodecId() {
+    return this.elementaryStream.streamType;
+  }
+  getName() {
+    return null;
+  }
+  getLanguageCode() {
+    return b0;
+  }
+  getDisposition() {
+    return vx;
+  }
+  getTimeResolution() {
+    return q0;
+  }
+  async computeDuration() {
+    const x = await this.getPacket(1 / 0, { metadataOnly: !0 });
+    return (x?.timestamp ?? 0) + (x?.duration ?? 0);
+  }
+  async getFirstTimestamp() {
+    return (await this.getFirstPacket({ metadataOnly: !0 }))?.timestamp ?? 0;
+  }
+  createEncodedPacket(x, e, A) {
+    let r;
+    return this.allPacketsAreKeyPackets() ? r = "key" : r = x.randomAccessIndicator === 1 ? "key" : "delta", new X(A.metadataOnly ? g0 : x.data, r, x.pts / q0, Math.max(e / q0, 0), x.sequenceNumber, x.data.byteLength);
+  }
+  async getFirstPacket(x) {
+    const e = this.elementaryStream.firstSection;
+    d(e);
+    const A = Ce(e);
+    d(A);
+    const r = new je(this.elementaryStream, A), F = new It(this, r), i = await F.readNext();
+    if (!i)
+      return null;
+    const s = this.createEncodedPacket(i.packet, i.duration, x);
+    return this.packetBuffers.set(s, F), this.packetSectionStarts.set(s, i.packet.sectionStartPos), s;
+  }
+  async getNextPacket(x, e) {
+    let A = this.packetBuffers.get(x);
+    if (A) {
+      const o = await A.readNext();
+      if (!o)
+        return null;
+      this.packetBuffers.delete(x);
+      const f = this.createEncodedPacket(o.packet, o.duration, e);
+      return this.packetBuffers.set(f, A), this.packetSectionStarts.set(f, o.packet.sectionStartPos), f;
+    }
+    const r = this.packetSectionStarts.get(x);
+    if (r === void 0)
+      throw new Error("Packet was not created from this track.");
+    const i = await this.elementaryStream.demuxer.readSection(r, !0);
+    d(i);
+    const s = Ce(i);
+    d(s);
+    const n = new je(this.elementaryStream, s);
+    A = new It(this, n);
+    const a = x.sequenceNumber;
+    for (; ; ) {
+      const o = await A.readNext();
+      if (!o)
+        return null;
+      if (o.packet.sequenceNumber > a) {
+        const f = this.createEncodedPacket(o.packet, o.duration, e);
+        return this.packetBuffers.set(f, A), this.packetSectionStarts.set(f, o.packet.sectionStartPos), f;
+      }
+    }
+  }
+  async getNextKeyPacket(x, e) {
+    let A = x;
+    for (; ; ) {
+      if (A = await this.getNextPacket(A, e), !A)
+        return null;
+      if (A.type === "key")
+        return A;
+    }
+  }
+  getPacket(x, e) {
+    return this.doPacketLookup(x, !1, e);
+  }
+  getKeyPacket(x, e) {
+    return this.doPacketLookup(x, !0, e);
+  }
+  /**
+   * Searches for the packet with the largest timestamp not larger than `timestamp` in the file, using a combination
+   * of chunk-based binary search and linear refinement. The reason the coarse search is done in large chunks is to
+   * make it more performant for small files and over high-latency readers such as the network.
+   */
+  async doPacketLookup(x, e, A) {
+    const r = Ee(x * q0), F = this.elementaryStream.demuxer, { reader: i, seekChunkSize: s } = F, n = this.elementaryStream.pid, a = async (j, E) => {
+      let h = j;
+      for (; h < E; ) {
+        const m = await F.readPacketHeader(h);
+        if (!m)
+          return null;
+        if (m.pid === n && m.payloadUnitStartIndicator === 1) {
+          const k = await F.readSection(h, !1);
+          if (!k)
+            return null;
+          const p = Ex(k);
+          if (p)
+            return p;
+        }
+        h += F.packetStride;
+      }
+      return null;
+    }, o = this.elementaryStream.firstSection;
+    d(o);
+    const f = Ex(o);
+    if (d(f), r < f.pts)
+      return null;
+    let c;
+    const v = this.elementaryStream.referencePesPackets, u = J(v, r, (j) => j.pts), l = u !== -1 ? v[u] : null;
+    if (l && r - l.pts < q0 / 2)
+      c = l.sectionStartPos;
+    else {
+      let j = 0;
+      if (i.fileSize !== null) {
+        const E = Math.ceil(i.fileSize / s);
+        if (E > 1) {
+          let h = 0, m = E - 1;
+          for (j = h; h <= m; ) {
+            const k = Math.floor((h + m) / 2), p = jt(k * s, F.packetStride) + f.sectionStartPos, g = p + s, q = await a(p, g);
+            if (!q) {
+              m = k - 1;
+              continue;
+            }
+            q.pts <= r ? (j = k, h = k + 1) : m = k - 1;
+          }
+        }
+      }
+      c = jt(j * s, F.packetStride) + f.sectionStartPos;
+    }
+    let D = await a(c, i.fileSize ?? 1 / 0);
+    D || (D = f);
+    const b = this.getReorderSize(), B = async (j, E) => {
+      const h = await F.readSection(j, !0);
+      d(h);
+      const m = Ce(h);
+      d(m);
+      const k = new je(this.elementaryStream, m), p = new It(this, k);
+      for (; !((x0(p.presentationOrderPackets)?.pts ?? -1 / 0) >= r || !await p.readNextPacket()); )
+        ;
+      const g = jA(p.presentationOrderPackets, E);
+      if (g === -1)
+        return null;
+      const q = p.presentationOrderPackets[g], S = g === 0 ? 0 : q.pts - p.presentationOrderPackets[g - 1].pts;
+      for (; p.decodeOrderPackets[0] !== q; )
+        p.decodeOrderPackets.shift();
+      p.lastDuration = S;
+      const P = await p.readNext();
+      d(P);
+      const _ = this.createEncodedPacket(P.packet, P.duration, A);
+      return this.packetBuffers.set(_, p), this.packetSectionStarts.set(_, P.packet.sectionStartPos), _;
+    };
+    if (!e || this.allPacketsAreKeyPackets()) {
+      x: for (; ; ) {
+        let j = D.sectionStartPos + F.packetStride;
+        for (; ; ) {
+          const E = await F.readPacketHeader(j);
+          if (!E)
+            break x;
+          if (E.pid === n && E.payloadUnitStartIndicator === 1) {
+            const h = await F.readSection(j, !1);
+            if (h) {
+              const m = Ex(h);
+              if (m) {
+                if (m.pts > r)
+                  break x;
+                D = m, sA(this.elementaryStream, m);
+                break;
+              }
+            }
+          }
+          j += F.packetStride;
+        }
+      }
+      x: for (let j = 0; j < b; j++) {
+        let E = D.sectionStartPos - F.packetStride;
+        for (; E >= F.packetOffset; ) {
+          const h = await F.readPacketHeader(E);
+          if (!h)
+            break x;
+          if (h.pid === n && h.payloadUnitStartIndicator === 1) {
+            const m = await F.readSection(E, !1);
+            if (m) {
+              const k = Ex(m);
+              if (k) {
+                D = k;
+                break;
+              }
+            }
+          }
+          E -= F.packetStride;
+        }
+      }
+      return B(D.sectionStartPos, (j) => j.pts <= r);
+    } else {
+      let j = c, E = null;
+      for (; ; ) {
+        let h = null;
+        const m = j <= f.sectionStartPos;
+        let k;
+        m ? (k = f, h = f) : k = await a(j, i.fileSize ?? 1 / 0);
+        let p = !1, g = 0;
+        x: for (; k && !(E !== null && k.sectionStartPos >= E || (k.randomAccessIndicator === 1 && k.pts <= r && (h = k), k.pts > r && (p = !0), p && (g++, g >= b))); ) {
+          let S = k.sectionStartPos + F.packetStride;
+          for (; ; ) {
+            const P = await F.readPacketHeader(S);
+            if (!P)
+              break x;
+            if (P.pid === n && P.payloadUnitStartIndicator === 1) {
+              const _ = await F.readSection(S, !1);
+              if (_ && (k = Ex(_), k)) {
+                sA(this.elementaryStream, k);
+                break;
+              }
+            }
+            S += F.packetStride;
+          }
+        }
+        if (h) {
+          let q = h;
+          if (g === 0)
+            x: for (let P = 0; P < b - 1; P++) {
+              let _ = q.sectionStartPos - F.packetStride;
+              for (; _ >= F.packetOffset; ) {
+                const z = await F.readPacketHeader(_);
+                if (!z)
+                  break x;
+                if (z.pid === n && z.payloadUnitStartIndicator === 1) {
+                  const H = await F.readSection(_, !1);
+                  if (H) {
+                    const O = Ex(H);
+                    if (O) {
+                      q = O;
+                      break;
+                    }
+                  }
+                }
+                _ -= F.packetStride;
+              }
+            }
+          const S = await B(q.sectionStartPos, (P) => P.pts <= r && P.randomAccessIndicator === 1);
+          return d(S), S;
+        }
+        d(!m), E = j, j = Math.max(jt(j - f.sectionStartPos - s, F.packetStride) + f.sectionStartPos, f.sectionStartPos);
+      }
+    }
+  }
+}
+class _n extends lt {
+  constructor(x) {
+    super(x), this.elementaryStream = x, this.decoderConfig = {
+      codec: mA({
+        width: this.elementaryStream.info.width,
+        height: this.elementaryStream.info.height,
+        codec: this.elementaryStream.info.codec,
+        codecDescription: null,
+        colorSpace: this.elementaryStream.info.colorSpace,
+        avcType: 1,
+        avcCodecInfo: this.elementaryStream.info.avcCodecInfo,
+        hevcCodecInfo: this.elementaryStream.info.hevcCodecInfo,
+        vp9CodecInfo: null,
+        av1CodecInfo: null
+      }),
+      codedWidth: this.elementaryStream.info.width,
+      codedHeight: this.elementaryStream.info.height,
+      displayAspectWidth: this.elementaryStream.info.squarePixelWidth,
+      displayAspectHeight: this.elementaryStream.info.squarePixelHeight,
+      colorSpace: this.elementaryStream.info.colorSpace
+    };
+  }
+  getCodec() {
+    return this.elementaryStream.info.codec;
+  }
+  getCodedWidth() {
+    return this.elementaryStream.info.width;
+  }
+  getCodedHeight() {
+    return this.elementaryStream.info.height;
+  }
+  getSquarePixelWidth() {
+    return this.elementaryStream.info.squarePixelWidth;
+  }
+  getSquarePixelHeight() {
+    return this.elementaryStream.info.squarePixelHeight;
+  }
+  getRotation() {
+    return 0;
+  }
+  async getColorSpace() {
+    return this.elementaryStream.info.colorSpace;
+  }
+  async canBeTransparent() {
+    return !1;
+  }
+  async getDecoderConfig() {
+    return this.decoderConfig;
+  }
+  allPacketsAreKeyPackets() {
+    return !1;
+  }
+  getReorderSize() {
+    return this.elementaryStream.info.reorderSize;
+  }
+}
+class In extends lt {
+  constructor(x) {
+    super(x), this.elementaryStream = x;
+  }
+  getCodec() {
+    return this.elementaryStream.info.codec;
+  }
+  getNumberOfChannels() {
+    return this.elementaryStream.info.numberOfChannels;
+  }
+  getSampleRate() {
+    return this.elementaryStream.info.sampleRate;
+  }
+  async getDecoderConfig() {
+    return {
+      codec: pA({
+        codec: this.elementaryStream.info.codec,
+        codecDescription: null,
+        aacCodecInfo: this.elementaryStream.info.aacCodecInfo
+      }),
+      numberOfChannels: this.elementaryStream.info.numberOfChannels,
+      sampleRate: this.elementaryStream.info.sampleRate
+    };
+  }
+  allPacketsAreKeyPackets() {
+    return !0;
+  }
+  getReorderSize() {
+    return 1;
+  }
+}
+const sA = (t, x) => {
+  const e = t.referencePesPackets, A = J(e, x.sectionStartPos, (r) => r.sectionStartPos);
+  if (A >= 0) {
+    const r = e[A];
+    if (x.pts <= r.pts)
+      return !1;
+    const F = t.demuxer.minReferencePointByteDistance;
+    if (x.sectionStartPos - r.sectionStartPos < F)
+      return !1;
+    if (A < e.length - 1) {
+      const i = e[A + 1];
+      if (i.pts < x.pts || i.sectionStartPos - x.sectionStartPos < F)
+        return !1;
+    }
+  }
+  return e.splice(A + 1, 0, x), !0;
+}, qn = async (t) => {
+  d(!t.suppliedPacket);
+  const x = t.elementaryStream;
+  if (x.info.type === "video") {
+    const e = x.info.codec, A = 1024;
+    if (e !== "avc" && e !== "hevc")
+      throw new Error("Unhandled.");
+    let r = null;
+    for (; ; ) {
+      let F = t.ensureBuffered(A);
+      if (F instanceof Promise && (F = await F), F === 0)
+        break;
+      const i = t.currentPos, s = t.readBytes(F), n = s.byteLength;
+      let a = 0;
+      for (; a < n; ) {
+        const o = s.indexOf(0, a);
+        if (o === -1 || o >= n)
+          break;
+        a = o;
+        const f = i + a;
+        if (a + 4 >= n) {
+          t.seekTo(f);
+          break;
+        }
+        const c = s[a + 1], v = s[a + 2], u = s[a + 3];
+        let l = 0, D = null;
+        if (c === 0 && v === 0 && u === 1 ? (l = 4, D = s[a + 4]) : c === 0 && v === 1 && (l = 3, D = u), l === 0) {
+          a++;
+          continue;
+        }
+        const b = f;
+        if (r === null) {
+          r = b, a += l;
+          continue;
+        }
+        if (D !== null) {
+          const B = e === "avc" ? Yx(D) : Tx(D);
+          if (e === "avc" ? B === T0.AUD : B === A0.AUD_NUT) {
+            const E = b - r;
+            return t.seekTo(r), t.supplyPacket(E, 0);
+          }
+        }
+        a += l;
+      }
+      if (F < A)
+        break;
+    }
+    if (r !== null) {
+      const F = t.endPos - r;
+      return t.seekTo(r), t.supplyPacket(F, 0);
+    }
+  } else {
+    const e = x.info.codec, A = 128;
+    for (; ; ) {
+      let r = t.ensureBuffered(A);
+      r instanceof Promise && (r = await r);
+      const F = t.currentPos;
+      for (; t.currentPos - F < r; ) {
+        const i = t.readU8();
+        if (e === "aac") {
+          if (i !== 255)
+            continue;
+          t.skip(-1);
+          const s = t.currentPos;
+          let n = t.ensureBuffered(fx);
+          if (n instanceof Promise && (n = await n), n < fx)
+            return;
+          const a = t.readBytes(fx), o = ex(C0.tempFromBytes(a));
+          if (o) {
+            t.seekTo(s);
+            let f = t.ensureBuffered(o.frameLength);
+            return f instanceof Promise && (f = await f), t.supplyPacket(f, Math.round(Qe * q0 / x.info.sampleRate));
+          } else
+            t.seekTo(s + 1);
+        } else if (e === "mp3") {
+          if (i !== 255)
+            continue;
+          t.skip(-1);
+          const s = t.currentPos;
+          let n = t.ensureBuffered(De);
+          if (n instanceof Promise && (n = await n), n < De)
+            return;
+          const a = t.readBytes(De), o = U(a).getUint32(0), f = at(o, null);
+          if (f.header) {
+            t.seekTo(s);
+            let c = t.ensureBuffered(f.header.totalSize);
+            c instanceof Promise && (c = await c);
+            const v = f.header.audioSamplesInFrame * q0 / x.info.sampleRate;
+            return t.supplyPacket(c, Math.round(v));
+          } else
+            t.seekTo(s + 1);
+        } else if (e === "ac3") {
+          if (i !== 11)
+            continue;
+          t.skip(-1);
+          const s = t.currentPos;
+          let n = t.ensureBuffered(5);
+          if (n instanceof Promise && (n = await n), n < 5)
+            return;
+          const a = t.readBytes(5);
+          if (a[0] !== 11 || a[1] !== 119) {
+            t.seekTo(s + 1);
+            continue;
+          }
+          const o = a[4] >> 6, f = a[4] & 63;
+          if (o === 3 || f > 37) {
+            t.seekTo(s + 1);
+            continue;
+          }
+          const c = Rs[3 * f + o];
+          d(c !== void 0), t.seekTo(s), n = t.ensureBuffered(c), n instanceof Promise && (n = await n);
+          const v = Math.round(Hs * q0 / x.info.sampleRate);
+          return t.supplyPacket(n, v);
+        } else if (e === "eac3") {
+          if (i !== 11)
+            continue;
+          t.skip(-1);
+          const s = t.currentPos;
+          let n = t.ensureBuffered(5);
+          if (n instanceof Promise && (n = await n), n < 5)
+            return;
+          const a = t.readBytes(5);
+          if (a[0] !== 11 || a[1] !== 119) {
+            t.seekTo(s + 1);
+            continue;
+          }
+          const f = (((a[2] & 7) << 8 | a[3]) + 1) * 2, v = a[4] >> 6 === 3 ? 3 : a[4] >> 4 & 3, u = DF[v];
+          t.seekTo(s), n = t.ensureBuffered(f), n instanceof Promise && (n = await n);
+          const l = u * 256, D = Math.round(l * q0 / x.info.sampleRate);
+          return t.supplyPacket(n, D);
+        } else
+          throw new Error("Unhandled.");
+      }
+      if (r < A)
+        break;
+    }
+  }
+};
+class je {
+  constructor(x, e) {
+    this.currentPos = 0, this.pesPackets = [], this.currentPesPacketIndex = 0, this.currentPesPacketPos = 0, this.endPos = 0, this.nextPts = 0, this.suppliedPacket = null, this.elementaryStream = x, this.pid = x.pid, this.demuxer = x.demuxer, this.startingPesPacket = e;
+  }
+  clone() {
+    const x = new je(this.elementaryStream, this.startingPesPacket);
+    return x.currentPos = this.currentPos, x.pesPackets = [...this.pesPackets], x.currentPesPacketIndex = this.currentPesPacketIndex, x.currentPesPacketPos = this.currentPesPacketPos, x.endPos = this.endPos, x.nextPts = this.nextPts, x;
+  }
+  ensureBuffered(x) {
+    const e = this.endPos - this.currentPos;
+    return e >= x ? x : this.bufferData(x - e).then(() => Math.min(this.endPos - this.currentPos, x));
+  }
+  getCurrentPesPacket() {
+    const x = this.pesPackets[this.currentPesPacketIndex];
+    return d(x), x;
+  }
+  async bufferData(x) {
+    const e = this.endPos + x;
+    for (; this.endPos < e; ) {
+      let A;
+      if (this.pesPackets.length === 0)
+        A = this.startingPesPacket;
+      else {
+        let r = x0(this.pesPackets).sectionEndPos;
+        for (d(r !== null); ; ) {
+          const F = await this.demuxer.readPacketHeader(r);
+          if (!F)
+            return;
+          if (F.pid === this.pid) {
+            const i = await this.demuxer.readSection(r, !0);
+            if (!i)
+              return;
+            const s = Ce(i);
+            if (s) {
+              A = s;
+              break;
+            }
+          }
+          r += this.demuxer.packetStride;
+        }
+      }
+      this.pesPackets.push(A), this.endPos += A.data.byteLength, this.pesPackets.length === 1 && (this.nextPts = A.pts);
+    }
+  }
+  readBytes(x) {
+    const e = this.getCurrentPesPacket(), A = this.currentPos - this.currentPesPacketPos, r = A + x;
+    if (this.currentPos += x, r <= e.data.byteLength)
+      return e.data.subarray(A, r);
+    const F = new Uint8Array(x);
+    F.set(e.data.subarray(A));
+    let i = e.data.byteLength - A;
+    for (; ; ) {
+      this.advanceCurrentPacket();
+      const s = this.getCurrentPesPacket(), n = x - i;
+      if (n <= s.data.byteLength) {
+        F.set(s.data.subarray(0, n), i);
+        break;
+      }
+      F.set(s.data, i), i += s.data.byteLength;
+    }
+    return F;
+  }
+  readU8() {
+    let x = this.getCurrentPesPacket();
+    const e = this.currentPos - this.currentPesPacketPos;
+    return this.currentPos++, e < x.data.byteLength ? x.data[e] : (this.advanceCurrentPacket(), x = this.getCurrentPesPacket(), x.data[0]);
+  }
+  seekTo(x) {
+    if (x !== this.currentPos) {
+      if (x < this.currentPos)
+        for (; x < this.currentPesPacketPos; ) {
+          this.currentPesPacketIndex--;
+          const e = this.getCurrentPesPacket();
+          this.currentPesPacketPos -= e.data.byteLength, this.nextPts = e.pts;
+        }
+      else
+        for (; ; ) {
+          const e = this.getCurrentPesPacket(), A = this.currentPesPacketPos + e.data.byteLength;
+          if (x < A)
+            break;
+          this.currentPesPacketPos += e.data.byteLength, this.currentPesPacketIndex++, this.nextPts = this.getCurrentPesPacket().pts;
+        }
+      this.currentPos = x;
+    }
+  }
+  skip(x) {
+    this.seekTo(this.currentPos + x);
+  }
+  advanceCurrentPacket() {
+    this.currentPesPacketPos += this.getCurrentPesPacket().data.byteLength, this.currentPesPacketIndex++, this.nextPts = this.getCurrentPesPacket().pts;
+  }
+  /** Supplies the context with a new encoded packet, beginning at the current position. */
+  supplyPacket(x, e) {
+    const A = this.getCurrentPesPacket();
+    sA(this.elementaryStream, A);
+    const r = this.nextPts;
+    this.nextPts += e;
+    const F = A.sectionStartPos, i = F + (this.currentPos - this.currentPesPacketPos), s = this.readBytes(x);
+    let n = A.randomAccessIndicator;
+    d(this.elementaryStream.firstSection), A.sectionStartPos === this.elementaryStream.firstSection.startPos && (n = 1), this.suppliedPacket = {
+      pts: r,
+      data: s,
+      sequenceNumber: i,
+      sectionStartPos: F,
+      randomAccessIndicator: n
+    }, this.pesPackets.splice(0, this.currentPesPacketIndex), this.currentPesPacketIndex = 0;
+  }
+}
+class It {
+  constructor(x, e) {
+    this.decodeOrderPackets = [], this.reorderBuffer = [], this.presentationOrderPackets = [], this.reachedEnd = !1, this.lastDuration = 0, this.backing = x, this.context = e, this.reorderSize = x.getReorderSize(), d(this.reorderSize >= 0);
+  }
+  async readNext() {
+    if (this.decodeOrderPackets.length === 0 && !await this.readNextPacket())
+      return null;
+    await this.ensureCurrentPacketHasNext();
+    const x = this.decodeOrderPackets[0], e = this.presentationOrderPackets.indexOf(x);
+    d(e !== -1);
+    let A;
+    for (e === this.presentationOrderPackets.length - 1 ? A = this.lastDuration : (A = this.presentationOrderPackets[e + 1].pts - x.pts, this.lastDuration = A), this.decodeOrderPackets.shift(); this.presentationOrderPackets.length > 0; ) {
+      const r = this.presentationOrderPackets[0];
+      if (this.decodeOrderPackets.includes(r))
+        break;
+      this.presentationOrderPackets.shift();
+    }
+    return { packet: x, duration: A };
+  }
+  async readNextPacket() {
+    if (this.reachedEnd)
+      return !1;
+    let x;
+    return this.context.suppliedPacket ? x = this.context.suppliedPacket : (await qn(this.context), x = this.context.suppliedPacket), this.context.suppliedPacket = null, x ? (this.decodeOrderPackets.push(x), this.processPacketThroughReorderBuffer(x), !0) : (this.reachedEnd = !0, this.flushReorderBuffer(), !1);
+  }
+  async ensureCurrentPacketHasNext() {
+    const x = this.decodeOrderPackets[0];
+    for (d(x); ; ) {
+      const e = this.presentationOrderPackets.indexOf(x);
+      if (e !== -1 && e <= this.presentationOrderPackets.length - 2 || !await this.readNextPacket())
+        break;
+    }
+  }
+  processPacketThroughReorderBuffer(x) {
+    if (this.reorderBuffer.push(x), this.reorderBuffer.length >= this.reorderSize) {
+      let e = 0;
+      for (let r = 1; r < this.reorderBuffer.length; r++)
+        this.reorderBuffer[r].pts < this.reorderBuffer[e].pts && (e = r);
+      const A = this.reorderBuffer.splice(e, 1)[0];
+      this.presentationOrderPackets.push(A);
+    }
+  }
+  flushReorderBuffer() {
+    this.reorderBuffer.sort((x, e) => x.pts - e.pts), this.presentationOrderPackets.push(...this.reorderBuffer), this.reorderBuffer.length = 0;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class $0 {
+}
+class LA extends $0 {
+  /** @internal */
+  async _getMajorBrand(x) {
+    let e = x._reader.requestSlice(0, 12);
+    return e instanceof Promise && (e = await e), !e || (e.skip(4), a0(e, 4) !== "ftyp") ? null : a0(e, 4);
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new tn(x);
+  }
+}
+class VF extends LA {
+  /** @internal */
+  async _canReadInput(x) {
+    const e = await this._getMajorBrand(x);
+    return !!e && e !== "qt  ";
+  }
+  get name() {
+    return "MP4";
+  }
+  get mimeType() {
+    return "video/mp4";
+  }
+}
+class KF extends LA {
+  /** @internal */
+  async _canReadInput(x) {
+    return await this._getMajorBrand(x) === "qt  ";
+  }
+  get name() {
+    return "QuickTime File Format";
+  }
+  get mimeType() {
+    return "video/quicktime";
+  }
+}
+class UA extends $0 {
+  /** @internal */
+  async isSupportedEBMLOfDocType(x, e) {
+    let A = x._reader.requestSlice(0, Q0);
+    if (A instanceof Promise && (A = await A), !A)
+      return !1;
+    const r = PF(A);
+    if (r === null || r < 1 || r > 8 || L(A, r) !== C.EBML)
+      return !1;
+    const i = SF(A);
+    if (typeof i != "number")
+      return !1;
+    let s = x._reader.requestSlice(A.filePos, i);
+    if (s instanceof Promise && (s = await s), !s)
+      return !1;
+    const n = A.filePos;
+    for (; s.filePos <= n + i - y0; ) {
+      const a = W0(s);
+      if (!a)
+        break;
+      const { id: o, size: f } = a, c = s.filePos;
+      if (f === void 0)
+        return !1;
+      switch (o) {
+        case C.EBMLVersion:
+          if (L(s, f) !== 1)
+            return !1;
+          break;
+        case C.EBMLReadVersion:
+          if (L(s, f) !== 1)
+            return !1;
+          break;
+        case C.DocType:
+          if (Ox(s, f) !== e)
+            return !1;
+          break;
+        case C.DocTypeVersion:
+          if (L(s, f) > 4)
+            return !1;
+          break;
+      }
+      s.filePos = c + f;
+    }
+    return !0;
+  }
+  /** @internal */
+  _canReadInput(x) {
+    return this.isSupportedEBMLOfDocType(x, "matroska");
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new ln(x);
+  }
+  get name() {
+    return "Matroska";
+  }
+  get mimeType() {
+    return "video/x-matroska";
+  }
+}
+class WF extends UA {
+  /** @internal */
+  _canReadInput(x) {
+    return this.isSupportedEBMLOfDocType(x, "webm");
+  }
+  get name() {
+    return "WebM";
+  }
+  get mimeType() {
+    return "video/webm";
+  }
+}
+class JF extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    let e = 0;
+    for (; ; ) {
+      let f = x._reader.requestSlice(e, tx);
+      if (f instanceof Promise && (f = await f), !f)
+        break;
+      const c = Px(f);
+      if (!c)
+        break;
+      e = f.filePos + c.size;
+    }
+    const A = await iA(x._reader, e, e + 4096);
+    if (!A)
+      return !1;
+    const r = A.header, F = nt(r.mpegVersionId, r.channel);
+    let i = x._reader.requestSlice(A.startPos + F, 4);
+    if (i instanceof Promise && (i = await i), !i)
+      return !1;
+    const s = T(i);
+    if (s === st || s === gA)
+      return !0;
+    e = A.startPos + A.header.totalSize;
+    const a = await iA(x._reader, e, e + De);
+    if (!a)
+      return !1;
+    const o = a.header;
+    return !(r.channel !== o.channel || r.sampleRate !== o.sampleRate);
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new Dn(x);
+  }
+  get name() {
+    return "MP3";
+  }
+  get mimeType() {
+    return "audio/mpeg";
+  }
+}
+class XF extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    let e = x._reader.requestSlice(0, 12);
+    if (e instanceof Promise && (e = await e), !e)
+      return !1;
+    const A = a0(e, 4);
+    return A !== "RIFF" && A !== "RIFX" && A !== "RF64" ? !1 : (e.skip(4), a0(e, 4) === "WAVE");
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new hn(x);
+  }
+  get name() {
+    return "WAVE";
+  }
+  get mimeType() {
+    return "audio/wav";
+  }
+}
+class QF extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    let e = x._reader.requestSlice(0, 4);
+    return e instanceof Promise && (e = await e), e ? a0(e, 4) === "OggS" : !1;
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new jn(x);
+  }
+  get name() {
+    return "Ogg";
+  }
+  get mimeType() {
+    return "application/ogg";
+  }
+}
+class YF extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    let e = x._reader.requestSlice(0, 4);
+    return e instanceof Promise && (e = await e), e ? a0(e, 4) === "fLaC" : !1;
+  }
+  get name() {
+    return "FLAC";
+  }
+  get mimeType() {
+    return "audio/flac";
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new Tn(x);
+  }
+}
+class ZF extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    let e = 0;
+    for (; ; ) {
+      let i = x._reader.requestSlice(e, tx);
+      if (i instanceof Promise && (i = await i), !i)
+        break;
+      const s = Px(i);
+      if (!s)
+        break;
+      e = i.filePos + s.size;
+    }
+    let A = x._reader.requestSliceRange(e, ye, fx);
+    if (A instanceof Promise && (A = await A), !A)
+      return !1;
+    const r = ex(A);
+    if (!r || (e += r.frameLength, A = x._reader.requestSliceRange(e, ye, fx), A instanceof Promise && (A = await A), !A))
+      return !1;
+    const F = ex(A);
+    return F ? r.objectType === F.objectType && r.samplingFrequencyIndex === F.samplingFrequencyIndex && r.channelConfiguration === F.channelConfiguration : !1;
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new pn(x);
+  }
+  get name() {
+    return "ADTS";
+  }
+  get mimeType() {
+    return "audio/aac";
+  }
+}
+class xi extends $0 {
+  /** @internal */
+  async _canReadInput(x) {
+    const e = l0 + 16 + 1;
+    let A = x._reader.requestSlice(0, e);
+    if (A instanceof Promise && (A = await A), !A)
+      return !1;
+    const r = R(A, e);
+    return r[0] === 71 && r[l0] === 71 || r[0] === 71 && r[l0 + 16] === 71 ? !0 : r[4] === 71 && r[4 + l0 + 4] === 71;
+  }
+  /** @internal */
+  _createDemuxer(x) {
+    return new Sn(x);
+  }
+  get name() {
+    return "MPEG Transport Stream";
+  }
+  get mimeType() {
+    return "video/MP2T";
+  }
+}
+const ei = /* @__PURE__ */ new VF(), ti = /* @__PURE__ */ new KF(), Ai = /* @__PURE__ */ new UA(), ri = /* @__PURE__ */ new WF(), Fi = /* @__PURE__ */ new JF(), ii = /* @__PURE__ */ new XF(), si = /* @__PURE__ */ new QF(), ni = /* @__PURE__ */ new ZF(), ai = /* @__PURE__ */ new YF(), oi = /* @__PURE__ */ new xi(), Mn = [ei, ti, Ai, ri, ii, si, ai, Fi, ni, oi];
+var Gn = {}, Te = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  default: Gn
+});
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Rn = typeof Te < "u" ? Te : void 0;
+class dx {
+  constructor() {
+    this._disposed = !1, this._sizePromise = null, this.onread = null;
+  }
+  /**
+   * Resolves with the total size of the file in bytes. This function is memoized, meaning only the first call
+   * will retrieve the size.
+   *
+   * Returns null if the source is unsized.
+   */
+  async getSizeOrNull() {
+    if (this._disposed)
+      throw new B0();
+    return this._sizePromise ??= Promise.resolve(this._retrieveSize());
+  }
+  /**
+   * Resolves with the total size of the file in bytes. This function is memoized, meaning only the first call
+   * will retrieve the size.
+   *
+   * Throws an error if the source is unsized.
+   */
+  async getSize() {
+    if (this._disposed)
+      throw new B0();
+    const x = await this.getSizeOrNull();
+    if (x === null)
+      throw new Error("Cannot determine the size of an unsized source.");
+    return x;
+  }
+}
+class Hn extends dx {
+  /**
+   * Creates a new {@link BufferSource} backed by the specified `ArrayBuffer`, `SharedArrayBuffer`,
+   * or `ArrayBufferView`.
+   */
+  constructor(x) {
+    if (!(x instanceof ArrayBuffer) && !(typeof SharedArrayBuffer < "u" && x instanceof SharedArrayBuffer) && !ArrayBuffer.isView(x))
+      throw new TypeError("buffer must be an ArrayBuffer, SharedArrayBuffer, or ArrayBufferView.");
+    super(), this._onreadCalled = !1, this._bytes = Q(x), this._view = U(x);
+  }
+  /** @internal */
+  _retrieveSize() {
+    return this._bytes.byteLength;
+  }
+  /** @internal */
+  _read() {
+    return this._onreadCalled || (this.onread?.(0, this._bytes.byteLength), this._onreadCalled = !0), {
+      bytes: this._bytes,
+      view: this._view,
+      offset: 0
+    };
+  }
+  /** @internal */
+  _dispose() {
+  }
+}
+class Nn extends dx {
+  /**
+   * Creates a new {@link BlobSource} backed by the specified
+   * [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+   */
+  constructor(x, e = {}) {
+    if (!(x instanceof Blob))
+      throw new TypeError("blob must be a Blob.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (e.maxCacheSize !== void 0 && (!te(e.maxCacheSize) || e.maxCacheSize < 0))
+      throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
+    super(), this._readers = /* @__PURE__ */ new WeakMap(), this._blob = x, this._orchestrator = new $A({
+      maxCacheSize: e.maxCacheSize ?? 8 * 2 ** 20,
+      maxWorkerCount: 4,
+      runWorker: this._runWorker.bind(this),
+      prefetchProfile: OA.fileSystem
+    });
+  }
+  /** @internal */
+  _retrieveSize() {
+    const x = this._blob.size;
+    return this._orchestrator.fileSize = x, x;
+  }
+  /** @internal */
+  _read(x, e) {
+    return this._orchestrator.read(x, e);
+  }
+  /** @internal */
+  async _runWorker(x) {
+    let e = this._readers.get(x);
+    for (e === void 0 && ("stream" in this._blob && !ue() ? e = this._blob.slice(x.currentPos).stream().getReader() : e = null, this._readers.set(x, e)); x.currentPos < x.targetPos && !x.aborted; )
+      if (e) {
+        const { done: A, value: r } = await e.read();
+        if (A)
+          throw this._orchestrator.forgetWorker(x), new Error("Blob reader stopped unexpectedly before all requested data was read.");
+        if (x.aborted)
+          break;
+        this.onread?.(x.currentPos, x.currentPos + r.length), this._orchestrator.supplyWorkerData(x, r);
+      } else {
+        const A = await this._blob.slice(x.currentPos, x.targetPos).arrayBuffer();
+        if (x.aborted)
+          break;
+        this.onread?.(x.currentPos, x.currentPos + A.byteLength), this._orchestrator.supplyWorkerData(x, new Uint8Array(A));
+      }
+    x.running = !1, x.aborted && await e?.cancel();
+  }
+  /** @internal */
+  _dispose() {
+    this._orchestrator.dispose();
+  }
+}
+const fi = 0.5 * 2 ** 20, Ln = (t, x, e) => {
+  if (x instanceof Error && (x.message.includes("Failed to fetch") || x.message.includes("Load failed") || x.message.includes("NetworkError when attempting to fetch resource"))) {
+    let r = null;
+    try {
+      typeof window < "u" && typeof window.location < "u" && (r = new URL(e instanceof Request ? e.url : e, window.location.href).origin);
+    } catch {
+    }
+    if ((typeof navigator < "u" && typeof navigator.onLine == "boolean" ? navigator.onLine : !0) && r !== null && r !== window.location.origin)
+      return console.warn("Request will not be retried because a CORS error was suspected due to different origins. You can modify this behavior by providing your own function for the 'getRetryDelay' option."), null;
+  }
+  return Math.min(2 ** (t - 2), 16);
+};
+class Un extends dx {
+  /**
+   * Creates a new {@link UrlSource} backed by the resource at the specified URL.
+   *
+   * When passing a `Request` instance, note that the `signal` and `headers.Range` options will be overridden by
+   * Mediabunny. If you want to cancel ongoing requests, use {@link Input.dispose}.
+   */
+  constructor(x, e = {}) {
+    if (typeof x != "string" && !(x instanceof URL) && !(typeof Request < "u" && x instanceof Request))
+      throw new TypeError("url must be a string, URL or Request.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (e.requestInit !== void 0 && (!e.requestInit || typeof e.requestInit != "object"))
+      throw new TypeError("options.requestInit, when provided, must be an object.");
+    if (e.getRetryDelay !== void 0 && typeof e.getRetryDelay != "function")
+      throw new TypeError("options.getRetryDelay, when provided, must be a function.");
+    if (e.maxCacheSize !== void 0 && (!te(e.maxCacheSize) || e.maxCacheSize < 0))
+      throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
+    if (e.parallelism !== void 0 && (!Number.isInteger(e.parallelism) || e.parallelism < 1))
+      throw new TypeError("options.parallelism, when provided, must be a positive number.");
+    if (e.fetchFn !== void 0 && typeof e.fetchFn != "function")
+      throw new TypeError("options.fetchFn, when provided, must be a function.");
+    super(), this._existingResponses = /* @__PURE__ */ new WeakMap(), this._url = x, this._options = e, this._getRetryDelay = e.getRetryDelay ?? Ln;
+    const A = 2;
+    this._orchestrator = new $A({
+      maxCacheSize: e.maxCacheSize ?? 64 * 2 ** 20,
+      maxWorkerCount: e.parallelism ?? A,
+      runWorker: this._runWorker.bind(this),
+      prefetchProfile: OA.network
+    });
+  }
+  /** @internal */
+  async _retrieveSize() {
+    const x = new AbortController(), e = await cr(this._options.fetchFn ?? fetch, this._url, or(this._options.requestInit ?? {}, {
+      headers: {
+        // We could also send a non-range request to request the same bytes (all of them), but doing it like
+        // this is an easy way to check if the server supports range requests in the first place
+        Range: "bytes=0-"
+      },
+      signal: x.signal
+    }), this._getRetryDelay, () => this._disposed);
+    if (!e.ok)
+      throw new Error(`Error fetching ${String(this._url)}: ${e.status} ${e.statusText}`);
+    let A, r;
+    if (e.status === 206)
+      r = this._getTotalLengthFromRangeResponse(e), A = this._orchestrator.createWorker(0, Math.min(r, fi));
+    else {
+      const F = e.headers.get("Content-Length");
+      if (F)
+        r = Number(F), A = this._orchestrator.createWorker(0, r), this._orchestrator.options.maxCacheSize = 1 / 0, console.warn("HTTP server did not respond with 206 Partial Content, meaning the entire remote resource now has to be downloaded. For efficient media file streaming across a network, please make sure your server supports range requests.");
+      else
+        throw new Error(`HTTP response (status ${e.status}) must surface Content-Length header.`);
+    }
+    return this._orchestrator.fileSize = r, this._existingResponses.set(A, { response: e, abortController: x }), this._orchestrator.runWorker(A), r;
+  }
+  /** @internal */
+  _read(x, e) {
+    return this._orchestrator.read(x, e);
+  }
+  /** @internal */
+  async _runWorker(x) {
+    for (; ; ) {
+      const e = this._existingResponses.get(x);
+      this._existingResponses.delete(x);
+      let A = e?.abortController, r = e?.response;
+      if (A || (A = new AbortController(), r = await cr(this._options.fetchFn ?? fetch, this._url, or(this._options.requestInit ?? {}, {
+        headers: {
+          Range: `bytes=${x.currentPos}-`
+        },
+        signal: A.signal
+      }), this._getRetryDelay, () => this._disposed)), d(r), !r.ok)
+        throw new Error(`Error fetching ${String(this._url)}: ${r.status} ${r.statusText}`);
+      if (x.currentPos > 0 && r.status !== 206)
+        throw new Error("HTTP server did not respond with 206 Partial Content to a range request. To enable efficient media file streaming across a network, please make sure your server supports range requests.");
+      if (!r.body)
+        throw new Error("Missing HTTP response body stream. The used fetch function must provide the response body as a ReadableStream.");
+      const F = r.body.getReader();
+      for (; ; ) {
+        if (x.currentPos >= x.targetPos || x.aborted) {
+          A.abort(), x.running = !1;
+          return;
+        }
+        let i;
+        try {
+          i = await F.read();
+        } catch (a) {
+          if (this._disposed)
+            throw a;
+          const o = this._getRetryDelay(1, a, this._url);
+          if (o !== null) {
+            console.error("Error while reading response stream. Attempting to resume.", a), await new Promise((f) => setTimeout(f, 1e3 * o));
+            break;
+          } else
+            throw a;
+        }
+        if (x.aborted)
+          continue;
+        const { done: s, value: n } = i;
+        if (s) {
+          if (x.currentPos >= x.targetPos) {
+            this._orchestrator.forgetWorker(x), x.running = !1;
+            return;
+          }
+          break;
+        }
+        this.onread?.(x.currentPos, x.currentPos + n.length), this._orchestrator.supplyWorkerData(x, n);
+      }
+    }
+  }
+  /** @internal */
+  _getTotalLengthFromRangeResponse(x) {
+    const e = x.headers.get("Content-Range");
+    if (e) {
+      const r = /\/(\d+)/.exec(e);
+      if (r)
+        return Number(r[1]);
+    }
+    const A = x.headers.get("Content-Length");
+    if (A)
+      return Number(A);
+    throw new Error("Partial HTTP response (status 206) must surface either Content-Range or Content-Length header.");
+  }
+  /** @internal */
+  _dispose() {
+    this._orchestrator.dispose();
+  }
+}
+class On extends dx {
+  /** Creates a new {@link FilePathSource} backed by the file at the specified file path. */
+  constructor(x, e = {}) {
+    if (typeof x != "string")
+      throw new TypeError("filePath must be a string.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (e.maxCacheSize !== void 0 && (!te(e.maxCacheSize) || e.maxCacheSize < 0))
+      throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
+    super(), this._fileHandle = null, this._streamSource = new ci({
+      getSize: async () => (this._fileHandle = await Rn.fs.open(x, "r"), (await this._fileHandle.stat()).size),
+      read: async (A, r) => {
+        d(this._fileHandle);
+        const F = new Uint8Array(r - A);
+        return await this._fileHandle.read(F, 0, r - A, A), F;
+      },
+      maxCacheSize: e.maxCacheSize,
+      prefetchProfile: "fileSystem"
+    });
+  }
+  /** @internal */
+  _read(x, e) {
+    return this._streamSource._read(x, e);
+  }
+  /** @internal */
+  _retrieveSize() {
+    return this._streamSource._retrieveSize();
+  }
+  /** @internal */
+  _dispose() {
+    this._streamSource._dispose(), this._fileHandle?.close(), this._fileHandle = null;
+  }
+}
+class ci extends dx {
+  /** Creates a new {@link StreamSource} whose behavior is specified by `options`.  */
+  constructor(x) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (typeof x.getSize != "function")
+      throw new TypeError("options.getSize must be a function.");
+    if (typeof x.read != "function")
+      throw new TypeError("options.read must be a function.");
+    if (x.dispose !== void 0 && typeof x.dispose != "function")
+      throw new TypeError("options.dispose, when provided, must be a function.");
+    if (x.maxCacheSize !== void 0 && (!te(x.maxCacheSize) || x.maxCacheSize < 0))
+      throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
+    if (x.prefetchProfile && !["none", "fileSystem", "network"].includes(x.prefetchProfile))
+      throw new TypeError("options.prefetchProfile, when provided, must be one of 'none', 'fileSystem' or 'network'.");
+    super(), this._options = x, this._orchestrator = new $A({
+      maxCacheSize: x.maxCacheSize ?? 8 * 2 ** 20,
+      maxWorkerCount: 2,
+      // Fixed for now, *should* be fine
+      prefetchProfile: OA[x.prefetchProfile ?? "none"],
+      runWorker: this._runWorker.bind(this)
+    });
+  }
+  /** @internal */
+  _retrieveSize() {
+    const x = this._options.getSize();
+    if (x instanceof Promise)
+      return x.then((e) => {
+        if (!Number.isInteger(e) || e < 0)
+          throw new TypeError("options.getSize must return or resolve to a non-negative integer.");
+        return this._orchestrator.fileSize = e, e;
+      });
+    if (!Number.isInteger(x) || x < 0)
+      throw new TypeError("options.getSize must return or resolve to a non-negative integer.");
+    return this._orchestrator.fileSize = x, x;
+  }
+  /** @internal */
+  _read(x, e) {
+    return this._orchestrator.read(x, e);
+  }
+  /** @internal */
+  async _runWorker(x) {
+    for (; x.currentPos < x.targetPos && !x.aborted; ) {
+      const e = x.currentPos, A = x.targetPos;
+      let r = this._options.read(x.currentPos, A);
+      if (r instanceof Promise && (r = await r), x.aborted)
+        break;
+      if (r instanceof Uint8Array) {
+        if (r = Q(r), r.length !== A - x.currentPos)
+          throw new Error(`options.read returned a Uint8Array with unexpected length: Requested ${A - x.currentPos} bytes, but got ${r.length}.`);
+        this.onread?.(x.currentPos, x.currentPos + r.length), this._orchestrator.supplyWorkerData(x, r);
+      } else if (r instanceof ReadableStream) {
+        const F = r.getReader();
+        for (; x.currentPos < A && !x.aborted; ) {
+          const { done: i, value: s } = await F.read();
+          if (i) {
+            if (x.currentPos < A)
+              throw new Error(`ReadableStream returned by options.read ended before supplying enough data. Requested ${A - e} bytes, but got ${x.currentPos - e}`);
+            break;
+          }
+          if (!(s instanceof Uint8Array))
+            throw new TypeError("ReadableStream returned by options.read must yield Uint8Array chunks.");
+          if (x.aborted)
+            break;
+          const n = Q(s);
+          this.onread?.(x.currentPos, x.currentPos + n.length), this._orchestrator.supplyWorkerData(x, n);
+        }
+      } else
+        throw new TypeError("options.read must return or resolve to a Uint8Array or a ReadableStream.");
+    }
+    x.running = !1;
+  }
+  /** @internal */
+  _dispose() {
+    this._orchestrator.dispose(), this._options.dispose?.();
+  }
+}
+class $n extends dx {
+  /** Creates a new {@link ReadableStreamSource} backed by the specified `ReadableStream<Uint8Array>`. */
+  constructor(x, e = {}) {
+    if (!(x instanceof ReadableStream))
+      throw new TypeError("stream must be a ReadableStream.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    if (e.maxCacheSize !== void 0 && (!te(e.maxCacheSize) || e.maxCacheSize < 0))
+      throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
+    super(), this._reader = null, this._cache = [], this._pendingSlices = [], this._currentIndex = 0, this._targetIndex = 0, this._maxRequestedIndex = 0, this._endIndex = null, this._pulling = !1, this._stream = x, this._maxCacheSize = e.maxCacheSize ?? 16 * 2 ** 20;
+  }
+  /** @internal */
+  _retrieveSize() {
+    return this._endIndex;
+  }
+  /** @internal */
+  _read(x, e) {
+    if (this._endIndex !== null && e > this._endIndex)
+      return null;
+    this._maxRequestedIndex = Math.max(this._maxRequestedIndex, e);
+    const A = J(this._cache, x, (o) => o.start), r = A !== -1 ? this._cache[A] : null;
+    if (r && r.start <= x && e <= r.end)
+      return {
+        bytes: r.bytes,
+        view: r.view,
+        offset: r.start
+      };
+    let F = x;
+    const i = new Uint8Array(e - x);
+    if (A !== -1)
+      for (let o = A; o < this._cache.length; o++) {
+        const f = this._cache[o];
+        if (f.start >= e)
+          break;
+        const c = Math.max(x, f.start);
+        c > F && this._throwDueToCacheMiss();
+        const v = Math.min(e, f.end);
+        c < v && (i.set(f.bytes.subarray(c - f.start, v - f.start), c - x), F = v);
+      }
+    if (F === e)
+      return {
+        bytes: i,
+        view: U(i),
+        offset: x
+      };
+    this._currentIndex > F && this._throwDueToCacheMiss();
+    const { promise: s, resolve: n, reject: a } = t0();
+    return this._pendingSlices.push({
+      start: x,
+      end: e,
+      bytes: i,
+      resolve: n,
+      reject: a
+    }), this._targetIndex = Math.max(this._targetIndex, e), this._pulling || (this._pulling = !0, this._pull().catch((o) => {
+      if (this._pulling = !1, this._pendingSlices.length > 0)
+        this._pendingSlices.forEach((f) => f.reject(o)), this._pendingSlices.length = 0;
+      else
+        throw o;
+    })), s;
+  }
+  /** @internal */
+  _throwDueToCacheMiss() {
+    throw new Error("Read is before the cached region. With ReadableStreamSource, you must access the data more sequentially or increase the size of its cache.");
+  }
+  /** @internal */
+  async _pull() {
+    for (this._reader ??= this._stream.getReader(); this._currentIndex < this._targetIndex && !this._disposed; ) {
+      const { done: x, value: e } = await this._reader.read();
+      if (x) {
+        for (const F of this._pendingSlices)
+          F.resolve(null);
+        this._pendingSlices.length = 0, this._endIndex = this._currentIndex;
+        break;
+      }
+      const A = this._currentIndex, r = this._currentIndex + e.byteLength;
+      for (let F = 0; F < this._pendingSlices.length; F++) {
+        const i = this._pendingSlices[F], s = Math.max(A, i.start), n = Math.min(r, i.end);
+        s < n && (i.bytes.set(e.subarray(s - A, n - A), s - i.start), n === i.end && (i.resolve({
+          bytes: i.bytes,
+          view: U(i.bytes),
+          offset: i.start
+        }), this._pendingSlices.splice(F, 1), F--));
+      }
+      for (this._cache.push({
+        start: A,
+        end: r,
+        bytes: e,
+        view: U(e),
+        age: 0
+        // Unused
+      }); this._cache.length > 0; ) {
+        const F = this._cache[0];
+        if (this._maxRequestedIndex - F.end <= this._maxCacheSize)
+          break;
+        this._cache.shift();
+      }
+      this._currentIndex += e.byteLength;
+    }
+    this._pulling = !1;
+  }
+  /** @internal */
+  _dispose() {
+    this._pendingSlices.length = 0, this._cache.length = 0;
+  }
+}
+const OA = {
+  none: (t, x) => ({ start: t, end: x }),
+  fileSystem: (t, x) => (t = Math.floor((t - 65536) / 65536) * 65536, x = Math.ceil((x + 65536) / 65536) * 65536, { start: t, end: x }),
+  network: (t, x, e) => {
+    t = Math.max(0, Math.floor((t - 65536) / 65536) * 65536);
+    for (const r of e) {
+      const i = Math.max((r.startPos + r.targetPos) / 2, r.targetPos - 8388608);
+      if (Kt(t, x, i, r.targetPos)) {
+        const s = r.targetPos - r.startPos, n = Math.ceil((s + 1) / 8388608) * 8388608, a = 2 ** Math.ceil(Math.log2(s + 1)), o = Math.min(a, n);
+        x = Math.max(x, r.startPos + o);
+      }
+    }
+    return x = Math.max(x, t + fi), {
+      start: t,
+      end: x
+    };
+  }
+};
+class $A {
+  constructor(x) {
+    this.options = x, this.fileSize = null, this.nextAge = 0, this.workers = [], this.cache = [], this.currentCacheSize = 0, this.disposed = !1;
+  }
+  read(x, e) {
+    d(this.fileSize !== null);
+    const A = this.options.prefetchProfile(x, e, this.workers), r = Math.max(A.start, 0), F = Math.min(A.end, this.fileSize);
+    d(r <= x && e <= F);
+    let i = null;
+    const s = J(this.cache, x, (B) => B.start), n = s !== -1 ? this.cache[s] : null;
+    n && n.start <= x && e <= n.end && (n.age = this.nextAge++, i = {
+      bytes: n.bytes,
+      view: n.view,
+      offset: n.start
+    });
+    const a = J(this.cache, r, (B) => B.start), o = i ? null : new Uint8Array(e - x);
+    let f = 0, c = r;
+    const v = [];
+    if (a !== -1) {
+      for (let B = a; B < this.cache.length; B++) {
+        const j = this.cache[B];
+        if (j.start >= F)
+          break;
+        if (j.end <= r)
+          continue;
+        const E = Math.max(r, j.start), h = Math.min(F, j.end);
+        if (d(E <= h), c < E && v.push({ start: c, end: E }), c = h, o) {
+          const m = Math.max(x, j.start), k = Math.min(e, j.end);
+          if (m < k) {
+            const p = m - x;
+            o.set(j.bytes.subarray(m - j.start, k - j.start), p), p === f && (f = k - x);
+          }
+        }
+        j.age = this.nextAge++;
+      }
+      c < F && v.push({ start: c, end: F });
+    } else
+      v.push({ start: r, end: F });
+    if (o && f >= o.length && (i = {
+      bytes: o,
+      view: U(o),
+      offset: x
+    }), v.length === 0)
+      return d(i), i;
+    const { promise: u, resolve: l, reject: D } = t0(), b = [];
+    for (const B of v) {
+      const j = Math.max(x, B.start), E = Math.min(e, B.end);
+      j === B.start && E === B.end ? b.push(B) : j < E && b.push({ start: j, end: E });
+    }
+    for (const B of v) {
+      const j = o && {
+        start: x,
+        bytes: o,
+        holes: b,
+        resolve: l,
+        reject: D
+      };
+      let E = !1;
+      for (const h of this.workers)
+        if (Kt(B.start - 131072, B.start, h.currentPos, h.targetPos)) {
+          h.targetPos = Math.max(h.targetPos, B.end), E = !0, j && !h.pendingSlices.includes(j) && h.pendingSlices.push(j), h.running || this.runWorker(h);
+          break;
+        }
+      if (!E) {
+        const h = this.createWorker(B.start, B.end);
+        j && (h.pendingSlices = [j]), this.runWorker(h);
+      }
+    }
+    return i || (d(o), i = u.then((B) => ({
+      bytes: B,
+      view: U(B),
+      offset: x
+    }))), i;
+  }
+  createWorker(x, e) {
+    const A = {
+      startPos: x,
+      currentPos: x,
+      targetPos: e,
+      running: !1,
+      // Due to async shenanigans, it can happen that workers are started after disposal. In this case, instead of
+      // simply not creating the worker, we allow it to run but immediately label it as aborted, so it can then
+      // shut itself down.
+      aborted: this.disposed,
+      pendingSlices: [],
+      age: this.nextAge++
+    };
+    for (this.workers.push(A); this.workers.length > this.options.maxWorkerCount; ) {
+      let r = 0, F = this.workers[0];
+      for (let i = 1; i < this.workers.length; i++) {
+        const s = this.workers[i];
+        s.age < F.age && (r = i, F = s);
+      }
+      if (F.running && F.pendingSlices.length > 0)
+        break;
+      F.aborted = !0, this.workers.splice(r, 1);
+    }
+    return A;
+  }
+  runWorker(x) {
+    d(!x.running), d(x.currentPos < x.targetPos), x.running = !0, x.age = this.nextAge++, this.options.runWorker(x).catch((e) => {
+      if (x.running = !1, x.pendingSlices.length > 0)
+        x.pendingSlices.forEach((A) => A.reject(e)), x.pendingSlices.length = 0;
+      else
+        throw e;
+    });
+  }
+  /** Called by a worker when it has read some data. */
+  supplyWorkerData(x, e) {
+    d(!x.aborted);
+    const A = x.currentPos, r = A + e.length;
+    this.insertIntoCache({
+      start: A,
+      end: r,
+      bytes: e,
+      view: U(e),
+      age: this.nextAge++
+    }), x.currentPos += e.length, x.targetPos = Math.max(x.targetPos, x.currentPos);
+    for (let F = 0; F < x.pendingSlices.length; F++) {
+      const i = x.pendingSlices[F], s = Math.max(A, i.start), n = Math.min(r, i.start + i.bytes.length);
+      s < n && i.bytes.set(e.subarray(s - A, n - A), s - i.start);
+      for (let a = 0; a < i.holes.length; a++) {
+        const o = i.holes[a];
+        A <= o.start && r > o.start && (o.start = r), o.end <= o.start && (i.holes.splice(a, 1), a--);
+      }
+      i.holes.length === 0 && (i.resolve(i.bytes), x.pendingSlices.splice(F, 1), F--);
+    }
+    for (let F = 0; F < this.workers.length; F++) {
+      const i = this.workers[F];
+      x === i || i.running || Kt(A, r, i.currentPos, i.targetPos) && (this.workers.splice(F, 1), F--);
+    }
+  }
+  forgetWorker(x) {
+    const e = this.workers.indexOf(x);
+    d(e !== -1), this.workers.splice(e, 1);
+  }
+  insertIntoCache(x) {
+    if (this.options.maxCacheSize === 0)
+      return;
+    let e = J(this.cache, x.start, (A) => A.start) + 1;
+    if (e > 0) {
+      const A = this.cache[e - 1];
+      if (A.end >= x.end)
+        return;
+      if (A.end > x.start) {
+        const r = new Uint8Array(x.end - A.start);
+        r.set(A.bytes, 0), r.set(x.bytes, x.start - A.start), this.currentCacheSize += x.end - A.end, A.bytes = r, A.view = U(r), A.end = x.end, e--, x = A;
+      } else
+        this.cache.splice(e, 0, x), this.currentCacheSize += x.bytes.length;
+    } else
+      this.cache.splice(e, 0, x), this.currentCacheSize += x.bytes.length;
+    for (let A = e + 1; A < this.cache.length; A++) {
+      const r = this.cache[A];
+      if (x.end <= r.start)
+        break;
+      if (x.end >= r.end) {
+        this.cache.splice(A, 1), this.currentCacheSize -= r.bytes.length, A--;
+        continue;
+      }
+      const F = new Uint8Array(r.end - x.start);
+      F.set(x.bytes, 0), F.set(r.bytes, r.start - x.start), this.currentCacheSize -= x.end - r.start, x.bytes = F, x.view = U(F), x.end = r.end, this.cache.splice(A, 1);
+      break;
+    }
+    for (; this.currentCacheSize > this.options.maxCacheSize; ) {
+      let A = 0, r = this.cache[0];
+      for (let F = 1; F < this.cache.length; F++) {
+        const i = this.cache[F];
+        i.age < r.age && (A = F, r = i);
+      }
+      if (this.currentCacheSize - r.bytes.length <= this.options.maxCacheSize)
+        break;
+      this.cache.splice(A, 1), this.currentCacheSize -= r.bytes.length;
+    }
+  }
+  dispose() {
+    for (const x of this.workers)
+      x.aborted = !0;
+    this.workers.length = 0, this.cache.length = 0, this.disposed = !0;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+Jr();
+class vi {
+  /** True if the input has been disposed. */
+  get disposed() {
+    return this._disposed;
+  }
+  /**
+   * Creates a new input file from the specified options. No reading operations will be performed until methods are
+   * called on this instance.
+   */
+  constructor(x) {
+    if (this._demuxerPromise = null, this._format = null, this._disposed = !1, !x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (!Array.isArray(x.formats) || x.formats.some((e) => !(e instanceof $0)))
+      throw new TypeError("options.formats must be an array of InputFormat.");
+    if (!(x.source instanceof dx))
+      throw new TypeError("options.source must be a Source.");
+    if (x.source._disposed)
+      throw new Error("options.source must not be disposed.");
+    this._formats = x.formats, this._source = x.source, this._reader = new zn(x.source);
+  }
+  /** @internal */
+  _getDemuxer() {
+    return this._demuxerPromise ??= (async () => {
+      this._reader.fileSize = await this._source.getSizeOrNull();
+      for (const x of this._formats)
+        if (await x._canReadInput(this))
+          return this._format = x, x._createDemuxer(this);
+      throw new Error("Input has an unsupported or unrecognizable format.");
+    })();
+  }
+  /**
+   * Returns the source from which this input file reads its data. This is the same source that was passed to the
+   * constructor.
+   */
+  get source() {
+    return this._source;
+  }
+  /**
+   * Returns the format of the input file. You can compare this result directly to the {@link InputFormat} singletons
+   * or use `instanceof` checks for subset-aware logic (for example, `format instanceof MatroskaInputFormat` is true
+   * for both MKV and WebM).
+   */
+  async getFormat() {
+    return await this._getDemuxer(), d(this._format), this._format;
+  }
+  /**
+   * Computes the duration of the input file, in seconds. More precisely, returns the largest end timestamp among
+   * all tracks.
+   */
+  async computeDuration() {
+    return (await this._getDemuxer()).computeDuration();
+  }
+  /**
+   * Returns the timestamp at which the input file starts. More precisely, returns the smallest starting timestamp
+   * among all tracks.
+   */
+  async getFirstTimestamp() {
+    const x = await this.getTracks();
+    if (x.length === 0)
+      return 0;
+    const e = await Promise.all(x.map((A) => A.getFirstTimestamp()));
+    return Math.min(...e);
+  }
+  /** Returns the list of all tracks of this input file. */
+  async getTracks() {
+    return (await this._getDemuxer()).getTracks();
+  }
+  /** Returns the list of all video tracks of this input file. */
+  async getVideoTracks() {
+    return (await this.getTracks()).filter((e) => e.isVideoTrack());
+  }
+  /** Returns the list of all audio tracks of this input file. */
+  async getAudioTracks() {
+    return (await this.getTracks()).filter((e) => e.isAudioTrack());
+  }
+  /** Returns the primary video track of this input file, or null if there are no video tracks. */
+  async getPrimaryVideoTrack() {
+    return (await this.getTracks()).find((e) => e.isVideoTrack()) ?? null;
+  }
+  /** Returns the primary audio track of this input file, or null if there are no audio tracks. */
+  async getPrimaryAudioTrack() {
+    return (await this.getTracks()).find((e) => e.isAudioTrack()) ?? null;
+  }
+  /** Returns the full MIME type of this input file, including track codecs. */
+  async getMimeType() {
+    return (await this._getDemuxer()).getMimeType();
+  }
+  /**
+   * Returns descriptive metadata tags about the media file, such as title, author, date, cover art, or other
+   * attached files.
+   */
+  async getMetadataTags() {
+    return (await this._getDemuxer()).getMetadataTags();
+  }
+  /**
+   * Disposes this input and frees connected resources. When an input is disposed, ongoing read operations will be
+   * canceled, all future read operations will fail, any open decoders will be closed, and all ongoing media sink
+   * operations will be canceled. Disallowed and canceled operations will throw an {@link InputDisposedError}.
+   *
+   * You are expected not to use an input after disposing it. While some operations may still work, it is not
+   * specified and may change in any future update.
+   */
+  dispose() {
+    this._disposed || (this._disposed = !0, this._source._disposed = !0, this._source._dispose());
+  }
+  /**
+   * Calls `.dispose()` on the input, implementing the `Disposable` interface for use with
+   * JavaScript Explicit Resource Management features.
+   */
+  [Symbol.dispose]() {
+    this.dispose();
+  }
+}
+class B0 extends Error {
+  /** Creates a new {@link InputDisposedError}. */
+  constructor(x = "Input has been disposed.") {
+    super(x), this.name = "InputDisposedError";
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class zn {
+  constructor(x) {
+    this.source = x;
+  }
+  requestSlice(x, e) {
+    if (this.source._disposed)
+      throw new B0();
+    if (x < 0 || this.fileSize !== null && x + e > this.fileSize)
+      return null;
+    const A = x + e, r = this.source._read(x, A);
+    return r instanceof Promise ? r.then((F) => F ? new C0(F.bytes, F.view, F.offset, x, A) : null) : r ? new C0(r.bytes, r.view, r.offset, x, A) : null;
+  }
+  requestSliceRange(x, e, A) {
+    if (this.source._disposed)
+      throw new B0();
+    if (x < 0)
+      return null;
+    if (this.fileSize !== null)
+      return this.requestSlice(x, n0(this.fileSize - x, e, A));
+    {
+      const r = this.requestSlice(x, A), F = (i) => {
+        if (i)
+          return i;
+        const s = (a) => (d(a !== null), this.requestSlice(x, n0(a - x, e, A))), n = this.source._retrieveSize();
+        return n instanceof Promise ? n.then(s) : s(n);
+      };
+      return r instanceof Promise ? r.then(F) : F(r);
+    }
+  }
+}
+class C0 {
+  constructor(x, e, A, r, F) {
+    this.bytes = x, this.view = e, this.offset = A, this.start = r, this.end = F, this.bufferPos = r - A;
+  }
+  static tempFromBytes(x) {
+    return new C0(x, U(x), 0, 0, x.length);
+  }
+  get length() {
+    return this.end - this.start;
+  }
+  get filePos() {
+    return this.offset + this.bufferPos;
+  }
+  set filePos(x) {
+    this.bufferPos = x - this.offset;
+  }
+  /** The number of bytes left from the current pos to the end of the slice. */
+  get remainingLength() {
+    return Math.max(this.end - this.filePos, 0);
+  }
+  skip(x) {
+    this.bufferPos += x;
+  }
+  /** Creates a new subslice of this slice whose byte range must be contained within this slice. */
+  slice(x, e = this.end - x) {
+    if (x < this.start || x + e > this.end)
+      throw new RangeError("Slicing outside of original slice.");
+    return new C0(this.bytes, this.view, this.offset, x, x + e);
+  }
+}
+const j0 = (t, x) => {
+  if (t.filePos < t.start || t.filePos + x > t.end)
+    throw new RangeError(`Tried reading [${t.filePos}, ${t.filePos + x}), but slice is [${t.start}, ${t.end}). This is likely an internal error, please report it alongside the file that caused it.`);
+}, R = (t, x) => {
+  j0(t, x);
+  const e = t.bytes.subarray(t.bufferPos, t.bufferPos + x);
+  return t.bufferPos += x, e;
+}, I = (t) => (j0(t, 1), t.view.getUint8(t.bufferPos++)), ce = (t, x) => {
+  j0(t, 2);
+  const e = t.view.getUint16(t.bufferPos, x);
+  return t.bufferPos += 2, e;
+}, s0 = (t) => {
+  j0(t, 2);
+  const x = t.view.getUint16(t.bufferPos, !1);
+  return t.bufferPos += 2, x;
+}, $x = (t) => {
+  j0(t, 3);
+  const x = tt(t.view, t.bufferPos, !1);
+  return t.bufferPos += 3, x;
+}, nA = (t) => {
+  j0(t, 2);
+  const x = t.view.getInt16(t.bufferPos, !1);
+  return t.bufferPos += 2, x;
+}, ox = (t, x) => {
+  j0(t, 4);
+  const e = t.view.getUint32(t.bufferPos, x);
+  return t.bufferPos += 4, e;
+}, T = (t) => {
+  j0(t, 4);
+  const x = t.view.getUint32(t.bufferPos, !1);
+  return t.bufferPos += 4, x;
+}, Vx = (t) => {
+  j0(t, 4);
+  const x = t.view.getUint32(t.bufferPos, !0);
+  return t.bufferPos += 4, x;
+}, gx = (t) => {
+  j0(t, 4);
+  const x = t.view.getInt32(t.bufferPos, !1);
+  return t.bufferPos += 4, x;
+}, Vn = (t) => {
+  j0(t, 4);
+  const x = t.view.getInt32(t.bufferPos, !0);
+  return t.bufferPos += 4, x;
+}, Pr = (t, x) => {
+  let e, A;
+  return x ? (e = ox(t, !0), A = ox(t, !0)) : (A = ox(t, !1), e = ox(t, !1)), A * 4294967296 + e;
+}, I0 = (t) => {
+  const x = T(t), e = T(t);
+  return x * 4294967296 + e;
+}, Kn = (t) => {
+  const x = gx(t), e = T(t);
+  return x * 4294967296 + e;
+}, Wn = (t) => {
+  const x = Vx(t);
+  return Vn(t) * 4294967296 + x;
+}, Jn = (t) => {
+  j0(t, 4);
+  const x = t.view.getFloat32(t.bufferPos, !1);
+  return t.bufferPos += 4, x;
+}, li = (t) => {
+  j0(t, 8);
+  const x = t.view.getFloat64(t.bufferPos, !1);
+  return t.bufferPos += 8, x;
+}, a0 = (t, x) => {
+  j0(t, x);
+  let e = "";
+  for (let A = 0; A < x; A++)
+    e += String.fromCharCode(t.bytes[t.bufferPos++]);
+  return e;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var Kx;
+(function(t) {
+  t[t.Unsynchronisation = 128] = "Unsynchronisation", t[t.ExtendedHeader = 64] = "ExtendedHeader", t[t.ExperimentalIndicator = 32] = "ExperimentalIndicator", t[t.Footer = 16] = "Footer";
+})(Kx || (Kx = {}));
+var d0;
+(function(t) {
+  t[t.ISO_8859_1 = 0] = "ISO_8859_1", t[t.UTF_16_WITH_BOM = 1] = "UTF_16_WITH_BOM", t[t.UTF_16_BE_NO_BOM = 2] = "UTF_16_BE_NO_BOM", t[t.UTF_8 = 3] = "UTF_8";
+})(d0 || (d0 = {}));
+const Ne = 128, tx = 10, Wx = [
+  "Blues",
+  "Classic rock",
+  "Country",
+  "Dance",
+  "Disco",
+  "Funk",
+  "Grunge",
+  "Hip-hop",
+  "Jazz",
+  "Metal",
+  "New age",
+  "Oldies",
+  "Other",
+  "Pop",
+  "Rhythm and blues",
+  "Rap",
+  "Reggae",
+  "Rock",
+  "Techno",
+  "Industrial",
+  "Alternative",
+  "Ska",
+  "Death metal",
+  "Pranks",
+  "Soundtrack",
+  "Euro-techno",
+  "Ambient",
+  "Trip-hop",
+  "Vocal",
+  "Jazz & funk",
+  "Fusion",
+  "Trance",
+  "Classical",
+  "Instrumental",
+  "Acid",
+  "House",
+  "Game",
+  "Sound clip",
+  "Gospel",
+  "Noise",
+  "Alternative rock",
+  "Bass",
+  "Soul",
+  "Punk",
+  "Space",
+  "Meditative",
+  "Instrumental pop",
+  "Instrumental rock",
+  "Ethnic",
+  "Gothic",
+  "Darkwave",
+  "Techno-industrial",
+  "Electronic",
+  "Pop-folk",
+  "Eurodance",
+  "Dream",
+  "Southern rock",
+  "Comedy",
+  "Cult",
+  "Gangsta",
+  "Top 40",
+  "Christian rap",
+  "Pop/funk",
+  "Jungle music",
+  "Native US",
+  "Cabaret",
+  "New wave",
+  "Psychedelic",
+  "Rave",
+  "Showtunes",
+  "Trailer",
+  "Lo-fi",
+  "Tribal",
+  "Acid punk",
+  "Acid jazz",
+  "Polka",
+  "Retro",
+  "Musical",
+  "Rock 'n' roll",
+  "Hard rock",
+  "Folk",
+  "Folk rock",
+  "National folk",
+  "Swing",
+  "Fast fusion",
+  "Bebop",
+  "Latin",
+  "Revival",
+  "Celtic",
+  "Bluegrass",
+  "Avantgarde",
+  "Gothic rock",
+  "Progressive rock",
+  "Psychedelic rock",
+  "Symphonic rock",
+  "Slow rock",
+  "Big band",
+  "Chorus",
+  "Easy listening",
+  "Acoustic",
+  "Humour",
+  "Speech",
+  "Chanson",
+  "Opera",
+  "Chamber music",
+  "Sonata",
+  "Symphony",
+  "Booty bass",
+  "Primus",
+  "Porn groove",
+  "Satire",
+  "Slow jam",
+  "Club",
+  "Tango",
+  "Samba",
+  "Folklore",
+  "Ballad",
+  "Power ballad",
+  "Rhythmic Soul",
+  "Freestyle",
+  "Duet",
+  "Punk rock",
+  "Drum solo",
+  "A cappella",
+  "Euro-house",
+  "Dance hall",
+  "Goa music",
+  "Drum & bass",
+  "Club-house",
+  "Hardcore techno",
+  "Terror",
+  "Indie",
+  "Britpop",
+  "Negerpunk",
+  "Polsk punk",
+  "Beat",
+  "Christian gangsta rap",
+  "Heavy metal",
+  "Black metal",
+  "Crossover",
+  "Contemporary Christian",
+  "Christian rock",
+  "Merengue",
+  "Salsa",
+  "Thrash metal",
+  "Anime",
+  "Jpop",
+  "Synthpop",
+  "Christmas",
+  "Art rock",
+  "Baroque",
+  "Bhangra",
+  "Big beat",
+  "Breakbeat",
+  "Chillout",
+  "Downtempo",
+  "Dub",
+  "EBM",
+  "Eclectic",
+  "Electro",
+  "Electroclash",
+  "Emo",
+  "Experimental",
+  "Garage",
+  "Global",
+  "IDM",
+  "Illbient",
+  "Industro-Goth",
+  "Jam Band",
+  "Krautrock",
+  "Leftfield",
+  "Lounge",
+  "Math rock",
+  "New romantic",
+  "Nu-breakz",
+  "Post-punk",
+  "Post-rock",
+  "Psytrance",
+  "Shoegaze",
+  "Space rock",
+  "Trop rock",
+  "World music",
+  "Neoclassical",
+  "Audiobook",
+  "Audio theatre",
+  "Neue Deutsche Welle",
+  "Podcast",
+  "Indie rock",
+  "G-Funk",
+  "Dubstep",
+  "Garage rock",
+  "Psybient"
+], Xn = (t, x) => {
+  const e = t.filePos;
+  x.raw ??= {}, x.raw.TAG ??= R(t, Ne - 3), t.filePos = e;
+  const A = Nx(t, 30);
+  A && (x.title ??= A);
+  const r = Nx(t, 30);
+  r && (x.artist ??= r);
+  const F = Nx(t, 30);
+  F && (x.album ??= F);
+  const i = Nx(t, 4), s = Number.parseInt(i, 10);
+  Number.isInteger(s) && s > 0 && (x.date ??= new Date(s, 0, 1));
+  const n = R(t, 30);
+  let a;
+  if (n[28] === 0 && n[29] !== 0) {
+    const f = n[29];
+    f > 0 && (x.trackNumber ??= f), t.skip(-30), a = Nx(t, 28), t.skip(2);
+  } else
+    t.skip(-30), a = Nx(t, 30);
+  a && (x.comment ??= a);
+  const o = I(t);
+  o < Wx.length && (x.genre ??= Wx[o]);
+}, Nx = (t, x) => {
+  const e = R(t, x), A = Ux(e.indexOf(0), e.length), r = e.subarray(0, A);
+  let F = "";
+  for (let i = 0; i < r.length; i++)
+    F += String.fromCharCode(r[i]);
+  return F.trimEnd();
+}, Px = (t) => {
+  const x = t.filePos, e = a0(t, 3), A = I(t), r = I(t), F = I(t), i = T(t);
+  if (e !== "ID3" || A === 255 || r === 255 || (i & 2155905152) !== 0)
+    return t.filePos = x, null;
+  const s = Qt(i);
+  return { majorVersion: A, revision: r, flags: F, size: s };
+}, zA = (t, x, e) => {
+  if (![2, 3, 4].includes(x.majorVersion)) {
+    console.warn(`Unsupported ID3v2 major version: ${x.majorVersion}`);
+    return;
+  }
+  const A = R(t, x.size), r = new Qn(x, A);
+  if (x.flags & Kx.Footer && r.removeFooter(), x.flags & Kx.Unsynchronisation && x.majorVersion === 3 && r.ununsynchronizeAll(), x.flags & Kx.ExtendedHeader) {
+    const F = r.readU32();
+    x.majorVersion === 3 ? r.pos += F : r.pos += F - 4;
+  }
+  for (; r.pos <= r.bytes.length - r.frameHeaderSize(); ) {
+    const F = r.readId3V2Frame();
+    if (!F)
+      break;
+    const i = r.pos, s = r.pos + F.size;
+    let n = !1, a = !1, o = !1;
+    if (x.majorVersion === 3 ? (n = !!(F.flags & 64), a = !!(F.flags & 128)) : x.majorVersion === 4 && (n = !!(F.flags & 4), a = !!(F.flags & 8), o = !!(F.flags & 2) || !!(x.flags & Kx.Unsynchronisation)), n) {
+      console.warn(`Skipping encrypted ID3v2 frame ${F.id}`), r.pos = s;
+      continue;
+    }
+    if (a) {
+      console.warn(`Skipping compressed ID3v2 frame ${F.id}`), r.pos = s;
+      continue;
+    }
+    switch (o && r.ununsynchronizeRegion(r.pos, s), e.raw ??= {}, F.id[0] === "T" ? e.raw[F.id] ??= r.readId3V2EncodingAndText(s) : e.raw[F.id] ??= r.readBytes(F.size), r.pos = i, F.id) {
+      case "TIT2":
+      case "TT2":
+        e.title ??= r.readId3V2EncodingAndText(s);
+        break;
+      case "TIT3":
+      case "TT3":
+        e.description ??= r.readId3V2EncodingAndText(s);
+        break;
+      case "TPE1":
+      case "TP1":
+        e.artist ??= r.readId3V2EncodingAndText(s);
+        break;
+      case "TALB":
+      case "TAL":
+        e.album ??= r.readId3V2EncodingAndText(s);
+        break;
+      case "TPE2":
+      case "TP2":
+        e.albumArtist ??= r.readId3V2EncodingAndText(s);
+        break;
+      case "TRCK":
+      case "TRK":
+        {
+          const c = r.readId3V2EncodingAndText(s).split("/"), v = Number.parseInt(c[0], 10), u = c[1] && Number.parseInt(c[1], 10);
+          Number.isInteger(v) && v > 0 && (e.trackNumber ??= v), u && Number.isInteger(u) && u > 0 && (e.tracksTotal ??= u);
+        }
+        break;
+      case "TPOS":
+      case "TPA":
+        {
+          const c = r.readId3V2EncodingAndText(s).split("/"), v = Number.parseInt(c[0], 10), u = c[1] && Number.parseInt(c[1], 10);
+          Number.isInteger(v) && v > 0 && (e.discNumber ??= v), u && Number.isInteger(u) && u > 0 && (e.discsTotal ??= u);
+        }
+        break;
+      case "TCON":
+      case "TCO":
+        {
+          const f = r.readId3V2EncodingAndText(s);
+          let c = /^\((\d+)\)/.exec(f);
+          if (c) {
+            const v = Number.parseInt(c[1]);
+            if (Wx[v] !== void 0) {
+              e.genre ??= Wx[v];
+              break;
+            }
+          }
+          if (c = /^\d+$/.exec(f), c) {
+            const v = Number.parseInt(c[0]);
+            if (Wx[v] !== void 0) {
+              e.genre ??= Wx[v];
+              break;
+            }
+          }
+          e.genre ??= f;
+        }
+        break;
+      case "TDRC":
+      case "TDAT":
+        {
+          const f = r.readId3V2EncodingAndText(s), c = new Date(f);
+          Number.isNaN(c.getTime()) || (e.date ??= c);
+        }
+        break;
+      case "TYER":
+      case "TYE":
+        {
+          const f = r.readId3V2EncodingAndText(s), c = Number.parseInt(f, 10);
+          Number.isInteger(c) && (e.date ??= new Date(c, 0, 1));
+        }
+        break;
+      case "USLT":
+      case "ULT":
+        {
+          const f = r.readU8();
+          r.pos += 3, r.readId3V2Text(f, s), e.lyrics ??= r.readId3V2Text(f, s);
+        }
+        break;
+      case "COMM":
+      case "COM":
+        {
+          const f = r.readU8();
+          r.pos += 3, r.readId3V2Text(f, s), e.comment ??= r.readId3V2Text(f, s);
+        }
+        break;
+      case "APIC":
+      case "PIC":
+        {
+          const f = r.readId3V2TextEncoding();
+          let c;
+          if (x.majorVersion === 2) {
+            const D = r.readAscii(3);
+            c = D === "PNG" ? "image/png" : D === "JPG" ? "image/jpeg" : "image/*";
+          } else
+            c = r.readId3V2Text(f, s);
+          const v = r.readU8(), u = r.readId3V2Text(f, s).trimEnd(), l = s - r.pos;
+          if (l >= 0) {
+            const D = r.readBytes(l);
+            e.images || (e.images = []), e.images.push({
+              data: D,
+              mimeType: c,
+              kind: v === 3 ? "coverFront" : v === 4 ? "coverBack" : "unknown",
+              description: u
+            });
+          }
+        }
+        break;
+      default:
+        r.pos += F.size;
+        break;
+    }
+    r.pos = s;
+  }
+};
+class Qn {
+  constructor(x, e) {
+    this.header = x, this.bytes = e, this.pos = 0, this.view = new DataView(e.buffer, e.byteOffset, e.byteLength);
+  }
+  frameHeaderSize() {
+    return this.header.majorVersion === 2 ? 6 : 10;
+  }
+  ununsynchronizeAll() {
+    const x = [];
+    for (let e = 0; e < this.bytes.length; e++) {
+      const A = this.bytes[e];
+      x.push(A), A === 255 && e !== this.bytes.length - 1 && this.bytes[e] === 0 && e++;
+    }
+    this.bytes = new Uint8Array(x), this.view = new DataView(this.bytes.buffer);
+  }
+  ununsynchronizeRegion(x, e) {
+    const A = [];
+    for (let i = x; i < e; i++) {
+      const s = this.bytes[i];
+      A.push(s), s === 255 && i !== e - 1 && this.bytes[i + 1] === 0 && i++;
+    }
+    const r = this.bytes.subarray(0, x), F = this.bytes.subarray(e);
+    this.bytes = new Uint8Array(r.length + A.length + F.length), this.bytes.set(r, 0), this.bytes.set(A, r.length), this.bytes.set(F, r.length + A.length), this.view = new DataView(this.bytes.buffer);
+  }
+  removeFooter() {
+    this.bytes = this.bytes.subarray(0, this.bytes.length - tx), this.view = new DataView(this.bytes.buffer);
+  }
+  readBytes(x) {
+    const e = this.bytes.subarray(this.pos, this.pos + x);
+    return this.pos += x, e;
+  }
+  readU8() {
+    const x = this.view.getUint8(this.pos);
+    return this.pos += 1, x;
+  }
+  readU16() {
+    const x = this.view.getUint16(this.pos, !1);
+    return this.pos += 2, x;
+  }
+  readU24() {
+    const x = this.view.getUint16(this.pos, !1), e = this.view.getUint8(this.pos + 1);
+    return this.pos += 3, x * 256 + e;
+  }
+  readU32() {
+    const x = this.view.getUint32(this.pos, !1);
+    return this.pos += 4, x;
+  }
+  readAscii(x) {
+    let e = "";
+    for (let A = 0; A < x; A++)
+      e += String.fromCharCode(this.view.getUint8(this.pos + A));
+    return this.pos += x, e;
+  }
+  readId3V2Frame() {
+    if (this.header.majorVersion === 2) {
+      const x = this.readAscii(3);
+      if (x === "\0\0\0")
+        return null;
+      const e = this.readU24();
+      return { id: x, size: e, flags: 0 };
+    } else {
+      const x = this.readAscii(4);
+      if (x === "\0\0\0\0")
+        return null;
+      const e = this.readU32();
+      let A = this.header.majorVersion === 4 ? Qt(e) : e;
+      const r = this.readU16(), F = this.pos, i = (s) => {
+        const n = this.pos + s;
+        if (n > this.bytes.length)
+          return !1;
+        if (n <= this.bytes.length - this.frameHeaderSize()) {
+          this.pos += s;
+          const a = this.readAscii(4);
+          if (a !== "\0\0\0\0" && !/[0-9A-Z]{4}/.test(a))
+            return !1;
+        }
+        return !0;
+      };
+      if (!i(A)) {
+        const s = this.header.majorVersion === 4 ? e : Qt(e);
+        i(s) && (A = s);
+      }
+      return this.pos = F, { id: x, size: A, flags: r };
+    }
+  }
+  readId3V2TextEncoding() {
+    const x = this.readU8();
+    if (x > 3)
+      throw new Error(`Unsupported text encoding: ${x}`);
+    return x;
+  }
+  readId3V2Text(x, e) {
+    const A = this.pos, r = this.readBytes(e - this.pos);
+    switch (x) {
+      case d0.ISO_8859_1: {
+        let F = "";
+        for (let i = 0; i < r.length; i++) {
+          const s = r[i];
+          if (s === 0) {
+            this.pos = A + i + 1;
+            break;
+          }
+          F += String.fromCharCode(s);
+        }
+        return F;
+      }
+      case d0.UTF_16_WITH_BOM:
+        if (r[0] === 255 && r[1] === 254) {
+          const F = new TextDecoder("utf-16le"), i = Ux(r.findIndex((s, n) => s === 0 && r[n + 1] === 0 && n % 2 === 0), r.length);
+          return this.pos = A + Math.min(i + 2, r.length), F.decode(r.subarray(2, i));
+        } else if (r[0] === 254 && r[1] === 255) {
+          const F = new TextDecoder("utf-16be"), i = Ux(r.findIndex((s, n) => s === 0 && r[n + 1] === 0 && n % 2 === 0), r.length);
+          return this.pos = A + Math.min(i + 2, r.length), F.decode(r.subarray(2, i));
+        } else {
+          const F = Ux(r.findIndex((i) => i === 0), r.length);
+          return this.pos = A + Math.min(F + 1, r.length), P0.decode(r.subarray(0, F));
+        }
+      case d0.UTF_16_BE_NO_BOM: {
+        const F = new TextDecoder("utf-16be"), i = Ux(r.findIndex((s, n) => s === 0 && r[n + 1] === 0 && n % 2 === 0), r.length);
+        return this.pos = A + Math.min(i + 2, r.length), F.decode(r.subarray(0, i));
+      }
+      case d0.UTF_8: {
+        const F = Ux(r.findIndex((i) => i === 0), r.length);
+        return this.pos = A + Math.min(F + 1, r.length), P0.decode(r.subarray(0, F));
+      }
+    }
+  }
+  readId3V2EncodingAndText(x) {
+    if (this.pos >= x)
+      return "";
+    const e = this.readId3V2TextEncoding();
+    return this.readId3V2Text(e, x);
+  }
+}
+class VA {
+  constructor(x) {
+    this.helper = new Uint8Array(8), this.helperView = U(this.helper), this.writer = x;
+  }
+  writeId3V2Tag(x) {
+    const e = this.writer.getPos();
+    this.writeAscii("ID3"), this.writeU8(4), this.writeU8(0), this.writeU8(0), this.writeSynchsafeU32(0);
+    const A = this.writer.getPos(), r = /* @__PURE__ */ new Set();
+    for (const { key: s, value: n } of ee(x))
+      switch (s) {
+        case "title":
+          this.writeId3V2TextFrame("TIT2", n), r.add("TIT2");
+          break;
+        case "description":
+          this.writeId3V2TextFrame("TIT3", n), r.add("TIT3");
+          break;
+        case "artist":
+          this.writeId3V2TextFrame("TPE1", n), r.add("TPE1");
+          break;
+        case "album":
+          this.writeId3V2TextFrame("TALB", n), r.add("TALB");
+          break;
+        case "albumArtist":
+          this.writeId3V2TextFrame("TPE2", n), r.add("TPE2");
+          break;
+        case "trackNumber":
+          {
+            const a = x.tracksTotal !== void 0 ? `${n}/${x.tracksTotal}` : n.toString();
+            this.writeId3V2TextFrame("TRCK", a), r.add("TRCK");
+          }
+          break;
+        case "discNumber":
+          {
+            const a = x.discsTotal !== void 0 ? `${n}/${x.discsTotal}` : n.toString();
+            this.writeId3V2TextFrame("TPOS", a), r.add("TPOS");
+          }
+          break;
+        case "genre":
+          this.writeId3V2TextFrame("TCON", n), r.add("TCON");
+          break;
+        case "date":
+          this.writeId3V2TextFrame("TDRC", n.toISOString().slice(0, 10)), r.add("TDRC");
+          break;
+        case "lyrics":
+          this.writeId3V2LyricsFrame(n), r.add("USLT");
+          break;
+        case "comment":
+          this.writeId3V2CommentFrame(n), r.add("COMM");
+          break;
+        case "images":
+          {
+            const a = { coverFront: 3, coverBack: 4, unknown: 0 };
+            for (const o of n) {
+              const f = a[o.kind] ?? 0, c = o.description ?? "";
+              this.writeId3V2ApicFrame(o.mimeType, f, c, o.data);
+            }
+          }
+          break;
+        case "tracksTotal":
+        case "discsTotal":
+          break;
+        case "raw":
+          break;
+        default:
+          u0(s);
+      }
+    if (x.raw)
+      for (const s in x.raw) {
+        const n = x.raw[s];
+        if (n == null || s.length !== 4 || r.has(s))
+          continue;
+        let a;
+        if (typeof n == "string") {
+          const o = Y.encode(n);
+          a = new Uint8Array(o.byteLength + 2), a[0] = d0.UTF_8, a.set(o, 1);
+        } else if (n instanceof Uint8Array)
+          a = n;
+        else
+          continue;
+        this.writeAscii(s), this.writeSynchsafeU32(a.byteLength), this.writeU16(0), this.writer.write(a);
+      }
+    const F = this.writer.getPos(), i = F - A;
+    return this.writer.seek(e + 6), this.writeSynchsafeU32(i), this.writer.seek(F), i + 10;
+  }
+  writeU8(x) {
+    this.helper[0] = x, this.writer.write(this.helper.subarray(0, 1));
+  }
+  writeU16(x) {
+    this.helperView.setUint16(0, x, !1), this.writer.write(this.helper.subarray(0, 2));
+  }
+  writeU32(x) {
+    this.helperView.setUint32(0, x, !1), this.writer.write(this.helper.subarray(0, 4));
+  }
+  writeAscii(x) {
+    for (let e = 0; e < x.length; e++)
+      this.helper[e] = x.charCodeAt(e);
+    this.writer.write(this.helper.subarray(0, x.length));
+  }
+  writeSynchsafeU32(x) {
+    this.writeU32(ps(x));
+  }
+  writeIsoString(x) {
+    const e = new Uint8Array(x.length + 1);
+    for (let A = 0; A < x.length; A++)
+      e[A] = x.charCodeAt(A);
+    e[x.length] = 0, this.writer.write(e);
+  }
+  writeUtf8String(x) {
+    const e = Y.encode(x);
+    this.writer.write(e), this.writeU8(0);
+  }
+  writeId3V2TextFrame(x, e) {
+    const A = Lx(e), F = 1 + (A ? e.length : Y.encode(e).byteLength) + 1;
+    this.writeAscii(x), this.writeSynchsafeU32(F), this.writeU16(0), this.writeU8(A ? d0.ISO_8859_1 : d0.UTF_8), A ? this.writeIsoString(e) : this.writeUtf8String(e);
+  }
+  writeId3V2LyricsFrame(x) {
+    const e = Lx(x), A = "", r = 4 + A.length + 1 + x.length + 1;
+    this.writeAscii("USLT"), this.writeSynchsafeU32(r), this.writeU16(0), this.writeU8(e ? d0.ISO_8859_1 : d0.UTF_8), this.writeAscii("und"), e ? (this.writeIsoString(A), this.writeIsoString(x)) : (this.writeUtf8String(A), this.writeUtf8String(x));
+  }
+  writeId3V2CommentFrame(x) {
+    const e = Lx(x), A = e ? x.length : Y.encode(x).byteLength, r = "", F = 4 + r.length + 1 + A + 1;
+    this.writeAscii("COMM"), this.writeSynchsafeU32(F), this.writeU16(0), this.writeU8(e ? d0.ISO_8859_1 : d0.UTF_8), this.writeU8(117), this.writeU8(110), this.writeU8(100), e ? (this.writeIsoString(r), this.writeIsoString(x)) : (this.writeUtf8String(r), this.writeUtf8String(x));
+  }
+  writeId3V2ApicFrame(x, e, A, r) {
+    const F = Lx(x) && Lx(A), i = F ? A.length : Y.encode(A).byteLength, s = 1 + x.length + 1 + 1 + i + 1 + r.byteLength;
+    this.writeAscii("APIC"), this.writeSynchsafeU32(s), this.writeU16(0), this.writeU8(F ? d0.ISO_8859_1 : d0.UTF_8), F ? this.writeIsoString(x) : this.writeUtf8String(x), this.writeU8(e), F ? this.writeIsoString(A) : this.writeUtf8String(A), this.writer.write(r);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class ux {
+  constructor(x) {
+    this.mutex = new xe(), this.firstMediaStreamTimestamp = null, this.trackTimestampInfo = /* @__PURE__ */ new WeakMap(), this.output = x;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onTrackClose(x) {
+  }
+  validateAndNormalizeTimestamp(x, e, A) {
+    if (e += x.source._timestampOffset, e < 0)
+      throw new Error(`Timestamps must be non-negative (got ${e}s).`);
+    let r = this.trackTimestampInfo.get(x);
+    if (r) {
+      if (A && (r.maxTimestampBeforeLastKeyPacket = r.maxTimestamp), r.maxTimestampBeforeLastKeyPacket !== null && e < r.maxTimestampBeforeLastKeyPacket)
+        throw new Error(`Timestamps cannot be smaller than the largest timestamp of the previous GOP (a GOP begins with a key packet and ends right before the next key packet). Got ${e}s, but largest timestamp is ${r.maxTimestampBeforeLastKeyPacket}s.`);
+      r.maxTimestamp = Math.max(r.maxTimestamp, e);
+    } else {
+      if (!A)
+        throw new Error("First packet must be a key packet.");
+      r = {
+        maxTimestamp: e,
+        maxTimestampBeforeLastKeyPacket: null
+      }, this.trackTimestampInfo.set(x, r);
+    }
+    return e;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Yn extends ux {
+  constructor(x, e) {
+    super(x), this.header = null, this.headerBitstream = null, this.inputIsAdts = null, this.format = e, this.writer = x._writer;
+  }
+  async start() {
+    me(this.output._metadataTags) || new VA(this.writer).writeId3V2Tag(this.output._metadataTags);
+  }
+  async getMimeType() {
+    return "audio/aac";
+  }
+  async addEncodedVideoPacket() {
+    throw new Error("ADTS does not support video.");
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      if (this.validateAndNormalizeTimestamp(x, e.timestamp, e.type === "key"), this.inputIsAdts === null) {
+        Mx(A);
+        const F = A?.decoderConfig?.description;
+        if (this.inputIsAdts = !F, !this.inputIsAdts) {
+          const i = Se(Q(F)), s = Yr(i);
+          this.header = s.header, this.headerBitstream = s.bitstream;
+        }
+      }
+      if (this.inputIsAdts) {
+        const F = this.writer.getPos();
+        this.writer.write(e.data), this.format._options.onFrame && this.format._options.onFrame(e.data, F);
+      } else {
+        d(this.header);
+        const F = e.data.byteLength + this.header.byteLength;
+        Zr(this.headerBitstream, F);
+        const i = this.writer.getPos();
+        if (this.writer.write(this.header), this.writer.write(e.data), this.format._options.onFrame) {
+          const s = new Uint8Array(F);
+          s.set(this.header, 0), s.set(e.data, this.header.byteLength), this.format._options.onFrame(s, i);
+        }
+      }
+      await this.writer.flush();
+    } finally {
+      r();
+    }
+  }
+  async addSubtitleCue() {
+    throw new Error("ADTS does not support subtitles.");
+  }
+  async finalize() {
+    (await this.mutex.acquire())();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Sr = /* @__PURE__ */ new Uint8Array([102, 76, 97, 67]), Zn = 38, xa = 34;
+class ea extends ux {
+  constructor(x, e) {
+    super(x), this.metadataWritten = !1, this.blockSizes = [], this.frameSizes = [], this.sampleRate = null, this.channels = null, this.bitsPerSample = null, this.writer = x._writer, this.format = e;
+  }
+  async start() {
+    this.writer.write(Sr);
+  }
+  writeHeader({ bitsPerSample: x, minimumBlockSize: e, maximumBlockSize: A, minimumFrameSize: r, maximumFrameSize: F, sampleRate: i, channels: s, totalSamples: n }) {
+    d(this.writer.getPos() === 4);
+    const a = !me(this.output._metadataTags), o = new N(new Uint8Array(4));
+    o.writeBits(1, +!a), o.writeBits(7, Z0.STREAMINFO), o.writeBits(24, xa), this.writer.write(o.bytes);
+    const f = new N(new Uint8Array(18));
+    if (f.writeBits(16, e), f.writeBits(16, A), f.writeBits(24, r), f.writeBits(24, F), f.writeBits(20, i), f.writeBits(3, s - 1), f.writeBits(5, x - 1), n >= 2 ** 32)
+      throw new Error("This muxer only supports writing up to 2 ** 32 samples");
+    f.writeBits(4, 0), f.writeBits(32, n), this.writer.write(f.bytes), this.writer.write(new Uint8Array(16));
+  }
+  writePictureBlock(x) {
+    const e = 32 + x.mimeType.length + (x.description?.length ?? 0) + x.data.length, A = new Uint8Array(e);
+    let r = 0;
+    const F = U(A);
+    F.setUint32(r, x.kind === "coverFront" ? 3 : x.kind === "coverBack" ? 4 : 0), r += 4, F.setUint32(r, x.mimeType.length), r += 4, A.set(Y.encode(x.mimeType), 8), r += x.mimeType.length, F.setUint32(r, x.description?.length ?? 0), r += 4, A.set(Y.encode(x.description ?? ""), r), r += x.description?.length ?? 0, r += 16, F.setUint32(r, x.data.length), r += 4, A.set(x.data, r), r += x.data.length, d(r === e);
+    const i = new N(new Uint8Array(4));
+    i.writeBits(1, 0), i.writeBits(7, Z0.PICTURE), i.writeBits(24, e), this.writer.write(i.bytes), this.writer.write(A);
+  }
+  writeVorbisCommentAndPictureBlock() {
+    if (this.writer.seek(Zn + Sr.byteLength), me(this.output._metadataTags)) {
+      this.metadataWritten = !0;
+      return;
+    }
+    const x = this.output._metadataTags.images ?? [];
+    for (const r of x)
+      this.writePictureBlock(r);
+    const e = xA(new Uint8Array(0), this.output._metadataTags, !1), A = new N(new Uint8Array(4));
+    A.writeBits(1, 1), A.writeBits(7, Z0.VORBIS_COMMENT), A.writeBits(24, e.length), this.writer.write(A.bytes), this.writer.write(e), this.metadataWritten = !0;
+  }
+  async getMimeType() {
+    return "audio/flac";
+  }
+  async addEncodedVideoPacket() {
+    throw new Error("FLAC does not support video.");
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      if (this.validateAndNormalizeTimestamp(x, e.timestamp, e.type === "key"), this.sampleRate === null) {
+        Mx(A), d(A), d(A.decoderConfig), d(A.decoderConfig.description), this.sampleRate = A.decoderConfig.sampleRate, this.channels = A.decoderConfig.numberOfChannels;
+        const f = new N(Q(A.decoderConfig.description));
+        f.skipBits(167);
+        const c = f.readBits(5) + 1;
+        this.bitsPerSample = c;
+      }
+      this.metadataWritten || this.writeVorbisCommentAndPictureBlock();
+      const F = C0.tempFromBytes(e.data);
+      F.skip(2);
+      const i = R(F, 2), s = new N(i), n = UF(s.readBits(4));
+      if (n === null)
+        throw new Error("Invalid FLAC frame: Invalid block size.");
+      OF(F);
+      const a = $F(F, n);
+      this.blockSizes.push(a), this.frameSizes.push(e.data.length);
+      const o = this.writer.getPos();
+      this.writer.write(e.data), this.format._options.onFrame && this.format._options.onFrame(e.data, o), await this.writer.flush();
+    } finally {
+      r();
+    }
+  }
+  addSubtitleCue() {
+    throw new Error("FLAC does not support subtitles.");
+  }
+  async finalize() {
+    const x = await this.mutex.acquire();
+    let e = 1 / 0, A = 0, r = 1 / 0, F = 0, i = 0;
+    for (let s = 0; s < this.blockSizes.length; s++)
+      r = Math.min(r, this.frameSizes[s]), F = Math.max(F, this.frameSizes[s]), A = Math.max(A, this.blockSizes[s]), i += this.blockSizes[s], s !== this.blockSizes.length - 1 && (e = Math.min(e, this.blockSizes[s]));
+    d(this.sampleRate !== null), d(this.channels !== null), d(this.bitsPerSample !== null), this.writer.seek(4), this.writeHeader({
+      minimumBlockSize: e,
+      maximumBlockSize: A,
+      minimumFrameSize: r,
+      maximumFrameSize: F,
+      sampleRate: this.sampleRate,
+      channels: this.channels,
+      bitsPerSample: this.bitsPerSample,
+      totalSamples: i
+    }), x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const ve = /(?:(.+?)\n)?((?:\d{2}:)?\d{2}:\d{2}.\d{3})\s+-->\s+((?:\d{2}:)?\d{2}:\d{2}.\d{3})/g, ta = /^WEBVTT(.|\n)*?\n{2}/, Ye = /<(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})>/g;
+class Aa {
+  constructor(x) {
+    this.preambleText = null, this.preambleEmitted = !1, this.options = x;
+  }
+  parse(x) {
+    x = x.replaceAll(`\r
+`, `
+`).replaceAll("\r", `
+`), ve.lastIndex = 0;
+    let e;
+    if (!this.preambleText) {
+      if (!ta.test(x))
+        throw new Error("WebVTT preamble incorrect.");
+      e = ve.exec(x);
+      const A = x.slice(0, e?.index ?? x.length).trimEnd();
+      if (!A)
+        throw new Error("No WebVTT preamble provided.");
+      this.preambleText = A, e && (x = x.slice(e.index), ve.lastIndex = 0);
+    }
+    for (; e = ve.exec(x); ) {
+      const A = x.slice(0, e.index), r = e[1], F = e.index + e[0].length, i = x.indexOf(`
+`, F) + 1, s = x.slice(F, i).trim();
+      let n = x.indexOf(`
+
+`, F);
+      n === -1 && (n = x.length);
+      const a = aA(e[2]), f = aA(e[3]) - a, c = x.slice(i, n).trim();
+      x = x.slice(n).trimStart(), ve.lastIndex = 0;
+      const v = {
+        timestamp: a / 1e3,
+        duration: f / 1e3,
+        text: c,
+        identifier: r,
+        settings: s,
+        notes: A
+      }, u = {};
+      this.preambleEmitted || (u.config = {
+        description: this.preambleText
+      }, this.preambleEmitted = !0), this.options.output(v, u);
+    }
+  }
+}
+const ra = /(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})/, aA = (t) => {
+  const x = ra.exec(t);
+  if (!x)
+    throw new Error("Expected match.");
+  return 60 * 60 * 1e3 * Number(x[1] || "0") + 60 * 1e3 * Number(x[2]) + 1e3 * Number(x[3]) + Number(x[4]);
+}, di = (t) => {
+  const x = Math.floor(t / 36e5), e = Math.floor(t % (60 * 60 * 1e3) / (60 * 1e3)), A = Math.floor(t % (60 * 1e3) / 1e3), r = t % 1e3;
+  return x.toString().padStart(2, "0") + ":" + e.toString().padStart(2, "0") + ":" + A.toString().padStart(2, "0") + "." + r.toString().padStart(3, "0");
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class _r {
+  constructor(x) {
+    this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer), this.offsets = /* @__PURE__ */ new WeakMap();
+  }
+  writeU32(x) {
+    this.helperView.setUint32(0, x, !1), this.writer.write(this.helper.subarray(0, 4));
+  }
+  writeU64(x) {
+    this.helperView.setUint32(0, Math.floor(x / 2 ** 32), !1), this.helperView.setUint32(4, x, !1), this.writer.write(this.helper.subarray(0, 8));
+  }
+  writeAscii(x) {
+    for (let e = 0; e < x.length; e++)
+      this.helperView.setUint8(e % 8, x.charCodeAt(e)), e % 8 === 7 && this.writer.write(this.helper);
+    x.length % 8 !== 0 && this.writer.write(this.helper.subarray(0, x.length % 8));
+  }
+  writeBox(x) {
+    if (this.offsets.set(x, this.writer.getPos()), x.contents && !x.children)
+      this.writeBoxHeader(x, x.size ?? x.contents.byteLength + 8), this.writer.write(x.contents);
+    else {
+      const e = this.writer.getPos();
+      if (this.writeBoxHeader(x, 0), x.contents && this.writer.write(x.contents), x.children)
+        for (const F of x.children)
+          F && this.writeBox(F);
+      const A = this.writer.getPos(), r = x.size ?? A - e;
+      this.writer.seek(e), this.writeBoxHeader(x, r), this.writer.seek(A);
+    }
+  }
+  writeBoxHeader(x, e) {
+    this.writeU32(x.largeSize ? 1 : e), this.writeAscii(x.type), x.largeSize && this.writeU64(e);
+  }
+  measureBoxHeader(x) {
+    return 8 + (x.largeSize ? 8 : 0);
+  }
+  patchBox(x) {
+    const e = this.offsets.get(x);
+    d(e !== void 0);
+    const A = this.writer.getPos();
+    this.writer.seek(e), this.writeBox(x), this.writer.seek(A);
+  }
+  measureBox(x) {
+    if (x.contents && !x.children)
+      return this.measureBoxHeader(x) + x.contents.byteLength;
+    {
+      let e = this.measureBoxHeader(x);
+      if (x.contents && (e += x.contents.byteLength), x.children)
+        for (const A of x.children)
+          A && (e += this.measureBox(A));
+      return e;
+    }
+  }
+}
+const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V.buffer), e0 = (t) => [(t % 256 + 256) % 256], G = (t) => (U0.setUint16(0, t, !1), [V[0], V[1]]), KA = (t) => (U0.setInt16(0, t, !1), [V[0], V[1]]), ui = (t) => (U0.setUint32(0, t, !1), [V[1], V[2], V[3]]), w = (t) => (U0.setUint32(0, t, !1), [V[0], V[1], V[2], V[3]]), sx = (t) => (U0.setInt32(0, t, !1), [V[0], V[1], V[2], V[3]]), Sx = (t) => (U0.setUint32(0, Math.floor(t / 2 ** 32), !1), U0.setUint32(4, t, !1), [V[0], V[1], V[2], V[3], V[4], V[5], V[6], V[7]]), Di = (t) => (U0.setInt16(0, 2 ** 8 * t, !1), [V[0], V[1]]), J0 = (t) => (U0.setInt32(0, 2 ** 16 * t, !1), [V[0], V[1], V[2], V[3]]), qt = (t) => (U0.setInt32(0, 2 ** 30 * t, !1), [V[0], V[1], V[2], V[3]]), Mt = (t, x) => {
+  const e = [];
+  let A = t;
+  do {
+    let r = A & 127;
+    A >>= 7, e.length > 0 && (r |= 128), e.push(r);
+  } while (A > 0 || x);
+  return e.reverse();
+}, c0 = (t, x = !1) => {
+  const e = Array(t.length).fill(null).map((A, r) => t.charCodeAt(r));
+  return x && e.push(0), e;
+}, WA = (t) => {
+  let x = null;
+  for (const e of t)
+    (!x || e.timestamp > x.timestamp) && (x = e);
+  return x;
+}, Bi = (t) => {
+  const x = t * (Math.PI / 180), e = Math.round(Math.cos(x)), A = Math.round(Math.sin(x));
+  return [
+    e,
+    A,
+    0,
+    -A,
+    e,
+    0,
+    0,
+    0,
+    1
+  ];
+}, bi = /* @__PURE__ */ Bi(0), Ci = (t) => [
+  J0(t[0]),
+  J0(t[1]),
+  qt(t[2]),
+  J0(t[3]),
+  J0(t[4]),
+  qt(t[5]),
+  J0(t[6]),
+  J0(t[7]),
+  qt(t[8])
+], M = (t, x, e) => ({
+  type: t,
+  contents: x && new Uint8Array(x.flat(10)),
+  children: e
+}), W = (t, x, e, A, r) => M(t, [e0(x), ui(e), A ?? []], r), Fa = (t) => t.isQuickTime ? M("ftyp", [
+  c0("qt  "),
+  // Major brand
+  w(512),
+  // Minor version
+  // Compatible brands
+  c0("qt  ")
+]) : t.fragmented ? M("ftyp", [
+  c0("iso5"),
+  // Major brand
+  w(512),
+  // Minor version
+  // Compatible brands
+  c0("iso5"),
+  c0("iso6"),
+  c0("mp41")
+]) : M("ftyp", [
+  c0("isom"),
+  // Major brand
+  w(512),
+  // Minor version
+  // Compatible brands
+  c0("isom"),
+  t.holdsAvc ? c0("avc1") : [],
+  c0("mp41")
+]), Me = (t) => ({ type: "mdat", largeSize: t }), ia = (t) => ({ type: "free", size: t }), le = (t) => M("moov", void 0, [
+  sa(t.creationTime, t.trackDatas),
+  ...t.trackDatas.map((x) => na(x, t.creationTime)),
+  t.isFragmented ? Va(t.trackDatas) : null,
+  Fo(t)
+]), sa = (t, x) => {
+  const e = F0(Math.max(0, ...x.filter((i) => i.samples.length > 0).map((i) => {
+    const s = WA(i.samples);
+    return s.timestamp + s.duration;
+  })), oA), A = Math.max(0, ...x.map((i) => i.track.id)) + 1, r = !Xx(t) || !Xx(e), F = r ? Sx : w;
+  return W("mvhd", +r, 0, [
+    F(t),
+    // Creation time
+    F(t),
+    // Modification time
+    w(oA),
+    // Timescale
+    F(e),
+    // Duration
+    J0(1),
+    // Preferred rate
+    Di(1),
+    // Preferred volume
+    Array(10).fill(0),
+    // Reserved
+    Ci(bi),
+    // Matrix
+    Array(24).fill(0),
+    // Pre-defined
+    w(A)
+    // Next track ID
+  ]);
+}, na = (t, x) => {
+  const e = Eo(t);
+  return M("trak", void 0, [
+    aa(t, x),
+    oa(t, x),
+    e.name !== void 0 ? M("udta", void 0, [
+      M("name", [
+        ...Y.encode(e.name)
+      ])
+    ]) : null
+  ]);
+}, aa = (t, x) => {
+  const e = WA(t.samples), A = F0(e ? e.timestamp + e.duration : 0, oA), r = !Xx(x) || !Xx(A), F = r ? Sx : w;
+  let i;
+  if (t.type === "video") {
+    const n = t.track.metadata.rotation;
+    i = Bi(n ?? 0);
+  } else
+    i = bi;
+  let s = 2;
+  return t.track.metadata.disposition?.default !== !1 && (s |= 1), W("tkhd", +r, s, [
+    F(x),
+    // Creation time
+    F(x),
+    // Modification time
+    w(t.track.id),
+    // Track ID
+    w(0),
+    // Reserved
+    F(A),
+    // Duration
+    Array(8).fill(0),
+    // Reserved
+    G(0),
+    // Layer
+    G(t.track.id),
+    // Alternate group
+    Di(t.type === "audio" ? 1 : 0),
+    // Volume
+    G(0),
+    // Reserved
+    Ci(i),
+    // Matrix
+    J0(t.type === "video" ? t.info.width : 0),
+    // Track width
+    J0(t.type === "video" ? t.info.height : 0)
+    // Track height
+  ]);
+}, oa = (t, x) => M("mdia", void 0, [
+  fa(t, x),
+  JA(!0, ca[t.type], va[t.type]),
+  la(t)
+]), fa = (t, x) => {
+  const e = WA(t.samples), A = F0(e ? e.timestamp + e.duration : 0, t.timescale), r = !Xx(x) || !Xx(A), F = r ? Sx : w;
+  return W("mdhd", +r, 0, [
+    F(x),
+    // Creation time
+    F(x),
+    // Modification time
+    w(t.timescale),
+    // Timescale
+    F(A),
+    // Duration
+    G(mi(t.track.metadata.languageCode ?? b0)),
+    // Language
+    G(0)
+    // Quality
+  ]);
+}, ca = {
+  video: "vide",
+  audio: "soun",
+  subtitle: "text"
+}, va = {
+  video: "MediabunnyVideoHandler",
+  audio: "MediabunnySoundHandler",
+  subtitle: "MediabunnyTextHandler"
+}, JA = (t, x, e, A = "\0\0\0\0") => W("hdlr", 0, 0, [
+  t ? c0("mhlr") : w(0),
+  // Component type
+  c0(x),
+  // Component subtype
+  c0(A),
+  // Component manufacturer
+  w(0),
+  // Component flags
+  w(0),
+  // Component flags mask
+  c0(e, !0)
+  // Component name
+]), la = (t) => M("minf", void 0, [
+  Ba[t.type](),
+  ba(),
+  Ea(t)
+]), da = () => W("vmhd", 0, 1, [
+  G(0),
+  // Graphics mode
+  G(0),
+  // Opcolor R
+  G(0),
+  // Opcolor G
+  G(0)
+  // Opcolor B
+]), ua = () => W("smhd", 0, 0, [
+  G(0),
+  // Balance
+  G(0)
+  // Reserved
+]), Da = () => W("nmhd", 0, 0), Ba = {
+  video: da,
+  audio: ua,
+  subtitle: Da
+}, ba = () => M("dinf", void 0, [
+  Ca()
+]), Ca = () => W("dref", 0, 0, [
+  w(1)
+  // Entry count
+], [
+  ja()
+]), ja = () => W("url ", 0, 1), Ea = (t) => {
+  const x = t.compositionTimeOffsetTable.length > 1 || t.compositionTimeOffsetTable.some((e) => e.sampleCompositionTimeOffset !== 0);
+  return M("stbl", void 0, [
+    ha(t),
+    Ha(t),
+    x ? $a(t) : null,
+    x ? za(t) : null,
+    La(t),
+    Ua(t),
+    Oa(t),
+    Na(t)
+  ]);
+}, ha = (t) => {
+  let x;
+  if (t.type === "video")
+    x = ma(ao(t.track.source._codec, t.info.decoderConfig.codec), t);
+  else if (t.type === "audio") {
+    const e = hi(t.track.source._codec, t.muxer.isQuickTime);
+    d(e), x = Ta(e, t);
+  } else t.type === "subtitle" && (x = Ga(co[t.track.source._codec], t));
+  return d(x), W("stsd", 0, 0, [
+    w(1)
+    // Entry count
+  ], [
+    x
+  ]);
+}, ma = (t, x) => M(t, [
+  Array(6).fill(0),
+  // Reserved
+  G(1),
+  // Data reference index
+  G(0),
+  // Pre-defined
+  G(0),
+  // Reserved
+  Array(12).fill(0),
+  // Pre-defined
+  G(x.info.width),
+  // Width
+  G(x.info.height),
+  // Height
+  w(4718592),
+  // Horizontal resolution
+  w(4718592),
+  // Vertical resolution
+  w(0),
+  // Reserved
+  G(1),
+  // Frame count
+  Array(32).fill(0),
+  // Compressor name
+  G(24),
+  // Depth
+  KA(65535)
+  // Pre-defined
+], [
+  oo[x.track.source._codec](x),
+  pa(x),
+  Kr(x.info.decoderConfig.colorSpace) ? ka(x) : null
+]), pa = (t) => t.info.pixelAspectRatio.num === t.info.pixelAspectRatio.den ? null : M("pasp", [
+  w(t.info.pixelAspectRatio.num),
+  w(t.info.pixelAspectRatio.den)
+]), ka = (t) => M("colr", [
+  c0("nclx"),
+  // Colour type
+  G(_x[t.info.decoderConfig.colorSpace.primaries]),
+  // Colour primaries
+  G(Ix[t.info.decoderConfig.colorSpace.transfer]),
+  // Transfer characteristics
+  G(qx[t.info.decoderConfig.colorSpace.matrix]),
+  // Matrix coefficients
+  e0((t.info.decoderConfig.colorSpace.fullRange ? 1 : 0) << 7)
+  // Full range flag
+]), ga = (t) => t.info.decoderConfig && M("avcC", [
+  // For AVC, description is an AVCDecoderConfigurationRecord, so nothing else to do here
+  ...Q(t.info.decoderConfig.description)
+]), wa = (t) => t.info.decoderConfig && M("hvcC", [
+  // For HEVC, description is an HEVCDecoderConfigurationRecord, so nothing else to do here
+  ...Q(t.info.decoderConfig.description)
+]), Ir = (t) => {
+  if (!t.info.decoderConfig)
+    return null;
+  const x = t.info.decoderConfig, e = x.codec.split("."), A = Number(e[1]), r = Number(e[2]), F = Number(e[3]), i = e[4] ? Number(e[4]) : 1, s = e[8] ? Number(e[8]) : Number(x.colorSpace?.fullRange ?? 0), n = (F << 4) + (i << 1) + s, a = e[5] ? Number(e[5]) : x.colorSpace?.primaries ? _x[x.colorSpace.primaries] : 2, o = e[6] ? Number(e[6]) : x.colorSpace?.transfer ? Ix[x.colorSpace.transfer] : 2, f = e[7] ? Number(e[7]) : x.colorSpace?.matrix ? qx[x.colorSpace.matrix] : 2;
+  return W("vpcC", 1, 0, [
+    e0(A),
+    // Profile
+    e0(r),
+    // Level
+    e0(n),
+    // Bit depth, chroma subsampling, full range
+    e0(a),
+    // Colour primaries
+    e0(o),
+    // Transfer characteristics
+    e0(f),
+    // Matrix coefficients
+    G(0)
+    // Codec initialization data size
+  ]);
+}, ya = (t) => M("av1C", xF(t.info.decoderConfig.codec)), Ta = (t, x) => {
+  let e = 0, A, r = 16;
+  const F = r0.includes(x.track.source._codec);
+  if (F) {
+    const i = x.track.source._codec, { sampleSize: s } = O0(i);
+    r = 8 * s, r > 16 && (e = 1);
+  }
+  if (x.muxer.isQuickTime && (e = 1), e === 0)
+    A = [
+      Array(6).fill(0),
+      // Reserved
+      G(1),
+      // Data reference index
+      G(e),
+      // Version
+      G(0),
+      // Revision level
+      w(0),
+      // Vendor
+      G(x.info.numberOfChannels),
+      // Number of channels
+      G(r),
+      // Sample size (bits)
+      G(0),
+      // Compression ID
+      G(0),
+      // Packet size
+      G(x.info.sampleRate < 2 ** 16 ? x.info.sampleRate : 0),
+      // Sample rate (upper)
+      G(0)
+      // Sample rate (lower)
+    ];
+  else {
+    const i = F ? 0 : -2;
+    A = [
+      Array(6).fill(0),
+      // Reserved
+      G(1),
+      // Data reference index
+      G(e),
+      // Version
+      G(0),
+      // Revision level
+      w(0),
+      // Vendor
+      G(x.info.numberOfChannels),
+      // Number of channels
+      G(Math.min(r, 16)),
+      // Sample size (bits)
+      KA(i),
+      // Compression ID
+      G(0),
+      // Packet size
+      G(x.info.sampleRate < 2 ** 16 ? x.info.sampleRate : 0),
+      // Sample rate (upper)
+      G(0),
+      // Sample rate (lower)
+      F ? [
+        w(1),
+        // Samples per packet (must be 1 for uncompressed formats)
+        w(r / 8),
+        // Bytes per packet
+        w(x.info.numberOfChannels * r / 8)
+        // Bytes per frame
+      ] : [
+        w(0),
+        // Samples per packet (don't bother, still works with 0)
+        w(0),
+        // Bytes per packet (variable)
+        w(0)
+        // Bytes per frame (variable)
+      ],
+      w(2)
+      // Bytes per sample (constant in FFmpeg)
+    ];
+  }
+  return M(t, A, [
+    fo(x.track.source._codec, x.muxer.isQuickTime)?.(x) ?? null
+  ]);
+}, Gt = (t) => {
+  let x;
+  switch (t.track.source._codec) {
+    case "aac":
+      x = 64;
+      break;
+    case "mp3":
+      x = 107;
+      break;
+    case "vorbis":
+      x = 221;
+      break;
+    default:
+      throw new Error(`Unhandled audio codec: ${t.track.source._codec}`);
+  }
+  let e = [
+    ...e0(x),
+    // Object type indication
+    ...e0(21),
+    // stream type(6bits)=5 audio, flags(2bits)=1
+    ...ui(0),
+    // 24bit buffer size
+    ...w(0),
+    // max bitrate
+    ...w(0)
+    // avg bitrate
+  ];
+  if (t.info.decoderConfig.description) {
+    const A = Q(t.info.decoderConfig.description);
+    e = [
+      ...e,
+      ...e0(5),
+      // TAG(5) = DecoderSpecificInfo
+      ...Mt(A.byteLength),
+      ...A
+    ];
+  }
+  return e = [
+    ...G(1),
+    // ES_ID = 1
+    ...e0(0),
+    // flags etc = 0
+    ...e0(4),
+    // TAG(4) = ES Descriptor
+    ...Mt(e.length),
+    ...e,
+    ...e0(6),
+    // TAG(6)
+    ...e0(1),
+    // length
+    ...e0(2)
+    // data
+  ], e = [
+    ...e0(3),
+    // TAG(3) = Object Descriptor
+    ...Mt(e.length),
+    ...e
+  ], W("esds", 0, 0, e);
+}, Ax = (t) => M("wave", void 0, [
+  Pa(t),
+  Sa(t),
+  M("\0\0\0\0")
+  // NULL tag at the end
+]), Pa = (t) => M("frma", [
+  c0(hi(t.track.source._codec, t.muxer.isQuickTime))
+]), Sa = (t) => {
+  const { littleEndian: x } = O0(t.track.source._codec);
+  return M("enda", [
+    G(+x)
+  ]);
+}, _a = (t) => {
+  let x = t.info.numberOfChannels, e = 3840, A = t.info.sampleRate, r = 0, F = 0, i = new Uint8Array(0);
+  const s = t.info.decoderConfig?.description;
+  if (s) {
+    d(s.byteLength >= 18);
+    const n = Q(s), a = ct(n);
+    x = a.outputChannelCount, e = a.preSkip, A = a.inputSampleRate, r = a.outputGain, F = a.channelMappingFamily, a.channelMappingTable && (i = a.channelMappingTable);
+  }
+  return M("dOps", [
+    e0(0),
+    // Version
+    e0(x),
+    // OutputChannelCount
+    G(e),
+    // PreSkip
+    w(A),
+    // InputSampleRate
+    KA(r),
+    // OutputGain
+    e0(F),
+    // ChannelMappingFamily
+    ...i
+  ]);
+}, Ia = (t) => {
+  const x = t.info.decoderConfig?.description;
+  d(x);
+  const e = Q(x);
+  return W("dfLa", 0, 0, [
+    ...e.subarray(4)
+  ]);
+}, H0 = (t) => {
+  const { littleEndian: x, sampleSize: e } = O0(t.track.source._codec), A = +x;
+  return W("pcmC", 0, 0, [
+    e0(A),
+    e0(8 * e)
+  ]);
+}, qa = (t) => {
+  const x = uF(t.info.firstPacket.data);
+  if (!x)
+    throw new Error("Couldn't extract AC-3 frame info from the audio packet. Ensure the packets contain valid AC-3 sync frames (as specified in ETSI TS 102 366).");
+  const e = new Uint8Array(3), A = new N(e);
+  return A.writeBits(2, x.fscod), A.writeBits(5, x.bsid), A.writeBits(3, x.bsmod), A.writeBits(3, x.acmod), A.writeBits(1, x.lfeon), A.writeBits(5, x.bitRateCode), A.writeBits(5, 0), M("dac3", [...e]);
+}, Ma = (t) => {
+  const x = BF(t.info.firstPacket.data);
+  if (!x)
+    throw new Error("Couldn't extract E-AC-3 frame info from the audio packet. Ensure the packets contain valid E-AC-3 sync frames (as specified in ETSI TS 102 366).");
+  let e = 16;
+  for (const i of x.substreams)
+    e += 23, i.numDepSub > 0 ? e += 9 : e += 1;
+  const A = Math.ceil(e / 8), r = new Uint8Array(A), F = new N(r);
+  F.writeBits(13, x.dataRate), F.writeBits(3, x.substreams.length - 1);
+  for (const i of x.substreams)
+    F.writeBits(2, i.fscod), F.writeBits(5, i.bsid), F.writeBits(1, 0), F.writeBits(1, 0), F.writeBits(3, i.bsmod), F.writeBits(3, i.acmod), F.writeBits(1, i.lfeon), F.writeBits(3, 0), F.writeBits(4, i.numDepSub), i.numDepSub > 0 ? F.writeBits(9, i.chanLoc) : F.writeBits(1, 0);
+  return M("dec3", [...r]);
+}, Ga = (t, x) => M(t, [
+  Array(6).fill(0),
+  // Reserved
+  G(1)
+  // Data reference index
+], [
+  vo[x.track.source._codec](x)
+]), Ra = (t) => M("vttC", [
+  ...Y.encode(t.info.config.description)
+]), Ha = (t) => W("stts", 0, 0, [
+  w(t.timeToSampleTable.length),
+  // Number of entries
+  t.timeToSampleTable.map((x) => [
+    w(x.sampleCount),
+    // Sample count
+    w(x.sampleDelta)
+    // Sample duration
+  ])
+]), Na = (t) => {
+  if (t.samples.every((e) => e.type === "key"))
+    return null;
+  const x = [...t.samples.entries()].filter(([, e]) => e.type === "key");
+  return W("stss", 0, 0, [
+    w(x.length),
+    // Number of entries
+    x.map(([e]) => w(e + 1))
+    // Sync sample table
+  ]);
+}, La = (t) => W("stsc", 0, 0, [
+  w(t.compactlyCodedChunkTable.length),
+  // Number of entries
+  t.compactlyCodedChunkTable.map((x) => [
+    w(x.firstChunk),
+    // First chunk
+    w(x.samplesPerChunk),
+    // Samples per chunk
+    w(1)
+    // Sample description index
+  ])
+]), Ua = (t) => {
+  if (t.type === "audio" && t.info.requiresPcmTransformation) {
+    const { sampleSize: x } = O0(t.track.source._codec);
+    return W("stsz", 0, 0, [
+      w(x * t.info.numberOfChannels),
+      // Sample size
+      w(t.samples.reduce((e, A) => e + F0(A.duration, t.timescale), 0))
+    ]);
+  }
+  return W("stsz", 0, 0, [
+    w(0),
+    // Sample size (0 means non-constant size)
+    w(t.samples.length),
+    // Number of entries
+    t.samples.map((x) => w(x.size))
+    // Sample size table
+  ]);
+}, Oa = (t) => t.finalizedChunks.length > 0 && x0(t.finalizedChunks).offset >= 2 ** 32 ? W("co64", 0, 0, [
+  w(t.finalizedChunks.length),
+  // Number of entries
+  t.finalizedChunks.map((x) => Sx(x.offset))
+  // Chunk offset table
+]) : W("stco", 0, 0, [
+  w(t.finalizedChunks.length),
+  // Number of entries
+  t.finalizedChunks.map((x) => w(x.offset))
+  // Chunk offset table
+]), $a = (t) => W("ctts", 1, 0, [
+  w(t.compositionTimeOffsetTable.length),
+  // Number of entries
+  t.compositionTimeOffsetTable.map((x) => [
+    w(x.sampleCount),
+    // Sample count
+    sx(x.sampleCompositionTimeOffset)
+    // Sample offset
+  ])
+]), za = (t) => {
+  let x = 1 / 0, e = -1 / 0, A = 1 / 0, r = -1 / 0;
+  d(t.compositionTimeOffsetTable.length > 0), d(t.samples.length > 0);
+  for (let i = 0; i < t.compositionTimeOffsetTable.length; i++) {
+    const s = t.compositionTimeOffsetTable[i];
+    x = Math.min(x, s.sampleCompositionTimeOffset), e = Math.max(e, s.sampleCompositionTimeOffset);
+  }
+  for (let i = 0; i < t.samples.length; i++) {
+    const s = t.samples[i];
+    A = Math.min(A, F0(s.timestamp, t.timescale)), r = Math.max(r, F0(s.timestamp + s.duration, t.timescale));
+  }
+  const F = Math.max(-x, 0);
+  return r >= 2 ** 31 ? null : W("cslg", 0, 0, [
+    sx(F),
+    // Composition to DTS shift
+    sx(x),
+    // Least decode to display delta
+    sx(e),
+    // Greatest decode to display delta
+    sx(A),
+    // Composition start time
+    sx(r)
+    // Composition end time
+  ]);
+}, Va = (t) => M("mvex", void 0, t.map(Ka)), Ka = (t) => W("trex", 0, 0, [
+  w(t.track.id),
+  // Track ID
+  w(1),
+  // Default sample description index
+  w(0),
+  // Default sample duration
+  w(0),
+  // Default sample size
+  w(0)
+  // Default sample flags
+]), qr = (t, x) => M("moof", void 0, [
+  Wa(t),
+  ...x.map(Ja)
+]), Wa = (t) => W("mfhd", 0, 0, [
+  w(t)
+  // Sequence number
+]), ji = (t) => {
+  let x = 0, e = 0;
+  const A = 0, r = 0, F = t.type === "delta";
+  return e |= +F, F ? x |= 1 : x |= 2, x << 24 | e << 16 | A << 8 | r;
+}, Ja = (t) => M("traf", void 0, [
+  Xa(t),
+  Qa(t),
+  Ya(t)
+]), Xa = (t) => {
+  d(t.currentChunk);
+  let x = 0;
+  x |= 8, x |= 16, x |= 32, x |= 131072;
+  const e = t.currentChunk.samples[1] ?? t.currentChunk.samples[0], A = {
+    duration: e.timescaleUnitsToNextSample,
+    size: e.size,
+    flags: ji(e)
+  };
+  return W("tfhd", 0, x, [
+    w(t.track.id),
+    // Track ID
+    w(A.duration),
+    // Default sample duration
+    w(A.size),
+    // Default sample size
+    w(A.flags)
+    // Default sample flags
+  ]);
+}, Qa = (t) => (d(t.currentChunk), W("tfdt", 1, 0, [
+  Sx(F0(t.currentChunk.startTimestamp, t.timescale))
+  // Base Media Decode Time
+])), Ya = (t) => {
+  d(t.currentChunk);
+  const x = t.currentChunk.samples.map((l) => l.timescaleUnitsToNextSample), e = t.currentChunk.samples.map((l) => l.size), A = t.currentChunk.samples.map(ji), r = t.currentChunk.samples.map((l) => F0(l.timestamp - l.decodeTimestamp, t.timescale)), F = new Set(x), i = new Set(e), s = new Set(A), n = new Set(r), a = s.size === 2 && A[0] !== A[1], o = F.size > 1, f = i.size > 1, c = !a && s.size > 1, v = n.size > 1 || [...n].some((l) => l !== 0);
+  let u = 0;
+  return u |= 1, u |= 4 * +a, u |= 256 * +o, u |= 512 * +f, u |= 1024 * +c, u |= 2048 * +v, W("trun", 1, u, [
+    w(t.currentChunk.samples.length),
+    // Sample count
+    w(t.currentChunk.offset - t.currentChunk.moofOffset || 0),
+    // Data offset
+    a ? w(A[0]) : [],
+    t.currentChunk.samples.map((l, D) => [
+      o ? w(x[D]) : [],
+      // Sample duration
+      f ? w(e[D]) : [],
+      // Sample size
+      c ? w(A[D]) : [],
+      // Sample flags
+      // Sample composition time offsets
+      v ? sx(r[D]) : []
+    ])
+  ]);
+}, Za = (t) => M("mfra", void 0, [
+  ...t.map(xo),
+  eo()
+]), xo = (t, x) => W("tfra", 1, 0, [
+  w(t.track.id),
+  // Track ID
+  w(63),
+  // This specifies that traf number, trun number and sample number are 32-bit ints
+  w(t.finalizedChunks.length),
+  // Number of entries
+  t.finalizedChunks.map((A) => [
+    Sx(F0(A.samples[0].timestamp, t.timescale)),
+    // Time (in presentation time)
+    Sx(A.moofOffset),
+    // moof offset
+    w(x + 1),
+    // traf number
+    w(1),
+    // trun number
+    w(1)
+    // Sample number
+  ])
+]), eo = () => W("mfro", 0, 0, [
+  // This value needs to be overwritten manually from the outside, where the actual size of the enclosing mfra box
+  // is known
+  w(0)
+  // Size
+]), to = () => M("vtte"), Ao = (t, x, e, A, r) => M("vttc", void 0, [
+  r !== null ? M("vsid", [sx(r)]) : null,
+  e !== null ? M("iden", [...Y.encode(e)]) : null,
+  x !== null ? M("ctim", [...Y.encode(di(x))]) : null,
+  A !== null ? M("sttg", [...Y.encode(A)]) : null,
+  M("payl", [...Y.encode(t)])
+]), ro = (t) => M("vtta", [...Y.encode(t)]), Fo = (t) => {
+  const x = [], e = t.format._options.metadataFormat ?? "auto", A = t.output._metadataTags;
+  if (e === "mdir" || e === "auto" && !t.isQuickTime) {
+    const r = so(A);
+    r && x.push(r);
+  } else if (e === "mdta") {
+    const r = no(A);
+    r && x.push(r);
+  } else (e === "udta" || e === "auto" && t.isQuickTime) && io(x, t.output._metadataTags);
+  return x.length === 0 ? null : M("udta", void 0, x);
+}, io = (t, x) => {
+  for (const { key: e, value: A } of ee(x))
+    switch (e) {
+      case "title":
+        t.push(N0("©nam", A));
+        break;
+      case "description":
+        t.push(N0("©des", A));
+        break;
+      case "artist":
+        t.push(N0("©ART", A));
+        break;
+      case "album":
+        t.push(N0("©alb", A));
+        break;
+      case "albumArtist":
+        t.push(N0("albr", A));
+        break;
+      case "genre":
+        t.push(N0("©gen", A));
+        break;
+      case "date":
+        t.push(N0("©day", A.toISOString().slice(0, 10)));
+        break;
+      case "comment":
+        t.push(N0("©cmt", A));
+        break;
+      case "lyrics":
+        t.push(N0("©lyr", A));
+        break;
+      case "raw":
+        break;
+      case "discNumber":
+      case "discsTotal":
+      case "trackNumber":
+      case "tracksTotal":
+      case "images":
+        break;
+      default:
+        u0(e);
+    }
+  if (x.raw)
+    for (const e in x.raw) {
+      const A = x.raw[e];
+      A == null || e.length !== 4 || t.some((r) => r.type === e) || (typeof A == "string" ? t.push(N0(e, A)) : A instanceof Uint8Array && t.push(M(e, Array.from(A))));
+    }
+}, N0 = (t, x) => {
+  const e = Y.encode(x);
+  return M(t, [
+    G(e.length),
+    G(mi("und")),
+    Array.from(e)
+  ]);
+}, Mr = {
+  "image/jpeg": 13,
+  "image/png": 14,
+  "image/bmp": 27
+}, Ei = (t, x) => {
+  const e = [];
+  for (const { key: A, value: r } of ee(t))
+    switch (A) {
+      case "title":
+        e.push({ key: x ? "title" : "©nam", value: _0(r) });
+        break;
+      case "description":
+        e.push({ key: x ? "description" : "©des", value: _0(r) });
+        break;
+      case "artist":
+        e.push({ key: x ? "artist" : "©ART", value: _0(r) });
+        break;
+      case "album":
+        e.push({ key: x ? "album" : "©alb", value: _0(r) });
+        break;
+      case "albumArtist":
+        e.push({ key: x ? "album_artist" : "aART", value: _0(r) });
+        break;
+      case "comment":
+        e.push({ key: x ? "comment" : "©cmt", value: _0(r) });
+        break;
+      case "genre":
+        e.push({ key: x ? "genre" : "©gen", value: _0(r) });
+        break;
+      case "lyrics":
+        e.push({ key: x ? "lyrics" : "©lyr", value: _0(r) });
+        break;
+      case "date":
+        e.push({
+          key: x ? "date" : "©day",
+          value: _0(r.toISOString().slice(0, 10))
+        });
+        break;
+      case "images":
+        for (const F of r)
+          F.kind === "coverFront" && e.push({ key: "covr", value: M("data", [
+            w(Mr[F.mimeType] ?? 0),
+            // Type indicator
+            w(0),
+            // Locale indicator
+            Array.from(F.data)
+            // Kinda slow, hopefully temp
+          ]) });
+        break;
+      case "trackNumber":
+        if (x) {
+          const F = t.tracksTotal !== void 0 ? `${r}/${t.tracksTotal}` : r.toString();
+          e.push({ key: "track", value: _0(F) });
+        } else
+          e.push({ key: "trkn", value: M("data", [
+            w(0),
+            // 8 bytes empty
+            w(0),
+            G(0),
+            // Empty
+            G(r),
+            G(t.tracksTotal ?? 0),
+            G(0)
+            // Empty
+          ]) });
+        break;
+      case "discNumber":
+        x || e.push({ key: "disc", value: M("data", [
+          w(0),
+          // 8 bytes empty
+          w(0),
+          G(0),
+          // Empty
+          G(r),
+          G(t.discsTotal ?? 0),
+          G(0)
+          // Empty
+        ]) });
+        break;
+      case "tracksTotal":
+      case "discsTotal":
+        break;
+      case "raw":
+        break;
+      default:
+        u0(A);
+    }
+  if (t.raw)
+    for (const A in t.raw) {
+      const r = t.raw[A];
+      r == null || !x && A.length !== 4 || e.some((F) => F.key === A) || (typeof r == "string" ? e.push({ key: A, value: _0(r) }) : r instanceof Uint8Array ? e.push({ key: A, value: M("data", [
+        w(0),
+        // Type indicator
+        w(0),
+        // Locale indicator
+        Array.from(r)
+      ]) }) : r instanceof wx && e.push({ key: A, value: M("data", [
+        w(Mr[r.mimeType] ?? 0),
+        // Type indicator
+        w(0),
+        // Locale indicator
+        Array.from(r.data)
+        // Kinda slow, hopefully temp
+      ]) }));
+    }
+  return e;
+}, so = (t) => {
+  const x = Ei(t, !1);
+  return x.length === 0 ? null : W("meta", 0, 0, void 0, [
+    JA(!1, "mdir", "", "appl"),
+    // mdir handler
+    M("ilst", void 0, x.map((e) => M(e.key, void 0, [e.value])))
+    // Item list without keys box
+  ]);
+}, no = (t) => {
+  const x = Ei(t, !0);
+  return x.length === 0 ? null : M("meta", void 0, [
+    JA(!1, "mdta", ""),
+    // mdta handler
+    W("keys", 0, 0, [
+      w(x.length)
+    ], x.map((e) => M("mdta", [
+      ...Y.encode(e.key)
+    ]))),
+    M("ilst", void 0, x.map((e, A) => {
+      const r = String.fromCharCode(...w(A + 1));
+      return M(r, void 0, [e.value]);
+    }))
+  ]);
+}, _0 = (t) => M("data", [
+  w(1),
+  // Type indicator (UTF-8)
+  w(0),
+  // Locale indicator
+  ...Y.encode(t)
+]), ao = (t, x) => {
+  switch (t) {
+    case "avc":
+      return x.startsWith("avc3") ? "avc3" : "avc1";
+    case "hevc":
+      return "hvc1";
+    case "vp8":
+      return "vp08";
+    case "vp9":
+      return "vp09";
+    case "av1":
+      return "av01";
+  }
+}, oo = {
+  avc: ga,
+  hevc: wa,
+  vp8: Ir,
+  vp9: Ir,
+  av1: ya
+}, hi = (t, x) => {
+  switch (t) {
+    case "aac":
+      return "mp4a";
+    case "mp3":
+      return "mp4a";
+    case "opus":
+      return "Opus";
+    case "vorbis":
+      return "mp4a";
+    case "flac":
+      return "fLaC";
+    case "ulaw":
+      return "ulaw";
+    case "alaw":
+      return "alaw";
+    case "pcm-u8":
+      return "raw ";
+    case "pcm-s8":
+      return "sowt";
+    case "ac3":
+      return "ac-3";
+    case "eac3":
+      return "ec-3";
+  }
+  if (x)
+    switch (t) {
+      case "pcm-s16":
+        return "sowt";
+      case "pcm-s16be":
+        return "twos";
+      case "pcm-s24":
+        return "in24";
+      case "pcm-s24be":
+        return "in24";
+      case "pcm-s32":
+        return "in32";
+      case "pcm-s32be":
+        return "in32";
+      case "pcm-f32":
+        return "fl32";
+      case "pcm-f32be":
+        return "fl32";
+      case "pcm-f64":
+        return "fl64";
+      case "pcm-f64be":
+        return "fl64";
+    }
+  else
+    switch (t) {
+      case "pcm-s16":
+        return "ipcm";
+      case "pcm-s16be":
+        return "ipcm";
+      case "pcm-s24":
+        return "ipcm";
+      case "pcm-s24be":
+        return "ipcm";
+      case "pcm-s32":
+        return "ipcm";
+      case "pcm-s32be":
+        return "ipcm";
+      case "pcm-f32":
+        return "fpcm";
+      case "pcm-f32be":
+        return "fpcm";
+      case "pcm-f64":
+        return "fpcm";
+      case "pcm-f64be":
+        return "fpcm";
+    }
+}, fo = (t, x) => {
+  switch (t) {
+    case "aac":
+      return Gt;
+    case "mp3":
+      return Gt;
+    case "opus":
+      return _a;
+    case "vorbis":
+      return Gt;
+    case "flac":
+      return Ia;
+    case "ac3":
+      return qa;
+    case "eac3":
+      return Ma;
+  }
+  if (x)
+    switch (t) {
+      case "pcm-s24":
+        return Ax;
+      case "pcm-s24be":
+        return Ax;
+      case "pcm-s32":
+        return Ax;
+      case "pcm-s32be":
+        return Ax;
+      case "pcm-f32":
+        return Ax;
+      case "pcm-f32be":
+        return Ax;
+      case "pcm-f64":
+        return Ax;
+      case "pcm-f64be":
+        return Ax;
+    }
+  else
+    switch (t) {
+      case "pcm-s16":
+        return H0;
+      case "pcm-s16be":
+        return H0;
+      case "pcm-s24":
+        return H0;
+      case "pcm-s24be":
+        return H0;
+      case "pcm-s32":
+        return H0;
+      case "pcm-s32be":
+        return H0;
+      case "pcm-f32":
+        return H0;
+      case "pcm-f32be":
+        return H0;
+      case "pcm-f64":
+        return H0;
+      case "pcm-f64be":
+        return H0;
+    }
+  return null;
+}, co = {
+  webvtt: "wvtt"
+}, vo = {
+  webvtt: Ra
+}, mi = (t) => {
+  d(t.length === 3);
+  let x = 0;
+  for (let e = 0; e < 3; e++)
+    x <<= 5, x += t.charCodeAt(e) - 96;
+  return x;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class XA {
+  constructor() {
+    this.ensureMonotonicity = !1, this.trackedWrites = null, this.trackedStart = -1, this.trackedEnd = -1;
+  }
+  start() {
+  }
+  maybeTrackWrites(x) {
+    if (!this.trackedWrites)
+      return;
+    let e = this.getPos();
+    if (e < this.trackedStart) {
+      if (e + x.byteLength <= this.trackedStart)
+        return;
+      x = x.subarray(this.trackedStart - e), e = 0;
+    }
+    const A = e + x.byteLength - this.trackedStart;
+    let r = this.trackedWrites.byteLength;
+    for (; r < A; )
+      r *= 2;
+    if (r !== this.trackedWrites.byteLength) {
+      const F = new Uint8Array(r);
+      F.set(this.trackedWrites, 0), this.trackedWrites = F;
+    }
+    this.trackedWrites.set(x, e - this.trackedStart), this.trackedEnd = Math.max(this.trackedEnd, e + x.byteLength);
+  }
+  startTrackingWrites() {
+    this.trackedWrites = new Uint8Array(2 ** 10), this.trackedStart = this.getPos(), this.trackedEnd = this.trackedStart;
+  }
+  stopTrackingWrites() {
+    if (!this.trackedWrites)
+      throw new Error("Internal error: Can't get tracked writes since nothing was tracked.");
+    const e = {
+      data: this.trackedWrites.subarray(0, this.trackedEnd - this.trackedStart),
+      start: this.trackedStart,
+      end: this.trackedEnd
+    };
+    return this.trackedWrites = null, e;
+  }
+}
+const Rt = 2 ** 16, Ht = 2 ** 32;
+class pi extends XA {
+  constructor(x) {
+    if (super(), this.pos = 0, this.maxPos = 0, this.target = x, this.supportsResize = "resize" in new ArrayBuffer(0), this.supportsResize)
+      try {
+        this.buffer = new ArrayBuffer(Rt, { maxByteLength: Ht });
+      } catch {
+        this.buffer = new ArrayBuffer(Rt), this.supportsResize = !1;
+      }
+    else
+      this.buffer = new ArrayBuffer(Rt);
+    this.bytes = new Uint8Array(this.buffer);
+  }
+  ensureSize(x) {
+    let e = this.buffer.byteLength;
+    for (; e < x; )
+      e *= 2;
+    if (e !== this.buffer.byteLength) {
+      if (e > Ht)
+        throw new Error(`ArrayBuffer exceeded maximum size of ${Ht} bytes. Please consider using another target.`);
+      if (this.supportsResize)
+        this.buffer.resize(e);
+      else {
+        const A = new ArrayBuffer(e), r = new Uint8Array(A);
+        r.set(this.bytes, 0), this.buffer = A, this.bytes = r;
+      }
+    }
+  }
+  write(x) {
+    this.maybeTrackWrites(x), this.ensureSize(this.pos + x.byteLength), this.bytes.set(x, this.pos), this.target.onwrite?.(this.pos, this.pos + x.byteLength), this.pos += x.byteLength, this.maxPos = Math.max(this.maxPos, this.pos);
+  }
+  seek(x) {
+    this.pos = x;
+  }
+  getPos() {
+    return this.pos;
+  }
+  async flush() {
+  }
+  async finalize() {
+    this.ensureSize(this.pos), this.target.buffer = this.buffer.slice(0, Math.max(this.maxPos, this.pos));
+  }
+  async close() {
+  }
+  getSlice(x, e) {
+    return this.bytes.slice(x, e);
+  }
+}
+const lo = 2 ** 24, uo = 2;
+class Do extends XA {
+  constructor(x) {
+    super(), this.pos = 0, this.sections = [], this.lastWriteEnd = 0, this.lastFlushEnd = 0, this.writer = null, this.writeError = null, this.chunks = [], this.target = x, this.chunked = x._options.chunked ?? !1, this.chunkSize = x._options.chunkSize ?? lo;
+  }
+  start() {
+    this.writer = this.target._writable.getWriter();
+  }
+  write(x) {
+    if (this.pos > this.lastWriteEnd) {
+      const e = this.pos - this.lastWriteEnd;
+      this.pos = this.lastWriteEnd, this.write(new Uint8Array(e));
+    }
+    this.maybeTrackWrites(x), this.sections.push({
+      data: x.slice(),
+      start: this.pos
+    }), this.target.onwrite?.(this.pos, this.pos + x.byteLength), this.pos += x.byteLength, this.lastWriteEnd = Math.max(this.lastWriteEnd, this.pos);
+  }
+  seek(x) {
+    this.pos = x;
+  }
+  getPos() {
+    return this.pos;
+  }
+  async flush() {
+    if (this.writeError !== null)
+      throw this.writeError;
+    if (this.pos > this.lastWriteEnd) {
+      const A = this.pos - this.lastWriteEnd;
+      this.pos = this.lastWriteEnd, this.write(new Uint8Array(A));
+    }
+    if (d(this.writer), this.sections.length === 0)
+      return;
+    const x = [], e = [...this.sections].sort((A, r) => A.start - r.start);
+    x.push({
+      start: e[0].start,
+      size: e[0].data.byteLength
+    });
+    for (let A = 1; A < e.length; A++) {
+      const r = x[x.length - 1], F = e[A];
+      F.start <= r.start + r.size ? r.size = Math.max(r.size, F.start + F.data.byteLength - r.start) : x.push({
+        start: F.start,
+        size: F.data.byteLength
+      });
+    }
+    for (const A of x) {
+      A.data = new Uint8Array(A.size);
+      for (const r of this.sections)
+        A.start <= r.start && r.start < A.start + A.size && A.data.set(r.data, r.start - A.start);
+      if (this.writer.desiredSize !== null && this.writer.desiredSize <= 0 && await this.writer.ready, this.chunked)
+        this.writeDataIntoChunks(A.data, A.start), this.tryToFlushChunks();
+      else {
+        if (this.ensureMonotonicity && A.start !== this.lastFlushEnd)
+          throw new Error("Internal error: Monotonicity violation.");
+        this.writer.write({
+          type: "write",
+          data: A.data,
+          position: A.start
+        }).catch((r) => {
+          this.writeError ??= r;
+        }), this.lastFlushEnd = A.start + A.data.byteLength;
+      }
+    }
+    this.sections.length = 0;
+  }
+  writeDataIntoChunks(x, e) {
+    let A = this.chunks.findIndex((n) => n.start <= e && e < n.start + this.chunkSize);
+    A === -1 && (A = this.createChunk(e));
+    const r = this.chunks[A], F = e - r.start, i = x.subarray(0, Math.min(this.chunkSize - F, x.byteLength));
+    r.data.set(i, F);
+    const s = {
+      start: F,
+      end: F + i.byteLength
+    };
+    if (this.insertSectionIntoChunk(r, s), r.written[0].start === 0 && r.written[0].end === this.chunkSize && (r.shouldFlush = !0), this.chunks.length > uo) {
+      for (let n = 0; n < this.chunks.length - 1; n++)
+        this.chunks[n].shouldFlush = !0;
+      this.tryToFlushChunks();
+    }
+    i.byteLength < x.byteLength && this.writeDataIntoChunks(x.subarray(i.byteLength), e + i.byteLength);
+  }
+  insertSectionIntoChunk(x, e) {
+    let A = 0, r = x.written.length - 1, F = -1;
+    for (; A <= r; ) {
+      const i = Math.floor(A + (r - A + 1) / 2);
+      x.written[i].start <= e.start ? (A = i + 1, F = i) : r = i - 1;
+    }
+    for (x.written.splice(F + 1, 0, e), (F === -1 || x.written[F].end < e.start) && F++; F < x.written.length - 1 && x.written[F].end >= x.written[F + 1].start; )
+      x.written[F].end = Math.max(x.written[F].end, x.written[F + 1].end), x.written.splice(F + 1, 1);
+  }
+  createChunk(x) {
+    const A = {
+      start: Math.floor(x / this.chunkSize) * this.chunkSize,
+      data: new Uint8Array(this.chunkSize),
+      written: [],
+      shouldFlush: !1
+    };
+    return this.chunks.push(A), this.chunks.sort((r, F) => r.start - F.start), this.chunks.indexOf(A);
+  }
+  tryToFlushChunks(x = !1) {
+    d(this.writer);
+    for (let e = 0; e < this.chunks.length; e++) {
+      const A = this.chunks[e];
+      if (!(!A.shouldFlush && !x)) {
+        for (const r of A.written) {
+          const F = A.start + r.start;
+          if (this.ensureMonotonicity && F !== this.lastFlushEnd)
+            throw new Error("Internal error: Monotonicity violation.");
+          this.writer.write({
+            type: "write",
+            data: A.data.subarray(r.start, r.end),
+            position: F
+          }).catch((i) => {
+            this.writeError ??= i;
+          }), this.lastFlushEnd = A.start + r.end;
+        }
+        this.chunks.splice(e--, 1);
+      }
+    }
+  }
+  async finalize() {
+    if (this.chunked && this.tryToFlushChunks(!0), this.writeError !== null)
+      throw this.writeError;
+    return d(this.writer), await this.writer.ready, this.writer.close();
+  }
+  async close() {
+    return this.writer?.close();
+  }
+}
+class Bo extends XA {
+  constructor(x) {
+    super(), this.target = x, this.pos = 0;
+  }
+  write(x) {
+    this.maybeTrackWrites(x), this.target.onwrite?.(this.pos, this.pos + x.byteLength), this.pos += x.byteLength;
+  }
+  getPos() {
+    return this.pos;
+  }
+  seek(x) {
+    this.pos = x;
+  }
+  async flush() {
+  }
+  async finalize() {
+  }
+  async close() {
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const bo = typeof Te < "u" ? Te : void 0;
+class ie {
+  constructor() {
+    this._output = null, this.onwrite = null;
+  }
+}
+class ki extends ie {
+  constructor() {
+    super(...arguments), this.buffer = null;
+  }
+  /** @internal */
+  _createWriter() {
+    return new pi(this);
+  }
+}
+class gi extends ie {
+  /** Creates a new {@link StreamTarget} which writes to the specified `writable`. */
+  constructor(x, e = {}) {
+    if (super(), !(x instanceof WritableStream))
+      throw new TypeError("StreamTarget requires a WritableStream instance.");
+    if (e != null && typeof e != "object")
+      throw new TypeError("StreamTarget options, when provided, must be an object.");
+    if (e.chunked !== void 0 && typeof e.chunked != "boolean")
+      throw new TypeError("options.chunked, when provided, must be a boolean.");
+    if (e.chunkSize !== void 0 && (!Number.isInteger(e.chunkSize) || e.chunkSize < 1024))
+      throw new TypeError("options.chunkSize, when provided, must be an integer and not smaller than 1024.");
+    this._writable = x, this._options = e;
+  }
+  /** @internal */
+  _createWriter() {
+    return new Do(this);
+  }
+}
+class Co extends ie {
+  /** Creates a new {@link FilePathTarget} that writes to the file at the specified file path. */
+  constructor(x, e = {}) {
+    if (typeof x != "string")
+      throw new TypeError("filePath must be a string.");
+    if (!e || typeof e != "object")
+      throw new TypeError("options must be an object.");
+    super(), this._fileHandle = null;
+    const A = new WritableStream({
+      start: async () => {
+        this._fileHandle = await bo.fs.open(x, "w");
+      },
+      write: async (r) => {
+        d(this._fileHandle), await this._fileHandle.write(r.data, 0, r.data.byteLength, r.position);
+      },
+      close: async () => {
+        this._fileHandle && (await this._fileHandle.close(), this._fileHandle = null);
+      }
+    });
+    this._streamTarget = new gi(A, {
+      chunked: !0,
+      ...e
+    }), this._streamTarget._output = this._output;
+  }
+  /** @internal */
+  _createWriter() {
+    return this._streamTarget._createWriter();
+  }
+}
+class wi extends ie {
+  /** @internal */
+  _createWriter() {
+    return new Bo(this);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const oA = 1e3, jo = 2082844800, Eo = (t) => {
+  const x = {}, e = t.track;
+  return e.metadata.name !== void 0 && (x.name = e.metadata.name), x;
+}, F0 = (t, x, e = !0) => {
+  const A = t * x;
+  return e ? Math.round(A) : A;
+};
+class ho extends ux {
+  constructor(x, e) {
+    super(x), this.auxTarget = new ki(), this.auxWriter = this.auxTarget._createWriter(), this.auxBoxWriter = new _r(this.auxWriter), this.mdat = null, this.ftypSize = null, this.trackDatas = [], this.allTracksKnown = t0(), this.creationTime = Math.floor(Date.now() / 1e3) + jo, this.finalizedChunks = [], this.nextFragmentNumber = 1, this.maxWrittenTimestamp = -1 / 0, this.format = e, this.writer = x._writer, this.boxWriter = new _r(this.writer), this.isQuickTime = e instanceof ZA;
+    const A = this.writer instanceof pi ? "in-memory" : !1;
+    this.fastStart = e._options.fastStart ?? A, this.isFragmented = this.fastStart === "fragmented", (this.fastStart === "in-memory" || this.isFragmented) && (this.writer.ensureMonotonicity = !0), this.minimumFragmentDuration = e._options.minimumFragmentDuration ?? 1;
+  }
+  async start() {
+    const x = await this.mutex.acquire(), e = this.output._tracks.some((A) => A.type === "video" && A.source._codec === "avc");
+    if (this.format._options.onFtyp && this.writer.startTrackingWrites(), this.boxWriter.writeBox(Fa({
+      isQuickTime: this.isQuickTime,
+      holdsAvc: e,
+      fragmented: this.isFragmented
+    })), this.format._options.onFtyp) {
+      const { data: A, start: r } = this.writer.stopTrackingWrites();
+      this.format._options.onFtyp(A, r);
+    }
+    if (this.ftypSize = this.writer.getPos(), this.fastStart !== "in-memory") if (this.fastStart === "reserve") {
+      for (const A of this.output._tracks)
+        if (A.metadata.maximumPacketCount === void 0)
+          throw new Error("All tracks must specify maximumPacketCount in their metadata when using fastStart: 'reserve'.");
+    } else this.isFragmented || (this.format._options.onMdat && this.writer.startTrackingWrites(), this.mdat = Me(!0), this.boxWriter.writeBox(this.mdat));
+    await this.writer.flush(), x();
+  }
+  allTracksAreKnown() {
+    for (const x of this.output._tracks)
+      if (!x.source._closed && !this.trackDatas.some((e) => e.track === x))
+        return !1;
+    return !0;
+  }
+  async getMimeType() {
+    await this.allTracksKnown.promise;
+    const x = this.trackDatas.map((e) => e.type === "video" || e.type === "audio" ? e.info.decoderConfig.codec : {
+      webvtt: "wvtt"
+    }[e.track.source._codec]);
+    return wF({
+      isQuickTime: this.isQuickTime,
+      hasVideo: this.trackDatas.some((e) => e.type === "video"),
+      hasAudio: this.trackDatas.some((e) => e.type === "audio"),
+      codecStrings: x
+    });
+  }
+  getVideoTrackData(x, e, A) {
+    const r = this.trackDatas.find((c) => c.track === x);
+    if (r)
+      return r;
+    kA(A), d(A), d(A.decoderConfig);
+    const F = { ...A.decoderConfig };
+    d(F.codedWidth !== void 0), d(F.codedHeight !== void 0);
+    let i = !1;
+    if (x.source._codec === "avc" && !F.description) {
+      const c = yA(e.data);
+      if (!c)
+        throw new Error("Couldn't extract an AVCDecoderConfigurationRecord from the AVC packet. Make sure the packets are in Annex B format (as specified in ITU-T-REC-H.264) when not providing a description, or provide a description (must be an AVCDecoderConfigurationRecord as specified in ISO 14496-15) and ensure the packets are in AVCC format.");
+      F.description = gs(c), i = !0;
+    } else if (x.source._codec === "hevc" && !F.description) {
+      const c = PA(e.data);
+      if (!c)
+        throw new Error("Couldn't extract an HEVCDecoderConfigurationRecord from the HEVC packet. Make sure the packets are in Annex B format (as specified in ITU-T-REC-H.265) when not providing a description, or provide a description (must be an HEVCDecoderConfigurationRecord as specified in ISO 14496-15) and ensure the packets are in HEVC format.");
+      F.description = Is(c), i = !0;
+    }
+    const s = ts(1 / (x.metadata.frameRate ?? 57600), 1e6).denominator, n = F.displayAspectWidth, a = F.displayAspectHeight, o = n === void 0 || a === void 0 ? { num: 1, den: 1 } : Ft({
+      num: n * F.codedHeight,
+      den: a * F.codedWidth
+    }), f = {
+      muxer: this,
+      track: x,
+      type: "video",
+      info: {
+        width: F.codedWidth,
+        height: F.codedHeight,
+        pixelAspectRatio: o,
+        decoderConfig: F,
+        requiresAnnexBTransformation: i
+      },
+      timescale: s,
+      samples: [],
+      sampleQueue: [],
+      timestampProcessingQueue: [],
+      timeToSampleTable: [],
+      compositionTimeOffsetTable: [],
+      lastTimescaleUnits: null,
+      lastSample: null,
+      finalizedChunks: [],
+      currentChunk: null,
+      compactlyCodedChunkTable: []
+    };
+    return this.trackDatas.push(f), this.trackDatas.sort((c, v) => c.track.id - v.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), f;
+  }
+  getAudioTrackData(x, e, A) {
+    const r = this.trackDatas.find((n) => n.track === x);
+    if (r)
+      return r;
+    Mx(A), d(A), d(A.decoderConfig);
+    const F = { ...A.decoderConfig };
+    let i = !1;
+    if (x.source._codec === "aac" && !F.description) {
+      const n = ex(C0.tempFromBytes(e.data));
+      if (!n)
+        throw new Error("Couldn't parse ADTS header from the AAC packet. Make sure the packets are in ADTS format (as specified in ISO 13818-7) when not providing a description, or provide a description (must be an AudioSpecificConfig as specified in ISO 14496-3) and ensure the packets are raw AAC data.");
+      const a = cx[n.samplingFrequencyIndex], o = Ae[n.channelConfiguration];
+      if (a === void 0 || o === void 0)
+        throw new Error("Invalid ADTS frame header.");
+      F.description = hA({
+        objectType: n.objectType,
+        sampleRate: a,
+        numberOfChannels: o
+      }), i = !0;
+    }
+    const s = {
+      muxer: this,
+      track: x,
+      type: "audio",
+      info: {
+        numberOfChannels: A.decoderConfig.numberOfChannels,
+        sampleRate: A.decoderConfig.sampleRate,
+        decoderConfig: F,
+        requiresPcmTransformation: !this.isFragmented && r0.includes(x.source._codec),
+        requiresAdtsStripping: i,
+        firstPacket: e
+      },
+      timescale: F.sampleRate,
+      samples: [],
+      sampleQueue: [],
+      timestampProcessingQueue: [],
+      timeToSampleTable: [],
+      compositionTimeOffsetTable: [],
+      lastTimescaleUnits: null,
+      lastSample: null,
+      finalizedChunks: [],
+      currentChunk: null,
+      compactlyCodedChunkTable: []
+    };
+    return this.trackDatas.push(s), this.trackDatas.sort((n, a) => n.track.id - a.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), s;
+  }
+  getSubtitleTrackData(x, e) {
+    const A = this.trackDatas.find((F) => F.track === x);
+    if (A)
+      return A;
+    AF(e), d(e), d(e.config);
+    const r = {
+      muxer: this,
+      track: x,
+      type: "subtitle",
+      info: {
+        config: e.config
+      },
+      timescale: 1e3,
+      // Reasonable
+      samples: [],
+      sampleQueue: [],
+      timestampProcessingQueue: [],
+      timeToSampleTable: [],
+      compositionTimeOffsetTable: [],
+      lastTimescaleUnits: null,
+      lastSample: null,
+      finalizedChunks: [],
+      currentChunk: null,
+      compactlyCodedChunkTable: [],
+      lastCueEndTimestamp: 0,
+      cueQueue: [],
+      nextSourceId: 0,
+      cueToSourceId: /* @__PURE__ */ new WeakMap()
+    };
+    return this.trackDatas.push(r), this.trackDatas.sort((F, i) => F.track.id - i.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), r;
+  }
+  async addEncodedVideoPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getVideoTrackData(x, e, A);
+      let i = e.data;
+      if (F.info.requiresAnnexBTransformation) {
+        const a = [...Fe(i)].map((o) => i.subarray(o.offset, o.offset + o.length));
+        if (a.length === 0)
+          throw new Error("Failed to transform packet data. Make sure all packets are provided in Annex B format, as specified in ITU-T-REC-H.264 and ITU-T-REC-H.265.");
+        i = iF(a, 4);
+      }
+      const s = this.validateAndNormalizeTimestamp(F.track, e.timestamp, e.type === "key"), n = this.createSampleForTrack(F, i, s, e.duration, e.type);
+      await this.registerSample(F, n);
+    } finally {
+      r();
+    }
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getAudioTrackData(x, e, A);
+      let i = e.data;
+      if (F.info.requiresAdtsStripping) {
+        const a = ex(C0.tempFromBytes(i));
+        if (!a)
+          throw new Error("Expected ADTS frame, didn't get one.");
+        const o = a.crcCheck === null ? ye : fx;
+        i = i.subarray(o);
+      }
+      const s = this.validateAndNormalizeTimestamp(F.track, e.timestamp, e.type === "key"), n = this.createSampleForTrack(F, i, s, e.duration, e.type);
+      F.info.requiresPcmTransformation && await this.maybePadWithSilence(F, s), await this.registerSample(F, n);
+    } finally {
+      r();
+    }
+  }
+  async maybePadWithSilence(x, e) {
+    const A = x0(x.samples), r = A ? A.timestamp + A.duration : 0, F = e - r, i = F0(F, x.timescale);
+    if (i > 0) {
+      const { sampleSize: s, silentValue: n } = O0(x.info.decoderConfig.codec), a = i * x.info.numberOfChannels, o = new Uint8Array(s * a).fill(n), f = this.createSampleForTrack(x, new Uint8Array(o.buffer), r, F, "key");
+      await this.registerSample(x, f);
+    }
+  }
+  async addSubtitleCue(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getSubtitleTrackData(x, A);
+      this.validateAndNormalizeTimestamp(F.track, e.timestamp, !0), x.source._codec === "webvtt" && (F.cueQueue.push(e), await this.processWebVTTCues(F, e.timestamp));
+    } finally {
+      r();
+    }
+  }
+  async processWebVTTCues(x, e) {
+    for (; x.cueQueue.length > 0; ) {
+      const A = /* @__PURE__ */ new Set([]);
+      for (const a of x.cueQueue)
+        d(a.timestamp <= e), d(x.lastCueEndTimestamp <= a.timestamp + a.duration), A.add(Math.max(a.timestamp, x.lastCueEndTimestamp)), A.add(a.timestamp + a.duration);
+      const r = [...A].sort((a, o) => a - o), F = r[0], i = r[1] ?? F;
+      if (e < i)
+        break;
+      if (x.lastCueEndTimestamp < F) {
+        this.auxWriter.seek(0);
+        const a = to();
+        this.auxBoxWriter.writeBox(a);
+        const o = this.auxWriter.getSlice(0, this.auxWriter.getPos()), f = this.createSampleForTrack(x, o, x.lastCueEndTimestamp, F - x.lastCueEndTimestamp, "key");
+        await this.registerSample(x, f), x.lastCueEndTimestamp = F;
+      }
+      this.auxWriter.seek(0);
+      for (let a = 0; a < x.cueQueue.length; a++) {
+        const o = x.cueQueue[a];
+        if (o.timestamp >= i)
+          break;
+        Ye.lastIndex = 0;
+        const f = Ye.test(o.text), c = o.timestamp + o.duration;
+        let v = x.cueToSourceId.get(o);
+        if (v === void 0 && i < c && (v = x.nextSourceId++, x.cueToSourceId.set(o, v)), o.notes) {
+          const l = ro(o.notes);
+          this.auxBoxWriter.writeBox(l);
+        }
+        const u = Ao(o.text, f ? F : null, o.identifier ?? null, o.settings ?? null, v ?? null);
+        this.auxBoxWriter.writeBox(u), c === i && x.cueQueue.splice(a--, 1);
+      }
+      const s = this.auxWriter.getSlice(0, this.auxWriter.getPos()), n = this.createSampleForTrack(x, s, F, i - F, "key");
+      await this.registerSample(x, n), x.lastCueEndTimestamp = i;
+    }
+  }
+  createSampleForTrack(x, e, A, r, F) {
+    return {
+      timestamp: A,
+      decodeTimestamp: A,
+      // This may be refined later
+      duration: r,
+      data: e,
+      size: e.byteLength,
+      type: F,
+      timescaleUnitsToNextSample: F0(r, x.timescale)
+      // Will be refined
+    };
+  }
+  processTimestamps(x, e) {
+    if (x.timestampProcessingQueue.length === 0)
+      return;
+    if (x.type === "audio" && x.info.requiresPcmTransformation) {
+      let r = 0;
+      for (let F = 0; F < x.timestampProcessingQueue.length; F++) {
+        const i = x.timestampProcessingQueue[F], s = F0(i.duration, x.timescale);
+        r += s;
+      }
+      if (x.timeToSampleTable.length === 0)
+        x.timeToSampleTable.push({
+          sampleCount: r,
+          sampleDelta: 1
+        });
+      else {
+        const F = x0(x.timeToSampleTable);
+        F.sampleCount += r;
+      }
+      x.timestampProcessingQueue.length = 0;
+      return;
+    }
+    const A = x.timestampProcessingQueue.map((r) => r.timestamp).sort((r, F) => r - F);
+    for (let r = 0; r < x.timestampProcessingQueue.length; r++) {
+      const F = x.timestampProcessingQueue[r];
+      F.decodeTimestamp = A[r], !this.isFragmented && x.lastTimescaleUnits === null && (F.decodeTimestamp = 0);
+      const i = F0(F.timestamp - F.decodeTimestamp, x.timescale), s = F0(F.duration, x.timescale);
+      if (x.lastTimescaleUnits !== null) {
+        d(x.lastSample);
+        const n = F0(F.decodeTimestamp, x.timescale, !1), a = Math.round(n - x.lastTimescaleUnits);
+        if (d(a >= 0), x.lastTimescaleUnits += a, x.lastSample.timescaleUnitsToNextSample = a, !this.isFragmented) {
+          let o = x0(x.timeToSampleTable);
+          if (d(o), o.sampleCount === 1) {
+            o.sampleDelta = a;
+            const c = x.timeToSampleTable[x.timeToSampleTable.length - 2];
+            c && c.sampleDelta === a && (c.sampleCount++, x.timeToSampleTable.pop(), o = c);
+          } else o.sampleDelta !== a && (o.sampleCount--, x.timeToSampleTable.push(o = {
+            sampleCount: 1,
+            sampleDelta: a
+          }));
+          o.sampleDelta === s ? o.sampleCount++ : x.timeToSampleTable.push({
+            sampleCount: 1,
+            sampleDelta: s
+          });
+          const f = x0(x.compositionTimeOffsetTable);
+          d(f), f.sampleCompositionTimeOffset === i ? f.sampleCount++ : x.compositionTimeOffsetTable.push({
+            sampleCount: 1,
+            sampleCompositionTimeOffset: i
+          });
+        }
+      } else
+        x.lastTimescaleUnits = F0(F.decodeTimestamp, x.timescale, !1), this.isFragmented || (x.timeToSampleTable.push({
+          sampleCount: 1,
+          sampleDelta: s
+        }), x.compositionTimeOffsetTable.push({
+          sampleCount: 1,
+          sampleCompositionTimeOffset: i
+        }));
+      x.lastSample = F;
+    }
+    if (x.timestampProcessingQueue.length = 0, d(x.lastSample), d(x.lastTimescaleUnits !== null), e !== void 0 && x.lastSample.timescaleUnitsToNextSample === 0) {
+      d(e.type === "key");
+      const r = F0(e.timestamp, x.timescale, !1), F = Math.round(r - x.lastTimescaleUnits);
+      x.lastSample.timescaleUnitsToNextSample = F;
+    }
+  }
+  async registerSample(x, e) {
+    e.type === "key" && this.processTimestamps(x, e), x.timestampProcessingQueue.push(e), this.isFragmented ? (x.sampleQueue.push(e), await this.interleaveSamples()) : this.fastStart === "reserve" ? await this.registerSampleFastStartReserve(x, e) : await this.addSampleToTrack(x, e);
+  }
+  async addSampleToTrack(x, e) {
+    if (!this.isFragmented && (x.samples.push(e), this.fastStart === "reserve")) {
+      const r = x.track.metadata.maximumPacketCount;
+      if (d(r !== void 0), x.samples.length > r)
+        throw new Error(`Track #${x.track.id} has already reached the maximum packet count (${r}). Either add less packets or increase the maximum packet count.`);
+    }
+    let A = !1;
+    if (!x.currentChunk)
+      A = !0;
+    else {
+      x.currentChunk.startTimestamp = Math.min(x.currentChunk.startTimestamp, e.timestamp);
+      const r = e.timestamp - x.currentChunk.startTimestamp;
+      if (this.isFragmented) {
+        const F = this.trackDatas.every((i) => {
+          if (x === i)
+            return e.type === "key";
+          const s = i.sampleQueue[0];
+          return s ? s.type === "key" : i.track.source._closed;
+        });
+        r >= this.minimumFragmentDuration && F && e.timestamp > this.maxWrittenTimestamp && (A = !0, await this.finalizeFragment());
+      } else
+        A = r >= 0.5;
+    }
+    A && (x.currentChunk && await this.finalizeCurrentChunk(x), x.currentChunk = {
+      startTimestamp: e.timestamp,
+      samples: [],
+      offset: null,
+      moofOffset: null
+    }), d(x.currentChunk), x.currentChunk.samples.push(e), this.isFragmented && (this.maxWrittenTimestamp = Math.max(this.maxWrittenTimestamp, e.timestamp));
+  }
+  async finalizeCurrentChunk(x) {
+    if (d(!this.isFragmented), !x.currentChunk)
+      return;
+    x.finalizedChunks.push(x.currentChunk), this.finalizedChunks.push(x.currentChunk);
+    let e = x.currentChunk.samples.length;
+    if (x.type === "audio" && x.info.requiresPcmTransformation && (e = x.currentChunk.samples.reduce((A, r) => A + F0(r.duration, x.timescale), 0)), (x.compactlyCodedChunkTable.length === 0 || x0(x.compactlyCodedChunkTable).samplesPerChunk !== e) && x.compactlyCodedChunkTable.push({
+      firstChunk: x.finalizedChunks.length,
+      // 1-indexed
+      samplesPerChunk: e
+    }), this.fastStart === "in-memory") {
+      x.currentChunk.offset = 0;
+      return;
+    }
+    x.currentChunk.offset = this.writer.getPos();
+    for (const A of x.currentChunk.samples)
+      d(A.data), this.writer.write(A.data), A.data = null;
+    await this.writer.flush();
+  }
+  async interleaveSamples(x = !1) {
+    if (d(this.isFragmented), !(!x && !this.allTracksAreKnown()))
+      x: for (; ; ) {
+        let e = null, A = 1 / 0;
+        for (const F of this.trackDatas) {
+          if (!x && F.sampleQueue.length === 0 && !F.track.source._closed)
+            break x;
+          F.sampleQueue.length > 0 && F.sampleQueue[0].timestamp < A && (e = F, A = F.sampleQueue[0].timestamp);
+        }
+        if (!e)
+          break;
+        const r = e.sampleQueue.shift();
+        await this.addSampleToTrack(e, r);
+      }
+  }
+  async finalizeFragment(x = !0) {
+    d(this.isFragmented);
+    const e = this.nextFragmentNumber++;
+    if (e === 1) {
+      this.format._options.onMoov && this.writer.startTrackingWrites();
+      const v = le(this);
+      if (this.boxWriter.writeBox(v), this.format._options.onMoov) {
+        const { data: u, start: l } = this.writer.stopTrackingWrites();
+        this.format._options.onMoov(u, l);
+      }
+    }
+    const A = this.trackDatas.filter((v) => v.currentChunk), r = qr(e, A), F = this.writer.getPos(), i = F + this.boxWriter.measureBox(r);
+    let s = i + X0, n = 1 / 0;
+    for (const v of A) {
+      v.currentChunk.offset = s, v.currentChunk.moofOffset = F;
+      for (const u of v.currentChunk.samples)
+        s += u.size;
+      n = Math.min(n, v.currentChunk.startTimestamp);
+    }
+    const a = s - i, o = a >= 2 ** 32;
+    if (o)
+      for (const v of A)
+        v.currentChunk.offset += px - X0;
+    this.format._options.onMoof && this.writer.startTrackingWrites();
+    const f = qr(e, A);
+    if (this.boxWriter.writeBox(f), this.format._options.onMoof) {
+      const { data: v, start: u } = this.writer.stopTrackingWrites();
+      this.format._options.onMoof(v, u, n);
+    }
+    d(this.writer.getPos() === i), this.format._options.onMdat && this.writer.startTrackingWrites();
+    const c = Me(o);
+    c.size = a, this.boxWriter.writeBox(c), this.writer.seek(i + (o ? px : X0));
+    for (const v of A)
+      for (const u of v.currentChunk.samples)
+        this.writer.write(u.data), u.data = null;
+    if (this.format._options.onMdat) {
+      const { data: v, start: u } = this.writer.stopTrackingWrites();
+      this.format._options.onMdat(v, u);
+    }
+    for (const v of A)
+      v.finalizedChunks.push(v.currentChunk), this.finalizedChunks.push(v.currentChunk), v.currentChunk = null;
+    x && await this.writer.flush();
+  }
+  async registerSampleFastStartReserve(x, e) {
+    if (this.allTracksAreKnown()) {
+      if (!this.mdat) {
+        const A = le(this), F = this.boxWriter.measureBox(A) + this.computeSampleTableSizeUpperBound() + 4096;
+        d(this.ftypSize !== null), this.writer.seek(this.ftypSize + F), this.format._options.onMdat && this.writer.startTrackingWrites(), this.mdat = Me(!0), this.boxWriter.writeBox(this.mdat);
+        for (const i of this.trackDatas) {
+          for (const s of i.sampleQueue)
+            await this.addSampleToTrack(i, s);
+          i.sampleQueue.length = 0;
+        }
+      }
+      await this.addSampleToTrack(x, e);
+    } else
+      x.sampleQueue.push(e);
+  }
+  computeSampleTableSizeUpperBound() {
+    d(this.fastStart === "reserve");
+    let x = 0;
+    for (const e of this.trackDatas) {
+      const A = e.track.metadata.maximumPacketCount;
+      d(A !== void 0), x += 8 * Math.ceil(2 / 3 * A), x += 4 * A, x += 8 * Math.ceil(2 / 3 * A), x += 12 * Math.ceil(2 / 3 * A), x += 4 * A, x += 8 * A;
+    }
+    return x;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async onTrackClose(x) {
+    const e = await this.mutex.acquire(), A = this.trackDatas.find((r) => r.track === x);
+    A && (A.type === "subtitle" && x.source._codec === "webvtt" && await this.processWebVTTCues(A, 1 / 0), this.processTimestamps(A)), this.allTracksAreKnown() && this.allTracksKnown.resolve(), this.isFragmented && await this.interleaveSamples(), e();
+  }
+  /** Finalizes the file, making it ready for use. Must be called after all video and audio chunks have been added. */
+  async finalize() {
+    const x = await this.mutex.acquire();
+    this.allTracksKnown.resolve();
+    for (const e of this.trackDatas)
+      e.type === "subtitle" && e.track.source._codec === "webvtt" && await this.processWebVTTCues(e, 1 / 0), this.processTimestamps(e);
+    if (this.isFragmented)
+      await this.interleaveSamples(!0), await this.finalizeFragment(!1);
+    else
+      for (const e of this.trackDatas)
+        await this.finalizeCurrentChunk(e);
+    if (this.fastStart === "in-memory") {
+      this.mdat = Me(!1);
+      let e;
+      for (let r = 0; r < 2; r++) {
+        const F = le(this), i = this.boxWriter.measureBox(F);
+        e = this.boxWriter.measureBox(this.mdat);
+        let s = this.writer.getPos() + i + e;
+        for (const n of this.finalizedChunks) {
+          n.offset = s;
+          for (const { data: a } of n.samples)
+            d(a), s += a.byteLength, e += a.byteLength;
+        }
+        if (s < 2 ** 32)
+          break;
+        e >= 2 ** 32 && (this.mdat.largeSize = !0);
+      }
+      this.format._options.onMoov && this.writer.startTrackingWrites();
+      const A = le(this);
+      if (this.boxWriter.writeBox(A), this.format._options.onMoov) {
+        const { data: r, start: F } = this.writer.stopTrackingWrites();
+        this.format._options.onMoov(r, F);
+      }
+      this.format._options.onMdat && this.writer.startTrackingWrites(), this.mdat.size = e, this.boxWriter.writeBox(this.mdat);
+      for (const r of this.finalizedChunks)
+        for (const F of r.samples)
+          d(F.data), this.writer.write(F.data), F.data = null;
+      if (this.format._options.onMdat) {
+        const { data: r, start: F } = this.writer.stopTrackingWrites();
+        this.format._options.onMdat(r, F);
+      }
+    } else if (this.isFragmented) {
+      const e = this.writer.getPos(), A = Za(this.trackDatas);
+      this.boxWriter.writeBox(A);
+      const r = this.writer.getPos() - e;
+      this.writer.seek(this.writer.getPos() - 4), this.boxWriter.writeU32(r);
+    } else {
+      d(this.mdat);
+      const e = this.boxWriter.offsets.get(this.mdat);
+      d(e !== void 0);
+      const A = this.writer.getPos() - e;
+      if (this.mdat.size = A, this.mdat.largeSize = A >= 2 ** 32, this.boxWriter.patchBox(this.mdat), this.format._options.onMdat) {
+        const { data: F, start: i } = this.writer.stopTrackingWrites();
+        this.format._options.onMdat(F, i);
+      }
+      const r = le(this);
+      if (this.fastStart === "reserve") {
+        d(this.ftypSize !== null), this.writer.seek(this.ftypSize), this.format._options.onMoov && this.writer.startTrackingWrites(), this.boxWriter.writeBox(r);
+        const F = this.boxWriter.offsets.get(this.mdat) - this.writer.getPos();
+        this.boxWriter.writeBox(ia(F));
+      } else
+        this.format._options.onMoov && this.writer.startTrackingWrites(), this.boxWriter.writeBox(r);
+      if (this.format._options.onMoov) {
+        const { data: F, start: i } = this.writer.stopTrackingWrites();
+        this.format._options.onMoov(F, i);
+      }
+    }
+    x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const mo = -32768, po = 2 ** 15 - 1, Gr = "Mediabunny", Rr = 6, Hr = 5, ko = {
+  video: 1,
+  audio: 2,
+  subtitle: 17
+};
+class go extends ux {
+  constructor(x, e) {
+    super(x), this.trackDatas = [], this.allTracksKnown = t0(), this.segment = null, this.segmentInfo = null, this.seekHead = null, this.tracksElement = null, this.tagsElement = null, this.attachmentsElement = null, this.segmentDuration = null, this.cues = null, this.currentCluster = null, this.currentClusterStartMsTimestamp = null, this.currentClusterMaxMsTimestamp = null, this.trackDatasInCurrentCluster = /* @__PURE__ */ new Map(), this.duration = 0, this.writer = x._writer, this.format = e, this.ebmlWriter = new cn(this.writer), this.format._options.appendOnly && (this.writer.ensureMonotonicity = !0);
+  }
+  async start() {
+    const x = await this.mutex.acquire();
+    this.writeEBMLHeader(), this.createSegmentInfo(), this.createCues(), await this.writer.flush(), x();
+  }
+  writeEBMLHeader() {
+    this.format._options.onEbmlHeader && this.writer.startTrackingWrites();
+    const x = { id: C.EBML, data: [
+      { id: C.EBMLVersion, data: 1 },
+      { id: C.EBMLReadVersion, data: 1 },
+      { id: C.EBMLMaxIDLength, data: 4 },
+      { id: C.EBMLMaxSizeLength, data: 8 },
+      { id: C.DocType, data: this.format instanceof cA ? "webm" : "matroska" },
+      { id: C.DocTypeVersion, data: 2 },
+      { id: C.DocTypeReadVersion, data: 2 }
+    ] };
+    if (this.ebmlWriter.writeEBML(x), this.format._options.onEbmlHeader) {
+      const { data: e, start: A } = this.writer.stopTrackingWrites();
+      this.format._options.onEbmlHeader(e, A);
+    }
+  }
+  /**
+   * Creates a SeekHead element which is positioned near the start of the file and allows the media player to seek to
+   * relevant sections more easily. Since we don't know the positions of those sections yet, we'll set them later.
+   */
+  maybeCreateSeekHead(x) {
+    if (this.format._options.appendOnly)
+      return;
+    const e = new Uint8Array([28, 83, 187, 107]), A = new Uint8Array([21, 73, 169, 102]), r = new Uint8Array([22, 84, 174, 107]), F = new Uint8Array([25, 65, 164, 105]), i = new Uint8Array([18, 84, 195, 103]), s = { id: C.SeekHead, data: [
+      { id: C.Seek, data: [
+        { id: C.SeekID, data: e },
+        {
+          id: C.SeekPosition,
+          size: 5,
+          data: x ? this.ebmlWriter.offsets.get(this.cues) - this.segmentDataOffset : 0
+        }
+      ] },
+      { id: C.Seek, data: [
+        { id: C.SeekID, data: A },
+        {
+          id: C.SeekPosition,
+          size: 5,
+          data: x ? this.ebmlWriter.offsets.get(this.segmentInfo) - this.segmentDataOffset : 0
+        }
+      ] },
+      { id: C.Seek, data: [
+        { id: C.SeekID, data: r },
+        {
+          id: C.SeekPosition,
+          size: 5,
+          data: x ? this.ebmlWriter.offsets.get(this.tracksElement) - this.segmentDataOffset : 0
+        }
+      ] },
+      this.attachmentsElement ? { id: C.Seek, data: [
+        { id: C.SeekID, data: F },
+        {
+          id: C.SeekPosition,
+          size: 5,
+          data: x ? this.ebmlWriter.offsets.get(this.attachmentsElement) - this.segmentDataOffset : 0
+        }
+      ] } : null,
+      this.tagsElement ? { id: C.Seek, data: [
+        { id: C.SeekID, data: i },
+        {
+          id: C.SeekPosition,
+          size: 5,
+          data: x ? this.ebmlWriter.offsets.get(this.tagsElement) - this.segmentDataOffset : 0
+        }
+      ] } : null
+    ] };
+    this.seekHead = s;
+  }
+  createSegmentInfo() {
+    const x = { id: C.Duration, data: new AA(0) };
+    this.segmentDuration = x;
+    const e = { id: C.Info, data: [
+      { id: C.TimestampScale, data: 1e6 },
+      { id: C.MuxingApp, data: Gr },
+      { id: C.WritingApp, data: Gr },
+      this.format._options.appendOnly ? null : x
+    ] };
+    this.segmentInfo = e;
+  }
+  createTracks() {
+    const x = { id: C.Tracks, data: [] };
+    this.tracksElement = x;
+    for (const e of this.trackDatas) {
+      const A = p0[e.track.source._codec];
+      d(A);
+      let r = 0;
+      if (e.type === "audio" && e.track.source._codec === "opus") {
+        r = 1e6 * 80;
+        const F = e.info.decoderConfig.description;
+        if (F) {
+          const i = Q(F), s = ct(i);
+          r = Math.round(1e9 * (s.preSkip / re));
+        }
+      }
+      x.data.push({ id: C.TrackEntry, data: [
+        { id: C.TrackNumber, data: e.track.id },
+        { id: C.TrackUID, data: e.track.id },
+        { id: C.TrackType, data: ko[e.type] },
+        e.track.metadata.disposition?.default === !1 ? { id: C.FlagDefault, data: 0 } : null,
+        e.track.metadata.disposition?.forced ? { id: C.FlagForced, data: 1 } : null,
+        e.track.metadata.disposition?.hearingImpaired ? { id: C.FlagHearingImpaired, data: 1 } : null,
+        e.track.metadata.disposition?.visuallyImpaired ? { id: C.FlagVisualImpaired, data: 1 } : null,
+        e.track.metadata.disposition?.original ? { id: C.FlagOriginal, data: 1 } : null,
+        e.track.metadata.disposition?.commentary ? { id: C.FlagCommentary, data: 1 } : null,
+        { id: C.FlagLacing, data: 0 },
+        { id: C.Language, data: e.track.metadata.languageCode ?? b0 },
+        { id: C.CodecID, data: A },
+        { id: C.CodecDelay, data: 0 },
+        { id: C.SeekPreRoll, data: r },
+        e.track.metadata.name !== void 0 ? { id: C.Name, data: new rx(e.track.metadata.name) } : null,
+        e.type === "video" ? this.videoSpecificTrackInfo(e) : null,
+        e.type === "audio" ? this.audioSpecificTrackInfo(e) : null,
+        e.type === "subtitle" ? this.subtitleSpecificTrackInfo(e) : null
+      ] });
+    }
+  }
+  videoSpecificTrackInfo(x) {
+    const { frameRate: e, rotation: A } = x.track.metadata, r = [
+      x.info.decoderConfig.description ? {
+        id: C.CodecPrivate,
+        data: Q(x.info.decoderConfig.description)
+      } : null,
+      e ? {
+        id: C.DefaultDuration,
+        data: 1e9 / e
+      } : null
+    ], F = A ? xt(-A) : 0, i = !!x.info.aspectRatio && x.info.aspectRatio.num * x.info.height !== x.info.aspectRatio.den * x.info.width, s = x.info.decoderConfig.colorSpace, n = { id: C.Video, data: [
+      { id: C.PixelWidth, data: x.info.width },
+      { id: C.PixelHeight, data: x.info.height },
+      i ? { id: C.DisplayWidth, data: x.info.aspectRatio.num } : null,
+      i ? { id: C.DisplayHeight, data: x.info.aspectRatio.den } : null,
+      i ? { id: C.DisplayUnit, data: 3 } : null,
+      // 3 = display aspect ratio
+      x.info.alphaMode ? { id: C.AlphaMode, data: 1 } : null,
+      Kr(s) ? {
+        id: C.Colour,
+        data: [
+          {
+            id: C.MatrixCoefficients,
+            data: qx[s.matrix]
+          },
+          {
+            id: C.TransferCharacteristics,
+            data: Ix[s.transfer]
+          },
+          {
+            id: C.Primaries,
+            data: _x[s.primaries]
+          },
+          {
+            id: C.Range,
+            data: s.fullRange ? 2 : 1
+          }
+        ]
+      } : null,
+      F ? {
+        id: C.Projection,
+        data: [
+          {
+            id: C.ProjectionType,
+            data: 0
+            // rectangular
+          },
+          {
+            id: C.ProjectionPoseRoll,
+            data: new tA((F + 180) % 360 - 180)
+            // [0, 270] -> [-180, 90]
+          }
+        ]
+      } : null
+    ] };
+    return r.push(n), r;
+  }
+  audioSpecificTrackInfo(x) {
+    const e = r0.includes(x.track.source._codec) ? O0(x.track.source._codec) : null;
+    return [
+      x.info.decoderConfig.description ? {
+        id: C.CodecPrivate,
+        data: Q(x.info.decoderConfig.description)
+      } : null,
+      { id: C.Audio, data: [
+        { id: C.SamplingFrequency, data: new tA(x.info.sampleRate) },
+        { id: C.Channels, data: x.info.numberOfChannels },
+        e ? { id: C.BitDepth, data: 8 * e.sampleSize } : null
+      ] }
+    ];
+  }
+  subtitleSpecificTrackInfo(x) {
+    return [
+      { id: C.CodecPrivate, data: Y.encode(x.info.config.description) }
+    ];
+  }
+  maybeCreateTags() {
+    const x = [], e = (F, i) => {
+      x.push({ id: C.SimpleTag, data: [
+        { id: C.TagName, data: new rx(F) },
+        typeof i == "string" ? { id: C.TagString, data: new rx(i) } : { id: C.TagBinary, data: i }
+      ] });
+    }, A = this.output._metadataTags, r = /* @__PURE__ */ new Set();
+    for (const { key: F, value: i } of ee(A))
+      switch (F) {
+        case "title":
+          e("TITLE", i), r.add("TITLE");
+          break;
+        case "description":
+          e("DESCRIPTION", i), r.add("DESCRIPTION");
+          break;
+        case "artist":
+          e("ARTIST", i), r.add("ARTIST");
+          break;
+        case "album":
+          e("ALBUM", i), r.add("ALBUM");
+          break;
+        case "albumArtist":
+          e("ALBUM_ARTIST", i), r.add("ALBUM_ARTIST");
+          break;
+        case "genre":
+          e("GENRE", i), r.add("GENRE");
+          break;
+        case "comment":
+          e("COMMENT", i), r.add("COMMENT");
+          break;
+        case "lyrics":
+          e("LYRICS", i), r.add("LYRICS");
+          break;
+        case "date":
+          e("DATE", i.toISOString().slice(0, 10)), r.add("DATE");
+          break;
+        case "trackNumber":
+          {
+            const s = A.tracksTotal !== void 0 ? `${i}/${A.tracksTotal}` : i.toString();
+            e("PART_NUMBER", s), r.add("PART_NUMBER");
+          }
+          break;
+        case "discNumber":
+          {
+            const s = A.discsTotal !== void 0 ? `${i}/${A.discsTotal}` : i.toString();
+            e("DISC", s), r.add("DISC");
+          }
+          break;
+        case "tracksTotal":
+        case "discsTotal":
+          break;
+        case "images":
+        case "raw":
+          break;
+        default:
+          u0(F);
+      }
+    if (A.raw)
+      for (const F in A.raw) {
+        const i = A.raw[F];
+        i == null || r.has(F) || (typeof i == "string" || i instanceof Uint8Array) && e(F, i);
+      }
+    x.length !== 0 && (this.tagsElement = {
+      id: C.Tags,
+      data: [{ id: C.Tag, data: [
+        { id: C.Targets, data: [
+          { id: C.TargetTypeValue, data: 50 },
+          { id: C.TargetType, data: "MOVIE" }
+        ] },
+        ...x
+      ] }]
+    });
+  }
+  maybeCreateAttachments() {
+    const x = this.output._metadataTags, e = [], A = /* @__PURE__ */ new Set(), r = x.images ?? [];
+    for (const F of r) {
+      let i = F.name;
+      i === void 0 && (i = (F.kind === "coverFront" ? "cover" : F.kind === "coverBack" ? "back" : "image") + (rs(F.mimeType) ?? ""));
+      let s;
+      for (; ; ) {
+        s = 0n;
+        for (let n = 0; n < 8; n++)
+          s <<= 8n, s |= BigInt(Math.floor(Math.random() * 256));
+        if (s !== 0n && !A.has(s))
+          break;
+      }
+      A.add(s), e.push({
+        id: C.AttachedFile,
+        data: [
+          F.description !== void 0 ? { id: C.FileDescription, data: new rx(F.description) } : null,
+          { id: C.FileName, data: new rx(i) },
+          { id: C.FileMediaType, data: F.mimeType },
+          { id: C.FileData, data: F.data },
+          { id: C.FileUID, data: s }
+        ]
+      });
+    }
+    for (const [F, i] of Object.entries(x.raw ?? {}))
+      !(i instanceof it) || !/^\d+$/.test(F) || r.find((n) => n.mimeType === i.mimeType && ss(n.data, i.data)) || e.push({
+        id: C.AttachedFile,
+        data: [
+          i.description !== void 0 ? { id: C.FileDescription, data: new rx(i.description) } : null,
+          { id: C.FileName, data: new rx(i.name ?? "") },
+          { id: C.FileMediaType, data: i.mimeType ?? "" },
+          { id: C.FileData, data: i.data },
+          { id: C.FileUID, data: BigInt(F) }
+        ]
+      });
+    e.length !== 0 && (this.attachmentsElement = { id: C.Attachments, data: e });
+  }
+  createSegment() {
+    this.createTracks(), this.maybeCreateTags(), this.maybeCreateAttachments(), this.maybeCreateSeekHead(!1);
+    const x = {
+      id: C.Segment,
+      size: this.format._options.appendOnly ? -1 : Rr,
+      data: [
+        this.seekHead,
+        // null if append-only
+        this.segmentInfo,
+        this.tracksElement,
+        // Matroska spec says put this at the end of the file, but I think placing it before the first cluster
+        // makes more sense, and FFmpeg agrees (argumentum ad ffmpegum fallacy)
+        this.attachmentsElement,
+        this.tagsElement
+      ]
+    };
+    if (this.segment = x, this.format._options.onSegmentHeader && this.writer.startTrackingWrites(), this.ebmlWriter.writeEBML(x), this.format._options.onSegmentHeader) {
+      const { data: e, start: A } = this.writer.stopTrackingWrites();
+      this.format._options.onSegmentHeader(e, A);
+    }
+  }
+  createCues() {
+    this.cues = { id: C.Cues, data: [] };
+  }
+  get segmentDataOffset() {
+    return d(this.segment), this.ebmlWriter.dataOffsets.get(this.segment);
+  }
+  allTracksAreKnown() {
+    for (const x of this.output._tracks)
+      if (!x.source._closed && !this.trackDatas.some((e) => e.track === x))
+        return !1;
+    return !0;
+  }
+  async getMimeType() {
+    await this.allTracksKnown.promise;
+    const x = this.trackDatas.map((e) => e.type === "video" || e.type === "audio" ? e.info.decoderConfig.codec : {
+      webvtt: "wvtt"
+    }[e.track.source._codec]);
+    return IF({
+      isWebM: this.format instanceof cA,
+      hasVideo: this.trackDatas.some((e) => e.type === "video"),
+      hasAudio: this.trackDatas.some((e) => e.type === "audio"),
+      codecStrings: x
+    });
+  }
+  getVideoTrackData(x, e, A) {
+    const r = this.trackDatas.find((a) => a.track === x);
+    if (r)
+      return r;
+    kA(A), d(A), d(A.decoderConfig), d(A.decoderConfig.codedWidth !== void 0), d(A.decoderConfig.codedHeight !== void 0);
+    const F = A.decoderConfig.displayAspectWidth, i = A.decoderConfig.displayAspectHeight, s = F === void 0 || i === void 0 ? null : Ft({
+      num: F,
+      den: i
+    }), n = {
+      track: x,
+      type: "video",
+      info: {
+        width: A.decoderConfig.codedWidth,
+        height: A.decoderConfig.codedHeight,
+        aspectRatio: s,
+        decoderConfig: A.decoderConfig,
+        alphaMode: !!e.sideData.alpha
+        // The first packet determines if this track has alpha or not
+      },
+      chunkQueue: [],
+      lastWrittenMsTimestamp: null
+    };
+    return x.source._codec === "vp9" ? n.info.decoderConfig = {
+      ...n.info.decoderConfig,
+      description: new Uint8Array(ls(n.info.decoderConfig.codec))
+    } : x.source._codec === "av1" && (n.info.decoderConfig = {
+      ...n.info.decoderConfig,
+      description: new Uint8Array(xF(n.info.decoderConfig.codec))
+    }), this.trackDatas.push(n), this.trackDatas.sort((a, o) => a.track.id - o.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), n;
+  }
+  getAudioTrackData(x, e, A) {
+    const r = this.trackDatas.find((n) => n.track === x);
+    if (r)
+      return r;
+    Mx(A), d(A), d(A.decoderConfig);
+    const F = { ...A.decoderConfig };
+    let i = !1;
+    if (x.source._codec === "aac" && !F.description) {
+      const n = ex(C0.tempFromBytes(e.data));
+      if (!n)
+        throw new Error("Couldn't parse ADTS header from the AAC packet. Make sure the packets are in ADTS format (as specified in ISO 13818-7) when not providing a description, or provide a description (must be an AudioSpecificConfig as specified in ISO 14496-3) and ensure the packets are raw AAC data.");
+      const a = cx[n.samplingFrequencyIndex], o = Ae[n.channelConfiguration];
+      if (a === void 0 || o === void 0)
+        throw new Error("Invalid ADTS frame header.");
+      F.description = hA({
+        objectType: n.objectType,
+        sampleRate: a,
+        numberOfChannels: o
+      }), i = !0;
+    }
+    const s = {
+      track: x,
+      type: "audio",
+      info: {
+        numberOfChannels: A.decoderConfig.numberOfChannels,
+        sampleRate: A.decoderConfig.sampleRate,
+        decoderConfig: F,
+        requiresAdtsStripping: i
+      },
+      chunkQueue: [],
+      lastWrittenMsTimestamp: null
+    };
+    return this.trackDatas.push(s), this.trackDatas.sort((n, a) => n.track.id - a.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), s;
+  }
+  getSubtitleTrackData(x, e) {
+    const A = this.trackDatas.find((F) => F.track === x);
+    if (A)
+      return A;
+    AF(e), d(e), d(e.config);
+    const r = {
+      track: x,
+      type: "subtitle",
+      info: {
+        config: e.config
+      },
+      chunkQueue: [],
+      lastWrittenMsTimestamp: null
+    };
+    return this.trackDatas.push(r), this.trackDatas.sort((F, i) => F.track.id - i.track.id), this.allTracksAreKnown() && this.allTracksKnown.resolve(), r;
+  }
+  async addEncodedVideoPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getVideoTrackData(x, e, A), i = e.type === "key";
+      let s = this.validateAndNormalizeTimestamp(F.track, e.timestamp, i), n = e.duration;
+      x.metadata.frameRate !== void 0 && (s = zt(s, 1 / x.metadata.frameRate), n = zt(n, 1 / x.metadata.frameRate));
+      const a = F.info.alphaMode ? e.sideData.alpha ?? null : null, o = this.createInternalChunk(e.data, s, n, e.type, a);
+      x.source._codec === "vp9" && this.fixVP9ColorSpace(F, o), F.chunkQueue.push(o), await this.interleaveChunks();
+    } finally {
+      r();
+    }
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getAudioTrackData(x, e, A);
+      let i = e.data;
+      if (F.info.requiresAdtsStripping) {
+        const o = ex(C0.tempFromBytes(i));
+        if (!o)
+          throw new Error("Expected ADTS frame, didn't get one.");
+        const f = o.crcCheck === null ? ye : fx;
+        i = i.subarray(f);
+      }
+      const s = e.type === "key", n = this.validateAndNormalizeTimestamp(F.track, e.timestamp, s), a = this.createInternalChunk(i, n, e.duration, e.type);
+      F.chunkQueue.push(a), await this.interleaveChunks();
+    } finally {
+      r();
+    }
+  }
+  async addSubtitleCue(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getSubtitleTrackData(x, A), i = this.validateAndNormalizeTimestamp(F.track, e.timestamp, !0);
+      let s = e.text;
+      const n = Math.round(i * 1e3);
+      Ye.lastIndex = 0, s = s.replace(Ye, (c) => {
+        const u = aA(c.slice(1, -1)) - n;
+        return `<${di(u)}>`;
+      });
+      const a = Y.encode(s), o = `${e.settings ?? ""}
+${e.identifier ?? ""}
+${e.notes ?? ""}`, f = this.createInternalChunk(a, i, e.duration, "key", o.trim() ? Y.encode(o) : null);
+      F.chunkQueue.push(f), await this.interleaveChunks();
+    } finally {
+      r();
+    }
+  }
+  async interleaveChunks(x = !1) {
+    if (!(!x && !this.allTracksAreKnown())) {
+      x: for (; ; ) {
+        let e = null, A = 1 / 0;
+        for (const F of this.trackDatas) {
+          if (!x && F.chunkQueue.length === 0 && !F.track.source._closed)
+            break x;
+          F.chunkQueue.length > 0 && F.chunkQueue[0].timestamp < A && (e = F, A = F.chunkQueue[0].timestamp);
+        }
+        if (!e)
+          break;
+        const r = e.chunkQueue.shift();
+        this.writeBlock(e, r);
+      }
+      x || await this.writer.flush();
+    }
+  }
+  /**
+   * Due to [a bug in Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=1377842), VP9 streams often
+   * lack color space information. This method patches in that information.
+   */
+  fixVP9ColorSpace(x, e) {
+    if (e.type !== "key" || !x.info.decoderConfig.colorSpace || !x.info.decoderConfig.colorSpace.matrix)
+      return;
+    const A = new N(e.data);
+    A.skipBits(2);
+    const r = A.readBits(1), i = (A.readBits(1) << 1) + r;
+    if (i === 3 && A.skipBits(1), A.readBits(1) || A.readBits(1) !== 0 || (A.skipBits(2), A.readBits(24) !== 4817730))
+      return;
+    i >= 2 && A.skipBits(1);
+    const o = {
+      rgb: 7,
+      bt709: 2,
+      bt470bg: 1,
+      smpte170m: 3
+    }[x.info.decoderConfig.colorSpace.matrix];
+    Wi(e.data, A.pos, A.pos + 3, o);
+  }
+  /** Converts a read-only external chunk into an internal one for easier use. */
+  createInternalChunk(x, e, A, r, F = null) {
+    return {
+      data: x,
+      type: r,
+      timestamp: e,
+      duration: A,
+      additions: F
+    };
+  }
+  /** Writes a block containing media data to the file. */
+  writeBlock(x, e) {
+    this.segment || this.createSegment();
+    const A = Math.round(1e3 * e.timestamp), r = this.trackDatas.every((o) => {
+      if (x === o)
+        return e.type === "key";
+      const f = o.chunkQueue[0];
+      return f ? f.type === "key" : o.track.source._closed;
+    });
+    let F = !1;
+    if (!this.currentCluster)
+      F = !0;
+    else {
+      d(this.currentClusterStartMsTimestamp !== null), d(this.currentClusterMaxMsTimestamp !== null);
+      const o = A - this.currentClusterStartMsTimestamp;
+      F = r && A > this.currentClusterMaxMsTimestamp && o >= 1e3 * (this.format._options.minimumClusterDuration ?? 1) || o > po;
+    }
+    F && this.createNewCluster(A);
+    const i = A - this.currentClusterStartMsTimestamp;
+    if (i < mo)
+      return;
+    const s = new Uint8Array(4), n = new DataView(s.buffer);
+    n.setUint8(0, 128 | x.track.id), n.setInt16(1, i, !1);
+    const a = Math.round(1e3 * e.duration);
+    if (e.additions) {
+      const o = { id: C.BlockGroup, data: [
+        { id: C.Block, data: [
+          s,
+          e.data
+        ] },
+        e.type === "delta" ? {
+          id: C.ReferenceBlock,
+          data: new TF(x.lastWrittenMsTimestamp - A)
+        } : null,
+        e.additions ? { id: C.BlockAdditions, data: [
+          { id: C.BlockMore, data: [
+            { id: C.BlockAddID, data: 1 },
+            // Some players expect BlockAddID to come first
+            { id: C.BlockAdditional, data: e.additions }
+          ] }
+        ] } : null,
+        a > 0 ? { id: C.BlockDuration, data: a } : null
+      ] };
+      this.ebmlWriter.writeEBML(o);
+    } else {
+      n.setUint8(3, +(e.type === "key") << 7);
+      const o = { id: C.SimpleBlock, data: [
+        s,
+        e.data
+      ] };
+      this.ebmlWriter.writeEBML(o);
+    }
+    this.duration = Math.max(this.duration, A + a), x.lastWrittenMsTimestamp = A, this.trackDatasInCurrentCluster.has(x) || this.trackDatasInCurrentCluster.set(x, {
+      firstMsTimestamp: A
+    }), this.currentClusterMaxMsTimestamp = Math.max(this.currentClusterMaxMsTimestamp, A);
+  }
+  /** Creates a new Cluster element to contain media chunks. */
+  createNewCluster(x) {
+    this.currentCluster && this.finalizeCurrentCluster(), this.format._options.onCluster && this.writer.startTrackingWrites(), this.currentCluster = {
+      id: C.Cluster,
+      size: this.format._options.appendOnly ? -1 : Hr,
+      data: [
+        { id: C.Timestamp, data: x }
+      ]
+    }, this.ebmlWriter.writeEBML(this.currentCluster), this.currentClusterStartMsTimestamp = x, this.currentClusterMaxMsTimestamp = x, this.trackDatasInCurrentCluster.clear();
+  }
+  finalizeCurrentCluster() {
+    if (d(this.currentCluster), !this.format._options.appendOnly) {
+      const r = this.writer.getPos() - this.ebmlWriter.dataOffsets.get(this.currentCluster), F = this.writer.getPos();
+      this.writer.seek(this.ebmlWriter.offsets.get(this.currentCluster) + 4), this.ebmlWriter.writeVarInt(r, Hr), this.writer.seek(F);
+    }
+    if (this.format._options.onCluster) {
+      d(this.currentClusterStartMsTimestamp !== null);
+      const { data: r, start: F } = this.writer.stopTrackingWrites();
+      this.format._options.onCluster(r, F, this.currentClusterStartMsTimestamp / 1e3);
+    }
+    const x = this.ebmlWriter.offsets.get(this.currentCluster) - this.segmentDataOffset, e = /* @__PURE__ */ new Map();
+    for (const [r, { firstMsTimestamp: F }] of this.trackDatasInCurrentCluster)
+      e.has(F) || e.set(F, []), e.get(F).push(r);
+    const A = [...e.entries()].sort((r, F) => r[0] - F[0]);
+    for (const [r, F] of A)
+      d(this.cues), this.cues.data.push({ id: C.CuePoint, data: [
+        { id: C.CueTime, data: r },
+        // Create CueTrackPositions for each track that starts at this timestamp
+        ...F.map((i) => ({ id: C.CueTrackPositions, data: [
+          { id: C.CueTrack, data: i.track.id },
+          { id: C.CueClusterPosition, data: x }
+        ] }))
+      ] });
+  }
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async onTrackClose() {
+    const x = await this.mutex.acquire();
+    this.allTracksAreKnown() && this.allTracksKnown.resolve(), await this.interleaveChunks(), x();
+  }
+  /** Finalizes the file, making it ready for use. Must be called after all media chunks have been added. */
+  async finalize() {
+    const x = await this.mutex.acquire();
+    if (this.allTracksKnown.resolve(), this.segment || this.createSegment(), await this.interleaveChunks(!0), this.currentCluster && this.finalizeCurrentCluster(), d(this.cues), this.ebmlWriter.writeEBML(this.cues), !this.format._options.appendOnly) {
+      const e = this.writer.getPos(), A = this.writer.getPos() - this.segmentDataOffset;
+      this.writer.seek(this.ebmlWriter.offsets.get(this.segment) + 4), this.ebmlWriter.writeVarInt(A, Rr), this.segmentDuration.data = new AA(this.duration), this.writer.seek(this.ebmlWriter.offsets.get(this.segmentDuration)), this.ebmlWriter.writeEBML(this.segmentDuration), d(this.seekHead), this.writer.seek(this.ebmlWriter.offsets.get(this.seekHead)), this.maybeCreateSeekHead(!0), this.ebmlWriter.writeEBML(this.seekHead), this.writer.seek(e);
+    }
+    x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class wo {
+  constructor(x) {
+    this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer);
+  }
+  writeU32(x) {
+    this.helperView.setUint32(0, x, !1), this.writer.write(this.helper.subarray(0, 4));
+  }
+  writeXingFrame(x) {
+    const e = this.writer.getPos(), A = 255, r = 224 | x.mpegVersionId << 3 | x.layer << 1;
+    let F;
+    x.mpegVersionId & 2 ? F = x.mpegVersionId & 1 ? 0 : 1 : F = 1;
+    const i = 0, s = 155;
+    let n = -1;
+    const a = F * 16 * 4 + x.layer * 16;
+    for (let D = 0; D < 16; D++) {
+      const b = Jt[a + D];
+      if (Xt(F, x.layer, 1e3 * b, x.sampleRate, i) >= s) {
+        n = D;
+        break;
+      }
+    }
+    if (n === -1)
+      throw new Error("No suitable bitrate found.");
+    const o = n << 4 | x.frequencyIndex << 2 | i << 1, f = x.channel << 6 | x.modeExtension << 4 | x.copyright << 3 | x.original << 2 | x.emphasis;
+    this.helper[0] = A, this.helper[1] = r, this.helper[2] = o, this.helper[3] = f, this.writer.write(this.helper.subarray(0, 4));
+    const c = nt(x.mpegVersionId, x.channel);
+    this.writer.seek(e + c), this.writeU32(st);
+    let v = 0;
+    x.frameCount !== null && (v |= 1), x.fileSize !== null && (v |= 2), x.toc !== null && (v |= 4), this.writeU32(v), this.writeU32(x.frameCount ?? 0), this.writeU32(x.fileSize ?? 0), this.writer.write(x.toc ?? new Uint8Array(100));
+    const u = Jt[a + n], l = Xt(F, x.layer, 1e3 * u, x.sampleRate, i);
+    this.writer.seek(e + l);
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class yo extends ux {
+  constructor(x, e) {
+    super(x), this.xingFrameData = null, this.frameCount = 0, this.framePositions = [], this.xingFramePos = null, this.format = e, this.writer = x._writer, this.mp3Writer = new wo(x._writer);
+  }
+  async start() {
+    me(this.output._metadataTags) || new VA(this.writer).writeId3V2Tag(this.output._metadataTags);
+  }
+  async getMimeType() {
+    return "audio/mpeg";
+  }
+  async addEncodedVideoPacket() {
+    throw new Error("MP3 does not support video.");
+  }
+  async addEncodedAudioPacket(x, e) {
+    const A = await this.mutex.acquire();
+    try {
+      const r = this.format._options.xingHeader !== !1;
+      if (!this.xingFrameData && r) {
+        const F = U(e.data);
+        if (F.byteLength < 4)
+          throw new Error("Invalid MP3 header in sample.");
+        const i = F.getUint32(0, !1), s = at(i, null).header;
+        if (!s)
+          throw new Error("Invalid MP3 header in sample.");
+        const n = nt(s.mpegVersionId, s.channel);
+        if (F.byteLength >= n + 4) {
+          const a = F.getUint32(n, !1);
+          if (a === st || a === gA)
+            return;
+        }
+        this.xingFrameData = {
+          mpegVersionId: s.mpegVersionId,
+          layer: s.layer,
+          frequencyIndex: s.frequencyIndex,
+          sampleRate: s.sampleRate,
+          channel: s.channel,
+          modeExtension: s.modeExtension,
+          copyright: s.copyright,
+          original: s.original,
+          emphasis: s.emphasis,
+          frameCount: null,
+          fileSize: null,
+          toc: null
+        }, this.xingFramePos = this.writer.getPos(), this.mp3Writer.writeXingFrame(this.xingFrameData), this.frameCount++;
+      }
+      this.validateAndNormalizeTimestamp(x, e.timestamp, e.type === "key"), this.writer.write(e.data), this.frameCount++, await this.writer.flush(), r && this.framePositions.push(this.writer.getPos());
+    } finally {
+      A();
+    }
+  }
+  async addSubtitleCue() {
+    throw new Error("MP3 does not support subtitles.");
+  }
+  async finalize() {
+    if (!this.xingFrameData || this.xingFramePos === null)
+      return;
+    const x = await this.mutex.acquire(), e = this.writer.getPos();
+    this.writer.seek(this.xingFramePos);
+    const A = new Uint8Array(100);
+    for (let r = 0; r < 100; r++) {
+      const F = Math.floor(this.framePositions.length * (r / 100));
+      d(F !== -1 && F < this.framePositions.length);
+      const i = this.framePositions[F];
+      A[r] = 256 * (i / e);
+    }
+    if (this.xingFrameData.frameCount = this.frameCount, this.xingFrameData.fileSize = e, this.xingFrameData.toc = A, this.format._options.onXingFrame && this.writer.startTrackingWrites(), this.mp3Writer.writeXingFrame(this.xingFrameData), this.format._options.onXingFrame) {
+      const { data: r, start: F } = this.writer.stopTrackingWrites();
+      this.format._options.onXingFrame(r, F);
+    }
+    this.writer.seek(e), x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const To = 8192;
+class Po extends ux {
+  constructor(x, e) {
+    super(x), this.trackDatas = [], this.bosPagesWritten = !1, this.allTracksKnown = t0(), this.pageBytes = new Uint8Array(LF), this.pageView = new DataView(this.pageBytes.buffer), this.format = e, this.writer = x._writer, this.writer.ensureMonotonicity = !0;
+  }
+  async start() {
+  }
+  async getMimeType() {
+    return await this.allTracksKnown.promise, NF({
+      codecStrings: this.trackDatas.map((x) => x.codecInfo.codec)
+    });
+  }
+  addEncodedVideoPacket() {
+    throw new Error("Video tracks are not supported.");
+  }
+  getTrackData(x, e) {
+    const A = this.trackDatas.find((i) => i.track === x);
+    if (A)
+      return A;
+    let r;
+    do
+      r = Math.floor(2 ** 32 * Math.random());
+    while (this.trackDatas.some((i) => i.serialNumber === r));
+    d(x.source._codec === "vorbis" || x.source._codec === "opus"), Mx(e), d(e), d(e.decoderConfig);
+    const F = {
+      track: x,
+      serialNumber: r,
+      internalSampleRate: x.source._codec === "opus" ? re : e.decoderConfig.sampleRate,
+      codecInfo: {
+        codec: x.source._codec,
+        vorbisInfo: null,
+        opusInfo: null
+      },
+      vorbisLastBlocksize: null,
+      packetQueue: [],
+      currentTimestampInSamples: 0,
+      pagesWritten: 0,
+      currentGranulePosition: 0,
+      currentLacingValues: [],
+      currentPageData: [],
+      currentPageSize: 27,
+      currentPageStartsWithFreshPacket: !0,
+      currentPageStartTimestampInSamples: 0
+    };
+    return this.queueHeaderPackets(F, e), this.trackDatas.push(F), this.allTracksAreKnown() && this.allTracksKnown.resolve(), F;
+  }
+  queueHeaderPackets(x, e) {
+    if (d(e.decoderConfig), x.track.source._codec === "vorbis") {
+      d(e.decoderConfig.description);
+      const A = Q(e.decoderConfig.description);
+      if (A[0] !== 2)
+        throw new TypeError("First byte of Vorbis decoder description must be 2.");
+      let r = 1;
+      const F = () => {
+        let l = 0;
+        for (; ; ) {
+          const D = A[r++];
+          if (D === void 0)
+            throw new TypeError("Vorbis decoder description is too short.");
+          if (l += D, D < 255)
+            return l;
+        }
+      }, i = F(), s = F();
+      if (A.length - r <= 0)
+        throw new TypeError("Vorbis decoder description is too short.");
+      const a = A.subarray(r, r += i);
+      r += s;
+      const o = A.subarray(r), f = new Uint8Array(7);
+      f[0] = 3, f[1] = 118, f[2] = 111, f[3] = 114, f[4] = 98, f[5] = 105, f[6] = 115;
+      const c = xA(f, this.output._metadataTags, !0);
+      x.packetQueue.push({
+        data: a,
+        timestampInSamples: 0,
+        durationInSamples: 0,
+        forcePageFlush: !0
+      }, {
+        data: c,
+        timestampInSamples: 0,
+        durationInSamples: 0,
+        forcePageFlush: !1
+      }, {
+        data: o,
+        timestampInSamples: 0,
+        durationInSamples: 0,
+        forcePageFlush: !0
+        // The last header packet must flush the page
+      });
+      const u = U(a).getUint8(28);
+      x.codecInfo.vorbisInfo = {
+        blocksizes: [
+          1 << (u & 15),
+          1 << (u >> 4)
+        ],
+        modeBlockflags: lF(o).modeBlockflags
+      };
+    } else if (x.track.source._codec === "opus") {
+      if (!e.decoderConfig.description)
+        throw new TypeError("For Ogg, Opus decoder description is required.");
+      const A = Q(e.decoderConfig.description), r = new Uint8Array(8), F = U(r);
+      F.setUint32(0, 1332770163, !1), F.setUint32(4, 1415669619, !1);
+      const i = xA(r, this.output._metadataTags, !0);
+      x.packetQueue.push({
+        data: A,
+        timestampInSamples: 0,
+        durationInSamples: 0,
+        forcePageFlush: !0
+      }, {
+        data: i,
+        timestampInSamples: 0,
+        durationInSamples: 0,
+        forcePageFlush: !0
+        // The last header packet must flush the page
+      }), x.codecInfo.opusInfo = {
+        preSkip: ct(A).preSkip
+      };
+    }
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getTrackData(x, A);
+      this.validateAndNormalizeTimestamp(F.track, e.timestamp, e.type === "key");
+      const i = F.currentTimestampInSamples, { durationInSamples: s, vorbisBlockSize: n } = HF(e.data, F.codecInfo, F.vorbisLastBlocksize);
+      F.currentTimestampInSamples += s, F.vorbisLastBlocksize = n, F.packetQueue.push({
+        data: e.data,
+        timestampInSamples: i,
+        durationInSamples: s,
+        forcePageFlush: !1
+      }), await this.interleavePages();
+    } finally {
+      r();
+    }
+  }
+  addSubtitleCue() {
+    throw new Error("Subtitle tracks are not supported.");
+  }
+  allTracksAreKnown() {
+    for (const x of this.output._tracks)
+      if (!x.source._closed && !this.trackDatas.some((e) => e.track === x))
+        return !1;
+    return !0;
+  }
+  async interleavePages(x = !1) {
+    if (!this.bosPagesWritten) {
+      if (!this.allTracksAreKnown() && !x)
+        return;
+      for (const e of this.trackDatas)
+        for (; e.packetQueue.length > 0; ) {
+          const A = e.packetQueue.shift();
+          if (this.writePacket(e, A, !1), A.forcePageFlush)
+            break;
+        }
+      this.bosPagesWritten = !0;
+    }
+    x: for (; ; ) {
+      let e = null, A = 1 / 0;
+      for (const i of this.trackDatas) {
+        if (!x && i.packetQueue.length <= 1 && !i.track.source._closed)
+          break x;
+        i.packetQueue.length > 0 && i.packetQueue[0].timestampInSamples < A && (e = i, A = i.packetQueue[0].timestampInSamples);
+      }
+      if (!e)
+        break;
+      const r = e.packetQueue.shift(), F = e.packetQueue.length === 0;
+      this.writePacket(e, r, F);
+    }
+    x || await this.writer.flush();
+  }
+  writePacket(x, e, A) {
+    const r = e.timestampInSamples + e.durationInSamples;
+    if (this.format._options.maximumPageDuration !== void 0) {
+      const a = this.format._options.maximumPageDuration * x.internalSampleRate;
+      x.currentLacingValues.length > 0 && r - x.currentPageStartTimestampInSamples > a && this.writePage(x, !1);
+    }
+    let F = e.data.length, i = 0, s = 0;
+    for (; ; ) {
+      x.currentLacingValues.length === 0 && i > 0 && (x.currentPageStartsWithFreshPacket = !1);
+      const a = Math.min(255, F);
+      x.currentLacingValues.push(a), x.currentPageSize++, s += a;
+      const o = F < 255;
+      if (x.currentLacingValues.length === 255) {
+        const f = e.data.subarray(i, s);
+        if (i = s, x.currentPageData.push(f), x.currentPageSize += f.length, this.writePage(x, A && o), o)
+          return;
+      }
+      if (o)
+        break;
+      F -= 255;
+    }
+    const n = e.data.subarray(i);
+    x.currentPageData.push(n), x.currentPageSize += n.length, x.currentGranulePosition = r, (x.currentPageSize >= To || e.forcePageFlush) && this.writePage(x, A);
+  }
+  writePage(x, e) {
+    this.pageView.setUint32(0, NA, !0), this.pageView.setUint8(4, 0);
+    let A = 0;
+    x.currentPageStartsWithFreshPacket || (A |= 1), x.pagesWritten === 0 && (A |= 2), e && (A |= 4), this.pageView.setUint8(5, A);
+    const r = x.currentLacingValues.every((n) => n === 255) ? -1 : x.currentGranulePosition;
+    Zi(this.pageView, 6, r), this.pageView.setUint32(14, x.serialNumber, !0), this.pageView.setUint32(18, x.pagesWritten, !0), this.pageView.setUint32(22, 0, !0), this.pageView.setUint8(26, x.currentLacingValues.length), this.pageBytes.set(x.currentLacingValues, 27);
+    let F = 27 + x.currentLacingValues.length;
+    for (const n of x.currentPageData)
+      this.pageBytes.set(n, F), F += n.length;
+    const i = this.pageBytes.subarray(0, F), s = RF(i);
+    if (this.pageView.setUint32(22, s, !0), x.pagesWritten++, x.currentLacingValues.length = 0, x.currentPageData.length = 0, x.currentPageSize = 27, x.currentPageStartsWithFreshPacket = !0, x.currentPageStartTimestampInSamples = x.currentGranulePosition, this.format._options.onPage && this.writer.startTrackingWrites(), this.writer.write(i), this.format._options.onPage) {
+      const { data: n, start: a } = this.writer.stopTrackingWrites();
+      this.format._options.onPage(n, a, x.track.source);
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async onTrackClose() {
+    const x = await this.mutex.acquire();
+    this.allTracksAreKnown() && this.allTracksKnown.resolve(), await this.interleavePages(), x();
+  }
+  async finalize() {
+    const x = await this.mutex.acquire();
+    this.allTracksKnown.resolve(), await this.interleavePages(!0);
+    for (const e of this.trackDatas)
+      e.currentLacingValues.length > 0 && this.writePage(e, !0);
+    x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const So = 0, yi = 4096, Nr = 256, _o = 224, Lr = 192, Ur = new Uint8Array([9, 240]), Or = new Uint8Array([70, 1]);
+class Io extends ux {
+  constructor(x, e) {
+    super(x), this.trackDatas = [], this.tablesWritten = !1, this.continuityCounters = /* @__PURE__ */ new Map(), this.packetBuffer = new Uint8Array(l0), this.packetView = U(this.packetBuffer), this.allTracksKnown = t0(), this.videoTrackIndex = 0, this.audioTrackIndex = 0, this.adaptationFieldBuffer = new Uint8Array(184), this.payloadBuffer = new Uint8Array(184), this.format = e, this.writer = x._writer, this.writer.ensureMonotonicity = !0;
+  }
+  async start() {
+  }
+  async getMimeType() {
+    return await this.allTracksKnown.promise, zF(this.trackDatas.map((x) => x.codecString));
+  }
+  getVideoTrackData(x, e) {
+    const A = this.trackDatas.find((a) => a.track === x);
+    if (A)
+      return A;
+    kA(e), d(e?.decoderConfig);
+    const r = x.source._codec;
+    d(r === "avc" || r === "hevc");
+    const F = r === "avc" ? 27 : 36, i = Nr + this.trackDatas.length, s = _o + this.videoTrackIndex++, n = {
+      track: x,
+      pid: i,
+      streamType: F,
+      streamId: s,
+      codecString: e.decoderConfig.codec,
+      timestampProcessingQueue: [],
+      packetQueue: [],
+      inputIsAnnexB: null,
+      inputIsAdts: null,
+      avcDecoderConfig: null,
+      hevcDecoderConfig: null,
+      adtsHeader: null,
+      adtsHeaderBitstream: null,
+      firstPacketWritten: !1
+    };
+    return this.trackDatas.push(n), this.allTracksAreKnown() && this.allTracksKnown.resolve(), n;
+  }
+  getAudioTrackData(x, e) {
+    const A = this.trackDatas.find((a) => a.track === x);
+    if (A)
+      return A;
+    Mx(e), d(e?.decoderConfig);
+    const r = x.source._codec;
+    d(r === "aac" || r === "mp3" || r === "ac3" || r === "eac3");
+    let F, i;
+    switch (r) {
+      case "aac":
+        F = 15, i = Lr + this.audioTrackIndex++;
+        break;
+      case "mp3":
+        F = 3, i = Lr + this.audioTrackIndex++;
+        break;
+      case "ac3":
+        F = 129, i = 189;
+        break;
+      case "eac3":
+        F = 135, i = 189;
+        break;
+    }
+    const s = Nr + this.trackDatas.length, n = {
+      track: x,
+      pid: s,
+      streamType: F,
+      streamId: i,
+      codecString: e.decoderConfig.codec,
+      timestampProcessingQueue: [],
+      packetQueue: [],
+      inputIsAnnexB: null,
+      inputIsAdts: null,
+      avcDecoderConfig: null,
+      hevcDecoderConfig: null,
+      adtsHeader: null,
+      adtsHeaderBitstream: null,
+      firstPacketWritten: !1
+    };
+    return this.trackDatas.push(n), this.allTracksAreKnown() && this.allTracksKnown.resolve(), n;
+  }
+  async addEncodedVideoPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getVideoTrackData(x, A), i = this.validateAndNormalizeTimestamp(F.track, e.timestamp, e.type === "key"), s = this.prepareVideoPacket(F, e, A);
+      e.type === "key" && await this.flushTimestampQueue(F), F.timestampProcessingQueue.push({
+        data: s,
+        presentationTimestamp: i,
+        decodeTimestamp: null,
+        isKeyframe: e.type === "key"
+      });
+    } finally {
+      r();
+    }
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      const F = this.getAudioTrackData(x, A), i = this.validateAndNormalizeTimestamp(F.track, e.timestamp, e.type === "key"), s = this.prepareAudioPacket(F, e, A);
+      e.type === "key" && await this.flushTimestampQueue(F), F.timestampProcessingQueue.push({
+        data: s,
+        presentationTimestamp: i,
+        decodeTimestamp: null,
+        isKeyframe: e.type === "key"
+      });
+    } finally {
+      r();
+    }
+  }
+  async addSubtitleCue() {
+    throw new Error("MPEG-TS does not support subtitles.");
+  }
+  prepareVideoPacket(x, e, A) {
+    const r = x.track.source._codec;
+    if (x.inputIsAnnexB === null) {
+      const F = A?.decoderConfig?.description;
+      if (x.inputIsAnnexB = !F, !x.inputIsAnnexB) {
+        const i = Q(F);
+        r === "avc" ? x.avcDecoderConfig = sF(i) : x.hevcDecoderConfig = qs(i);
+      }
+    }
+    return x.inputIsAnnexB ? this.prepareAnnexBVideoPacket(e.data, r) : this.prepareLengthPrefixedVideoPacket(x, e, r);
+  }
+  prepareAnnexBVideoPacket(x, e) {
+    const A = [];
+    for (const F of Fe(x)) {
+      const i = x.subarray(F.offset, F.offset + F.length);
+      (e === "avc" ? Yx(i[0]) === T0.AUD : Tx(i[0]) === A0.AUD_NUT) || A.push(i);
+    }
+    const r = e === "avc" ? Ur : Or;
+    return A.unshift(r), Yt(A);
+  }
+  prepareLengthPrefixedVideoPacket(x, e, A) {
+    const r = e.data, F = A === "avc" ? x.avcDecoderConfig.lengthSizeMinusOne + 1 : x.hevcDecoderConfig.lengthSizeMinusOne + 1, i = [];
+    for (const n of wA(r, F)) {
+      const a = r.subarray(n.offset, n.offset + n.length);
+      (A === "avc" ? Yx(a[0]) === T0.AUD : Tx(a[0]) === A0.AUD_NUT) || i.push(a);
+    }
+    if (e.type === "key")
+      if (A === "avc") {
+        const n = x.avcDecoderConfig;
+        for (const a of n.pictureParameterSets)
+          i.unshift(a);
+        for (const a of n.sequenceParameterSets)
+          i.unshift(a);
+      } else {
+        const n = x.hevcDecoderConfig;
+        for (const a of n.arrays)
+          if (a.nalUnitType === A0.PPS_NUT)
+            for (const o of a.nalUnits)
+              i.unshift(o);
+        for (const a of n.arrays)
+          if (a.nalUnitType === A0.SPS_NUT)
+            for (const o of a.nalUnits)
+              i.unshift(o);
+        for (const a of n.arrays)
+          if (a.nalUnitType === A0.VPS_NUT)
+            for (const o of a.nalUnits)
+              i.unshift(o);
+      }
+    const s = A === "avc" ? Ur : Or;
+    return i.unshift(s), Yt(i);
+  }
+  prepareAudioPacket(x, e, A) {
+    const r = x.track.source._codec;
+    if (r === "mp3" || r === "ac3" || r === "eac3")
+      return e.data;
+    if (x.inputIsAdts === null) {
+      const n = A?.decoderConfig?.description;
+      if (x.inputIsAdts = !n, !x.inputIsAdts) {
+        const a = Se(Q(n)), o = Yr(a);
+        x.adtsHeader = o.header, x.adtsHeaderBitstream = o.bitstream;
+      }
+    }
+    if (x.inputIsAdts)
+      return e.data;
+    d(x.adtsHeader), d(x.adtsHeaderBitstream);
+    const F = x.adtsHeader, i = e.data.byteLength + F.byteLength;
+    Zr(x.adtsHeaderBitstream, i);
+    const s = new Uint8Array(i);
+    return s.set(F, 0), s.set(e.data, F.byteLength), s;
+  }
+  allTracksAreKnown() {
+    for (const x of this.output._tracks)
+      if (!x.source._closed && !this.trackDatas.some((e) => e.track === x))
+        return !1;
+    return !0;
+  }
+  async flushTimestampQueue(x, e = !0) {
+    if (x.timestampProcessingQueue.length === 0)
+      return;
+    const A = x.timestampProcessingQueue.map((r) => r.presentationTimestamp).sort((r, F) => r - F);
+    for (let r = 0; r < x.timestampProcessingQueue.length; r++) {
+      const F = x.timestampProcessingQueue[r];
+      F.decodeTimestamp = A[r], x.packetQueue.push(F);
+    }
+    x.timestampProcessingQueue.length = 0, e && await this.interleavePackets();
+  }
+  async interleavePackets(x = !1) {
+    if (!this.tablesWritten) {
+      if (!this.allTracksAreKnown() && !x)
+        return;
+      this.writeTables();
+    }
+    x: for (; ; ) {
+      let e = null, A = 1 / 0;
+      for (const F of this.trackDatas) {
+        if (!x && F.packetQueue.length === 0 && !F.track.source._closed)
+          break x;
+        F.packetQueue.length > 0 && F.packetQueue[0].presentationTimestamp < A && (e = F, A = F.packetQueue[0].presentationTimestamp);
+      }
+      if (!e)
+        break;
+      const r = e.packetQueue.shift();
+      this.writePesPacket(e, r);
+    }
+    x || await this.writer.flush();
+  }
+  writeTables() {
+    d(!this.tablesWritten), this.writePsiSection(So, hx), this.writePsiSection(yi, Mo(this.trackDatas)), this.tablesWritten = !0;
+  }
+  writePsiSection(x, e) {
+    let A = 0, r = !0;
+    for (; A < e.length; ) {
+      const i = 184 - (r ? 1 : 0), s = e.length - A, n = Math.min(i, s);
+      let a;
+      r ? (a = this.payloadBuffer.subarray(0, 1 + n), a[0] = 0, a.set(e.subarray(A, A + n), 1)) : a = e.subarray(A, A + n), this.writeTsPacket(x, r, null, a), A += n, r = !1;
+    }
+  }
+  writePesPacket(x, e) {
+    const A = x.track.type === "video", r = A ? 10 : 5, F = new Uint8Array(9 + r), i = U(F), s = new N(F.subarray(9));
+    At(i, 0, 1, !1), F[3] = x.streamId;
+    const n = x.track.type === "video" ? 0 : Math.min(8 + e.data.length, 65535);
+    i.setUint16(4, n, !1), i.setUint8(6, 132), i.setUint8(7, A ? 192 : 128), i.setUint8(8, r);
+    const a = Math.round(e.presentationTimestamp * q0);
+    if (s.pos = 0, s.writeBits(4, A ? 3 : 2), s.writeBits(3, a >>> 30 & 7), s.writeBits(1, 1), s.writeBits(15, a >>> 15 & 32767), s.writeBits(1, 1), s.writeBits(15, a & 32767), s.writeBits(1, 1), A) {
+      d(e.decodeTimestamp !== null);
+      const v = Math.round(e.decodeTimestamp * q0);
+      s.writeBits(4, 1), s.writeBits(3, v >>> 30 & 7), s.writeBits(1, 1), s.writeBits(15, v >>> 15 & 32767), s.writeBits(1, 1), s.writeBits(15, v & 32767), s.writeBits(1, 1);
+    }
+    const o = F.length + e.data.length;
+    let f = 0, c = !0;
+    for (; f < o; ) {
+      const v = c, u = o - f, l = c && e.isKeyframe, D = c && !x.firstPacketWritten, b = Math.max(0, 184 - u);
+      let B;
+      l || D ? B = Math.max(2, b) : B = b;
+      let j = null;
+      if (B > 0) {
+        const g = this.adaptationFieldBuffer;
+        B === 1 ? g[0] = 0 : (g[0] = B - 1, g[1] = Number(D) << 7 | Number(l) << 6, g.fill(255, 2, B)), j = g.subarray(0, B);
+      }
+      const E = Math.min(184 - B, u), h = this.payloadBuffer.subarray(0, E);
+      let m = 0;
+      if (f < F.length) {
+        const g = Math.min(F.length - f, E);
+        h.set(F.subarray(f, f + g), 0), m = g;
+      }
+      const k = Math.max(0, f - F.length), p = k + (E - m);
+      m < E && h.set(e.data.subarray(k, p), m), this.writeTsPacket(x.pid, v, j, h), f += E, c = !1;
+    }
+    x.firstPacketWritten = !0;
+  }
+  writeTsPacket(x, e, A, r) {
+    const F = this.continuityCounters.get(x) ?? 0, i = r.length > 0, s = A ? i ? 3 : 2 : i ? 1 : 0;
+    this.packetBuffer[0] = 71, this.packetView.setUint16(1, (e ? 16384 : 0) | x & 8191, !1), this.packetBuffer[3] = s << 4 | F & 15, i && this.continuityCounters.set(x, F + 1 & 15);
+    let n = 4;
+    A && (this.packetBuffer.set(A, n), n += A.length), this.packetBuffer.set(r, n), n += r.length, n < l0 && this.packetBuffer.fill(255, n);
+    const a = this.writer.getPos();
+    this.writer.write(this.packetBuffer), this.format._options.onPacket && this.format._options.onPacket(this.packetBuffer.slice(), a);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  async onTrackClose(x) {
+    const e = await this.mutex.acquire();
+    this.allTracksAreKnown() && this.allTracksKnown.resolve();
+    const A = this.trackDatas.find((r) => r.track === x);
+    A && await this.flushTimestampQueue(A, !1), await this.interleavePackets(), e();
+  }
+  async finalize() {
+    const x = await this.mutex.acquire();
+    this.allTracksKnown.resolve();
+    for (const e of this.trackDatas)
+      await this.flushTimestampQueue(e, !1);
+    await this.interleavePackets(!0), x();
+  }
+}
+const qo = 79764919, Ti = new Uint32Array(256);
+for (let t = 0; t < 256; t++) {
+  let x = t << 24;
+  for (let e = 0; e < 8; e++)
+    x = x & 2147483648 ? x << 1 ^ qo : x << 1;
+  Ti[t] = x >>> 0 & 4294967295;
+}
+const Pi = (t) => {
+  let x = 4294967295;
+  for (let e = 0; e < t.length; e++) {
+    const A = t[e];
+    x = (x << 8 ^ Ti[x >>> 24 ^ A]) >>> 0;
+  }
+  return x;
+}, hx = new Uint8Array(16);
+{
+  const t = U(hx);
+  hx[0] = 0, t.setUint16(1, 45069, !1), t.setUint16(3, 1, !1), hx[5] = 193, hx[6] = 0, hx[7] = 0, t.setUint16(8, 1, !1), t.setUint16(10, 57344 | yi & 8191, !1), t.setUint32(12, Pi(hx.subarray(0, 12)), !1);
+}
+const Mo = (t) => {
+  let x = 0;
+  for (const n of t)
+    x += 5, n.streamType === 129 ? x += Ie.length : n.streamType === 135 && (x += qe.length);
+  const e = 9 + x + 4, A = new Uint8Array(3 + e - 4), r = U(A);
+  A[0] = 2, r.setUint16(1, 45056 | e & 4095, !1), r.setUint16(3, 1, !1), A[5] = 193, A[6] = 0, A[7] = 0, r.setUint16(8, 65535, !1), r.setUint16(10, 61440, !1);
+  let F = 12;
+  for (const n of t)
+    A[F++] = n.streamType, r.setUint16(F, 57344 | n.pid & 8191, !1), F += 2, n.streamType === 129 ? (r.setUint16(F, 61440 | Ie.length, !1), F += 2, A.set(Ie, F), F += Ie.length) : n.streamType === 135 ? (r.setUint16(F, 61440 | qe.length, !1), F += 2, A.set(qe, F), F += qe.length) : (r.setUint16(F, 61440, !1), F += 2);
+  const i = Pi(A), s = new Uint8Array(A.length + 4);
+  return s.set(A, 0), U(s).setUint32(A.length, i, !1), s;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Go {
+  constructor(x) {
+    this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer);
+  }
+  writeU16(x) {
+    this.helperView.setUint16(0, x, !0), this.writer.write(this.helper.subarray(0, 2));
+  }
+  writeU32(x) {
+    this.helperView.setUint32(0, x, !0), this.writer.write(this.helper.subarray(0, 4));
+  }
+  writeU64(x) {
+    this.helperView.setUint32(0, x, !0), this.helperView.setUint32(4, Math.floor(x / 2 ** 32), !0), this.writer.write(this.helper);
+  }
+  writeAscii(x) {
+    this.writer.write(new TextEncoder().encode(x));
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Ro extends ux {
+  constructor(x, e) {
+    super(x), this.headerWritten = !1, this.dataSize = 0, this.sampleRate = null, this.sampleCount = 0, this.riffSizePos = null, this.dataSizePos = null, this.ds64RiffSizePos = null, this.ds64DataSizePos = null, this.ds64SampleCountPos = null, this.format = e, this.writer = x._writer, this.riffWriter = new Go(x._writer), this.isRf64 = !!e._options.large;
+  }
+  async start() {
+  }
+  async getMimeType() {
+    return "audio/wav";
+  }
+  async addEncodedVideoPacket() {
+    throw new Error("WAVE does not support video.");
+  }
+  async addEncodedAudioPacket(x, e, A) {
+    const r = await this.mutex.acquire();
+    try {
+      if (this.headerWritten || (Mx(A), d(A), d(A.decoderConfig), this.writeHeader(x, A.decoderConfig), this.sampleRate = A.decoderConfig.sampleRate, this.headerWritten = !0), this.validateAndNormalizeTimestamp(x, e.timestamp, e.type === "key"), !this.isRf64 && this.writer.getPos() + e.data.byteLength >= 2 ** 32)
+        throw new Error("Adding more audio data would exceed the maximum RIFF size of 4 GiB. To write larger files, use RF64 by setting `large: true` in the WavOutputFormatOptions.");
+      this.writer.write(e.data), this.dataSize += e.data.byteLength, this.sampleCount += Math.round(e.duration * this.sampleRate), await this.writer.flush();
+    } finally {
+      r();
+    }
+  }
+  async addSubtitleCue() {
+    throw new Error("WAVE does not support subtitles.");
+  }
+  writeHeader(x, e) {
+    this.format._options.onHeader && this.writer.startTrackingWrites();
+    let A;
+    const r = x.source._codec, F = O0(r);
+    F.dataType === "ulaw" ? A = k0.MULAW : F.dataType === "alaw" ? A = k0.ALAW : F.dataType === "float" ? A = k0.IEEE_FLOAT : A = k0.PCM;
+    const i = e.numberOfChannels, s = e.sampleRate, n = F.sampleSize * i;
+    if (this.riffWriter.writeAscii(this.isRf64 ? "RF64" : "RIFF"), this.isRf64 ? this.riffWriter.writeU32(4294967295) : (this.riffSizePos = this.writer.getPos(), this.riffWriter.writeU32(0)), this.riffWriter.writeAscii("WAVE"), this.isRf64 && (this.riffWriter.writeAscii("ds64"), this.riffWriter.writeU32(28), this.ds64RiffSizePos = this.writer.getPos(), this.riffWriter.writeU64(0), this.ds64DataSizePos = this.writer.getPos(), this.riffWriter.writeU64(0), this.ds64SampleCountPos = this.writer.getPos(), this.riffWriter.writeU64(0), this.riffWriter.writeU32(0)), this.riffWriter.writeAscii("fmt "), this.riffWriter.writeU32(16), this.riffWriter.writeU16(A), this.riffWriter.writeU16(i), this.riffWriter.writeU32(s), this.riffWriter.writeU32(s * n), this.riffWriter.writeU16(n), this.riffWriter.writeU16(8 * F.sampleSize), !me(this.output._metadataTags)) {
+      const a = this.format._options.metadataFormat ?? "info";
+      a === "info" ? this.writeInfoChunk(this.output._metadataTags) : a === "id3" ? this.writeId3Chunk(this.output._metadataTags) : u0(a);
+    }
+    if (this.riffWriter.writeAscii("data"), this.isRf64 ? this.riffWriter.writeU32(4294967295) : (this.dataSizePos = this.writer.getPos(), this.riffWriter.writeU32(0)), this.format._options.onHeader) {
+      const { data: a, start: o } = this.writer.stopTrackingWrites();
+      this.format._options.onHeader(a, o);
+    }
+  }
+  writeInfoChunk(x) {
+    const e = this.writer.getPos();
+    this.riffWriter.writeAscii("LIST"), this.riffWriter.writeU32(0), this.riffWriter.writeAscii("INFO");
+    const A = /* @__PURE__ */ new Set(), r = (s, n) => {
+      if (!Lx(n)) {
+        console.warn(`Didn't write tag '${s}' because '${n}' is not ISO 8859-1-compatible.`);
+        return;
+      }
+      const a = n.length + 1, o = new Uint8Array(a);
+      for (let f = 0; f < n.length; f++)
+        o[f] = n.charCodeAt(f);
+      this.riffWriter.writeAscii(s), this.riffWriter.writeU32(a), this.writer.write(o), a & 1 && this.writer.write(new Uint8Array(1)), A.add(s);
+    };
+    for (const { key: s, value: n } of ee(x))
+      switch (s) {
+        case "title":
+          r("INAM", n), A.add("INAM");
+          break;
+        case "artist":
+          r("IART", n), A.add("IART");
+          break;
+        case "album":
+          r("IPRD", n), A.add("IPRD");
+          break;
+        case "trackNumber":
+          {
+            const a = x.tracksTotal !== void 0 ? `${n}/${x.tracksTotal}` : n.toString();
+            r("ITRK", a), A.add("ITRK");
+          }
+          break;
+        case "genre":
+          r("IGNR", n), A.add("IGNR");
+          break;
+        case "date":
+          r("ICRD", n.toISOString().slice(0, 10)), A.add("ICRD");
+          break;
+        case "comment":
+          r("ICMT", n), A.add("ICMT");
+          break;
+        case "albumArtist":
+        case "discNumber":
+        case "tracksTotal":
+        case "discsTotal":
+        case "description":
+        case "lyrics":
+        case "images":
+          break;
+        case "raw":
+          break;
+        default:
+          u0(s);
+      }
+    if (x.raw)
+      for (const s in x.raw) {
+        const n = x.raw[s];
+        n == null || s.length !== 4 || A.has(s) || typeof n == "string" && r(s, n);
+      }
+    const F = this.writer.getPos(), i = F - e - 8;
+    this.writer.seek(e + 4), this.riffWriter.writeU32(i), this.writer.seek(F), i & 1 && this.writer.write(new Uint8Array(1));
+  }
+  writeId3Chunk(x) {
+    const e = this.writer.getPos();
+    this.riffWriter.writeAscii("ID3 "), this.riffWriter.writeU32(0);
+    const r = new VA(this.writer).writeId3V2Tag(x), F = this.writer.getPos();
+    this.writer.seek(e + 4), this.riffWriter.writeU32(r), this.writer.seek(F), r & 1 && this.writer.write(new Uint8Array(1));
+  }
+  async finalize() {
+    const x = await this.mutex.acquire(), e = this.writer.getPos();
+    this.isRf64 ? (d(this.ds64RiffSizePos !== null), this.writer.seek(this.ds64RiffSizePos), this.riffWriter.writeU64(e - 8), d(this.ds64DataSizePos !== null), this.writer.seek(this.ds64DataSizePos), this.riffWriter.writeU64(this.dataSize), d(this.ds64SampleCountPos !== null), this.writer.seek(this.ds64SampleCountPos), this.riffWriter.writeU64(this.sampleCount)) : (d(this.riffSizePos !== null), this.writer.seek(this.riffSizePos), this.riffWriter.writeU32(e - 8), d(this.dataSizePos !== null), this.writer.seek(this.dataSizePos), this.riffWriter.writeU32(this.dataSize)), this.writer.seek(e), x();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class z0 {
+  /** Returns a list of video codecs that this output format can contain. */
+  getSupportedVideoCodecs() {
+    return this.getSupportedCodecs().filter((x) => v0.includes(x));
+  }
+  /** Returns a list of audio codecs that this output format can contain. */
+  getSupportedAudioCodecs() {
+    return this.getSupportedCodecs().filter((x) => D0.includes(x));
+  }
+  /** Returns a list of subtitle codecs that this output format can contain. */
+  getSupportedSubtitleCodecs() {
+    return this.getSupportedCodecs().filter((x) => L0.includes(x));
+  }
+  /** @internal */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _codecUnsupportedHint(x) {
+    return "";
+  }
+}
+class QA extends z0 {
+  /** Internal constructor. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.fastStart !== void 0 && ![!1, "in-memory", "reserve", "fragmented"].includes(x.fastStart))
+      throw new TypeError("options.fastStart, when provided, must be false, 'in-memory', 'reserve', or 'fragmented'.");
+    if (x.minimumFragmentDuration !== void 0 && (!Number.isFinite(x.minimumFragmentDuration) || x.minimumFragmentDuration < 0))
+      throw new TypeError("options.minimumFragmentDuration, when provided, must be a non-negative number.");
+    if (x.onFtyp !== void 0 && typeof x.onFtyp != "function")
+      throw new TypeError("options.onFtyp, when provided, must be a function.");
+    if (x.onMoov !== void 0 && typeof x.onMoov != "function")
+      throw new TypeError("options.onMoov, when provided, must be a function.");
+    if (x.onMdat !== void 0 && typeof x.onMdat != "function")
+      throw new TypeError("options.onMdat, when provided, must be a function.");
+    if (x.onMoof !== void 0 && typeof x.onMoof != "function")
+      throw new TypeError("options.onMoof, when provided, must be a function.");
+    if (x.metadataFormat !== void 0 && !["mdir", "mdta", "udta", "auto"].includes(x.metadataFormat))
+      throw new TypeError("options.metadataFormat, when provided, must be either 'auto', 'mdir', 'mdta', or 'udta'.");
+    super(), this._options = x;
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 4294967295 },
+      audio: { min: 0, max: 4294967295 },
+      subtitle: { min: 0, max: 4294967295 },
+      total: { min: 1, max: 4294967295 }
+    };
+  }
+  get supportsVideoRotationMetadata() {
+    return !0;
+  }
+  get supportsTimestampedMediaData() {
+    return !0;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new ho(x, this);
+  }
+}
+class YA extends QA {
+  /** Creates a new {@link Mp4OutputFormat} configured with the specified `options`. */
+  constructor(x) {
+    super(x);
+  }
+  /** @internal */
+  get _name() {
+    return "MP4";
+  }
+  get fileExtension() {
+    return ".mp4";
+  }
+  get mimeType() {
+    return "video/mp4";
+  }
+  getSupportedCodecs() {
+    return [
+      ...v0,
+      ...yx,
+      // These are supported via ISO/IEC 23003-5:
+      "pcm-s16",
+      "pcm-s16be",
+      "pcm-s24",
+      "pcm-s24be",
+      "pcm-s32",
+      "pcm-s32be",
+      "pcm-f32",
+      "pcm-f32be",
+      "pcm-f64",
+      "pcm-f64be",
+      ...L0
+    ];
+  }
+  /** @internal */
+  _codecUnsupportedHint(x) {
+    return new ZA().getSupportedCodecs().includes(x) ? " Switching to MOV will grant support for this codec." : "";
+  }
+}
+class ZA extends QA {
+  /** Creates a new {@link MovOutputFormat} configured with the specified `options`. */
+  constructor(x) {
+    super(x);
+  }
+  /** @internal */
+  get _name() {
+    return "MOV";
+  }
+  get fileExtension() {
+    return ".mov";
+  }
+  get mimeType() {
+    return "video/quicktime";
+  }
+  getSupportedCodecs() {
+    return [
+      ...v0,
+      ...D0
+    ];
+  }
+  /** @internal */
+  _codecUnsupportedHint(x) {
+    return new YA().getSupportedCodecs().includes(x) ? " Switching to MP4 will grant support for this codec." : "";
+  }
+}
+class fA extends z0 {
+  /** Creates a new {@link MkvOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.appendOnly !== void 0 && typeof x.appendOnly != "boolean")
+      throw new TypeError("options.appendOnly, when provided, must be a boolean.");
+    if (x.minimumClusterDuration !== void 0 && (!Number.isFinite(x.minimumClusterDuration) || x.minimumClusterDuration < 0))
+      throw new TypeError("options.minimumClusterDuration, when provided, must be a non-negative number.");
+    if (x.onEbmlHeader !== void 0 && typeof x.onEbmlHeader != "function")
+      throw new TypeError("options.onEbmlHeader, when provided, must be a function.");
+    if (x.onSegmentHeader !== void 0 && typeof x.onSegmentHeader != "function")
+      throw new TypeError("options.onHeader, when provided, must be a function.");
+    if (x.onCluster !== void 0 && typeof x.onCluster != "function")
+      throw new TypeError("options.onCluster, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new go(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "Matroska";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 127 },
+      audio: { min: 0, max: 127 },
+      subtitle: { min: 0, max: 127 },
+      total: { min: 1, max: 127 }
+    };
+  }
+  get fileExtension() {
+    return ".mkv";
+  }
+  get mimeType() {
+    return "video/x-matroska";
+  }
+  getSupportedCodecs() {
+    return [
+      ...v0,
+      ...yx,
+      ...r0.filter((x) => !["pcm-s8", "pcm-f32be", "pcm-f64be", "ulaw", "alaw"].includes(x)),
+      ...L0
+    ];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !0;
+  }
+}
+class cA extends fA {
+  /** Creates a new {@link WebMOutputFormat} configured with the specified `options`. */
+  constructor(x) {
+    super(x);
+  }
+  getSupportedCodecs() {
+    return [
+      ...v0.filter((x) => ["vp8", "vp9", "av1"].includes(x)),
+      ...D0.filter((x) => ["opus", "vorbis"].includes(x)),
+      ...L0
+    ];
+  }
+  /** @internal */
+  get _name() {
+    return "WebM";
+  }
+  get fileExtension() {
+    return ".webm";
+  }
+  get mimeType() {
+    return "video/webm";
+  }
+  /** @internal */
+  _codecUnsupportedHint(x) {
+    return new fA().getSupportedCodecs().includes(x) ? " Switching to MKV will grant support for this codec." : "";
+  }
+}
+class Ho extends z0 {
+  /** Creates a new {@link Mp3OutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.xingHeader !== void 0 && typeof x.xingHeader != "boolean")
+      throw new TypeError("options.xingHeader, when provided, must be a boolean.");
+    if (x.onXingFrame !== void 0 && typeof x.onXingFrame != "function")
+      throw new TypeError("options.onXingFrame, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new yo(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "MP3";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 0 },
+      audio: { min: 1, max: 1 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 1 }
+    };
+  }
+  get fileExtension() {
+    return ".mp3";
+  }
+  get mimeType() {
+    return "audio/mpeg";
+  }
+  getSupportedCodecs() {
+    return ["mp3"];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !1;
+  }
+}
+class No extends z0 {
+  /** Creates a new {@link WavOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.large !== void 0 && typeof x.large != "boolean")
+      throw new TypeError("options.large, when provided, must be a boolean.");
+    if (x.metadataFormat !== void 0 && !["info", "id3"].includes(x.metadataFormat))
+      throw new TypeError("options.metadataFormat, when provided, must be either 'info' or 'id3'.");
+    if (x.onHeader !== void 0 && typeof x.onHeader != "function")
+      throw new TypeError("options.onHeader, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new Ro(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "WAVE";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 0 },
+      audio: { min: 1, max: 1 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 1 }
+    };
+  }
+  get fileExtension() {
+    return ".wav";
+  }
+  get mimeType() {
+    return "audio/wav";
+  }
+  getSupportedCodecs() {
+    return [
+      ...r0.filter((x) => ["pcm-s16", "pcm-s24", "pcm-s32", "pcm-f32", "pcm-u8", "ulaw", "alaw"].includes(x))
+    ];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !1;
+  }
+}
+class Lo extends z0 {
+  /** Creates a new {@link OggOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.maximumPageDuration !== void 0 && (!Number.isFinite(x.maximumPageDuration) || x.maximumPageDuration <= 0))
+      throw new TypeError("options.maximumPageDuration, when provided, must be a positive number.");
+    if (x.onPage !== void 0 && typeof x.onPage != "function")
+      throw new TypeError("options.onPage, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new Po(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "Ogg";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 0 },
+      audio: { min: 0, max: 4294967296 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 4294967296 }
+    };
+  }
+  get fileExtension() {
+    return ".ogg";
+  }
+  get mimeType() {
+    return "application/ogg";
+  }
+  getSupportedCodecs() {
+    return [
+      ...D0.filter((x) => ["vorbis", "opus"].includes(x))
+    ];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !1;
+  }
+}
+class Uo extends z0 {
+  /** Creates a new {@link AdtsOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.onFrame !== void 0 && typeof x.onFrame != "function")
+      throw new TypeError("options.onFrame, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new Yn(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "ADTS";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 0 },
+      audio: { min: 1, max: 1 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 1 }
+    };
+  }
+  get fileExtension() {
+    return ".aac";
+  }
+  get mimeType() {
+    return "audio/aac";
+  }
+  getSupportedCodecs() {
+    return ["aac"];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !1;
+  }
+}
+class Oo extends z0 {
+  /** Creates a new {@link FlacOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new ea(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "FLAC";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 0 },
+      audio: { min: 1, max: 1 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 1 }
+    };
+  }
+  get fileExtension() {
+    return ".flac";
+  }
+  get mimeType() {
+    return "audio/flac";
+  }
+  getSupportedCodecs() {
+    return ["flac"];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !1;
+  }
+}
+class $o extends z0 {
+  /** Creates a new {@link MpegTsOutputFormat} configured with the specified `options`. */
+  constructor(x = {}) {
+    if (!x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (x.onPacket !== void 0 && typeof x.onPacket != "function")
+      throw new TypeError("options.onPacket, when provided, must be a function.");
+    super(), this._options = x;
+  }
+  /** @internal */
+  _createMuxer(x) {
+    return new Io(x, this);
+  }
+  /** @internal */
+  get _name() {
+    return "MPEG-TS";
+  }
+  getSupportedTrackCounts() {
+    return {
+      video: { min: 0, max: 16 },
+      audio: { min: 0, max: 32 },
+      subtitle: { min: 0, max: 0 },
+      total: { min: 1, max: 48 }
+    };
+  }
+  get fileExtension() {
+    return ".ts";
+  }
+  get mimeType() {
+    return "video/MP2T";
+  }
+  getSupportedCodecs() {
+    return [
+      ...v0.filter((x) => ["avc", "hevc"].includes(x)),
+      ...D0.filter((x) => ["aac", "mp3", "ac3", "eac3"].includes(x))
+    ];
+  }
+  get supportsVideoRotationMetadata() {
+    return !1;
+  }
+  get supportsTimestampedMediaData() {
+    return !0;
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const xr = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("Encoding config must be an object.");
+  if (!v0.includes(t.codec))
+    throw new TypeError(`Invalid video codec '${t.codec}'. Must be one of: ${v0.join(", ")}.`);
+  if (!(t.bitrate instanceof E0) && (!Number.isInteger(t.bitrate) || t.bitrate <= 0))
+    throw new TypeError("config.bitrate must be a positive integer or a quality.");
+  if (t.keyFrameInterval !== void 0 && (!Number.isFinite(t.keyFrameInterval) || t.keyFrameInterval < 0))
+    throw new TypeError("config.keyFrameInterval, when provided, must be a non-negative number.");
+  if (t.sizeChangeBehavior !== void 0 && !["deny", "passThrough", "fill", "contain", "cover"].includes(t.sizeChangeBehavior))
+    throw new TypeError("config.sizeChangeBehavior, when provided, must be 'deny', 'passThrough', 'fill', 'contain' or 'cover'.");
+  if (t.onEncodedPacket !== void 0 && typeof t.onEncodedPacket != "function")
+    throw new TypeError("config.onEncodedChunk, when provided, must be a function.");
+  if (t.onEncoderConfig !== void 0 && typeof t.onEncoderConfig != "function")
+    throw new TypeError("config.onEncoderConfig, when provided, must be a function.");
+  Si(t.codec, t);
+}, Si = (t, x) => {
+  if (!x || typeof x != "object")
+    throw new TypeError("Encoding options must be an object.");
+  if (x.alpha !== void 0 && !["discard", "keep"].includes(x.alpha))
+    throw new TypeError("options.alpha, when provided, must be 'discard' or 'keep'.");
+  if (x.bitrateMode !== void 0 && !["constant", "variable"].includes(x.bitrateMode))
+    throw new TypeError("bitrateMode, when provided, must be 'constant' or 'variable'.");
+  if (x.latencyMode !== void 0 && !["quality", "realtime"].includes(x.latencyMode))
+    throw new TypeError("latencyMode, when provided, must be 'quality' or 'realtime'.");
+  if (x.fullCodecString !== void 0 && typeof x.fullCodecString != "string")
+    throw new TypeError("fullCodecString, when provided, must be a string.");
+  if (x.fullCodecString !== void 0 && tF(x.fullCodecString) !== t)
+    throw new TypeError(`fullCodecString, when provided, must be a string that matches the specified codec (${t}).`);
+  if (x.hardwareAcceleration !== void 0 && !["no-preference", "prefer-hardware", "prefer-software"].includes(x.hardwareAcceleration))
+    throw new TypeError("hardwareAcceleration, when provided, must be 'no-preference', 'prefer-hardware' or 'prefer-software'.");
+  if (x.scalabilityMode !== void 0 && typeof x.scalabilityMode != "string")
+    throw new TypeError("scalabilityMode, when provided, must be a string.");
+  if (x.contentHint !== void 0 && typeof x.contentHint != "string")
+    throw new TypeError("contentHint, when provided, must be a string.");
+}, vA = (t) => {
+  const x = t.bitrate instanceof E0 ? t.bitrate._toVideoBitrate(t.codec, t.width, t.height) : t.bitrate;
+  return {
+    codec: t.fullCodecString ?? vs(t.codec, t.width, t.height, x),
+    width: t.width,
+    height: t.height,
+    displayWidth: t.squarePixelWidth,
+    displayHeight: t.squarePixelHeight,
+    bitrate: x,
+    bitrateMode: t.bitrateMode,
+    alpha: t.alpha ?? "discard",
+    framerate: t.framerate,
+    latencyMode: t.latencyMode,
+    hardwareAcceleration: t.hardwareAcceleration,
+    scalabilityMode: t.scalabilityMode,
+    contentHint: t.contentHint,
+    ...us(t.codec)
+  };
+}, er = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("Encoding config must be an object.");
+  if (!D0.includes(t.codec))
+    throw new TypeError(`Invalid audio codec '${t.codec}'. Must be one of: ${D0.join(", ")}.`);
+  if (t.bitrate === void 0 && (!r0.includes(t.codec) || t.codec === "flac"))
+    throw new TypeError("config.bitrate must be provided for compressed audio codecs.");
+  if (t.bitrate !== void 0 && !(t.bitrate instanceof E0) && (!Number.isInteger(t.bitrate) || t.bitrate <= 0))
+    throw new TypeError("config.bitrate, when provided, must be a positive integer or a quality.");
+  if (t.onEncodedPacket !== void 0 && typeof t.onEncodedPacket != "function")
+    throw new TypeError("config.onEncodedChunk, when provided, must be a function.");
+  if (t.onEncoderConfig !== void 0 && typeof t.onEncoderConfig != "function")
+    throw new TypeError("config.onEncoderConfig, when provided, must be a function.");
+  _i(t.codec, t);
+}, _i = (t, x) => {
+  if (!x || typeof x != "object")
+    throw new TypeError("Encoding options must be an object.");
+  if (x.bitrateMode !== void 0 && !["constant", "variable"].includes(x.bitrateMode))
+    throw new TypeError("bitrateMode, when provided, must be 'constant' or 'variable'.");
+  if (x.fullCodecString !== void 0 && typeof x.fullCodecString != "string")
+    throw new TypeError("fullCodecString, when provided, must be a string.");
+  if (x.fullCodecString !== void 0 && tF(x.fullCodecString) !== t)
+    throw new TypeError(`fullCodecString, when provided, must be a string that matches the specified codec (${t}).`);
+}, lA = (t) => {
+  const x = t.bitrate instanceof E0 ? t.bitrate._toAudioBitrate(t.codec) : t.bitrate;
+  return {
+    codec: t.fullCodecString ?? ds(t.codec, t.numberOfChannels, t.sampleRate),
+    numberOfChannels: t.numberOfChannels,
+    sampleRate: t.sampleRate,
+    bitrate: x,
+    bitrateMode: t.bitrateMode,
+    ...Ds(t.codec)
+  };
+};
+class E0 {
+  /** @internal */
+  constructor(x) {
+    this._factor = x;
+  }
+  /** @internal */
+  _toVideoBitrate(x, e, A) {
+    const r = e * A, F = {
+      avc: 1,
+      // H.264/AVC (baseline)
+      hevc: 0.6,
+      // H.265/HEVC (~40% more efficient than AVC)
+      vp9: 0.6,
+      // Similar to HEVC
+      av1: 0.4,
+      // ~60% more efficient than AVC
+      vp8: 1.2
+      // Slightly less efficient than AVC
+    }, i = 1920 * 1080, s = 3e6, n = Math.pow(r / i, 0.95), f = s * n * F[x] * this._factor;
+    return Math.ceil(f / 1e3) * 1e3;
+  }
+  /** @internal */
+  _toAudioBitrate(x) {
+    if (r0.includes(x) || x === "flac")
+      return;
+    const A = {
+      aac: 128e3,
+      // 128kbps base for AAC
+      opus: 64e3,
+      // 64kbps base for Opus
+      mp3: 16e4,
+      // 160kbps base for MP3
+      vorbis: 64e3,
+      // 64kbps base for Vorbis
+      ac3: 384e3,
+      // 384kbps base for AC-3
+      eac3: 192e3
+      // 192kbps base for E-AC-3
+    }[x];
+    if (!A)
+      throw new Error(`Unhandled codec: ${x}`);
+    let r = A * this._factor;
+    return x === "aac" ? r = [96e3, 128e3, 16e4, 192e3].reduce((i, s) => Math.abs(s - r) < Math.abs(i - r) ? s : i) : x === "opus" || x === "vorbis" ? r = Math.max(6e3, r) : x === "mp3" && (r = [
+      8e3,
+      16e3,
+      24e3,
+      32e3,
+      4e4,
+      48e3,
+      64e3,
+      8e4,
+      96e3,
+      112e3,
+      128e3,
+      16e4,
+      192e3,
+      224e3,
+      256e3,
+      32e4
+    ].reduce((i, s) => Math.abs(s - r) < Math.abs(i - r) ? s : i)), Math.round(r / 1e3) * 1e3;
+  }
+}
+const zo = /* @__PURE__ */ new E0(0.3), Vo = /* @__PURE__ */ new E0(0.6), Ko = /* @__PURE__ */ new E0(1), dA = /* @__PURE__ */ new E0(2), Wo = /* @__PURE__ */ new E0(4), Jo = (t) => {
+  if (v0.includes(t))
+    return dt(t);
+  if (D0.includes(t))
+    return ut(t);
+  if (L0.includes(t))
+    return Dt(t);
+  throw new TypeError(`Unknown codec '${t}'.`);
+}, dt = async (t, x = {}) => {
+  const { width: e = 1280, height: A = 720, bitrate: r = 1e6, ...F } = x;
+  if (!v0.includes(t))
+    return !1;
+  if (!Number.isInteger(e) || e <= 0)
+    throw new TypeError("width must be a positive integer.");
+  if (!Number.isInteger(A) || A <= 0)
+    throw new TypeError("height must be a positive integer.");
+  if (!(r instanceof E0) && (!Number.isInteger(r) || r <= 0))
+    throw new TypeError("bitrate must be a positive integer or a quality.");
+  Si(t, F);
+  let i = null;
+  return pe.length > 0 && (i ??= vA({
+    codec: t,
+    width: e,
+    height: A,
+    bitrate: r,
+    framerate: void 0,
+    ...F
+  }), pe.some((a) => a.supports(t, i))) ? !0 : typeof VideoEncoder > "u" || (e % 2 === 1 || A % 2 === 1) && (t === "avc" || t === "hevc") || (i ??= vA({
+    codec: t,
+    width: e,
+    height: A,
+    bitrate: r,
+    framerate: void 0,
+    ...F,
+    alpha: "discard"
+    // Since we handle alpha ourselves
+  }), !(await VideoEncoder.isConfigSupported(i)).supported) ? !1 : Qx() ? new Promise(async (a) => {
+    try {
+      const o = new VideoEncoder({
+        output: () => {
+        },
+        error: () => a(!1)
+      });
+      o.configure(i);
+      const f = new Uint8Array(e * A * 4), c = new VideoFrame(f, {
+        format: "RGBA",
+        codedWidth: e,
+        codedHeight: A,
+        timestamp: 0
+      });
+      o.encode(c), c.close(), await o.flush(), a(!0);
+    } catch {
+      a(!1);
+    }
+  }) : !0;
+}, ut = async (t, x = {}) => {
+  const { numberOfChannels: e = 2, sampleRate: A = 48e3, bitrate: r = 128e3, ...F } = x;
+  if (!D0.includes(t))
+    return !1;
+  if (!Number.isInteger(e) || e <= 0)
+    throw new TypeError("numberOfChannels must be a positive integer.");
+  if (!Number.isInteger(A) || A <= 0)
+    throw new TypeError("sampleRate must be a positive integer.");
+  if (!(r instanceof E0) && (!Number.isInteger(r) || r <= 0))
+    throw new TypeError("bitrate must be a positive integer.");
+  _i(t, F);
+  let i = null;
+  return ke.length > 0 && (i ??= lA({
+    codec: t,
+    numberOfChannels: e,
+    sampleRate: A,
+    bitrate: r,
+    ...F
+  }), ke.some((n) => n.supports(t, i))) || r0.includes(t) ? !0 : typeof AudioEncoder > "u" ? !1 : (i ??= lA({
+    codec: t,
+    numberOfChannels: e,
+    sampleRate: A,
+    bitrate: r,
+    ...F
+  }), (await AudioEncoder.isConfigSupported(i)).supported === !0);
+}, Dt = async (t) => !!L0.includes(t), Xo = async () => {
+  const [t, x, e] = await Promise.all([
+    Ii(),
+    Ze(),
+    qi()
+  ]);
+  return [...t, ...x, ...e];
+}, Ii = async (t = v0, x) => {
+  const e = await Promise.all(t.map((A) => dt(A, x)));
+  return t.filter((A, r) => e[r]);
+}, Ze = async (t = D0, x) => {
+  const e = await Promise.all(t.map((A) => ut(A, x)));
+  return t.filter((A, r) => e[r]);
+}, qi = async (t = L0) => {
+  const x = await Promise.all(t.map(Dt));
+  return t.filter((e, A) => x[A]);
+}, Mi = async (t, x) => {
+  for (const e of t)
+    if (await dt(e, x))
+      return e;
+  return null;
+}, Qo = async (t, x) => {
+  for (const e of t)
+    if (await ut(e, x))
+      return e;
+  return null;
+}, Yo = async (t) => {
+  for (const x of t)
+    if (await Dt(x))
+      return x;
+  return null;
+};
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+class Bt {
+  constructor() {
+    this._connectedTrack = null, this._closingPromise = null, this._closed = !1, this._timestampOffset = 0;
+  }
+  /** @internal */
+  _ensureValidAdd() {
+    if (!this._connectedTrack)
+      throw new Error("Source is not connected to an output track.");
+    if (this._connectedTrack.output.state === "canceled")
+      throw new Error("Output has been canceled.");
+    if (this._connectedTrack.output.state === "finalizing" || this._connectedTrack.output.state === "finalized")
+      throw new Error("Output has been finalized.");
+    if (this._connectedTrack.output.state === "pending")
+      throw new Error("Output has not started.");
+    if (this._closed)
+      throw new Error("Source is closed.");
+  }
+  /** @internal */
+  async _start() {
+  }
+  /** @internal */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async _flushAndClose(x) {
+  }
+  /**
+   * Closes this source. This prevents future samples from being added and signals to the output file that no further
+   * samples will come in for this track. Calling `.close()` is optional but recommended after adding the
+   * last sample - for improved performance and reduced memory usage.
+   */
+  close() {
+    if (this._closingPromise)
+      return;
+    const x = this._connectedTrack;
+    if (!x)
+      throw new Error("Cannot call close without connecting the source to an output track.");
+    if (x.output.state === "pending")
+      throw new Error("Cannot call close before output has been started.");
+    this._closingPromise = (async () => {
+      await this._flushAndClose(!1), this._closed = !0, !(x.output.state === "finalizing" || x.output.state === "finalized") && x.output._muxer.onTrackClose(x);
+    })();
+  }
+  /** @internal */
+  async _flushOrWaitForOngoingClose(x) {
+    return this._closingPromise ??= (async () => {
+      await this._flushAndClose(x), this._closed = !0;
+    })();
+  }
+}
+class se extends Bt {
+  /** Internal constructor. */
+  constructor(x) {
+    if (super(), this._connectedTrack = null, !v0.includes(x))
+      throw new TypeError(`Invalid video codec '${x}'. Must be one of: ${v0.join(", ")}.`);
+    this._codec = x;
+  }
+}
+class Gi extends se {
+  /** Creates a new {@link EncodedVideoPacketSource} whose packets are encoded using `codec`. */
+  constructor(x) {
+    super(x);
+  }
+  /**
+   * Adds an encoded packet to the output video track. Packets must be added in *decode order*, while a packet's
+   * timestamp must be its *presentation timestamp*. B-frames are handled automatically.
+   *
+   * @param meta - Additional metadata from the encoder. You should pass this for the first call, including a valid
+   * decoder config.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x, e) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    if (x.isMetadataOnly)
+      throw new TypeError("Metadata-only packets cannot be added.");
+    if (e !== void 0 && (!e || typeof e != "object"))
+      throw new TypeError("meta, when provided, must be an object.");
+    return this._ensureValidAdd(), this._connectedTrack.output._muxer.addEncodedVideoPacket(this._connectedTrack, x, e);
+  }
+}
+class tr {
+  constructor(x, e) {
+    this.source = x, this.encodingConfig = e, this.ensureEncoderPromise = null, this.encoderInitialized = !1, this.encoder = null, this.muxer = null, this.lastMultipleOfKeyFrameInterval = -1, this.codedWidth = null, this.codedHeight = null, this.resizeCanvas = null, this.customEncoder = null, this.customEncoderCallSerializer = new rt(), this.customEncoderQueueSize = 0, this.alphaEncoder = null, this.splitter = null, this.splitterCreationFailed = !1, this.alphaFrameQueue = [], this.error = null;
+  }
+  async add(x, e, A) {
+    try {
+      if (this.checkForEncoderError(), this.source._ensureValidAdd(), this.codedWidth !== null && this.codedHeight !== null) {
+        if (x.codedWidth !== this.codedWidth || x.codedHeight !== this.codedHeight) {
+          const s = this.encodingConfig.sizeChangeBehavior ?? "deny";
+          if (s !== "passThrough") {
+            if (s === "deny")
+              throw new Error(`Video sample size must remain constant. Expected ${this.codedWidth}x${this.codedHeight}, got ${x.codedWidth}x${x.codedHeight}. To allow the sample size to change over time, set \`sizeChangeBehavior\` to a value other than 'strict' in the encoding options.`);
+            {
+              let n = !1;
+              this.resizeCanvas || (typeof document < "u" ? (this.resizeCanvas = document.createElement("canvas"), this.resizeCanvas.width = this.codedWidth, this.resizeCanvas.height = this.codedHeight) : this.resizeCanvas = new OffscreenCanvas(this.codedWidth, this.codedHeight), n = !0);
+              const a = this.resizeCanvas.getContext("2d", {
+                alpha: Qx()
+                // Firefox has VideoFrame glitches with opaque canvases
+              });
+              d(a), n || (Qx() ? (a.fillStyle = "black", a.fillRect(0, 0, this.codedWidth, this.codedHeight)) : a.clearRect(0, 0, this.codedWidth, this.codedHeight)), x.drawWithFit(a, { fit: s }), e && x.close(), x = new i0(this.resizeCanvas, {
+                timestamp: x.timestamp,
+                duration: x.duration,
+                rotation: x.rotation
+              }), e = !0;
+            }
+          }
+        }
+      } else
+        this.codedWidth = x.codedWidth, this.codedHeight = x.codedHeight;
+      this.encoderInitialized || (this.ensureEncoderPromise || this.ensureEncoder(x), this.encoderInitialized || await this.ensureEncoderPromise), d(this.encoderInitialized);
+      const r = this.encodingConfig.keyFrameInterval ?? 5, F = Math.floor(x.timestamp / r), i = {
+        ...A,
+        keyFrame: A?.keyFrame || r === 0 || F !== this.lastMultipleOfKeyFrameInterval
+      };
+      if (this.lastMultipleOfKeyFrameInterval = F, this.customEncoder) {
+        this.customEncoderQueueSize++;
+        const s = x.clone(), n = this.customEncoderCallSerializer.call(() => this.customEncoder.encode(s, i)).then(() => this.customEncoderQueueSize--).catch((a) => this.error ??= a).finally(() => {
+          s.close();
+        });
+        this.customEncoderQueueSize >= 4 && await n;
+      } else {
+        d(this.encoder);
+        const s = x.toVideoFrame();
+        if (!this.alphaEncoder)
+          this.encoder.encode(s, i), s.close();
+        else if (!!s.format && !s.format.includes("A") || this.splitterCreationFailed)
+          this.alphaFrameQueue.push(null), this.encoder.encode(s, i), s.close();
+        else {
+          const a = s.displayWidth, o = s.displayHeight;
+          if (!this.splitter)
+            try {
+              this.splitter = new Zo(a, o);
+            } catch (f) {
+              console.error("Due to an error, only color data will be encoded.", f), this.splitterCreationFailed = !0, this.alphaFrameQueue.push(null), this.encoder.encode(s, i), s.close();
+            }
+          if (this.splitter) {
+            const f = this.splitter.extractColor(s), c = this.splitter.extractAlpha(s);
+            this.alphaFrameQueue.push(c), this.encoder.encode(f, i), f.close(), s.close();
+          }
+        }
+        e && x.close(), this.encoder.encodeQueueSize >= 4 && await new Promise((n) => this.encoder.addEventListener("dequeue", n, { once: !0 }));
+      }
+      await this.muxer.mutex.currentPromise;
+    } finally {
+      e && x.close();
+    }
+  }
+  ensureEncoder(x) {
+    this.ensureEncoderPromise = (async () => {
+      const e = vA({
+        width: x.codedWidth,
+        height: x.codedHeight,
+        squarePixelWidth: x.squarePixelWidth,
+        squarePixelHeight: x.squarePixelHeight,
+        ...this.encodingConfig,
+        framerate: this.source._connectedTrack?.metadata.frameRate
+      });
+      this.encodingConfig.onEncoderConfig?.(e);
+      const A = pe.find((r) => r.supports(this.encodingConfig.codec, e));
+      if (A)
+        this.customEncoder = new A(), this.customEncoder.codec = this.encodingConfig.codec, this.customEncoder.config = e, this.customEncoder.onPacket = (r, F) => {
+          if (!(r instanceof X))
+            throw new TypeError("The first argument passed to onPacket must be an EncodedPacket.");
+          if (F !== void 0 && (!F || typeof F != "object"))
+            throw new TypeError("The second argument passed to onPacket must be an object or undefined.");
+          this.encodingConfig.onEncodedPacket?.(r, F), this.muxer.addEncodedVideoPacket(this.source._connectedTrack, r, F).catch((i) => {
+            this.error ??= i;
+          });
+        }, await this.customEncoder.init();
+      else {
+        if (typeof VideoEncoder > "u")
+          throw new Error("VideoEncoder is not supported by this browser.");
+        if (e.alpha = "discard", this.encodingConfig.alpha === "keep" && (e.latencyMode = "quality"), (e.width % 2 === 1 || e.height % 2 === 1) && (this.encodingConfig.codec === "avc" || this.encodingConfig.codec === "hevc"))
+          throw new Error(`The dimensions ${e.width}x${e.height} are not supported for codec '${this.encodingConfig.codec}'; both width and height must be even numbers. Make sure to round your dimensions to the nearest even number.`);
+        if (!(await VideoEncoder.isConfigSupported(e)).supported)
+          throw new Error(`This specific encoder configuration (${e.codec}, ${e.bitrate} bps, ${e.width}x${e.height}, hardware acceleration: ${e.hardwareAcceleration ?? "no-preference"}) is not supported by this browser. Consider using another codec or changing your video parameters.`);
+        const i = [], s = [];
+        let n = 0, a = 0;
+        const o = (c, v, u) => {
+          const l = {};
+          if (v) {
+            const b = new Uint8Array(v.byteLength);
+            v.copyTo(b), l.alpha = b;
+          }
+          const D = X.fromEncodedChunk(c, l);
+          this.encodingConfig.onEncodedPacket?.(D, u), this.muxer.addEncodedVideoPacket(this.source._connectedTrack, D, u).catch((b) => {
+            this.error ??= b;
+          });
+        }, f = new Error("Encoding error").stack;
+        if (this.encoder = new VideoEncoder({
+          output: (c, v) => {
+            if (!this.alphaEncoder) {
+              o(c, null, v);
+              return;
+            }
+            const u = this.alphaFrameQueue.shift();
+            d(u !== void 0), u ? (this.alphaEncoder.encode(u, {
+              // Crucial: The alpha frame is forced to be a key frame whenever the color frame
+              // also is. Without this, playback can glitch and even crash in some browsers.
+              // This is the reason why the two encoders are wired in series and not in parallel.
+              keyFrame: c.type === "key"
+            }), a++, u.close(), i.push({ chunk: c, meta: v })) : a === 0 ? o(c, null, v) : (s.push(n + a), i.push({ chunk: c, meta: v }));
+          },
+          error: (c) => {
+            c.stack = f, this.error ??= c;
+          }
+        }), this.encoder.configure(e), this.encodingConfig.alpha === "keep") {
+          const c = new Error("Encoding error").stack;
+          this.alphaEncoder = new VideoEncoder({
+            // We ignore the alpha chunk's metadata
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            output: (v, u) => {
+              a--;
+              const l = i.shift();
+              for (d(l !== void 0), o(l.chunk, v, l.meta), n++; s.length > 0 && s[0] === n; ) {
+                s.shift();
+                const D = i.shift();
+                d(D !== void 0), o(D.chunk, null, D.meta);
+              }
+            },
+            error: (v) => {
+              v.stack = c, this.error ??= v;
+            }
+          }), this.alphaEncoder.configure(e);
+        }
+      }
+      d(this.source._connectedTrack), this.muxer = this.source._connectedTrack.output._muxer, this.encoderInitialized = !0;
+    })();
+  }
+  async flushAndClose(x) {
+    x || this.checkForEncoderError(), this.customEncoder ? (x || this.customEncoderCallSerializer.call(() => this.customEncoder.flush()), await this.customEncoderCallSerializer.call(() => this.customEncoder.close())) : this.encoder && (x || (await this.encoder.flush(), await this.alphaEncoder?.flush()), this.encoder.state !== "closed" && this.encoder.close(), this.alphaEncoder && this.alphaEncoder.state !== "closed" && this.alphaEncoder.close(), this.alphaFrameQueue.forEach((e) => e?.close()), this.splitter?.close()), x || this.checkForEncoderError();
+  }
+  getQueueSize() {
+    return this.customEncoder ? this.customEncoderQueueSize : this.encoder?.encodeQueueSize ?? 0;
+  }
+  checkForEncoderError() {
+    if (this.error)
+      throw this.error;
+  }
+}
+class Zo {
+  constructor(x, e) {
+    this.lastFrame = null, typeof OffscreenCanvas < "u" ? this.canvas = new OffscreenCanvas(x, e) : (this.canvas = document.createElement("canvas"), this.canvas.width = x, this.canvas.height = e);
+    const A = this.canvas.getContext("webgl2", {
+      alpha: !0
+      // Needed due to the YUV thing we do for alpha
+    });
+    if (!A)
+      throw new Error("Couldn't acquire WebGL 2 context.");
+    this.gl = A, this.colorProgram = this.createColorProgram(), this.alphaProgram = this.createAlphaProgram(), this.vao = this.createVAO(), this.sourceTexture = this.createTexture(), this.alphaResolutionLocation = this.gl.getUniformLocation(this.alphaProgram, "u_resolution"), this.gl.useProgram(this.colorProgram), this.gl.uniform1i(this.gl.getUniformLocation(this.colorProgram, "u_sourceTexture"), 0), this.gl.useProgram(this.alphaProgram), this.gl.uniform1i(this.gl.getUniformLocation(this.alphaProgram, "u_sourceTexture"), 0);
+  }
+  createVertexShader() {
+    return this.createShader(this.gl.VERTEX_SHADER, `#version 300 es
+			in vec2 a_position;
+			in vec2 a_texCoord;
+			out vec2 v_texCoord;
+			
+			void main() {
+				gl_Position = vec4(a_position, 0.0, 1.0);
+				v_texCoord = a_texCoord;
+			}
+		`);
+  }
+  createColorProgram() {
+    const x = this.createVertexShader(), e = this.createShader(this.gl.FRAGMENT_SHADER, `#version 300 es
+			precision highp float;
+			
+			uniform sampler2D u_sourceTexture;
+			in vec2 v_texCoord;
+			out vec4 fragColor;
+			
+			void main() {
+				vec4 source = texture(u_sourceTexture, v_texCoord);
+				fragColor = vec4(source.rgb, 1.0);
+			}
+		`), A = this.gl.createProgram();
+    return this.gl.attachShader(A, x), this.gl.attachShader(A, e), this.gl.linkProgram(A), A;
+  }
+  createAlphaProgram() {
+    const x = this.createVertexShader(), e = this.createShader(this.gl.FRAGMENT_SHADER, `#version 300 es
+			precision highp float;
+			
+			uniform sampler2D u_sourceTexture;
+			uniform vec2 u_resolution; // The width and height of the canvas
+			in vec2 v_texCoord;
+			out vec4 fragColor;
+
+			// This function determines the value for a single byte in the YUV stream
+			float getByteValue(float byteOffset) {
+				float width = u_resolution.x;
+				float height = u_resolution.y;
+
+				float yPlaneSize = width * height;
+
+				if (byteOffset < yPlaneSize) {
+					// This byte is in the luma plane. Find the corresponding pixel coordinates to sample from
+					float y = floor(byteOffset / width);
+					float x = mod(byteOffset, width);
+					
+					// Add 0.5 to sample the center of the texel
+					vec2 sampleCoord = (vec2(x, y) + 0.5) / u_resolution;
+					
+					// The luma value is the alpha from the source texture
+					return texture(u_sourceTexture, sampleCoord).a;
+				} else {
+					// Write a fixed value for chroma and beyond
+					return 128.0 / 255.0;
+				}
+			}
+			
+			void main() {
+				// Each fragment writes 4 bytes (R, G, B, A)
+				float pixelIndex = floor(gl_FragCoord.y) * u_resolution.x + floor(gl_FragCoord.x);
+				float baseByteOffset = pixelIndex * 4.0;
+
+				vec4 result;
+				for (int i = 0; i < 4; i++) {
+					float currentByteOffset = baseByteOffset + float(i);
+					result[i] = getByteValue(currentByteOffset);
+				}
+				
+				fragColor = result;
+			}
+		`), A = this.gl.createProgram();
+    return this.gl.attachShader(A, x), this.gl.attachShader(A, e), this.gl.linkProgram(A), A;
+  }
+  createShader(x, e) {
+    const A = this.gl.createShader(x);
+    return this.gl.shaderSource(A, e), this.gl.compileShader(A), this.gl.getShaderParameter(A, this.gl.COMPILE_STATUS) || console.error("Shader compile error:", this.gl.getShaderInfoLog(A)), A;
+  }
+  createVAO() {
+    const x = this.gl.createVertexArray();
+    this.gl.bindVertexArray(x);
+    const e = new Float32Array([
+      -1,
+      -1,
+      0,
+      1,
+      1,
+      -1,
+      1,
+      1,
+      -1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0
+    ]), A = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, A), this.gl.bufferData(this.gl.ARRAY_BUFFER, e, this.gl.STATIC_DRAW);
+    const r = this.gl.getAttribLocation(this.colorProgram, "a_position"), F = this.gl.getAttribLocation(this.colorProgram, "a_texCoord");
+    return this.gl.enableVertexAttribArray(r), this.gl.vertexAttribPointer(r, 2, this.gl.FLOAT, !1, 16, 0), this.gl.enableVertexAttribArray(F), this.gl.vertexAttribPointer(F, 2, this.gl.FLOAT, !1, 16, 8), x;
+  }
+  createTexture() {
+    const x = this.gl.createTexture();
+    return this.gl.bindTexture(this.gl.TEXTURE_2D, x), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.CLAMP_TO_EDGE), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.CLAMP_TO_EDGE), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR), this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.LINEAR), x;
+  }
+  updateTexture(x) {
+    this.lastFrame !== x && ((x.displayWidth !== this.canvas.width || x.displayHeight !== this.canvas.height) && (this.canvas.width = x.displayWidth, this.canvas.height = x.displayHeight), this.gl.activeTexture(this.gl.TEXTURE0), this.gl.bindTexture(this.gl.TEXTURE_2D, this.sourceTexture), this.gl.texImage2D(this.gl.TEXTURE_2D, 0, this.gl.RGBA, this.gl.RGBA, this.gl.UNSIGNED_BYTE, x), this.lastFrame = x);
+  }
+  extractColor(x) {
+    return this.updateTexture(x), this.gl.useProgram(this.colorProgram), this.gl.viewport(0, 0, this.canvas.width, this.canvas.height), this.gl.clear(this.gl.COLOR_BUFFER_BIT), this.gl.bindVertexArray(this.vao), this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4), new VideoFrame(this.canvas, {
+      timestamp: x.timestamp,
+      duration: x.duration ?? void 0,
+      alpha: "discard"
+    });
+  }
+  extractAlpha(x) {
+    this.updateTexture(x), this.gl.useProgram(this.alphaProgram), this.gl.uniform2f(this.alphaResolutionLocation, this.canvas.width, this.canvas.height), this.gl.viewport(0, 0, this.canvas.width, this.canvas.height), this.gl.clear(this.gl.COLOR_BUFFER_BIT), this.gl.bindVertexArray(this.vao), this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
+    const { width: e, height: A } = this.canvas, r = Math.ceil(e / 2) * Math.ceil(A / 2), F = e * A + r * 2, i = Math.ceil(F / (e * 4));
+    let s = new Uint8Array(4 * e * i);
+    this.gl.readPixels(0, 0, e, i, this.gl.RGBA, this.gl.UNSIGNED_BYTE, s), s = s.subarray(0, F), d(s[e * A] === 128), d(s[s.length - 1] === 128);
+    const n = {
+      format: "I420",
+      codedWidth: e,
+      codedHeight: A,
+      timestamp: x.timestamp,
+      duration: x.duration ?? void 0,
+      transfer: [s.buffer]
+    };
+    return new VideoFrame(s, n);
+  }
+  close() {
+    this.gl.getExtension("WEBGL_lose_context")?.loseContext(), this.gl = null;
+  }
+}
+class uA extends se {
+  /**
+   * Creates a new {@link VideoSampleSource} whose samples are encoded according to the specified
+   * {@link VideoEncodingConfig}.
+   */
+  constructor(x) {
+    xr(x), super(x.codec), this._encoder = new tr(this, x);
+  }
+  /**
+   * Encodes a video sample (frame) and then adds it to the output.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x, e) {
+    if (!(x instanceof i0))
+      throw new TypeError("videoSample must be a VideoSample.");
+    return this._encoder.add(x, !1, e);
+  }
+  /** @internal */
+  _flushAndClose(x) {
+    return this._encoder.flushAndClose(x);
+  }
+}
+class x8 extends se {
+  /**
+   * Creates a new {@link CanvasSource} from a canvas element or `OffscreenCanvas` whose samples are encoded
+   * according to the specified {@link VideoEncodingConfig}.
+   */
+  constructor(x, e) {
+    if (!(typeof HTMLCanvasElement < "u" && x instanceof HTMLCanvasElement) && !(typeof OffscreenCanvas < "u" && x instanceof OffscreenCanvas))
+      throw new TypeError("canvas must be an HTMLCanvasElement or OffscreenCanvas.");
+    xr(e), super(e.codec), this._encoder = new tr(this, e), this._canvas = x;
+  }
+  /**
+   * Captures the current canvas state as a video sample (frame), encodes it and adds it to the output.
+   *
+   * @param timestamp - The timestamp of the sample, in seconds.
+   * @param duration - The duration of the sample, in seconds.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x, e = 0, A) {
+    if (!Number.isFinite(x) || x < 0)
+      throw new TypeError("timestamp must be a non-negative number.");
+    if (!Number.isFinite(e) || e < 0)
+      throw new TypeError("duration must be a non-negative number.");
+    const r = new i0(this._canvas, { timestamp: x, duration: e });
+    return this._encoder.add(r, !0, A);
+  }
+  /** @internal */
+  _flushAndClose(x) {
+    return this._encoder.flushAndClose(x);
+  }
+}
+class e8 extends se {
+  /** A promise that rejects upon any error within this source. This promise never resolves. */
+  get errorPromise() {
+    return this._errorPromiseAccessed = !0, this._promiseWithResolvers.promise;
+  }
+  /** Whether this source is currently paused as a result of calling `.pause()`. */
+  get paused() {
+    return this._paused;
+  }
+  /**
+   * Creates a new {@link MediaStreamVideoTrackSource} from a
+   * [`MediaStreamVideoTrack`](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack), which will pull
+   * video samples from the stream in real time and encode them according to {@link VideoEncodingConfig}.
+   */
+  constructor(x, e, A = {}) {
+    if (!(x instanceof MediaStreamTrack) || x.kind !== "video")
+      throw new TypeError("track must be a video MediaStreamTrack.");
+    if (xr(e), typeof A != "object" || !A)
+      throw new TypeError("options must be an object.");
+    if (A.frameRate != null && (typeof A.frameRate != "number" || A.frameRate <= 0))
+      throw new TypeError("options.frameRate, when provided, must be either a positive number or null.");
+    e = {
+      ...e,
+      latencyMode: "realtime"
+    }, super(e.codec), this._abortController = null, this._workerTrackId = null, this._workerListener = null, this._promiseWithResolvers = t0(), this._errorPromiseAccessed = !1, this._paused = !1, this._lastVideoFrame = null, this._timerHandle = null, this._videoElement = null, this._options = A, this._encoder = new tr(this, e), this._track = x;
+  }
+  /** @internal */
+  async _start() {
+    this._errorPromiseAccessed || console.warn("Make sure not to ignore the `errorPromise` field on MediaStreamVideoTrackSource, so that any internal errors get bubbled up properly.");
+    const x = this._options.frameRate !== void 0 ? this._options.frameRate : this._track.getSettings().frameRate ?? null;
+    this._abortController = new AbortController();
+    let e = null, A = null, r = 0, F = !1, i = null, s = 0;
+    const n = () => {
+      if (d(x !== null), !this._lastVideoFrame)
+        return;
+      d(A !== null), d(e !== null);
+      const f = performance.now();
+      for (; f - A > 1e3 / x; ) {
+        A += 1e3 / x;
+        const c = e + r / x, v = new VideoFrame(this._videoElement ?? this._lastVideoFrame, {
+          timestamp: 1e6 * c,
+          duration: 1e6 / x
+        });
+        o(v, f);
+      }
+    };
+    x !== null && (this._timerHandle = os(n, 4));
+    const a = (f) => {
+      if (x === null)
+        o(f);
+      else {
+        const c = performance.now();
+        this._lastVideoFrame ? (n(), this._lastVideoFrame?.close(), this._lastVideoFrame = f) : (o(f.clone(), c), A = c, this._lastVideoFrame = f);
+      }
+    }, o = (f, c = performance.now()) => {
+      if (F) {
+        f.close();
+        return;
+      }
+      r++;
+      const v = f.timestamp / 1e6;
+      if (this._paused) {
+        if (e !== null) {
+          if (i !== null) {
+            const D = v - i;
+            s -= D;
+          }
+          i = v;
+        }
+        f.close();
+        return;
+      }
+      if (e === null) {
+        e = v;
+        const l = this._connectedTrack.output._muxer;
+        l.firstMediaStreamTimestamp === null ? (l.firstMediaStreamTimestamp = c / 1e3, this._timestampOffset = -e) : this._timestampOffset = c / 1e3 - l.firstMediaStreamTimestamp - e;
+      }
+      if (i = v, this._encoder.getQueueSize() >= 8) {
+        f.close();
+        return;
+      }
+      const u = new i0(f, {
+        timestamp: v + s
+      });
+      this._encoder.add(u, !0).catch((l) => {
+        F = !0, this._abortController?.abort(), this._promiseWithResolvers.reject(l), this._workerTrackId !== null && Lt({
+          type: "stopTrack",
+          trackId: this._workerTrackId
+        });
+      });
+    };
+    if (typeof MediaStreamTrackProcessor < "u") {
+      const f = new MediaStreamTrackProcessor({ track: this._track }), c = new WritableStream({ write: a });
+      f.readable.pipeTo(c, {
+        signal: this._abortController.signal
+      }).catch((v) => {
+        v instanceof DOMException && v.name === "AbortError" || this._promiseWithResolvers.reject(v);
+      });
+    } else if (await s8())
+      this._workerTrackId = F8++, Lt({
+        type: "videoTrack",
+        trackId: this._workerTrackId,
+        track: this._track
+      }), this._workerListener = (c) => {
+        const v = c.data;
+        v.type === "videoFrame" && v.trackId === this._workerTrackId ? a(v.videoFrame) : v.type === "error" && v.trackId === this._workerTrackId && this._promiseWithResolvers.reject(v.error);
+      }, M0.addEventListener("message", this._workerListener);
+    else if (x !== null) {
+      const c = document.createElement("video");
+      c.style.position = "fixed", c.style.left = "-10000px", c.style.top = "-10000px", c.style.width = "1px", c.style.height = "1px", c.style.opacity = "0", c.style.pointerEvents = "none", c.muted = !0, c.srcObject = new MediaStream([this._track]), document.body.appendChild(c), this._videoElement = c, c.addEventListener("loadeddata", () => {
+        if (F || !this._videoElement)
+          return;
+        const v = new VideoFrame(c, {
+          timestamp: 1e3 * performance.now()
+        });
+        a(v), v.close();
+      }, { once: !0 }), c.play().catch((v) => {
+        F = !0, this._promiseWithResolvers.reject(v);
+      });
+    } else
+      throw new Error("When no explicit frame rate is set, MediaStreamTrackProcessor is required; but it's not supported by this browser.");
+  }
+  /**
+   * Pauses the capture of video frames - any video frames emitted by the underlying media stream will be ignored
+   * while paused. This does *not* close the underlying `MediaStreamVideoTrack`, it just ignores its output.
+   */
+  pause() {
+    this._paused = !0;
+  }
+  /** Resumes the capture of video frames after being paused. */
+  resume() {
+    this._paused = !1;
+  }
+  /** @internal */
+  async _flushAndClose(x) {
+    this._abortController && (this._abortController.abort(), this._abortController = null), this._timerHandle && fs(this._timerHandle), this._lastVideoFrame?.close(), this._videoElement && (this._videoElement.srcObject = null, this._videoElement.remove(), this._videoElement = null), this._workerTrackId !== null && (d(this._workerListener), Lt({
+      type: "stopTrack",
+      trackId: this._workerTrackId
+    }), await new Promise((e) => {
+      const A = (r) => {
+        const F = r.data;
+        F.type === "trackStopped" && F.trackId === this._workerTrackId && (d(this._workerListener), M0.removeEventListener("message", this._workerListener), M0.removeEventListener("message", A), e());
+      };
+      M0.addEventListener("message", A);
+    })), await this._encoder.flushAndClose(x);
+  }
+}
+class ne extends Bt {
+  /** Internal constructor. */
+  constructor(x) {
+    if (super(), this._connectedTrack = null, !D0.includes(x))
+      throw new TypeError(`Invalid audio codec '${x}'. Must be one of: ${D0.join(", ")}.`);
+    this._codec = x;
+  }
+}
+class Ri extends ne {
+  /** Creates a new {@link EncodedAudioPacketSource} whose packets are encoded using `codec`. */
+  constructor(x) {
+    super(x);
+  }
+  /**
+   * Adds an encoded packet to the output audio track. Packets must be added in *decode order*.
+   *
+   * @param meta - Additional metadata from the encoder. You should pass this for the first call, including a valid
+   * decoder config.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x, e) {
+    if (!(x instanceof X))
+      throw new TypeError("packet must be an EncodedPacket.");
+    if (x.isMetadataOnly)
+      throw new TypeError("Metadata-only packets cannot be added.");
+    if (e !== void 0 && (!e || typeof e != "object"))
+      throw new TypeError("meta, when provided, must be an object.");
+    return this._ensureValidAdd(), this._connectedTrack.output._muxer.addEncodedAudioPacket(this._connectedTrack, x, e);
+  }
+}
+class Ar {
+  constructor(x, e) {
+    this.source = x, this.encodingConfig = e, this.ensureEncoderPromise = null, this.encoderInitialized = !1, this.encoder = null, this.muxer = null, this.lastNumberOfChannels = null, this.lastSampleRate = null, this.isPcmEncoder = !1, this.outputSampleSize = null, this.writeOutputValue = null, this.customEncoder = null, this.customEncoderCallSerializer = new rt(), this.customEncoderQueueSize = 0, this.lastEndSampleIndex = null, this.error = null;
+  }
+  async add(x, e) {
+    try {
+      if (this.checkForEncoderError(), this.source._ensureValidAdd(), this.lastNumberOfChannels !== null && this.lastSampleRate !== null) {
+        if (x.numberOfChannels !== this.lastNumberOfChannels || x.sampleRate !== this.lastSampleRate)
+          throw new Error(`Audio parameters must remain constant. Expected ${this.lastNumberOfChannels} channels at ${this.lastSampleRate} Hz, got ${x.numberOfChannels} channels at ${x.sampleRate} Hz.`);
+      } else
+        this.lastNumberOfChannels = x.numberOfChannels, this.lastSampleRate = x.sampleRate;
+      this.encoderInitialized || (this.ensureEncoderPromise || this.ensureEncoder(x), this.encoderInitialized || await this.ensureEncoderPromise), d(this.encoderInitialized);
+      {
+        const A = Math.round(x.timestamp * x.sampleRate), r = Math.round((x.timestamp + x.duration) * x.sampleRate);
+        if (this.lastEndSampleIndex === null)
+          this.lastEndSampleIndex = r;
+        else {
+          const F = A - this.lastEndSampleIndex;
+          if (F >= 64) {
+            const i = new o0({
+              data: new Float32Array(F * x.numberOfChannels),
+              format: "f32-planar",
+              sampleRate: x.sampleRate,
+              numberOfChannels: x.numberOfChannels,
+              numberOfFrames: F,
+              timestamp: this.lastEndSampleIndex / x.sampleRate
+            });
+            await this.add(i, !0);
+          }
+          this.lastEndSampleIndex += x.numberOfFrames;
+        }
+      }
+      if (this.customEncoder) {
+        this.customEncoderQueueSize++;
+        const A = x.clone(), r = this.customEncoderCallSerializer.call(() => this.customEncoder.encode(A)).then(() => this.customEncoderQueueSize--).catch((F) => this.error ??= F).finally(() => {
+          A.close();
+        });
+        this.customEncoderQueueSize >= 4 && await r, await this.muxer.mutex.currentPromise;
+      } else if (this.isPcmEncoder)
+        await this.doPcmEncoding(x, e);
+      else {
+        d(this.encoder);
+        const A = x.toAudioData();
+        this.encoder.encode(A), A.close(), e && x.close(), this.encoder.encodeQueueSize >= 4 && await new Promise((r) => this.encoder.addEventListener("dequeue", r, { once: !0 })), await this.muxer.mutex.currentPromise;
+      }
+    } finally {
+      e && x.close();
+    }
+  }
+  async doPcmEncoding(x, e) {
+    d(this.outputSampleSize), d(this.writeOutputValue);
+    const { numberOfChannels: A, numberOfFrames: r, sampleRate: F, timestamp: i } = x, s = 2048, n = [];
+    for (let c = 0; c < r; c += s) {
+      const v = Math.min(s, x.numberOfFrames - c), u = v * A * this.outputSampleSize, l = new ArrayBuffer(u), D = new DataView(l);
+      n.push({ frameCount: v, view: D });
+    }
+    const a = x.allocationSize({ planeIndex: 0, format: "f32-planar" }), o = new Float32Array(a / Float32Array.BYTES_PER_ELEMENT);
+    for (let c = 0; c < A; c++) {
+      x.copyTo(o, { planeIndex: c, format: "f32-planar" });
+      for (let v = 0; v < n.length; v++) {
+        const { frameCount: u, view: l } = n[v];
+        for (let D = 0; D < u; D++)
+          this.writeOutputValue(l, (D * A + c) * this.outputSampleSize, o[v * s + D]);
+      }
+    }
+    e && x.close();
+    const f = {
+      decoderConfig: {
+        codec: this.encodingConfig.codec,
+        numberOfChannels: A,
+        sampleRate: F
+      }
+    };
+    for (let c = 0; c < n.length; c++) {
+      const { frameCount: v, view: u } = n[c], l = u.buffer, D = c * s, b = new X(new Uint8Array(l), "key", i + D / F, v / F);
+      this.encodingConfig.onEncodedPacket?.(b, f), await this.muxer.addEncodedAudioPacket(this.source._connectedTrack, b, f);
+    }
+  }
+  ensureEncoder(x) {
+    this.ensureEncoderPromise = (async () => {
+      const { numberOfChannels: e, sampleRate: A } = x, r = lA({
+        numberOfChannels: e,
+        sampleRate: A,
+        ...this.encodingConfig
+      });
+      this.encodingConfig.onEncoderConfig?.(r);
+      const F = ke.find((i) => i.supports(this.encodingConfig.codec, r));
+      if (F)
+        this.customEncoder = new F(), this.customEncoder.codec = this.encodingConfig.codec, this.customEncoder.config = r, this.customEncoder.onPacket = (i, s) => {
+          if (!(i instanceof X))
+            throw new TypeError("The first argument passed to onPacket must be an EncodedPacket.");
+          if (s !== void 0 && (!s || typeof s != "object"))
+            throw new TypeError("The second argument passed to onPacket must be an object or undefined.");
+          this.encodingConfig.onEncodedPacket?.(i, s), this.muxer.addEncodedAudioPacket(this.source._connectedTrack, i, s).catch((n) => {
+            this.error ??= n;
+          });
+        }, await this.customEncoder.init();
+      else if (r0.includes(this.encodingConfig.codec))
+        this.initPcmEncoder();
+      else {
+        if (typeof AudioEncoder > "u")
+          throw new Error("AudioEncoder is not supported by this browser.");
+        if (!(await AudioEncoder.isConfigSupported(r)).supported)
+          throw new Error(`This specific encoder configuration (${r.codec}, ${r.bitrate} bps, ${r.numberOfChannels} channels, ${r.sampleRate} Hz) is not supported by this browser. Consider using another codec or changing your audio parameters.`);
+        const s = new Error("Encoding error").stack;
+        this.encoder = new AudioEncoder({
+          output: (n, a) => {
+            if (this.encodingConfig.codec === "aac" && a?.decoderConfig) {
+              let f = !1;
+              if (!a.decoderConfig.description || a.decoderConfig.description.byteLength < 2 ? f = !0 : f = Se(Q(a.decoderConfig.description)).objectType === 0, f) {
+                const c = Number(x0(r.codec.split(".")));
+                a.decoderConfig.description = hA({
+                  objectType: c,
+                  numberOfChannels: a.decoderConfig.numberOfChannels,
+                  sampleRate: a.decoderConfig.sampleRate
+                });
+              }
+            }
+            const o = X.fromEncodedChunk(n);
+            this.encodingConfig.onEncodedPacket?.(o, a), this.muxer.addEncodedAudioPacket(this.source._connectedTrack, o, a).catch((f) => {
+              this.error ??= f;
+            });
+          },
+          error: (n) => {
+            n.stack = s, this.error ??= n;
+          }
+        }), this.encoder.configure(r);
+      }
+      d(this.source._connectedTrack), this.muxer = this.source._connectedTrack.output._muxer, this.encoderInitialized = !0;
+    })();
+  }
+  initPcmEncoder() {
+    this.isPcmEncoder = !0;
+    const x = this.encodingConfig.codec, { dataType: e, sampleSize: A, littleEndian: r } = O0(x);
+    switch (this.outputSampleSize = A, A) {
+      case 1:
+        e === "unsigned" ? this.writeOutputValue = (F, i, s) => F.setUint8(i, n0((s + 1) * 127.5, 0, 255)) : e === "signed" ? this.writeOutputValue = (F, i, s) => {
+          F.setInt8(i, n0(Math.round(s * 128), -128, 127));
+        } : e === "ulaw" ? this.writeOutputValue = (F, i, s) => {
+          const n = n0(Math.floor(s * 32767), -32768, 32767);
+          F.setUint8(i, Us(n));
+        } : e === "alaw" ? this.writeOutputValue = (F, i, s) => {
+          const n = n0(Math.floor(s * 32767), -32768, 32767);
+          F.setUint8(i, $s(n));
+        } : d(!1);
+        break;
+      case 2:
+        e === "unsigned" ? this.writeOutputValue = (F, i, s) => F.setUint16(i, n0((s + 1) * 32767.5, 0, 65535), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => F.setInt16(i, n0(Math.round(s * 32767), -32768, 32767), r) : d(!1);
+        break;
+      case 3:
+        e === "unsigned" ? this.writeOutputValue = (F, i, s) => At(F, i, n0((s + 1) * 83886075e-1, 0, 16777215), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => Yi(F, i, n0(Math.round(s * 8388607), -8388608, 8388607), r) : d(!1);
+        break;
+      case 4:
+        e === "unsigned" ? this.writeOutputValue = (F, i, s) => F.setUint32(i, n0((s + 1) * 21474836475e-1, 0, 4294967295), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => F.setInt32(i, n0(Math.round(s * 2147483647), -2147483648, 2147483647), r) : e === "float" ? this.writeOutputValue = (F, i, s) => F.setFloat32(i, s, r) : d(!1);
+        break;
+      case 8:
+        e === "float" ? this.writeOutputValue = (F, i, s) => F.setFloat64(i, s, r) : d(!1);
+        break;
+      default:
+        u0(A), d(!1);
+    }
+  }
+  async flushAndClose(x) {
+    x || this.checkForEncoderError(), this.customEncoder ? (x || this.customEncoderCallSerializer.call(() => this.customEncoder.flush()), await this.customEncoderCallSerializer.call(() => this.customEncoder.close())) : this.encoder && (x || await this.encoder.flush(), this.encoder.state !== "closed" && this.encoder.close()), x || this.checkForEncoderError();
+  }
+  getQueueSize() {
+    return this.customEncoder ? this.customEncoderQueueSize : this.isPcmEncoder ? 0 : this.encoder?.encodeQueueSize ?? 0;
+  }
+  checkForEncoderError() {
+    if (this.error)
+      throw this.error;
+  }
+}
+class DA extends ne {
+  /**
+   * Creates a new {@link AudioSampleSource} whose samples are encoded according to the specified
+   * {@link AudioEncodingConfig}.
+   */
+  constructor(x) {
+    er(x), super(x.codec), this._encoder = new Ar(this, x);
+  }
+  /**
+   * Encodes an audio sample and then adds it to the output.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x) {
+    if (!(x instanceof o0))
+      throw new TypeError("audioSample must be an AudioSample.");
+    return this._encoder.add(x, !1);
+  }
+  /** @internal */
+  _flushAndClose(x) {
+    return this._encoder.flushAndClose(x);
+  }
+}
+class t8 extends ne {
+  /**
+   * Creates a new {@link AudioBufferSource} whose `AudioBuffer` instances are encoded according to the specified
+   * {@link AudioEncodingConfig}.
+   */
+  constructor(x) {
+    er(x), super(x.codec), this._accumulatedTime = 0, this._encoder = new Ar(this, x);
+  }
+  /**
+   * Converts an AudioBuffer to audio samples, encodes them and adds them to the output. The first AudioBuffer will
+   * be played at timestamp 0, and any subsequent AudioBuffer will have a timestamp equal to the total duration of
+   * all previous AudioBuffers.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  async add(x) {
+    if (!(x instanceof AudioBuffer))
+      throw new TypeError("audioBuffer must be an AudioBuffer.");
+    const e = o0._fromAudioBuffer(x, this._accumulatedTime);
+    this._accumulatedTime += x.duration;
+    for (const A of e)
+      await this._encoder.add(A, !0);
+  }
+  /** @internal */
+  _flushAndClose(x) {
+    return this._encoder.flushAndClose(x);
+  }
+}
+class A8 extends ne {
+  /** A promise that rejects upon any error within this source. This promise never resolves. */
+  get errorPromise() {
+    return this._errorPromiseAccessed = !0, this._promiseWithResolvers.promise;
+  }
+  /** Whether this source is currently paused as a result of calling `.pause()`. */
+  get paused() {
+    return this._paused;
+  }
+  /**
+   * Creates a new {@link MediaStreamAudioTrackSource} from a `MediaStreamAudioTrack`, which will pull audio samples
+   * from the stream in real time and encode them according to {@link AudioEncodingConfig}.
+   */
+  constructor(x, e) {
+    if (!(x instanceof MediaStreamTrack) || x.kind !== "audio")
+      throw new TypeError("track must be an audio MediaStreamTrack.");
+    er(e), super(e.codec), this._abortController = null, this._audioContext = null, this._scriptProcessorNode = null, this._promiseWithResolvers = t0(), this._errorPromiseAccessed = !1, this._paused = !1, this._encoder = new Ar(this, e), this._track = x;
+  }
+  /** @internal */
+  async _start() {
+    this._errorPromiseAccessed || console.warn("Make sure not to ignore the `errorPromise` field on MediaStreamAudioTrackSource, so that any internal errors get bubbled up properly."), this._abortController = new AbortController();
+    let x = null, e = !1, A = null, r = 0;
+    const F = (i) => {
+      if (e) {
+        i.close();
+        return;
+      }
+      const s = i.timestamp;
+      if (this._paused) {
+        if (x !== null) {
+          if (A !== null) {
+            const a = s - A;
+            r -= a;
+          }
+          A = s;
+        }
+        i.close();
+        return;
+      }
+      if (x === null) {
+        x = i.timestamp;
+        const n = this._connectedTrack.output._muxer;
+        n.firstMediaStreamTimestamp === null ? (n.firstMediaStreamTimestamp = performance.now() / 1e3, this._timestampOffset = -x) : this._timestampOffset = performance.now() / 1e3 - n.firstMediaStreamTimestamp - x;
+      }
+      if (A = s, this._encoder.getQueueSize() >= 8) {
+        i.close();
+        return;
+      }
+      i.setTimestamp(s + r), this._encoder.add(i, !0).catch((n) => {
+        e = !0, this._abortController?.abort(), this._promiseWithResolvers.reject(n), this._audioContext?.suspend();
+      });
+    };
+    if (typeof MediaStreamTrackProcessor < "u") {
+      const i = new MediaStreamTrackProcessor({ track: this._track }), s = new WritableStream({
+        write: (n) => F(new o0(n))
+      });
+      i.readable.pipeTo(s, {
+        signal: this._abortController.signal
+      }).catch((n) => {
+        n instanceof DOMException && n.name === "AbortError" || this._promiseWithResolvers.reject(n);
+      });
+    } else {
+      const i = window.AudioContext || window.webkitAudioContext;
+      this._audioContext = new i({ sampleRate: this._track.getSettings().sampleRate });
+      const s = this._audioContext.createMediaStreamSource(new MediaStream([this._track]));
+      this._scriptProcessorNode = this._audioContext.createScriptProcessor(4096), this._audioContext.state === "suspended" && await this._audioContext.resume(), s.connect(this._scriptProcessorNode), this._scriptProcessorNode.connect(this._audioContext.destination);
+      let n = 0;
+      this._scriptProcessorNode.onaudioprocess = (a) => {
+        const o = o0._fromAudioBuffer(a.inputBuffer, n);
+        n += a.inputBuffer.duration;
+        for (const f of o)
+          F(f);
+      };
+    }
+  }
+  /**
+   * Pauses the capture of audio data - any audio data emitted by the underlying media stream will be ignored
+   * while paused. This does *not* close the underlying `MediaStreamAudioTrack`, it just ignores its output.
+   */
+  pause() {
+    this._paused = !0;
+  }
+  /** Resumes the capture of audio data after being paused. */
+  resume() {
+    this._paused = !1;
+  }
+  /** @internal */
+  async _flushAndClose(x) {
+    this._abortController && (this._abortController.abort(), this._abortController = null), this._audioContext && (d(this._scriptProcessorNode), this._scriptProcessorNode.disconnect(), await this._audioContext.suspend()), await this._encoder.flushAndClose(x);
+  }
+}
+const r8 = () => {
+  const t = (A, r) => {
+    r ? self.postMessage(A, { transfer: r }) : self.postMessage(A);
+  };
+  t({
+    type: "support",
+    supported: typeof MediaStreamTrackProcessor < "u"
+  });
+  const x = /* @__PURE__ */ new Map(), e = /* @__PURE__ */ new Map();
+  self.addEventListener("message", (A) => {
+    const r = A.data;
+    switch (r.type) {
+      case "videoTrack":
+        {
+          e.set(r.trackId, r.track);
+          const F = new MediaStreamTrackProcessor({ track: r.track }), i = new WritableStream({
+            write: (n) => {
+              if (!e.has(r.trackId)) {
+                n.close();
+                return;
+              }
+              t({
+                type: "videoFrame",
+                trackId: r.trackId,
+                videoFrame: n
+              }, [n]);
+            }
+          }), s = new AbortController();
+          x.set(r.trackId, s), F.readable.pipeTo(i, {
+            signal: s.signal
+          }).catch((n) => {
+            n instanceof DOMException && n.name === "AbortError" || t({
+              type: "error",
+              trackId: r.trackId,
+              error: n
+            });
+          });
+        }
+        break;
+      case "stopTrack":
+        {
+          const F = x.get(r.trackId);
+          F && (F.abort(), x.delete(r.trackId)), e.get(r.trackId)?.stop(), e.delete(r.trackId), t({
+            type: "trackStopped",
+            trackId: r.trackId
+          });
+        }
+        break;
+      default:
+        u0(r);
+    }
+  });
+};
+let F8 = 0, M0 = null;
+const i8 = () => {
+  const t = new Blob([`(${r8.toString()})()`], { type: "application/javascript" }), x = URL.createObjectURL(t);
+  M0 = new Worker(x);
+};
+let Nt = null;
+const s8 = async () => Nt !== null ? Nt : (M0 || i8(), new Promise((t) => {
+  d(M0);
+  const x = (e) => {
+    const A = e.data;
+    A.type === "support" && (Nt = A.supported, M0.removeEventListener("message", x), t(A.supported));
+  };
+  M0.addEventListener("message", x);
+})), Lt = (t, x) => {
+  d(M0), M0.postMessage(t);
+};
+class rr extends Bt {
+  /** Internal constructor. */
+  constructor(x) {
+    if (super(), this._connectedTrack = null, !L0.includes(x))
+      throw new TypeError(`Invalid subtitle codec '${x}'. Must be one of: ${L0.join(", ")}.`);
+    this._codec = x;
+  }
+}
+class n8 extends rr {
+  /** Creates a new {@link TextSubtitleSource} where added text chunks are in the specified `codec`. */
+  constructor(x) {
+    super(x), this._error = null, this._parser = new Aa({
+      codec: x,
+      output: (e, A) => {
+        this._connectedTrack?.output._muxer.addSubtitleCue(this._connectedTrack, e, A).catch((r) => {
+          this._error ??= r;
+        });
+      }
+    });
+  }
+  /**
+   * Parses the subtitle text according to the specified codec and adds it to the output track. You don't have to
+   * add the entire subtitle file at once here; you can provide it in chunks.
+   *
+   * @returns A Promise that resolves once the output is ready to receive more samples. You should await this Promise
+   * to respect writer and encoder backpressure.
+   */
+  add(x) {
+    if (typeof x != "string")
+      throw new TypeError("text must be a string.");
+    return this._checkForError(), this._ensureValidAdd(), this._parser.parse(x), this._connectedTrack.output._muxer.mutex.currentPromise;
+  }
+  /** @internal */
+  _checkForError() {
+    if (this._error)
+      throw this._error;
+  }
+  /** @internal */
+  async _flushAndClose(x) {
+    x || this._checkForError();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Hi = ["video", "audio", "subtitle"], Ut = (t) => {
+  if (!t || typeof t != "object")
+    throw new TypeError("metadata must be an object.");
+  if (t.languageCode !== void 0 && !he(t.languageCode))
+    throw new TypeError("metadata.languageCode, when provided, must be a three-letter, ISO 639-2/T language code.");
+  if (t.name !== void 0 && typeof t.name != "string")
+    throw new TypeError("metadata.name, when provided, must be a string.");
+  if (t.disposition !== void 0 && cs(t.disposition), t.maximumPacketCount !== void 0 && (!Number.isInteger(t.maximumPacketCount) || t.maximumPacketCount < 0))
+    throw new TypeError("metadata.maximumPacketCount, when provided, must be a non-negative integer.");
+};
+class BA {
+  /**
+   * Creates a new instance of {@link Output} which can then be used to create a new media file according to the
+   * specified {@link OutputOptions}.
+   */
+  constructor(x) {
+    if (this.state = "pending", this._tracks = [], this._startPromise = null, this._cancelPromise = null, this._finalizePromise = null, this._mutex = new xe(), this._metadataTags = {}, !x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (!(x.format instanceof z0))
+      throw new TypeError("options.format must be an OutputFormat.");
+    if (!(x.target instanceof ie))
+      throw new TypeError("options.target must be a Target.");
+    if (x.target._output)
+      throw new Error("Target is already used for another output.");
+    x.target._output = this, this.format = x.format, this.target = x.target, this._writer = x.target._createWriter(), this._muxer = x.format._createMuxer(this);
+  }
+  /** Adds a video track to the output with the given source. Can only be called before the output is started. */
+  addVideoTrack(x, e = {}) {
+    if (!(x instanceof se))
+      throw new TypeError("source must be a VideoSource.");
+    if (Ut(e), e.rotation !== void 0 && ![0, 90, 180, 270].includes(e.rotation))
+      throw new TypeError(`Invalid video rotation: ${e.rotation}. Has to be 0, 90, 180 or 270.`);
+    if (!this.format.supportsVideoRotationMetadata && e.rotation)
+      throw new Error(`${this.format._name} does not support video rotation metadata.`);
+    if (e.frameRate !== void 0 && (!Number.isFinite(e.frameRate) || e.frameRate <= 0))
+      throw new TypeError(`Invalid video frame rate: ${e.frameRate}. Must be a positive number.`);
+    this._addTrack("video", x, e);
+  }
+  /** Adds an audio track to the output with the given source. Can only be called before the output is started. */
+  addAudioTrack(x, e = {}) {
+    if (!(x instanceof ne))
+      throw new TypeError("source must be an AudioSource.");
+    Ut(e), this._addTrack("audio", x, e);
+  }
+  /** Adds a subtitle track to the output with the given source. Can only be called before the output is started. */
+  addSubtitleTrack(x, e = {}) {
+    if (!(x instanceof rr))
+      throw new TypeError("source must be a SubtitleSource.");
+    Ut(e), this._addTrack("subtitle", x, e);
+  }
+  /**
+   * Sets descriptive metadata tags about the media file, such as title, author, date, or cover art. When called
+   * multiple times, only the metadata from the last call will be used.
+   *
+   * Can only be called before the output is started.
+   */
+  setMetadataTags(x) {
+    if (Wt(x), this.state !== "pending")
+      throw new Error("Cannot set metadata tags after output has been started or canceled.");
+    this._metadataTags = x;
+  }
+  /** @internal */
+  _addTrack(x, e, A) {
+    if (this.state !== "pending")
+      throw new Error("Cannot add track after output has been started or canceled.");
+    if (e._connectedTrack)
+      throw new Error("Source is already used for a track.");
+    const r = this.format.getSupportedTrackCounts(), F = this._tracks.reduce((a, o) => a + (o.type === x ? 1 : 0), 0), i = r[x].max;
+    if (F === i)
+      throw new Error(i === 0 ? `${this.format._name} does not support ${x} tracks.` : `${this.format._name} does not support more than ${i} ${x} track${i === 1 ? "" : "s"}.`);
+    const s = r.total.max;
+    if (this._tracks.length === s)
+      throw new Error(`${this.format._name} does not support more than ${s} tracks${s === 1 ? "" : "s"} in total.`);
+    const n = {
+      id: this._tracks.length + 1,
+      output: this,
+      type: x,
+      source: e,
+      metadata: A
+    };
+    if (n.type === "video") {
+      const a = this.format.getSupportedVideoCodecs();
+      if (a.length === 0)
+        throw new Error(`${this.format._name} does not support video tracks.` + this.format._codecUnsupportedHint(n.source._codec));
+      if (!a.includes(n.source._codec))
+        throw new Error(`Codec '${n.source._codec}' cannot be contained within ${this.format._name}. Supported video codecs are: ${a.map((o) => `'${o}'`).join(", ")}.` + this.format._codecUnsupportedHint(n.source._codec));
+    } else if (n.type === "audio") {
+      const a = this.format.getSupportedAudioCodecs();
+      if (a.length === 0)
+        throw new Error(`${this.format._name} does not support audio tracks.` + this.format._codecUnsupportedHint(n.source._codec));
+      if (!a.includes(n.source._codec))
+        throw new Error(`Codec '${n.source._codec}' cannot be contained within ${this.format._name}. Supported audio codecs are: ${a.map((o) => `'${o}'`).join(", ")}.` + this.format._codecUnsupportedHint(n.source._codec));
+    } else if (n.type === "subtitle") {
+      const a = this.format.getSupportedSubtitleCodecs();
+      if (a.length === 0)
+        throw new Error(`${this.format._name} does not support subtitle tracks.` + this.format._codecUnsupportedHint(n.source._codec));
+      if (!a.includes(n.source._codec))
+        throw new Error(`Codec '${n.source._codec}' cannot be contained within ${this.format._name}. Supported subtitle codecs are: ${a.map((o) => `'${o}'`).join(", ")}.` + this.format._codecUnsupportedHint(n.source._codec));
+    }
+    this._tracks.push(n), e._connectedTrack = n;
+  }
+  /**
+   * Starts the creation of the output file. This method should be called after all tracks have been added. Only after
+   * the output has started can media samples be added to the tracks.
+   *
+   * @returns A promise that resolves when the output has successfully started and is ready to receive media samples.
+   */
+  async start() {
+    const x = this.format.getSupportedTrackCounts();
+    for (const A of Hi) {
+      const r = this._tracks.reduce((i, s) => i + (s.type === A ? 1 : 0), 0), F = x[A].min;
+      if (r < F)
+        throw new Error(F === x[A].max ? `${this.format._name} requires exactly ${F} ${A} track${F === 1 ? "" : "s"}.` : `${this.format._name} requires at least ${F} ${A} track${F === 1 ? "" : "s"}.`);
+    }
+    const e = x.total.min;
+    if (this._tracks.length < e)
+      throw new Error(e === x.total.max ? `${this.format._name} requires exactly ${e} track${e === 1 ? "" : "s"}.` : `${this.format._name} requires at least ${e} track${e === 1 ? "" : "s"}.`);
+    if (this.state === "canceled")
+      throw new Error("Output has been canceled.");
+    return this._startPromise ? (console.warn("Output has already been started."), this._startPromise) : this._startPromise = (async () => {
+      this.state = "started", this._writer.start();
+      const A = await this._mutex.acquire();
+      await this._muxer.start();
+      const r = this._tracks.map((F) => F.source._start());
+      await Promise.all(r), A();
+    })();
+  }
+  /**
+   * Resolves with the full MIME type of the output file, including track codecs.
+   *
+   * The returned promise will resolve only once the precise codec strings of all tracks are known.
+   */
+  getMimeType() {
+    return this._muxer.getMimeType();
+  }
+  /**
+   * Cancels the creation of the output file, releasing internal resources like encoders and preventing further
+   * samples from being added.
+   *
+   * @returns A promise that resolves once all internal resources have been released.
+   */
+  async cancel() {
+    if (this._cancelPromise)
+      return console.warn("Output has already been canceled."), this._cancelPromise;
+    if (this.state === "finalizing" || this.state === "finalized") {
+      console.warn("Output has already been finalized.");
+      return;
+    }
+    return this._cancelPromise = (async () => {
+      this.state = "canceled";
+      const x = await this._mutex.acquire(), e = this._tracks.map((A) => A.source._flushOrWaitForOngoingClose(!0));
+      await Promise.all(e), await this._writer.close(), x();
+    })();
+  }
+  /**
+   * Finalizes the output file. This method must be called after all media samples across all tracks have been added.
+   * Once the Promise returned by this method completes, the output file is ready.
+   */
+  async finalize() {
+    if (this.state === "pending")
+      throw new Error("Cannot finalize before starting.");
+    if (this.state === "canceled")
+      throw new Error("Cannot finalize after canceling.");
+    return this._finalizePromise ? (console.warn("Output has already been finalized."), this._finalizePromise) : this._finalizePromise = (async () => {
+      this.state = "finalizing";
+      const x = await this._mutex.acquire(), e = this._tracks.map((A) => A.source._flushOrWaitForOngoingClose(!1));
+      await Promise.all(e), await this._muxer.finalize(), await this._writer.flush(), await this._writer.finalize(), this.state = "finalized", x();
+    })();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const $r = (t) => {
+  if (t !== void 0 && (!t || typeof t != "object"))
+    throw new TypeError("options.video, when provided, must be an object.");
+  if (t?.discard !== void 0 && typeof t.discard != "boolean")
+    throw new TypeError("options.video.discard, when provided, must be a boolean.");
+  if (t?.forceTranscode !== void 0 && typeof t.forceTranscode != "boolean")
+    throw new TypeError("options.video.forceTranscode, when provided, must be a boolean.");
+  if (t?.codec !== void 0 && !v0.includes(t.codec))
+    throw new TypeError(`options.video.codec, when provided, must be one of: ${v0.join(", ")}.`);
+  if (t?.bitrate !== void 0 && !(t.bitrate instanceof E0) && (!Number.isInteger(t.bitrate) || t.bitrate <= 0))
+    throw new TypeError("options.video.bitrate, when provided, must be a positive integer or a quality.");
+  if (t?.width !== void 0 && (!Number.isInteger(t.width) || t.width <= 0))
+    throw new TypeError("options.video.width, when provided, must be a positive integer.");
+  if (t?.height !== void 0 && (!Number.isInteger(t.height) || t.height <= 0))
+    throw new TypeError("options.video.height, when provided, must be a positive integer.");
+  if (t?.fit !== void 0 && !["fill", "contain", "cover"].includes(t.fit))
+    throw new TypeError("options.video.fit, when provided, must be one of 'fill', 'contain', or 'cover'.");
+  if (t?.width !== void 0 && t.height !== void 0 && t.fit === void 0)
+    throw new TypeError("When both options.video.width and options.video.height are provided, options.video.fit must also be provided.");
+  if (t?.rotate !== void 0 && ![0, 90, 180, 270].includes(t.rotate))
+    throw new TypeError("options.video.rotate, when provided, must be 0, 90, 180 or 270.");
+  if (t?.allowRotationMetadata !== void 0 && typeof t.allowRotationMetadata != "boolean")
+    throw new TypeError("options.video.allowRotationMetadata, when provided, must be a boolean.");
+  if (t?.crop !== void 0 && MA(t.crop, "options.video."), t?.frameRate !== void 0 && (!Number.isFinite(t.frameRate) || t.frameRate <= 0))
+    throw new TypeError("options.video.frameRate, when provided, must be a finite positive number.");
+  if (t?.alpha !== void 0 && !["discard", "keep"].includes(t.alpha))
+    throw new TypeError("options.video.alpha, when provided, must be either 'discard' or 'keep'.");
+  if (t?.keyFrameInterval !== void 0 && (!Number.isFinite(t.keyFrameInterval) || t.keyFrameInterval < 0))
+    throw new TypeError("options.video.keyFrameInterval, when provided, must be a non-negative number.");
+  if (t?.process !== void 0 && typeof t.process != "function")
+    throw new TypeError("options.video.process, when provided, must be a function.");
+  if (t?.processedWidth !== void 0 && (!Number.isInteger(t.processedWidth) || t.processedWidth <= 0))
+    throw new TypeError("options.video.processedWidth, when provided, must be a positive integer.");
+  if (t?.processedHeight !== void 0 && (!Number.isInteger(t.processedHeight) || t.processedHeight <= 0))
+    throw new TypeError("options.video.processedHeight, when provided, must be a positive integer.");
+  if (t?.hardwareAcceleration !== void 0 && !["no-preference", "prefer-hardware", "prefer-software"].includes(t.hardwareAcceleration))
+    throw new TypeError("options.video.hardwareAcceleration, when provided, must be 'no-preference', 'prefer-hardware' or 'prefer-software'.");
+}, zr = (t) => {
+  if (t !== void 0 && (!t || typeof t != "object"))
+    throw new TypeError("options.audio, when provided, must be an object.");
+  if (t?.discard !== void 0 && typeof t.discard != "boolean")
+    throw new TypeError("options.audio.discard, when provided, must be a boolean.");
+  if (t?.forceTranscode !== void 0 && typeof t.forceTranscode != "boolean")
+    throw new TypeError("options.audio.forceTranscode, when provided, must be a boolean.");
+  if (t?.codec !== void 0 && !D0.includes(t.codec))
+    throw new TypeError(`options.audio.codec, when provided, must be one of: ${D0.join(", ")}.`);
+  if (t?.bitrate !== void 0 && !(t.bitrate instanceof E0) && (!Number.isInteger(t.bitrate) || t.bitrate <= 0))
+    throw new TypeError("options.audio.bitrate, when provided, must be a positive integer or a quality.");
+  if (t?.numberOfChannels !== void 0 && (!Number.isInteger(t.numberOfChannels) || t.numberOfChannels <= 0))
+    throw new TypeError("options.audio.numberOfChannels, when provided, must be a positive integer.");
+  if (t?.sampleRate !== void 0 && (!Number.isInteger(t.sampleRate) || t.sampleRate <= 0))
+    throw new TypeError("options.audio.sampleRate, when provided, must be a positive integer.");
+  if (t?.process !== void 0 && typeof t.process != "function")
+    throw new TypeError("options.audio.process, when provided, must be a function.");
+  if (t?.processedNumberOfChannels !== void 0 && (!Number.isInteger(t.processedNumberOfChannels) || t.processedNumberOfChannels <= 0))
+    throw new TypeError("options.audio.processedNumberOfChannels, when provided, must be a positive integer.");
+  if (t?.processedSampleRate !== void 0 && (!Number.isInteger(t.processedSampleRate) || t.processedSampleRate <= 0))
+    throw new TypeError("options.audio.processedSampleRate, when provided, must be a positive integer.");
+}, Ot = 2, $t = 48e3;
+class Fr {
+  /** Initializes a new conversion process without starting the conversion. */
+  static async init(x) {
+    const e = new Fr(x);
+    return await e._init(), e;
+  }
+  /** Creates a new Conversion instance (duh). */
+  constructor(x) {
+    if (this._addedCounts = {
+      video: 0,
+      audio: 0,
+      subtitle: 0
+    }, this._totalTrackCount = 0, this._trackPromises = [], this._executed = !1, this._synchronizer = new a8(), this._totalDuration = null, this._maxTimestamps = /* @__PURE__ */ new Map(), this._canceled = !1, this.onProgress = void 0, this._computeProgress = !1, this._lastProgress = 0, this.isValid = !1, this.utilizedTracks = [], this.discardedTracks = [], !x || typeof x != "object")
+      throw new TypeError("options must be an object.");
+    if (!(x.input instanceof vi))
+      throw new TypeError("options.input must be an Input.");
+    if (!(x.output instanceof BA))
+      throw new TypeError("options.output must be an Output.");
+    if (x.output._tracks.length > 0 || Object.keys(x.output._metadataTags).length > 0 || x.output.state !== "pending")
+      throw new TypeError("options.output must be fresh: no tracks or metadata tags added and not started.");
+    if (typeof x.video != "function" && $r(x.video), typeof x.audio != "function" && zr(x.audio), x.trim !== void 0 && (!x.trim || typeof x.trim != "object"))
+      throw new TypeError("options.trim, when provided, must be an object.");
+    if (x.trim?.start !== void 0 && !Number.isFinite(x.trim.start))
+      throw new TypeError("options.trim.start, when provided, must be a finite number.");
+    if (x.trim?.end !== void 0 && !Number.isFinite(x.trim.end))
+      throw new TypeError("options.trim.end, when provided, must be a finite number.");
+    if (x.trim?.start !== void 0 && x.trim.end !== void 0 && x.trim.start >= x.trim.end)
+      throw new TypeError("options.trim.start must be less than options.trim.end.");
+    if (x.tags !== void 0 && (typeof x.tags != "object" || !x.tags) && typeof x.tags != "function")
+      throw new TypeError("options.tags, when provided, must be an object or a function.");
+    if (typeof x.tags == "object" && Wt(x.tags), x.showWarnings !== void 0 && typeof x.showWarnings != "boolean")
+      throw new TypeError("options.showWarnings, when provided, must be a boolean.");
+    this._options = x, this.input = x.input, this.output = x.output;
+    const { promise: e, resolve: A } = t0();
+    this._started = e, this._start = A;
+  }
+  /** @internal */
+  async _init() {
+    this._startTimestamp = this._options.trim?.start ?? Math.max(
+      await this.input.getFirstTimestamp(),
+      // Samples can also have negative timestamps, but the meaning typically is "don't present me", so let's cut
+      // those out by default.
+      0
+    ), this._endTimestamp = Math.max(this._options.trim?.end ?? 1 / 0, this._startTimestamp);
+    const x = await this.input.getTracks(), e = this.output.format.getSupportedTrackCounts();
+    let A = 1, r = 1;
+    for (const a of x) {
+      let o;
+      if (a.isVideoTrack() ? this._options.video && (typeof this._options.video == "function" ? (o = await this._options.video(a, A), $r(o), A++) : o = this._options.video) : a.isAudioTrack() ? this._options.audio && (typeof this._options.audio == "function" ? (o = await this._options.audio(a, r), zr(o), r++) : o = this._options.audio) : d(!1), o?.discard) {
+        this.discardedTracks.push({
+          track: a,
+          reason: "discarded_by_user"
+        });
+        continue;
+      }
+      if (this._totalTrackCount === e.total.max) {
+        this.discardedTracks.push({
+          track: a,
+          reason: "max_track_count_reached"
+        });
+        continue;
+      }
+      if (this._addedCounts[a.type] === e[a.type].max) {
+        this.discardedTracks.push({
+          track: a,
+          reason: "max_track_count_of_type_reached"
+        });
+        continue;
+      }
+      a.isVideoTrack() ? await this._processVideoTrack(a, o ?? {}) : a.isAudioTrack() && await this._processAudioTrack(a, o ?? {});
+    }
+    const F = await this.input.getMetadataTags();
+    let i;
+    if (this._options.tags) {
+      const a = typeof this._options.tags == "function" ? await this._options.tags(F) : this._options.tags;
+      Wt(a), i = a;
+    } else
+      i = F;
+    const s = (await this.input.getFormat()).mimeType === this.output.format.mimeType, n = F.raw === i.raw;
+    if (F.raw && n && !s && delete i.raw, this.output.setMetadataTags(i), this.isValid = this._totalTrackCount >= e.total.min && this._addedCounts.video >= e.video.min && this._addedCounts.audio >= e.audio.min && this._addedCounts.subtitle >= e.subtitle.min, this._options.showWarnings ?? !0) {
+      const a = [], o = this.discardedTracks.filter((f) => f.reason !== "discarded_by_user");
+      o.length > 0 && a.push("Some tracks had to be discarded from the conversion:", o), this.isValid || a.push(`
+
+` + this._getInvalidityExplanation().join("")), a.length > 0 && console.warn(...a);
+    }
+  }
+  /** @internal */
+  _getInvalidityExplanation() {
+    const x = [];
+    if (this.discardedTracks.length === 0)
+      x.push("Due to missing tracks, this conversion cannot be executed.");
+    else {
+      const e = this.discardedTracks.every((A) => A.reason === "discarded_by_user" || A.reason === "no_encodable_target_codec");
+      if (x.push("Due to discarded tracks, this conversion cannot be executed."), e) {
+        const A = this.discardedTracks.flatMap((r) => r.reason === "discarded_by_user" ? [] : r.track.type === "video" ? this.output.format.getSupportedVideoCodecs() : r.track.type === "audio" ? this.output.format.getSupportedAudioCodecs() : this.output.format.getSupportedSubtitleCodecs());
+        A.length === 1 ? x.push(`
+Tracks were discarded because your environment is not able to encode '${A[0]}'.`) : x.push(`
+Tracks were discarded because your environment is not able to encode any of the following codecs: ${A.map((r) => `'${r}'`).join(", ")}.`), A.includes("mp3") && x.push(`
+The @mediabunny/mp3-encoder extension package provides support for encoding MP3.`), A.includes("aac") && x.push(`
+The @mediabunny/aac-encoder extension package provides support for encoding AAC.`), (A.includes("ac3") || A.includes("eac3")) && x.push(`
+The @mediabunny/ac3 extension package provides support for encoding and decoding AC-3/E-AC-3.`), A.includes("flac") && x.push(`
+The @mediabunny/flac-encoder extension package provides support for encoding FLAC.`);
+      } else
+        x.push(`
+Check the discardedTracks field for more info.`);
+    }
+    return x;
+  }
+  /**
+   * Executes the conversion process. Resolves once conversion is complete.
+   *
+   * Will throw if `isValid` is `false`.
+   */
+  async execute() {
+    if (!this.isValid)
+      throw new Error(`Cannot execute this conversion because its output configuration is invalid. Make sure to always check the isValid field before executing a conversion.
+` + this._getInvalidityExplanation().join(""));
+    if (this._executed)
+      throw new Error("Conversion cannot be executed twice.");
+    if (this._executed = !0, this.onProgress) {
+      const x = this.utilizedTracks.map((A) => A.computeDuration()), e = Math.max(0, ...await Promise.all(x));
+      this._computeProgress = !0, this._totalDuration = Math.min(e - this._startTimestamp, this._endTimestamp - this._startTimestamp);
+      for (const A of this.utilizedTracks)
+        this._maxTimestamps.set(A.id, 0);
+      this.onProgress?.(0);
+    }
+    await this.output.start(), this._start();
+    try {
+      await Promise.all(this._trackPromises);
+    } catch (x) {
+      throw this._canceled || this.cancel(), x;
+    }
+    if (this._canceled)
+      throw new Ni();
+    await this.output.finalize(), this._computeProgress && this.onProgress?.(1);
+  }
+  /**
+   * Cancels the conversion process, causing any ongoing `execute` call to throw a `ConversionCanceledError`.
+   * Does nothing if the conversion is already complete.
+   */
+  async cancel() {
+    if (!(this.output.state === "finalizing" || this.output.state === "finalized")) {
+      if (this._canceled) {
+        console.warn("Conversion already canceled.");
+        return;
+      }
+      this._canceled = !0, await this.output.cancel();
+    }
+  }
+  /** @internal */
+  async _processVideoTrack(x, e) {
+    const A = x.codec;
+    if (!A) {
+      this.discardedTracks.push({
+        track: x,
+        reason: "unknown_source_codec"
+      });
+      return;
+    }
+    let r;
+    const F = xt(x.rotation + (e.rotate ?? 0));
+    let i = F;
+    const s = this.output.format.supportsVideoRotationMetadata && (e.allowRotationMetadata ?? !0), [n, a] = F % 180 === 0 ? [x.squarePixelWidth, x.squarePixelHeight] : [x.squarePixelHeight, x.squarePixelWidth], o = e.crop;
+    o && qA(o, n, a);
+    const [f, c] = o ? [o.width, o.height] : [n, a];
+    let v = f, u = c;
+    const l = v / u, D = (h) => Math.ceil(h / 2) * 2;
+    e.width !== void 0 && e.height === void 0 ? (v = D(e.width), u = D(Math.round(v / l))) : e.width === void 0 && e.height !== void 0 ? (u = D(e.height), v = D(Math.round(u * l))) : e.width !== void 0 && e.height !== void 0 && (v = D(e.width), u = D(e.height));
+    const b = await x.getFirstTimestamp();
+    let B = this.output.format.getSupportedVideoCodecs();
+    const j = !!e.forceTranscode || b < this._startTimestamp || !!e.frameRate || e.keyFrameInterval !== void 0 || e.process !== void 0 || e.bitrate !== void 0 || !B.includes(A) || e.codec && e.codec !== A || v !== f || u !== c || F !== 0 && !s || !!o, E = e.alpha ?? "discard";
+    if (j) {
+      if (!await x.canDecode()) {
+        this.discardedTracks.push({
+          track: x,
+          reason: "undecodable_source_codec"
+        });
+        return;
+      }
+      e.codec && (B = B.filter((S) => S === e.codec));
+      const m = e.bitrate ?? dA, k = await Mi(B, {
+        width: e.process && e.processedWidth ? e.processedWidth : v,
+        height: e.process && e.processedHeight ? e.processedHeight : u,
+        bitrate: m
+      });
+      if (!k) {
+        this.discardedTracks.push({
+          track: x,
+          reason: "no_encodable_target_codec"
+        });
+        return;
+      }
+      const p = {
+        codec: k,
+        bitrate: m,
+        keyFrameInterval: e.keyFrameInterval,
+        sizeChangeBehavior: e.fit ?? "passThrough",
+        alpha: E,
+        hardwareAcceleration: e.hardwareAcceleration
+      }, g = new uA(p);
+      r = g;
+      let q = v !== f || u !== c || F !== 0 && (!s || e.process !== void 0) || !!o || x.squarePixelWidth !== x.codedWidth || x.squarePixelHeight !== x.codedHeight;
+      if (!q) {
+        const S = new BA({
+          format: new YA(),
+          // Supports all video codecs
+          target: new wi()
+        }), P = new uA(p);
+        S.addVideoTrack(P), await S.start();
+        const z = await new We(x).getSample(b);
+        if (z)
+          try {
+            await P.add(z), z.close(), await S.finalize();
+          } catch (H) {
+            console.info("Error when probing encoder support. Falling back to rerender path.", H), q = !0, S.cancel();
+          }
+        else
+          await S.cancel();
+      }
+      q ? this._trackPromises.push((async () => {
+        await this._started;
+        const P = new gF(x, {
+          width: v,
+          height: u,
+          fit: e.fit ?? "fill",
+          rotation: F,
+          // Bake the rotation into the output
+          crop: e.crop,
+          poolSize: 1,
+          alpha: E === "keep"
+        }).canvases(this._startTimestamp, this._endTimestamp), _ = e.frameRate;
+        i = 0;
+        let z = null, H = null, O = null;
+        const $ = async (K) => {
+          d(z), d(_ !== void 0);
+          const Z = Math.round((K - H) * _);
+          for (let f0 = 1; f0 < Z; f0++) {
+            const h0 = new i0(z, {
+              timestamp: H + f0 / _,
+              duration: 1 / _
+            });
+            await this._registerVideoSample(x, e, g, h0), h0.close();
+          }
+        };
+        for await (const { canvas: K, timestamp: Z, duration: f0 } of P) {
+          if (this._canceled)
+            return;
+          let h0 = Math.max(Z - this._startTimestamp, 0);
+          if (O = h0 + f0, _ !== void 0) {
+            const w0 = Math.floor(h0 * _) / _;
+            if (z !== null)
+              if (w0 <= H) {
+                z = K, H = w0;
+                continue;
+              } else
+                await $(w0);
+            h0 = w0;
+          }
+          const G0 = new i0(K, {
+            timestamp: h0,
+            duration: _ !== void 0 ? 1 / _ : f0
+          });
+          await this._registerVideoSample(x, e, g, G0), G0.close(), _ !== void 0 && (z = K, H = h0);
+        }
+        z && (d(O !== null), d(_ !== void 0), await $(Math.floor(O * _) / _)), g.close(), this._synchronizer.closeTrack(x.id);
+      })()) : this._trackPromises.push((async () => {
+        await this._started;
+        const S = new We(x), P = e.frameRate;
+        let _ = null, z = null, H = null;
+        const O = async ($) => {
+          d(_), d(P !== void 0);
+          const K = Math.round(($ - z) * P);
+          for (let Z = 1; Z < K; Z++)
+            _.setTimestamp(z + Z / P), _.setDuration(1 / P), await this._registerVideoSample(x, e, g, _);
+          _.close();
+        };
+        for await (const $ of S.samples(this._startTimestamp, this._endTimestamp)) {
+          if (this._canceled) {
+            $.close(), _?.close();
+            return;
+          }
+          let K = Math.max($.timestamp - this._startTimestamp, 0);
+          if (H = K + $.duration, P !== void 0) {
+            const Z = Math.floor(K * P) / P;
+            if (_ !== null)
+              if (Z <= z) {
+                _.close(), _ = $, z = Z;
+                continue;
+              } else
+                await O(Z);
+            K = Z, $.setDuration(1 / P);
+          }
+          $.setTimestamp(K), await this._registerVideoSample(x, e, g, $), P !== void 0 ? (_ = $, z = K) : $.close();
+        }
+        _ && (d(H !== null), d(P !== void 0), await O(Math.floor(H * P) / P)), g.close(), this._synchronizer.closeTrack(x.id);
+      })());
+    } else {
+      const h = new Gi(A);
+      r = h, this._trackPromises.push((async () => {
+        await this._started;
+        const m = new Zx(x), p = { decoderConfig: await x.getDecoderConfig() ?? void 0 }, g = Number.isFinite(this._endTimestamp) ? await m.getPacket(this._endTimestamp, { metadataOnly: !0 }) ?? void 0 : void 0;
+        for await (const q of m.packets(void 0, g, { verifyKeyPackets: !0 })) {
+          if (this._canceled)
+            return;
+          const S = q.clone({
+            timestamp: q.timestamp - this._startTimestamp,
+            sideData: E === "discard" ? {} : q.sideData
+          });
+          d(S.timestamp >= 0), this._reportProgress(x.id, S.timestamp), await h.add(S, p), this._synchronizer.shouldWait(x.id, S.timestamp) && await this._synchronizer.wait(S.timestamp);
+        }
+        h.close(), this._synchronizer.closeTrack(x.id);
+      })());
+    }
+    this.output.addVideoTrack(r, {
+      frameRate: e.frameRate,
+      // TODO: This condition can be removed when all demuxers properly homogenize to BCP47 in v2
+      languageCode: he(x.languageCode) ? x.languageCode : void 0,
+      name: x.name ?? void 0,
+      disposition: x.disposition,
+      rotation: i
+    }), this._addedCounts.video++, this._totalTrackCount++, this.utilizedTracks.push(x);
+  }
+  /** @internal */
+  async _registerVideoSample(x, e, A, r) {
+    if (this._canceled)
+      return;
+    this._reportProgress(x.id, r.timestamp);
+    let F;
+    if (!e.process)
+      F = [r];
+    else {
+      let i = e.process(r);
+      i instanceof Promise && (i = await i), Array.isArray(i) || (i = i === null ? [] : [i]), F = i.map((s) => s instanceof i0 ? s : typeof VideoFrame < "u" && s instanceof VideoFrame ? new i0(s) : new i0(s, {
+        timestamp: r.timestamp,
+        duration: r.duration
+      }));
+    }
+    for (const i of F) {
+      if (this._canceled)
+        break;
+      await A.add(i), this._synchronizer.shouldWait(x.id, i.timestamp) && await this._synchronizer.wait(i.timestamp);
+    }
+    for (const i of F)
+      i !== r && i.close();
+  }
+  /** @internal */
+  async _processAudioTrack(x, e) {
+    const A = x.codec;
+    if (!A) {
+      this.discardedTracks.push({
+        track: x,
+        reason: "unknown_source_codec"
+      });
+      return;
+    }
+    let r;
+    const F = x.numberOfChannels, i = x.sampleRate, s = await x.getFirstTimestamp();
+    let n = e.numberOfChannels ?? F, a = e.sampleRate ?? i, o = n !== F || a !== i || s < this._startTimestamp || s > this._startTimestamp && !this.output.format.supportsTimestampedMediaData, f = this.output.format.getSupportedAudioCodecs();
+    if (!e.forceTranscode && !e.bitrate && !o && f.includes(A) && (!e.codec || e.codec === A) && !e.process) {
+      const c = new Ri(A);
+      r = c, this._trackPromises.push((async () => {
+        await this._started;
+        const v = new Zx(x), l = { decoderConfig: await x.getDecoderConfig() ?? void 0 }, D = Number.isFinite(this._endTimestamp) ? await v.getPacket(this._endTimestamp, { metadataOnly: !0 }) ?? void 0 : void 0;
+        for await (const b of v.packets(void 0, D)) {
+          if (this._canceled)
+            return;
+          const B = b.clone({
+            timestamp: b.timestamp - this._startTimestamp
+          });
+          d(B.timestamp >= 0), this._reportProgress(x.id, B.timestamp), await c.add(B, l), this._synchronizer.shouldWait(x.id, B.timestamp) && await this._synchronizer.wait(B.timestamp);
+        }
+        c.close(), this._synchronizer.closeTrack(x.id);
+      })());
+    } else {
+      if (!await x.canDecode()) {
+        this.discardedTracks.push({
+          track: x,
+          reason: "undecodable_source_codec"
+        });
+        return;
+      }
+      let v = null;
+      e.codec && (f = f.filter((D) => D === e.codec));
+      const u = e.bitrate ?? dA, l = await Ze(f, {
+        numberOfChannels: e.process && e.processedNumberOfChannels ? e.processedNumberOfChannels : n,
+        sampleRate: e.process && e.processedSampleRate ? e.processedSampleRate : a,
+        bitrate: u
+      });
+      if (!l.some((D) => yx.includes(D)) && f.some((D) => yx.includes(D)) && (n !== Ot || a !== $t)) {
+        const b = (await Ze(f, {
+          numberOfChannels: Ot,
+          sampleRate: $t,
+          bitrate: u
+        })).find((B) => yx.includes(B));
+        b && (o = !0, v = b, n = Ot, a = $t);
+      } else
+        v = l[0] ?? null;
+      if (v === null) {
+        this.discardedTracks.push({
+          track: x,
+          reason: "no_encodable_target_codec"
+        });
+        return;
+      }
+      if (o)
+        r = this._resampleAudio(x, e, v, n, a, u);
+      else {
+        const D = new DA({
+          codec: v,
+          bitrate: u
+        });
+        r = D, this._trackPromises.push((async () => {
+          await this._started;
+          const b = new Je(x);
+          for await (const B of b.samples(void 0, this._endTimestamp)) {
+            if (this._canceled) {
+              B.close();
+              return;
+            }
+            B.setTimestamp(B.timestamp - this._startTimestamp), await this._registerAudioSample(x, e, D, B), B.close();
+          }
+          D.close(), this._synchronizer.closeTrack(x.id);
+        })());
+      }
+    }
+    this.output.addAudioTrack(r, {
+      // TODO: This condition can be removed when all demuxers properly homogenize to BCP47 in v2
+      languageCode: he(x.languageCode) ? x.languageCode : void 0,
+      name: x.name ?? void 0,
+      disposition: x.disposition
+    }), this._addedCounts.audio++, this._totalTrackCount++, this.utilizedTracks.push(x);
+  }
+  /** @internal */
+  async _registerAudioSample(x, e, A, r) {
+    if (this._canceled)
+      return;
+    this._reportProgress(x.id, r.timestamp);
+    let F;
+    if (!e.process)
+      F = [r];
+    else {
+      let i = e.process(r);
+      if (i instanceof Promise && (i = await i), Array.isArray(i) || (i = i === null ? [] : [i]), !i.every((s) => s instanceof o0))
+        throw new TypeError("The audio process function must return an AudioSample, null, or an array of AudioSamples.");
+      F = i;
+    }
+    for (const i of F) {
+      if (this._canceled)
+        break;
+      await A.add(i), this._synchronizer.shouldWait(x.id, i.timestamp) && await this._synchronizer.wait(i.timestamp);
+    }
+    for (const i of F)
+      i !== r && i.close();
+  }
+  /** @internal */
+  _resampleAudio(x, e, A, r, F, i) {
+    const s = new DA({
+      codec: A,
+      bitrate: i
+    });
+    return this._trackPromises.push((async () => {
+      await this._started;
+      const n = new o8({
+        targetNumberOfChannels: r,
+        targetSampleRate: F,
+        startTime: this._startTimestamp,
+        endTime: this._endTimestamp,
+        onSample: async (f) => {
+          await this._registerAudioSample(x, e, s, f), f.close();
+        }
+      }), o = new Je(x).samples(this._startTimestamp, this._endTimestamp);
+      for await (const f of o) {
+        if (this._canceled) {
+          f.close();
+          return;
+        }
+        await n.add(f), f.close();
+      }
+      await n.finalize(), s.close(), this._synchronizer.closeTrack(x.id);
+    })()), s;
+  }
+  /** @internal */
+  _reportProgress(x, e) {
+    if (!this._computeProgress)
+      return;
+    d(this._totalDuration !== null), this._maxTimestamps.set(x, Math.max(e, this._maxTimestamps.get(x)));
+    const A = Math.min(...this._maxTimestamps.values()), r = n0(A / this._totalDuration, 0, 1);
+    r !== this._lastProgress && (this._lastProgress = r, this.onProgress?.(r));
+  }
+}
+class Ni extends Error {
+  /** Creates a new {@link ConversionCanceledError}. */
+  constructor(x = "Conversion has been canceled.") {
+    super(x), this.name = "ConversionCanceledError";
+  }
+}
+const Vr = 5;
+class a8 {
+  constructor() {
+    this.maxTimestamps = /* @__PURE__ */ new Map(), this.resolvers = [];
+  }
+  computeMinAndMaybeResolve() {
+    let x = 1 / 0;
+    for (const [, e] of this.maxTimestamps)
+      x = Math.min(x, e);
+    for (let e = 0; e < this.resolvers.length; e++) {
+      const A = this.resolvers[e];
+      A.timestamp - x < Vr && (A.resolve(), this.resolvers.splice(e, 1), e--);
+    }
+    return x;
+  }
+  shouldWait(x, e) {
+    this.maxTimestamps.set(x, Math.max(e, this.maxTimestamps.get(x) ?? -1 / 0));
+    const A = this.computeMinAndMaybeResolve();
+    return e - A >= Vr;
+  }
+  wait(x) {
+    const { promise: e, resolve: A } = t0();
+    return this.resolvers.push({
+      timestamp: x,
+      resolve: A
+    }), e;
+  }
+  closeTrack(x) {
+    this.maxTimestamps.delete(x), this.computeMinAndMaybeResolve();
+  }
+}
+class o8 {
+  constructor(x) {
+    this.sourceSampleRate = null, this.sourceNumberOfChannels = null, this.targetSampleRate = x.targetSampleRate, this.targetNumberOfChannels = x.targetNumberOfChannels, this.startTime = x.startTime, this.endTime = x.endTime, this.onSample = x.onSample, this.bufferSizeInFrames = Math.floor(this.targetSampleRate * 5), this.bufferSizeInSamples = this.bufferSizeInFrames * this.targetNumberOfChannels, this.outputBuffer = new Float32Array(this.bufferSizeInSamples), this.bufferStartFrame = 0, this.maxWrittenFrame = -1;
+  }
+  /**
+   * Sets up the channel mixer to handle up/downmixing in the case where input and output channel counts don't match.
+   */
+  doChannelMixerSetup() {
+    d(this.sourceNumberOfChannels !== null);
+    const x = this.sourceNumberOfChannels, e = this.targetNumberOfChannels;
+    x === 1 && e === 2 ? this.channelMixer = (A, r) => A[r * x] : x === 1 && e === 4 ? this.channelMixer = (A, r, F) => A[r * x] * +(F < 2) : x === 1 && e === 6 ? this.channelMixer = (A, r, F) => A[r * x] * +(F === 2) : x === 2 && e === 1 ? this.channelMixer = (A, r) => {
+      const F = r * x;
+      return 0.5 * (A[F] + A[F + 1]);
+    } : x === 2 && e === 4 ? this.channelMixer = (A, r, F) => A[r * x + F] * +(F < 2) : x === 2 && e === 6 ? this.channelMixer = (A, r, F) => A[r * x + F] * +(F < 2) : x === 4 && e === 1 ? this.channelMixer = (A, r) => {
+      const F = r * x;
+      return 0.25 * (A[F] + A[F + 1] + A[F + 2] + A[F + 3]);
+    } : x === 4 && e === 2 ? this.channelMixer = (A, r, F) => {
+      const i = r * x;
+      return 0.5 * (A[i + F] + A[i + F + 2]);
+    } : x === 4 && e === 6 ? this.channelMixer = (A, r, F) => {
+      const i = r * x;
+      return F < 2 ? A[i + F] : F === 2 || F === 3 ? 0 : A[i + F - 2];
+    } : x === 6 && e === 1 ? this.channelMixer = (A, r) => {
+      const F = r * x;
+      return Math.SQRT1_2 * (A[F] + A[F + 1]) + A[F + 2] + 0.5 * (A[F + 4] + A[F + 5]);
+    } : x === 6 && e === 2 ? this.channelMixer = (A, r, F) => {
+      const i = r * x;
+      return A[i + F] + Math.SQRT1_2 * (A[i + 2] + A[i + F + 4]);
+    } : x === 6 && e === 4 ? this.channelMixer = (A, r, F) => {
+      const i = r * x;
+      return F < 2 ? A[i + F] + Math.SQRT1_2 * A[i + 2] : A[i + F + 2];
+    } : this.channelMixer = (A, r, F) => F < x ? A[r * x + F] : 0;
+  }
+  ensureTempBufferSize(x) {
+    let e = this.tempSourceBuffer.length;
+    for (; e < x; )
+      e *= 2;
+    if (e !== this.tempSourceBuffer.length) {
+      const A = new Float32Array(e);
+      A.set(this.tempSourceBuffer), this.tempSourceBuffer = A;
+    }
+  }
+  async add(x) {
+    this.sourceSampleRate === null && (this.sourceSampleRate = x.sampleRate, this.sourceNumberOfChannels = x.numberOfChannels, this.tempSourceBuffer = new Float32Array(this.sourceSampleRate * this.sourceNumberOfChannels), this.doChannelMixerSetup());
+    const e = x.numberOfFrames * x.numberOfChannels;
+    this.ensureTempBufferSize(e);
+    const A = x.allocationSize({ planeIndex: 0, format: "f32" }), r = new Float32Array(this.tempSourceBuffer.buffer, 0, A / 4);
+    x.copyTo(r, { planeIndex: 0, format: "f32" });
+    const F = x.timestamp - this.startTime, i = x.numberOfFrames / this.sourceSampleRate, s = Math.min(F + i, this.endTime - this.startTime), n = Math.floor(F * this.targetSampleRate), a = Math.ceil(s * this.targetSampleRate);
+    for (let o = n; o < a; o++) {
+      if (o < this.bufferStartFrame)
+        continue;
+      for (; o >= this.bufferStartFrame + this.bufferSizeInFrames; )
+        await this.finalizeCurrentBuffer(), this.bufferStartFrame += this.bufferSizeInFrames;
+      const f = o - this.bufferStartFrame;
+      d(f < this.bufferSizeInFrames);
+      const u = (o / this.targetSampleRate - F) * this.sourceSampleRate, l = Math.floor(u), D = Math.ceil(u), b = u - l;
+      for (let B = 0; B < this.targetNumberOfChannels; B++) {
+        let j = 0, E = 0;
+        l >= 0 && l < x.numberOfFrames && (j = this.channelMixer(r, l, B)), D >= 0 && D < x.numberOfFrames && (E = this.channelMixer(r, D, B));
+        const h = j + b * (E - j), m = f * this.targetNumberOfChannels + B;
+        this.outputBuffer[m] += h;
+      }
+      this.maxWrittenFrame = Math.max(this.maxWrittenFrame, f);
+    }
+  }
+  async finalizeCurrentBuffer() {
+    if (this.maxWrittenFrame < 0)
+      return;
+    const x = (this.maxWrittenFrame + 1) * this.targetNumberOfChannels, e = new Float32Array(x);
+    e.set(this.outputBuffer.subarray(0, x));
+    const A = this.bufferStartFrame / this.targetSampleRate, r = new o0({
+      format: "f32",
+      sampleRate: this.targetSampleRate,
+      numberOfChannels: this.targetNumberOfChannels,
+      timestamp: A,
+      data: e
+    });
+    await this.onSample(r), this.outputBuffer.fill(0), this.maxWrittenFrame = -1;
+  }
+  finalize() {
+    return this.finalizeCurrentBuffer();
+  }
+}
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Li = Symbol.for("mediabunny loaded");
+globalThis[Li] && console.error(`[WARNING]
+Mediabunny was loaded twice. This will likely cause Mediabunny not to work correctly. Check if multiple dependencies are importing different versions of Mediabunny, or if something is being bundled incorrectly.`);
+globalThis[Li] = !0;
+var f8 = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  ADTS: ni,
+  ALL_FORMATS: Mn,
+  ALL_TRACK_TYPES: Hi,
+  AUDIO_CODECS: D0,
+  AdtsInputFormat: ZF,
+  AdtsOutputFormat: Uo,
+  AttachedFile: it,
+  AudioBufferSink: xn,
+  AudioBufferSource: t8,
+  AudioSample: o0,
+  AudioSampleSink: Je,
+  AudioSampleSource: DA,
+  AudioSource: ne,
+  BaseMediaSampleSink: RA,
+  BlobSource: Nn,
+  BufferSource: Hn,
+  BufferTarget: ki,
+  CanvasSink: gF,
+  CanvasSource: x8,
+  Conversion: Fr,
+  ConversionCanceledError: Ni,
+  CustomAudioDecoder: _A,
+  CustomAudioEncoder: hF,
+  CustomVideoDecoder: jF,
+  CustomVideoEncoder: EF,
+  EncodedAudioPacketSource: Ri,
+  EncodedPacket: X,
+  EncodedPacketSink: Zx,
+  EncodedVideoPacketSource: Gi,
+  FLAC: ai,
+  FilePathSource: On,
+  FilePathTarget: Co,
+  FlacInputFormat: YF,
+  FlacOutputFormat: Oo,
+  Input: vi,
+  InputAudioTrack: S0,
+  InputDisposedError: B0,
+  InputFormat: $0,
+  InputTrack: vt,
+  InputVideoTrack: Gx,
+  IsobmffInputFormat: LA,
+  IsobmffOutputFormat: QA,
+  MATROSKA: Ai,
+  MP3: Fi,
+  MP4: ei,
+  MPEG_TS: oi,
+  MatroskaInputFormat: UA,
+  MediaSource: Bt,
+  MediaStreamAudioTrackSource: A8,
+  MediaStreamVideoTrackSource: e8,
+  MkvOutputFormat: fA,
+  MovOutputFormat: ZA,
+  Mp3InputFormat: JF,
+  Mp3OutputFormat: Ho,
+  Mp4InputFormat: VF,
+  Mp4OutputFormat: YA,
+  MpegTsInputFormat: xi,
+  MpegTsOutputFormat: $o,
+  NON_PCM_AUDIO_CODECS: yx,
+  NullTarget: wi,
+  OGG: si,
+  OggInputFormat: QF,
+  OggOutputFormat: Lo,
+  Output: BA,
+  OutputFormat: z0,
+  PCM_AUDIO_CODECS: r0,
+  QTFF: ti,
+  QUALITY_HIGH: dA,
+  QUALITY_LOW: Vo,
+  QUALITY_MEDIUM: Ko,
+  QUALITY_VERY_HIGH: Wo,
+  QUALITY_VERY_LOW: zo,
+  Quality: E0,
+  QuickTimeInputFormat: KF,
+  ReadableStreamSource: $n,
+  RichImageData: wx,
+  SUBTITLE_CODECS: L0,
+  Source: dx,
+  StreamSource: ci,
+  StreamTarget: gi,
+  SubtitleSource: rr,
+  Target: ie,
+  TextSubtitleSource: n8,
+  UrlSource: Un,
+  VIDEO_CODECS: v0,
+  VIDEO_SAMPLE_PIXEL_FORMATS: IA,
+  VideoSample: i0,
+  VideoSampleColorSpace: Re,
+  VideoSampleSink: We,
+  VideoSampleSource: uA,
+  VideoSource: se,
+  WAVE: ii,
+  WEBM: ri,
+  WavOutputFormat: No,
+  WaveInputFormat: XF,
+  WebMInputFormat: WF,
+  WebMOutputFormat: cA,
+  canEncode: Jo,
+  canEncodeAudio: ut,
+  canEncodeSubtitles: Dt,
+  canEncodeVideo: dt,
+  getEncodableAudioCodecs: Ze,
+  getEncodableCodecs: Xo,
+  getEncodableSubtitleCodecs: qi,
+  getEncodableVideoCodecs: Ii,
+  getFirstEncodableAudioCodec: Qo,
+  getFirstEncodableSubtitleCodec: Yo,
+  getFirstEncodableVideoCodec: Mi,
+  registerDecoder: mF,
+  registerEncoder: Ls
+});
+/*!
+ * Copyright (c) 2026-present, Vanilagy and contributors
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var c8 = /* @__PURE__ */ ((t) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(t, {
+  get: (x, e) => (typeof require < "u" ? require : x)[e]
+}) : t)(function(t) {
+  if (typeof require < "u") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + t + '" is not supported');
+});
+function v8(t) {
+  if (!t)
+    throw new Error("Assertion failed.");
+}
+async function l8(t) {
+  if (typeof Worker < "u" && typeof Bun > "u") {
+    const x = new Blob([t], { type: "text/javascript" }), e = URL.createObjectURL(x), A = new Worker(e, { type: typeof Deno < "u" ? "module" : void 0 });
+    return URL.revokeObjectURL(e), A;
+  } else {
+    let x;
+    try {
+      x = (await Promise.resolve().then(function() {
+        return Te;
+      })).Worker;
+    } catch {
+      x = c8("worker_threads").Worker;
+    }
+    return new x(t, { eval: !0 });
+  }
+}
+function d8() {
+  return l8(`var Fr=Object.defineProperty;var Ir=(e,a,r)=>a in e?Fr(e,a,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[a]=r;var FA=(e=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(e,{get:(a,r)=>(typeof require!="undefined"?require:a)[r]}):e)(function(e){if(typeof require!="undefined")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')});var IA=(e,a,r)=>Ir(e,typeof a!="symbol"?a+"":a,r);async function gr(e={}){var _A,bA,PA;var a,r=e,u=!!globalThis.window,o=!!globalThis.WorkerGlobalScope,E=((bA=(_A=globalThis.process)==null?void 0:_A.versions)==null?void 0:bA.node)&&((PA=globalThis.process)==null?void 0:PA.type)!="renderer",v=[],l="./this.program",q=(A,j)=>{throw j},F="",I="",R,g;if(u||o){try{I=new URL(".",F).href}catch(A){}o&&(g=A=>{var j=new XMLHttpRequest;return j.open("GET",A,!1),j.responseType="arraybuffer",j.send(null),new Uint8Array(j.response)}),R=async A=>{var j=await fetch(A,{credentials:"same-origin"});if(j.ok)return j.arrayBuffer();throw new Error(j.status+" : "+j.url)}}var G=console.log.bind(console),p=console.error.bind(console),f,_=!1,K;function Aj(A){for(var j=0,t=A.length,n=new Uint8Array(t),k;j<t;++j)k=A.charCodeAt(j),n[j]=~k>>8&k;return n}var N,T,O,x,z,jj,rj,b,tj,nj,y,ej,Z=!1;function AA(){var A=S.buffer;O=new Int8Array(A),z=new Int16Array(A),r.HEAPU8=x=new Uint8Array(A),jj=new Uint16Array(A),rj=new Int32Array(A),b=new Uint32Array(A),tj=new Float32Array(A),nj=new Float64Array(A),y=new BigInt64Array(A),ej=new BigUint64Array(A)}function kj(){if(r.preRun)for(typeof r.preRun=="function"&&(r.preRun=[r.preRun]);r.preRun.length;)Ej(r.preRun.shift());tA(eA)}function aj(){Z=!0,M.s()}function lj(){if(r.postRun)for(typeof r.postRun=="function"&&(r.postRun=[r.postRun]);r.postRun.length;)cj(r.postRun.shift());tA(nA)}function jA(A){var t;(t=r.onAbort)==null||t.call(r,A),A="Aborted("+A+")",p(A),_=!0,A+=". Build with -sASSERTIONS for more info.";var j=new WebAssembly.RuntimeError(A);throw T==null||T(j),j}var U;function ij(){return Aj(\`\\0asm\\0\\0\\0\\xFEG\\\`\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\0\\\`\\x7F\\x7F\\\`\\0\\0\\\`\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x07\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\\`||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F~~~~\\0\\\`\\0\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F}\\x7F\\0\\\`\\x7F~~\\x7F\\0\\\`\\x7F~\\0\\\`\\x7F}\\\`\\b\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`|||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\0|\\\`\\x7F\\x7F|\\\`\\x7F|\\x7F\\0\\\`\\x7F\\x7F{\\x7F\\0\\\`|\\x7F|\\\`\\x7F|\\0\\\`}\\x7F\\\`||\\x7F|\\\`}}\\\`\\x7F|\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F~~~\\0\\\`\\x7F~\\x7F~\\\`\\x7F\\x7F\\x7F}}\\0\\\`\\x7F\\x7F|\\x7F\\0\\\`\\x7F~\\x7F\\x7F\\\`\\x7F|\\x7F\\\`\\x7F~\\x7F\\x7F\\x7F\\\`}~\\\`\\x7F||\\\`\\x7F|||\\\`|\\x7F\\\`~~~\\x7F~\\\`|~\\\`~~~~\\x7F\\\`~\\x7F\\x7F\\\`\\x7F\\x7F~~~\\0\\\`\\x7F\\x7F\\x7F|\\x7F~\\x7F\\\`\\x7F\\x7F\\x7F~~\\\`~~|\\\`\\b\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`	\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`|\\x7F\\x7F\\\`\\x7F\\x7F~\\x7F\\\`\\f\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`
 \\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F}}\\\`\\x7F\\x7F~\\0\\\`\\x07\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F~\\\`\\x7F\\x7F|\\0\\\`|\\0\\\`\\x7F~\\\`~~~\\x7F\\\`\\x7F\\x7F~\\x7F\\x7F\\\`
 \\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`}}}\\\`\\x7F\\x7F\\x7F}\\\`\\x7F\\x7F\\x7F|gaa\\0ab\\0ac\\0ad\\0ae\\0%af\\0ag\\0
 ah\\0
@@ -3535,62 +22881,63 @@ Mb\\x89E\\x1B}4\\xD2I\\xBB\\xB84\\xD3M;\\xFDtt\\xD4Em\\xDDuTWm\\xF5\\xD5X\\xB7\\
 \\xC7\\xDE?\\xC8\\xF6\\xBEHG\\xE7\\xBF+\\xB8*eG\\xF7?\\0A\\xD4\\x8A\\v\\v:\\x86\\0\\0\\x86\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\x86\\0\\0\\x86\\0A\\xB0\\x8B\\v\\v\\x87\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\0\\0\\0\\0\\x86\\0\\0\\0\\0\\0\\0\\x87\\0A\\xD4\\x8C\\v\\v"\\v\\x1B\\0\\0 \\x1B\\0\\0\\xE7X\\0\\0\\xFEX\\0\\0,\\x95\\0\\0A\\x95\\0\\0\\x1B\\0\\0\\xF2X\\0\\x006\\x95\\0A\\xF8\\x8C\\v\\v\\xF0\\x83\\0\\0\\0\\0\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\0A\\x94\\x8D\\v\\vo\\0A\\xAC\\x8D\\v\\v\\vm\\0\\0\\0l\\0\\0\\0\\\`\\x83\\0A\\xC4\\x8D\\v\\v\\0A\\xD4\\x8D\\v\\v\\b\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\`)}function Cr(A){return A}async function Bj(A){return A}async function oj(A,j){try{var t=await Bj(A),n=await WebAssembly.instantiate(t,j);return n}catch(k){p(\`failed to asynchronously prepare wasm: \${k}\`),jA(k)}}async function sj(A,j,t){return oj(j,t)}function dj(){var A={a:br};return A}async function qj(){function A(i,d){return M=i.exports,_r(M),AA(),M}function j(i){return A(i.instance)}var t=dj();if(r.instantiateWasm)return new Promise((i,d)=>{r.instantiateWasm(t,(s,m)=>{i(A(s,m))})});U!=null||(U=ij());var n=await sj(f,U,t),k=j(n);return k}class rA{constructor(j){IA(this,"name","ExitStatus");this.message=\`Program terminated with exit(\${j})\`,this.status=j}}var tA=A=>{for(;A.length>0;)A.shift()(r)},nA=[],cj=A=>nA.push(A),eA=[],Ej=A=>eA.push(A),V=!0,kA=new TextDecoder,aA=(A,j,t,n)=>{var k=j+t;if(n)return k;for(;A[j]&&!(j>=k);)++j;return j},lA=(A,j,t)=>{if(!A)return"";var n=aA(x,A,j,t);return kA.decode(x.subarray(A,n))},X={varargs:void 0,getStr(A){var j=lA(A);return j}};function uj(A,j,t){return X.varargs=t,0}function pj(A,j,t){return X.varargs=t,0}function mj(A,j,t,n){X.varargs=n}var vj=()=>jA(""),iA=0,Gj=()=>{V=!1,iA=0},H={},BA=A=>{if(A instanceof rA||A=="unwind")return K;q(1,A)},oA=()=>V||iA>0,sA=A=>{var j;K=A,oA()||((j=r.onExit)==null||j.call(r,A),_=!0),q(A,new rA(A))},Dj=(A,j)=>{K=A,sA(A)},fj=Dj,_j=()=>{if(!oA())try{fj(K)}catch(A){BA(A)}},bj=A=>{if(!_)try{A(),_j()}catch(j){BA(j)}},dA=()=>performance.now(),Pj=(A,j)=>{if(H[A]&&(clearTimeout(H[A].id),delete H[A]),!j)return 0;var t=setTimeout(()=>{delete H[A],bj(()=>vA(A,dA()))},j);return H[A]={id:t,timeout_ms:j},0},qA=()=>Date.now(),xj=1,Fj=A=>A>=0&&A<=3,Ij=9007199254740992,gj=-9007199254740992,cA=A=>A<gj||A>Ij?NaN:Number(A);function Hj(A,j,t){if(j=cA(j),!Fj(A))return 28;var n;if(A===0)n=qA();else if(xj)n=dA();else return 52;var k=Math.round(n*1e3*1e3);return y[t>>3]=BigInt(k),0}var $j=()=>2147483648,hj=(A,j)=>Math.ceil(A/j)*j,Mj=A=>{var j=S.buffer.byteLength,t=(A-j+65535)/65536|0;try{return S.grow(t),AA(),1}catch(n){}},Lj=A=>{var j=x.length;A>>>=0;var t=$j();if(A>t)return!1;for(var n=1;n<=4;n*=2){var k=j*(1+.2/n);k=Math.min(k,A+100663296);var i=Math.min(t,hj(Math.max(A,k),65536)),d=Mj(i);if(d)return!0}return!1},W={},wj=()=>l||"./this.program",$=()=>{var k,i;if(!$.strings){var A=((i=(k=globalThis.navigator)==null?void 0:k.language)!=null?i:"C").replace("-","_")+".UTF-8",j={USER:"web_user",LOGNAME:"web_user",PATH:"/",PWD:"/",HOME:"/home/web_user",LANG:A,_:wj()};for(var t in W)W[t]===void 0?delete j[t]:j[t]=W[t];var n=[];for(var t in j)n.push(\`\${t}=\${j[t]}\`);$.strings=n}return $.strings},Cj=(A,j,t,n)=>{if(!(n>0))return 0;for(var k=t,i=t+n-1,d=0;d<A.length;++d){var s=A.codePointAt(d);if(s<=127){if(t>=i)break;j[t++]=s}else if(s<=2047){if(t+1>=i)break;j[t++]=192|s>>6,j[t++]=128|s&63}else if(s<=65535){if(t+2>=i)break;j[t++]=224|s>>12,j[t++]=128|s>>6&63,j[t++]=128|s&63}else{if(t+3>=i)break;j[t++]=240|s>>18,j[t++]=128|s>>12&63,j[t++]=128|s>>6&63,j[t++]=128|s&63,d++}}return j[t]=0,t-k},EA=(A,j,t)=>Cj(A,x,j,t),Kj=(A,j)=>{var t=0,n=0;for(var k of $()){var i=j+t;b[A+n>>2]=i,t+=EA(k,i,1/0)+1,n+=4}return 0},uA=A=>{for(var j=0,t=0;t<A.length;++t){var n=A.charCodeAt(t);n<=127?j++:n<=2047?j+=2:n>=55296&&n<=57343?(j+=4,++t):j+=3}return j},Nj=(A,j)=>{var t=$();b[A>>2]=t.length;var n=0;for(var k of t)n+=uA(k)+1;return b[j>>2]=n,0},Tj=A=>52,yj=(A,j)=>{var t=0,n=0,k=0;{var i=2;A==0?t=2:(A==1||A==2)&&(t=64),k=1}return O[j]=i,z[j+2>>1]=k,y[j+8>>3]=BigInt(t),y[j+16>>3]=BigInt(n),0},Uj=(A,j,t,n)=>52;function Sj(A,j,t,n){return j=cA(j),70}for(var Jj=[null,[],[]],Rj=(A,j=0,t,n)=>{var k=aA(A,j,t,n);return kA.decode(A.buffer?A.subarray(j,k):new Uint8Array(A.slice(j,k)))},Oj=(A,j)=>{var t=Jj[A];j===0||j===10?((A===1?G:p)(Rj(t)),t.length=0):t.push(j)},Vj=(A,j,t,n)=>{for(var k=0,i=0;i<t;i++){var d=b[j>>2],s=b[j+4>>2];j+=8;for(var m=0;m<s;m++)Oj(A,x[d+m]);k+=s}return b[n>>2]=k,0},pA=A=>{var j=r["_"+A];return j},Xj=(A,j)=>{O.set(A,j)},mA=A=>DA(A),Wj=A=>{var j=uA(A)+1,t=mA(j);return EA(A,t,j),t},Qj=()=>fA(),Yj=A=>GA(A),zj=(A,j,t,n,k)=>{var i={string:c=>{var L=0;return c!=null&&c!==0&&(L=Wj(c)),L},array:c=>{var L=mA(c.length);return Xj(c,L),L}};function d(c){return j==="string"?lA(c):j==="boolean"?!!c:c}var s=pA(A),m=[],J=0;if(n)for(var P=0;P<n.length;P++){var xA=i[t[P]];xA?(J===0&&(J=Qj()),m[P]=xA(n[P])):m[P]=n[P]}var Q=s(...m);function xr(c){return J!==0&&Yj(J),d(c)}return Q=xr(Q),Q},Zj=(A,j,t,n)=>{var k=!t||t.every(d=>d==="number"||d==="boolean"),i=j!=="string";return i&&k&&!n?pA(A):(...d)=>zj(A,j,t,d,n)},h=new Uint8Array(123),D=25;D>=0;--D)h[48+D]=52+D,h[65+D]=D,h[97+D]=26+D;if(h[43]=62,h[47]=63,r.noExitRuntime&&(V=r.noExitRuntime),r.print&&(G=r.print),r.printErr&&(p=r.printErr),r.wasmBinary&&(f=r.wasmBinary),r.arguments&&(v=r.arguments),r.thisProgram&&(l=r.thisProgram),r.preInit)for(typeof r.preInit=="function"&&(r.preInit=[r.preInit]);r.preInit.length>0;)r.preInit.shift()();r.cwrap=Zj;var Ar,jr,rr,tr,nr,er,kr,ar,lr,ir,Br,or,sr,dr,qr,cr,Er,ur,pr,mr,vr,Gr,vA,GA,DA,fA,Dr,fr,S;function _r(A){Ar=r._init_decoder=A.t,jr=r._malloc=A.u,rr=r._configure_decode_packet=A.v,tr=r._decode_packet=A.w,nr=r._get_decoded_format=A.x,er=r._get_decoded_plane_ptr=A.y,kr=r._get_decoded_channels=A.z,ar=r._get_decoded_sample_rate=A.A,lr=r._get_decoded_sample_count=A.B,ir=r._get_decoded_pts=A.C,Br=r._flush_decoder=A.D,or=r._close_decoder=A.E,sr=r._free=A.F,dr=r._init_encoder=A.G,qr=r._get_encoder_frame_size=A.H,cr=r._get_encode_input_ptr=A.I,Er=r._encode_frame=A.J,ur=r._flush_encoder=A.K,pr=r._get_encoded_data=A.L,mr=r._get_encoded_pts=A.M,vr=r._get_encoded_duration=A.N,Gr=r._close_encoder=A.O,vA=A.P,GA=A.Q,DA=A.R,fA=A.S,Dr=S=A.r,fr=A.__indirect_function_table}var br={a:uj,q:pj,n:mj,f:vj,k:Gj,l:Pj,e:Hj,d:qA,m:Lj,b:Kj,c:Nj,i:Tj,p:yj,h:Uj,o:Sj,g:Vj,j:sA};function Pr(){kj();function A(){var j;r.calledRun=!0,!_&&(aj(),N==null||N(r),(j=r.onRuntimeInitialized)==null||j.call(r),lj())}r.setStatus?(r.setStatus("Running..."),setTimeout(()=>{setTimeout(()=>r.setStatus(""),1),A()},1)):A()}var M;return M=await qj(),Pr(),Z?a=r:a=new Promise((A,j)=>{N=A,T=j}),a}var gA=gr;var B,w=null,hA,MA,LA,wA,Y,CA,KA,NA,TA,yA,UA,SA,JA,RA,OA,VA,XA,WA,QA,YA,zA=e=>e==="ac3"?0:1,ZA=async()=>{if(!B){if(w)return w;w=gA(),B=await w,w=null,hA=B.cwrap("init_decoder","number",["number"]),MA=B.cwrap("configure_decode_packet","number",["number","number"]),LA=B.cwrap("decode_packet","number",["number","number"]),wA=B.cwrap("get_decoded_format","number",["number"]),Y=B.cwrap("get_decoded_plane_ptr","number",["number","number"]),CA=B.cwrap("get_decoded_channels","number",["number"]),KA=B.cwrap("get_decoded_sample_rate","number",["number"]),NA=B.cwrap("get_decoded_sample_count","number",["number"]),TA=B.cwrap("get_decoded_pts","number",["number"]),yA=B.cwrap("flush_decoder",null,["number"]),UA=B.cwrap("close_decoder",null,["number"]),SA=B.cwrap("init_encoder","number",["number","number","number","number"]),JA=B.cwrap("get_encoder_frame_size","number",["number"]),RA=B.cwrap("get_encode_input_ptr","number",["number","number"]),OA=B.cwrap("encode_frame","number",["number","number"]),VA=B.cwrap("flush_encoder",null,["number"]),XA=B.cwrap("get_encoded_data","number",["number"]),WA=B.cwrap("get_encoded_pts","number",["number"]),QA=B.cwrap("get_encoded_duration","number",["number"]),YA=B.cwrap("close_encoder",null,["number"])}},Hr=async e=>{await ZA();let a=hA(zA(e));if(a===0)throw new Error("Failed to initialize AC3 decoder.");return{ctx:a,frameSize:0}},$r={0:{format:"u8",bytesPerSample:1,planar:!1},1:{format:"s16",bytesPerSample:2,planar:!1},2:{format:"s32",bytesPerSample:4,planar:!1},3:{format:"f32",bytesPerSample:4,planar:!1},5:{format:"u8-planar",bytesPerSample:1,planar:!0},6:{format:"s16-planar",bytesPerSample:2,planar:!0},7:{format:"s32-planar",bytesPerSample:4,planar:!0},8:{format:"f32-planar",bytesPerSample:4,planar:!0}},hr=(e,a,r)=>{let u=new Uint8Array(a),o=MA(e,u.length);if(o===0)throw new Error("Failed to configure decode packet.");B.HEAPU8.set(u,o);let E=LA(e,r);if(E<0)throw new Error(\`Decode failed with error code \${E}.\`);let v=wA(e),l=$r[v];if(!l)throw new Error(\`Unsupported AVSampleFormat: \${v}\`);let q=CA(e),F=KA(e),I=NA(e),R=TA(e),g;if(l.planar){let G=I*l.bytesPerSample,p=new Uint8Array(G*q);for(let f=0;f<q;f++){let _=Y(e,f);p.set(B.HEAPU8.subarray(_,_+G),f*G)}g=p.buffer}else{let G=I*q*l.bytesPerSample,p=Y(e,0);g=B.HEAPU8.slice(p,p+G).buffer}return{pcmData:g,format:l.format,channels:q,sampleRate:F,sampleCount:I,pts:R}},Mr=async(e,a,r,u)=>{await ZA();let o=SA(zA(e),a,r,u);if(o===0)throw new Error("Failed to initialize AC3 encoder.");return{ctx:o,frameSize:JA(o)}},Lr=(e,a,r)=>{let u=new Uint8Array(a),o=RA(e,u.length);if(o===0)throw new Error("Failed to allocate encoder input buffer.");B.HEAPU8.set(u,o);let E=OA(e,r);if(E<0)throw new Error(\`Encode failed with error code \${E}.\`);let v=XA(e),l=B.HEAPU8.slice(v,v+E).buffer,q=WA(e),F=QA(e);return{encodedData:l,pts:q,duration:F}},wr=e=>{VA(e)},HA=e=>{let{id:a,command:r}=e;(async()=>{try{let o,E=[];switch(r.type){case"init-decoder":{let{ctx:l,frameSize:q}=await Hr(r.data.codec);o={type:r.type,ctx:l,frameSize:q}}break;case"decode":{let l=hr(r.data.ctx,r.data.encodedData,r.data.timestamp);o={type:r.type,pcmData:l.pcmData,format:l.format,channels:l.channels,sampleRate:l.sampleRate,sampleCount:l.sampleCount,pts:l.pts},E.push(l.pcmData)}break;case"flush-decoder":yA(r.data.ctx),o={type:r.type};break;case"close-decoder":UA(r.data.ctx),o={type:r.type};break;case"init-encoder":{let{ctx:l,frameSize:q}=await Mr(r.data.codec,r.data.numberOfChannels,r.data.sampleRate,r.data.bitrate);o={type:r.type,ctx:l,frameSize:q}}break;case"encode":{let l=Lr(r.data.ctx,r.data.audioData,r.data.timestamp);o={type:r.type,encodedData:l.encodedData,pts:l.pts,duration:l.duration},E.push(l.encodedData)}break;case"flush-encoder":wr(r.data.ctx),o={type:r.type};break;case"close-encoder":YA(r.data.ctx),o={type:r.type};break}$A({id:a,success:!0,data:o},E)}catch(o){$A({id:a,success:!1,error:o})}})()},$A=(e,a)=>{C?C.postMessage(e,a!=null?a:[]):self.postMessage(e,{transfer:a!=null?a:[]})},C=null;typeof self=="undefined"&&(C=FA("worker_threads").parentPort);C?C.on("message",HA):self.addEventListener("message",e=>HA(e.data));
 `);
 }
-var l, i = 0, r = /* @__PURE__ */ new Map(), D = async (x, v) => {
-  const A = await o();
-  return new Promise((F, j) => {
-    const B = i++;
-    r.set(B, {
-      resolve: F,
-      reject: j
-    }), v ? A.postMessage({ id: B, command: x }, v) : A.postMessage({ id: B, command: x });
+var u8, D8 = 0, bA = /* @__PURE__ */ new Map(), Ge = async (t, x) => {
+  const e = await B8();
+  return new Promise((A, r) => {
+    const F = D8++;
+    bA.set(F, {
+      resolve: A,
+      reject: r
+    }), x ? e.postMessage({ id: F, command: t }, x) : e.postMessage({ id: F, command: t });
   });
-}, o = () => l ??= (async () => {
-  const x = await a(), v = (A) => {
-    const F = r.get(A.id);
-    e(F !== void 0), r.delete(A.id), A.success ? F.resolve(A.data) : F.reject(A.error);
+}, B8 = () => u8 ??= (async () => {
+  const t = await d8(), x = (e) => {
+    const A = bA.get(e.id);
+    v8(A !== void 0), bA.delete(e.id), e.success ? A.resolve(e.data) : A.reject(e.error);
   };
-  return x.addEventListener ? x.addEventListener("message", (A) => v(A.data)) : x.on("message", v), x;
-})(), s = class extends b {
+  return t.addEventListener ? t.addEventListener("message", (e) => x(e.data)) : t.on("message", x), t;
+})(), b8 = class extends _A {
   constructor() {
     super(...arguments), this.ctx = 0;
   }
-  static supports(x) {
-    return x === "ac3" || x === "eac3";
+  static supports(t) {
+    return t === "ac3" || t === "eac3";
   }
   async init() {
-    const x = await D({
+    const t = await Ge({
       type: "init-decoder",
       data: { codec: this.codec }
     });
-    this.ctx = x.ctx;
+    this.ctx = t.ctx;
   }
-  async decode(x) {
-    const v = x.data.slice().buffer, A = Math.round(x.timestamp * this.config.sampleRate), F = await D({
+  async decode(t) {
+    const x = t.data.slice().buffer, e = Math.round(t.timestamp * this.config.sampleRate), A = await Ge({
       type: "decode",
-      data: { ctx: this.ctx, encodedData: v, timestamp: A }
-    }, [v]), j = new f({
-      data: F.pcmData,
-      format: F.format,
-      numberOfChannels: F.channels,
-      sampleRate: F.sampleRate,
-      timestamp: F.pts / F.sampleRate
+      data: { ctx: this.ctx, encodedData: x, timestamp: e }
+    }, [x]), r = new o0({
+      data: A.pcmData,
+      format: A.format,
+      numberOfChannels: A.channels,
+      sampleRate: A.sampleRate,
+      timestamp: A.pts / A.sampleRate
     });
-    this.onSample(j);
+    this.onSample(r);
   }
   async flush() {
-    await D({ type: "flush-decoder", data: { ctx: this.ctx } });
+    await Ge({ type: "flush-decoder", data: { ctx: this.ctx } });
   }
   close() {
-    D({ type: "close-decoder", data: { ctx: this.ctx } });
+    Ge({ type: "close-decoder", data: { ctx: this.ctx } });
   }
-}, d = () => {
-  C(s);
-}, E = Symbol.for("@mediabunny/ac3 loaded");
-globalThis[E] && console.error(
+}, C8 = () => {
+  mF(b8);
+}, Ui = Symbol.for("@mediabunny/ac3 loaded");
+globalThis[Ui] && console.error(
   `[WARNING]
 @mediabunny/ac3 was loaded twice. This will likely cause the encoder/decoder not to work correctly. Check if multiple dependencies are importing different versions of @mediabunny/ac3, or if something is being bundled incorrectly.`
 );
-globalThis[E] = !0;
-export {
-  d as registerAc3Decoder
-};
+globalThis[Ui] = !0;
+var j8 = /* @__PURE__ */ Object.freeze({
+  __proto__: null,
+  registerAc3Decoder: C8
+});

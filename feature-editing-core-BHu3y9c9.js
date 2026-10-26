@@ -4879,7 +4879,7 @@ class T1 {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/filmstrip-extraction-worker-BKW2cyNC.js", import.meta.url).href,
+        "" + new URL("assets/filmstrip-extraction-worker-DTRru5dc.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -6269,7 +6269,7 @@ class P1 {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/waveform-worker-Dd9ZgZi7.js", import.meta.url).href,
+        "" + new URL("assets/waveform-worker-B2NInS2j.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -17069,7 +17069,7 @@ class YF {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/proxy-generation-worker-DuRP48v3.js", import.meta.url).href,
+        "" + new URL("assets/proxy-generation-worker-BYSOLsXQ.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -18280,7 +18280,7 @@ class fC {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/media-processor.worker-BHPB0_8m.js", import.meta.url).href,
+        "" + new URL("assets/media-processor.worker-RWKpTe3P.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -32582,7 +32582,7 @@ function YA() {
     const e = new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/decoder-prewarm-worker-Dfhswpi8.js", import.meta.url).href,
+        "" + new URL("assets/decoder-prewarm-worker-BPaVP83Y.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
