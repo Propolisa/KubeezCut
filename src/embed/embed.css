@@ -1,3 +1,19 @@
 /* Stylesheet for embedded islands. The embed build scopes every rule under .kc-embed and flattens cascade
    layers (vite.embed.config.ts), so these styles neither leak into nor lose to the host page. */
 @import "../index.css";
+
+/* Blender icons from the icon shim (src/embed/blender-icons.tsx): a mask in the current text color. Zero
+   specificity so size utilities on the icon win. */
+:where(.kc-bl-icon) {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}

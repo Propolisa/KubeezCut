@@ -801,7 +801,15 @@ export function parseHotkeyImportDocument(source: unknown): HotkeyImportResult {
  * Options for react-hotkeys-hook.
  * Prevents shortcuts from firing in input fields.
  */
+// Embedding hosts limit shortcuts to their editor areas (src/embed/keymap.ts); the standalone app always listens.
+let hotkeysActive: () => boolean = () => true;
+export function setHotkeysActive(check: () => boolean): void {
+  hotkeysActive = check;
+}
+
 export const HOTKEY_OPTIONS = {
   enableOnFormTags: false,
   preventDefault: true,
+  // Returns before preventDefault/stopPropagation, so ignored keys still reach the host.
+  ignoreEventWhen: () => !hotkeysActive(),
 } as const;

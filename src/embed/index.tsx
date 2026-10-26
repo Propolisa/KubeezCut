@@ -31,15 +31,31 @@ import { getProject, createProject } from '@/infrastructure/storage/indexeddb/pr
 import { CURRENT_SCHEMA_VERSION } from '@/domain/projects/migrations/types';
 import type { SequencerHost } from './host';
 import './embed.css';
+import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
+import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
+import { addKeymapRegion } from './keymap';
+import { sequencerMenus } from './commands';
 
 export type { SequencerHost, EmbedProject } from './host';
+export { setIconBase } from './blender-icons';
+export { setKeymap, BLENDER_KEYMAP, type Keymap } from './keymap';
+export type { Command, MenuEntry } from './commands';
 
 let host: SequencerHost | null = null;
 let portalRoot: HTMLElement | null = null;
 let chrome: { unmount(): void } | null = null;
 let stopTransitions: (() => void) | undefined;
 let stopCommits: (() => void) | undefined;
+let releasePortalRegion: (() => void) | undefined;
 const mounted = new Set<{ unmount(): void }>();
+
+// KubeezCut's editing, playback and tool shortcuts, mounted once. They act only while the pointer or focus is in
+// an island (keymap.ts), so the host keeps its own keys elsewhere.
+function Shortcuts() {
+  useTimelineShortcuts();
+  useEditorHotkeys({ onSave: () => { if (host) void useTimelineStore.getState().saveTimeline(host.project.id); } });
+  return null;
+}
 
 // Popups, tooltips and toasts render into one scoped element so the embed stylesheet reaches them.
 function ensurePortalRoot(): HTMLElement {
@@ -51,11 +67,13 @@ function ensurePortalRoot(): HTMLElement {
   const root = createRoot(portalRoot.appendChild(document.createElement('div')));
   root.render(
     <TooltipProvider delayDuration={300}>
+      <Shortcuts />
       <GlobalTooltip />
       <Toaster />
     </TooltipProvider>
   );
   chrome = root;
+  releasePortalRegion = addKeymapRegion(portalRoot);
   return portalRoot;
 }
 
@@ -112,8 +130,10 @@ function mount(element: HTMLElement, node: ReactNode): { dispose(): void } {
     </StrictMode>
   );
   mounted.add(root);
+  const releaseRegion = addKeymapRegion(element);
   return {
     dispose() {
+      releaseRegion();
       mounted.delete(root);
       root.unmount();
       element.classList.remove('kc-embed', 'dark');
@@ -186,12 +206,18 @@ export async function addMediaStrip(mediaId: string, { frame }: { frame?: number
   return items.map((item) => item.id);
 }
 
+/** Menus for the host's Video Sequencer header: View, Select, Marker, Add, Strip (see commands.ts). */
+export function menus() {
+  return sequencerMenus((mediaId, frame) => addMediaStrip(mediaId, { frame }));
+}
+
 /** Unmounts every island and the shared popup layer. */
 export function disposeAll(): void {
   for (const root of [...mounted]) root.unmount();
   mounted.clear();
   chrome?.unmount();
   chrome = null;
+  releasePortalRegion?.();
   portalRoot?.remove();
   portalRoot = null;
   setPortalContainer(undefined);

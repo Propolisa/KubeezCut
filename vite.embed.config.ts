@@ -75,6 +75,19 @@ function pruneUnreachablePlugin(entries: string[]): Plugin {
   }
 }
 
+/** Resolves `lucide-react` to the Blender icon shim everywhere except inside the shim itself. */
+function blenderIconsPlugin(): Plugin {
+  const shim = path.resolve(__dirname, 'src/embed/blender-icons.tsx')
+  return {
+    name: 'kc-embed-blender-icons',
+    enforce: 'pre',
+    resolveId(source, importer) {
+      if (source === 'lucide-react' && importer && path.resolve(importer) !== shim) return shim
+      return null
+    },
+  }
+}
+
 function scopedCssPlugin(): Plugin {
   return {
     name: 'kc-embed-scoped-css',
@@ -99,7 +112,7 @@ export default defineConfig((env) => {
     },
     {
       define: { 'import.meta.env.VITE_AI_FEATURES': JSON.stringify('false') },
-      plugins: [scopedCssPlugin(), pruneUnreachablePlugin(['index.js', 'embed.css'])],
+      plugins: [blenderIconsPlugin(), scopedCssPlugin(), pruneUnreachablePlugin(['index.js', 'embed.css'])],
       worker: { format: 'es' },
       // Site assets (brand images, favicons) belong to the standalone app.
       publicDir: false,
