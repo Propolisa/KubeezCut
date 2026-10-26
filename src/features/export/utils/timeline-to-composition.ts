@@ -125,6 +125,9 @@ export function convertTimelineToComposition(
         if (item.type === 'composition' && additionalTrimStart > 0) {
           adjustedItem.sourceStart = (item.sourceStart || 0) + additionalTrimStart;
         }
+        if (item.type === 'scene' && additionalTrimStart > 0) {
+          adjustedItem.sourceStart = (item.sourceStart || 0) + Math.round(additionalTrimStart * (item.speed || 1));
+        }
 
         return adjustedItem;
       });

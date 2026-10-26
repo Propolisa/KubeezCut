@@ -11,6 +11,7 @@ import { TextContent } from './text-content';
 import { ShapeContent } from './shape-content';
 import { VideoContent } from './video-content';
 import { CompositionContent } from './composition-content';
+import { SceneContent } from './scene-content';
 import { useVideoConfig } from '../hooks/use-player-compat';
 import { getSourceDimensions } from '../utils/transform-resolver';
 import {
@@ -393,6 +394,18 @@ export const Item = React.memo<ItemProps>(({ item, muted = false, visible = true
           audioGainMultiplier={audioGainMultiplier}
           audioGainLiveItemIds={audioGainLiveItemIds}
         />
+      </ItemVisualWrapper>
+    );
+  }
+
+  if (item.type === 'scene') {
+    return (
+      <ItemVisualWrapper
+        item={item}
+        masks={masks}
+        mediaContent={{ fitMode: 'contain', sourceWidth: item.sourceWidth, sourceHeight: item.sourceHeight, crop: item.crop }}
+      >
+        <SceneContent item={item} />
       </ItemVisualWrapper>
     );
   }

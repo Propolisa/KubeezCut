@@ -16,7 +16,9 @@ import type {
   TextItem,
   ShapeItem,
   CompositionItem,
+  SceneItem,
 } from '@/types/timeline';
+import { getSceneFrameSource, sceneFrameRequest } from '@/shared/scene/scene-frames';
 import type { ItemKeyframes } from '@/types/keyframe';
 import type { ItemEffect } from '@/types/effects';
 import { createLogger } from '@/shared/logging/logger';
@@ -279,7 +281,25 @@ async function renderItemContent(
     case 'composition':
       await renderCompositionItem(ctx, effectiveItem as CompositionItem, transform, frame, rctx);
       break;
+    case 'scene':
+      await renderSceneItem(ctx, effectiveItem as SceneItem, transform, frame, rctx);
+      break;
   }
+}
+
+async function renderSceneItem(
+  ctx: OffscreenCanvasRenderingContext2D,
+  item: SceneItem,
+  transform: ItemTransform,
+  frame: number,
+  rctx: ItemRenderContext,
+): Promise<void> {
+  const source = getSceneFrameSource();
+  if (!source) return;
+  const { width, height } = rctx.canvasSettings;
+  const request = sceneFrameRequest(item, frame - item.from, width, height, rctx.renderMode === 'export' ? 'final' : 'preview');
+  const bitmap = source.peekFrame?.(request) ?? await source.getFrame(request);
+  if (bitmap) drawContainedMediaSource(ctx, bitmap, bitmap.width, bitmap.height, transform, rctx.canvasSettings, item.crop, undefined, rctx.canvasPool);
 }
 
 /**

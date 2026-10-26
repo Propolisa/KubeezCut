@@ -57,7 +57,7 @@ export interface ProjectTimeline {
     mediaId?: string;
     originId?: string; // Tracks lineage for stable React keys
     linkedGroupId?: string;
-    type: 'video' | 'audio' | 'text' | 'image' | 'shape' | 'composition' | 'adjustment';
+    type: 'video' | 'audio' | 'text' | 'image' | 'shape' | 'composition' | 'adjustment' | 'scene';
     // Type-specific fields stored as optional for flexibility
     src?: string;
     thumbnailUrl?: string;

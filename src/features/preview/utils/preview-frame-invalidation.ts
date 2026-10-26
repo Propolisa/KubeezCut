@@ -112,6 +112,14 @@ function getItemFrameRange(item: TimelineItem | undefined): FrameRange | null {
   return { startFrame, endFrame };
 }
 
+/** Frames showing scene strips, which change when their scene does rather than with the edit. */
+export function collectSceneItemRanges(tracks: CompositionInputProps['tracks']): FrameRange[] {
+  return tracks.flatMap((track) => track.items)
+    .filter((item) => item.type === 'scene')
+    .map(getItemFrameRange)
+    .filter((range): range is FrameRange => range !== null);
+}
+
 export function collectVisualInvalidationRanges({
   previousTracks,
   nextTracks,

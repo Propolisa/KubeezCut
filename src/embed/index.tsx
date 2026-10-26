@@ -15,7 +15,7 @@ import { GlobalTooltip } from '@/components/ui/global-tooltip';
 import { Toaster } from '@/components/ui/sonner';
 import { setPortalContainer } from '@/components/ui/portal-container';
 import { Timeline } from '@/features/editor/deps/timeline-ui';
-import { useTimelineStore, useItemsStore } from '@/features/editor/deps/timeline-store';
+import { useTimelineStore, useItemsStore, useTimelineSettingsStore } from '@/features/editor/deps/timeline-store';
 import { initTransitionChainSubscription } from '@/features/editor/deps/timeline-subscriptions';
 import { useMediaLibraryStore } from '@/features/editor/deps/media-library';
 import { useProjectStore } from '@/features/editor/deps/projects';
@@ -29,9 +29,10 @@ import { mediaLibraryService } from '@/features/timeline/deps/media-library-serv
 import { buildDroppedMediaTimelineItems, getDroppedMediaDurationInFrames, type DroppableMediaType } from '@/features/timeline/utils/dropped-media';
 import { getProject, createProject } from '@/infrastructure/storage/indexeddb/projects';
 import { CURRENT_SCHEMA_VERSION } from '@/domain/projects/migrations/types';
-import type { SequencerHost, SequencerEdit } from './host';
+import type { SequencerHost, SequencerEdit, EmbedProject } from './host';
 import { getEdit, setEdit, routeHistoryToHost } from './edit';
 import { syncClock } from './clock-sync';
+import { setSceneFrameSource } from '@/shared/scene/scene-frames';
 import './embed.css';
 import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
 import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
@@ -40,9 +41,10 @@ import { installTouchMouse } from './touch-mouse';
 import { addKeymapRegion } from './keymap';
 import { sequencerMenus } from './commands';
 
-export type { SequencerHost, EmbedProject, SequencerEdit, HostHistory, HostClock, HostFrameSource, SceneFrameRequest } from './host';
+export type { SequencerHost, EmbedProject, SequencerEdit, HostHistory, HostClock, HostScene, SceneFrameSource, SceneFrameRequest } from './host';
 export { setIconBase } from './blender-icons';
 export { setKeymap, BLENDER_KEYMAP, type Keymap } from './keymap';
+export { openCompositor, type CompositorRange } from './compositor';
 export type { Command, MenuEntry } from './commands';
 
 let host: SequencerHost | null = null;
@@ -102,11 +104,7 @@ export async function openProject(next: SequencerHost): Promise<void> {
   const media = useMediaLibraryStore.getState();
   media.setCurrentProject(p.id);
   void media.loadMediaItems().catch((error: unknown) => next.notify?.(`Media library: ${String(error)}`, 'error'));
-  useProjectStore.getState().setCurrentProject({
-    id: p.id, name: p.name, description: '', duration: 0, schemaVersion: CURRENT_SCHEMA_VERSION,
-    metadata: { width: p.width, height: p.height, fps: p.fps, backgroundColor: p.backgroundColor },
-    createdAt: Date.now(), updatedAt: Date.now(),
-  });
+  setProjectFormat(p);
   stopHistory?.();
   stopHistory = undefined;
   stopCommits?.();
@@ -121,6 +119,7 @@ export async function openProject(next: SequencerHost): Promise<void> {
   }
   stopClock?.();
   stopClock = next.clock ? syncClock(next.clock) : undefined;
+  setSceneFrameSource(next.frames ?? null);
   stopTransitions?.();
   stopTransitions = initTransitionChainSubscription();
   // Media library errors (failed imports, unavailable picker) also go to the host, since the File Browser that
@@ -143,6 +142,19 @@ function autosave(projectId: string): () => void {
     timer = setTimeout(() => { void useTimelineStore.getState().saveTimeline(projectId); }, 400);
   });
   return () => { clearTimeout(timer); off(); };
+}
+
+/** Output size and frame rate of the edit, from the host's output settings. */
+export function setProjectFormat({ width, height, fps }: Pick<EmbedProject, 'width' | 'height' | 'fps'>): void {
+  if (!host) return;
+  host.project = { ...host.project, width, height, fps };
+  const p = host.project;
+  useProjectStore.getState().setCurrentProject({
+    id: p.id, name: p.name, description: '', duration: 0, schemaVersion: CURRENT_SCHEMA_VERSION,
+    metadata: { width, height, fps, backgroundColor: p.backgroundColor },
+    createdAt: 0, updatedAt: 0,
+  });
+  useTimelineSettingsStore.getState().setFps(fps);
 }
 
 /** Replaces the open edit with one from the host (undo, redo, reverting the document). */
@@ -189,9 +201,8 @@ function SequencerTimeline() {
 }
 
 function Preview() {
-  const project = host?.project;
-  if (!project) return null;
-  return <PreviewArea project={project} />;
+  const metadata = useProjectStore((s) => s.currentProject?.metadata);
+  return metadata ? <PreviewArea project={metadata} /> : null;
 }
 
 /** Blender's Sequencer view: tracks (channels), strips, trimming and transitions. */
@@ -249,7 +260,7 @@ export async function addMediaStrip(mediaId: string, { frame }: { frame?: number
 
 /** Menus for the host's Video Sequencer header: View, Select, Marker, Add, Strip (see commands.ts). */
 export function menus() {
-  return sequencerMenus((mediaId, frame) => addMediaStrip(mediaId, { frame }));
+  return sequencerMenus((mediaId, frame) => addMediaStrip(mediaId, { frame }), () => host?.scenes?.() ?? []);
 }
 
 /** Unmounts every island and the shared popup layer. */

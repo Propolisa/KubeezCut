@@ -1281,6 +1281,8 @@ export const TimelineItem = memo(function TimelineItem({ item, timelineDuration 
         return 'bg-purple-500/30 border-purple-400';
       case 'composition':
         return 'bg-violet-600/40 border-violet-400';
+      case 'scene':
+        return 'bg-timeline-scene/40 border-timeline-scene';
       default:
         return 'bg-timeline-video border-timeline-video';
     }

@@ -8,7 +8,8 @@ import { useSettingsStore } from '@/features/settings/stores/settings-store';
 const regions = new Set<HTMLElement>();
 let forced = 0;
 
-function active(): boolean {
+/** Pointer or focus is in an island (or a menu command is running): input there belongs to KubeezCut. */
+export function islandActive(): boolean {
   if (forced > 0) return true;
   const focus = document.activeElement;
   for (const region of regions) {
@@ -20,7 +21,7 @@ function active(): boolean {
 /** Elements whose hover or focus enables the shortcuts (island roots and the popup layer). */
 export function addKeymapRegion(element: HTMLElement): () => void {
   regions.add(element);
-  setHotkeysActive(active);
+  setHotkeysActive(islandActive);
   return () => regions.delete(element);
 }
 

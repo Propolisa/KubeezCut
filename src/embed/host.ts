@@ -4,6 +4,9 @@
  * embed also works stand-alone (edit saved to KubeezCut's own IndexedDB storage, own undo, own clock).
  */
 import type { TimelineDocument } from '@/features/timeline/stores/timeline-document';
+import type { SceneFrameSource } from '@/shared/scene/scene-frames';
+
+export type { SceneFrameRequest, SceneFrameSource } from '@/shared/scene/scene-frames';
 
 export interface EmbedProject {
   /** Stable id from the host; KubeezCut keys its media library (IndexedDB, OPFS) by it. */
@@ -42,27 +45,13 @@ export interface HostClock {
   pause(): void;
 }
 
-/** A frame of a scene strip, rendered by the host. */
-export interface SceneFrameRequest {
-  /** Host scene reference stored on the strip (`SceneItem.scene`). */
-  scene: string;
-  /** Camera name, or undefined for the scene's active camera. */
-  camera?: string;
-  /** Frame in the scene's own timeline. */
-  frame: number;
+export interface HostScene {
+  id: string;
+  name: string;
+  frameStart: number;
+  frameEnd: number;
   width: number;
   height: number;
-  /** Preview frames may come from a cache or a reduced size; final frames are full quality. */
-  quality: 'preview' | 'final';
-}
-
-export interface HostFrameSource {
-  /** Resolves to a frame the caller draws and then closes, or null when no frame is available yet. */
-  getFrame(request: SceneFrameRequest, signal?: AbortSignal): Promise<ImageBitmap | null>;
-  /** Frame immediately available from a cache, for synchronous preview paths. */
-  peekFrame?(request: SceneFrameRequest): ImageBitmap | null;
-  /** Fires when frames previously returned may be outdated (scene edited); the preview redraws. */
-  subscribe?(listener: () => void): () => void;
 }
 
 export interface SequencerHost {
@@ -71,7 +60,9 @@ export interface SequencerHost {
   edit?: SequencerEdit;
   history?: HostHistory;
   clock?: HostClock;
-  frames?: HostFrameSource;
+  frames?: SceneFrameSource;
+  /** Scenes a scene strip can show (Add > Scene), with their frame range. */
+  scenes?(): HostScene[];
   /** Reports problems the host should show (toasts are not visible inside an island). */
   notify?(message: string, level?: 'info' | 'warning' | 'error'): void;
 }

@@ -32,6 +32,8 @@ function makeItem(id: string, type: TimelineItem['type']): TimelineItem {
         compositionWidth: 1920,
         compositionHeight: 1080,
       };
+    case 'scene':
+      return { id, type, trackId: 'track-1', from: 0, durationInFrames: 30, label: id, scene: 'scene' };
   }
 }
 

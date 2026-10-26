@@ -82,6 +82,9 @@ export function getSourceDimensions(
       }
     }
   }
+  if (item.type === 'scene') {
+    return item.sourceWidth && item.sourceHeight ? { width: item.sourceWidth, height: item.sourceHeight } : undefined;
+  }
   if (item.type === 'composition') {
     const compItem = item as CompositionItem;
     if (compItem.compositionWidth && compItem.compositionHeight) {

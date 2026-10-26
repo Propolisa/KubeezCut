@@ -182,8 +182,17 @@ export type CompositionItem = BaseTimelineItem & {
   compositionHeight: number;
 };
 
+// A 3D scene rendered by the host through its camera (Blender's Scene strip); source frames are scene frames.
+export type SceneItem = BaseTimelineItem & {
+  type: 'scene';
+  scene: string;
+  camera?: string;
+  sourceWidth?: number;
+  sourceHeight?: number;
+};
+
 // Union type for all timeline items
-export type TimelineItem = VideoItem | AudioItem | TextItem | ImageItem | ShapeItem | AdjustmentItem | CompositionItem;
+export type TimelineItem = VideoItem | AudioItem | TextItem | ImageItem | ShapeItem | AdjustmentItem | CompositionItem | SceneItem;
 
 export interface TimelineTrack {
   id: string;

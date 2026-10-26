@@ -6,6 +6,7 @@
 import { usePlaybackStore } from '@/shared/state/playback';
 import { useItemsStore } from '@/features/editor/deps/timeline-store';
 import type { HostClock } from './host';
+import { islandActive } from './keymap';
 
 const MAX_DRIFT_FRAMES = 2;
 
@@ -44,9 +45,10 @@ export function syncClock(clock: HostClock): () => void {
       else if (!state.isPlaying && clock.playing && state.currentFrame < contentEnd() - 1) clock.pause();
       return;
     }
-    if (!state.isPlaying && state.currentFrame !== previous.currentFrame && state.currentFrame !== Math.round(clock.frame)) {
-      clock.seek(state.currentFrame);
-    }
+    if (state.isPlaying || state.currentFrame === previous.currentFrame || state.currentFrame === Math.round(clock.frame)) return;
+    // Only the user seeks from the sequencer; the player re-reporting its frame (on mount) must not move the scene.
+    if (islandActive()) clock.seek(state.currentFrame);
+    else fromHost();
   };
 
   fromHost();

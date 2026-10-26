@@ -18,6 +18,7 @@
   --color-timeline-image: oklch(0.62 0.17 250);
   --color-timeline-text: oklch(0.671 0 290);
   --color-timeline-shape: oklch(0.566 0.278 284.9);
+  --color-timeline-scene: oklch(0.68 0.14 125);
 
   /* Playhead color */
   --color-timeline-playhead: oklch(0.566 0.278 284.9);    /* Matches primary */

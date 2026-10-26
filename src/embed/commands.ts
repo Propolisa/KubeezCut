@@ -11,13 +11,18 @@ import { usePlaybackStore } from '@/shared/state/playback';
 import { useSelectionStore } from '@/shared/state/selection';
 import { createTimelineTemplateItem, getDefaultGeneratedLayerDurationInFrames } from '@/features/timeline/utils/generated-layer-items';
 import { duplicateItems } from '@/features/timeline/stores/actions/item-actions';
+import { wouldOverlap } from '@/features/timeline/utils/collision-utils';
+import { createClassicTrack, getAdjacentTrackOrder } from '@/features/timeline/utils/classic-tracks';
 import { bindingFor, runHotkey } from './keymap';
+import type { HostScene } from './host';
+import type { SceneItem } from '@/types/timeline';
 
 export interface Command {
   label: string;
+  items?: () => MenuEntry[];
   /** Binding for display, Blender style (for example "Shift Left"). */
   keys?: string;
-  run: () => void | Promise<unknown>;
+  run?: () => void | Promise<unknown>;
   enabled?: () => boolean;
 }
 export type MenuEntry = Command | '-';
@@ -34,19 +39,28 @@ const shortcut = (label: string, key: HotkeyKey, enabled?: () => boolean): Comma
 const selected = () => useSelectionStore.getState().selectedItemIds;
 const hasSelection = () => selected().length > 0;
 
-function visualTrackId(): string | undefined {
-  return useTimelineStore.getState().tracks.filter((t) => !t.isGroup && t.kind !== 'audio').sort((a, b) => a.order - b.order)[0]?.id;
+/** Blender's placement for new strips: the lowest free visual channel at the playhead, else a new channel on top. */
+export function stripPlacement(durationInFrames: number): { trackId: string; from: number } {
+  const { tracks, items, transitions, setTracks } = useTimelineStore.getState();
+  const from = Math.round(usePlaybackStore.getState().currentFrame);
+  const visual = tracks.filter((t) => !t.isGroup && t.kind !== 'audio').sort((a, b) => b.order - a.order);
+  const free = visual.find((t) => !wouldOverlap('', from, durationInFrames, t.id, items, transitions));
+  if (free) return { trackId: free.id, from };
+  const top = visual[visual.length - 1];
+  const track = createClassicTrack({ tracks, kind: 'video', order: top ? getAdjacentTrackOrder(tracks, top, 'above') : 0 });
+  setTracks([...tracks, track]);
+  return { trackId: track.id, from };
 }
 
 function addGenerated(itemType: 'text' | 'shape' | 'adjustment', label: string) {
-  const trackId = visualTrackId();
-  if (!trackId) return;
   const fps = useTimelineStore.getState().fps;
+  const durationInFrames = getDefaultGeneratedLayerDurationInFrames(fps);
+  const placement = stripPlacement(durationInFrames);
   const project = useProjectStore.getState().currentProject;
   const item = createTimelineTemplateItem({
     template: { type: 'timeline-template', itemType, label, ...(itemType === 'shape' ? { shapeType: 'rectangle' as const } : {}) },
     placement: {
-      trackId, from: Math.round(usePlaybackStore.getState().currentFrame), durationInFrames: getDefaultGeneratedLayerDurationInFrames(fps),
+      ...placement, durationInFrames,
       canvasWidth: project?.metadata.width ?? 1920, canvasHeight: project?.metadata.height ?? 1080,
     },
   });
@@ -68,7 +82,19 @@ async function addFromFiles(place: (mediaId: string, frame: number) => Promise<s
   }
 }
 
-export function sequencerMenus(place: (mediaId: string, frame: number) => Promise<string[]>): Record<string, MenuEntry[]> {
+function addSceneStrip(scene: HostScene) {
+  const durationInFrames = scene.frameEnd - scene.frameStart + 1;
+  const placement = stripPlacement(durationInFrames);
+  const item: SceneItem = {
+    id: crypto.randomUUID(), type: 'scene', label: scene.name, scene: scene.id, ...placement, durationInFrames,
+    sourceStart: scene.frameStart, sourceEnd: scene.frameEnd + 1, sourceDuration: scene.frameEnd + 1,
+    sourceFps: useTimelineStore.getState().fps, sourceWidth: scene.width, sourceHeight: scene.height,
+  };
+  useTimelineStore.getState().addItems([item]);
+  useSelectionStore.getState().selectItems([item.id]);
+}
+
+export function sequencerMenus(place: (mediaId: string, frame: number) => Promise<string[]>, scenes: () => HostScene[] = () => []): Record<string, MenuEntry[]> {
   return {
     View: [
       shortcut('Frame All', 'ZOOM_TO_FIT'),
@@ -102,6 +128,7 @@ export function sequencerMenus(place: (mediaId: string, frame: number) => Promis
       { label: 'Movie...', run: () => addFromFiles(place) },
       { label: 'Sound...', run: () => addFromFiles(place) },
       { label: 'Image/Sequence...', run: () => addFromFiles(place) },
+      { label: 'Scene', items: () => scenes().map((scene) => ({ label: scene.name, run: () => addSceneStrip(scene) })), enabled: () => scenes().length > 0 },
       '-',
       { label: 'Color', run: () => addGenerated('shape', 'Color') },
       { label: 'Text', run: () => addGenerated('text', 'Text') },

@@ -1,3 +1,4 @@
+import { getSceneFrameSource } from '@/shared/scene/scene-frames';
 import { useRef, useEffect, useLayoutEffect, useState, useMemo, useCallback, memo } from 'react';
 import {
   backgroundPreseek as workerBackgroundPreseek,
@@ -160,6 +161,7 @@ import {
   areKeyframesDataEqual,
   areTrackTimelineItemRefsEqual,
   collectVisualInvalidationRanges,
+  collectSceneItemRanges,
   getTextContentOnlyInvalidationDiag,
 } from '../utils/preview-frame-invalidation';
 
@@ -2704,6 +2706,17 @@ export const VideoPreview = memo(function VideoPreview({
     fastScrubRendererStructureKey,
     forceFastScrubOverlay,
   ]);
+
+  useEffect(() => getSceneFrameSource()?.subscribe?.(() => {
+    const ranges = collectSceneItemRanges(previousFastScrubVisualStateRef.current.tracks);
+    if (ranges.length === 0) return;
+    scrubRendererRef.current?.invalidateFrameCache({ ranges });
+    bgTransitionRendererRef.current?.invalidateFrameCache({ ranges });
+    scrubOffscreenRenderedFrameRef.current = null;
+    const playback = usePlaybackStore.getState();
+    scrubRequestedFrameRef.current = playback.previewFrame ?? playback.currentFrame;
+    void resumeScrubLoopRef.current();
+  }), []);
 
   const captureCurrentFrame = useCallback(async (options?: CaptureOptions): Promise<string | null> => {
     if (captureInFlightRef.current) {

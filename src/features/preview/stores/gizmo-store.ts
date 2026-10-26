@@ -121,7 +121,7 @@ interface GizmoStoreActions {
     handle: GizmoHandle,
     startPoint: Point,
     transform: Transform,
-    itemType?: 'video' | 'audio' | 'image' | 'text' | 'shape' | 'adjustment' | 'composition',
+    itemType?: GizmoState['itemType'],
     aspectRatioLocked?: boolean,
     strokeWidth?: number,
     mediaViewportInLayer?: { x: number; y: number; width: number; height: number },

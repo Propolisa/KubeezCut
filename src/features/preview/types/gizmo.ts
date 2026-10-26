@@ -1,3 +1,4 @@
+import type { TimelineItem } from '@/types/timeline';
 /**
  * Gizmo handle identifiers for scale operations.
  * Corners: nw, ne, se, sw
@@ -67,7 +68,7 @@ export interface GizmoState {
   /** Item ID being transformed */
   itemId: string;
   /** Item type (for type-specific behavior like text free scaling) */
-  itemType?: 'video' | 'audio' | 'image' | 'text' | 'shape' | 'adjustment' | 'composition';
+  itemType?: TimelineItem['type'];
   /** Whether aspect ratio is locked for this item (from item.transform.aspectRatioLocked) */
   aspectRatioLocked?: boolean;
   /** Stroke width for snapping expansion (shapes with strokes) */
