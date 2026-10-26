@@ -113,7 +113,9 @@ export default defineConfig((env) => {
     {
       define: { 'import.meta.env.VITE_AI_FEATURES': JSON.stringify('false') },
       plugins: [blenderIconsPlugin(), scopedCssPlugin(), pruneUnreachablePlugin(['index.js', 'embed.css'])],
-      worker: { format: 'es' },
+      // Each worker is one self-contained file. A host bundler copies worker files as plain assets and does not
+      // follow their relative imports, so a chunk shared with a worker would be missing from the host's build.
+      worker: { format: 'es', rollupOptions: { output: { inlineDynamicImports: true } } },
       // Site assets (brand images, favicons) belong to the standalone app.
       publicDir: false,
       // Workers and lazy chunks resolve next to the module, wherever the host serves it.
