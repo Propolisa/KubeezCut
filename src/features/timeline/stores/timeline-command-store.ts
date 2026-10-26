@@ -70,6 +70,37 @@ interface CommandStoreActions {
   addUndoEntry: (command: TimelineCommand, beforeSnapshot: TimelineSnapshot) => void;
 }
 
+/**
+ * Lets an embedding host own undo history. While set, completed edits are reported to the host instead of being
+ * stored as snapshots here, and undo/redo ask the host, which restores the whole edit (see timeline-document.ts).
+ */
+export interface TimelineHistoryDelegate {
+  /** An edit completed. Calls made in one task are coalesced into one. */
+  commit(label: string): void;
+  undo(): void;
+  redo(): void;
+}
+
+let historyDelegate: TimelineHistoryDelegate | null = null;
+let pendingLabel: string | null = null;
+
+export function setTimelineHistoryDelegate(delegate: TimelineHistoryDelegate | null): void {
+  historyDelegate = delegate;
+  useTimelineCommandStore.getState().clearHistory();
+}
+
+function reportCommit(command: TimelineCommand): void {
+  const delegate = historyDelegate;
+  if (!delegate) return;
+  // Actions may run nested commands; report the outermost label once the task ends.
+  if (pendingLabel === null) queueMicrotask(() => {
+    const label = pendingLabel ?? 'Edit';
+    pendingLabel = null;
+    delegate.commit(label);
+  });
+  pendingLabel = formatTimelineCommandLabel(command);
+}
+
 export const useTimelineCommandStore = create<CommandStoreState & CommandStoreActions>()(
   (set, get) => ({
     // State
@@ -90,6 +121,10 @@ export const useTimelineCommandStore = create<CommandStoreState & CommandStoreAc
 
       // Only add to history if state actually changed
       if (!snapshotsEqual(beforeSnapshot, afterSnapshot)) {
+        if (historyDelegate) {
+          reportCommit(command);
+          return result;
+        }
         const maxHistory = useSettingsStore.getState().maxUndoHistory;
         set((state) => ({
           undoStack: [
@@ -107,6 +142,10 @@ export const useTimelineCommandStore = create<CommandStoreState & CommandStoreAc
 
     // Undo
     undo: () => {
+      if (historyDelegate) {
+        historyDelegate.undo();
+        return;
+      }
       const { undoStack } = get();
       if (undoStack.length === 0) return;
 
@@ -130,6 +169,10 @@ export const useTimelineCommandStore = create<CommandStoreState & CommandStoreAc
 
     // Redo
     redo: () => {
+      if (historyDelegate) {
+        historyDelegate.redo();
+        return;
+      }
       const { redoStack } = get();
       if (redoStack.length === 0) return;
 
@@ -188,6 +231,10 @@ export const useTimelineCommandStore = create<CommandStoreState & CommandStoreAc
       
       // Only add to history if state actually changed
       if (!snapshotsEqual(beforeSnapshot, afterSnapshot)) {
+        if (historyDelegate) {
+          reportCommit(command);
+          return;
+        }
         const maxHistory = useSettingsStore.getState().maxUndoHistory;
         set((state) => ({
           undoStack: [

@@ -39,6 +39,7 @@ import { useTimelineSettingsStore } from './timeline-settings-store';
 import { useTimelineCommandStore } from './timeline-command-store';
 import { useCompositionsStore } from './compositions-store';
 import { useCompositionNavigationStore } from './composition-navigation-store';
+import { cloneTransitionForProject } from './timeline-document';
 
 // Actions
 import * as timelineActions from './timeline-actions';
@@ -125,13 +126,6 @@ function collectVideoMediaIds(project: Project): string[] {
   return [...mediaIds];
 }
 
-function cloneTransitionForProject(transition: Transition): Transition {
-  return {
-    ...transition,
-    ...(transition.bezierPoints && { bezierPoints: { ...transition.bezierPoints } }),
-    ...(transition.properties && { properties: { ...transition.properties } }),
-  };
-}
 
 async function buildVideoHasAudioMap(mediaIds: string[]): Promise<Record<string, boolean | undefined>> {
   const mediaById = useMediaLibraryStore.getState().mediaById;

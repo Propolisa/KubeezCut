@@ -29,7 +29,9 @@ import { mediaLibraryService } from '@/features/timeline/deps/media-library-serv
 import { buildDroppedMediaTimelineItems, getDroppedMediaDurationInFrames, type DroppableMediaType } from '@/features/timeline/utils/dropped-media';
 import { getProject, createProject } from '@/infrastructure/storage/indexeddb/projects';
 import { CURRENT_SCHEMA_VERSION } from '@/domain/projects/migrations/types';
-import type { SequencerHost } from './host';
+import type { SequencerHost, SequencerEdit } from './host';
+import { getEdit, setEdit, routeHistoryToHost } from './edit';
+import { syncClock } from './clock-sync';
 import './embed.css';
 import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
 import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
@@ -38,7 +40,7 @@ import { installTouchMouse } from './touch-mouse';
 import { addKeymapRegion } from './keymap';
 import { sequencerMenus } from './commands';
 
-export type { SequencerHost, EmbedProject } from './host';
+export type { SequencerHost, EmbedProject, SequencerEdit, HostHistory, HostClock, HostFrameSource, SceneFrameRequest } from './host';
 export { setIconBase } from './blender-icons';
 export { setKeymap, BLENDER_KEYMAP, type Keymap } from './keymap';
 export type { Command, MenuEntry } from './commands';
@@ -49,6 +51,8 @@ let chrome: { unmount(): void } | null = null;
 let stopMediaErrors: (() => void) | undefined;
 let stopTransitions: (() => void) | undefined;
 let stopCommits: (() => void) | undefined;
+let stopHistory: (() => void) | undefined;
+let stopClock: (() => void) | undefined;
 let releasePortalRegion: (() => void) | undefined;
 const mounted = new Set<{ unmount(): void }>();
 
@@ -56,7 +60,7 @@ const mounted = new Set<{ unmount(): void }>();
 // an island (keymap.ts), so the host keeps its own keys elsewhere.
 function Shortcuts() {
   useTimelineShortcuts();
-  useEditorHotkeys({ onSave: () => { if (host) void useTimelineStore.getState().saveTimeline(host.project.id); } });
+  useEditorHotkeys({ onSave: () => { if (host && !host.history) void useTimelineStore.getState().saveTimeline(host.project.id); } });
   return null;
 }
 
@@ -103,7 +107,20 @@ export async function openProject(next: SequencerHost): Promise<void> {
     metadata: { width: p.width, height: p.height, fps: p.fps, backgroundColor: p.backgroundColor },
     createdAt: Date.now(), updatedAt: Date.now(),
   });
-  await useTimelineStore.getState().loadTimeline(p.id, { allowProjectUpgrade: true });
+  stopHistory?.();
+  stopHistory = undefined;
+  stopCommits?.();
+  stopCommits = undefined;
+  if (next.history) {
+    // The host's document holds the edit and the host's history undoes it.
+    setEdit(next.edit, p);
+    stopHistory = routeHistoryToHost(next.history);
+  } else {
+    await useTimelineStore.getState().loadTimeline(p.id, { allowProjectUpgrade: true });
+    stopCommits = autosave(p.id);
+  }
+  stopClock?.();
+  stopClock = next.clock ? syncClock(next.clock) : undefined;
   stopTransitions?.();
   stopTransitions = initTransitionChainSubscription();
   // Media library errors (failed imports, unavailable picker) also go to the host, since the File Browser that
@@ -112,20 +129,29 @@ export async function openProject(next: SequencerHost): Promise<void> {
   stopMediaErrors = useMediaLibraryStore.subscribe((state, prev) => {
     if (state.error && state.error !== prev.error) host?.notify?.(state.error, 'error');
   });
-  // Until the host owns the timeline document, saving goes to KubeezCut's storage after each edit settles.
-  stopCommits?.();
+}
+
+// Stand-alone storage: without a host history the edit is saved to KubeezCut's IndexedDB after edits settle.
+function autosave(projectId: string): () => void {
   let timer: ReturnType<typeof setTimeout> | undefined;
   let wasDirty = false;
-  stopCommits = useTimelineStore.subscribe(() => {
+  const off = useTimelineStore.subscribe(() => {
     const dirty = useTimelineStore.getState().isDirty;
     if (!dirty || wasDirty) { wasDirty = dirty; return; }
     wasDirty = dirty;
     clearTimeout(timer);
-    timer = setTimeout(() => {
-      void useTimelineStore.getState().saveTimeline(p.id).then(() => host?.commit?.('Sequencer edit'));
-    }, 400);
+    timer = setTimeout(() => { void useTimelineStore.getState().saveTimeline(projectId); }, 400);
   });
+  return () => { clearTimeout(timer); off(); };
 }
+
+/** Replaces the open edit with one from the host (undo, redo, reverting the document). */
+export function setHostEdit(edit: SequencerEdit | undefined): void {
+  if (host) setEdit(edit, host.project);
+}
+
+/** The open edit, as the host stores it. */
+export { getEdit };
 
 function mount(element: HTMLElement, node: ReactNode, { touchMouse = false } = {}): { dispose(): void } {
   ensurePortalRoot();
@@ -238,6 +264,10 @@ export function disposeAll(): void {
   setPortalContainer(undefined);
   stopTransitions?.();
   stopCommits?.();
+  stopHistory?.();
+  stopClock?.();
+  stopMediaErrors?.();
+  stopTransitions = stopCommits = stopHistory = stopClock = stopMediaErrors = undefined;
   usePlaybackStore.getState().pause();
   clearPreviewAudioCache();
   host = null;
