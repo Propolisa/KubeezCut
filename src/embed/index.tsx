@@ -144,6 +144,12 @@ function autosave(projectId: string): () => void {
   return () => { clearTimeout(timer); off(); };
 }
 
+/** Blender's Sync Scene Time: follow the host clock, or keep the Sequencer's own playhead. */
+export function setClockSync(on: boolean): void {
+  stopClock?.();
+  stopClock = on && host?.clock ? syncClock(host.clock) : undefined;
+}
+
 /** Output size and frame rate of the edit, from the host's output settings. */
 export function setProjectFormat({ width, height, fps }: Pick<EmbedProject, 'width' | 'height' | 'fps'>): void {
   if (!host) return;
