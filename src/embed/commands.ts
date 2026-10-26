@@ -16,6 +16,7 @@ import { createClassicTrack, getAdjacentTrackOrder } from '@/features/timeline/u
 import { bindingFor, runHotkey } from './keymap';
 import type { HostScene } from './host';
 import type { SceneItem } from '@/types/timeline';
+import { getSceneFrameSource, sceneFrameRequest } from '@/shared/scene/scene-frames';
 
 export interface Command {
   label: string;
@@ -94,6 +95,18 @@ function addSceneStrip(scene: HostScene) {
   useSelectionStore.getState().selectItems([item.id]);
 }
 
+async function rebuildProxies() {
+  const bake = getSceneFrameSource()?.bake;
+  const metadata = useProjectStore.getState().currentProject?.metadata;
+  if (!bake || !metadata) return;
+  const strips = useTimelineStore.getState().items.filter((i): i is SceneItem => i.type === 'scene' && selected().includes(i.id));
+  for (const item of strips) {
+    const request = sceneFrameRequest(item, 0, metadata.width, metadata.height, 'preview');
+    await bake(request, sceneFrameRequest(item, item.durationInFrames - 1, metadata.width, metadata.height, 'preview').frame);
+  }
+}
+const hasSelectedSceneStrip = () => useTimelineStore.getState().items.some((i) => i.type === 'scene' && selected().includes(i.id));
+
 export function sequencerMenus(place: (mediaId: string, frame: number) => Promise<string[]>, scenes: () => HostScene[] = () => []): Record<string, MenuEntry[]> {
   return {
     View: [
@@ -154,6 +167,8 @@ export function sequencerMenus(place: (mediaId: string, frame: number) => Promis
       '-',
       shortcut('Delete', 'DELETE_SELECTED', hasSelection),
       shortcut('Ripple Delete', 'RIPPLE_DELETE', hasSelection),
+      '-',
+      { label: 'Rebuild Proxy', run: rebuildProxies, enabled: hasSelectedSceneStrip },
       '-',
       shortcut('Link Audio and Video', 'LINK_AUDIO_VIDEO', hasSelection),
       shortcut('Unlink Audio and Video', 'UNLINK_AUDIO_VIDEO', hasSelection),

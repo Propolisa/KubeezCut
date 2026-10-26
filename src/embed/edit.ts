@@ -4,6 +4,7 @@
 import { captureTimeline, applyTimeline } from '@/features/timeline/stores/timeline-document';
 import { setTimelineHistoryDelegate } from '@/features/timeline/stores/timeline-command-store';
 import { createDefaultClassicTracks } from '@/features/timeline/utils/classic-tracks';
+import { useTimelineSettingsStore } from '@/features/timeline/stores/timeline-settings-store';
 import { DEFAULT_TRACK_HEIGHT } from '@/features/timeline/constants';
 import { migrateProject } from '@/domain/projects/migrations';
 import { CURRENT_SCHEMA_VERSION } from '@/domain/projects/migrations/types';
@@ -29,6 +30,8 @@ function migrate(edit: SequencerEdit, project: EmbedProject): SequencerEdit['tim
 export function setEdit(edit: SequencerEdit | undefined, project: EmbedProject): void {
   const timeline = edit ? migrate(edit, project) : { tracks: [], items: [] };
   applyTimeline(timeline, { defaultTracks: () => createDefaultClassicTracks(DEFAULT_TRACK_HEIGHT) });
+  // The player waits for a timeline load before following the playhead.
+  useTimelineSettingsStore.getState().setTimelineLoading(false);
 }
 
 /** Sends completed edits to the host's history and undo/redo to the host. */

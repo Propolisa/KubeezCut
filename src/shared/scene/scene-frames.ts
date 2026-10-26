@@ -15,6 +15,8 @@ export interface SceneFrameSource {
   peekFrame?(request: SceneFrameRequest): ImageBitmap | null;
   /** Fires when earlier frames may be outdated, so previews redraw. */
   subscribe?(listener: () => void): () => void;
+  /** Blender's Rebuild Proxy: stores preview frames from request.frame through frameEnd. */
+  bake?(request: SceneFrameRequest, frameEnd: number): Promise<void>;
 }
 
 let source: SceneFrameSource | null = null;
