@@ -95,6 +95,8 @@ export type VideoItem = BaseTimelineItem & {
 export type AudioItem = BaseTimelineItem & {
   type: 'audio';
   src: string;
+  /** A Scene Audio strip: the sound of this host scene (Blender's scene strip audio), resolved into `src` when played. */
+  scene?: string;
   waveformData?: number[];
   offset?: number; // Trim offset in source audio
 };

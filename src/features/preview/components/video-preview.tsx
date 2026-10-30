@@ -1,4 +1,5 @@
 import { getSceneFrameSource } from '@/shared/scene/scene-frames';
+import { useSceneAudioUrls } from '../hooks/use-scene-audio-urls';
 import { useRef, useEffect, useLayoutEffect, useState, useMemo, useCallback, memo } from 'react';
 import {
   backgroundPreseek as workerBackgroundPreseek,
@@ -868,6 +869,7 @@ export const VideoPreview = memo(function VideoPreview({
     return costs;
   }, [mediaById]);
 
+  const sceneAudioUrls = useSceneAudioUrls(combinedTracks);
   const {
     resolvedTracks,
     fastScrubTracks,
@@ -889,6 +891,12 @@ export const VideoPreview = memo(function VideoPreview({
       const fastScrubItems: typeof track.items = [];
 
       for (const item of track.items) {
+        if (item.type === 'audio' && item.scene) {
+          const sceneItem = { ...item, src: sceneAudioUrls.get(item.scene) ?? '' };
+          resolvedItems.push(sceneItem);
+          fastScrubItems.push(sceneItem);
+          continue;
+        }
         if (!item.mediaId || (item.type !== 'video' && item.type !== 'audio' && item.type !== 'image')) {
           resolvedItems.push(item);
           fastScrubItems.push(item);
@@ -967,7 +975,7 @@ export const VideoPreview = memo(function VideoPreview({
       fastScrubBoundarySources: sortedBoundarySources,
       fastScrubTracksFingerprint: toTrackFingerprint(fastScrubTrackList),
     };
-  }, [combinedTracks, resolvedUrls, useProxy, proxyReadyCount]);
+  }, [combinedTracks, resolvedUrls, sceneAudioUrls, useProxy, proxyReadyCount]);
 
   // Track broken media count so relinking (which removes entries) re-triggers resolution
   const brokenMediaCount = useMediaLibraryStore((s) => s.brokenMediaIds.length);

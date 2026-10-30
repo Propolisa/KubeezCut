@@ -33,6 +33,7 @@ import type { SequencerHost, SequencerEdit, EmbedProject } from './host';
 import { getEdit, setEdit, routeHistoryToHost } from './edit';
 import { syncClock } from './clock-sync';
 import { setSceneFrameSource } from '@/shared/scene/scene-frames';
+import { setSceneAudioSource } from '@/shared/scene/scene-audio';
 import './embed.css';
 import { useTimelineShortcuts } from '@/features/timeline/hooks/use-timeline-shortcuts';
 import { useEditorHotkeys } from '@/features/editor/hooks/use-editor-hotkeys';
@@ -41,7 +42,7 @@ import { installTouchMouse } from './touch-mouse';
 import { addKeymapRegion } from './keymap';
 import { sequencerMenus } from './commands';
 
-export type { SequencerHost, EmbedProject, SequencerEdit, HostHistory, HostClock, HostScene, SceneFrameSource, SceneFrameRequest } from './host';
+export type { SequencerHost, EmbedProject, SequencerEdit, HostHistory, HostClock, HostScene, SceneFrameSource, SceneFrameRequest, SceneAudioSource, SceneAudio } from './host';
 export { setIconBase } from './blender-icons';
 export { setKeymap, BLENDER_KEYMAP, type Keymap } from './keymap';
 export { openCompositor, type CompositorRange } from './compositor';
@@ -120,6 +121,7 @@ export async function openProject(next: SequencerHost): Promise<void> {
   stopClock?.();
   stopClock = next.clock ? syncClock(next.clock) : undefined;
   setSceneFrameSource(next.frames ?? null);
+  setSceneAudioSource(next.audio ?? null);
   stopTransitions?.();
   stopTransitions = initTransitionChainSubscription();
   // Media library errors (failed imports, unavailable picker) also go to the host, since the File Browser that

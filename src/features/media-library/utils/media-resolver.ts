@@ -6,6 +6,7 @@ import { blobUrlManager } from '@/infrastructure/browser/blob-url-manager';
 import { registerKeyframeIndex } from '@/shared/utils/keyframe-index-registry';
 import type { TimelineTrack } from '@/types/timeline';
 import { createLogger } from '@/shared/logging/logger';
+import { sceneAudioUrl } from '@/shared/scene/scene-audio';
 
 const logger = createLogger('MediaResolver');
 
@@ -127,8 +128,8 @@ export async function resolveMediaUrls(
     ...track,
     items: track.items.map((item) => {
       if (
-        item.mediaId &&
-        (item.type === 'video' || item.type === 'audio' || item.type === 'image')
+        (item.mediaId && (item.type === 'video' || item.type === 'audio' || item.type === 'image')) ||
+        (item.type === 'audio' && item.scene)
       ) {
         return { ...item };
       }
@@ -141,6 +142,10 @@ export async function resolveMediaUrls(
 
   for (const track of resolvedTracks) {
     for (const item of track.items) {
+      if (item.type === 'audio' && item.scene) {
+        resolutionPromises.push(sceneAudioUrl(item.scene).then((url) => { item.src = url; }));
+        continue;
+      }
       // Only resolve media items with mediaId
       if (
         item.mediaId &&

@@ -15,7 +15,7 @@ import { wouldOverlap } from '@/features/timeline/utils/collision-utils';
 import { createClassicTrack, getAdjacentTrackOrder } from '@/features/timeline/utils/classic-tracks';
 import { bindingFor, runHotkey } from './keymap';
 import type { HostScene } from './host';
-import type { SceneItem } from '@/types/timeline';
+import type { AudioItem, SceneItem } from '@/types/timeline';
 import { getSceneFrameSource, sceneFrameRequest } from '@/shared/scene/scene-frames';
 
 export interface Command {
@@ -40,15 +40,19 @@ const shortcut = (label: string, key: HotkeyKey, enabled?: () => boolean): Comma
 const selected = () => useSelectionStore.getState().selectedItemIds;
 const hasSelection = () => selected().length > 0;
 
-/** Blender's placement for new strips: the lowest free visual channel at the playhead, else a new channel on top. */
-export function stripPlacement(durationInFrames: number): { trackId: string; from: number } {
+/**
+ * Blender's placement for new strips: the lowest free channel of their kind at the playhead, else a new channel, on
+ * top for pictures and below everything for sound.
+ */
+export function stripPlacement(durationInFrames: number, kind: 'video' | 'audio' = 'video'): { trackId: string; from: number } {
   const { tracks, items, transitions, setTracks } = useTimelineStore.getState();
   const from = Math.round(usePlaybackStore.getState().currentFrame);
-  const visual = tracks.filter((t) => !t.isGroup && t.kind !== 'audio').sort((a, b) => b.order - a.order);
-  const free = visual.find((t) => !wouldOverlap('', from, durationInFrames, t.id, items, transitions));
+  const lowestFirst = (list: typeof tracks) => list.filter((t) => !t.isGroup).sort((a, b) => b.order - a.order);
+  const channels = lowestFirst(tracks.filter((t) => (t.kind === 'audio') === (kind === 'audio')));
+  const free = channels.find((t) => !wouldOverlap('', from, durationInFrames, t.id, items, transitions));
   if (free) return { trackId: free.id, from };
-  const top = visual[visual.length - 1];
-  const track = createClassicTrack({ tracks, kind: 'video', order: top ? getAdjacentTrackOrder(tracks, top, 'above') : 0 });
+  const edge = kind === 'audio' ? lowestFirst(tracks)[0] : channels[channels.length - 1];
+  const track = createClassicTrack({ tracks, kind, order: edge ? getAdjacentTrackOrder(tracks, edge, kind === 'audio' ? 'below' : 'above') : 0 });
   setTracks([...tracks, track]);
   return { trackId: track.id, from };
 }
@@ -90,6 +94,17 @@ function addSceneStrip(scene: HostScene) {
     id: crypto.randomUUID(), type: 'scene', label: scene.name, scene: scene.id, ...placement, durationInFrames,
     sourceStart: scene.frameStart, sourceEnd: scene.frameEnd + 1, sourceDuration: scene.frameEnd + 1,
     sourceFps: useTimelineStore.getState().fps, sourceWidth: scene.width, sourceHeight: scene.height,
+  };
+  useTimelineStore.getState().addItems([item]);
+  useSelectionStore.getState().selectItems([item.id]);
+}
+
+/** A Scene Audio strip: the scene's sound over its frame range, which the host renders. */
+function addSceneAudioStrip(scene: HostScene) {
+  const durationInFrames = scene.frameEnd - scene.frameStart + 1;
+  const item: AudioItem = {
+    id: crypto.randomUUID(), type: 'audio', label: scene.name, scene: scene.id, src: '', ...stripPlacement(durationInFrames, 'audio'), durationInFrames,
+    sourceStart: 0, sourceEnd: durationInFrames, sourceDuration: durationInFrames, sourceFps: useTimelineStore.getState().fps,
   };
   useTimelineStore.getState().addItems([item]);
   useSelectionStore.getState().selectItems([item.id]);
@@ -142,6 +157,7 @@ export function sequencerMenus(place: (mediaId: string, frame: number) => Promis
       { label: 'Sound...', run: () => addFromFiles(place) },
       { label: 'Image/Sequence...', run: () => addFromFiles(place) },
       { label: 'Scene', items: () => scenes().map((scene) => ({ label: scene.name, run: () => addSceneStrip(scene) })), enabled: () => scenes().length > 0 },
+      { label: 'Scene Audio', items: () => scenes().map((scene) => ({ label: scene.name, run: () => addSceneAudioStrip(scene) })), enabled: () => scenes().length > 0 },
       '-',
       { label: 'Color', run: () => addGenerated('shape', 'Color') },
       { label: 'Text', run: () => addGenerated('text', 'Text') },

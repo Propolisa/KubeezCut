@@ -5,8 +5,10 @@
  */
 import type { TimelineDocument } from '@/features/timeline/stores/timeline-document';
 import type { SceneFrameSource } from '@/shared/scene/scene-frames';
+import type { SceneAudioSource } from '@/shared/scene/scene-audio';
 
 export type { SceneFrameRequest, SceneFrameSource } from '@/shared/scene/scene-frames';
+export type { SceneAudio, SceneAudioSource } from '@/shared/scene/scene-audio';
 
 export interface EmbedProject {
   /** Stable id from the host; KubeezCut keys its media library (IndexedDB, OPFS) by it. */
@@ -61,6 +63,8 @@ export interface SequencerHost {
   history?: HostHistory;
   clock?: HostClock;
   frames?: SceneFrameSource;
+  /** Scenes' sound, for Scene Audio strips (Add > Scene Audio). */
+  audio?: SceneAudioSource;
   /** Scenes a scene strip can show (Add > Scene), with their frame range. */
   scenes?(): HostScene[];
   /** Reports problems the host should show (toasts are not visible inside an island). */
