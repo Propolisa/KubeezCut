@@ -1,5 +1,5 @@
 import { c as fe } from "./core-logger-Dau_Juxv.js";
-import { g4 as K, g5 as P, dx as me, V as R, g6 as le, eG as $, J as pe, g7 as T, g8 as V, fB as U, g9 as Q, ga as Fe, d1 as he, gb as Y, gc as Z, gd as Ie, al as E, am as b, eH as ve, ge } from "./feature-editing-core-BfTqGYFs.js";
+import { g7 as K, g8 as P, dx as me, V as R, g9 as le, eI as $, J as pe, ga as T, gb as V, fD as U, gc as Q, gd as Fe, d1 as he, ge as Y, gf as Z, gg as Ie, al as E, am as b, eJ as ve, gh as ge } from "./feature-editing-core-TgcUncnh.js";
 import "./gif-processing-CfWcW1Gl.js";
 import "./react-vendor-18pR7s9b.js";
 function Ce(e, a) {
@@ -251,8 +251,8 @@ function q(e) {
             )
           )
         }
-      }, H = new Set(m);
-      H.add(n.compositionId), q({
+      }, J = new Set(m);
+      J.add(n.compositionId), q({
         segments: a,
         track: {
           ...r,
@@ -262,14 +262,14 @@ function q(e) {
         compositionItem: ce,
         subComp: A,
         fps: l,
-        visited: H
+        visited: J
       });
       continue;
     }
     if (n.type !== "video" && n.type !== "audio" || n.type === "video" && f.has(n.id)) continue;
     const x = (n.mediaId ? $.get(n.mediaId) : null) ?? n.src ?? "";
     if (!x) continue;
-    const re = c.keyframes?.find((A) => A.itemId === n.id), G = U(re, "volume"), se = b((n.audioFadeIn ?? 0) * o, p, o, l), ie = b((n.audioFadeOut ?? 0) * o, p, o, l), de = b(s - n.from, p, o, l), ue = b(n.from + n.durationInFrames - O, p, o, l), N = Math.max(0, se - de), j = Math.max(0, ie - ue);
+    const re = c.keyframes?.find((A) => A.itemId === n.id), N = U(re, "volume"), se = b((n.audioFadeIn ?? 0) * o, p, o, l), ie = b((n.audioFadeOut ?? 0) * o, p, o, l), de = b(s - n.from, p, o, l), ue = b(n.from + n.durationInFrames - O, p, o, l), G = Math.max(0, se - de), j = Math.max(0, ie - ue);
     a.push({
       itemId: n.id,
       trackId: r.id,
@@ -279,7 +279,7 @@ function q(e) {
       sourceStartFrame: w,
       sourceFps: n.sourceFps ?? l,
       volume: (n.volume ?? 0) + (r.volume ?? 0) + (M?.volume ?? 0),
-      fadeInFrames: N,
+      fadeInFrames: G,
       fadeOutFrames: j,
       fadeInCurve: n.audioFadeInCurve ?? 0,
       fadeOutCurve: n.audioFadeOutCurve ?? 0,
@@ -292,7 +292,7 @@ function q(e) {
       clipFadeSpans: [z({
         startFrame: 0,
         durationInFrames: h,
-        fadeInFrames: N,
+        fadeInFrames: G,
         fadeOutFrames: j,
         fadeInCurve: n.audioFadeInCurve,
         fadeOutCurve: n.audioFadeOutCurve,
@@ -303,7 +303,7 @@ function q(e) {
       muted: F || t,
       type: n.type,
       audioCodec: V(n.mediaId),
-      volumeKeyframes: G.length > 0 ? G : void 0,
+      volumeKeyframes: N.length > 0 ? N : void 0,
       itemFrom: d
     });
   }
@@ -596,7 +596,7 @@ function be(e, a, r, u, c, l, m) {
   }
   return f;
 }
-function J(e, a, r, u = !1, c = 0, l = 0, m = 0.52, f = 0.52, v = 0, p = 0, o = 0, C = 0) {
+function H(e, a, r, u = !1, c = 0, l = 0, m = 0.52, f = 0.52, v = 0, p = 0, o = 0, C = 0) {
   const g = new Float32Array(e.length);
   g.set(e);
   const F = Math.max(0, Math.min(v + Math.max(0, o), g.length)), n = Math.max(F, g.length - Math.max(0, p + Math.max(0, C))), M = Math.max(0, n - F);
@@ -817,7 +817,7 @@ async function Ke(e, a) {
           o.itemFrom,
           r,
           n.sampleRate
-        ) : o.volume !== 0 && (x = xe(x, o.volume)), o.clipFadeSpans && o.clipFadeSpans.length > 0 ? x = Ae(x, o.clipFadeSpans, n.sampleRate, r) : (t > 0 || s > 0) && (x = J(
+        ) : o.volume !== 0 && (x = xe(x, o.volume)), o.clipFadeSpans && o.clipFadeSpans.length > 0 ? x = Ae(x, o.clipFadeSpans, n.sampleRate, r) : (t > 0 || s > 0) && (x = H(
           x,
           t,
           s,
@@ -830,7 +830,7 @@ async function Ke(e, a) {
           h,
           I,
           S
-        )), (O > 0 || d > 0) && (x = J(
+        )), (O > 0 || d > 0) && (x = H(
           x,
           O,
           d,
