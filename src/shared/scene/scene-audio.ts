@@ -6,10 +6,16 @@ export interface SceneAudio {
   sampleRate: number;
 }
 
-/** Renders Scene Audio strips' sound: each scene's sound over its whole frame range, from its first frame. */
+/**
+ * Renders Scene Audio strips' sound: each scene's sound over its whole frame range, from its first frame, at its
+ * frame rate. However the host makes the sound (Bylonder: the scene's Babylon spatial audio), it arrives as samples.
+ */
 export interface SceneAudioSource {
   getAudio(scene: string): Promise<SceneAudio | null>;
-  /** Fires when scenes changed, so their sound renders again. */
+  /** Whether the host plays the scene's sound live with the timeline; its strips are then silent in the preview, so it
+   * is not heard twice. Exports still mix them. */
+  live?(scene: string): boolean;
+  /** Fires when scenes changed (their sound renders again) or which play live did. */
   subscribe?(listener: () => void): () => void;
 }
 
@@ -51,6 +57,9 @@ function encodeWav({ samples, sampleRate }: SceneAudio): Blob {
   }
   return new Blob([view.buffer], { type: 'audio/wav' });
 }
+
+/** Whether the host plays the scene's sound live, so the preview leaves its strips silent. */
+export const isSceneAudioLive = (scene: string) => source?.live?.(scene) ?? false;
 
 /** A playable URL of a scene's sound, empty when the host has none; kept until the scene changes. */
 export function sceneAudioUrl(scene: string): Promise<string> {

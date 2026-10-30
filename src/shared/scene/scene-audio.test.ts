@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { setSceneAudioSource, sceneAudioUrl, subscribeSceneAudio, type SceneAudioSource } from './scene-audio';
+import { setSceneAudioSource, sceneAudioUrl, subscribeSceneAudio, isSceneAudioLive, type SceneAudioSource } from './scene-audio';
 import { getObjectUrlBlob } from '@/infrastructure/browser/object-url-registry';
 import { blobUrlManager } from '@/infrastructure/browser/blob-url-manager';
 
@@ -24,6 +24,13 @@ function hostWith(audio: { samples: Float32Array[]; sampleRate: number } | null)
 }
 
 describe('Scene Audio', () => {
+  it('knows the scenes the host plays live, whose strips the preview leaves silent', () => {
+    setSceneAudioSource({ getAudio: vi.fn(async () => null), live: (scene) => scene === 'active' });
+    expect([isSceneAudioLive('active'), isSceneAudioLive('other')]).toEqual([true, false]);
+    setSceneAudioSource({ getAudio: vi.fn(async () => null) });
+    expect(isSceneAudioLive('active')).toBe(false);
+  });
+
   it('plays the host scene\'s sound as a WAV file, rendered once until the scene changes', async () => {
     const host = hostWith({ samples: [new Float32Array([0, 0.5, -1]), new Float32Array([0, 0.25, 1])], sampleRate: 48000 });
     setSceneAudioSource(host.source);

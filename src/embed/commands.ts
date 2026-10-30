@@ -99,12 +99,13 @@ function addSceneStrip(scene: HostScene) {
   useSelectionStore.getState().selectItems([item.id]);
 }
 
-/** A Scene Audio strip: the scene's sound over its frame range, which the host renders. */
+/** A Scene Audio strip: the scene's sound over its frame range, which the host renders, timed in the edit's frames. */
 function addSceneAudioStrip(scene: HostScene) {
-  const durationInFrames = scene.frameEnd - scene.frameStart + 1;
+  const fps = useTimelineStore.getState().fps;
+  const durationInFrames = Math.round(((scene.frameEnd - scene.frameStart + 1) / (scene.fps ?? fps)) * fps);
   const item: AudioItem = {
     id: crypto.randomUUID(), type: 'audio', label: scene.name, scene: scene.id, src: '', ...stripPlacement(durationInFrames, 'audio'), durationInFrames,
-    sourceStart: 0, sourceEnd: durationInFrames, sourceDuration: durationInFrames, sourceFps: useTimelineStore.getState().fps,
+    sourceStart: 0, sourceEnd: durationInFrames, sourceDuration: durationInFrames, sourceFps: fps,
   };
   useTimelineStore.getState().addItems([item]);
   useSelectionStore.getState().selectItems([item.id]);

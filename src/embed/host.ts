@@ -52,6 +52,8 @@ export interface HostScene {
   name: string;
   frameStart: number;
   frameEnd: number;
+  /** The scene's frame rate, when it differs from the edit's. */
+  fps?: number;
   width: number;
   height: number;
 }
