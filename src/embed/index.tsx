@@ -49,6 +49,8 @@ export { openCompositor, type CompositorRange } from './compositor';
 export type { Command, MenuEntry } from './commands';
 
 let host: SequencerHost | null = null;
+// The media pool's load from storage; imports wait for it, as a load finishing after them would drop them from the pool.
+let mediaLoaded: Promise<void> = Promise.resolve();
 let portalRoot: HTMLElement | null = null;
 let chrome: { unmount(): void } | null = null;
 let stopMediaErrors: (() => void) | undefined;
@@ -104,7 +106,7 @@ export async function openProject(next: SequencerHost): Promise<void> {
   usePlaybackStore.getState().setPreviewFrame(null);
   const media = useMediaLibraryStore.getState();
   media.setCurrentProject(p.id);
-  void media.loadMediaItems().catch((error: unknown) => next.notify?.(`Media library: ${String(error)}`, 'error'));
+  mediaLoaded = media.loadMediaItems().catch((error: unknown) => next.notify?.(`Media library: ${String(error)}`, 'error'));
   setProjectFormat(p);
   stopHistory?.();
   stopHistory = undefined;
@@ -227,6 +229,7 @@ export const mountStripProperties = (element: HTMLElement) => mount(element, <Pr
  * File System Access handles, including handles from the origin private file system.
  */
 export async function importMedia(handles: FileSystemFileHandle[]) {
+  await mediaLoaded;
   return useMediaLibraryStore.getState().importHandles(handles);
 }
 
@@ -236,6 +239,7 @@ export async function importMedia(handles: FileSystemFileHandle[]) {
  * Returns the new strip ids.
  */
 export async function addMediaStrip(mediaId: string, { frame }: { frame?: number } = {}): Promise<string[]> {
+  await mediaLoaded;
   const media = useMediaLibraryStore.getState().mediaItems.find((m) => m.id === mediaId);
   if (!media) throw new Error(`Unknown media: ${mediaId}`);
   const mediaType = getMediaType(media.mimeType) as DroppableMediaType;

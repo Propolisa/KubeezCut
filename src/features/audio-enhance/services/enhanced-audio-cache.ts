@@ -34,6 +34,7 @@ import {
   withDefaults,
 } from '../types';
 import { useEnhanceJobsStore } from '../stores/enhance-jobs-store';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 const log = createLogger('EnhancedAudioCache');
 
@@ -260,7 +261,7 @@ async function decodeAt48k(mediaId: string, src: string): Promise<AudioBuffer> {
   const mb = await import('mediabunny');
   const input = new mb.Input({
     formats: mb.ALL_FORMATS,
-    source: new mb.UrlSource(src),
+    source: new mb.UrlSource(src, urlSourceOptions(src)),
   });
   try {
     const audioTrack = await input.getPrimaryAudioTrack();

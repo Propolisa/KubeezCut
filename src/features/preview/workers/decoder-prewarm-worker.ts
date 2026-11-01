@@ -6,6 +6,8 @@
  * Returns decoded ImageBitmaps that the render loop can draw directly.
  */
 
+import { urlSourceOptions } from '@/shared/utils/url-source';
+
 const TIMESTAMP_EPSILON = 1e-4;
 const LOOKAHEAD_TOLERANCE_SECONDS = 0.05;
 const STREAM_BACKTRACK_SECONDS = 1.0;
@@ -83,7 +85,7 @@ async function getExtractor(src: string, blob?: Blob): Promise<ExtractorState | 
     const mediabunny = await getMediabunny();
     const source = blob
       ? new mediabunny.BlobSource(blob)
-      : new mediabunny.UrlSource(src);
+      : new mediabunny.UrlSource(src, urlSourceOptions(src));
     const input = new mediabunny.Input({
       formats: mediabunny.ALL_FORMATS,
       source,

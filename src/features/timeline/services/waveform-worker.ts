@@ -7,6 +7,7 @@
  */
 
 import { ensureAc3DecoderRegistered, isAc3AudioCodec } from '@/shared/media/ac3-decoder';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 export interface WaveformRequest {
   type: 'generate';
@@ -97,7 +98,7 @@ self.onmessage = async (event: MessageEvent<WaveformWorkerMessage>) => {
 
     // Create input from blob URL
     const input = new Input({
-      source: new UrlSource(blobUrl),
+      source: new UrlSource(blobUrl, urlSourceOptions(blobUrl)),
       formats: ALL_FORMATS,
     });
     disposeInput = input as { dispose?: () => void };

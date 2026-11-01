@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { setSceneAudioSource, sceneAudioUrl, subscribeSceneAudio, isSceneAudioLive, type SceneAudioSource } from './scene-audio';
+import { setSceneAudioSource, sceneAudioUrl, holdSceneAudio, subscribeSceneAudio, isSceneAudioLive, type SceneAudioSource } from './scene-audio';
 import { getObjectUrlBlob } from '@/infrastructure/browser/object-url-registry';
 import { blobUrlManager } from '@/infrastructure/browser/blob-url-manager';
 
@@ -49,6 +49,23 @@ describe('Scene Audio', () => {
     expect(changed).toHaveBeenCalled();
     expect(await sceneAudioUrl('scene')).not.toBe(url);
     expect(host.source.getAudio).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps a held sound playable after the scene changes, until it is released', async () => {
+    const revoked: string[] = [];
+    vi.stubGlobal('URL', { ...URL, createObjectURL: () => `blob:scene-${++urls}`, revokeObjectURL: (url: string) => revoked.push(url) });
+    const host = hostWith({ samples: [new Float32Array([0, 0.5])], sampleRate: 48000 });
+    setSceneAudioSource(host.source);
+    const previewUrl = await sceneAudioUrl('scene');
+    const held = (await holdSceneAudio('scene'))!;
+    expect(held.url).toBe(previewUrl);
+
+    host.change();
+    await Promise.resolve();
+    expect(revoked).toEqual([]);
+    expect(await sceneAudioUrl('scene')).not.toBe(held.url);
+    held.release();
+    expect(revoked).toEqual([held.url]);
   });
 
 });

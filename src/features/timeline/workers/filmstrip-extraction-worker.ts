@@ -11,6 +11,7 @@
  */
 
 import { safeWrite } from '../utils/opfs-safe-write';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 const FILMSTRIP_DIR = 'filmstrips';
 const IMAGE_FORMAT = 'image/jpeg';
@@ -191,7 +192,7 @@ async function extractAndSave(
   try {
     // Create input from blob URL
     input = new Input({
-      source: new UrlSource(blobUrl),
+      source: new UrlSource(blobUrl, urlSourceOptions(blobUrl)),
       formats: ALL_FORMATS,
     });
 

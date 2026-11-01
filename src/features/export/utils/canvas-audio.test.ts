@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { CompositionInputProps } from '@/types/export';
 import type { AudioItem, CompositionItem, TimelineTrack, VideoItem } from '@/types/timeline';
 import { useCompositionsStore } from '@/features/export/deps/timeline';
+import { blobUrlManager } from '@/infrastructure/browser/blob-url-manager';
 
 vi.mock('mediabunny', () => {
   class UrlSource {
@@ -109,6 +110,7 @@ function makeAudioItem(overrides: Partial<AudioItem> = {}): AudioItem {
 
 describe('extractAudioSegments', () => {
   beforeEach(() => {
+    vi.restoreAllMocks();
     useCompositionsStore.setState({
       compositions: [],
       compositionById: {},
@@ -187,10 +189,32 @@ describe('extractAudioSegments', () => {
       keyframes: [],
     };
 
+    vi.spyOn(blobUrlManager, 'get').mockReturnValue('blob:media-1');
     const segments = extractAudioSegments(composition, composition.fps);
 
     expect(segments).toHaveLength(1);
-    expect(segments[0]).toMatchObject({ itemId: 'sub-audio', type: 'audio' });
+    expect(segments[0]).toMatchObject({ itemId: 'sub-audio', type: 'audio', src: 'blob:media-1' });
+  });
+
+  it('leaves out precomp media the media library cannot resolve, never using the URL stored in the edit', () => {
+    const subAudio = makeAudioItem({ id: 'sub-audio', trackId: 'sub-a1', src: 'blob:dead-after-reload' });
+    const subComp = {
+      id: 'sub-comp-1', name: 'Compound Clip', items: [subAudio],
+      tracks: [makeTrack({ id: 'sub-a1', order: 0, kind: 'audio' })],
+      transitions: [], keyframes: [], fps: 30, width: 1920, height: 1080, durationInFrames: 90,
+    };
+    useCompositionsStore.setState({ compositions: [subComp], compositionById: { [subComp.id]: subComp }, mediaDependencyIds: [], mediaDependencyVersion: 0 });
+    const compositionItem: CompositionItem = {
+      id: 'comp-item-1', type: 'composition', compositionId: subComp.id, trackId: 'root-v1', from: 0, durationInFrames: 90,
+      label: 'Compound Clip', compositionWidth: 1920, compositionHeight: 1080, transform: { x: 0, y: 0, rotation: 0, opacity: 1 },
+    };
+    vi.spyOn(blobUrlManager, 'get').mockReturnValue(null);
+    const segments = extractAudioSegments({
+      fps: 30, durationInFrames: 90, width: 1920, height: 1080, transitions: [], keyframes: [],
+      tracks: [makeTrack({ id: 'root-v1', order: 0, kind: 'video', items: [compositionItem] })],
+    }, 30);
+
+    expect(segments).toEqual([]);
   });
 
   it('expands linked audio companions around a cut-centered transition', () => {

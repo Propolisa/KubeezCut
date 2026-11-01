@@ -13,6 +13,7 @@
 
 import type { Conversion as ConversionType } from 'mediabunny';
 import { PROXY_DIR, PROXY_SCHEMA_VERSION } from '../proxy-constants';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 const PROXY_WIDTH = 1280;
 const PROXY_HEIGHT = 720;
@@ -139,7 +140,7 @@ async function generateProxy(request: ProxyGenerateRequest): Promise<void> {
   });
 
   const input = new Input({
-    source: new UrlSource(blobUrl),
+    source: new UrlSource(blobUrl, urlSourceOptions(blobUrl)),
     formats: [MP4, WEBM, MATROSKA],
   });
 

@@ -20,6 +20,7 @@ import { hasMediaCrop } from '@/shared/utils/media-crop';
 
 // Subsystems
 import { createCompositionRenderer } from './client-render-engine';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 function getLog() { return createLogger('CanvasRenderOrchestrator'); }
 
@@ -178,7 +179,7 @@ async function tryPacketRemuxComposition(options: RenderEngineOptions): Promise<
 
   const input = new Input({
     formats: ALL_FORMATS,
-    source: new UrlSource(plan.src),
+    source: new UrlSource(plan.src, urlSourceOptions(plan.src)),
   });
 
   let conversion: {

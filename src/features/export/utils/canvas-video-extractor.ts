@@ -10,6 +10,7 @@
 
 import { createLogger } from '@/shared/logging/logger';
 import { getAdaptiveStreamStart } from '@/shared/utils/keyframe-index-registry';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 const log = createLogger('VideoFrameExtractor');
 
@@ -95,7 +96,7 @@ export class VideoFrameExtractor {
       // Create input directly from source URL/blob URL.
       this.input = new mb.Input({
         formats: mb.ALL_FORMATS,
-        source: new mb.UrlSource(this.src),
+        source: new mb.UrlSource(this.src, urlSourceOptions(this.src)),
       }) as unknown as MediabunnyInput;
 
       // Get video track

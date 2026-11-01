@@ -24,6 +24,7 @@ import {
 import { getMedia } from '@/infrastructure/storage/indexeddb/media';
 import { ensureAc3DecoderRegistered, isAc3AudioCodec } from '@/shared/media/ac3-decoder';
 import type { DecodedPreviewAudioMeta, DecodedPreviewAudioBin } from '@/types/storage';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 const log = createLogger('PreviewAudioCache');
 
@@ -557,7 +558,7 @@ async function decodeFullAudio(
     const mb = await import('mediabunny');
     const input = new mb.Input({
       formats: mb.ALL_FORMATS,
-      source: new mb.UrlSource(src),
+      source: new mb.UrlSource(src, urlSourceOptions(src)),
     });
     const audioTrack = await input.getPrimaryAudioTrack();
     try {

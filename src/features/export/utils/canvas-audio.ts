@@ -33,6 +33,7 @@ import {
 import { evaluateAudioFadeInCurve, evaluateAudioFadeOutCurve, type AudioClipFadeSpan } from '@/shared/utils/audio-fade-curve';
 import { getOrEnhanceAudio, type AudioEnhanceSettings } from '@/features/export/deps/audio-enhance-contract';
 import { AI_FEATURES } from '@/config/features';
+import { urlSourceOptions } from '@/shared/utils/url-source';
 
 /**
  * Two segments can only merge across a continuous boundary when their
@@ -633,8 +634,8 @@ function appendCompositionAudioSegments(params: {
 
     if (subItem.type !== 'video' && subItem.type !== 'audio') continue;
     if (subItem.type === 'video' && linkedSubCompVideoIds.has(subItem.id)) continue;
-    const src = (subItem.mediaId ? blobUrlManager.get(subItem.mediaId) : null)
-      ?? (subItem as VideoItem | AudioItem).src ?? '';
+    // A stored src outlives its page; items with media resolve through the media library only.
+    const src = subItem.mediaId ? blobUrlManager.get(subItem.mediaId) : (subItem as VideoItem | AudioItem).src;
     if (!src) continue;
 
     const subItemKeyframes = subComp.keyframes?.find((keyframe) => keyframe.itemId === subItem.id);
@@ -954,7 +955,7 @@ async function decodeAudioFromSource(
 
     const input = new mb.Input({
       formats: mb.ALL_FORMATS,
-      source: new mb.UrlSource(src),
+      source: new mb.UrlSource(src, urlSourceOptions(src)),
     });
     try {
       const audioTrack = await input.getPrimaryAudioTrack();
@@ -1566,11 +1567,13 @@ async function resolveSubCompMediaUrls(composition: CompositionInputProps): Prom
  *
  * @param composition - The composition with tracks
  * @param signal - Optional abort signal
+ * @param options.onSkippedSegment - Hears of each item whose sound could not be read; the mix goes on without it
  * @returns Processed audio ready for encoding
  */
 export async function processAudio(
   composition: CompositionInputProps,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  options: { onSkippedSegment?: (itemId: string, error: unknown) => void } = {}
 ): Promise<{
   samples: Float32Array[];
   sampleRate: number;
@@ -1762,7 +1765,7 @@ export async function processAudio(
         itemId: segment.itemId,
         error,
       });
-      // Continue with other segments
+      options.onSkippedSegment?.(segment.itemId, error);
     }
   }
 

@@ -19,15 +19,24 @@ export interface SceneAudioSource {
   subscribe?(listener: () => void): () => void;
 }
 
+/** A held URL of a scene's sound; release() lets it go once nothing else holds it. */
+export interface HeldSceneAudio {
+  url: string;
+  release(): void;
+}
+
 let source: SceneAudioSource | null = null;
 let unsubscribe: (() => void) | null = null;
-const urls = new Map<string, Promise<string>>();
+let generation = 0;
+// Each rendering of a scene's sound has its own key, so a render job holding the previous one keeps it after a change.
+const wavs = new Map<string, { key: string; wav: Promise<Blob | null> }>();
+const previewUrls = new Map<string, Promise<HeldSceneAudio | null>>();
 const listeners = new Set<() => void>();
-const urlKey = (scene: string) => `scene-audio:${scene}`;
 
 function forget() {
-  for (const scene of urls.keys()) blobUrlManager.invalidate(urlKey(scene));
-  urls.clear();
+  for (const held of previewUrls.values()) void held.then((audio) => audio?.release());
+  previewUrls.clear();
+  wavs.clear();
   for (const listener of listeners) listener();
 }
 
@@ -61,12 +70,24 @@ function encodeWav({ samples, sampleRate }: SceneAudio): Blob {
 /** Whether the host plays the scene's sound live, so the preview leaves its strips silent. */
 export const isSceneAudioLive = (scene: string) => source?.live?.(scene) ?? false;
 
-/** A playable URL of a scene's sound, empty when the host has none; kept until the scene changes. */
-export function sceneAudioUrl(scene: string): Promise<string> {
-  let url = urls.get(scene);
-  if (!url) {
-    url = (source?.getAudio(scene) ?? Promise.resolve(null)).then((audio) => (audio ? blobUrlManager.acquire(urlKey(scene), encodeWav(audio)) : ''));
-    urls.set(scene, url);
+/** The scene's sound as a URL held until release(), even after the scene changes; null when the host has none. */
+export async function holdSceneAudio(scene: string): Promise<HeldSceneAudio | null> {
+  let rendered = wavs.get(scene);
+  if (!rendered) {
+    rendered = { key: `scene-audio:${scene}:${++generation}`, wav: (source?.getAudio(scene) ?? Promise.resolve(null)).then((audio) => audio && encodeWav(audio)) };
+    wavs.set(scene, rendered);
   }
-  return url;
+  const { key, wav } = rendered;
+  const blob = await wav;
+  return blob && { url: blobUrlManager.acquire(key, blob), release: () => blobUrlManager.release(key) };
+}
+
+/** A playable URL of a scene's sound for the preview, empty when the host has none; kept until the scene changes. */
+export async function sceneAudioUrl(scene: string): Promise<string> {
+  let held = previewUrls.get(scene);
+  if (!held) {
+    held = holdSceneAudio(scene);
+    previewUrls.set(scene, held);
+  }
+  return (await held)?.url ?? '';
 }
