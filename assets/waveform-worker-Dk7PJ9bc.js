@@ -8,7 +8,7 @@ function zi(t) {
 async function Vi() {
   return bt || (bt = (async () => {
     const { registerAc3Decoder: t } = await Promise.resolve().then(function() {
-      return j8;
+      return E8;
     });
     try {
       t();
@@ -19,10 +19,14 @@ async function Vi() {
     }
   })()), bt;
 }
+function Ki(t) {
+  const x = t instanceof Request ? t.url : String(t);
+  return /^(blob|data):/.test(x) ? { getRetryDelay: () => null } : {};
+}
 const Ct = /* @__PURE__ */ new Map();
-async function Ki() {
+async function Wi() {
   return Promise.resolve().then(function() {
-    return f8;
+    return c8;
   });
 }
 self.onmessage = async (t) => {
@@ -38,10 +42,10 @@ self.onmessage = async (t) => {
   let s = null;
   try {
     self.postMessage({ type: "progress", requestId: e, progress: 5 });
-    const n = await Ki(), { Input: a, UrlSource: o, AudioSampleSink: f, ALL_FORMATS: c } = n;
+    const n = await Wi(), { Input: a, UrlSource: o, AudioSampleSink: f, ALL_FORMATS: c } = n;
     if (i.aborted) throw new Error("Aborted");
     const v = new a({
-      source: new o(A),
+      source: new o(A, Ki(A)),
       formats: c
     });
     s = v;
@@ -194,7 +198,7 @@ const xt = (t) => {
 }, Y0 = (t) => {
   const x = y(t);
   return (x & 1) === 0 ? -(x >> 1) : x + 1 >> 1;
-}, Wi = (t, x, e, A) => {
+}, Ji = (t, x, e, A) => {
   for (let r = x; r < e; r++) {
     const F = Math.floor(r / 8);
     let i = t[F];
@@ -288,9 +292,9 @@ const sr = (t) => [...t].map((x) => x.toString(16).padStart(2, "0")).join(""), n
     if (x(t[e]))
       return e;
   return -1;
-}, Ji = async function* (t) {
+}, Xi = async function* (t) {
   Symbol.iterator in t ? yield* t[Symbol.iterator]() : yield* t[Symbol.asyncIterator]();
-}, Xi = (t) => {
+}, Qi = (t) => {
   if (!(Symbol.iterator in t) && !(Symbol.asyncIterator in t))
     throw new TypeError("Argument must be an iterable or async iterable.");
 }, u0 = (t) => {
@@ -298,11 +302,11 @@ const sr = (t) => [...t].map((x) => x.toString(16).padStart(2, "0")).join(""), n
 }, tt = (t, x, e) => {
   const A = t.getUint8(x), r = t.getUint8(x + 1), F = t.getUint8(x + 2);
   return e ? A | r << 8 | F << 16 : A << 16 | r << 8 | F;
-}, Qi = (t, x, e) => tt(t, x, e) << 8 >> 8, At = (t, x, e, A) => {
+}, Yi = (t, x, e) => tt(t, x, e) << 8 >> 8, At = (t, x, e, A) => {
   e = e >>> 0, e = e & 16777215, A ? (t.setUint8(x, e & 255), t.setUint8(x + 1, e >>> 8 & 255), t.setUint8(x + 2, e >>> 16 & 255)) : (t.setUint8(x, e >>> 16 & 255), t.setUint8(x + 1, e >>> 8 & 255), t.setUint8(x + 2, e & 255));
-}, Yi = (t, x, e, A) => {
-  e = n0(e, -8388608, 8388607), e < 0 && (e = e + 16777216 & 16777215), At(t, x, e, A);
 }, Zi = (t, x, e, A) => {
+  e = n0(e, -8388608, 8388607), e < 0 && (e = e + 16777216 & 16777215), At(t, x, e, A);
+}, xs = (t, x, e, A) => {
   t.setUint32(x + 0, e, !0), t.setInt32(x + 4, Math.floor(e / 2 ** 32), !0);
 }, $e = (t, x) => ({
   async next() {
@@ -321,12 +325,12 @@ const sr = (t) => [...t].map((x) => x.toString(16).padStart(2, "0")).join(""), n
 }), n0 = (t, x, e) => Math.max(x, Math.min(e, t)), b0 = "und", Ee = (t) => {
   const x = Math.round(t);
   return Math.abs(t / x - 1) < 10 * Number.EPSILON ? x : t;
-}, zt = (t, x) => Math.round(t / x) * x, jt = (t, x) => Math.floor(t / x) * x, xs = (t) => {
+}, zt = (t, x) => Math.round(t / x) * x, jt = (t, x) => Math.floor(t / x) * x, es = (t) => {
   let x = 0;
   for (; t; )
     x++, t >>= 1;
   return x;
-}, es = /^[a-z]{3}$/, he = (t) => es.test(t), nx = 1e6 * (1 + Number.EPSILON), or = (t, x) => {
+}, ts = /^[a-z]{3}$/, he = (t) => ts.test(t), nx = 1e6 * (1 + Number.EPSILON), or = (t, x) => {
   const e = { ...t, ...x };
   if (t.headers || x.headers) {
     const A = t.headers ? fr(t.headers) : {}, r = x.headers ? fr(x.headers) : {}, F = { ...A };
@@ -367,7 +371,7 @@ const sr = (t) => [...t].map((x) => x.toString(16).padStart(2, "0")).join(""), n
       if (s > 0 && await new Promise((n) => setTimeout(n, 1e3 * s)), r())
         throw i;
     }
-}, ts = (t, x) => {
+}, As = (t, x) => {
   const e = t < 0 ? -1 : 1;
   t = Math.abs(t);
   let A = 0, r = 1, F = 1, i = 0, s = t;
@@ -401,7 +405,7 @@ const Qx = () => ht !== null ? ht : ht = typeof navigator < "u" && navigator.use
 let mt = null;
 const Vt = () => mt !== null ? mt : mt = !!(typeof navigator < "u" && (navigator.vendor?.includes("Google Inc") || /Chrome/.test(navigator.userAgent)));
 let pt = null;
-const As = () => {
+const rs = () => {
   if (pt !== null)
     return pt;
   if (typeof navigator > "u")
@@ -413,7 +417,7 @@ const As = () => {
     const e = t[x];
     e !== void 0 && (yield { key: x, value: e });
   }
-}, rs = (t) => {
+}, Fs = (t) => {
   switch (t.toLowerCase()) {
     case "image/jpeg":
     case "image/jpg":
@@ -438,17 +442,17 @@ const As = () => {
     default:
       return null;
   }
-}, Fs = (t) => {
+}, is = (t) => {
   const x = atob(t), e = new Uint8Array(x.length);
   for (let A = 0; A < x.length; A++)
     e[A] = x.charCodeAt(A);
   return e;
-}, is = (t) => {
+}, ss = (t) => {
   let x = "";
   for (let e = 0; e < t.length; e++)
     x += String.fromCharCode(t[e]);
   return btoa(x);
-}, ss = (t, x) => {
+}, ns = (t, x) => {
   if (t.length !== x.length)
     return !1;
   for (let e = 0; e < t.length; e++)
@@ -481,8 +485,8 @@ const As = () => {
   if (!Number.isInteger(t.height) || t.height < 0)
     throw new TypeError(`${x}.height must be a non-negative integer.`);
 };
-let ae, ns = 1;
-const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () => typeof window > "u", as = () => {
+let ae, as = 1;
+const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () => typeof window > "u", os = () => {
   const t = /* @__PURE__ */ new Map(), x = /* @__PURE__ */ new Map();
   self.onmessage = (e) => {
     const A = e.data;
@@ -520,7 +524,7 @@ const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () =>
 }, Qr = () => {
   if (ae)
     return ae;
-  const t = `(${as.toString()})();`, x = URL.createObjectURL(new Blob([t], { type: "text/javascript" }));
+  const t = `(${os.toString()})();`, x = URL.createObjectURL(new Blob([t], { type: "text/javascript" }));
   return ae = new Worker(x), URL.revokeObjectURL(x), ae.onmessage = (e) => {
     const A = e.data, r = lr.get(A.timerId);
     if (r) {
@@ -530,10 +534,10 @@ const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () =>
     const F = EA.get(A.timerId);
     F && F();
   }, ae;
-}, os = (t, x) => {
+}, fs = (t, x) => {
   if (Xr())
     return { id: setInterval(t, x) };
-  const e = ns++;
+  const e = as++;
   return EA.set(e, () => {
     t();
   }), Qr().postMessage({
@@ -541,7 +545,7 @@ const lr = /* @__PURE__ */ new Map(), EA = /* @__PURE__ */ new Map(), Xr = () =>
     timerId: e,
     delay: x
   }), { id: e };
-}, fs = (t) => {
+}, cs = (t) => {
   if (Xr()) {
     clearInterval(t.id);
     return;
@@ -637,7 +641,7 @@ const Wt = (t) => {
   commentary: !1,
   hearingImpaired: !1,
   visuallyImpaired: !1
-}, cs = (t) => {
+}, vs = (t) => {
   if (!t || typeof t != "object")
     throw new TypeError("disposition must be an object.");
   if (t.default !== void 0 && typeof t.default != "boolean")
@@ -963,7 +967,7 @@ const v0 = [
   // Level 6.3 (Main Tier)
   { maxPictureSize: 35651584, maxBitrate: 8e8, tier: "H", level: 19 }
   // Level 6.3 (High Tier)
-], Dr = ".01.01.01.01.00", Br = ".0.110.01.01.01.0", vs = (t, x, e, A) => {
+], Dr = ".01.01.01.01.00", Br = ".0.110.01.01.01.0", ls = (t, x, e, A) => {
   if (t === "avc") {
     const F = Math.ceil(x / 16) * Math.ceil(e / 16), i = ze.find((f) => F <= f.maxMacroblocks && A <= f.maxBitrate) ?? x0(ze), s = i ? i.level : 0, n = "64".padStart(2, "0"), a = "00", o = s.toString(16).padStart(2, "0");
     return `avc1.${n}${a}${o}`;
@@ -982,7 +986,7 @@ const v0 = [
     }
   }
   throw new TypeError(`Unhandled codec '${t}'.`);
-}, ls = (t) => {
+}, ds = (t) => {
   const x = t.split("."), e = Number(x[1]), A = Number(x[2]), r = Number(x[3]), F = x[4] ? Number(x[4]) : 1;
   return [
     1,
@@ -1065,7 +1069,7 @@ const v0 = [
     }
   }
   throw new TypeError(`Unhandled codec '${x}'.`);
-}, ds = (t, x, e) => {
+}, us = (t, x, e) => {
   if (t === "aac")
     return x >= 2 && e <= 24e3 ? "mp4a.40.29" : e <= 24e3 ? "mp4a.40.5" : "mp4a.40.2";
   if (t === "mp3")
@@ -1122,7 +1126,7 @@ const v0 = [
   x[1] === "u" ? e = "unsigned" : x[1] === "s" ? e = "signed" : e = "float";
   const A = Number(x[2]) / 8, r = x[3] !== "be", F = t === "pcm-u8" ? 2 ** 7 : 0;
   return { dataType: e, sampleSize: A, littleEndian: r, silentValue: F };
-}, tF = (t) => t.startsWith("avc1") || t.startsWith("avc3") ? "avc" : t.startsWith("hev1") || t.startsWith("hvc1") ? "hevc" : t === "vp8" ? "vp8" : t.startsWith("vp09") ? "vp9" : t.startsWith("av01") ? "av1" : t.startsWith("mp4a.40") || t === "mp4a.67" ? "aac" : t === "mp3" || t === "mp4a.69" || t === "mp4a.6B" || t === "mp4a.6b" ? "mp3" : t === "opus" ? "opus" : t === "vorbis" ? "vorbis" : t === "flac" ? "flac" : t === "ac-3" || t === "ac3" ? "ac3" : t === "ec-3" || t === "eac3" ? "eac3" : t === "ulaw" ? "ulaw" : t === "alaw" ? "alaw" : eF.test(t) ? t : t === "webvtt" ? "webvtt" : null, us = (t) => t === "avc" ? {
+}, tF = (t) => t.startsWith("avc1") || t.startsWith("avc3") ? "avc" : t.startsWith("hev1") || t.startsWith("hvc1") ? "hevc" : t === "vp8" ? "vp8" : t.startsWith("vp09") ? "vp9" : t.startsWith("av01") ? "av1" : t.startsWith("mp4a.40") || t === "mp4a.67" ? "aac" : t === "mp3" || t === "mp4a.69" || t === "mp4a.6B" || t === "mp4a.6b" ? "mp3" : t === "opus" ? "opus" : t === "vorbis" ? "vorbis" : t === "flac" ? "flac" : t === "ac-3" || t === "ac3" ? "ac3" : t === "ec-3" || t === "eac3" ? "eac3" : t === "ulaw" ? "ulaw" : t === "alaw" ? "alaw" : eF.test(t) ? t : t === "webvtt" ? "webvtt" : null, Ds = (t) => t === "avc" ? {
   avc: {
     format: "avc"
     // Ensure the format is not Annex B
@@ -1132,7 +1136,7 @@ const v0 = [
     format: "hevc"
     // Ensure the format is not Annex B
   }
-} : {}, Ds = (t) => t === "aac" ? {
+} : {}, Bs = (t) => t === "aac" ? {
   aac: {
     format: "aac"
     // Ensure the format is not ADTS
@@ -1141,7 +1145,7 @@ const v0 = [
   opus: {
     format: "opus"
   }
-} : {}, Bs = ["avc1", "avc3", "hev1", "hvc1", "vp8", "vp09", "av01"], bs = /^(avc1|avc3)\.[0-9a-fA-F]{6}$/, Cs = /^(hev1|hvc1)\.(?:[ABC]?\d+)\.[0-9a-fA-F]{1,8}\.[LH]\d+(?:\.[0-9a-fA-F]{1,2}){0,6}$/, js = /^vp09(?:\.\d{2}){3}(?:(?:\.\d{2}){5})?$/, Es = /^av01\.\d\.\d{2}[MH]\.\d{2}(?:\.\d\.\d{3}\.\d{2}\.\d{2}\.\d{2}\.\d)?$/, kA = (t) => {
+} : {}, bs = ["avc1", "avc3", "hev1", "hvc1", "vp8", "vp09", "av01"], Cs = /^(avc1|avc3)\.[0-9a-fA-F]{6}$/, js = /^(hev1|hvc1)\.(?:[ABC]?\d+)\.[0-9a-fA-F]{1,8}\.[LH]\d+(?:\.[0-9a-fA-F]{1,2}){0,6}$/, Es = /^vp09(?:\.\d{2}){3}(?:(?:\.\d{2}){5})?$/, hs = /^av01\.\d\.\d{2}[MH]\.\d{2}(?:\.\d\.\d{3}\.\d{2}\.\d{2}\.\d{2}\.\d)?$/, kA = (t) => {
   if (!t)
     throw new TypeError("Video chunk metadata must be provided.");
   if (typeof t != "object")
@@ -1152,7 +1156,7 @@ const v0 = [
     throw new TypeError("Video chunk metadata decoder configuration must be an object.");
   if (typeof t.decoderConfig.codec != "string")
     throw new TypeError("Video chunk metadata decoder configuration must specify a codec string.");
-  if (!Bs.some((x) => t.decoderConfig.codec.startsWith(x)))
+  if (!bs.some((x) => t.decoderConfig.codec.startsWith(x)))
     throw new TypeError("Video chunk metadata decoder configuration codec string must be a valid video codec string as specified in the Mediabunny Codec Registry.");
   if (!Number.isInteger(t.decoderConfig.codedWidth) || t.decoderConfig.codedWidth <= 0)
     throw new TypeError("Video chunk metadata decoder configuration must specify a valid codedWidth (positive integer).");
@@ -1177,20 +1181,20 @@ const v0 = [
       throw new TypeError("Video chunk metadata decoder configuration colorSpace fullRange, when defined, must be a boolean.");
   }
   if (t.decoderConfig.codec.startsWith("avc1") || t.decoderConfig.codec.startsWith("avc3")) {
-    if (!bs.test(t.decoderConfig.codec))
+    if (!Cs.test(t.decoderConfig.codec))
       throw new TypeError("Video chunk metadata decoder configuration codec string for AVC must be a valid AVC codec string as specified in Section 3.4 of RFC 6381.");
   } else if (t.decoderConfig.codec.startsWith("hev1") || t.decoderConfig.codec.startsWith("hvc1")) {
-    if (!Cs.test(t.decoderConfig.codec))
+    if (!js.test(t.decoderConfig.codec))
       throw new TypeError("Video chunk metadata decoder configuration codec string for HEVC must be a valid HEVC codec string as specified in Section E.3 of ISO 14496-15.");
   } else if (t.decoderConfig.codec.startsWith("vp8")) {
     if (t.decoderConfig.codec !== "vp8")
       throw new TypeError('Video chunk metadata decoder configuration codec string for VP8 must be "vp8".');
   } else if (t.decoderConfig.codec.startsWith("vp09")) {
-    if (!js.test(t.decoderConfig.codec))
+    if (!Es.test(t.decoderConfig.codec))
       throw new TypeError('Video chunk metadata decoder configuration codec string for VP9 must be a valid VP9 codec string as specified in Section "Codecs Parameter String" of https://www.webmproject.org/vp9/mp4/.');
-  } else if (t.decoderConfig.codec.startsWith("av01") && !Es.test(t.decoderConfig.codec))
+  } else if (t.decoderConfig.codec.startsWith("av01") && !hs.test(t.decoderConfig.codec))
     throw new TypeError('Video chunk metadata decoder configuration codec string for AV1 must be a valid AV1 codec string as specified in Section "Codecs Parameter String" of https://aomediacodec.github.io/av1-isobmff/.');
-}, hs = [
+}, ms = [
   "mp4a",
   "mp3",
   "opus",
@@ -1212,7 +1216,7 @@ const v0 = [
     throw new TypeError("Audio chunk metadata decoder configuration must be an object.");
   if (typeof t.decoderConfig.codec != "string")
     throw new TypeError("Audio chunk metadata decoder configuration must specify a codec string.");
-  if (!hs.some((x) => t.decoderConfig.codec.startsWith(x)))
+  if (!ms.some((x) => t.decoderConfig.codec.startsWith(x)))
     throw new TypeError("Audio chunk metadata decoder configuration codec string must be a valid audio codec string as specified in the Mediabunny Codec Registry.");
   if (!Number.isInteger(t.decoderConfig.sampleRate) || t.decoderConfig.sampleRate <= 0)
     throw new TypeError("Audio chunk metadata decoder configuration must specify a valid sampleRate (positive integer).");
@@ -1268,7 +1272,7 @@ const v0 = [
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const De = 4, ms = [44100, 48e3, 32e3], Jt = [
+const De = 4, ps = [44100, 48e3, 32e3], Jt = [
   // lowSamplingFrequency === 0
   -1,
   -1,
@@ -1423,7 +1427,7 @@ const De = 4, ms = [44100, 48e3, 32e3], Jt = [
   const n = A >> 3 & 3, a = A >> 1 & 3, o = r >> 4 & 15, f = (r >> 2 & 3) % 3, c = r >> 1 & 1, v = F >> 6 & 3, u = F >> 4 & 3, l = F >> 3 & 1, D = F >> 2 & 1, b = F & 3, B = Jt[i * 16 * 4 + a * 16 + o];
   if (B === -1)
     return { header: null, bytesAdvanced: 1 };
-  const j = B * 1e3, E = ms[f] >> i + s, h = Xt(i, a, j, E, c);
+  const j = B * 1e3, E = ps[f] >> i + s, h = Xt(i, a, j, E, c);
   if (x !== null && x < h)
     return { header: null, bytesAdvanced: 1 };
   let m;
@@ -1444,7 +1448,7 @@ const De = 4, ms = [44100, 48e3, 32e3], Jt = [
     },
     bytesAdvanced: 1
   };
-}, ps = (t) => {
+}, ks = (t) => {
   let x = 127, e = 0, A = t;
   for (; (x ^ 2147483647) !== 0; )
     e = A & ~x, e <<= 1, e |= A & x, x = (x + 1 << 8) - 1, A = e;
@@ -1548,7 +1552,7 @@ const Fe = function* (t) {
     r += x, A.set(F, r), r += F.byteLength;
   }
   return A;
-}, ks = (t, x) => {
+}, gs = (t, x) => {
   if (x.description) {
     const r = (Q(x.description)[4] & 3) + 1;
     return iF(t, r);
@@ -1583,7 +1587,7 @@ const Fe = function* (t) {
   } catch (x) {
     return console.error("Error building AVC Decoder Configuration Record:", x), null;
   }
-}, gs = (t) => {
+}, ws = (t) => {
   const x = [];
   x.push(t.configurationVersion), x.push(t.avcProfileIndication), x.push(t.profileCompatibility), x.push(t.avcLevelIndication), x.push(252 | t.lengthSizeMinusOne & 3), x.push(224 | t.sequenceParameterSets.length & 31);
   for (const e of t.sequenceParameterSets) {
@@ -1783,7 +1787,7 @@ const Fe = function* (t) {
   try {
     const x = new N(ft(t));
     x.skipBits(16), x.readBits(4);
-    const e = x.readBits(3), A = x.readBits(1), { general_profile_space: r, general_tier_flag: F, general_profile_idc: i, general_profile_compatibility_flags: s, general_constraint_indicator_flags: n, general_level_idc: a } = ws(x, e);
+    const e = x.readBits(3), A = x.readBits(1), { general_profile_space: r, general_tier_flag: F, general_profile_idc: i, general_profile_compatibility_flags: s, general_constraint_indicator_flags: n, general_level_idc: a } = ys(x, e);
     y(x);
     const o = y(x);
     let f = 0;
@@ -1802,9 +1806,9 @@ const Fe = function* (t) {
     let E = 0;
     for (let P = j; P <= e; P++)
       y(x), E = y(x), y(x);
-    y(x), y(x), y(x), y(x), y(x), y(x), x.readBits(1) && x.readBits(1) && ys(x), x.skipBits(1), x.skipBits(1), x.readBits(1) && (x.skipBits(4), x.skipBits(4), y(x), y(x), x.skipBits(1));
+    y(x), y(x), y(x), y(x), y(x), y(x), x.readBits(1) && x.readBits(1) && Ts(x), x.skipBits(1), x.skipBits(1), x.readBits(1) && (x.skipBits(4), x.skipBits(4), y(x), y(x), x.skipBits(1));
     const h = y(x);
-    if (Ts(x, h), x.readBits(1)) {
+    if (Ps(x, h), x.readBits(1)) {
       const P = y(x);
       for (let _ = 0; _ < P; _++)
         y(x), x.skipBits(1);
@@ -1812,7 +1816,7 @@ const Fe = function* (t) {
     x.skipBits(1), x.skipBits(1);
     let m = 2, k = 2, p = 2, g = 0, q = 0, S = { num: 1, den: 1 };
     if (x.readBits(1)) {
-      const P = Ss(x, e);
+      const P = _s(x, e);
       S = P.pixelAspectRatio, m = P.colourPrimaries, k = P.transferCharacteristics, p = P.matrixCoefficients, g = P.fullRangeFlag, q = P.minSpatialSegmentationIdc;
     }
     return {
@@ -1912,7 +1916,7 @@ const Fe = function* (t) {
   } catch (x) {
     return console.error("Error building HEVC Decoder Configuration Record:", x), null;
   }
-}, ws = (t, x) => {
+}, ys = (t, x) => {
   const e = t.readBits(2), A = t.readBits(1), r = t.readBits(5);
   let F = 0;
   for (let o = 0; o < 32; o++)
@@ -1936,7 +1940,7 @@ const Fe = function* (t) {
     general_constraint_indicator_flags: i,
     general_level_idc: s
   };
-}, ys = (t) => {
+}, Ts = (t) => {
   for (let x = 0; x < 4; x++)
     for (let e = 0; e < (x === 3 ? 2 : 6); e++)
       if (!t.readBits(1))
@@ -1947,11 +1951,11 @@ const Fe = function* (t) {
         for (let F = 0; F < r; F++)
           Y0(t);
       }
-}, Ts = (t, x) => {
+}, Ps = (t, x) => {
   const e = [];
   for (let A = 0; A < x; A++)
-    e[A] = Ps(t, A, x, e);
-}, Ps = (t, x, e, A) => {
+    e[A] = Ss(t, A, x, e);
+}, Ss = (t, x, e, A) => {
   let r = 0, F = 0, i = 0;
   if (x !== 0 && (F = t.readBits(1)), F) {
     if (x === e) {
@@ -1973,7 +1977,7 @@ const Fe = function* (t) {
     r = s + n;
   }
   return r;
-}, Ss = (t, x) => {
+}, _s = (t, x) => {
   let e = 2, A = 2, r = 2, F = 0, i = 0, s = { num: 1, den: 1 };
   if (t.readBits(1)) {
     const n = t.readBits(8);
@@ -1987,7 +1991,7 @@ const Fe = function* (t) {
       a && (s = a);
     }
   }
-  return t.readBits(1) && t.readBits(1), t.readBits(1) && (t.readBits(3), F = t.readBits(1), t.readBits(1) && (e = t.readBits(8), A = t.readBits(8), r = t.readBits(8))), t.readBits(1) && (y(t), y(t)), t.readBits(1), t.readBits(1), t.readBits(1), t.readBits(1) && (y(t), y(t), y(t), y(t)), t.readBits(1) && (t.readBits(32), t.readBits(32), t.readBits(1) && y(t), t.readBits(1) && _s(t, !0, x)), t.readBits(1) && (t.readBits(1), t.readBits(1), t.readBits(1), i = y(t), y(t), y(t), y(t), y(t)), {
+  return t.readBits(1) && t.readBits(1), t.readBits(1) && (t.readBits(3), F = t.readBits(1), t.readBits(1) && (e = t.readBits(8), A = t.readBits(8), r = t.readBits(8))), t.readBits(1) && (y(t), y(t)), t.readBits(1), t.readBits(1), t.readBits(1), t.readBits(1) && (y(t), y(t), y(t), y(t)), t.readBits(1) && (t.readBits(32), t.readBits(32), t.readBits(1) && y(t), t.readBits(1) && Is(t, !0, x)), t.readBits(1) && (t.readBits(1), t.readBits(1), t.readBits(1), i = y(t), y(t), y(t), y(t), y(t)), {
     pixelAspectRatio: s,
     colourPrimaries: e,
     transferCharacteristics: A,
@@ -1995,7 +1999,7 @@ const Fe = function* (t) {
     fullRangeFlag: F,
     minSpatialSegmentationIdc: i
   };
-}, _s = (t, x, e) => {
+}, Is = (t, x, e) => {
   let A = !1, r = !1, F = !1;
   A = t.readBits(1) === 1, r = t.readBits(1) === 1, (A || r) && (F = t.readBits(1) === 1, F && (t.readBits(8), t.readBits(5), t.readBits(1), t.readBits(5)), t.readBits(4), t.readBits(4), F && t.readBits(4), t.readBits(5), t.readBits(5), t.readBits(5));
   for (let i = 0; i <= e; i++) {
@@ -2010,7 +2014,7 @@ const Fe = function* (t) {
 }, Cr = (t, x, e) => {
   for (let A = 0; A < x; A++)
     y(t), y(t), e && (y(t), y(t)), t.readBits(1);
-}, Is = (t) => {
+}, qs = (t) => {
   const x = [];
   x.push(t.configurationVersion), x.push((t.generalProfileSpace & 3) << 6 | (t.generalTierFlag & 1) << 5 | t.generalProfileIdc & 31), x.push(t.generalProfileCompatibilityFlags >>> 24 & 255), x.push(t.generalProfileCompatibilityFlags >>> 16 & 255), x.push(t.generalProfileCompatibilityFlags >>> 8 & 255), x.push(t.generalProfileCompatibilityFlags & 255), x.push(...t.generalConstraintIndicatorFlags), x.push(t.generalLevelIdc & 255), x.push(240 | t.minSpatialSegmentationIdc >> 8 & 15), x.push(t.minSpatialSegmentationIdc & 255), x.push(252 | t.parallelismType & 3), x.push(252 | t.chromaFormatIdc & 3), x.push(248 | t.bitDepthLumaMinus8 & 7), x.push(248 | t.bitDepthChromaMinus8 & 7), x.push(t.avgFrameRate >> 8 & 255), x.push(t.avgFrameRate & 255), x.push((t.constantFrameRate & 3) << 6 | (t.numTemporalLayers & 7) << 3 | (t.temporalIdNested & 1) << 2 | t.lengthSizeMinusOne & 3), x.push(t.arrays.length & 255);
   for (const e of t.arrays) {
@@ -2022,7 +2026,7 @@ const Fe = function* (t) {
     }
   }
   return new Uint8Array(x);
-}, qs = (t) => {
+}, Ms = (t) => {
   try {
     const x = U(t);
     let e = 0;
@@ -2208,7 +2212,7 @@ const Fe = function* (t) {
     channelMappingFamily: i,
     channelMappingTable: s
   };
-}, Ms = [
+}, Gs = [
   480,
   960,
   1920,
@@ -2241,10 +2245,10 @@ const Fe = function* (t) {
   240,
   480,
   960
-], Gs = (t) => {
+], Rs = (t) => {
   const x = t[0] >> 3;
   return {
-    durationInSamples: Ms[x]
+    durationInSamples: Gs[x]
   };
 }, lF = (t) => {
   if (t.length < 7)
@@ -2295,7 +2299,7 @@ const Fe = function* (t) {
           return "delta";
         if (F === T0.IDR)
           return "key";
-        if (F === T0.SEI && (!Vt() || As() >= 144)) {
+        if (F === T0.SEI && (!Vt() || rs() >= 144)) {
           const i = e.subarray(A.offset, A.offset + A.length), s = ft(i);
           let n = 1;
           do {
@@ -2440,7 +2444,7 @@ const Zt = (t, x) => {
         break;
       case "METADATA_BLOCK_PICTURE":
         {
-          const v = Fs(c), u = U(v), l = u.getUint32(0, !1), D = u.getUint32(4, !1), b = String.fromCharCode(...v.subarray(8, 8 + D)), B = u.getUint32(8 + D, !1), j = P0.decode(v.subarray(12 + D, 12 + D + B)), E = u.getUint32(D + B + 28), h = v.subarray(D + B + 32, D + B + 32 + E);
+          const v = is(c), u = U(v), l = u.getUint32(0, !1), D = u.getUint32(4, !1), b = String.fromCharCode(...v.subarray(8, 8 + D)), B = u.getUint32(8 + D, !1), j = P0.decode(v.subarray(12 + D, 12 + D + B)), E = u.getUint32(D + B + 28), h = v.subarray(D + B + 32, D + B + 32 + E);
           x.images ??= [], x.images.push({
             data: h,
             mimeType: b,
@@ -2516,7 +2520,7 @@ const Zt = (t, x) => {
               B[k] = D.mimeType.charCodeAt(k);
             const j = Y.encode(D.description ?? ""), E = new Uint8Array(8 + B.length + 4 + j.length + 16 + 4 + D.data.length), h = U(E);
             h.setUint32(0, b, !1), h.setUint32(4, B.length, !1), E.set(B, 8), h.setUint32(8 + B.length, j.length, !1), E.set(j, 12 + B.length), h.setUint32(28 + B.length + j.length, D.data.length, !1), E.set(D.data, 32 + B.length + j.length);
-            const m = is(E);
+            const m = ss(E);
             a("METADATA_BLOCK_PICTURE", m);
           }
         }
@@ -2553,7 +2557,7 @@ const Zt = (t, x) => {
   (i & 1) !== 0 && i !== 1 && x.skipBits(2), (i & 4) !== 0 && x.skipBits(2), i === 2 && x.skipBits(2);
   const s = x.readBits(1), n = Math.floor(A / 2);
   return { fscod: e, bsid: r, bsmod: F, acmod: i, lfeon: s, bitRateCode: n };
-}, Rs = [
+}, Hs = [
   // frmsizecod, [48kHz, 44.1kHz, 32kHz] in bytes
   64 * 2,
   69 * 2,
@@ -2669,7 +2673,7 @@ const Zt = (t, x) => {
   1280 * 2,
   1394 * 2,
   1920 * 2
-], Hs = 1536, Ie = new Uint8Array([5, 4, 65, 67, 45, 51]), qe = new Uint8Array([5, 4, 69, 65, 67, 51]), DF = [1, 2, 3, 6], BF = (t) => {
+], Ns = 1536, Ie = new Uint8Array([5, 4, 65, 67, 45, 51]), qe = new Uint8Array([5, 4, 69, 65, 67, 51]), DF = [1, 2, 3, 6], BF = (t) => {
   if (t.length < 6 || t[0] !== 11 || t[1] !== 119)
     return null;
   const x = new N(t);
@@ -2698,7 +2702,7 @@ const Zt = (t, x) => {
       chanLoc: 0
     }]
   };
-}, Ns = (t) => {
+}, Ls = (t) => {
   if (t.length < 2)
     return null;
   const x = new N(t), e = x.readBits(13), A = x.readBits(3), r = [];
@@ -2799,7 +2803,7 @@ const Ve = [], Ke = [], pe = [], ke = [], mF = (t) => {
     Ke.push(x);
   } else
     throw new TypeError("Decoder must be a CustomVideoDecoder or CustomAudioDecoder.");
-}, Ls = (t) => {
+}, Us = (t) => {
   if (t.prototype instanceof EF) {
     const x = t;
     if (pe.includes(x)) {
@@ -2952,22 +2956,22 @@ class X {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const Us = (t) => {
+const Os = (t) => {
   let A = t, r = 4096, F = 0, i = 12, s = 0;
   for (A < 0 && (A = -A, F = 128), A += 33, A > 8191 && (A = 8191); (A & r) !== r && i >= 5; )
     r >>= 1, i--;
   return s = A >> i - 4 & 15, ~(F | i - 5 << 4 | s) & 255;
-}, Os = (t) => {
+}, $s = (t) => {
   let e = 0, A = 0, r = ~t;
   r & 128 && (r &= -129, e = -1), A = ((r & 240) >> 4) + 5;
   const F = (1 << A | (r & 15) << A - 4 | 1 << A - 5) - 33;
   return e === 0 ? F : -F;
-}, $s = (t) => {
+}, zs = (t) => {
   let e = 2048, A = 0, r = 11, F = 0, i = t;
   for (i < 0 && (i = -i, A = 128), i > 4095 && (i = 4095); (i & e) !== e && r >= 5; )
     e >>= 1, r--;
   return F = i >> (r === 4 ? 1 : r - 4) & 15, (A | r - 4 << 4 | F) ^ 85;
-}, zs = (t) => {
+}, Vs = (t) => {
   let x = 0, e = 0, A = t ^ 85;
   A & 128 && (A &= -129, x = -1), e = ((A & 240) >> 4) + 4;
   let r = 0;
@@ -3021,7 +3025,7 @@ const IA = [
   "BGRA",
   // 4:4:4 BGRX (opaque)
   "BGRX"
-], Vs = new Set(IA);
+], Ks = new Set(IA);
 class i0 {
   /** The width of the frame in pixels. */
   get codedWidth() {
@@ -3058,7 +3062,7 @@ class i0 {
     if (this._closed = !1, x instanceof ArrayBuffer || typeof SharedArrayBuffer < "u" && x instanceof SharedArrayBuffer || ArrayBuffer.isView(x)) {
       if (!e || typeof e != "object")
         throw new TypeError("init must be an object.");
-      if (e.format === void 0 || !Vs.has(e.format))
+      if (e.format === void 0 || !Ks.has(e.format))
         throw new TypeError("init.format must be one of: " + IA.join(", "));
       if (!Number.isInteger(e.codedWidth) || e.codedWidth <= 0)
         throw new TypeError("init.codedWidth must be a positive integer.");
@@ -3088,7 +3092,7 @@ class i0 {
         throw new TypeError("init.displayHeight, when provided, must be a positive integer.");
       if (e.displayWidth !== void 0 != (e.displayHeight !== void 0))
         throw new TypeError("init.displayWidth and init.displayHeight must be either both provided or both omitted.");
-      this._data = Q(x).slice(), this._layout = e.layout ?? Ks(e.format, e.codedWidth, e.codedHeight), this.format = e.format, this.rotation = e.rotation ?? 0, this.timestamp = e.timestamp, this.duration = e.duration ?? 0, this.colorSpace = new Re(e.colorSpace), this.visibleRect = {
+      this._data = Q(x).slice(), this._layout = e.layout ?? Ws(e.format, e.codedWidth, e.codedHeight), this.format = e.format, this.rotation = e.rotation ?? 0, this.timestamp = e.timestamp, this.duration = e.duration ?? 0, this.colorSpace = new Re(e.colorSpace), this.visibleRect = {
         left: e.visibleRect?.left ?? 0,
         top: e.visibleRect?.top ?? 0,
         width: e.visibleRect?.width ?? e.codedWidth,
@@ -3436,8 +3440,8 @@ const bx = (t) => typeof VideoFrame < "u" && t instanceof VideoFrame, qA = (t, x
     if (t.rect.height !== void 0 && (!Number.isInteger(t.rect.height) || t.rect.height < 0))
       throw new TypeError("options.rect.height, when provided, must be a non-negative integer.");
   }
-}, Ks = (t, x, e) => {
-  const A = Ws(t), r = [];
+}, Ws = (t, x, e) => {
+  const A = Js(t), r = [];
   let F = 0;
   for (const i of A) {
     const s = Math.ceil(x / i.widthDivisor), n = Math.ceil(e / i.heightDivisor), a = s * i.sampleBytes, o = a * n;
@@ -3447,7 +3451,7 @@ const bx = (t) => typeof VideoFrame < "u" && t instanceof VideoFrame, qA = (t, x
     }), F += o;
   }
   return r;
-}, Ws = (t) => {
+}, Js = (t) => {
   const x = (e, A, r, F, i) => {
     const s = [
       { sampleBytes: e, widthDivisor: 1, heightDivisor: 1 },
@@ -3614,7 +3618,7 @@ class o0 {
       throw new RangeError("Destination buffer is too small");
     const b = U(x), B = kF(n);
     if (oe(this._data))
-      ue() && o > 2 && n !== s ? Js(this._data, b, s, n, o, A, f, c) : this._data.copyTo(x, {
+      ue() && o > 2 && n !== s ? Xs(this._data, b, s, n, o, A, f, c) : this._data.copyTo(x, {
         planeIndex: A,
         frameOffset: f,
         frameCount: c,
@@ -3834,7 +3838,7 @@ const mx = (t) => {
     case "f32-planar":
       return (x, e, A) => x.setFloat32(e, A, !0);
   }
-}, oe = (t) => typeof AudioData < "u" && t instanceof AudioData, Js = (t, x, e, A, r, F, i, s) => {
+}, oe = (t) => typeof AudioData < "u" && t instanceof AudioData, Xs = (t, x, e, A, r, F, i, s) => {
   const n = pF(e), a = kF(A), o = mx(e), f = mx(A), c = zx(e);
   if (zx(A))
     if (c) {
@@ -4138,8 +4142,8 @@ class RA {
   }
   /** @internal */
   mediaSamplesAtTimestamps(x) {
-    Xi(x);
-    const e = Ji(x), A = [], r = [];
+    Qi(x);
+    const e = Xi(x), A = [], r = [];
     let { promise: F, resolve: i } = t0(), { promise: s, resolve: n } = t0(), a = !1, o = !1, f = null;
     const c = (l) => {
       r.push(l), i(), { promise: F, resolve: i } = t0();
@@ -4230,7 +4234,7 @@ class RA {
   }
 }
 const mr = (t) => t === 0 ? 40 : 8;
-class Xs extends GA {
+class Qs extends GA {
   constructor(x, e, A, r, F, i) {
     super(x, e), this.codec = A, this.decoderConfig = r, this.rotation = F, this.timeResolution = i, this.decoder = null, this.customDecoder = null, this.customDecoderCallSerializer = new rt(), this.customDecoderQueueSize = 0, this.inputTimestamps = [], this.sampleQueue = [], this.currentPacketIndex = 0, this.raslSkipped = !1, this.alphaDecoder = null, this.alphaHadKeyframe = !1, this.colorQueue = [], this.alphaQueue = [], this.merger = null, this.mergerCreationFailed = !1, this.decodedAlphaChunkCount = 0, this.alphaDecoderQueueSize = 0, this.nullAlphaFrameQueue = [], this.currentAlphaPacketIndex = 0, this.alphaRaslSkipped = !1;
     const s = Ve.find((n) => n.supports(A, r));
@@ -4291,7 +4295,7 @@ class Xs extends GA {
           const F = Yx(x.data[r.offset]);
           F >= 20 && F <= 31 || e.push(x.data.subarray(r.offset, r.offset + r.length));
         }
-        const A = ks(e, this.decoderConfig);
+        const A = gs(e, this.decoderConfig);
         x = new X(A, x.type, x.timestamp, x.duration);
       }
       this.decoder.decode(x.toEncodedVideoChunk()), this.decodeAlphaData(x);
@@ -4305,7 +4309,7 @@ class Xs extends GA {
     }
     if (!this.merger)
       try {
-        this.merger = new Qs();
+        this.merger = new Ys();
       } catch (A) {
         console.error("Due to an error, only color data will be decoded.", A), this.mergerCreationFailed = !0, this.decodeAlphaData(x);
         return;
@@ -4415,7 +4419,7 @@ class Xs extends GA {
     this.sampleQueue.length = 0;
   }
 }
-class Qs {
+class Ys {
   constructor() {
     typeof OffscreenCanvas < "u" ? this.canvas = new OffscreenCanvas(300, 150) : this.canvas = document.createElement("canvas");
     const x = this.canvas.getContext("webgl2", {
@@ -4503,7 +4507,7 @@ class We extends RA {
     if (!await this._track.canDecode())
       throw new Error("This video track cannot be decoded by this browser. Make sure to check decodability before using a track.");
     const A = this._track.codec, r = this._track.rotation, F = await this._track.getDecoderConfig(), i = this._track.timeResolution;
-    return d(A && F), new Xs(x, e, A, F, r, i);
+    return d(A && F), new Qs(x, e, A, F, r, i);
   }
   /** @internal */
   _createPacketSink() {
@@ -4625,7 +4629,7 @@ class gF {
     return $e(this._videoSampleSink.samplesAtTimestamps(x), (e) => e && this._videoSampleToWrappedCanvas(e));
   }
 }
-class Ys extends GA {
+class Zs extends GA {
   constructor(x, e, A, r) {
     super(x, e), this.decoder = null, this.customDecoder = null, this.customDecoderCallSerializer = new rt(), this.customDecoderQueueSize = 0, this.currentTimestamp = null;
     const F = (s) => {
@@ -4673,19 +4677,19 @@ class Ys extends GA {
     this.customDecoder ? this.customDecoderCallSerializer.call(() => this.customDecoder.close()) : (d(this.decoder), this.decoder.close());
   }
 }
-class Zs extends GA {
+class xn extends GA {
   constructor(x, e, A) {
     super(x, e), this.decoderConfig = A, this.currentTimestamp = null, d(r0.includes(A.codec)), this.codec = A.codec;
     const { dataType: r, sampleSize: F, littleEndian: i } = O0(this.codec);
     switch (this.inputSampleSize = F, F) {
       case 1:
-        r === "unsigned" ? this.readInputValue = (s, n) => s.getUint8(n) - 2 ** 7 : r === "signed" ? this.readInputValue = (s, n) => s.getInt8(n) : r === "ulaw" ? this.readInputValue = (s, n) => Os(s.getUint8(n)) : r === "alaw" ? this.readInputValue = (s, n) => zs(s.getUint8(n)) : d(!1);
+        r === "unsigned" ? this.readInputValue = (s, n) => s.getUint8(n) - 2 ** 7 : r === "signed" ? this.readInputValue = (s, n) => s.getInt8(n) : r === "ulaw" ? this.readInputValue = (s, n) => $s(s.getUint8(n)) : r === "alaw" ? this.readInputValue = (s, n) => Vs(s.getUint8(n)) : d(!1);
         break;
       case 2:
         r === "unsigned" ? this.readInputValue = (s, n) => s.getUint16(n, i) - 2 ** 15 : r === "signed" ? this.readInputValue = (s, n) => s.getInt16(n, i) : d(!1);
         break;
       case 3:
-        r === "unsigned" ? this.readInputValue = (s, n) => tt(s, n, i) - 2 ** 23 : r === "signed" ? this.readInputValue = (s, n) => Qi(s, n, i) : d(!1);
+        r === "unsigned" ? this.readInputValue = (s, n) => tt(s, n, i) - 2 ** 23 : r === "signed" ? this.readInputValue = (s, n) => Yi(s, n, i) : d(!1);
         break;
       case 4:
         r === "unsigned" ? this.readInputValue = (s, n) => s.getUint32(n, i) - 2 ** 31 : r === "signed" ? this.readInputValue = (s, n) => s.getInt32(n, i) : r === "float" ? this.readInputValue = (s, n) => s.getFloat32(n, i) : d(!1);
@@ -4756,7 +4760,7 @@ class Je extends RA {
     if (!await this._track.canDecode())
       throw new Error("This audio track cannot be decoded by this browser. Make sure to check decodability before using a track.");
     const A = this._track.codec, r = await this._track.getDecoderConfig();
-    return d(A && r), r0.includes(r.codec) ? new Zs(x, e, r) : new Ys(x, e, A, r);
+    return d(A && r), r0.includes(r.codec) ? new xn(x, e, r) : new Zs(x, e, A, r);
   }
   /** @internal */
   _createPacketSink() {
@@ -4797,7 +4801,7 @@ class Je extends RA {
     return this.mediaSamplesAtTimestamps(x);
   }
 }
-class xn {
+class en {
   /** Creates a new {@link AudioBufferSink} for the given {@link InputAudioTrack}. */
   constructor(x) {
     if (!(x instanceof S0))
@@ -5127,7 +5131,7 @@ const X0 = 8, px = 16, ix = (t) => {
 }, R0 = (t) => {
   let x = s0(t);
   return t.skip(2), x = Math.min(x, t.remainingLength), P0.decode(R(t, x));
-}, en = (t) => {
+}, tn = (t) => {
   const x = ix(t);
   if (!x || x.name !== "data" || t.remainingLength < 8)
     return null;
@@ -5158,7 +5162,7 @@ const X0 = 8, px = 16, ix = (t) => {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class tn extends lx {
+class An extends lx {
   constructor(x) {
     super(x), this.moovSlice = null, this.currentTrack = null, this.tracks = [], this.metadataPromise = null, this.movieTimescale = -1, this.movieDurationInTimescale = -1, this.isQuickTime = !1, this.metadataTags = {}, this.currentMetadataKeys = null, this.isFragmented = !1, this.fragmentTrackDefaults = [], this.currentFragment = null, this.lastReadFragment = null, this.reader = x._reader;
   }
@@ -5376,10 +5380,10 @@ class tn extends lx {
           if (this.currentTrack = i, this.readContiguousBoxes(x.slice(r, A.contentSize)), i.id !== -1 && i.timescale !== -1 && i.info !== null) {
             if (i.info.type === "video" && i.info.width !== -1) {
               const s = i;
-              i.inputTrack = new Gx(this.input, new An(s)), this.tracks.push(i);
+              i.inputTrack = new Gx(this.input, new rn(s)), this.tracks.push(i);
             } else if (i.info.type === "audio" && i.info.numberOfChannels !== -1) {
               const s = i;
-              i.inputTrack = new S0(this.input, new rn(s)), this.tracks.push(i);
+              i.inputTrack = new S0(this.input, new Fn(s)), this.tracks.push(i);
             }
           }
           this.currentTrack = null;
@@ -5408,7 +5412,7 @@ class tn extends lx {
             jx(x),
             jx(x),
             yt(x)
-          ], f = xt(zt(an(o), 90));
+          ], f = xt(zt(on(o), 90));
           d(f === 0 || f === 90 || f === 180 || f === 270), i.rotation = f;
         }
         break;
@@ -5422,7 +5426,7 @@ class tn extends lx {
           let n = !1, a = 0;
           const o = T(x);
           for (let f = 0; f < o; f++) {
-            const c = s === 1 ? I0(x) : T(x), v = s === 1 ? Kn(x) : gx(x), u = jx(x);
+            const c = s === 1 ? I0(x) : T(x), v = s === 1 ? Wn(x) : gx(x), u = jx(x);
             if (c !== 0) {
               if (n) {
                 console.warn("Unsupported edit list: multiple edits are not currently supported. Only using first edit.");
@@ -5720,7 +5724,7 @@ class tn extends lx {
           if (!i)
             break;
           d(i.info?.type === "audio");
-          const s = R(x, A.contentSize), n = Ns(s);
+          const s = R(x, A.contentSize), n = Ls(s);
           if (!n) {
             console.warn("Invalid dec3 box contents, ignoring.");
             break;
@@ -6093,7 +6097,7 @@ class tn extends lx {
             let a = s.name;
             const o = (a.charCodeAt(0) << 24) + (a.charCodeAt(1) << 16) + (a.charCodeAt(2) << 8) + a.charCodeAt(3);
             this.currentMetadataKeys.has(o) && (a = this.currentMetadataKeys.get(o));
-            const f = en(n);
+            const f = tn(n);
             switch (this.metadataTags.raw ??= {}, this.metadataTags.raw[a] ??= f, a) {
               case "©nam":
               case "titl":
@@ -6290,7 +6294,7 @@ class yF {
     );
   }
   async getKeyPacket(x, e) {
-    const A = this.mapTimestampIntoTimescale(x), r = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), F = Fn(r, A), i = await this.fetchPacketForSampleIndex(F, e);
+    const A = this.mapTimestampIntoTimescale(x), r = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), F = sn(r, A), i = await this.fetchPacketForSampleIndex(F, e);
     return !pr(r) || !this.internalTrack.demuxer.isFragmented ? i : this.performFragmentedLookup(null, (s) => {
       const n = s.trackData.get(this.internalTrack.id);
       if (!n)
@@ -6302,7 +6306,7 @@ class yF {
   async getNextKeyPacket(x, e) {
     const A = this.packetToSampleIndex.get(x);
     if (A !== void 0) {
-      const F = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), i = nn(F, A);
+      const F = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), i = an(F, A);
       return this.fetchPacketForSampleIndex(i, e);
     }
     const r = this.packetToFragmentLocation.get(x);
@@ -6342,7 +6346,7 @@ class yF {
   async fetchPacketForSampleIndex(x, e) {
     if (x === -1)
       return null;
-    const A = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), r = sn(A, x);
+    const A = this.internalTrack.demuxer.getSampleTableForTrack(this.internalTrack), r = nn(A, x);
     if (!r)
       return null;
     let F;
@@ -6412,7 +6416,7 @@ class yF {
     return n ? this.fetchPacketInFragment(n, a, F) : null;
   }
 }
-class An extends yF {
+class rn extends yF {
   constructor(x) {
     super(x), this.decoderConfigPromise = null, this.internalTrack = x;
   }
@@ -6466,7 +6470,7 @@ class An extends yF {
     })() : null;
   }
 }
-class rn extends yF {
+class Fn extends yF {
   constructor(x) {
     super(x), this.decoderConfig = null, this.internalTrack = x;
   }
@@ -6499,7 +6503,7 @@ const eA = (t, x) => {
     const A = t.sampleTimingEntries[e];
     return A.startIndex + Math.min(Math.floor((x - A.startDecodeTimestamp) / A.delta), A.count - 1);
   }
-}, Fn = (t, x) => {
+}, sn = (t, x) => {
   if (!t.keySampleIndices)
     return eA(t, x);
   if (t.presentationTimestamps) {
@@ -6516,7 +6520,7 @@ const eA = (t, x) => {
     const e = eA(t, x), A = J(t.keySampleIndices, e, (r) => r);
     return t.keySampleIndices[A] ?? -1;
   }
-}, sn = (t, x) => {
+}, nn = (t, x) => {
   const e = J(t.sampleTimingEntries, x, (b) => b.startIndex), A = t.sampleTimingEntries[e];
   if (!A || A.startIndex + A.count <= x)
     return null;
@@ -6548,7 +6552,7 @@ const eA = (t, x) => {
     chunkSize: u,
     isKeyFrame: t.keySampleIndices ? Pe(t.keySampleIndices, x, (b) => b) !== -1 : !0
   };
-}, nn = (t, x) => {
+}, an = (t, x) => {
   if (!t.keySampleIndices)
     return x + 1;
   const e = J(t.keySampleIndices, x, (A) => A);
@@ -6559,7 +6563,7 @@ const eA = (t, x) => {
     e.presentationTimestamp += x;
   for (const e of t.presentationTimestamps)
     e.presentationTimestamp += x;
-}, an = (t) => {
+}, on = (t) => {
   const [x, , , e] = t, A = Math.hypot(x, e), r = x / A, F = e / A, i = -Math.atan2(F, r) * (180 / Math.PI);
   return Number.isFinite(i) ? i : 0;
 }, pr = (t) => t.sampleSizes.length === 0;
@@ -6594,7 +6598,7 @@ var C;
 (function(t) {
   t[t.EBML = 440786851] = "EBML", t[t.EBMLVersion = 17030] = "EBMLVersion", t[t.EBMLReadVersion = 17143] = "EBMLReadVersion", t[t.EBMLMaxIDLength = 17138] = "EBMLMaxIDLength", t[t.EBMLMaxSizeLength = 17139] = "EBMLMaxSizeLength", t[t.DocType = 17026] = "DocType", t[t.DocTypeVersion = 17031] = "DocTypeVersion", t[t.DocTypeReadVersion = 17029] = "DocTypeReadVersion", t[t.Void = 236] = "Void", t[t.Segment = 408125543] = "Segment", t[t.SeekHead = 290298740] = "SeekHead", t[t.Seek = 19899] = "Seek", t[t.SeekID = 21419] = "SeekID", t[t.SeekPosition = 21420] = "SeekPosition", t[t.Duration = 17545] = "Duration", t[t.Info = 357149030] = "Info", t[t.TimestampScale = 2807729] = "TimestampScale", t[t.MuxingApp = 19840] = "MuxingApp", t[t.WritingApp = 22337] = "WritingApp", t[t.Tracks = 374648427] = "Tracks", t[t.TrackEntry = 174] = "TrackEntry", t[t.TrackNumber = 215] = "TrackNumber", t[t.TrackUID = 29637] = "TrackUID", t[t.TrackType = 131] = "TrackType", t[t.FlagEnabled = 185] = "FlagEnabled", t[t.FlagDefault = 136] = "FlagDefault", t[t.FlagForced = 21930] = "FlagForced", t[t.FlagOriginal = 21934] = "FlagOriginal", t[t.FlagHearingImpaired = 21931] = "FlagHearingImpaired", t[t.FlagVisualImpaired = 21932] = "FlagVisualImpaired", t[t.FlagCommentary = 21935] = "FlagCommentary", t[t.FlagLacing = 156] = "FlagLacing", t[t.Name = 21358] = "Name", t[t.Language = 2274716] = "Language", t[t.LanguageBCP47 = 2274717] = "LanguageBCP47", t[t.CodecID = 134] = "CodecID", t[t.CodecPrivate = 25506] = "CodecPrivate", t[t.CodecDelay = 22186] = "CodecDelay", t[t.SeekPreRoll = 22203] = "SeekPreRoll", t[t.DefaultDuration = 2352003] = "DefaultDuration", t[t.Video = 224] = "Video", t[t.PixelWidth = 176] = "PixelWidth", t[t.PixelHeight = 186] = "PixelHeight", t[t.DisplayWidth = 21680] = "DisplayWidth", t[t.DisplayHeight = 21690] = "DisplayHeight", t[t.DisplayUnit = 21682] = "DisplayUnit", t[t.AlphaMode = 21440] = "AlphaMode", t[t.Audio = 225] = "Audio", t[t.SamplingFrequency = 181] = "SamplingFrequency", t[t.Channels = 159] = "Channels", t[t.BitDepth = 25188] = "BitDepth", t[t.SimpleBlock = 163] = "SimpleBlock", t[t.BlockGroup = 160] = "BlockGroup", t[t.Block = 161] = "Block", t[t.BlockAdditions = 30113] = "BlockAdditions", t[t.BlockMore = 166] = "BlockMore", t[t.BlockAdditional = 165] = "BlockAdditional", t[t.BlockAddID = 238] = "BlockAddID", t[t.BlockDuration = 155] = "BlockDuration", t[t.ReferenceBlock = 251] = "ReferenceBlock", t[t.Cluster = 524531317] = "Cluster", t[t.Timestamp = 231] = "Timestamp", t[t.Cues = 475249515] = "Cues", t[t.CuePoint = 187] = "CuePoint", t[t.CueTime = 179] = "CueTime", t[t.CueTrackPositions = 183] = "CueTrackPositions", t[t.CueTrack = 247] = "CueTrack", t[t.CueClusterPosition = 241] = "CueClusterPosition", t[t.Colour = 21936] = "Colour", t[t.MatrixCoefficients = 21937] = "MatrixCoefficients", t[t.TransferCharacteristics = 21946] = "TransferCharacteristics", t[t.Primaries = 21947] = "Primaries", t[t.Range = 21945] = "Range", t[t.Projection = 30320] = "Projection", t[t.ProjectionType = 30321] = "ProjectionType", t[t.ProjectionPoseRoll = 30325] = "ProjectionPoseRoll", t[t.Attachments = 423732329] = "Attachments", t[t.AttachedFile = 24999] = "AttachedFile", t[t.FileDescription = 18046] = "FileDescription", t[t.FileName = 18030] = "FileName", t[t.FileMediaType = 18016] = "FileMediaType", t[t.FileData = 18012] = "FileData", t[t.FileUID = 18094] = "FileUID", t[t.Chapters = 272869232] = "Chapters", t[t.Tags = 307544935] = "Tags", t[t.Tag = 29555] = "Tag", t[t.Targets = 25536] = "Targets", t[t.TargetTypeValue = 26826] = "TargetTypeValue", t[t.TargetType = 25546] = "TargetType", t[t.TagTrackUID = 25541] = "TagTrackUID", t[t.TagEditionUID = 25545] = "TagEditionUID", t[t.TagChapterUID = 25540] = "TagChapterUID", t[t.TagAttachmentUID = 25542] = "TagAttachmentUID", t[t.SimpleTag = 26568] = "SimpleTag", t[t.TagName = 17827] = "TagName", t[t.TagLanguage = 17530] = "TagLanguage", t[t.TagString = 17543] = "TagString", t[t.TagBinary = 17541] = "TagBinary", t[t.ContentEncodings = 28032] = "ContentEncodings", t[t.ContentEncoding = 25152] = "ContentEncoding", t[t.ContentEncodingOrder = 20529] = "ContentEncodingOrder", t[t.ContentEncodingScope = 20530] = "ContentEncodingScope", t[t.ContentCompression = 20532] = "ContentCompression", t[t.ContentCompAlgo = 16980] = "ContentCompAlgo", t[t.ContentCompSettings = 16981] = "ContentCompSettings", t[t.ContentEncryption = 20533] = "ContentEncryption";
 })(C || (C = {}));
-const on = [
+const fn = [
   C.EBML,
   C.Segment
 ], we = [
@@ -6607,9 +6611,9 @@ const on = [
   C.Chapters,
   C.Tags
 ], He = [
-  ...on,
+  ...fn,
   ...we
-], kr = (t) => t < 256 ? 1 : t < 65536 ? 2 : t < 1 << 24 ? 3 : t < 2 ** 32 ? 4 : t < 2 ** 40 ? 5 : 6, gr = (t) => t < 1n << 8n ? 1 : t < 1n << 16n ? 2 : t < 1n << 24n ? 3 : t < 1n << 32n ? 4 : t < 1n << 40n ? 5 : t < 1n << 48n ? 6 : t < 1n << 56n ? 7 : 8, wr = (t) => t >= -64 && t < 64 ? 1 : t >= -8192 && t < 8192 ? 2 : t >= -1048576 && t < 1 << 20 ? 3 : t >= -134217728 && t < 1 << 27 ? 4 : t >= -17179869184 && t < 2 ** 34 ? 5 : 6, fn = (t) => {
+], kr = (t) => t < 256 ? 1 : t < 65536 ? 2 : t < 1 << 24 ? 3 : t < 2 ** 32 ? 4 : t < 2 ** 40 ? 5 : 6, gr = (t) => t < 1n << 8n ? 1 : t < 1n << 16n ? 2 : t < 1n << 24n ? 3 : t < 1n << 32n ? 4 : t < 1n << 40n ? 5 : t < 1n << 48n ? 6 : t < 1n << 56n ? 7 : 8, wr = (t) => t >= -64 && t < 64 ? 1 : t >= -8192 && t < 8192 ? 2 : t >= -1048576 && t < 1 << 20 ? 3 : t >= -134217728 && t < 1 << 27 ? 4 : t >= -17179869184 && t < 2 ** 34 ? 5 : 6, cn = (t) => {
   if (t < 127)
     return 1;
   if (t < 16383)
@@ -6624,7 +6628,7 @@ const on = [
     return 6;
   throw new Error("EBML varint size not supported " + t);
 };
-class cn {
+class vn {
   constructor(x) {
     this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer), this.offsets = /* @__PURE__ */ new WeakMap(), this.dataOffsets = /* @__PURE__ */ new WeakMap();
   }
@@ -6672,7 +6676,7 @@ class cn {
   writeSignedInt(x, e = wr(x)) {
     x < 0 && (x += 2 ** (e * 8)), this.writeUnsignedInt(x, e);
   }
-  writeVarInt(x, e = fn(x)) {
+  writeVarInt(x, e = cn(x)) {
     let A = 0;
     switch (e) {
       case 1:
@@ -6772,7 +6776,7 @@ const rA = 8, y0 = 2, Q0 = 2 * rA, PF = (t) => {
   for (let A = 0; A < x; A++)
     e *= 256, e += I(t);
   return e;
-}, vn = (t, x) => {
+}, ln = (t, x) => {
   if (x < 1)
     throw new Error("Bad unsigned int size " + x);
   let e = 0n;
@@ -6817,7 +6821,7 @@ const rA = 8, y0 = 2, Q0 = 2 * rA, PF = (t) => {
     return 0;
   if (x !== 4 && x !== 8)
     throw new Error("Bad float size " + x);
-  return x === 4 ? Jn(t) : li(t);
+  return x === 4 ? Xn(t) : li(t);
 }, FA = async (t, x, e, A) => {
   const r = new Set(e);
   let F = x;
@@ -6917,7 +6921,7 @@ const _t = [
   { id: C.Tracks, flag: "tracksSeen" },
   { id: C.Cues, flag: "cuesSeen" }
 ], qF = 10 * 2 ** 20;
-class ln extends lx {
+class dn extends lx {
   constructor(x) {
     super(x), this.readMetadataPromise = null, this.segments = [], this.currentSegment = null, this.currentTrack = null, this.currentCluster = null, this.currentBlock = null, this.currentBlockAdditional = null, this.currentCueTime = null, this.currentDecodingInstruction = null, this.currentTagTargetIsMovie = !0, this.currentSimpleTagName = null, this.currentAttachedFile = null, this.isWebM = !1, this.reader = x._reader;
   }
@@ -7313,14 +7317,14 @@ class ln extends lx {
                 f > c ? this.currentTrack.info.squarePixelWidth = Math.round(this.currentTrack.info.width * f / c) : this.currentTrack.info.squarePixelHeight = Math.round(this.currentTrack.info.height * c / f);
               }
               this.currentTrack.codecId === p0.avc ? (this.currentTrack.info.codec = "avc", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === p0.hevc ? (this.currentTrack.info.codec = "hevc", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.vp8 ? this.currentTrack.info.codec = "vp8" : n === p0.vp9 ? this.currentTrack.info.codec = "vp9" : n === p0.av1 && (this.currentTrack.info.codec = "av1");
-              const a = this.currentTrack, o = new Gx(this.input, new dn(a));
+              const a = this.currentTrack, o = new Gx(this.input, new un(a));
               this.currentTrack.inputTrack = o, this.currentSegment.tracks.push(this.currentTrack);
             } else if (this.currentTrack.info.type === "audio" && this.currentTrack.info.numberOfChannels !== -1 && this.currentTrack.info.sampleRate !== -1) {
               n === p0.aac ? (this.currentTrack.info.codec = "aac", this.currentTrack.info.aacCodecInfo = {
                 isMpeg2: this.currentTrack.codecId.includes("MPEG2"),
                 objectType: null
               }, this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === p0.mp3 ? this.currentTrack.info.codec = "mp3" : n === p0.opus ? (this.currentTrack.info.codec = "opus", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate, this.currentTrack.info.sampleRate = re) : n === p0.vorbis ? (this.currentTrack.info.codec = "vorbis", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.flac ? (this.currentTrack.info.codec = "flac", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.ac3 ? (this.currentTrack.info.codec = "ac3", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : n === p0.eac3 ? (this.currentTrack.info.codec = "eac3", this.currentTrack.info.codecDescription = this.currentTrack.codecPrivate) : this.currentTrack.codecId === "A_PCM/INT/LIT" ? this.currentTrack.info.bitDepth === 8 ? this.currentTrack.info.codec = "pcm-u8" : this.currentTrack.info.bitDepth === 16 ? this.currentTrack.info.codec = "pcm-s16" : this.currentTrack.info.bitDepth === 24 ? this.currentTrack.info.codec = "pcm-s24" : this.currentTrack.info.bitDepth === 32 && (this.currentTrack.info.codec = "pcm-s32") : this.currentTrack.codecId === "A_PCM/INT/BIG" ? this.currentTrack.info.bitDepth === 8 ? this.currentTrack.info.codec = "pcm-u8" : this.currentTrack.info.bitDepth === 16 ? this.currentTrack.info.codec = "pcm-s16be" : this.currentTrack.info.bitDepth === 24 ? this.currentTrack.info.codec = "pcm-s24be" : this.currentTrack.info.bitDepth === 32 && (this.currentTrack.info.codec = "pcm-s32be") : this.currentTrack.codecId === "A_PCM/FLOAT/IEEE" && (this.currentTrack.info.bitDepth === 32 ? this.currentTrack.info.codec = "pcm-f32" : this.currentTrack.info.bitDepth === 64 && (this.currentTrack.info.codec = "pcm-f64"));
-              const a = this.currentTrack, o = new S0(this.input, new un(a));
+              const a = this.currentTrack, o = new S0(this.input, new Dn(a));
               this.currentTrack.inputTrack = o, this.currentSegment.tracks.push(this.currentTrack);
             }
           }
@@ -7805,7 +7809,7 @@ class ln extends lx {
         {
           if (!this.currentAttachedFile)
             break;
-          this.currentAttachedFile.fileUid = vn(x, F);
+          this.currentAttachedFile.fileUid = ln(x, F);
         }
         break;
       case C.FileName:
@@ -8189,7 +8193,7 @@ class MF {
     return a ? this.fetchPacketInCluster(a, o, F) : null;
   }
 }
-class dn extends MF {
+class un extends MF {
   constructor(x) {
     super(x), this.decoderConfigPromise = null, this.internalTrack = x;
   }
@@ -8249,7 +8253,7 @@ class dn extends MF {
     })() : null;
   }
 }
-class un extends MF {
+class Dn extends MF {
   constructor(x) {
     super(x), this.decoderConfig = null, this.internalTrack = x;
   }
@@ -8302,7 +8306,7 @@ const iA = async (t, x, e) => {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Dn extends lx {
+class Bn extends lx {
   constructor(x) {
     super(x), this.metadataPromise = null, this.firstFrameHeader = null, this.loadedSamples = [], this.metadataTags = null, this.tracks = [], this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.lastLoadedPos = 0, this.nextTimestampInSamples = 0, this.reader = x._reader;
   }
@@ -8312,7 +8316,7 @@ class Dn extends lx {
         await this.advanceReader();
       if (!this.firstFrameHeader)
         throw new Error("No valid MP3 frame found.");
-      this.tracks = [new S0(this.input, new Bn(this))];
+      this.tracks = [new S0(this.input, new bn(this))];
     })();
   }
   async advanceReader() {
@@ -8384,7 +8388,7 @@ class Dn extends lx {
       }
       if (!A && this.reader.fileSize !== null && this.reader.fileSize >= Ne) {
         let r = this.reader.requestSlice(this.reader.fileSize - Ne, Ne);
-        r instanceof Promise && (r = await r), d(r), a0(r, 3) === "TAG" && Xn(r, this.metadataTags);
+        r instanceof Promise && (r = await r), d(r), a0(r, 3) === "TAG" && Qn(r, this.metadataTags);
       }
       return this.metadataTags;
     } finally {
@@ -8392,7 +8396,7 @@ class Dn extends lx {
     }
   }
 }
-class Bn {
+class bn {
   constructor(x) {
     this.demuxer = x;
   }
@@ -8507,11 +8511,11 @@ class Bn {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const NA = 1399285583, bn = 79764919, GF = new Uint32Array(256);
+const NA = 1399285583, Cn = 79764919, GF = new Uint32Array(256);
 for (let t = 0; t < 256; t++) {
   let x = t << 24;
   for (let e = 0; e < 8; e++)
-    x = x & 2147483648 ? x << 1 ^ bn : x << 1;
+    x = x & 2147483648 ? x << 1 ^ Cn : x << 1;
   GF[t] = x >>> 0 & 4294967295;
 }
 const RF = (t) => {
@@ -8528,7 +8532,7 @@ const RF = (t) => {
   if (t.length > 0)
     if (x.codec === "vorbis") {
       d(x.vorbisInfo);
-      const F = x.vorbisInfo.modeBlockflags.length, s = (1 << xs(F - 1)) - 1 << 1, n = (t[0] & s) >> 1;
+      const F = x.vorbisInfo.modeBlockflags.length, s = (1 << es(F - 1)) - 1 << 1, n = (t[0] & s) >> 1;
       if (n >= x.vorbisInfo.modeBlockflags.length)
         throw new Error("Invalid mode number.");
       let a = e;
@@ -8538,7 +8542,7 @@ const RF = (t) => {
         a = x.vorbisInfo.blocksizes[c];
       }
       A = a !== null ? a + r >> 2 : 0;
-    } else x.codec === "opus" && (A = Gs(t).durationInSamples);
+    } else x.codec === "opus" && (A = Rs(t).durationInSamples);
   return {
     durationInSamples: A,
     vorbisBlockSize: r
@@ -8563,7 +8567,7 @@ const kx = 27, Jx = 282, LF = Jx + 255 * 255, be = (t) => {
   if (Vx(t) !== NA)
     return null;
   t.skip(1);
-  const A = I(t), r = Wn(t), F = Vx(t), i = Vx(t), s = Vx(t), n = I(t), a = new Uint8Array(n);
+  const A = I(t), r = Jn(t), F = Vx(t), i = Vx(t), s = Vx(t), n = I(t), a = new Uint8Array(n);
   for (let v = 0; v < n; v++)
     a[v] = I(t);
   const o = 27 + n, f = a.reduce((v, u) => v + u, 0), c = o + f;
@@ -8579,7 +8583,7 @@ const kx = 27, Jx = 282, LF = Jx + 255 * 255, be = (t) => {
     checksum: s,
     lacingValues: a
   };
-}, Cn = (t, x) => {
+}, jn = (t, x) => {
   for (; t.filePos < x - 3; ) {
     const e = Vx(t), A = e & 255, r = e >>> 8 & 255, F = e >>> 16 & 255, i = e >>> 24 & 255, s = 79;
     if (!(A !== s && r !== s && F !== s && i !== s)) {
@@ -8597,7 +8601,7 @@ const kx = 27, Jx = 282, LF = Jx + 255 * 255, be = (t) => {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class jn extends lx {
+class En extends lx {
   constructor(x) {
     super(x), this.metadataPromise = null, this.bitstreams = [], this.tracks = [], this.metadataTags = {}, this.reader = x._reader;
   }
@@ -8631,7 +8635,7 @@ class jn extends lx {
         A.data.byteLength >= 7 && A.data[0] === 1 && A.data[1] === 118 && A.data[2] === 111 && A.data[3] === 114 && A.data[4] === 98 && A.data[5] === 105 && A.data[6] === 115 ? await this.readVorbisMetadata(A, e) : (
           // Check for Opus
           A.data.byteLength >= 8 && A.data[0] === 79 && A.data[1] === 112 && A.data[2] === 117 && A.data[3] === 115 && A.data[4] === 72 && A.data[5] === 101 && A.data[6] === 97 && A.data[7] === 100 && await this.readOpusMetadata(A, e)
-        ), e.codecInfo.codec !== null && this.tracks.push(new S0(this.input, new En(e, this))));
+        ), e.codecInfo.codec !== null && this.tracks.push(new S0(this.input, new hn(e, this))));
       }
     })();
   }
@@ -8764,7 +8768,7 @@ class jn extends lx {
     return await this.readMetadata(), this.metadataTags;
   }
 }
-class En {
+class hn {
   constructor(x, e) {
     this.bitstream = x, this.demuxer = e, this.encodedPacketToMetadata = /* @__PURE__ */ new WeakMap(), this.sequentialScanCache = [], this.sequentialScanMutex = new xe(), this.internalSampleRate = x.codecInfo.codec === "opus" ? re : x.sampleRate;
   }
@@ -8877,7 +8881,7 @@ class En {
       for (; ; ) {
         const h = Math.min(E + LF, i - kx);
         let m = this.demuxer.reader.requestSlice(E, h - E);
-        if (m instanceof Promise && (m = await m), d(m), !Cn(m, h)) {
+        if (m instanceof Promise && (m = await m), d(m), !jn(m, h)) {
           i = j + kx;
           continue x;
         }
@@ -9068,7 +9072,7 @@ var k0;
 (function(t) {
   t[t.PCM = 1] = "PCM", t[t.IEEE_FLOAT = 3] = "IEEE_FLOAT", t[t.ALAW = 6] = "ALAW", t[t.MULAW = 7] = "MULAW", t[t.EXTENSIBLE = 65534] = "EXTENSIBLE";
 })(k0 || (k0 = {}));
-class hn extends lx {
+class mn extends lx {
   constructor(x) {
     super(x), this.metadataPromise = null, this.dataStart = -1, this.dataSize = -1, this.audioInfo = null, this.tracks = [], this.lastKnownPacketIndex = 0, this.metadataTags = {}, this.reader = x._reader;
   }
@@ -9107,7 +9111,7 @@ class hn extends lx {
       if (this.dataStart === -1)
         throw new Error('Invalid WAVE file - missing "data" chunk');
       const f = this.audioInfo.blockSizeInBytes;
-      this.dataSize = Math.floor(this.dataSize / f) * f, this.tracks.push(new S0(this.input, new mn(this)));
+      this.dataSize = Math.floor(this.dataSize / f) * f, this.tracks.push(new S0(this.input, new pn(this)));
     })();
   }
   async parseFmtChunk(x, e, A) {
@@ -9244,7 +9248,7 @@ class hn extends lx {
   }
 }
 const Hx = 2048;
-class mn {
+class pn {
   constructor(x) {
     this.demuxer = x;
   }
@@ -9394,7 +9398,7 @@ const ye = 7, fx = 9, ex = (t) => {
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 const Qe = 1024;
-class pn extends lx {
+class kn extends lx {
   constructor(x) {
     super(x), this.metadataPromise = null, this.firstFrameHeader = null, this.loadedSamples = [], this.metadataTags = null, this.tracks = [], this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.lastLoadedPos = 0, this.nextTimestampInSamples = 0, this.reader = x._reader;
   }
@@ -9402,7 +9406,7 @@ class pn extends lx {
     return this.metadataPromise ??= (async () => {
       for (; !this.firstFrameHeader && !this.lastSampleLoaded; )
         await this.advanceReader();
-      d(this.firstFrameHeader), this.tracks = [new S0(this.input, new kn(this))];
+      d(this.firstFrameHeader), this.tracks = [new S0(this.input, new gn(this))];
     })();
   }
   async advanceReader() {
@@ -9479,7 +9483,7 @@ class pn extends lx {
     }
   }
 }
-class kn {
+class gn {
   constructor(x) {
     this.demuxer = x;
   }
@@ -9598,7 +9602,7 @@ class kn {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const UF = (t) => t === 0 ? null : t === 1 ? 192 : t >= 2 && t <= 5 ? 144 * 2 ** t : t === 6 ? "uncommon-u8" : t === 7 ? "uncommon-u16" : t >= 8 && t <= 15 ? 2 ** t : null, gn = (t, x) => {
+const UF = (t) => t === 0 ? null : t === 1 ? 192 : t >= 2 && t <= 5 ? 144 * 2 ** t : t === 6 ? "uncommon-u8" : t === 7 ? "uncommon-u16" : t >= 8 && t <= 15 ? 2 ** t : null, wn = (t, x) => {
   switch (t) {
     case 0:
       return x;
@@ -9657,7 +9661,7 @@ const UF = (t) => t === 0 ? null : t === 1 ? 192 : t >= 2 && t <= 5 ? 144 * 2 **
   if (typeof x == "number")
     return x;
   u0(x), d(!1);
-}, wn = (t, x) => x === "uncommon-u16" ? s0(t) : x === "uncommon-u16-10" ? s0(t) * 10 : x === "uncommon-u8" ? I(t) : typeof x == "number" ? x : null, yn = (t) => {
+}, yn = (t, x) => x === "uncommon-u16" ? s0(t) : x === "uncommon-u16-10" ? s0(t) * 10 : x === "uncommon-u8" ? I(t) : typeof x == "number" ? x : null, Tn = (t) => {
   let e = 0;
   for (const A of t) {
     e ^= A;
@@ -9673,7 +9677,7 @@ const UF = (t) => t === 0 ? null : t === 1 ? 192 : t >= 2 && t <= 5 ? 144 * 2 **
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Tn extends lx {
+class Pn extends lx {
   constructor(x) {
     super(x), this.loadedSamples = [], this.metadataPromise = null, this.track = null, this.metadataTags = {}, this.audioInfo = null, this.lastLoadedPos = null, this.blockingBit = null, this.readingMutex = new xe(), this.lastSampleLoaded = !1, this.reader = x._reader;
   }
@@ -9717,7 +9721,7 @@ class Tn extends lx {
               minimumFrameSize: c,
               maximumFrameSize: v,
               description: b
-            }, this.track = new S0(this.input, new Pn(this));
+            }, this.track = new S0(this.input, new Sn(this));
             break;
           }
           case Z0.VORBIS_COMMENT: {
@@ -9822,15 +9826,15 @@ class Tn extends lx {
     if (!s)
       return null;
     d(this.audioInfo);
-    const n = gn(F.readBits(4), this.audioInfo.sampleRate);
+    const n = wn(F.readBits(4), this.audioInfo.sampleRate);
     if (!n || (F.readBits(4), F.readBits(3), F.readBits(1) !== 0))
       return null;
-    const o = OF(x), f = $F(x, s), c = wn(x, n);
+    const o = OF(x), f = $F(x, s), c = yn(x, n);
     if (c === null || c !== this.audioInfo.sampleRate)
       return null;
     const v = x.filePos - A, u = I(x);
     x.skip(-v), x.skip(-1);
-    const l = yn(R(x, v));
+    const l = Tn(R(x, v));
     return u !== l ? null : { num: o, blockSize: f, sampleRate: c };
   }
   async advanceReader() {
@@ -9855,7 +9859,7 @@ class Tn extends lx {
     }
   }
 }
-class Pn {
+class Sn {
   constructor(x) {
     this.demuxer = x;
   }
@@ -9991,7 +9995,7 @@ const q0 = 9e4, l0 = 188, zF = (t) => {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Sn extends lx {
+class _n extends lx {
   constructor(x) {
     super(x), this.metadataPromise = null, this.elementaryStreams = [], this.tracks = [], this.packetOffset = 0, this.packetStride = -1, this.sectionEndPositions = [], this.seekChunkSize = 5 * 1024 * 1024, this.minReferencePointByteDistance = -1, this.reader = x._reader;
   }
@@ -10213,7 +10217,7 @@ class Sn extends lx {
       if (!n)
         throw s ? new Error("No Program Map Table found in the file.") : new Error("No Program Association Table found in the file.");
       for (const a of this.elementaryStreams)
-        a.info.type === "video" ? this.tracks.push(new Gx(this.input, new _n(a))) : this.tracks.push(new S0(this.input, new In(a)));
+        a.info.type === "video" ? this.tracks.push(new Gx(this.input, new In(a))) : this.tracks.push(new S0(this.input, new qn(a)));
     })();
   }
   async getTracks() {
@@ -10632,7 +10636,7 @@ class lt {
     }
   }
 }
-class _n extends lt {
+class In extends lt {
   constructor(x) {
     super(x), this.elementaryStream = x, this.decoderConfig = {
       codec: mA({
@@ -10688,7 +10692,7 @@ class _n extends lt {
     return this.elementaryStream.info.reorderSize;
   }
 }
-class In extends lt {
+class qn extends lt {
   constructor(x) {
     super(x), this.elementaryStream = x;
   }
@@ -10735,7 +10739,7 @@ const sA = (t, x) => {
     }
   }
   return e.splice(A + 1, 0, x), !0;
-}, qn = async (t) => {
+}, Mn = async (t) => {
   d(!t.suppliedPacket);
   const x = t.elementaryStream;
   if (x.info.type === "video") {
@@ -10844,9 +10848,9 @@ const sA = (t, x) => {
             t.seekTo(s + 1);
             continue;
           }
-          const c = Rs[3 * f + o];
+          const c = Hs[3 * f + o];
           d(c !== void 0), t.seekTo(s), n = t.ensureBuffered(c), n instanceof Promise && (n = await n);
-          const v = Math.round(Hs * q0 / x.info.sampleRate);
+          const v = Math.round(Ns * q0 / x.info.sampleRate);
           return t.supplyPacket(n, v);
         } else if (e === "eac3") {
           if (i !== 11)
@@ -11004,7 +11008,7 @@ class It {
     if (this.reachedEnd)
       return !1;
     let x;
-    return this.context.suppliedPacket ? x = this.context.suppliedPacket : (await qn(this.context), x = this.context.suppliedPacket), this.context.suppliedPacket = null, x ? (this.decodeOrderPackets.push(x), this.processPacketThroughReorderBuffer(x), !0) : (this.reachedEnd = !0, this.flushReorderBuffer(), !1);
+    return this.context.suppliedPacket ? x = this.context.suppliedPacket : (await Mn(this.context), x = this.context.suppliedPacket), this.context.suppliedPacket = null, x ? (this.decodeOrderPackets.push(x), this.processPacketThroughReorderBuffer(x), !0) : (this.reachedEnd = !0, this.flushReorderBuffer(), !1);
   }
   async ensureCurrentPacketHasNext() {
     const x = this.decodeOrderPackets[0];
@@ -11044,7 +11048,7 @@ class LA extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new tn(x);
+    return new An(x);
   }
 }
 class VF extends LA {
@@ -11123,7 +11127,7 @@ class UA extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new ln(x);
+    return new dn(x);
   }
   get name() {
     return "Matroska";
@@ -11176,7 +11180,7 @@ class JF extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new Dn(x);
+    return new Bn(x);
   }
   get name() {
     return "MP3";
@@ -11196,7 +11200,7 @@ class XF extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new hn(x);
+    return new mn(x);
   }
   get name() {
     return "WAVE";
@@ -11213,7 +11217,7 @@ class QF extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new jn(x);
+    return new En(x);
   }
   get name() {
     return "Ogg";
@@ -11236,7 +11240,7 @@ class YF extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new Tn(x);
+    return new Pn(x);
   }
 }
 class ZF extends $0 {
@@ -11263,7 +11267,7 @@ class ZF extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new pn(x);
+    return new kn(x);
   }
   get name() {
     return "ADTS";
@@ -11284,7 +11288,7 @@ class xi extends $0 {
   }
   /** @internal */
   _createDemuxer(x) {
-    return new Sn(x);
+    return new _n(x);
   }
   get name() {
     return "MPEG Transport Stream";
@@ -11293,10 +11297,10 @@ class xi extends $0 {
     return "video/MP2T";
   }
 }
-const ei = /* @__PURE__ */ new VF(), ti = /* @__PURE__ */ new KF(), Ai = /* @__PURE__ */ new UA(), ri = /* @__PURE__ */ new WF(), Fi = /* @__PURE__ */ new JF(), ii = /* @__PURE__ */ new XF(), si = /* @__PURE__ */ new QF(), ni = /* @__PURE__ */ new ZF(), ai = /* @__PURE__ */ new YF(), oi = /* @__PURE__ */ new xi(), Mn = [ei, ti, Ai, ri, ii, si, ai, Fi, ni, oi];
-var Gn = {}, Te = /* @__PURE__ */ Object.freeze({
+const ei = /* @__PURE__ */ new VF(), ti = /* @__PURE__ */ new KF(), Ai = /* @__PURE__ */ new UA(), ri = /* @__PURE__ */ new WF(), Fi = /* @__PURE__ */ new JF(), ii = /* @__PURE__ */ new XF(), si = /* @__PURE__ */ new QF(), ni = /* @__PURE__ */ new ZF(), ai = /* @__PURE__ */ new YF(), oi = /* @__PURE__ */ new xi(), Gn = [ei, ti, Ai, ri, ii, si, ai, Fi, ni, oi];
+var Rn = {}, Te = /* @__PURE__ */ Object.freeze({
   __proto__: null,
-  default: Gn
+  default: Rn
 });
 /*!
  * Copyright (c) 2026-present, Vanilagy and contributors
@@ -11305,7 +11309,7 @@ var Gn = {}, Te = /* @__PURE__ */ Object.freeze({
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const Rn = typeof Te < "u" ? Te : void 0;
+const Hn = typeof Te < "u" ? Te : void 0;
 class dx {
   constructor() {
     this._disposed = !1, this._sizePromise = null, this.onread = null;
@@ -11336,7 +11340,7 @@ class dx {
     return x;
   }
 }
-class Hn extends dx {
+class Nn extends dx {
   /**
    * Creates a new {@link BufferSource} backed by the specified `ArrayBuffer`, `SharedArrayBuffer`,
    * or `ArrayBufferView`.
@@ -11362,7 +11366,7 @@ class Hn extends dx {
   _dispose() {
   }
 }
-class Nn extends dx {
+class Ln extends dx {
   /**
    * Creates a new {@link BlobSource} backed by the specified
    * [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
@@ -11414,7 +11418,7 @@ class Nn extends dx {
     this._orchestrator.dispose();
   }
 }
-const fi = 0.5 * 2 ** 20, Ln = (t, x, e) => {
+const fi = 0.5 * 2 ** 20, Un = (t, x, e) => {
   if (x instanceof Error && (x.message.includes("Failed to fetch") || x.message.includes("Load failed") || x.message.includes("NetworkError when attempting to fetch resource"))) {
     let r = null;
     try {
@@ -11426,7 +11430,7 @@ const fi = 0.5 * 2 ** 20, Ln = (t, x, e) => {
   }
   return Math.min(2 ** (t - 2), 16);
 };
-class Un extends dx {
+class On extends dx {
   /**
    * Creates a new {@link UrlSource} backed by the resource at the specified URL.
    *
@@ -11448,7 +11452,7 @@ class Un extends dx {
       throw new TypeError("options.parallelism, when provided, must be a positive number.");
     if (e.fetchFn !== void 0 && typeof e.fetchFn != "function")
       throw new TypeError("options.fetchFn, when provided, must be a function.");
-    super(), this._existingResponses = /* @__PURE__ */ new WeakMap(), this._url = x, this._options = e, this._getRetryDelay = e.getRetryDelay ?? Ln;
+    super(), this._existingResponses = /* @__PURE__ */ new WeakMap(), this._url = x, this._options = e, this._getRetryDelay = e.getRetryDelay ?? Un;
     const A = 2;
     this._orchestrator = new $A({
       maxCacheSize: e.maxCacheSize ?? 64 * 2 ** 20,
@@ -11553,7 +11557,7 @@ class Un extends dx {
     this._orchestrator.dispose();
   }
 }
-class On extends dx {
+class $n extends dx {
   /** Creates a new {@link FilePathSource} backed by the file at the specified file path. */
   constructor(x, e = {}) {
     if (typeof x != "string")
@@ -11563,7 +11567,7 @@ class On extends dx {
     if (e.maxCacheSize !== void 0 && (!te(e.maxCacheSize) || e.maxCacheSize < 0))
       throw new TypeError("options.maxCacheSize, when provided, must be a non-negative number.");
     super(), this._fileHandle = null, this._streamSource = new ci({
-      getSize: async () => (this._fileHandle = await Rn.fs.open(x, "r"), (await this._fileHandle.stat()).size),
+      getSize: async () => (this._fileHandle = await Hn.fs.open(x, "r"), (await this._fileHandle.stat()).size),
       read: async (A, r) => {
         d(this._fileHandle);
         const F = new Uint8Array(r - A);
@@ -11663,7 +11667,7 @@ class ci extends dx {
     this._orchestrator.dispose(), this._options.dispose?.();
   }
 }
-class $n extends dx {
+class zn extends dx {
   /** Creates a new {@link ReadableStreamSource} backed by the specified `ReadableStream<Uint8Array>`. */
   constructor(x, e = {}) {
     if (!(x instanceof ReadableStream))
@@ -11992,7 +11996,7 @@ class vi {
       throw new TypeError("options.source must be a Source.");
     if (x.source._disposed)
       throw new Error("options.source must not be disposed.");
-    this._formats = x.formats, this._source = x.source, this._reader = new zn(x.source);
+    this._formats = x.formats, this._source = x.source, this._reader = new Vn(x.source);
   }
   /** @internal */
   _getDemuxer() {
@@ -12100,7 +12104,7 @@ class B0 extends Error {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class zn {
+class Vn {
   constructor(x) {
     this.source = x;
   }
@@ -12199,7 +12203,7 @@ const j0 = (t, x) => {
   j0(t, 4);
   const x = t.view.getInt32(t.bufferPos, !1);
   return t.bufferPos += 4, x;
-}, Vn = (t) => {
+}, Kn = (t) => {
   j0(t, 4);
   const x = t.view.getInt32(t.bufferPos, !0);
   return t.bufferPos += 4, x;
@@ -12209,13 +12213,13 @@ const j0 = (t, x) => {
 }, I0 = (t) => {
   const x = T(t), e = T(t);
   return x * 4294967296 + e;
-}, Kn = (t) => {
+}, Wn = (t) => {
   const x = gx(t), e = T(t);
   return x * 4294967296 + e;
-}, Wn = (t) => {
-  const x = Vx(t);
-  return Vn(t) * 4294967296 + x;
 }, Jn = (t) => {
+  const x = Vx(t);
+  return Kn(t) * 4294967296 + x;
+}, Xn = (t) => {
   j0(t, 4);
   const x = t.view.getFloat32(t.bufferPos, !1);
   return t.bufferPos += 4, x;
@@ -12438,7 +12442,7 @@ const Ne = 128, tx = 10, Wx = [
   "Dubstep",
   "Garage rock",
   "Psybient"
-], Xn = (t, x) => {
+], Qn = (t, x) => {
   const e = t.filePos;
   x.raw ??= {}, x.raw.TAG ??= R(t, Ne - 3), t.filePos = e;
   const A = Nx(t, 30);
@@ -12476,7 +12480,7 @@ const Ne = 128, tx = 10, Wx = [
     console.warn(`Unsupported ID3v2 major version: ${x.majorVersion}`);
     return;
   }
-  const A = R(t, x.size), r = new Qn(x, A);
+  const A = R(t, x.size), r = new Yn(x, A);
   if (x.flags & Kx.Footer && r.removeFooter(), x.flags & Kx.Unsynchronisation && x.majorVersion === 3 && r.ununsynchronizeAll(), x.flags & Kx.ExtendedHeader) {
     const F = r.readU32();
     x.majorVersion === 3 ? r.pos += F : r.pos += F - 4;
@@ -12609,7 +12613,7 @@ const Ne = 128, tx = 10, Wx = [
     r.pos = s;
   }
 };
-class Qn {
+class Yn {
   constructor(x, e) {
     this.header = x, this.bytes = e, this.pos = 0, this.view = new DataView(e.buffer, e.byteOffset, e.byteLength);
   }
@@ -12842,7 +12846,7 @@ class VA {
     this.writer.write(this.helper.subarray(0, x.length));
   }
   writeSynchsafeU32(x) {
-    this.writeU32(ps(x));
+    this.writeU32(ks(x));
   }
   writeIsoString(x) {
     const e = new Uint8Array(x.length + 1);
@@ -12911,7 +12915,7 @@ class ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Yn extends ux {
+class Zn extends ux {
   constructor(x, e) {
     super(x), this.header = null, this.headerBitstream = null, this.inputIsAdts = null, this.format = e, this.writer = x._writer;
   }
@@ -12967,8 +12971,8 @@ class Yn extends ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const Sr = /* @__PURE__ */ new Uint8Array([102, 76, 97, 67]), Zn = 38, xa = 34;
-class ea extends ux {
+const Sr = /* @__PURE__ */ new Uint8Array([102, 76, 97, 67]), xa = 38, ea = 34;
+class ta extends ux {
   constructor(x, e) {
     super(x), this.metadataWritten = !1, this.blockSizes = [], this.frameSizes = [], this.sampleRate = null, this.channels = null, this.bitsPerSample = null, this.writer = x._writer, this.format = e;
   }
@@ -12978,7 +12982,7 @@ class ea extends ux {
   writeHeader({ bitsPerSample: x, minimumBlockSize: e, maximumBlockSize: A, minimumFrameSize: r, maximumFrameSize: F, sampleRate: i, channels: s, totalSamples: n }) {
     d(this.writer.getPos() === 4);
     const a = !me(this.output._metadataTags), o = new N(new Uint8Array(4));
-    o.writeBits(1, +!a), o.writeBits(7, Z0.STREAMINFO), o.writeBits(24, xa), this.writer.write(o.bytes);
+    o.writeBits(1, +!a), o.writeBits(7, Z0.STREAMINFO), o.writeBits(24, ea), this.writer.write(o.bytes);
     const f = new N(new Uint8Array(18));
     if (f.writeBits(16, e), f.writeBits(16, A), f.writeBits(24, r), f.writeBits(24, F), f.writeBits(20, i), f.writeBits(3, s - 1), f.writeBits(5, x - 1), n >= 2 ** 32)
       throw new Error("This muxer only supports writing up to 2 ** 32 samples");
@@ -12993,7 +12997,7 @@ class ea extends ux {
     i.writeBits(1, 0), i.writeBits(7, Z0.PICTURE), i.writeBits(24, e), this.writer.write(i.bytes), this.writer.write(A);
   }
   writeVorbisCommentAndPictureBlock() {
-    if (this.writer.seek(Zn + Sr.byteLength), me(this.output._metadataTags)) {
+    if (this.writer.seek(xa + Sr.byteLength), me(this.output._metadataTags)) {
       this.metadataWritten = !0;
       return;
     }
@@ -13061,8 +13065,8 @@ class ea extends ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const ve = /(?:(.+?)\n)?((?:\d{2}:)?\d{2}:\d{2}.\d{3})\s+-->\s+((?:\d{2}:)?\d{2}:\d{2}.\d{3})/g, ta = /^WEBVTT(.|\n)*?\n{2}/, Ye = /<(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})>/g;
-class Aa {
+const ve = /(?:(.+?)\n)?((?:\d{2}:)?\d{2}:\d{2}.\d{3})\s+-->\s+((?:\d{2}:)?\d{2}:\d{2}.\d{3})/g, Aa = /^WEBVTT(.|\n)*?\n{2}/, Ye = /<(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})>/g;
+class ra {
   constructor(x) {
     this.preambleText = null, this.preambleEmitted = !1, this.options = x;
   }
@@ -13073,7 +13077,7 @@ class Aa {
 `), ve.lastIndex = 0;
     let e;
     if (!this.preambleText) {
-      if (!ta.test(x))
+      if (!Aa.test(x))
         throw new Error("WebVTT preamble incorrect.");
       e = ve.exec(x);
       const A = x.slice(0, e?.index ?? x.length).trimEnd();
@@ -13104,8 +13108,8 @@ class Aa {
     }
   }
 }
-const ra = /(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})/, aA = (t) => {
-  const x = ra.exec(t);
+const Fa = /(?:(\d{2}):)?(\d{2}):(\d{2}).(\d{3})/, aA = (t) => {
+  const x = Fa.exec(t);
   if (!x)
     throw new Error("Expected match.");
   return 60 * 60 * 1e3 * Number(x[1] || "0") + 60 * 1e3 * Number(x[2]) + 1e3 * Number(x[3]) + Number(x[4]);
@@ -13214,7 +13218,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   type: t,
   contents: x && new Uint8Array(x.flat(10)),
   children: e
-}), W = (t, x, e, A, r) => M(t, [e0(x), ui(e), A ?? []], r), Fa = (t) => t.isQuickTime ? M("ftyp", [
+}), W = (t, x, e, A, r) => M(t, [e0(x), ui(e), A ?? []], r), ia = (t) => t.isQuickTime ? M("ftyp", [
   c0("qt  "),
   // Major brand
   w(512),
@@ -13239,12 +13243,12 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   c0("isom"),
   t.holdsAvc ? c0("avc1") : [],
   c0("mp41")
-]), Me = (t) => ({ type: "mdat", largeSize: t }), ia = (t) => ({ type: "free", size: t }), le = (t) => M("moov", void 0, [
-  sa(t.creationTime, t.trackDatas),
-  ...t.trackDatas.map((x) => na(x, t.creationTime)),
-  t.isFragmented ? Va(t.trackDatas) : null,
-  Fo(t)
-]), sa = (t, x) => {
+]), Me = (t) => ({ type: "mdat", largeSize: t }), sa = (t) => ({ type: "free", size: t }), le = (t) => M("moov", void 0, [
+  na(t.creationTime, t.trackDatas),
+  ...t.trackDatas.map((x) => aa(x, t.creationTime)),
+  t.isFragmented ? Ka(t.trackDatas) : null,
+  io(t)
+]), na = (t, x) => {
   const e = F0(Math.max(0, ...x.filter((i) => i.samples.length > 0).map((i) => {
     const s = WA(i.samples);
     return s.timestamp + s.duration;
@@ -13271,18 +13275,18 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     w(A)
     // Next track ID
   ]);
-}, na = (t, x) => {
-  const e = Eo(t);
+}, aa = (t, x) => {
+  const e = ho(t);
   return M("trak", void 0, [
-    aa(t, x),
     oa(t, x),
+    fa(t, x),
     e.name !== void 0 ? M("udta", void 0, [
       M("name", [
         ...Y.encode(e.name)
       ])
     ]) : null
   ]);
-}, aa = (t, x) => {
+}, oa = (t, x) => {
   const e = WA(t.samples), A = F0(e ? e.timestamp + e.duration : 0, oA), r = !Xx(x) || !Xx(A), F = r ? Sx : w;
   let i;
   if (t.type === "video") {
@@ -13319,11 +13323,11 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     J0(t.type === "video" ? t.info.height : 0)
     // Track height
   ]);
-}, oa = (t, x) => M("mdia", void 0, [
-  fa(t, x),
-  JA(!0, ca[t.type], va[t.type]),
-  la(t)
-]), fa = (t, x) => {
+}, fa = (t, x) => M("mdia", void 0, [
+  ca(t, x),
+  JA(!0, va[t.type], la[t.type]),
+  da(t)
+]), ca = (t, x) => {
   const e = WA(t.samples), A = F0(e ? e.timestamp + e.duration : 0, t.timescale), r = !Xx(x) || !Xx(A), F = r ? Sx : w;
   return W("mdhd", +r, 0, [
     F(x),
@@ -13339,11 +13343,11 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     G(0)
     // Quality
   ]);
-}, ca = {
+}, va = {
   video: "vide",
   audio: "soun",
   subtitle: "text"
-}, va = {
+}, la = {
   video: "MediabunnyVideoHandler",
   audio: "MediabunnySoundHandler",
   subtitle: "MediabunnyTextHandler"
@@ -13360,11 +13364,11 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   // Component flags mask
   c0(e, !0)
   // Component name
-]), la = (t) => M("minf", void 0, [
-  Ba[t.type](),
-  ba(),
-  Ea(t)
-]), da = () => W("vmhd", 0, 1, [
+]), da = (t) => M("minf", void 0, [
+  ba[t.type](),
+  Ca(),
+  ha(t)
+]), ua = () => W("vmhd", 0, 1, [
   G(0),
   // Graphics mode
   G(0),
@@ -13373,49 +13377,49 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   // Opcolor G
   G(0)
   // Opcolor B
-]), ua = () => W("smhd", 0, 0, [
+]), Da = () => W("smhd", 0, 0, [
   G(0),
   // Balance
   G(0)
   // Reserved
-]), Da = () => W("nmhd", 0, 0), Ba = {
-  video: da,
-  audio: ua,
-  subtitle: Da
-}, ba = () => M("dinf", void 0, [
-  Ca()
-]), Ca = () => W("dref", 0, 0, [
+]), Ba = () => W("nmhd", 0, 0), ba = {
+  video: ua,
+  audio: Da,
+  subtitle: Ba
+}, Ca = () => M("dinf", void 0, [
+  ja()
+]), ja = () => W("dref", 0, 0, [
   w(1)
   // Entry count
 ], [
-  ja()
-]), ja = () => W("url ", 0, 1), Ea = (t) => {
+  Ea()
+]), Ea = () => W("url ", 0, 1), ha = (t) => {
   const x = t.compositionTimeOffsetTable.length > 1 || t.compositionTimeOffsetTable.some((e) => e.sampleCompositionTimeOffset !== 0);
   return M("stbl", void 0, [
-    ha(t),
-    Ha(t),
-    x ? $a(t) : null,
+    ma(t),
+    Na(t),
     x ? za(t) : null,
-    La(t),
+    x ? Va(t) : null,
     Ua(t),
     Oa(t),
-    Na(t)
+    $a(t),
+    La(t)
   ]);
-}, ha = (t) => {
+}, ma = (t) => {
   let x;
   if (t.type === "video")
-    x = ma(ao(t.track.source._codec, t.info.decoderConfig.codec), t);
+    x = pa(oo(t.track.source._codec, t.info.decoderConfig.codec), t);
   else if (t.type === "audio") {
     const e = hi(t.track.source._codec, t.muxer.isQuickTime);
-    d(e), x = Ta(e, t);
-  } else t.type === "subtitle" && (x = Ga(co[t.track.source._codec], t));
+    d(e), x = Pa(e, t);
+  } else t.type === "subtitle" && (x = Ra(vo[t.track.source._codec], t));
   return d(x), W("stsd", 0, 0, [
     w(1)
     // Entry count
   ], [
     x
   ]);
-}, ma = (t, x) => M(t, [
+}, pa = (t, x) => M(t, [
   Array(6).fill(0),
   // Reserved
   G(1),
@@ -13445,13 +13449,13 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   KA(65535)
   // Pre-defined
 ], [
-  oo[x.track.source._codec](x),
-  pa(x),
-  Kr(x.info.decoderConfig.colorSpace) ? ka(x) : null
-]), pa = (t) => t.info.pixelAspectRatio.num === t.info.pixelAspectRatio.den ? null : M("pasp", [
+  fo[x.track.source._codec](x),
+  ka(x),
+  Kr(x.info.decoderConfig.colorSpace) ? ga(x) : null
+]), ka = (t) => t.info.pixelAspectRatio.num === t.info.pixelAspectRatio.den ? null : M("pasp", [
   w(t.info.pixelAspectRatio.num),
   w(t.info.pixelAspectRatio.den)
-]), ka = (t) => M("colr", [
+]), ga = (t) => M("colr", [
   c0("nclx"),
   // Colour type
   G(_x[t.info.decoderConfig.colorSpace.primaries]),
@@ -13462,10 +13466,10 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   // Matrix coefficients
   e0((t.info.decoderConfig.colorSpace.fullRange ? 1 : 0) << 7)
   // Full range flag
-]), ga = (t) => t.info.decoderConfig && M("avcC", [
+]), wa = (t) => t.info.decoderConfig && M("avcC", [
   // For AVC, description is an AVCDecoderConfigurationRecord, so nothing else to do here
   ...Q(t.info.decoderConfig.description)
-]), wa = (t) => t.info.decoderConfig && M("hvcC", [
+]), ya = (t) => t.info.decoderConfig && M("hvcC", [
   // For HEVC, description is an HEVCDecoderConfigurationRecord, so nothing else to do here
   ...Q(t.info.decoderConfig.description)
 ]), Ir = (t) => {
@@ -13488,7 +13492,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     G(0)
     // Codec initialization data size
   ]);
-}, ya = (t) => M("av1C", xF(t.info.decoderConfig.codec)), Ta = (t, x) => {
+}, Ta = (t) => M("av1C", xF(t.info.decoderConfig.codec)), Pa = (t, x) => {
   let e = 0, A, r = 16;
   const F = r0.includes(x.track.source._codec);
   if (F) {
@@ -13565,7 +13569,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     ];
   }
   return M(t, A, [
-    fo(x.track.source._codec, x.muxer.isQuickTime)?.(x) ?? null
+    co(x.track.source._codec, x.muxer.isQuickTime)?.(x) ?? null
   ]);
 }, Gt = (t) => {
   let x;
@@ -13626,18 +13630,18 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     ...e
   ], W("esds", 0, 0, e);
 }, Ax = (t) => M("wave", void 0, [
-  Pa(t),
   Sa(t),
+  _a(t),
   M("\0\0\0\0")
   // NULL tag at the end
-]), Pa = (t) => M("frma", [
+]), Sa = (t) => M("frma", [
   c0(hi(t.track.source._codec, t.muxer.isQuickTime))
-]), Sa = (t) => {
+]), _a = (t) => {
   const { littleEndian: x } = O0(t.track.source._codec);
   return M("enda", [
     G(+x)
   ]);
-}, _a = (t) => {
+}, Ia = (t) => {
   let x = t.info.numberOfChannels, e = 3840, A = t.info.sampleRate, r = 0, F = 0, i = new Uint8Array(0);
   const s = t.info.decoderConfig?.description;
   if (s) {
@@ -13660,7 +13664,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     // ChannelMappingFamily
     ...i
   ]);
-}, Ia = (t) => {
+}, qa = (t) => {
   const x = t.info.decoderConfig?.description;
   d(x);
   const e = Q(x);
@@ -13673,13 +13677,13 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     e0(A),
     e0(8 * e)
   ]);
-}, qa = (t) => {
+}, Ma = (t) => {
   const x = uF(t.info.firstPacket.data);
   if (!x)
     throw new Error("Couldn't extract AC-3 frame info from the audio packet. Ensure the packets contain valid AC-3 sync frames (as specified in ETSI TS 102 366).");
   const e = new Uint8Array(3), A = new N(e);
   return A.writeBits(2, x.fscod), A.writeBits(5, x.bsid), A.writeBits(3, x.bsmod), A.writeBits(3, x.acmod), A.writeBits(1, x.lfeon), A.writeBits(5, x.bitRateCode), A.writeBits(5, 0), M("dac3", [...e]);
-}, Ma = (t) => {
+}, Ga = (t) => {
   const x = BF(t.info.firstPacket.data);
   if (!x)
     throw new Error("Couldn't extract E-AC-3 frame info from the audio packet. Ensure the packets contain valid E-AC-3 sync frames (as specified in ETSI TS 102 366).");
@@ -13691,16 +13695,16 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   for (const i of x.substreams)
     F.writeBits(2, i.fscod), F.writeBits(5, i.bsid), F.writeBits(1, 0), F.writeBits(1, 0), F.writeBits(3, i.bsmod), F.writeBits(3, i.acmod), F.writeBits(1, i.lfeon), F.writeBits(3, 0), F.writeBits(4, i.numDepSub), i.numDepSub > 0 ? F.writeBits(9, i.chanLoc) : F.writeBits(1, 0);
   return M("dec3", [...r]);
-}, Ga = (t, x) => M(t, [
+}, Ra = (t, x) => M(t, [
   Array(6).fill(0),
   // Reserved
   G(1)
   // Data reference index
 ], [
-  vo[x.track.source._codec](x)
-]), Ra = (t) => M("vttC", [
+  lo[x.track.source._codec](x)
+]), Ha = (t) => M("vttC", [
   ...Y.encode(t.info.config.description)
-]), Ha = (t) => W("stts", 0, 0, [
+]), Na = (t) => W("stts", 0, 0, [
   w(t.timeToSampleTable.length),
   // Number of entries
   t.timeToSampleTable.map((x) => [
@@ -13709,7 +13713,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     w(x.sampleDelta)
     // Sample duration
   ])
-]), Na = (t) => {
+]), La = (t) => {
   if (t.samples.every((e) => e.type === "key"))
     return null;
   const x = [...t.samples.entries()].filter(([, e]) => e.type === "key");
@@ -13719,7 +13723,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     x.map(([e]) => w(e + 1))
     // Sync sample table
   ]);
-}, La = (t) => W("stsc", 0, 0, [
+}, Ua = (t) => W("stsc", 0, 0, [
   w(t.compactlyCodedChunkTable.length),
   // Number of entries
   t.compactlyCodedChunkTable.map((x) => [
@@ -13730,7 +13734,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     w(1)
     // Sample description index
   ])
-]), Ua = (t) => {
+]), Oa = (t) => {
   if (t.type === "audio" && t.info.requiresPcmTransformation) {
     const { sampleSize: x } = O0(t.track.source._codec);
     return W("stsz", 0, 0, [
@@ -13747,7 +13751,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     t.samples.map((x) => w(x.size))
     // Sample size table
   ]);
-}, Oa = (t) => t.finalizedChunks.length > 0 && x0(t.finalizedChunks).offset >= 2 ** 32 ? W("co64", 0, 0, [
+}, $a = (t) => t.finalizedChunks.length > 0 && x0(t.finalizedChunks).offset >= 2 ** 32 ? W("co64", 0, 0, [
   w(t.finalizedChunks.length),
   // Number of entries
   t.finalizedChunks.map((x) => Sx(x.offset))
@@ -13757,7 +13761,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   // Number of entries
   t.finalizedChunks.map((x) => w(x.offset))
   // Chunk offset table
-]), $a = (t) => W("ctts", 1, 0, [
+]), za = (t) => W("ctts", 1, 0, [
   w(t.compositionTimeOffsetTable.length),
   // Number of entries
   t.compositionTimeOffsetTable.map((x) => [
@@ -13766,7 +13770,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     sx(x.sampleCompositionTimeOffset)
     // Sample offset
   ])
-]), za = (t) => {
+]), Va = (t) => {
   let x = 1 / 0, e = -1 / 0, A = 1 / 0, r = -1 / 0;
   d(t.compositionTimeOffsetTable.length > 0), d(t.samples.length > 0);
   for (let i = 0; i < t.compositionTimeOffsetTable.length; i++) {
@@ -13790,7 +13794,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     sx(r)
     // Composition end time
   ]);
-}, Va = (t) => M("mvex", void 0, t.map(Ka)), Ka = (t) => W("trex", 0, 0, [
+}, Ka = (t) => M("mvex", void 0, t.map(Wa)), Wa = (t) => W("trex", 0, 0, [
   w(t.track.id),
   // Track ID
   w(1),
@@ -13802,20 +13806,20 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   w(0)
   // Default sample flags
 ]), qr = (t, x) => M("moof", void 0, [
-  Wa(t),
-  ...x.map(Ja)
-]), Wa = (t) => W("mfhd", 0, 0, [
+  Ja(t),
+  ...x.map(Xa)
+]), Ja = (t) => W("mfhd", 0, 0, [
   w(t)
   // Sequence number
 ]), ji = (t) => {
   let x = 0, e = 0;
   const A = 0, r = 0, F = t.type === "delta";
   return e |= +F, F ? x |= 1 : x |= 2, x << 24 | e << 16 | A << 8 | r;
-}, Ja = (t) => M("traf", void 0, [
-  Xa(t),
+}, Xa = (t) => M("traf", void 0, [
   Qa(t),
-  Ya(t)
-]), Xa = (t) => {
+  Ya(t),
+  Za(t)
+]), Qa = (t) => {
   d(t.currentChunk);
   let x = 0;
   x |= 8, x |= 16, x |= 32, x |= 131072;
@@ -13834,10 +13838,10 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     w(A.flags)
     // Default sample flags
   ]);
-}, Qa = (t) => (d(t.currentChunk), W("tfdt", 1, 0, [
+}, Ya = (t) => (d(t.currentChunk), W("tfdt", 1, 0, [
   Sx(F0(t.currentChunk.startTimestamp, t.timescale))
   // Base Media Decode Time
-])), Ya = (t) => {
+])), Za = (t) => {
   d(t.currentChunk);
   const x = t.currentChunk.samples.map((l) => l.timescaleUnitsToNextSample), e = t.currentChunk.samples.map((l) => l.size), A = t.currentChunk.samples.map(ji), r = t.currentChunk.samples.map((l) => F0(l.timestamp - l.decodeTimestamp, t.timescale)), F = new Set(x), i = new Set(e), s = new Set(A), n = new Set(r), a = s.size === 2 && A[0] !== A[1], o = F.size > 1, f = i.size > 1, c = !a && s.size > 1, v = n.size > 1 || [...n].some((l) => l !== 0);
   let u = 0;
@@ -13858,10 +13862,10 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
       v ? sx(r[D]) : []
     ])
   ]);
-}, Za = (t) => M("mfra", void 0, [
-  ...t.map(xo),
-  eo()
-]), xo = (t, x) => W("tfra", 1, 0, [
+}, xo = (t) => M("mfra", void 0, [
+  ...t.map(eo),
+  to()
+]), eo = (t, x) => W("tfra", 1, 0, [
   w(t.track.id),
   // Track ID
   w(63),
@@ -13880,28 +13884,28 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     w(1)
     // Sample number
   ])
-]), eo = () => W("mfro", 0, 0, [
+]), to = () => W("mfro", 0, 0, [
   // This value needs to be overwritten manually from the outside, where the actual size of the enclosing mfra box
   // is known
   w(0)
   // Size
-]), to = () => M("vtte"), Ao = (t, x, e, A, r) => M("vttc", void 0, [
+]), Ao = () => M("vtte"), ro = (t, x, e, A, r) => M("vttc", void 0, [
   r !== null ? M("vsid", [sx(r)]) : null,
   e !== null ? M("iden", [...Y.encode(e)]) : null,
   x !== null ? M("ctim", [...Y.encode(di(x))]) : null,
   A !== null ? M("sttg", [...Y.encode(A)]) : null,
   M("payl", [...Y.encode(t)])
-]), ro = (t) => M("vtta", [...Y.encode(t)]), Fo = (t) => {
+]), Fo = (t) => M("vtta", [...Y.encode(t)]), io = (t) => {
   const x = [], e = t.format._options.metadataFormat ?? "auto", A = t.output._metadataTags;
   if (e === "mdir" || e === "auto" && !t.isQuickTime) {
-    const r = so(A);
-    r && x.push(r);
-  } else if (e === "mdta") {
     const r = no(A);
     r && x.push(r);
-  } else (e === "udta" || e === "auto" && t.isQuickTime) && io(x, t.output._metadataTags);
+  } else if (e === "mdta") {
+    const r = ao(A);
+    r && x.push(r);
+  } else (e === "udta" || e === "auto" && t.isQuickTime) && so(x, t.output._metadataTags);
   return x.length === 0 ? null : M("udta", void 0, x);
-}, io = (t, x) => {
+}, so = (t, x) => {
   for (const { key: e, value: A } of ee(x))
     switch (e) {
       case "title":
@@ -14060,7 +14064,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
       ]) }));
     }
   return e;
-}, so = (t) => {
+}, no = (t) => {
   const x = Ei(t, !1);
   return x.length === 0 ? null : W("meta", 0, 0, void 0, [
     JA(!1, "mdir", "", "appl"),
@@ -14068,7 +14072,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     M("ilst", void 0, x.map((e) => M(e.key, void 0, [e.value])))
     // Item list without keys box
   ]);
-}, no = (t) => {
+}, ao = (t) => {
   const x = Ei(t, !0);
   return x.length === 0 ? null : M("meta", void 0, [
     JA(!1, "mdta", ""),
@@ -14089,7 +14093,7 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
   w(0),
   // Locale indicator
   ...Y.encode(t)
-]), ao = (t, x) => {
+]), oo = (t, x) => {
   switch (t) {
     case "avc":
       return x.startsWith("avc3") ? "avc3" : "avc1";
@@ -14102,12 +14106,12 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
     case "av1":
       return "av01";
   }
-}, oo = {
-  avc: ga,
-  hevc: wa,
+}, fo = {
+  avc: wa,
+  hevc: ya,
   vp8: Ir,
   vp9: Ir,
-  av1: ya
+  av1: Ta
 }, hi = (t, x) => {
   switch (t) {
     case "aac":
@@ -14179,22 +14183,22 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
       case "pcm-f64be":
         return "fpcm";
     }
-}, fo = (t, x) => {
+}, co = (t, x) => {
   switch (t) {
     case "aac":
       return Gt;
     case "mp3":
       return Gt;
     case "opus":
-      return _a;
+      return Ia;
     case "vorbis":
       return Gt;
     case "flac":
-      return Ia;
-    case "ac3":
       return qa;
-    case "eac3":
+    case "ac3":
       return Ma;
+    case "eac3":
+      return Ga;
   }
   if (x)
     switch (t) {
@@ -14239,10 +14243,10 @@ const V = /* @__PURE__ */ new Uint8Array(8), U0 = /* @__PURE__ */ new DataView(V
         return H0;
     }
   return null;
-}, co = {
-  webvtt: "wvtt"
 }, vo = {
-  webvtt: Ra
+  webvtt: "wvtt"
+}, lo = {
+  webvtt: Ha
 }, mi = (t) => {
   d(t.length === 3);
   let x = 0;
@@ -14344,10 +14348,10 @@ class pi extends XA {
     return this.bytes.slice(x, e);
   }
 }
-const lo = 2 ** 24, uo = 2;
-class Do extends XA {
+const uo = 2 ** 24, Do = 2;
+class Bo extends XA {
   constructor(x) {
-    super(), this.pos = 0, this.sections = [], this.lastWriteEnd = 0, this.lastFlushEnd = 0, this.writer = null, this.writeError = null, this.chunks = [], this.target = x, this.chunked = x._options.chunked ?? !1, this.chunkSize = x._options.chunkSize ?? lo;
+    super(), this.pos = 0, this.sections = [], this.lastWriteEnd = 0, this.lastFlushEnd = 0, this.writer = null, this.writeError = null, this.chunks = [], this.target = x, this.chunked = x._options.chunked ?? !1, this.chunkSize = x._options.chunkSize ?? uo;
   }
   start() {
     this.writer = this.target._writable.getWriter();
@@ -14418,7 +14422,7 @@ class Do extends XA {
       start: F,
       end: F + i.byteLength
     };
-    if (this.insertSectionIntoChunk(r, s), r.written[0].start === 0 && r.written[0].end === this.chunkSize && (r.shouldFlush = !0), this.chunks.length > uo) {
+    if (this.insertSectionIntoChunk(r, s), r.written[0].start === 0 && r.written[0].end === this.chunkSize && (r.shouldFlush = !0), this.chunks.length > Do) {
       for (let n = 0; n < this.chunks.length - 1; n++)
         this.chunks[n].shouldFlush = !0;
       this.tryToFlushChunks();
@@ -14473,7 +14477,7 @@ class Do extends XA {
     return this.writer?.close();
   }
 }
-class Bo extends XA {
+class bo extends XA {
   constructor(x) {
     super(), this.target = x, this.pos = 0;
   }
@@ -14500,7 +14504,7 @@ class Bo extends XA {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const bo = typeof Te < "u" ? Te : void 0;
+const Co = typeof Te < "u" ? Te : void 0;
 class ie {
   constructor() {
     this._output = null, this.onwrite = null;
@@ -14530,10 +14534,10 @@ class gi extends ie {
   }
   /** @internal */
   _createWriter() {
-    return new Do(this);
+    return new Bo(this);
   }
 }
-class Co extends ie {
+class jo extends ie {
   /** Creates a new {@link FilePathTarget} that writes to the file at the specified file path. */
   constructor(x, e = {}) {
     if (typeof x != "string")
@@ -14543,7 +14547,7 @@ class Co extends ie {
     super(), this._fileHandle = null;
     const A = new WritableStream({
       start: async () => {
-        this._fileHandle = await bo.fs.open(x, "w");
+        this._fileHandle = await Co.fs.open(x, "w");
       },
       write: async (r) => {
         d(this._fileHandle), await this._fileHandle.write(r.data, 0, r.data.byteLength, r.position);
@@ -14565,7 +14569,7 @@ class Co extends ie {
 class wi extends ie {
   /** @internal */
   _createWriter() {
-    return new Bo(this);
+    return new bo(this);
   }
 }
 /*!
@@ -14575,22 +14579,22 @@ class wi extends ie {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const oA = 1e3, jo = 2082844800, Eo = (t) => {
+const oA = 1e3, Eo = 2082844800, ho = (t) => {
   const x = {}, e = t.track;
   return e.metadata.name !== void 0 && (x.name = e.metadata.name), x;
 }, F0 = (t, x, e = !0) => {
   const A = t * x;
   return e ? Math.round(A) : A;
 };
-class ho extends ux {
+class mo extends ux {
   constructor(x, e) {
-    super(x), this.auxTarget = new ki(), this.auxWriter = this.auxTarget._createWriter(), this.auxBoxWriter = new _r(this.auxWriter), this.mdat = null, this.ftypSize = null, this.trackDatas = [], this.allTracksKnown = t0(), this.creationTime = Math.floor(Date.now() / 1e3) + jo, this.finalizedChunks = [], this.nextFragmentNumber = 1, this.maxWrittenTimestamp = -1 / 0, this.format = e, this.writer = x._writer, this.boxWriter = new _r(this.writer), this.isQuickTime = e instanceof ZA;
+    super(x), this.auxTarget = new ki(), this.auxWriter = this.auxTarget._createWriter(), this.auxBoxWriter = new _r(this.auxWriter), this.mdat = null, this.ftypSize = null, this.trackDatas = [], this.allTracksKnown = t0(), this.creationTime = Math.floor(Date.now() / 1e3) + Eo, this.finalizedChunks = [], this.nextFragmentNumber = 1, this.maxWrittenTimestamp = -1 / 0, this.format = e, this.writer = x._writer, this.boxWriter = new _r(this.writer), this.isQuickTime = e instanceof ZA;
     const A = this.writer instanceof pi ? "in-memory" : !1;
     this.fastStart = e._options.fastStart ?? A, this.isFragmented = this.fastStart === "fragmented", (this.fastStart === "in-memory" || this.isFragmented) && (this.writer.ensureMonotonicity = !0), this.minimumFragmentDuration = e._options.minimumFragmentDuration ?? 1;
   }
   async start() {
     const x = await this.mutex.acquire(), e = this.output._tracks.some((A) => A.type === "video" && A.source._codec === "avc");
-    if (this.format._options.onFtyp && this.writer.startTrackingWrites(), this.boxWriter.writeBox(Fa({
+    if (this.format._options.onFtyp && this.writer.startTrackingWrites(), this.boxWriter.writeBox(ia({
       isQuickTime: this.isQuickTime,
       holdsAvc: e,
       fragmented: this.isFragmented
@@ -14635,14 +14639,14 @@ class ho extends ux {
       const c = yA(e.data);
       if (!c)
         throw new Error("Couldn't extract an AVCDecoderConfigurationRecord from the AVC packet. Make sure the packets are in Annex B format (as specified in ITU-T-REC-H.264) when not providing a description, or provide a description (must be an AVCDecoderConfigurationRecord as specified in ISO 14496-15) and ensure the packets are in AVCC format.");
-      F.description = gs(c), i = !0;
+      F.description = ws(c), i = !0;
     } else if (x.source._codec === "hevc" && !F.description) {
       const c = PA(e.data);
       if (!c)
         throw new Error("Couldn't extract an HEVCDecoderConfigurationRecord from the HEVC packet. Make sure the packets are in Annex B format (as specified in ITU-T-REC-H.265) when not providing a description, or provide a description (must be an HEVCDecoderConfigurationRecord as specified in ISO 14496-15) and ensure the packets are in HEVC format.");
-      F.description = Is(c), i = !0;
+      F.description = qs(c), i = !0;
     }
-    const s = ts(1 / (x.metadata.frameRate ?? 57600), 1e6).denominator, n = F.displayAspectWidth, a = F.displayAspectHeight, o = n === void 0 || a === void 0 ? { num: 1, den: 1 } : Ft({
+    const s = As(1 / (x.metadata.frameRate ?? 57600), 1e6).denominator, n = F.displayAspectWidth, a = F.displayAspectHeight, o = n === void 0 || a === void 0 ? { num: 1, den: 1 } : Ft({
       num: n * F.codedHeight,
       den: a * F.codedWidth
     }), f = {
@@ -14808,7 +14812,7 @@ class ho extends ux {
         break;
       if (x.lastCueEndTimestamp < F) {
         this.auxWriter.seek(0);
-        const a = to();
+        const a = Ao();
         this.auxBoxWriter.writeBox(a);
         const o = this.auxWriter.getSlice(0, this.auxWriter.getPos()), f = this.createSampleForTrack(x, o, x.lastCueEndTimestamp, F - x.lastCueEndTimestamp, "key");
         await this.registerSample(x, f), x.lastCueEndTimestamp = F;
@@ -14822,10 +14826,10 @@ class ho extends ux {
         const f = Ye.test(o.text), c = o.timestamp + o.duration;
         let v = x.cueToSourceId.get(o);
         if (v === void 0 && i < c && (v = x.nextSourceId++, x.cueToSourceId.set(o, v)), o.notes) {
-          const l = ro(o.notes);
+          const l = Fo(o.notes);
           this.auxBoxWriter.writeBox(l);
         }
-        const u = Ao(o.text, f ? F : null, o.identifier ?? null, o.settings ?? null, v ?? null);
+        const u = ro(o.text, f ? F : null, o.identifier ?? null, o.settings ?? null, v ?? null);
         this.auxBoxWriter.writeBox(u), c === i && x.cueQueue.splice(a--, 1);
       }
       const s = this.auxWriter.getSlice(0, this.auxWriter.getPos()), n = this.createSampleForTrack(x, s, F, i - F, "key");
@@ -15090,7 +15094,7 @@ class ho extends ux {
         this.format._options.onMdat(r, F);
       }
     } else if (this.isFragmented) {
-      const e = this.writer.getPos(), A = Za(this.trackDatas);
+      const e = this.writer.getPos(), A = xo(this.trackDatas);
       this.boxWriter.writeBox(A);
       const r = this.writer.getPos() - e;
       this.writer.seek(this.writer.getPos() - 4), this.boxWriter.writeU32(r);
@@ -15107,7 +15111,7 @@ class ho extends ux {
       if (this.fastStart === "reserve") {
         d(this.ftypSize !== null), this.writer.seek(this.ftypSize), this.format._options.onMoov && this.writer.startTrackingWrites(), this.boxWriter.writeBox(r);
         const F = this.boxWriter.offsets.get(this.mdat) - this.writer.getPos();
-        this.boxWriter.writeBox(ia(F));
+        this.boxWriter.writeBox(sa(F));
       } else
         this.format._options.onMoov && this.writer.startTrackingWrites(), this.boxWriter.writeBox(r);
       if (this.format._options.onMoov) {
@@ -15125,14 +15129,14 @@ class ho extends ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const mo = -32768, po = 2 ** 15 - 1, Gr = "Mediabunny", Rr = 6, Hr = 5, ko = {
+const po = -32768, ko = 2 ** 15 - 1, Gr = "Mediabunny", Rr = 6, Hr = 5, go = {
   video: 1,
   audio: 2,
   subtitle: 17
 };
-class go extends ux {
+class wo extends ux {
   constructor(x, e) {
-    super(x), this.trackDatas = [], this.allTracksKnown = t0(), this.segment = null, this.segmentInfo = null, this.seekHead = null, this.tracksElement = null, this.tagsElement = null, this.attachmentsElement = null, this.segmentDuration = null, this.cues = null, this.currentCluster = null, this.currentClusterStartMsTimestamp = null, this.currentClusterMaxMsTimestamp = null, this.trackDatasInCurrentCluster = /* @__PURE__ */ new Map(), this.duration = 0, this.writer = x._writer, this.format = e, this.ebmlWriter = new cn(this.writer), this.format._options.appendOnly && (this.writer.ensureMonotonicity = !0);
+    super(x), this.trackDatas = [], this.allTracksKnown = t0(), this.segment = null, this.segmentInfo = null, this.seekHead = null, this.tracksElement = null, this.tagsElement = null, this.attachmentsElement = null, this.segmentDuration = null, this.cues = null, this.currentCluster = null, this.currentClusterStartMsTimestamp = null, this.currentClusterMaxMsTimestamp = null, this.trackDatasInCurrentCluster = /* @__PURE__ */ new Map(), this.duration = 0, this.writer = x._writer, this.format = e, this.ebmlWriter = new vn(this.writer), this.format._options.appendOnly && (this.writer.ensureMonotonicity = !0);
   }
   async start() {
     const x = await this.mutex.acquire();
@@ -15234,7 +15238,7 @@ class go extends ux {
       x.data.push({ id: C.TrackEntry, data: [
         { id: C.TrackNumber, data: e.track.id },
         { id: C.TrackUID, data: e.track.id },
-        { id: C.TrackType, data: ko[e.type] },
+        { id: C.TrackType, data: go[e.type] },
         e.track.metadata.disposition?.default === !1 ? { id: C.FlagDefault, data: 0 } : null,
         e.track.metadata.disposition?.forced ? { id: C.FlagForced, data: 1 } : null,
         e.track.metadata.disposition?.hearingImpaired ? { id: C.FlagHearingImpaired, data: 1 } : null,
@@ -15406,7 +15410,7 @@ class go extends ux {
     const x = this.output._metadataTags, e = [], A = /* @__PURE__ */ new Set(), r = x.images ?? [];
     for (const F of r) {
       let i = F.name;
-      i === void 0 && (i = (F.kind === "coverFront" ? "cover" : F.kind === "coverBack" ? "back" : "image") + (rs(F.mimeType) ?? ""));
+      i === void 0 && (i = (F.kind === "coverFront" ? "cover" : F.kind === "coverBack" ? "back" : "image") + (Fs(F.mimeType) ?? ""));
       let s;
       for (; ; ) {
         s = 0n;
@@ -15427,7 +15431,7 @@ class go extends ux {
       });
     }
     for (const [F, i] of Object.entries(x.raw ?? {}))
-      !(i instanceof it) || !/^\d+$/.test(F) || r.find((n) => n.mimeType === i.mimeType && ss(n.data, i.data)) || e.push({
+      !(i instanceof it) || !/^\d+$/.test(F) || r.find((n) => n.mimeType === i.mimeType && ns(n.data, i.data)) || e.push({
         id: C.AttachedFile,
         data: [
           i.description !== void 0 ? { id: C.FileDescription, data: new rx(i.description) } : null,
@@ -15508,7 +15512,7 @@ class go extends ux {
     };
     return x.source._codec === "vp9" ? n.info.decoderConfig = {
       ...n.info.decoderConfig,
-      description: new Uint8Array(ls(n.info.decoderConfig.codec))
+      description: new Uint8Array(ds(n.info.decoderConfig.codec))
     } : x.source._codec === "av1" && (n.info.decoderConfig = {
       ...n.info.decoderConfig,
       description: new Uint8Array(xF(n.info.decoderConfig.codec))
@@ -15648,7 +15652,7 @@ ${e.notes ?? ""}`, f = this.createInternalChunk(a, i, e.duration, "key", o.trim(
       bt470bg: 1,
       smpte170m: 3
     }[x.info.decoderConfig.colorSpace.matrix];
-    Wi(e.data, A.pos, A.pos + 3, o);
+    Ji(e.data, A.pos, A.pos + 3, o);
   }
   /** Converts a read-only external chunk into an internal one for easier use. */
   createInternalChunk(x, e, A, r, F = null) {
@@ -15675,11 +15679,11 @@ ${e.notes ?? ""}`, f = this.createInternalChunk(a, i, e.duration, "key", o.trim(
     else {
       d(this.currentClusterStartMsTimestamp !== null), d(this.currentClusterMaxMsTimestamp !== null);
       const o = A - this.currentClusterStartMsTimestamp;
-      F = r && A > this.currentClusterMaxMsTimestamp && o >= 1e3 * (this.format._options.minimumClusterDuration ?? 1) || o > po;
+      F = r && A > this.currentClusterMaxMsTimestamp && o >= 1e3 * (this.format._options.minimumClusterDuration ?? 1) || o > ko;
     }
     F && this.createNewCluster(A);
     const i = A - this.currentClusterStartMsTimestamp;
-    if (i < mo)
+    if (i < po)
       return;
     const s = new Uint8Array(4), n = new DataView(s.buffer);
     n.setUint8(0, 128 | x.track.id), n.setInt16(1, i, !1);
@@ -15772,7 +15776,7 @@ ${e.notes ?? ""}`, f = this.createInternalChunk(a, i, e.duration, "key", o.trim(
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class wo {
+class yo {
   constructor(x) {
     this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer);
   }
@@ -15812,9 +15816,9 @@ class wo {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class yo extends ux {
+class To extends ux {
   constructor(x, e) {
-    super(x), this.xingFrameData = null, this.frameCount = 0, this.framePositions = [], this.xingFramePos = null, this.format = e, this.writer = x._writer, this.mp3Writer = new wo(x._writer);
+    super(x), this.xingFrameData = null, this.frameCount = 0, this.framePositions = [], this.xingFramePos = null, this.format = e, this.writer = x._writer, this.mp3Writer = new yo(x._writer);
   }
   async start() {
     me(this.output._metadataTags) || new VA(this.writer).writeId3V2Tag(this.output._metadataTags);
@@ -15891,8 +15895,8 @@ class yo extends ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const To = 8192;
-class Po extends ux {
+const Po = 8192;
+class So extends ux {
   constructor(x, e) {
     super(x), this.trackDatas = [], this.bosPagesWritten = !1, this.allTracksKnown = t0(), this.pageBytes = new Uint8Array(LF), this.pageView = new DataView(this.pageBytes.buffer), this.format = e, this.writer = x._writer, this.writer.ensureMonotonicity = !0;
   }
@@ -16081,14 +16085,14 @@ class Po extends ux {
       F -= 255;
     }
     const n = e.data.subarray(i);
-    x.currentPageData.push(n), x.currentPageSize += n.length, x.currentGranulePosition = r, (x.currentPageSize >= To || e.forcePageFlush) && this.writePage(x, A);
+    x.currentPageData.push(n), x.currentPageSize += n.length, x.currentGranulePosition = r, (x.currentPageSize >= Po || e.forcePageFlush) && this.writePage(x, A);
   }
   writePage(x, e) {
     this.pageView.setUint32(0, NA, !0), this.pageView.setUint8(4, 0);
     let A = 0;
     x.currentPageStartsWithFreshPacket || (A |= 1), x.pagesWritten === 0 && (A |= 2), e && (A |= 4), this.pageView.setUint8(5, A);
     const r = x.currentLacingValues.every((n) => n === 255) ? -1 : x.currentGranulePosition;
-    Zi(this.pageView, 6, r), this.pageView.setUint32(14, x.serialNumber, !0), this.pageView.setUint32(18, x.pagesWritten, !0), this.pageView.setUint32(22, 0, !0), this.pageView.setUint8(26, x.currentLacingValues.length), this.pageBytes.set(x.currentLacingValues, 27);
+    xs(this.pageView, 6, r), this.pageView.setUint32(14, x.serialNumber, !0), this.pageView.setUint32(18, x.pagesWritten, !0), this.pageView.setUint32(22, 0, !0), this.pageView.setUint8(26, x.currentLacingValues.length), this.pageBytes.set(x.currentLacingValues, 27);
     let F = 27 + x.currentLacingValues.length;
     for (const n of x.currentPageData)
       this.pageBytes.set(n, F), F += n.length;
@@ -16118,8 +16122,8 @@ class Po extends ux {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-const So = 0, yi = 4096, Nr = 256, _o = 224, Lr = 192, Ur = new Uint8Array([9, 240]), Or = new Uint8Array([70, 1]);
-class Io extends ux {
+const _o = 0, yi = 4096, Nr = 256, Io = 224, Lr = 192, Ur = new Uint8Array([9, 240]), Or = new Uint8Array([70, 1]);
+class qo extends ux {
   constructor(x, e) {
     super(x), this.trackDatas = [], this.tablesWritten = !1, this.continuityCounters = /* @__PURE__ */ new Map(), this.packetBuffer = new Uint8Array(l0), this.packetView = U(this.packetBuffer), this.allTracksKnown = t0(), this.videoTrackIndex = 0, this.audioTrackIndex = 0, this.adaptationFieldBuffer = new Uint8Array(184), this.payloadBuffer = new Uint8Array(184), this.format = e, this.writer = x._writer, this.writer.ensureMonotonicity = !0;
   }
@@ -16135,7 +16139,7 @@ class Io extends ux {
     kA(e), d(e?.decoderConfig);
     const r = x.source._codec;
     d(r === "avc" || r === "hevc");
-    const F = r === "avc" ? 27 : 36, i = Nr + this.trackDatas.length, s = _o + this.videoTrackIndex++, n = {
+    const F = r === "avc" ? 27 : 36, i = Nr + this.trackDatas.length, s = Io + this.videoTrackIndex++, n = {
       track: x,
       pid: i,
       streamType: F,
@@ -16230,7 +16234,7 @@ class Io extends ux {
       const F = A?.decoderConfig?.description;
       if (x.inputIsAnnexB = !F, !x.inputIsAnnexB) {
         const i = Q(F);
-        r === "avc" ? x.avcDecoderConfig = sF(i) : x.hevcDecoderConfig = qs(i);
+        r === "avc" ? x.avcDecoderConfig = sF(i) : x.hevcDecoderConfig = Ms(i);
       }
     }
     return x.inputIsAnnexB ? this.prepareAnnexBVideoPacket(e.data, r) : this.prepareLengthPrefixedVideoPacket(x, e, r);
@@ -16331,7 +16335,7 @@ class Io extends ux {
     x || await this.writer.flush();
   }
   writeTables() {
-    d(!this.tablesWritten), this.writePsiSection(So, hx), this.writePsiSection(yi, Mo(this.trackDatas)), this.tablesWritten = !0;
+    d(!this.tablesWritten), this.writePsiSection(_o, hx), this.writePsiSection(yi, Go(this.trackDatas)), this.tablesWritten = !0;
   }
   writePsiSection(x, e) {
     let A = 0, r = !0;
@@ -16397,11 +16401,11 @@ class Io extends ux {
     await this.interleavePackets(!0), x();
   }
 }
-const qo = 79764919, Ti = new Uint32Array(256);
+const Mo = 79764919, Ti = new Uint32Array(256);
 for (let t = 0; t < 256; t++) {
   let x = t << 24;
   for (let e = 0; e < 8; e++)
-    x = x & 2147483648 ? x << 1 ^ qo : x << 1;
+    x = x & 2147483648 ? x << 1 ^ Mo : x << 1;
   Ti[t] = x >>> 0 & 4294967295;
 }
 const Pi = (t) => {
@@ -16416,7 +16420,7 @@ const Pi = (t) => {
   const t = U(hx);
   hx[0] = 0, t.setUint16(1, 45069, !1), t.setUint16(3, 1, !1), hx[5] = 193, hx[6] = 0, hx[7] = 0, t.setUint16(8, 1, !1), t.setUint16(10, 57344 | yi & 8191, !1), t.setUint32(12, Pi(hx.subarray(0, 12)), !1);
 }
-const Mo = (t) => {
+const Go = (t) => {
   let x = 0;
   for (const n of t)
     x += 5, n.streamType === 129 ? x += Ie.length : n.streamType === 135 && (x += qe.length);
@@ -16435,7 +16439,7 @@ const Mo = (t) => {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Go {
+class Ro {
   constructor(x) {
     this.writer = x, this.helper = new Uint8Array(8), this.helperView = new DataView(this.helper.buffer);
   }
@@ -16459,9 +16463,9 @@ class Go {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class Ro extends ux {
+class Ho extends ux {
   constructor(x, e) {
-    super(x), this.headerWritten = !1, this.dataSize = 0, this.sampleRate = null, this.sampleCount = 0, this.riffSizePos = null, this.dataSizePos = null, this.ds64RiffSizePos = null, this.ds64DataSizePos = null, this.ds64SampleCountPos = null, this.format = e, this.writer = x._writer, this.riffWriter = new Go(x._writer), this.isRf64 = !!e._options.large;
+    super(x), this.headerWritten = !1, this.dataSize = 0, this.sampleRate = null, this.sampleCount = 0, this.riffSizePos = null, this.dataSizePos = null, this.ds64RiffSizePos = null, this.ds64DataSizePos = null, this.ds64SampleCountPos = null, this.format = e, this.writer = x._writer, this.riffWriter = new Ro(x._writer), this.isRf64 = !!e._options.large;
   }
   async start() {
   }
@@ -16633,7 +16637,7 @@ class QA extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new ho(x, this);
+    return new mo(x, this);
   }
 }
 class YA extends QA {
@@ -16719,7 +16723,7 @@ class fA extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new go(x, this);
+    return new wo(x, this);
   }
   /** @internal */
   get _name() {
@@ -16781,7 +16785,7 @@ class cA extends fA {
     return new fA().getSupportedCodecs().includes(x) ? " Switching to MKV will grant support for this codec." : "";
   }
 }
-class Ho extends z0 {
+class No extends z0 {
   /** Creates a new {@link Mp3OutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -16794,7 +16798,7 @@ class Ho extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new yo(x, this);
+    return new To(x, this);
   }
   /** @internal */
   get _name() {
@@ -16824,7 +16828,7 @@ class Ho extends z0 {
     return !1;
   }
 }
-class No extends z0 {
+class Lo extends z0 {
   /** Creates a new {@link WavOutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -16839,7 +16843,7 @@ class No extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new Ro(x, this);
+    return new Ho(x, this);
   }
   /** @internal */
   get _name() {
@@ -16871,7 +16875,7 @@ class No extends z0 {
     return !1;
   }
 }
-class Lo extends z0 {
+class Uo extends z0 {
   /** Creates a new {@link OggOutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -16884,7 +16888,7 @@ class Lo extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new Po(x, this);
+    return new So(x, this);
   }
   /** @internal */
   get _name() {
@@ -16916,7 +16920,7 @@ class Lo extends z0 {
     return !1;
   }
 }
-class Uo extends z0 {
+class Oo extends z0 {
   /** Creates a new {@link AdtsOutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -16927,7 +16931,7 @@ class Uo extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new Yn(x, this);
+    return new Zn(x, this);
   }
   /** @internal */
   get _name() {
@@ -16957,7 +16961,7 @@ class Uo extends z0 {
     return !1;
   }
 }
-class Oo extends z0 {
+class $o extends z0 {
   /** Creates a new {@link FlacOutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -16966,7 +16970,7 @@ class Oo extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new ea(x, this);
+    return new ta(x, this);
   }
   /** @internal */
   get _name() {
@@ -16996,7 +17000,7 @@ class Oo extends z0 {
     return !1;
   }
 }
-class $o extends z0 {
+class zo extends z0 {
   /** Creates a new {@link MpegTsOutputFormat} configured with the specified `options`. */
   constructor(x = {}) {
     if (!x || typeof x != "object")
@@ -17007,7 +17011,7 @@ class $o extends z0 {
   }
   /** @internal */
   _createMuxer(x) {
-    return new Io(x, this);
+    return new qo(x, this);
   }
   /** @internal */
   get _name() {
@@ -17085,7 +17089,7 @@ const xr = (t) => {
 }, vA = (t) => {
   const x = t.bitrate instanceof E0 ? t.bitrate._toVideoBitrate(t.codec, t.width, t.height) : t.bitrate;
   return {
-    codec: t.fullCodecString ?? vs(t.codec, t.width, t.height, x),
+    codec: t.fullCodecString ?? ls(t.codec, t.width, t.height, x),
     width: t.width,
     height: t.height,
     displayWidth: t.squarePixelWidth,
@@ -17098,7 +17102,7 @@ const xr = (t) => {
     hardwareAcceleration: t.hardwareAcceleration,
     scalabilityMode: t.scalabilityMode,
     contentHint: t.contentHint,
-    ...us(t.codec)
+    ...Ds(t.codec)
   };
 }, er = (t) => {
   if (!t || typeof t != "object")
@@ -17126,12 +17130,12 @@ const xr = (t) => {
 }, lA = (t) => {
   const x = t.bitrate instanceof E0 ? t.bitrate._toAudioBitrate(t.codec) : t.bitrate;
   return {
-    codec: t.fullCodecString ?? ds(t.codec, t.numberOfChannels, t.sampleRate),
+    codec: t.fullCodecString ?? us(t.codec, t.numberOfChannels, t.sampleRate),
     numberOfChannels: t.numberOfChannels,
     sampleRate: t.sampleRate,
     bitrate: x,
     bitrateMode: t.bitrateMode,
-    ...Ds(t.codec)
+    ...Bs(t.codec)
   };
 };
 class E0 {
@@ -17196,7 +17200,7 @@ class E0 {
     ].reduce((i, s) => Math.abs(s - r) < Math.abs(i - r) ? s : i)), Math.round(r / 1e3) * 1e3;
   }
 }
-const zo = /* @__PURE__ */ new E0(0.3), Vo = /* @__PURE__ */ new E0(0.6), Ko = /* @__PURE__ */ new E0(1), dA = /* @__PURE__ */ new E0(2), Wo = /* @__PURE__ */ new E0(4), Jo = (t) => {
+const Vo = /* @__PURE__ */ new E0(0.3), Ko = /* @__PURE__ */ new E0(0.6), Wo = /* @__PURE__ */ new E0(1), dA = /* @__PURE__ */ new E0(2), Jo = /* @__PURE__ */ new E0(4), Xo = (t) => {
   if (v0.includes(t))
     return dt(t);
   if (D0.includes(t))
@@ -17276,7 +17280,7 @@ const zo = /* @__PURE__ */ new E0(0.3), Vo = /* @__PURE__ */ new E0(0.6), Ko = /
     bitrate: r,
     ...F
   }), (await AudioEncoder.isConfigSupported(i)).supported === !0);
-}, Dt = async (t) => !!L0.includes(t), Xo = async () => {
+}, Dt = async (t) => !!L0.includes(t), Qo = async () => {
   const [t, x, e] = await Promise.all([
     Ii(),
     Ze(),
@@ -17297,12 +17301,12 @@ const zo = /* @__PURE__ */ new E0(0.3), Vo = /* @__PURE__ */ new E0(0.6), Ko = /
     if (await dt(e, x))
       return e;
   return null;
-}, Qo = async (t, x) => {
+}, Yo = async (t, x) => {
   for (const e of t)
     if (await ut(e, x))
       return e;
   return null;
-}, Yo = async (t) => {
+}, Zo = async (t) => {
   for (const x of t)
     if (await Dt(x))
       return x;
@@ -17447,7 +17451,7 @@ class tr {
           const a = s.displayWidth, o = s.displayHeight;
           if (!this.splitter)
             try {
-              this.splitter = new Zo(a, o);
+              this.splitter = new x8(a, o);
             } catch (f) {
               console.error("Due to an error, only color data will be encoded.", f), this.splitterCreationFailed = !0, this.alphaFrameQueue.push(null), this.encoder.encode(s, i), s.close();
             }
@@ -17556,7 +17560,7 @@ class tr {
       throw this.error;
   }
 }
-class Zo {
+class x8 {
   constructor(x, e) {
     this.lastFrame = null, typeof OffscreenCanvas < "u" ? this.canvas = new OffscreenCanvas(x, e) : (this.canvas = document.createElement("canvas"), this.canvas.width = x, this.canvas.height = e);
     const A = this.canvas.getContext("webgl2", {
@@ -17728,7 +17732,7 @@ class uA extends se {
     return this._encoder.flushAndClose(x);
   }
 }
-class x8 extends se {
+class e8 extends se {
   /**
    * Creates a new {@link CanvasSource} from a canvas element or `OffscreenCanvas` whose samples are encoded
    * according to the specified {@link VideoEncodingConfig}.
@@ -17760,7 +17764,7 @@ class x8 extends se {
     return this._encoder.flushAndClose(x);
   }
 }
-class e8 extends se {
+class t8 extends se {
   /** A promise that rejects upon any error within this source. This promise never resolves. */
   get errorPromise() {
     return this._errorPromiseAccessed = !0, this._promiseWithResolvers.promise;
@@ -17806,7 +17810,7 @@ class e8 extends se {
         o(v, f);
       }
     };
-    x !== null && (this._timerHandle = os(n, 4));
+    x !== null && (this._timerHandle = fs(n, 4));
     const a = (f) => {
       if (x === null)
         o(f);
@@ -17858,8 +17862,8 @@ class e8 extends se {
       }).catch((v) => {
         v instanceof DOMException && v.name === "AbortError" || this._promiseWithResolvers.reject(v);
       });
-    } else if (await s8())
-      this._workerTrackId = F8++, Lt({
+    } else if (await n8())
+      this._workerTrackId = i8++, Lt({
         type: "videoTrack",
         trackId: this._workerTrackId,
         track: this._track
@@ -17895,7 +17899,7 @@ class e8 extends se {
   }
   /** @internal */
   async _flushAndClose(x) {
-    this._abortController && (this._abortController.abort(), this._abortController = null), this._timerHandle && fs(this._timerHandle), this._lastVideoFrame?.close(), this._videoElement && (this._videoElement.srcObject = null, this._videoElement.remove(), this._videoElement = null), this._workerTrackId !== null && (d(this._workerListener), Lt({
+    this._abortController && (this._abortController.abort(), this._abortController = null), this._timerHandle && cs(this._timerHandle), this._lastVideoFrame?.close(), this._videoElement && (this._videoElement.srcObject = null, this._videoElement.remove(), this._videoElement = null), this._workerTrackId !== null && (d(this._workerListener), Lt({
       type: "stopTrack",
       trackId: this._workerTrackId
     }), await new Promise((e) => {
@@ -18079,17 +18083,17 @@ class Ar {
           F.setInt8(i, n0(Math.round(s * 128), -128, 127));
         } : e === "ulaw" ? this.writeOutputValue = (F, i, s) => {
           const n = n0(Math.floor(s * 32767), -32768, 32767);
-          F.setUint8(i, Us(n));
+          F.setUint8(i, Os(n));
         } : e === "alaw" ? this.writeOutputValue = (F, i, s) => {
           const n = n0(Math.floor(s * 32767), -32768, 32767);
-          F.setUint8(i, $s(n));
+          F.setUint8(i, zs(n));
         } : d(!1);
         break;
       case 2:
         e === "unsigned" ? this.writeOutputValue = (F, i, s) => F.setUint16(i, n0((s + 1) * 32767.5, 0, 65535), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => F.setInt16(i, n0(Math.round(s * 32767), -32768, 32767), r) : d(!1);
         break;
       case 3:
-        e === "unsigned" ? this.writeOutputValue = (F, i, s) => At(F, i, n0((s + 1) * 83886075e-1, 0, 16777215), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => Yi(F, i, n0(Math.round(s * 8388607), -8388608, 8388607), r) : d(!1);
+        e === "unsigned" ? this.writeOutputValue = (F, i, s) => At(F, i, n0((s + 1) * 83886075e-1, 0, 16777215), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => Zi(F, i, n0(Math.round(s * 8388607), -8388608, 8388607), r) : d(!1);
         break;
       case 4:
         e === "unsigned" ? this.writeOutputValue = (F, i, s) => F.setUint32(i, n0((s + 1) * 21474836475e-1, 0, 4294967295), r) : e === "signed" ? this.writeOutputValue = (F, i, s) => F.setInt32(i, n0(Math.round(s * 2147483647), -2147483648, 2147483647), r) : e === "float" ? this.writeOutputValue = (F, i, s) => F.setFloat32(i, s, r) : d(!1);
@@ -18136,7 +18140,7 @@ class DA extends ne {
     return this._encoder.flushAndClose(x);
   }
 }
-class t8 extends ne {
+class A8 extends ne {
   /**
    * Creates a new {@link AudioBufferSource} whose `AudioBuffer` instances are encoded according to the specified
    * {@link AudioEncodingConfig}.
@@ -18165,7 +18169,7 @@ class t8 extends ne {
     return this._encoder.flushAndClose(x);
   }
 }
-class A8 extends ne {
+class r8 extends ne {
   /** A promise that rejects upon any error within this source. This promise never resolves. */
   get errorPromise() {
     return this._errorPromiseAccessed = !0, this._promiseWithResolvers.promise;
@@ -18256,7 +18260,7 @@ class A8 extends ne {
     this._abortController && (this._abortController.abort(), this._abortController = null), this._audioContext && (d(this._scriptProcessorNode), this._scriptProcessorNode.disconnect(), await this._audioContext.suspend()), await this._encoder.flushAndClose(x);
   }
 }
-const r8 = () => {
+const F8 = () => {
   const t = (A, r) => {
     r ? self.postMessage(A, { transfer: r }) : self.postMessage(A);
   };
@@ -18309,13 +18313,13 @@ const r8 = () => {
     }
   });
 };
-let F8 = 0, M0 = null;
-const i8 = () => {
-  const t = new Blob([`(${r8.toString()})()`], { type: "application/javascript" }), x = URL.createObjectURL(t);
+let i8 = 0, M0 = null;
+const s8 = () => {
+  const t = new Blob([`(${F8.toString()})()`], { type: "application/javascript" }), x = URL.createObjectURL(t);
   M0 = new Worker(x);
 };
 let Nt = null;
-const s8 = async () => Nt !== null ? Nt : (M0 || i8(), new Promise((t) => {
+const n8 = async () => Nt !== null ? Nt : (M0 || s8(), new Promise((t) => {
   d(M0);
   const x = (e) => {
     const A = e.data;
@@ -18333,10 +18337,10 @@ class rr extends Bt {
     this._codec = x;
   }
 }
-class n8 extends rr {
+class a8 extends rr {
   /** Creates a new {@link TextSubtitleSource} where added text chunks are in the specified `codec`. */
   constructor(x) {
-    super(x), this._error = null, this._parser = new Aa({
+    super(x), this._error = null, this._parser = new ra({
       codec: x,
       output: (e, A) => {
         this._connectedTrack?.output._muxer.addSubtitleCue(this._connectedTrack, e, A).catch((r) => {
@@ -18381,7 +18385,7 @@ const Hi = ["video", "audio", "subtitle"], Ut = (t) => {
     throw new TypeError("metadata.languageCode, when provided, must be a three-letter, ISO 639-2/T language code.");
   if (t.name !== void 0 && typeof t.name != "string")
     throw new TypeError("metadata.name, when provided, must be a string.");
-  if (t.disposition !== void 0 && cs(t.disposition), t.maximumPacketCount !== void 0 && (!Number.isInteger(t.maximumPacketCount) || t.maximumPacketCount < 0))
+  if (t.disposition !== void 0 && vs(t.disposition), t.maximumPacketCount !== void 0 && (!Number.isInteger(t.maximumPacketCount) || t.maximumPacketCount < 0))
     throw new TypeError("metadata.maximumPacketCount, when provided, must be a non-negative integer.");
 };
 class BA {
@@ -18622,7 +18626,7 @@ class Fr {
       video: 0,
       audio: 0,
       subtitle: 0
-    }, this._totalTrackCount = 0, this._trackPromises = [], this._executed = !1, this._synchronizer = new a8(), this._totalDuration = null, this._maxTimestamps = /* @__PURE__ */ new Map(), this._canceled = !1, this.onProgress = void 0, this._computeProgress = !1, this._lastProgress = 0, this.isValid = !1, this.utilizedTracks = [], this.discardedTracks = [], !x || typeof x != "object")
+    }, this._totalTrackCount = 0, this._trackPromises = [], this._executed = !1, this._synchronizer = new o8(), this._totalDuration = null, this._maxTimestamps = /* @__PURE__ */ new Map(), this._canceled = !1, this.onProgress = void 0, this._computeProgress = !1, this._lastProgress = 0, this.isValid = !1, this.utilizedTracks = [], this.discardedTracks = [], !x || typeof x != "object")
       throw new TypeError("options must be an object.");
     if (!(x.input instanceof vi))
       throw new TypeError("options.input must be an Input.");
@@ -19072,7 +19076,7 @@ Check the discardedTracks field for more info.`);
     });
     return this._trackPromises.push((async () => {
       await this._started;
-      const n = new o8({
+      const n = new f8({
         targetNumberOfChannels: r,
         targetSampleRate: F,
         startTime: this._startTimestamp,
@@ -19107,7 +19111,7 @@ class Ni extends Error {
   }
 }
 const Vr = 5;
-class a8 {
+class o8 {
   constructor() {
     this.maxTimestamps = /* @__PURE__ */ new Map(), this.resolvers = [];
   }
@@ -19137,7 +19141,7 @@ class a8 {
     this.maxTimestamps.delete(x), this.computeMinAndMaybeResolve();
   }
 }
-class o8 {
+class f8 {
   constructor(x) {
     this.sourceSampleRate = null, this.sourceNumberOfChannels = null, this.targetSampleRate = x.targetSampleRate, this.targetNumberOfChannels = x.targetNumberOfChannels, this.startTime = x.startTime, this.endTime = x.endTime, this.onSample = x.onSample, this.bufferSizeInFrames = Math.floor(this.targetSampleRate * 5), this.bufferSizeInSamples = this.bufferSizeInFrames * this.targetNumberOfChannels, this.outputBuffer = new Float32Array(this.bufferSizeInSamples), this.bufferStartFrame = 0, this.maxWrittenFrame = -1;
   }
@@ -19232,27 +19236,27 @@ const Li = Symbol.for("mediabunny loaded");
 globalThis[Li] && console.error(`[WARNING]
 Mediabunny was loaded twice. This will likely cause Mediabunny not to work correctly. Check if multiple dependencies are importing different versions of Mediabunny, or if something is being bundled incorrectly.`);
 globalThis[Li] = !0;
-var f8 = /* @__PURE__ */ Object.freeze({
+var c8 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   ADTS: ni,
-  ALL_FORMATS: Mn,
+  ALL_FORMATS: Gn,
   ALL_TRACK_TYPES: Hi,
   AUDIO_CODECS: D0,
   AdtsInputFormat: ZF,
-  AdtsOutputFormat: Uo,
+  AdtsOutputFormat: Oo,
   AttachedFile: it,
-  AudioBufferSink: xn,
-  AudioBufferSource: t8,
+  AudioBufferSink: en,
+  AudioBufferSource: A8,
   AudioSample: o0,
   AudioSampleSink: Je,
   AudioSampleSource: DA,
   AudioSource: ne,
   BaseMediaSampleSink: RA,
-  BlobSource: Nn,
-  BufferSource: Hn,
+  BlobSource: Ln,
+  BufferSource: Nn,
   BufferTarget: ki,
   CanvasSink: gF,
-  CanvasSource: x8,
+  CanvasSource: e8,
   Conversion: Fr,
   ConversionCanceledError: Ni,
   CustomAudioDecoder: _A,
@@ -19264,10 +19268,10 @@ var f8 = /* @__PURE__ */ Object.freeze({
   EncodedPacketSink: Zx,
   EncodedVideoPacketSource: Gi,
   FLAC: ai,
-  FilePathSource: On,
-  FilePathTarget: Co,
+  FilePathSource: $n,
+  FilePathTarget: jo,
   FlacInputFormat: YF,
-  FlacOutputFormat: Oo,
+  FlacOutputFormat: $o,
   Input: vi,
   InputAudioTrack: S0,
   InputDisposedError: B0,
@@ -19282,33 +19286,33 @@ var f8 = /* @__PURE__ */ Object.freeze({
   MPEG_TS: oi,
   MatroskaInputFormat: UA,
   MediaSource: Bt,
-  MediaStreamAudioTrackSource: A8,
-  MediaStreamVideoTrackSource: e8,
+  MediaStreamAudioTrackSource: r8,
+  MediaStreamVideoTrackSource: t8,
   MkvOutputFormat: fA,
   MovOutputFormat: ZA,
   Mp3InputFormat: JF,
-  Mp3OutputFormat: Ho,
+  Mp3OutputFormat: No,
   Mp4InputFormat: VF,
   Mp4OutputFormat: YA,
   MpegTsInputFormat: xi,
-  MpegTsOutputFormat: $o,
+  MpegTsOutputFormat: zo,
   NON_PCM_AUDIO_CODECS: yx,
   NullTarget: wi,
   OGG: si,
   OggInputFormat: QF,
-  OggOutputFormat: Lo,
+  OggOutputFormat: Uo,
   Output: BA,
   OutputFormat: z0,
   PCM_AUDIO_CODECS: r0,
   QTFF: ti,
   QUALITY_HIGH: dA,
-  QUALITY_LOW: Vo,
-  QUALITY_MEDIUM: Ko,
-  QUALITY_VERY_HIGH: Wo,
-  QUALITY_VERY_LOW: zo,
+  QUALITY_LOW: Ko,
+  QUALITY_MEDIUM: Wo,
+  QUALITY_VERY_HIGH: Jo,
+  QUALITY_VERY_LOW: Vo,
   Quality: E0,
   QuickTimeInputFormat: KF,
-  ReadableStreamSource: $n,
+  ReadableStreamSource: zn,
   RichImageData: wx,
   SUBTITLE_CODECS: L0,
   Source: dx,
@@ -19316,8 +19320,8 @@ var f8 = /* @__PURE__ */ Object.freeze({
   StreamTarget: gi,
   SubtitleSource: rr,
   Target: ie,
-  TextSubtitleSource: n8,
-  UrlSource: Un,
+  TextSubtitleSource: a8,
+  UrlSource: On,
   VIDEO_CODECS: v0,
   VIDEO_SAMPLE_PIXEL_FORMATS: IA,
   VideoSample: i0,
@@ -19327,23 +19331,23 @@ var f8 = /* @__PURE__ */ Object.freeze({
   VideoSource: se,
   WAVE: ii,
   WEBM: ri,
-  WavOutputFormat: No,
+  WavOutputFormat: Lo,
   WaveInputFormat: XF,
   WebMInputFormat: WF,
   WebMOutputFormat: cA,
-  canEncode: Jo,
+  canEncode: Xo,
   canEncodeAudio: ut,
   canEncodeSubtitles: Dt,
   canEncodeVideo: dt,
   getEncodableAudioCodecs: Ze,
-  getEncodableCodecs: Xo,
+  getEncodableCodecs: Qo,
   getEncodableSubtitleCodecs: qi,
   getEncodableVideoCodecs: Ii,
-  getFirstEncodableAudioCodec: Qo,
-  getFirstEncodableSubtitleCodec: Yo,
+  getFirstEncodableAudioCodec: Yo,
+  getFirstEncodableSubtitleCodec: Zo,
   getFirstEncodableVideoCodec: Mi,
   registerDecoder: mF,
-  registerEncoder: Ls
+  registerEncoder: Us
 });
 /*!
  * Copyright (c) 2026-present, Vanilagy and contributors
@@ -19352,17 +19356,17 @@ var f8 = /* @__PURE__ */ Object.freeze({
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-var c8 = /* @__PURE__ */ ((t) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(t, {
+var v8 = /* @__PURE__ */ ((t) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(t, {
   get: (x, e) => (typeof require < "u" ? require : x)[e]
 }) : t)(function(t) {
   if (typeof require < "u") return require.apply(this, arguments);
   throw Error('Dynamic require of "' + t + '" is not supported');
 });
-function v8(t) {
+function l8(t) {
   if (!t)
     throw new Error("Assertion failed.");
 }
-async function l8(t) {
+async function d8(t) {
   if (typeof Worker < "u" && typeof Bun > "u") {
     const x = new Blob([t], { type: "text/javascript" }), e = URL.createObjectURL(x), A = new Worker(e, { type: typeof Deno < "u" ? "module" : void 0 });
     return URL.revokeObjectURL(e), A;
@@ -19373,13 +19377,13 @@ async function l8(t) {
         return Te;
       })).Worker;
     } catch {
-      x = c8("worker_threads").Worker;
+      x = v8("worker_threads").Worker;
     }
     return new x(t, { eval: !0 });
   }
 }
-function d8() {
-  return l8(`var Fr=Object.defineProperty;var Ir=(e,a,r)=>a in e?Fr(e,a,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[a]=r;var FA=(e=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(e,{get:(a,r)=>(typeof require!="undefined"?require:a)[r]}):e)(function(e){if(typeof require!="undefined")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')});var IA=(e,a,r)=>Ir(e,typeof a!="symbol"?a+"":a,r);async function gr(e={}){var _A,bA,PA;var a,r=e,u=!!globalThis.window,o=!!globalThis.WorkerGlobalScope,E=((bA=(_A=globalThis.process)==null?void 0:_A.versions)==null?void 0:bA.node)&&((PA=globalThis.process)==null?void 0:PA.type)!="renderer",v=[],l="./this.program",q=(A,j)=>{throw j},F="",I="",R,g;if(u||o){try{I=new URL(".",F).href}catch(A){}o&&(g=A=>{var j=new XMLHttpRequest;return j.open("GET",A,!1),j.responseType="arraybuffer",j.send(null),new Uint8Array(j.response)}),R=async A=>{var j=await fetch(A,{credentials:"same-origin"});if(j.ok)return j.arrayBuffer();throw new Error(j.status+" : "+j.url)}}var G=console.log.bind(console),p=console.error.bind(console),f,_=!1,K;function Aj(A){for(var j=0,t=A.length,n=new Uint8Array(t),k;j<t;++j)k=A.charCodeAt(j),n[j]=~k>>8&k;return n}var N,T,O,x,z,jj,rj,b,tj,nj,y,ej,Z=!1;function AA(){var A=S.buffer;O=new Int8Array(A),z=new Int16Array(A),r.HEAPU8=x=new Uint8Array(A),jj=new Uint16Array(A),rj=new Int32Array(A),b=new Uint32Array(A),tj=new Float32Array(A),nj=new Float64Array(A),y=new BigInt64Array(A),ej=new BigUint64Array(A)}function kj(){if(r.preRun)for(typeof r.preRun=="function"&&(r.preRun=[r.preRun]);r.preRun.length;)Ej(r.preRun.shift());tA(eA)}function aj(){Z=!0,M.s()}function lj(){if(r.postRun)for(typeof r.postRun=="function"&&(r.postRun=[r.postRun]);r.postRun.length;)cj(r.postRun.shift());tA(nA)}function jA(A){var t;(t=r.onAbort)==null||t.call(r,A),A="Aborted("+A+")",p(A),_=!0,A+=". Build with -sASSERTIONS for more info.";var j=new WebAssembly.RuntimeError(A);throw T==null||T(j),j}var U;function ij(){return Aj(\`\\0asm\\0\\0\\0\\xFEG\\\`\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\0\\\`\\x7F\\x7F\\\`\\0\\0\\\`\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x07\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\\`||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F~~~~\\0\\\`\\0\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F}\\x7F\\0\\\`\\x7F~~\\x7F\\0\\\`\\x7F~\\0\\\`\\x7F}\\\`\\b\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`|||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\0|\\\`\\x7F\\x7F|\\\`\\x7F|\\x7F\\0\\\`\\x7F\\x7F{\\x7F\\0\\\`|\\x7F|\\\`\\x7F|\\0\\\`}\\x7F\\\`||\\x7F|\\\`}}\\\`\\x7F|\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F~~~\\0\\\`\\x7F~\\x7F~\\\`\\x7F\\x7F\\x7F}}\\0\\\`\\x7F\\x7F|\\x7F\\0\\\`\\x7F~\\x7F\\x7F\\\`\\x7F|\\x7F\\\`\\x7F~\\x7F\\x7F\\x7F\\\`}~\\\`\\x7F||\\\`\\x7F|||\\\`|\\x7F\\\`~~~\\x7F~\\\`|~\\\`~~~~\\x7F\\\`~\\x7F\\x7F\\\`\\x7F\\x7F~~~\\0\\\`\\x7F\\x7F\\x7F|\\x7F~\\x7F\\\`\\x7F\\x7F\\x7F~~\\\`~~|\\\`\\b\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`	\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`|\\x7F\\x7F\\\`\\x7F\\x7F~\\x7F\\\`\\f\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`
+function u8() {
+  return d8(`var Fr=Object.defineProperty;var Ir=(e,a,r)=>a in e?Fr(e,a,{enumerable:!0,configurable:!0,writable:!0,value:r}):e[a]=r;var FA=(e=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(e,{get:(a,r)=>(typeof require!="undefined"?require:a)[r]}):e)(function(e){if(typeof require!="undefined")return require.apply(this,arguments);throw Error('Dynamic require of "'+e+'" is not supported')});var IA=(e,a,r)=>Ir(e,typeof a!="symbol"?a+"":a,r);async function gr(e={}){var _A,bA,PA;var a,r=e,u=!!globalThis.window,o=!!globalThis.WorkerGlobalScope,E=((bA=(_A=globalThis.process)==null?void 0:_A.versions)==null?void 0:bA.node)&&((PA=globalThis.process)==null?void 0:PA.type)!="renderer",v=[],l="./this.program",q=(A,j)=>{throw j},F="",I="",R,g;if(u||o){try{I=new URL(".",F).href}catch(A){}o&&(g=A=>{var j=new XMLHttpRequest;return j.open("GET",A,!1),j.responseType="arraybuffer",j.send(null),new Uint8Array(j.response)}),R=async A=>{var j=await fetch(A,{credentials:"same-origin"});if(j.ok)return j.arrayBuffer();throw new Error(j.status+" : "+j.url)}}var G=console.log.bind(console),p=console.error.bind(console),f,_=!1,K;function Aj(A){for(var j=0,t=A.length,n=new Uint8Array(t),k;j<t;++j)k=A.charCodeAt(j),n[j]=~k>>8&k;return n}var N,T,O,x,z,jj,rj,b,tj,nj,y,ej,Z=!1;function AA(){var A=S.buffer;O=new Int8Array(A),z=new Int16Array(A),r.HEAPU8=x=new Uint8Array(A),jj=new Uint16Array(A),rj=new Int32Array(A),b=new Uint32Array(A),tj=new Float32Array(A),nj=new Float64Array(A),y=new BigInt64Array(A),ej=new BigUint64Array(A)}function kj(){if(r.preRun)for(typeof r.preRun=="function"&&(r.preRun=[r.preRun]);r.preRun.length;)Ej(r.preRun.shift());tA(eA)}function aj(){Z=!0,M.s()}function lj(){if(r.postRun)for(typeof r.postRun=="function"&&(r.postRun=[r.postRun]);r.postRun.length;)cj(r.postRun.shift());tA(nA)}function jA(A){var t;(t=r.onAbort)==null||t.call(r,A),A="Aborted("+A+")",p(A),_=!0,A+=". Build with -sASSERTIONS for more info.";var j=new WebAssembly.RuntimeError(A);throw T==null||T(j),j}var U;function ij(){return Aj(\`\\0asm\\0\\0\\0\\xFEG\\\`\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\0\\\`\\x7F\\x7F\\\`\\0\\0\\\`\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x07\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F\\x7F\\0\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\\`||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\x7F~~~~\\0\\\`\\0\\x7F\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F}\\x7F\\0\\\`\\x7F~~\\x7F\\0\\\`\\x7F~\\0\\\`\\x7F}\\\`\\b\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`|||\\\`\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`\\0|\\\`\\x7F\\x7F|\\\`\\x7F|\\x7F\\0\\\`\\x7F\\x7F{\\x7F\\0\\\`|\\x7F|\\\`\\x7F|\\0\\\`}\\x7F\\\`||\\x7F|\\\`}}\\\`\\x7F|\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F~~~\\0\\\`\\x7F~\\x7F~\\\`\\x7F\\x7F\\x7F}}\\0\\\`\\x7F\\x7F|\\x7F\\0\\\`\\x7F~\\x7F\\x7F\\\`\\x7F|\\x7F\\\`\\x7F~\\x7F\\x7F\\x7F\\\`}~\\\`\\x7F||\\\`\\x7F|||\\\`|\\x7F\\\`~~~\\x7F~\\\`|~\\\`~~~~\\x7F\\\`~\\x7F\\x7F\\\`\\x7F\\x7F~~~\\0\\\`\\x7F\\x7F\\x7F|\\x7F~\\x7F\\\`\\x7F\\x7F\\x7F~~\\\`~~|\\\`\\b\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`	\\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`|\\x7F\\x7F\\\`\\x7F\\x7F~\\x7F\\\`\\f\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`
 \\x7F\\x7F~\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F}}\\\`\\x7F\\x7F~\\0\\\`\\x07\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\\`\\x7F\\x7F~\\\`\\x7F\\x7F|\\0\\\`|\\0\\\`\\x7F~\\\`~~~\\x7F\\\`\\x7F\\x7F~\\x7F\\x7F\\\`
 \\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\x7F\\0\\\`}}}\\\`\\x7F\\x7F\\x7F}\\\`\\x7F\\x7F\\x7F|gaa\\0ab\\0ac\\0ad\\0ae\\0%af\\0ag\\0
 ah\\0
@@ -22881,22 +22885,22 @@ Mb\\x89E\\x1B}4\\xD2I\\xBB\\xB84\\xD3M;\\xFDtt\\xD4Em\\xDDuTWm\\xF5\\xD5X\\xB7\\
 \\xC7\\xDE?\\xC8\\xF6\\xBEHG\\xE7\\xBF+\\xB8*eG\\xF7?\\0A\\xD4\\x8A\\v\\v:\\x86\\0\\0\\x86\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\x86\\0\\0\\x86\\0A\\xB0\\x8B\\v\\v\\x87\\0\\0\\x87\\0\\0\\x86\\0\\0\\x86\\0\\0\\0\\0\\0\\0\\x86\\0\\0\\0\\0\\0\\0\\x87\\0A\\xD4\\x8C\\v\\v"\\v\\x1B\\0\\0 \\x1B\\0\\0\\xE7X\\0\\0\\xFEX\\0\\0,\\x95\\0\\0A\\x95\\0\\0\\x1B\\0\\0\\xF2X\\0\\x006\\x95\\0A\\xF8\\x8C\\v\\v\\xF0\\x83\\0\\0\\0\\0\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\0A\\x94\\x8D\\v\\vo\\0A\\xAC\\x8D\\v\\v\\vm\\0\\0\\0l\\0\\0\\0\\\`\\x83\\0A\\xC4\\x8D\\v\\v\\0A\\xD4\\x8D\\v\\v\\b\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\\xFF\`)}function Cr(A){return A}async function Bj(A){return A}async function oj(A,j){try{var t=await Bj(A),n=await WebAssembly.instantiate(t,j);return n}catch(k){p(\`failed to asynchronously prepare wasm: \${k}\`),jA(k)}}async function sj(A,j,t){return oj(j,t)}function dj(){var A={a:br};return A}async function qj(){function A(i,d){return M=i.exports,_r(M),AA(),M}function j(i){return A(i.instance)}var t=dj();if(r.instantiateWasm)return new Promise((i,d)=>{r.instantiateWasm(t,(s,m)=>{i(A(s,m))})});U!=null||(U=ij());var n=await sj(f,U,t),k=j(n);return k}class rA{constructor(j){IA(this,"name","ExitStatus");this.message=\`Program terminated with exit(\${j})\`,this.status=j}}var tA=A=>{for(;A.length>0;)A.shift()(r)},nA=[],cj=A=>nA.push(A),eA=[],Ej=A=>eA.push(A),V=!0,kA=new TextDecoder,aA=(A,j,t,n)=>{var k=j+t;if(n)return k;for(;A[j]&&!(j>=k);)++j;return j},lA=(A,j,t)=>{if(!A)return"";var n=aA(x,A,j,t);return kA.decode(x.subarray(A,n))},X={varargs:void 0,getStr(A){var j=lA(A);return j}};function uj(A,j,t){return X.varargs=t,0}function pj(A,j,t){return X.varargs=t,0}function mj(A,j,t,n){X.varargs=n}var vj=()=>jA(""),iA=0,Gj=()=>{V=!1,iA=0},H={},BA=A=>{if(A instanceof rA||A=="unwind")return K;q(1,A)},oA=()=>V||iA>0,sA=A=>{var j;K=A,oA()||((j=r.onExit)==null||j.call(r,A),_=!0),q(A,new rA(A))},Dj=(A,j)=>{K=A,sA(A)},fj=Dj,_j=()=>{if(!oA())try{fj(K)}catch(A){BA(A)}},bj=A=>{if(!_)try{A(),_j()}catch(j){BA(j)}},dA=()=>performance.now(),Pj=(A,j)=>{if(H[A]&&(clearTimeout(H[A].id),delete H[A]),!j)return 0;var t=setTimeout(()=>{delete H[A],bj(()=>vA(A,dA()))},j);return H[A]={id:t,timeout_ms:j},0},qA=()=>Date.now(),xj=1,Fj=A=>A>=0&&A<=3,Ij=9007199254740992,gj=-9007199254740992,cA=A=>A<gj||A>Ij?NaN:Number(A);function Hj(A,j,t){if(j=cA(j),!Fj(A))return 28;var n;if(A===0)n=qA();else if(xj)n=dA();else return 52;var k=Math.round(n*1e3*1e3);return y[t>>3]=BigInt(k),0}var $j=()=>2147483648,hj=(A,j)=>Math.ceil(A/j)*j,Mj=A=>{var j=S.buffer.byteLength,t=(A-j+65535)/65536|0;try{return S.grow(t),AA(),1}catch(n){}},Lj=A=>{var j=x.length;A>>>=0;var t=$j();if(A>t)return!1;for(var n=1;n<=4;n*=2){var k=j*(1+.2/n);k=Math.min(k,A+100663296);var i=Math.min(t,hj(Math.max(A,k),65536)),d=Mj(i);if(d)return!0}return!1},W={},wj=()=>l||"./this.program",$=()=>{var k,i;if(!$.strings){var A=((i=(k=globalThis.navigator)==null?void 0:k.language)!=null?i:"C").replace("-","_")+".UTF-8",j={USER:"web_user",LOGNAME:"web_user",PATH:"/",PWD:"/",HOME:"/home/web_user",LANG:A,_:wj()};for(var t in W)W[t]===void 0?delete j[t]:j[t]=W[t];var n=[];for(var t in j)n.push(\`\${t}=\${j[t]}\`);$.strings=n}return $.strings},Cj=(A,j,t,n)=>{if(!(n>0))return 0;for(var k=t,i=t+n-1,d=0;d<A.length;++d){var s=A.codePointAt(d);if(s<=127){if(t>=i)break;j[t++]=s}else if(s<=2047){if(t+1>=i)break;j[t++]=192|s>>6,j[t++]=128|s&63}else if(s<=65535){if(t+2>=i)break;j[t++]=224|s>>12,j[t++]=128|s>>6&63,j[t++]=128|s&63}else{if(t+3>=i)break;j[t++]=240|s>>18,j[t++]=128|s>>12&63,j[t++]=128|s>>6&63,j[t++]=128|s&63,d++}}return j[t]=0,t-k},EA=(A,j,t)=>Cj(A,x,j,t),Kj=(A,j)=>{var t=0,n=0;for(var k of $()){var i=j+t;b[A+n>>2]=i,t+=EA(k,i,1/0)+1,n+=4}return 0},uA=A=>{for(var j=0,t=0;t<A.length;++t){var n=A.charCodeAt(t);n<=127?j++:n<=2047?j+=2:n>=55296&&n<=57343?(j+=4,++t):j+=3}return j},Nj=(A,j)=>{var t=$();b[A>>2]=t.length;var n=0;for(var k of t)n+=uA(k)+1;return b[j>>2]=n,0},Tj=A=>52,yj=(A,j)=>{var t=0,n=0,k=0;{var i=2;A==0?t=2:(A==1||A==2)&&(t=64),k=1}return O[j]=i,z[j+2>>1]=k,y[j+8>>3]=BigInt(t),y[j+16>>3]=BigInt(n),0},Uj=(A,j,t,n)=>52;function Sj(A,j,t,n){return j=cA(j),70}for(var Jj=[null,[],[]],Rj=(A,j=0,t,n)=>{var k=aA(A,j,t,n);return kA.decode(A.buffer?A.subarray(j,k):new Uint8Array(A.slice(j,k)))},Oj=(A,j)=>{var t=Jj[A];j===0||j===10?((A===1?G:p)(Rj(t)),t.length=0):t.push(j)},Vj=(A,j,t,n)=>{for(var k=0,i=0;i<t;i++){var d=b[j>>2],s=b[j+4>>2];j+=8;for(var m=0;m<s;m++)Oj(A,x[d+m]);k+=s}return b[n>>2]=k,0},pA=A=>{var j=r["_"+A];return j},Xj=(A,j)=>{O.set(A,j)},mA=A=>DA(A),Wj=A=>{var j=uA(A)+1,t=mA(j);return EA(A,t,j),t},Qj=()=>fA(),Yj=A=>GA(A),zj=(A,j,t,n,k)=>{var i={string:c=>{var L=0;return c!=null&&c!==0&&(L=Wj(c)),L},array:c=>{var L=mA(c.length);return Xj(c,L),L}};function d(c){return j==="string"?lA(c):j==="boolean"?!!c:c}var s=pA(A),m=[],J=0;if(n)for(var P=0;P<n.length;P++){var xA=i[t[P]];xA?(J===0&&(J=Qj()),m[P]=xA(n[P])):m[P]=n[P]}var Q=s(...m);function xr(c){return J!==0&&Yj(J),d(c)}return Q=xr(Q),Q},Zj=(A,j,t,n)=>{var k=!t||t.every(d=>d==="number"||d==="boolean"),i=j!=="string";return i&&k&&!n?pA(A):(...d)=>zj(A,j,t,d,n)},h=new Uint8Array(123),D=25;D>=0;--D)h[48+D]=52+D,h[65+D]=D,h[97+D]=26+D;if(h[43]=62,h[47]=63,r.noExitRuntime&&(V=r.noExitRuntime),r.print&&(G=r.print),r.printErr&&(p=r.printErr),r.wasmBinary&&(f=r.wasmBinary),r.arguments&&(v=r.arguments),r.thisProgram&&(l=r.thisProgram),r.preInit)for(typeof r.preInit=="function"&&(r.preInit=[r.preInit]);r.preInit.length>0;)r.preInit.shift()();r.cwrap=Zj;var Ar,jr,rr,tr,nr,er,kr,ar,lr,ir,Br,or,sr,dr,qr,cr,Er,ur,pr,mr,vr,Gr,vA,GA,DA,fA,Dr,fr,S;function _r(A){Ar=r._init_decoder=A.t,jr=r._malloc=A.u,rr=r._configure_decode_packet=A.v,tr=r._decode_packet=A.w,nr=r._get_decoded_format=A.x,er=r._get_decoded_plane_ptr=A.y,kr=r._get_decoded_channels=A.z,ar=r._get_decoded_sample_rate=A.A,lr=r._get_decoded_sample_count=A.B,ir=r._get_decoded_pts=A.C,Br=r._flush_decoder=A.D,or=r._close_decoder=A.E,sr=r._free=A.F,dr=r._init_encoder=A.G,qr=r._get_encoder_frame_size=A.H,cr=r._get_encode_input_ptr=A.I,Er=r._encode_frame=A.J,ur=r._flush_encoder=A.K,pr=r._get_encoded_data=A.L,mr=r._get_encoded_pts=A.M,vr=r._get_encoded_duration=A.N,Gr=r._close_encoder=A.O,vA=A.P,GA=A.Q,DA=A.R,fA=A.S,Dr=S=A.r,fr=A.__indirect_function_table}var br={a:uj,q:pj,n:mj,f:vj,k:Gj,l:Pj,e:Hj,d:qA,m:Lj,b:Kj,c:Nj,i:Tj,p:yj,h:Uj,o:Sj,g:Vj,j:sA};function Pr(){kj();function A(){var j;r.calledRun=!0,!_&&(aj(),N==null||N(r),(j=r.onRuntimeInitialized)==null||j.call(r),lj())}r.setStatus?(r.setStatus("Running..."),setTimeout(()=>{setTimeout(()=>r.setStatus(""),1),A()},1)):A()}var M;return M=await qj(),Pr(),Z?a=r:a=new Promise((A,j)=>{N=A,T=j}),a}var gA=gr;var B,w=null,hA,MA,LA,wA,Y,CA,KA,NA,TA,yA,UA,SA,JA,RA,OA,VA,XA,WA,QA,YA,zA=e=>e==="ac3"?0:1,ZA=async()=>{if(!B){if(w)return w;w=gA(),B=await w,w=null,hA=B.cwrap("init_decoder","number",["number"]),MA=B.cwrap("configure_decode_packet","number",["number","number"]),LA=B.cwrap("decode_packet","number",["number","number"]),wA=B.cwrap("get_decoded_format","number",["number"]),Y=B.cwrap("get_decoded_plane_ptr","number",["number","number"]),CA=B.cwrap("get_decoded_channels","number",["number"]),KA=B.cwrap("get_decoded_sample_rate","number",["number"]),NA=B.cwrap("get_decoded_sample_count","number",["number"]),TA=B.cwrap("get_decoded_pts","number",["number"]),yA=B.cwrap("flush_decoder",null,["number"]),UA=B.cwrap("close_decoder",null,["number"]),SA=B.cwrap("init_encoder","number",["number","number","number","number"]),JA=B.cwrap("get_encoder_frame_size","number",["number"]),RA=B.cwrap("get_encode_input_ptr","number",["number","number"]),OA=B.cwrap("encode_frame","number",["number","number"]),VA=B.cwrap("flush_encoder",null,["number"]),XA=B.cwrap("get_encoded_data","number",["number"]),WA=B.cwrap("get_encoded_pts","number",["number"]),QA=B.cwrap("get_encoded_duration","number",["number"]),YA=B.cwrap("close_encoder",null,["number"])}},Hr=async e=>{await ZA();let a=hA(zA(e));if(a===0)throw new Error("Failed to initialize AC3 decoder.");return{ctx:a,frameSize:0}},$r={0:{format:"u8",bytesPerSample:1,planar:!1},1:{format:"s16",bytesPerSample:2,planar:!1},2:{format:"s32",bytesPerSample:4,planar:!1},3:{format:"f32",bytesPerSample:4,planar:!1},5:{format:"u8-planar",bytesPerSample:1,planar:!0},6:{format:"s16-planar",bytesPerSample:2,planar:!0},7:{format:"s32-planar",bytesPerSample:4,planar:!0},8:{format:"f32-planar",bytesPerSample:4,planar:!0}},hr=(e,a,r)=>{let u=new Uint8Array(a),o=MA(e,u.length);if(o===0)throw new Error("Failed to configure decode packet.");B.HEAPU8.set(u,o);let E=LA(e,r);if(E<0)throw new Error(\`Decode failed with error code \${E}.\`);let v=wA(e),l=$r[v];if(!l)throw new Error(\`Unsupported AVSampleFormat: \${v}\`);let q=CA(e),F=KA(e),I=NA(e),R=TA(e),g;if(l.planar){let G=I*l.bytesPerSample,p=new Uint8Array(G*q);for(let f=0;f<q;f++){let _=Y(e,f);p.set(B.HEAPU8.subarray(_,_+G),f*G)}g=p.buffer}else{let G=I*q*l.bytesPerSample,p=Y(e,0);g=B.HEAPU8.slice(p,p+G).buffer}return{pcmData:g,format:l.format,channels:q,sampleRate:F,sampleCount:I,pts:R}},Mr=async(e,a,r,u)=>{await ZA();let o=SA(zA(e),a,r,u);if(o===0)throw new Error("Failed to initialize AC3 encoder.");return{ctx:o,frameSize:JA(o)}},Lr=(e,a,r)=>{let u=new Uint8Array(a),o=RA(e,u.length);if(o===0)throw new Error("Failed to allocate encoder input buffer.");B.HEAPU8.set(u,o);let E=OA(e,r);if(E<0)throw new Error(\`Encode failed with error code \${E}.\`);let v=XA(e),l=B.HEAPU8.slice(v,v+E).buffer,q=WA(e),F=QA(e);return{encodedData:l,pts:q,duration:F}},wr=e=>{VA(e)},HA=e=>{let{id:a,command:r}=e;(async()=>{try{let o,E=[];switch(r.type){case"init-decoder":{let{ctx:l,frameSize:q}=await Hr(r.data.codec);o={type:r.type,ctx:l,frameSize:q}}break;case"decode":{let l=hr(r.data.ctx,r.data.encodedData,r.data.timestamp);o={type:r.type,pcmData:l.pcmData,format:l.format,channels:l.channels,sampleRate:l.sampleRate,sampleCount:l.sampleCount,pts:l.pts},E.push(l.pcmData)}break;case"flush-decoder":yA(r.data.ctx),o={type:r.type};break;case"close-decoder":UA(r.data.ctx),o={type:r.type};break;case"init-encoder":{let{ctx:l,frameSize:q}=await Mr(r.data.codec,r.data.numberOfChannels,r.data.sampleRate,r.data.bitrate);o={type:r.type,ctx:l,frameSize:q}}break;case"encode":{let l=Lr(r.data.ctx,r.data.audioData,r.data.timestamp);o={type:r.type,encodedData:l.encodedData,pts:l.pts,duration:l.duration},E.push(l.encodedData)}break;case"flush-encoder":wr(r.data.ctx),o={type:r.type};break;case"close-encoder":YA(r.data.ctx),o={type:r.type};break}$A({id:a,success:!0,data:o},E)}catch(o){$A({id:a,success:!1,error:o})}})()},$A=(e,a)=>{C?C.postMessage(e,a!=null?a:[]):self.postMessage(e,{transfer:a!=null?a:[]})},C=null;typeof self=="undefined"&&(C=FA("worker_threads").parentPort);C?C.on("message",HA):self.addEventListener("message",e=>HA(e.data));
 `);
 }
-var u8, D8 = 0, bA = /* @__PURE__ */ new Map(), Ge = async (t, x) => {
-  const e = await B8();
+var D8, B8 = 0, bA = /* @__PURE__ */ new Map(), Ge = async (t, x) => {
+  const e = await b8();
   return new Promise((A, r) => {
-    const F = D8++;
+    const F = B8++;
     bA.set(F, {
       resolve: A,
       reject: r
     }), x ? e.postMessage({ id: F, command: t }, x) : e.postMessage({ id: F, command: t });
   });
-}, B8 = () => u8 ??= (async () => {
-  const t = await d8(), x = (e) => {
+}, b8 = () => D8 ??= (async () => {
+  const t = await u8(), x = (e) => {
     const A = bA.get(e.id);
-    v8(A !== void 0), bA.delete(e.id), e.success ? A.resolve(e.data) : A.reject(e.error);
+    l8(A !== void 0), bA.delete(e.id), e.success ? A.resolve(e.data) : A.reject(e.error);
   };
   return t.addEventListener ? t.addEventListener("message", (e) => x(e.data)) : t.on("message", x), t;
-})(), b8 = class extends _A {
+})(), C8 = class extends _A {
   constructor() {
     super(...arguments), this.ctx = 0;
   }
@@ -22929,15 +22933,15 @@ var u8, D8 = 0, bA = /* @__PURE__ */ new Map(), Ge = async (t, x) => {
   close() {
     Ge({ type: "close-decoder", data: { ctx: this.ctx } });
   }
-}, C8 = () => {
-  mF(b8);
+}, j8 = () => {
+  mF(C8);
 }, Ui = Symbol.for("@mediabunny/ac3 loaded");
 globalThis[Ui] && console.error(
   `[WARNING]
 @mediabunny/ac3 was loaded twice. This will likely cause the encoder/decoder not to work correctly. Check if multiple dependencies are importing different versions of @mediabunny/ac3, or if something is being bundled incorrectly.`
 );
 globalThis[Ui] = !0;
-var j8 = /* @__PURE__ */ Object.freeze({
+var E8 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
-  registerAc3Decoder: C8
+  registerAc3Decoder: j8
 });

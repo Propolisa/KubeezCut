@@ -1,56 +1,56 @@
-import { r as y, j as w, R as ge, a as Bw, b as w0 } from "./react-vendor-18pR7s9b.js";
-import { l as Zf } from "./gif-processing-CfWcW1Gl.js";
-import { c as He, a as Qf } from "./core-logger-Dau_Juxv.js";
-import { c as Mt, p as dd, d as S0, t as Nw, u as Uw } from "./state-vendor-Ctus6aXD.js";
-import { S as zw, P as jw, C as I0, R as Vw, T as $w, a as Hw, b as k0, I as Gw, c as T0, d as M0, e as Ww, f as F0, V as Kw, L as C0, g as E0, h as Xw, i as qw, j as P0, k as Yw, l as Zw, G as Qw, m as Jw, n as R0, o as A0, p as D0, q as _0, r as eS, s as tS, t as rS, u as nS, v as aS, w as O0, x as iS, y as L0, z as oS } from "./vendor-ui-KmnPcjbe.js";
-import { C as sS, a as cS, b as lS, c as uS, d as dS, P as fS, T as mS, Z as pS, e as hS, M as gS, R as yS, f as vS, L as bS, g as xS, X as wS, h as SS, i as IS, j as kS, G as TS, F as MS, S as FS, k as CS, l as ES, A as PS, D as RS, m as AS, V as DS, n as _S, E as OS, o as LS, p as BS, q as NS, r as US, s as zS, U as jS, t as VS, u as $S, I as HS, v as GS, w as WS, x as KS, H as XS, y as qS, z as YS, B as ZS, J as QS, K as JS, N as eI, O as tI, Q as rI, W as nI, Y as aI, _ as iI, $ as oI, a0 as sI, a1 as cI, a2 as lI, a3 as uI, a4 as dI, a5 as fI, a6 as mI, a7 as pI, a8 as hI, a9 as gI, aa as yI, ab as Jf, ac as vI, ad as bI, ae as xI } from "./vendor-icons-Ce83X_M4.js";
-function B0(e) {
+import { r as y, j as w, R as ge, a as Nw, b as I0 } from "./react-vendor-18pR7s9b.js";
+import { l as Jf } from "./gif-processing-CfWcW1Gl.js";
+import { c as He, a as em } from "./core-logger-Dau_Juxv.js";
+import { c as Mt, p as fd, d as k0, t as Uw, u as zw } from "./state-vendor-Ctus6aXD.js";
+import { S as jw, P as Vw, C as T0, R as $w, T as Hw, a as Gw, b as M0, I as Ww, c as F0, d as C0, e as Kw, f as E0, V as Xw, L as P0, g as R0, h as qw, i as Yw, j as A0, k as Zw, l as Qw, G as Jw, m as eS, n as D0, o as _0, p as O0, q as L0, r as tS, s as rS, t as nS, u as aS, v as iS, w as B0, x as oS, y as N0, z as sS } from "./vendor-ui-KmnPcjbe.js";
+import { C as cS, a as lS, b as uS, c as dS, d as fS, P as mS, T as pS, Z as hS, e as gS, M as yS, R as vS, f as bS, L as xS, g as wS, X as SS, h as IS, i as kS, j as TS, G as MS, F as FS, S as CS, k as ES, l as PS, A as RS, D as AS, m as DS, V as _S, n as OS, E as LS, o as BS, p as NS, q as US, r as zS, s as jS, U as VS, t as $S, u as HS, I as GS, v as WS, w as KS, x as XS, H as qS, y as YS, z as ZS, B as QS, J as JS, K as eI, N as tI, O as rI, Q as nI, W as aI, Y as iI, _ as oI, $ as sI, a0 as cI, a1 as lI, a2 as uI, a3 as dI, a4 as fI, a5 as mI, a6 as pI, a7 as hI, a8 as gI, a9 as yI, aa as vI, ab as tm, ac as bI, ad as xI, ae as wI } from "./vendor-icons-Ce83X_M4.js";
+function U0(e) {
   var t, r, n = "";
   if (typeof e == "string" || typeof e == "number") n += e;
   else if (typeof e == "object") if (Array.isArray(e)) {
     var a = e.length;
-    for (t = 0; t < a; t++) e[t] && (r = B0(e[t])) && (n && (n += " "), n += r);
+    for (t = 0; t < a; t++) e[t] && (r = U0(e[t])) && (n && (n += " "), n += r);
   } else for (r in e) e[r] && (n && (n += " "), n += r);
   return n;
 }
-function N0() {
-  for (var e, t, r = 0, n = "", a = arguments.length; r < a; r++) (e = arguments[r]) && (t = B0(e)) && (n && (n += " "), n += t);
+function z0() {
+  for (var e, t, r = 0, n = "", a = arguments.length; r < a; r++) (e = arguments[r]) && (t = U0(e)) && (n && (n += " "), n += t);
   return n;
 }
-const fd = "-", wI = (e) => {
-  const t = II(e), {
+const md = "-", SI = (e) => {
+  const t = kI(e), {
     conflictingClassGroups: r,
     conflictingClassGroupModifiers: n
   } = e;
   return {
     getClassGroupId: (o) => {
-      const s = o.split(fd);
-      return s[0] === "" && s.length !== 1 && s.shift(), U0(s, t) || SI(o);
+      const s = o.split(md);
+      return s[0] === "" && s.length !== 1 && s.shift(), j0(s, t) || II(o);
     },
     getConflictingClassGroupIds: (o, s) => {
       const c = r[o] || [];
       return s && n[o] ? [...c, ...n[o]] : c;
     }
   };
-}, U0 = (e, t) => {
+}, j0 = (e, t) => {
   if (e.length === 0)
     return t.classGroupId;
-  const r = e[0], n = t.nextPart.get(r), a = n ? U0(e.slice(1), n) : void 0;
+  const r = e[0], n = t.nextPart.get(r), a = n ? j0(e.slice(1), n) : void 0;
   if (a)
     return a;
   if (t.validators.length === 0)
     return;
-  const i = e.join(fd);
+  const i = e.join(md);
   return t.validators.find(({
     validator: o
   }) => o(i))?.classGroupId;
-}, em = /^\[(.+)\]$/, SI = (e) => {
-  if (em.test(e)) {
-    const t = em.exec(e)[1], r = t?.substring(0, t.indexOf(":"));
+}, rm = /^\[(.+)\]$/, II = (e) => {
+  if (rm.test(e)) {
+    const t = rm.exec(e)[1], r = t?.substring(0, t.indexOf(":"));
     if (r)
       return "arbitrary.." + r;
   }
-}, II = (e) => {
+}, kI = (e) => {
   const {
     theme: t,
     prefix: r
@@ -58,18 +58,18 @@ const fd = "-", wI = (e) => {
     nextPart: /* @__PURE__ */ new Map(),
     validators: []
   };
-  return TI(Object.entries(e.classGroups), r).forEach(([i, o]) => {
+  return MI(Object.entries(e.classGroups), r).forEach(([i, o]) => {
     nu(o, n, i, t);
   }), n;
 }, nu = (e, t, r, n) => {
   e.forEach((a) => {
     if (typeof a == "string") {
-      const i = a === "" ? t : tm(t, a);
+      const i = a === "" ? t : nm(t, a);
       i.classGroupId = r;
       return;
     }
     if (typeof a == "function") {
-      if (kI(a)) {
+      if (TI(a)) {
         nu(a(n), t, r, n);
         return;
       }
@@ -80,21 +80,21 @@ const fd = "-", wI = (e) => {
       return;
     }
     Object.entries(a).forEach(([i, o]) => {
-      nu(o, tm(t, i), r, n);
+      nu(o, nm(t, i), r, n);
     });
   });
-}, tm = (e, t) => {
+}, nm = (e, t) => {
   let r = e;
-  return t.split(fd).forEach((n) => {
+  return t.split(md).forEach((n) => {
     r.nextPart.has(n) || r.nextPart.set(n, {
       nextPart: /* @__PURE__ */ new Map(),
       validators: []
     }), r = r.nextPart.get(n);
   }), r;
-}, kI = (e) => e.isThemeGetter, TI = (e, t) => t ? e.map(([r, n]) => {
+}, TI = (e) => e.isThemeGetter, MI = (e, t) => t ? e.map(([r, n]) => {
   const a = n.map((i) => typeof i == "string" ? t + i : typeof i == "object" ? Object.fromEntries(Object.entries(i).map(([o, s]) => [t + o, s])) : i);
   return [r, a];
-}) : e, MI = (e) => {
+}) : e, FI = (e) => {
   if (e < 1)
     return {
       get: () => {
@@ -118,7 +118,7 @@ const fd = "-", wI = (e) => {
       r.has(i) ? r.set(i, o) : a(i, o);
     }
   };
-}, z0 = "!", FI = (e) => {
+}, V0 = "!", CI = (e) => {
   const {
     separator: t,
     experimentalParseClassName: r
@@ -139,7 +139,7 @@ const fd = "-", wI = (e) => {
       }
       v === "[" ? l++ : v === "]" && l--;
     }
-    const f = c.length === 0 ? s : s.substring(u), m = f.startsWith(z0), p = m ? f.substring(1) : f, h = d && d > u ? d - u : void 0;
+    const f = c.length === 0 ? s : s.substring(u), m = f.startsWith(V0), p = m ? f.substring(1) : f, h = d && d > u ? d - u : void 0;
     return {
       modifiers: c,
       hasImportantModifier: m,
@@ -151,7 +151,7 @@ const fd = "-", wI = (e) => {
     className: s,
     parseClassName: o
   }) : o;
-}, CI = (e) => {
+}, EI = (e) => {
   if (e.length <= 1)
     return e;
   const t = [];
@@ -159,16 +159,16 @@ const fd = "-", wI = (e) => {
   return e.forEach((n) => {
     n[0] === "[" ? (t.push(...r.sort(), n), r = []) : r.push(n);
   }), t.push(...r.sort()), t;
-}, EI = (e) => ({
-  cache: MI(e.cacheSize),
-  parseClassName: FI(e),
-  ...wI(e)
-}), PI = /\s+/, RI = (e, t) => {
+}, PI = (e) => ({
+  cache: FI(e.cacheSize),
+  parseClassName: CI(e),
+  ...SI(e)
+}), RI = /\s+/, AI = (e, t) => {
   const {
     parseClassName: r,
     getClassGroupId: n,
     getConflictingClassGroupIds: a
-  } = t, i = [], o = e.trim().split(PI);
+  } = t, i = [], o = e.trim().split(RI);
   let s = "";
   for (let c = o.length - 1; c >= 0; c -= 1) {
     const l = o[c], {
@@ -189,7 +189,7 @@ const fd = "-", wI = (e) => {
       }
       p = !1;
     }
-    const g = CI(u).join(":"), v = d ? g + z0 : g, b = v + h;
+    const g = EI(u).join(":"), v = d ? g + V0 : g, b = v + h;
     if (i.includes(b))
       continue;
     i.push(b);
@@ -202,49 +202,49 @@ const fd = "-", wI = (e) => {
   }
   return s;
 };
-function AI() {
+function DI() {
   let e = 0, t, r, n = "";
   for (; e < arguments.length; )
-    (t = arguments[e++]) && (r = j0(t)) && (n && (n += " "), n += r);
+    (t = arguments[e++]) && (r = $0(t)) && (n && (n += " "), n += r);
   return n;
 }
-const j0 = (e) => {
+const $0 = (e) => {
   if (typeof e == "string")
     return e;
   let t, r = "";
   for (let n = 0; n < e.length; n++)
-    e[n] && (t = j0(e[n])) && (r && (r += " "), r += t);
+    e[n] && (t = $0(e[n])) && (r && (r += " "), r += t);
   return r;
 };
-function DI(e, ...t) {
+function _I(e, ...t) {
   let r, n, a, i = o;
   function o(c) {
     const l = t.reduce((u, d) => d(u), e());
-    return r = EI(l), n = r.cache.get, a = r.cache.set, i = s, s(c);
+    return r = PI(l), n = r.cache.get, a = r.cache.set, i = s, s(c);
   }
   function s(c) {
     const l = n(c);
     if (l)
       return l;
-    const u = RI(c, r);
+    const u = AI(c, r);
     return a(c, u), u;
   }
   return function() {
-    return i(AI.apply(null, arguments));
+    return i(DI.apply(null, arguments));
   };
 }
 const ar = (e) => {
   const t = (r) => r[e] || [];
   return t.isThemeGetter = !0, t;
-}, V0 = /^\[(?:([a-z-]+):)?(.+)\]$/i, _I = /^\d+\/\d+$/, OI = /* @__PURE__ */ new Set(["px", "full", "screen"]), LI = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, BI = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, NI = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, UI = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, zI = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, xn = (e) => Si(e) || OI.has(e) || _I.test(e), Bn = (e) => Ri(e, "length", XI), Si = (e) => !!e && !Number.isNaN(Number(e)), fl = (e) => Ri(e, "number", Si), Vi = (e) => !!e && Number.isInteger(Number(e)), jI = (e) => e.endsWith("%") && Si(e.slice(0, -1)), Et = (e) => V0.test(e), Nn = (e) => LI.test(e), VI = /* @__PURE__ */ new Set(["length", "size", "percentage"]), $I = (e) => Ri(e, VI, $0), HI = (e) => Ri(e, "position", $0), GI = /* @__PURE__ */ new Set(["image", "url"]), WI = (e) => Ri(e, GI, YI), KI = (e) => Ri(e, "", qI), $i = () => !0, Ri = (e, t, r) => {
-  const n = V0.exec(e);
+}, H0 = /^\[(?:([a-z-]+):)?(.+)\]$/i, OI = /^\d+\/\d+$/, LI = /* @__PURE__ */ new Set(["px", "full", "screen"]), BI = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, NI = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, UI = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, zI = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, jI = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, xn = (e) => Si(e) || LI.has(e) || OI.test(e), Bn = (e) => Ri(e, "length", qI), Si = (e) => !!e && !Number.isNaN(Number(e)), fl = (e) => Ri(e, "number", Si), Vi = (e) => !!e && Number.isInteger(Number(e)), VI = (e) => e.endsWith("%") && Si(e.slice(0, -1)), Et = (e) => H0.test(e), Nn = (e) => BI.test(e), $I = /* @__PURE__ */ new Set(["length", "size", "percentage"]), HI = (e) => Ri(e, $I, G0), GI = (e) => Ri(e, "position", G0), WI = /* @__PURE__ */ new Set(["image", "url"]), KI = (e) => Ri(e, WI, ZI), XI = (e) => Ri(e, "", YI), $i = () => !0, Ri = (e, t, r) => {
+  const n = H0.exec(e);
   return n ? n[1] ? typeof t == "string" ? n[1] === t : t.has(n[1]) : r(n[2]) : !1;
-}, XI = (e) => (
+}, qI = (e) => (
   // `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
   // For example, `hsl(0 0% 0%)` would be classified as a length without this check.
   // I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
-  BI.test(e) && !NI.test(e)
-), $0 = () => !1, qI = (e) => UI.test(e), YI = (e) => zI.test(e), ZI = () => {
+  NI.test(e) && !UI.test(e)
+), G0 = () => !1, YI = (e) => zI.test(e), ZI = (e) => jI.test(e), QI = () => {
   const e = ar("colors"), t = ar("spacing"), r = ar("blur"), n = ar("brightness"), a = ar("borderColor"), i = ar("borderRadius"), o = ar("borderSpacing"), s = ar("borderWidth"), c = ar("contrast"), l = ar("grayscale"), u = ar("hueRotate"), d = ar("invert"), f = ar("gap"), m = ar("gradientColorStops"), p = ar("gradientColorStopPositions"), h = ar("inset"), g = ar("margin"), v = ar("opacity"), b = ar("padding"), x = ar("saturate"), k = ar("scale"), M = ar("sepia"), S = ar("skew"), F = ar("space"), C = ar("translate"), T = () => ["auto", "contain", "none"], R = () => ["auto", "hidden", "clip", "visible", "scroll"], P = () => ["auto", Et, t], _ = () => [Et, t], B = () => ["", xn, Bn], $ = () => ["auto", Si, Et], U = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], j = () => ["solid", "dashed", "dotted", "double", "none"], z = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], A = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], H = () => ["", "0", Et], N = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], O = () => [Si, Et];
   return {
     cacheSize: 500,
@@ -264,7 +264,7 @@ const ar = (e) => {
       invert: H(),
       gap: _(),
       gradientColorStops: [e],
-      gradientColorStopPositions: [jI, Bn],
+      gradientColorStopPositions: [VI, Bn],
       inset: P(),
       margin: P(),
       opacity: O(),
@@ -1177,7 +1177,7 @@ const ar = (e) => {
        * @see https://tailwindcss.com/docs/background-position
        */
       "bg-position": [{
-        bg: [...U(), HI]
+        bg: [...U(), GI]
       }],
       /**
        * Background Repeat
@@ -1193,7 +1193,7 @@ const ar = (e) => {
        * @see https://tailwindcss.com/docs/background-size
        */
       "bg-size": [{
-        bg: ["auto", "cover", "contain", $I]
+        bg: ["auto", "cover", "contain", HI]
       }],
       /**
        * Background Image
@@ -1202,7 +1202,7 @@ const ar = (e) => {
       "bg-image": [{
         bg: ["none", {
           "gradient-to": ["t", "tr", "r", "br", "b", "bl", "l", "tl"]
-        }, WI]
+        }, KI]
       }],
       /**
        * Background Color
@@ -1618,7 +1618,7 @@ const ar = (e) => {
        * @see https://tailwindcss.com/docs/box-shadow
        */
       shadow: [{
-        shadow: ["", "inner", "none", Nn, KI]
+        shadow: ["", "inner", "none", Nn, XI]
       }],
       /**
        * Box Shadow Color
@@ -2273,17 +2273,17 @@ const ar = (e) => {
       "font-size": ["leading"]
     }
   };
-}, QI = /* @__PURE__ */ DI(ZI);
+}, JI = /* @__PURE__ */ _I(QI);
 function je(...e) {
-  return QI(N0(e));
+  return JI(z0(e));
 }
-const rm = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, nm = N0, JI = (e, t) => (r) => {
+const am = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, im = z0, ek = (e, t) => (r) => {
   var n;
-  if (t?.variants == null) return nm(e, r?.class, r?.className);
+  if (t?.variants == null) return im(e, r?.class, r?.className);
   const { variants: a, defaultVariants: i } = t, o = Object.keys(a).map((l) => {
     const u = r?.[l], d = i?.[l];
     if (u === null) return null;
-    const f = rm(u) || rm(d);
+    const f = am(u) || am(d);
     return a[l][f];
   }), s = r && Object.entries(r).reduce((l, u) => {
     let [d, f] = u;
@@ -2305,8 +2305,8 @@ const rm = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, nm = N0, J
       f
     ] : l;
   }, []);
-  return nm(e, o, c, r?.class, r?.className);
-}, ek = JI(
+  return im(e, o, c, r?.class, r?.className);
+}, tk = ek(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
@@ -2332,11 +2332,11 @@ const rm = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, nm = N0, J
   }
 ), Kt = y.forwardRef(
   ({ className: e, variant: t, size: r, asChild: n = !1, ...a }, i) => {
-    const o = n ? zw : "button";
+    const o = n ? jw : "button";
     return /* @__PURE__ */ w.jsx(
       o,
       {
-        className: je(ek({ variant: t, size: r, className: e })),
+        className: je(tk({ variant: t, size: r, className: e })),
         ref: i,
         ...a
       }
@@ -2345,7 +2345,7 @@ const rm = (e) => typeof e == "boolean" ? `${e}` : e === 0 ? "0" : e, nm = N0, J
 );
 Kt.displayName = "Button";
 let au = null;
-function TN(e) {
+function CN(e) {
   au = e ? e.replace(/\/+$/, "") : null;
 }
 function Ze(e, t) {
@@ -2366,26 +2366,26 @@ function Ze(e, t) {
   });
   return r.displayName = `BlenderIcon(${e})`, r;
 }
-const H0 = Ze("trash", mS), MN = Ze("hide_off", LS), FN = Ze("hide_on", OS), am = Ze("x", wS), tk = Ze("add", fS);
-Ze("remove", mI);
-const rk = Ze("duplicate", SS), nk = Ze("pastedown", IS), CN = Ze("play", VS), EN = Ze("pause", oI), PN = Ze("ff", sI), RN = Ze("rew", iI), im = Ze("locked", bS);
-Ze("unlocked", pI);
-const ak = Ze("linked", ES), ik = Ze("unlinked", AS), AN = Ze("info", qS);
-Ze("preferences", hI);
-const DN = Ze("preferences", lI), _N = Ze("file_movie", KS), ON = Ze("file_movie", DS), LN = Ze("image_data", HS), BN = Ze("file_sound", $S), NN = Ze("sound", _S), UN = Ze("outliner_data_speaker", NS), zN = Ze("mute_ipo_on", BS), jN = Ze("font_data", cI), VN = Ze("file_font", GS), ok = Ze("zoom_in", hS), sk = Ze("zoom_out", pS), ck = Ze("fullscreen_enter", gS), $N = Ze("fullscreen_exit", fI), HN = Ze("restrict_select_off", kS), GN = Ze("viewzoom", ZS), WN = Ze("filter", QS), KN = Ze("sortalpha", JS), XN = Ze("file_folder", rI), qN = Ze("file_folder", YS), YN = Ze("import", jS);
-Ze("export", gI);
-const ZN = Ze("disk_drive", XS), QN = Ze("marker_hlt", MS), JN = Ze("marker", uI), eU = Ze("time", WS), om = Ze("time", xS), tU = Ze("loop_forwards", nI), G0 = Ze("loop_back", yS), rU = Ze("file_refresh", zS), nU = Ze("error", US), aU = Ze("cancel", aI), ba = Ze("checkmark", lS), iU = Ze("keyframe", RS), oU = Ze("snap_on", CS), sU = Ze("freeze", FS), cU = Ze("mod_time", TS), lU = Ze("seq_luma_waveform", PS), uU = Ze("renderlayers", tI), dU = Ze("grid", eI), sm = Ze("graph", vS), fU = Ze("camera_data", dI);
-Ze("file_tick", yI);
-const md = Ze("tria_down", sS), lk = Ze("tria_up", cS), iu = Ze("tria_left", uS), mo = Ze("tria_right", dS);
-let W0;
-function mU(e) {
-  W0 = e;
+const W0 = Ze("trash", pS), EN = Ze("hide_off", BS), PN = Ze("hide_on", LS), om = Ze("x", SS), rk = Ze("add", mS);
+Ze("remove", pI);
+const nk = Ze("duplicate", IS), ak = Ze("pastedown", kS), RN = Ze("play", $S), AN = Ze("pause", sI), DN = Ze("ff", cI), _N = Ze("rew", oI), sm = Ze("locked", xS);
+Ze("unlocked", hI);
+const ik = Ze("linked", PS), ok = Ze("unlinked", DS), ON = Ze("info", YS);
+Ze("preferences", gI);
+const LN = Ze("preferences", uI), BN = Ze("file_movie", XS), NN = Ze("file_movie", _S), UN = Ze("image_data", GS), zN = Ze("file_sound", HS), jN = Ze("sound", OS), VN = Ze("outliner_data_speaker", US), $N = Ze("mute_ipo_on", NS), HN = Ze("font_data", lI), GN = Ze("file_font", WS), sk = Ze("zoom_in", gS), ck = Ze("zoom_out", hS), lk = Ze("fullscreen_enter", yS), WN = Ze("fullscreen_exit", mI), KN = Ze("restrict_select_off", TS), XN = Ze("viewzoom", QS), qN = Ze("filter", JS), YN = Ze("sortalpha", eI), ZN = Ze("file_folder", nI), QN = Ze("file_folder", ZS), JN = Ze("import", VS);
+Ze("export", yI);
+const eU = Ze("disk_drive", qS), tU = Ze("marker_hlt", FS), rU = Ze("marker", dI), nU = Ze("time", KS), cm = Ze("time", wS), aU = Ze("loop_forwards", aI), K0 = Ze("loop_back", vS), iU = Ze("file_refresh", jS), oU = Ze("error", zS), sU = Ze("cancel", iI), ba = Ze("checkmark", uS), cU = Ze("keyframe", AS), lU = Ze("snap_on", ES), uU = Ze("freeze", CS), dU = Ze("mod_time", MS), fU = Ze("seq_luma_waveform", RS), mU = Ze("renderlayers", rI), pU = Ze("grid", tI), lm = Ze("graph", bS), hU = Ze("camera_data", fI);
+Ze("file_tick", vI);
+const pd = Ze("tria_down", cS), uk = Ze("tria_up", lS), iu = Ze("tria_left", dS), mo = Ze("tria_right", fS);
+let X0;
+function gU(e) {
+  X0 = e;
 }
-function pd() {
-  return W0;
+function hd() {
+  return X0;
 }
-const pU = Hw, Tn = Vw, Mn = $w, fn = y.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ w.jsx(jw, { container: pd(), children: /* @__PURE__ */ w.jsx(
-  I0,
+const yU = Gw, Tn = $w, Mn = Hw, fn = y.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ w.jsx(Vw, { container: hd(), children: /* @__PURE__ */ w.jsx(
+  T0,
   {
     ref: n,
     sideOffset: t,
@@ -2396,26 +2396,26 @@ const pU = Hw, Tn = Vw, Mn = $w, fn = y.forwardRef(({ className: e, sideOffset: 
     ...r
   }
 ) }));
-fn.displayName = I0.displayName;
-function uk(e) {
+fn.displayName = T0.displayName;
+function dk(e) {
   if (typeof document > "u") return;
   let t = document.head || document.getElementsByTagName("head")[0], r = document.createElement("style");
   r.type = "text/css", t.appendChild(r), r.styleSheet ? r.styleSheet.cssText = e : r.appendChild(document.createTextNode(e));
 }
-const dk = (e) => {
+const fk = (e) => {
   switch (e) {
     case "success":
-      return pk;
-    case "info":
-      return gk;
-    case "warning":
       return hk;
-    case "error":
+    case "info":
       return yk;
+    case "warning":
+      return gk;
+    case "error":
+      return vk;
     default:
       return null;
   }
-}, fk = Array(12).fill(0), mk = ({ visible: e, className: t }) => /* @__PURE__ */ ge.createElement("div", {
+}, mk = Array(12).fill(0), pk = ({ visible: e, className: t }) => /* @__PURE__ */ ge.createElement("div", {
   className: [
     "sonner-loading-wrapper",
     t
@@ -2423,10 +2423,10 @@ const dk = (e) => {
   "data-visible": e
 }, /* @__PURE__ */ ge.createElement("div", {
   className: "sonner-spinner"
-}, fk.map((r, n) => /* @__PURE__ */ ge.createElement("div", {
+}, mk.map((r, n) => /* @__PURE__ */ ge.createElement("div", {
   className: "sonner-loading-bar",
   key: `spinner-bar-${n}`
-})))), pk = /* @__PURE__ */ ge.createElement("svg", {
+})))), hk = /* @__PURE__ */ ge.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 20 20",
   fill: "currentColor",
@@ -2436,7 +2436,7 @@ const dk = (e) => {
   fillRule: "evenodd",
   d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z",
   clipRule: "evenodd"
-})), hk = /* @__PURE__ */ ge.createElement("svg", {
+})), gk = /* @__PURE__ */ ge.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24",
   fill: "currentColor",
@@ -2446,7 +2446,7 @@ const dk = (e) => {
   fillRule: "evenodd",
   d: "M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z",
   clipRule: "evenodd"
-})), gk = /* @__PURE__ */ ge.createElement("svg", {
+})), yk = /* @__PURE__ */ ge.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 20 20",
   fill: "currentColor",
@@ -2456,7 +2456,7 @@ const dk = (e) => {
   fillRule: "evenodd",
   d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z",
   clipRule: "evenodd"
-})), yk = /* @__PURE__ */ ge.createElement("svg", {
+})), vk = /* @__PURE__ */ ge.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 20 20",
   fill: "currentColor",
@@ -2466,7 +2466,7 @@ const dk = (e) => {
   fillRule: "evenodd",
   d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z",
   clipRule: "evenodd"
-})), vk = /* @__PURE__ */ ge.createElement("svg", {
+})), bk = /* @__PURE__ */ ge.createElement("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   width: "12",
   height: "12",
@@ -2486,7 +2486,7 @@ const dk = (e) => {
   y1: "6",
   x2: "18",
   y2: "18"
-})), bk = () => {
+})), xk = () => {
   const [e, t] = ge.useState(document.hidden);
   return ge.useEffect(() => {
     const r = () => {
@@ -2496,7 +2496,7 @@ const dk = (e) => {
   }, []), e;
 };
 let ou = 1;
-class xk {
+class wk {
   constructor() {
     this.subscribe = (t) => (this.subscribers.push(t), () => {
       const r = this.subscribers.indexOf(t);
@@ -2582,7 +2582,7 @@ class xk {
             type: "default",
             message: l
           });
-        else if (Sk(l) && !l.ok) {
+        else if (Ik(l) && !l.ok) {
           i = !1;
           const d = typeof r.error == "function" ? await r.error(`HTTP error! status: ${l.status}`) : r.error, f = typeof r.description == "function" ? await r.description(`HTTP error! status: ${l.status}`) : r.description, p = typeof d == "object" && !ge.isValidElement(d) ? d : {
             message: d
@@ -2650,14 +2650,14 @@ class xk {
     }, this.getActiveToasts = () => this.toasts.filter((t) => !this.dismissedToasts.has(t.id)), this.subscribers = [], this.toasts = [], this.dismissedToasts = /* @__PURE__ */ new Set();
   }
 }
-const Dr = new xk(), wk = (e, t) => {
+const Dr = new wk(), Sk = (e, t) => {
   const r = t?.id || ou++;
   return Dr.addToast({
     title: e,
     ...t,
     id: r
   }), r;
-}, Sk = (e) => e && typeof e == "object" && "ok" in e && typeof e.ok == "boolean" && "status" in e && typeof e.status == "number", Ik = wk, kk = () => Dr.toasts, Tk = () => Dr.getActiveToasts(), Ct = Object.assign(Ik, {
+}, Ik = (e) => e && typeof e == "object" && "ok" in e && typeof e.ok == "boolean" && "status" in e && typeof e.status == "number", kk = Sk, Tk = () => Dr.toasts, Mk = () => Dr.getActiveToasts(), Ct = Object.assign(kk, {
   success: Dr.success,
   info: Dr.info,
   warning: Dr.warning,
@@ -2668,24 +2668,24 @@ const Dr = new xk(), wk = (e, t) => {
   dismiss: Dr.dismiss,
   loading: Dr.loading
 }, {
-  getHistory: kk,
-  getToasts: Tk
+  getHistory: Tk,
+  getToasts: Mk
 });
-uk("[data-sonner-toaster][dir=ltr],html[dir=ltr]{--toast-icon-margin-start:-3px;--toast-icon-margin-end:4px;--toast-svg-margin-start:-1px;--toast-svg-margin-end:0px;--toast-button-margin-start:auto;--toast-button-margin-end:0;--toast-close-button-start:0;--toast-close-button-end:unset;--toast-close-button-transform:translate(-35%, -35%)}[data-sonner-toaster][dir=rtl],html[dir=rtl]{--toast-icon-margin-start:4px;--toast-icon-margin-end:-3px;--toast-svg-margin-start:0px;--toast-svg-margin-end:-1px;--toast-button-margin-start:0;--toast-button-margin-end:auto;--toast-close-button-start:unset;--toast-close-button-end:0;--toast-close-button-transform:translate(35%, -35%)}[data-sonner-toaster]{position:fixed;width:var(--width);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;--gray1:hsl(0, 0%, 99%);--gray2:hsl(0, 0%, 97.3%);--gray3:hsl(0, 0%, 95.1%);--gray4:hsl(0, 0%, 93%);--gray5:hsl(0, 0%, 90.9%);--gray6:hsl(0, 0%, 88.7%);--gray7:hsl(0, 0%, 85.8%);--gray8:hsl(0, 0%, 78%);--gray9:hsl(0, 0%, 56.1%);--gray10:hsl(0, 0%, 52.3%);--gray11:hsl(0, 0%, 43.5%);--gray12:hsl(0, 0%, 9%);--border-radius:8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:0;z-index:999999999;transition:transform .4s ease}@media (hover:none) and (pointer:coarse){[data-sonner-toaster][data-lifted=true]{transform:none}}[data-sonner-toaster][data-x-position=right]{right:var(--offset-right)}[data-sonner-toaster][data-x-position=left]{left:var(--offset-left)}[data-sonner-toaster][data-x-position=center]{left:50%;transform:translateX(-50%)}[data-sonner-toaster][data-y-position=top]{top:var(--offset-top)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--offset-bottom)}[data-sonner-toast]{--y:translateY(100%);--lift-amount:calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);touch-action:none;transition:transform .4s,opacity .4s,height .4s,box-shadow .2s;box-sizing:border-box;outline:0;overflow-wrap:anywhere}[data-sonner-toast][data-styled=true]{padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0 4px 12px rgba(0,0,0,.1);width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}[data-sonner-toast]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-y-position=top]{top:0;--y:translateY(-100%);--lift:1;--lift-amount:calc(1 * var(--gap))}[data-sonner-toast][data-y-position=bottom]{bottom:0;--y:translateY(100%);--lift:-1;--lift-amount:calc(var(--lift) * var(--gap))}[data-sonner-toast][data-styled=true] [data-description]{font-weight:400;line-height:1.4;color:#3f3f3f}[data-rich-colors=true][data-sonner-toast][data-styled=true] [data-description]{color:inherit}[data-sonner-toaster][data-sonner-theme=dark] [data-description]{color:#e8e8e8}[data-sonner-toast][data-styled=true] [data-title]{font-weight:500;line-height:1.5;color:inherit}[data-sonner-toast][data-styled=true] [data-icon]{display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}[data-sonner-toast][data-promise=true] [data-icon]>svg{opacity:0;transform:scale(.8);transform-origin:center;animation:sonner-fade-in .3s ease forwards}[data-sonner-toast][data-styled=true] [data-icon]>*{flex-shrink:0}[data-sonner-toast][data-styled=true] [data-icon] svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}[data-sonner-toast][data-styled=true] [data-content]{display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled=true] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;font-weight:500;cursor:pointer;outline:0;display:flex;align-items:center;flex-shrink:0;transition:opacity .4s,box-shadow .2s}[data-sonner-toast][data-styled=true] [data-button]:focus-visible{box-shadow:0 0 0 2px rgba(0,0,0,.4)}[data-sonner-toast][data-styled=true] [data-button]:first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}[data-sonner-toast][data-styled=true] [data-cancel]{color:var(--normal-text);background:rgba(0,0,0,.08)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-styled=true] [data-cancel]{background:rgba(255,255,255,.3)}[data-sonner-toast][data-styled=true] [data-close-button]{position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;color:var(--gray12);background:var(--normal-bg);border:1px solid var(--gray4);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity .1s,background .2s,border-color .2s}[data-sonner-toast][data-styled=true] [data-close-button]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-styled=true] [data-disabled=true]{cursor:not-allowed}[data-sonner-toast][data-styled=true]:hover [data-close-button]:hover{background:var(--gray2);border-color:var(--gray5)}[data-sonner-toast][data-swiping=true]::before{content:'';position:absolute;left:-100%;right:-100%;height:100%;z-index:-1}[data-sonner-toast][data-y-position=top][data-swiping=true]::before{bottom:50%;transform:scaleY(3) translateY(50%)}[data-sonner-toast][data-y-position=bottom][data-swiping=true]::before{top:50%;transform:scaleY(3) translateY(-50%)}[data-sonner-toast][data-swiping=false][data-removed=true]::before{content:'';position:absolute;inset:0;transform:scaleY(2)}[data-sonner-toast][data-expanded=true]::after{content:'';position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}[data-sonner-toast][data-mounted=true]{--y:translateY(0);opacity:1}[data-sonner-toast][data-expanded=false][data-front=false]{--scale:var(--toasts-before) * 0.05 + 1;--y:translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}[data-sonner-toast]>*{transition:opacity .4s}[data-sonner-toast][data-x-position=right]{right:0}[data-sonner-toast][data-x-position=left]{left:0}[data-sonner-toast][data-expanded=false][data-front=false][data-styled=true]>*{opacity:0}[data-sonner-toast][data-visible=false]{opacity:0;pointer-events:none}[data-sonner-toast][data-mounted=true][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}[data-sonner-toast][data-removed=true][data-front=true][data-swipe-out=false]{--y:translateY(calc(var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=false]{--y:translateY(40%);opacity:0;transition:transform .5s,opacity .2s}[data-sonner-toast][data-removed=true][data-front=false]::before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping=true]{transform:var(--y) translateY(var(--swipe-amount-y,0)) translateX(var(--swipe-amount-x,0));transition:none}[data-sonner-toast][data-swiped=true]{user-select:none}[data-sonner-toast][data-swipe-out=true][data-y-position=bottom],[data-sonner-toast][data-swipe-out=true][data-y-position=top]{animation-duration:.2s;animation-timing-function:ease-out;animation-fill-mode:forwards}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=left]{animation-name:swipe-out-left}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=right]{animation-name:swipe-out-right}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=up]{animation-name:swipe-out-up}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=down]{animation-name:swipe-out-down}@keyframes swipe-out-left{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) - 100%));opacity:0}}@keyframes swipe-out-right{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) + 100%));opacity:0}}@keyframes swipe-out-up{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) - 100%));opacity:0}}@keyframes swipe-out-down{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) + 100%));opacity:0}}@media (max-width:600px){[data-sonner-toaster]{position:fixed;right:var(--mobile-offset-right);left:var(--mobile-offset-left);width:100%}[data-sonner-toaster][dir=rtl]{left:calc(var(--mobile-offset-left) * -1)}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset-left) * 2)}[data-sonner-toaster][data-x-position=left]{left:var(--mobile-offset-left)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--mobile-offset-bottom)}[data-sonner-toaster][data-y-position=top]{top:var(--mobile-offset-top)}[data-sonner-toaster][data-x-position=center]{left:var(--mobile-offset-left);right:var(--mobile-offset-right);transform:none}}[data-sonner-toaster][data-sonner-theme=light]{--normal-bg:#fff;--normal-border:var(--gray4);--normal-text:var(--gray12);--success-bg:hsl(143, 85%, 96%);--success-border:hsl(145, 92%, 87%);--success-text:hsl(140, 100%, 27%);--info-bg:hsl(208, 100%, 97%);--info-border:hsl(221, 91%, 93%);--info-text:hsl(210, 92%, 45%);--warning-bg:hsl(49, 100%, 97%);--warning-border:hsl(49, 91%, 84%);--warning-text:hsl(31, 92%, 45%);--error-bg:hsl(359, 100%, 97%);--error-border:hsl(359, 100%, 94%);--error-text:hsl(360, 100%, 45%)}[data-sonner-toaster][data-sonner-theme=light] [data-sonner-toast][data-invert=true]{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-invert=true]{--normal-bg:#fff;--normal-border:var(--gray3);--normal-text:var(--gray12)}[data-sonner-toaster][data-sonner-theme=dark]{--normal-bg:#000;--normal-bg-hover:hsl(0, 0%, 12%);--normal-border:hsl(0, 0%, 20%);--normal-border-hover:hsl(0, 0%, 25%);--normal-text:var(--gray1);--success-bg:hsl(150, 100%, 6%);--success-border:hsl(147, 100%, 12%);--success-text:hsl(150, 86%, 65%);--info-bg:hsl(215, 100%, 6%);--info-border:hsl(223, 43%, 17%);--info-text:hsl(216, 87%, 65%);--warning-bg:hsl(64, 100%, 6%);--warning-border:hsl(60, 100%, 9%);--warning-text:hsl(46, 87%, 65%);--error-bg:hsl(358, 76%, 10%);--error-border:hsl(357, 89%, 16%);--error-text:hsl(358, 100%, 81%)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]{background:var(--normal-bg);border-color:var(--normal-border);color:var(--normal-text)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]:hover{background:var(--normal-bg-hover);border-color:var(--normal-border-hover)}[data-rich-colors=true][data-sonner-toast][data-type=success]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=info]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=error]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}[data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size:16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible=false]{transform-origin:center;animation:sonner-fade-out .2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:first-child{animation-delay:-1.2s;transform:rotate(.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}@keyframes sonner-spin{0%{opacity:1}100%{opacity:.15}}@media (prefers-reduced-motion){.sonner-loading-bar,[data-sonner-toast],[data-sonner-toast]>*{transition:none!important;animation:none!important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center;transition:opacity .2s,transform .2s}.sonner-loader[data-visible=false]{opacity:0;transform:scale(.8) translate(-50%,-50%)}");
+dk("[data-sonner-toaster][dir=ltr],html[dir=ltr]{--toast-icon-margin-start:-3px;--toast-icon-margin-end:4px;--toast-svg-margin-start:-1px;--toast-svg-margin-end:0px;--toast-button-margin-start:auto;--toast-button-margin-end:0;--toast-close-button-start:0;--toast-close-button-end:unset;--toast-close-button-transform:translate(-35%, -35%)}[data-sonner-toaster][dir=rtl],html[dir=rtl]{--toast-icon-margin-start:4px;--toast-icon-margin-end:-3px;--toast-svg-margin-start:0px;--toast-svg-margin-end:-1px;--toast-button-margin-start:0;--toast-button-margin-end:auto;--toast-close-button-start:unset;--toast-close-button-end:0;--toast-close-button-transform:translate(35%, -35%)}[data-sonner-toaster]{position:fixed;width:var(--width);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;--gray1:hsl(0, 0%, 99%);--gray2:hsl(0, 0%, 97.3%);--gray3:hsl(0, 0%, 95.1%);--gray4:hsl(0, 0%, 93%);--gray5:hsl(0, 0%, 90.9%);--gray6:hsl(0, 0%, 88.7%);--gray7:hsl(0, 0%, 85.8%);--gray8:hsl(0, 0%, 78%);--gray9:hsl(0, 0%, 56.1%);--gray10:hsl(0, 0%, 52.3%);--gray11:hsl(0, 0%, 43.5%);--gray12:hsl(0, 0%, 9%);--border-radius:8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:0;z-index:999999999;transition:transform .4s ease}@media (hover:none) and (pointer:coarse){[data-sonner-toaster][data-lifted=true]{transform:none}}[data-sonner-toaster][data-x-position=right]{right:var(--offset-right)}[data-sonner-toaster][data-x-position=left]{left:var(--offset-left)}[data-sonner-toaster][data-x-position=center]{left:50%;transform:translateX(-50%)}[data-sonner-toaster][data-y-position=top]{top:var(--offset-top)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--offset-bottom)}[data-sonner-toast]{--y:translateY(100%);--lift-amount:calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);touch-action:none;transition:transform .4s,opacity .4s,height .4s,box-shadow .2s;box-sizing:border-box;outline:0;overflow-wrap:anywhere}[data-sonner-toast][data-styled=true]{padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0 4px 12px rgba(0,0,0,.1);width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}[data-sonner-toast]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-y-position=top]{top:0;--y:translateY(-100%);--lift:1;--lift-amount:calc(1 * var(--gap))}[data-sonner-toast][data-y-position=bottom]{bottom:0;--y:translateY(100%);--lift:-1;--lift-amount:calc(var(--lift) * var(--gap))}[data-sonner-toast][data-styled=true] [data-description]{font-weight:400;line-height:1.4;color:#3f3f3f}[data-rich-colors=true][data-sonner-toast][data-styled=true] [data-description]{color:inherit}[data-sonner-toaster][data-sonner-theme=dark] [data-description]{color:#e8e8e8}[data-sonner-toast][data-styled=true] [data-title]{font-weight:500;line-height:1.5;color:inherit}[data-sonner-toast][data-styled=true] [data-icon]{display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}[data-sonner-toast][data-promise=true] [data-icon]>svg{opacity:0;transform:scale(.8);transform-origin:center;animation:sonner-fade-in .3s ease forwards}[data-sonner-toast][data-styled=true] [data-icon]>*{flex-shrink:0}[data-sonner-toast][data-styled=true] [data-icon] svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}[data-sonner-toast][data-styled=true] [data-content]{display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled=true] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;font-weight:500;cursor:pointer;outline:0;display:flex;align-items:center;flex-shrink:0;transition:opacity .4s,box-shadow .2s}[data-sonner-toast][data-styled=true] [data-button]:focus-visible{box-shadow:0 0 0 2px rgba(0,0,0,.4)}[data-sonner-toast][data-styled=true] [data-button]:first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}[data-sonner-toast][data-styled=true] [data-cancel]{color:var(--normal-text);background:rgba(0,0,0,.08)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-styled=true] [data-cancel]{background:rgba(255,255,255,.3)}[data-sonner-toast][data-styled=true] [data-close-button]{position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;color:var(--gray12);background:var(--normal-bg);border:1px solid var(--gray4);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity .1s,background .2s,border-color .2s}[data-sonner-toast][data-styled=true] [data-close-button]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-styled=true] [data-disabled=true]{cursor:not-allowed}[data-sonner-toast][data-styled=true]:hover [data-close-button]:hover{background:var(--gray2);border-color:var(--gray5)}[data-sonner-toast][data-swiping=true]::before{content:'';position:absolute;left:-100%;right:-100%;height:100%;z-index:-1}[data-sonner-toast][data-y-position=top][data-swiping=true]::before{bottom:50%;transform:scaleY(3) translateY(50%)}[data-sonner-toast][data-y-position=bottom][data-swiping=true]::before{top:50%;transform:scaleY(3) translateY(-50%)}[data-sonner-toast][data-swiping=false][data-removed=true]::before{content:'';position:absolute;inset:0;transform:scaleY(2)}[data-sonner-toast][data-expanded=true]::after{content:'';position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}[data-sonner-toast][data-mounted=true]{--y:translateY(0);opacity:1}[data-sonner-toast][data-expanded=false][data-front=false]{--scale:var(--toasts-before) * 0.05 + 1;--y:translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}[data-sonner-toast]>*{transition:opacity .4s}[data-sonner-toast][data-x-position=right]{right:0}[data-sonner-toast][data-x-position=left]{left:0}[data-sonner-toast][data-expanded=false][data-front=false][data-styled=true]>*{opacity:0}[data-sonner-toast][data-visible=false]{opacity:0;pointer-events:none}[data-sonner-toast][data-mounted=true][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}[data-sonner-toast][data-removed=true][data-front=true][data-swipe-out=false]{--y:translateY(calc(var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=false]{--y:translateY(40%);opacity:0;transition:transform .5s,opacity .2s}[data-sonner-toast][data-removed=true][data-front=false]::before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping=true]{transform:var(--y) translateY(var(--swipe-amount-y,0)) translateX(var(--swipe-amount-x,0));transition:none}[data-sonner-toast][data-swiped=true]{user-select:none}[data-sonner-toast][data-swipe-out=true][data-y-position=bottom],[data-sonner-toast][data-swipe-out=true][data-y-position=top]{animation-duration:.2s;animation-timing-function:ease-out;animation-fill-mode:forwards}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=left]{animation-name:swipe-out-left}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=right]{animation-name:swipe-out-right}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=up]{animation-name:swipe-out-up}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=down]{animation-name:swipe-out-down}@keyframes swipe-out-left{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) - 100%));opacity:0}}@keyframes swipe-out-right{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) + 100%));opacity:0}}@keyframes swipe-out-up{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) - 100%));opacity:0}}@keyframes swipe-out-down{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) + 100%));opacity:0}}@media (max-width:600px){[data-sonner-toaster]{position:fixed;right:var(--mobile-offset-right);left:var(--mobile-offset-left);width:100%}[data-sonner-toaster][dir=rtl]{left:calc(var(--mobile-offset-left) * -1)}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset-left) * 2)}[data-sonner-toaster][data-x-position=left]{left:var(--mobile-offset-left)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--mobile-offset-bottom)}[data-sonner-toaster][data-y-position=top]{top:var(--mobile-offset-top)}[data-sonner-toaster][data-x-position=center]{left:var(--mobile-offset-left);right:var(--mobile-offset-right);transform:none}}[data-sonner-toaster][data-sonner-theme=light]{--normal-bg:#fff;--normal-border:var(--gray4);--normal-text:var(--gray12);--success-bg:hsl(143, 85%, 96%);--success-border:hsl(145, 92%, 87%);--success-text:hsl(140, 100%, 27%);--info-bg:hsl(208, 100%, 97%);--info-border:hsl(221, 91%, 93%);--info-text:hsl(210, 92%, 45%);--warning-bg:hsl(49, 100%, 97%);--warning-border:hsl(49, 91%, 84%);--warning-text:hsl(31, 92%, 45%);--error-bg:hsl(359, 100%, 97%);--error-border:hsl(359, 100%, 94%);--error-text:hsl(360, 100%, 45%)}[data-sonner-toaster][data-sonner-theme=light] [data-sonner-toast][data-invert=true]{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-invert=true]{--normal-bg:#fff;--normal-border:var(--gray3);--normal-text:var(--gray12)}[data-sonner-toaster][data-sonner-theme=dark]{--normal-bg:#000;--normal-bg-hover:hsl(0, 0%, 12%);--normal-border:hsl(0, 0%, 20%);--normal-border-hover:hsl(0, 0%, 25%);--normal-text:var(--gray1);--success-bg:hsl(150, 100%, 6%);--success-border:hsl(147, 100%, 12%);--success-text:hsl(150, 86%, 65%);--info-bg:hsl(215, 100%, 6%);--info-border:hsl(223, 43%, 17%);--info-text:hsl(216, 87%, 65%);--warning-bg:hsl(64, 100%, 6%);--warning-border:hsl(60, 100%, 9%);--warning-text:hsl(46, 87%, 65%);--error-bg:hsl(358, 76%, 10%);--error-border:hsl(357, 89%, 16%);--error-text:hsl(358, 100%, 81%)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]{background:var(--normal-bg);border-color:var(--normal-border);color:var(--normal-text)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]:hover{background:var(--normal-bg-hover);border-color:var(--normal-border-hover)}[data-rich-colors=true][data-sonner-toast][data-type=success]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=info]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=error]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}[data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size:16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible=false]{transform-origin:center;animation:sonner-fade-out .2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:first-child{animation-delay:-1.2s;transform:rotate(.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}@keyframes sonner-spin{0%{opacity:1}100%{opacity:.15}}@media (prefers-reduced-motion){.sonner-loading-bar,[data-sonner-toast],[data-sonner-toast]>*{transition:none!important;animation:none!important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center;transition:opacity .2s,transform .2s}.sonner-loader[data-visible=false]{opacity:0;transform:scale(.8) translate(-50%,-50%)}");
 function ys(e) {
   return e.label !== void 0;
 }
-const Mk = 3, Fk = "24px", Ck = "16px", cm = 4e3, Ek = 356, Pk = 14, Rk = 45, Ak = 200;
+const Fk = 3, Ck = "24px", Ek = "16px", um = 4e3, Pk = 356, Rk = 14, Ak = 45, Dk = 200;
 function cn(...e) {
   return e.filter(Boolean).join(" ");
 }
-function Dk(e) {
+function _k(e) {
   const [t, r] = e.split("-"), n = [];
   return t && n.push(t), r && n.push(r), n;
 }
-const _k = (e) => {
+const Ok = (e) => {
   var t, r, n, a, i, o, s, c, l;
-  const { invert: u, toast: d, unstyled: f, interacting: m, setHeights: p, visibleToasts: h, heights: g, index: v, toasts: b, expanded: x, removeToast: k, defaultRichColors: M, closeButton: S, style: F, cancelButtonStyle: C, actionButtonStyle: T, className: R = "", descriptionClassName: P = "", duration: _, position: B, gap: $, expandByDefault: U, classNames: j, icons: z, closeButtonAriaLabel: A = "Close toast" } = e, [H, N] = ge.useState(null), [O, Y] = ge.useState(null), [L, ae] = ge.useState(!1), [se, le] = ge.useState(!1), [ee, Z] = ge.useState(!1), [fe, E] = ge.useState(!1), [pe, W] = ge.useState(!1), [K, X] = ge.useState(0), [q, ie] = ge.useState(0), me = ge.useRef(d.duration || _ || cm), ye = ge.useRef(null), be = ge.useRef(null), xe = v === 0, Ge = v + 1 <= h, Pe = d.type, Se = d.dismissible !== !1, Ae = d.className || "", dt = d.descriptionClassName || "", gt = ge.useMemo(() => g.findIndex((ke) => ke.toastId === d.id) || 0, [
+  const { invert: u, toast: d, unstyled: f, interacting: m, setHeights: p, visibleToasts: h, heights: g, index: v, toasts: b, expanded: x, removeToast: k, defaultRichColors: M, closeButton: S, style: F, cancelButtonStyle: C, actionButtonStyle: T, className: R = "", descriptionClassName: P = "", duration: _, position: B, gap: $, expandByDefault: U, classNames: j, icons: z, closeButtonAriaLabel: A = "Close toast" } = e, [H, N] = ge.useState(null), [O, Y] = ge.useState(null), [L, ae] = ge.useState(!1), [se, le] = ge.useState(!1), [ee, Z] = ge.useState(!1), [fe, E] = ge.useState(!1), [pe, W] = ge.useState(!1), [K, X] = ge.useState(0), [q, ie] = ge.useState(0), me = ge.useRef(d.duration || _ || um), ye = ge.useRef(null), be = ge.useRef(null), xe = v === 0, Ge = v + 1 <= h, Pe = d.type, Se = d.dismissible !== !1, Ae = d.className || "", dt = d.descriptionClassName || "", gt = ge.useMemo(() => g.findIndex((ke) => ke.toastId === d.id) || 0, [
     g,
     d.id
   ]), Gt = ge.useMemo(() => {
@@ -2694,13 +2694,13 @@ const _k = (e) => {
   }, [
     d.closeButton,
     S
-  ]), kt = ge.useMemo(() => d.duration || _ || cm, [
+  ]), kt = ge.useMemo(() => d.duration || _ || um, [
     d.duration,
     _
   ]), _t = ge.useRef(0), Rt = ge.useRef(0), At = ge.useRef(0), re = ge.useRef(null), [ue, ne] = B.split("-"), de = ge.useMemo(() => g.reduce((ke, nt, Ue) => Ue >= gt ? ke : ke + nt.height, 0), [
     g,
     gt
-  ]), ce = bk(), Fe = d.invert || u, Ie = Pe === "loading";
+  ]), ce = xk(), Fe = d.invert || u, Ie = Pe === "loading";
   Rt.current = ge.useMemo(() => gt * $ + de, [
     gt,
     de
@@ -2755,7 +2755,7 @@ const _k = (e) => {
   const _e = ge.useCallback(() => {
     le(!0), X(Rt.current), p((ke) => ke.filter((nt) => nt.toastId !== d.id)), setTimeout(() => {
       k(d);
-    }, Ak);
+    }, Dk);
   }, [
     d,
     k,
@@ -2798,12 +2798,12 @@ const _k = (e) => {
         "data-visible": Pe === "loading"
       }, z.loading);
     }
-    return /* @__PURE__ */ ge.createElement(mk, {
+    return /* @__PURE__ */ ge.createElement(pk, {
       className: cn(j?.loader, d == null || (ke = d.classNames) == null ? void 0 : ke.loader),
       visible: Pe === "loading"
     });
   }
-  const mt = d.icon || z?.[Pe] || dk(Pe);
+  const mt = d.icon || z?.[Pe] || fk(Pe);
   var et, Ke;
   return /* @__PURE__ */ ge.createElement("li", {
     tabIndex: 0,
@@ -2852,7 +2852,7 @@ const _k = (e) => {
       if (fe || !Se) return;
       re.current = null;
       const ve = Number(((ke = be.current) == null ? void 0 : ke.style.getPropertyValue("--swipe-amount-x").replace("px", "")) || 0), Me = Number(((nt = be.current) == null ? void 0 : nt.style.getPropertyValue("--swipe-amount-y").replace("px", "")) || 0), Ce = (/* @__PURE__ */ new Date()).getTime() - ((Ue = ye.current) == null ? void 0 : Ue.getTime()), qe = H === "x" ? ve : Me, Ve = Math.abs(qe) / Ce;
-      if (Math.abs(qe) >= Rk || Ve > 0.11) {
+      if (Math.abs(qe) >= Ak || Ve > 0.11) {
         X(Rt.current), d.onDismiss == null || d.onDismiss.call(d, d), Y(H === "x" ? ve > 0 ? "right" : "left" : Me > 0 ? "down" : "up"), _e(), E(!0);
         return;
       } else {
@@ -2866,7 +2866,7 @@ const _k = (e) => {
       if (!re.current || !Se || ((nt = window.getSelection()) == null ? void 0 : nt.toString().length) > 0) return;
       const Ce = ke.clientY - re.current.y, qe = ke.clientX - re.current.x;
       var Ve;
-      const Oe = (Ve = e.swipeDirections) != null ? Ve : Dk(B);
+      const Oe = (Ve = e.swipeDirections) != null ? Ve : _k(B);
       !H && (Math.abs(qe) > 1 || Math.abs(Ce) > 1) && N(Math.abs(qe) > Math.abs(Ce) ? "x" : "y");
       let Le = {
         x: 0,
@@ -2899,7 +2899,7 @@ const _k = (e) => {
       _e(), d.onDismiss == null || d.onDismiss.call(d, d);
     },
     className: cn(j?.closeButton, d == null || (n = d.classNames) == null ? void 0 : n.closeButton)
-  }, (Ke = z?.close) != null ? Ke : vk) : null, (Pe || d.icon || d.promise) && d.icon !== null && (z?.[Pe] !== null || d.icon) ? /* @__PURE__ */ ge.createElement("div", {
+  }, (Ke = z?.close) != null ? Ke : bk) : null, (Pe || d.icon || d.promise) && d.icon !== null && (z?.[Pe] !== null || d.icon) ? /* @__PURE__ */ ge.createElement("div", {
     "data-icon": "",
     className: cn(j?.icon, d == null || (a = d.classNames) == null ? void 0 : a.icon)
   }, d.promise || d.type === "loading" && !d.icon ? d.icon || xt() : null, d.type !== "loading" ? mt : null) : null, /* @__PURE__ */ ge.createElement("div", {
@@ -2929,18 +2929,18 @@ const _k = (e) => {
     className: cn(j?.actionButton, d == null || (l = d.classNames) == null ? void 0 : l.actionButton)
   }, d.action.label) : null);
 };
-function lm() {
+function dm() {
   if (typeof window > "u" || typeof document > "u") return "ltr";
   const e = document.documentElement.getAttribute("dir");
   return e === "auto" || !e ? window.getComputedStyle(document.documentElement).direction : e;
 }
-function Ok(e, t) {
+function Lk(e, t) {
   const r = {};
   return [
     e,
     t
   ].forEach((n, a) => {
-    const i = a === 1, o = i ? "--mobile-offset" : "--offset", s = i ? Ck : Fk;
+    const i = a === 1, o = i ? "--mobile-offset" : "--offset", s = i ? Ek : Ck;
     function c(l) {
       [
         "top",
@@ -2961,11 +2961,11 @@ function Ok(e, t) {
     }) : c(s);
   }), r;
 }
-const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
+const vU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
   const { id: n, invert: a, position: i = "bottom-right", hotkey: o = [
     "altKey",
     "KeyT"
-  ], expand: s, closeButton: c, className: l, offset: u, mobileOffset: d, theme: f = "light", richColors: m, duration: p, style: h, visibleToasts: g = Mk, toastOptions: v, dir: b = lm(), gap: x = Pk, icons: k, containerAriaLabel: M = "Notifications" } = t, [S, F] = ge.useState([]), C = ge.useMemo(() => n ? S.filter((L) => L.toasterId === n) : S.filter((L) => !L.toasterId), [
+  ], expand: s, closeButton: c, className: l, offset: u, mobileOffset: d, theme: f = "light", richColors: m, duration: p, style: h, visibleToasts: g = Fk, toastOptions: v, dir: b = dm(), gap: x = Rk, icons: k, containerAriaLabel: M = "Notifications" } = t, [S, F] = ge.useState([]), C = ge.useMemo(() => n ? S.filter((L) => L.toasterId === n) : S.filter((L) => !L.toasterId), [
     S,
     n
   ]), T = ge.useMemo(() => Array.from(new Set([
@@ -2990,7 +2990,7 @@ const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
       return;
     }
     setTimeout(() => {
-      Bw.flushSync(() => {
+      Nw.flushSync(() => {
         F((ae) => {
           const se = ae.findIndex((le) => le.id === L.id);
           return se !== -1 ? [
@@ -3070,7 +3070,7 @@ const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
     const [le, ee] = L.split("-");
     return C.length ? /* @__PURE__ */ ge.createElement("ol", {
       key: L,
-      dir: b === "auto" ? lm() : b,
+      dir: b === "auto" ? dm() : b,
       tabIndex: -1,
       ref: A,
       className: l,
@@ -3080,10 +3080,10 @@ const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
       "data-x-position": ee,
       style: {
         "--front-toast-height": `${((se = R[0]) == null ? void 0 : se.height) || 0}px`,
-        "--width": `${Ek}px`,
+        "--width": `${Pk}px`,
         "--gap": `${x}px`,
         ...h,
-        ...Ok(u, d)
+        ...Lk(u, d)
       },
       onBlur: (Z) => {
         O.current && !Z.currentTarget.contains(Z.relatedTarget) && (O.current = !1, N.current && (N.current.focus({
@@ -3105,7 +3105,7 @@ const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
       onPointerUp: () => U(!1)
     }, C.filter((Z) => !Z.position && ae === 0 || Z.position === L).map((Z, fe) => {
       var E, pe;
-      return /* @__PURE__ */ ge.createElement(_k, {
+      return /* @__PURE__ */ ge.createElement(Ok, {
         key: Z.id,
         icons: k,
         index: fe,
@@ -3137,9 +3137,9 @@ const hU = /* @__PURE__ */ ge.forwardRef(function(t, r) {
     })) : null;
   }));
 }), su = (e, t) => t.some((r) => e instanceof r);
-let um, dm;
-function Lk() {
-  return um || (um = [
+let fm, mm;
+function Bk() {
+  return fm || (fm = [
     IDBDatabase,
     IDBObjectStore,
     IDBIndex,
@@ -3147,15 +3147,15 @@ function Lk() {
     IDBTransaction
   ]);
 }
-function Bk() {
-  return dm || (dm = [
+function Nk() {
+  return mm || (mm = [
     IDBCursor.prototype.advance,
     IDBCursor.prototype.continue,
     IDBCursor.prototype.continuePrimaryKey
   ]);
 }
 const cu = /* @__PURE__ */ new WeakMap(), ml = /* @__PURE__ */ new WeakMap(), Lc = /* @__PURE__ */ new WeakMap();
-function Nk(e) {
+function Uk(e) {
   const t = new Promise((r, n) => {
     const a = () => {
       e.removeEventListener("success", i), e.removeEventListener("error", o);
@@ -3168,7 +3168,7 @@ function Nk(e) {
   });
   return Lc.set(t, e), t;
 }
-function Uk(e) {
+function zk(e) {
   if (cu.has(e))
     return;
   const t = new Promise((r, n) => {
@@ -3200,29 +3200,29 @@ let lu = {
     return e instanceof IDBTransaction && (t === "done" || t === "store") ? !0 : t in e;
   }
 };
-function K0(e) {
+function q0(e) {
   lu = e(lu);
 }
-function zk(e) {
-  return Bk().includes(e) ? function(...t) {
+function jk(e) {
+  return Nk().includes(e) ? function(...t) {
     return e.apply(uu(this), t), Ea(this.request);
   } : function(...t) {
     return Ea(e.apply(uu(this), t));
   };
 }
-function jk(e) {
-  return typeof e == "function" ? zk(e) : (e instanceof IDBTransaction && Uk(e), su(e, Lk()) ? new Proxy(e, lu) : e);
+function Vk(e) {
+  return typeof e == "function" ? jk(e) : (e instanceof IDBTransaction && zk(e), su(e, Bk()) ? new Proxy(e, lu) : e);
 }
 function Ea(e) {
   if (e instanceof IDBRequest)
-    return Nk(e);
+    return Uk(e);
   if (ml.has(e))
     return ml.get(e);
-  const t = jk(e);
+  const t = Vk(e);
   return t !== e && (ml.set(e, t), Lc.set(t, e)), t;
 }
 const uu = (e) => Lc.get(e);
-function Vk(e, t, { blocked: r, upgrade: n, blocking: a, terminated: i } = {}) {
+function $k(e, t, { blocked: r, upgrade: n, blocking: a, terminated: i } = {}) {
   const o = indexedDB.open(e, t), s = Ea(o);
   return n && o.addEventListener("upgradeneeded", (c) => {
     n(Ea(o.result), c.oldVersion, c.newVersion, Ea(o.transaction), c);
@@ -3236,16 +3236,16 @@ function Vk(e, t, { blocked: r, upgrade: n, blocking: a, terminated: i } = {}) {
   }).catch(() => {
   }), s;
 }
-const $k = ["get", "getKey", "getAll", "getAllKeys", "count"], Hk = ["put", "add", "delete", "clear"], pl = /* @__PURE__ */ new Map();
-function fm(e, t) {
+const Hk = ["get", "getKey", "getAll", "getAllKeys", "count"], Gk = ["put", "add", "delete", "clear"], pl = /* @__PURE__ */ new Map();
+function pm(e, t) {
   if (!(e instanceof IDBDatabase && !(t in e) && typeof t == "string"))
     return;
   if (pl.get(t))
     return pl.get(t);
-  const r = t.replace(/FromIndex$/, ""), n = t !== r, a = Hk.includes(r);
+  const r = t.replace(/FromIndex$/, ""), n = t !== r, a = Gk.includes(r);
   if (
     // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.
-    !(r in (n ? IDBIndex : IDBObjectStore).prototype) || !(a || $k.includes(r))
+    !(r in (n ? IDBIndex : IDBObjectStore).prototype) || !(a || Hk.includes(r))
   )
     return;
   const i = async function(o, ...s) {
@@ -3258,46 +3258,46 @@ function fm(e, t) {
   };
   return pl.set(t, i), i;
 }
-K0((e) => ({
+q0((e) => ({
   ...e,
-  get: (t, r, n) => fm(t, r) || e.get(t, r, n),
-  has: (t, r) => !!fm(t, r) || e.has(t, r)
+  get: (t, r, n) => pm(t, r) || e.get(t, r, n),
+  has: (t, r) => !!pm(t, r) || e.has(t, r)
 }));
-const Gk = ["continue", "continuePrimaryKey", "advance"], mm = {}, du = /* @__PURE__ */ new WeakMap(), X0 = /* @__PURE__ */ new WeakMap(), Wk = {
+const Wk = ["continue", "continuePrimaryKey", "advance"], hm = {}, du = /* @__PURE__ */ new WeakMap(), Y0 = /* @__PURE__ */ new WeakMap(), Kk = {
   get(e, t) {
-    if (!Gk.includes(t))
+    if (!Wk.includes(t))
       return e[t];
-    let r = mm[t];
-    return r || (r = mm[t] = function(...n) {
-      du.set(this, X0.get(this)[t](...n));
+    let r = hm[t];
+    return r || (r = hm[t] = function(...n) {
+      du.set(this, Y0.get(this)[t](...n));
     }), r;
   }
 };
-async function* Kk(...e) {
+async function* Xk(...e) {
   let t = this;
   if (t instanceof IDBCursor || (t = await t.openCursor(...e)), !t)
     return;
   t = t;
-  const r = new Proxy(t, Wk);
-  for (X0.set(r, t), Lc.set(r, uu(t)); t; )
+  const r = new Proxy(t, Kk);
+  for (Y0.set(r, t), Lc.set(r, uu(t)); t; )
     yield r, t = await (du.get(r) || t.continue()), du.delete(r);
 }
-function pm(e, t) {
+function gm(e, t) {
   return t === Symbol.asyncIterator && su(e, [IDBIndex, IDBObjectStore, IDBCursor]) || t === "iterate" && su(e, [IDBIndex, IDBObjectStore]);
 }
-K0((e) => ({
+q0((e) => ({
   ...e,
   get(t, r, n) {
-    return pm(t, r) ? Kk : e.get(t, r, n);
+    return gm(t, r) ? Xk : e.get(t, r, n);
   },
   has(t, r) {
-    return pm(t, r) || e.has(t, r);
+    return gm(t, r) || e.has(t, r);
   }
 }));
-const Xk = "video-editor-db", qk = 11, hm = He("IndexedDB:Connection");
+const qk = "video-editor-db", Yk = 11, ym = He("IndexedDB:Connection");
 let Ii = null;
 async function Xt() {
-  return Ii || (Ii = Vk(Xk, qk, {
+  return Ii || (Ii = $k(qk, Yk, {
     upgrade(e, t, r, n) {
       if (!e.objectStoreNames.contains("projects")) {
         const a = e.createObjectStore("projects", {
@@ -3404,18 +3404,18 @@ async function Xt() {
       }
     },
     blocked() {
-      hm.warn(
+      ym.warn(
         "Database upgrade blocked. Close other tabs with this app open."
       );
     },
     blocking() {
-      hm.warn(
+      ym.warn(
         "This connection is blocking a database upgrade in another tab."
       );
     }
   })), Ii;
 }
-async function Yk() {
+async function Zk() {
   if (Ii) {
     try {
       (await Ii).close();
@@ -3425,9 +3425,9 @@ async function Yk() {
   }
 }
 async function Ai() {
-  return await Yk(), Xt();
+  return await Zk(), Xt();
 }
-async function q0() {
+async function Z0() {
   if (!navigator.storage || !navigator.storage.estimate)
     throw new Error("Storage estimation API not supported");
   const e = await navigator.storage.estimate(), t = e.usage || 0, r = e.quota || 0, n = r > 0 ? t / r * 100 : 0, a = r - t;
@@ -3438,12 +3438,12 @@ async function q0() {
     available: a
   };
 }
-async function Zk(e) {
-  const { available: t } = await q0();
+async function Qk(e) {
+  const { available: t } = await Z0();
   return t >= e;
 }
 const jo = He("IndexedDB:Projects");
-async function Y0() {
+async function Q0() {
   try {
     return await (await Xt()).getAll("projects");
   } catch (e) {
@@ -3460,8 +3460,8 @@ async function Vo(e) {
 async function fu(e) {
   try {
     const t = new Blob([JSON.stringify(e)]).size;
-    if (!await Zk(t)) {
-      const { percentUsed: a } = await q0();
+    if (!await Qk(t)) {
+      const { percentUsed: a } = await Z0();
       throw new Error(
         `Insufficient storage space. ${a.toFixed(1)}% of quota used.`
       );
@@ -3489,7 +3489,7 @@ async function Pa(e, t) {
     throw jo.error(`Failed to update project ${e}:`, r), r;
   }
 }
-async function Z0(e) {
+async function J0(e) {
   try {
     await (await Xt()).delete("projects", e);
   } catch (t) {
@@ -3511,7 +3511,7 @@ async function qr(e) {
     throw $o.error(`Failed to get media ${e}:`, t), new Error(`Failed to load media: ${e}`);
   }
 }
-async function hd(e) {
+async function gd(e) {
   try {
     return await (await Xt()).add("media", e), e;
   } catch (t) {
@@ -3520,7 +3520,7 @@ async function hd(e) {
     ) : ($o.error("Failed to create media:", t), t);
   }
 }
-async function Q0(e, t) {
+async function ey(e, t) {
   try {
     const r = await Xt(), n = await r.get("media", e);
     if (!n)
@@ -3543,19 +3543,19 @@ async function po(e) {
     throw $o.error(`Failed to delete media ${e}:`, t), new Error(`Failed to delete media: ${e}`);
   }
 }
-const gd = He("IndexedDB:Thumbnails");
+const yd = He("IndexedDB:Thumbnails");
 async function Bc(e) {
   try {
     await (await Xt()).put("thumbnails", e);
   } catch (t) {
-    throw gd.error("Failed to save thumbnail:", t), new Error("Failed to save thumbnail");
+    throw yd.error("Failed to save thumbnail:", t), new Error("Failed to save thumbnail");
   }
 }
-async function J0(e) {
+async function ty(e) {
   try {
     return (await (await Xt()).transaction("thumbnails", "readonly").store.index("mediaId").getAll(e))[0];
   } catch (t) {
-    gd.error(`Failed to get thumbnail for media ${e}:`, t);
+    yd.error(`Failed to get thumbnail for media ${e}:`, t);
     return;
   }
 }
@@ -3566,11 +3566,11 @@ async function ho(e) {
       await r.store.delete(i.id);
     await r.done;
   } catch (t) {
-    throw gd.error(`Failed to delete thumbnails for media ${e}:`, t), new Error("Failed to delete thumbnails");
+    throw yd.error(`Failed to delete thumbnails for media ${e}:`, t), new Error("Failed to delete thumbnails");
   }
 }
-const yd = He("IndexedDB:Content");
-async function ey(e) {
+const vd = He("IndexedDB:Content");
+async function ry(e) {
   try {
     const t = await Xt(), r = await t.get("content", e);
     if (!r)
@@ -3581,7 +3581,7 @@ async function ey(e) {
     };
     return await t.put("content", n), n.referenceCount;
   } catch (t) {
-    throw yd.error(`Failed to increment content ref ${e}:`, t), t;
+    throw vd.error(`Failed to increment content ref ${e}:`, t), t;
   }
 }
 async function mu(e) {
@@ -3595,29 +3595,29 @@ async function mu(e) {
     };
     return await t.put("content", n), n.referenceCount;
   } catch (t) {
-    throw yd.error(`Failed to decrement content ref ${e}:`, t), t;
+    throw vd.error(`Failed to decrement content ref ${e}:`, t), t;
   }
 }
 async function pu(e) {
   try {
     await (await Xt()).delete("content", e);
   } catch (t) {
-    throw yd.error(`Failed to delete content ${e}:`, t), new Error(`Failed to delete content: ${e}`);
+    throw vd.error(`Failed to delete content ${e}:`, t), new Error(`Failed to delete content: ${e}`);
   }
 }
-const Yn = He("IndexedDB:ProjectMedia"), Qk = /* @__PURE__ */ new Set(["video", "audio", "image"]);
-function gm(e, t) {
+const Yn = He("IndexedDB:ProjectMedia"), Jk = /* @__PURE__ */ new Set(["video", "audio", "image"]);
+function vm(e, t) {
   if (e)
     for (const r of e)
-      r.mediaId && Qk.has(r.type) && t.add(r.mediaId);
+      r.mediaId && Jk.has(r.type) && t.add(r.mediaId);
 }
-function Jk(e) {
+function e1(e) {
   if (!e?.timeline)
     return [];
   const t = /* @__PURE__ */ new Set();
-  gm(e.timeline.items, t);
+  vm(e.timeline.items, t);
   for (const r of e.timeline.compositions ?? [])
-    gm(r.items, t);
+    vm(r.items, t);
   return [...t];
 }
 async function ko(e, t) {
@@ -3661,7 +3661,7 @@ async function gu(e) {
 }
 async function yu(e) {
   try {
-    const t = await Xt(), r = await Nc(e), n = await Vo(e), a = Jk(n), i = [...r], o = new Set(r);
+    const t = await Xt(), r = await Nc(e), n = await Vo(e), a = e1(n), i = [...r], o = new Set(r);
     if (a.length > 0) {
       const l = a.filter((u) => !o.has(u));
       for (const u of l)
@@ -3698,14 +3698,14 @@ async function yu(e) {
     throw Yn.error(`Failed to get media for project ${e}:`, t), new Error(`Failed to load project media: ${e}`);
   }
 }
-const Di = He("IndexedDB:Waveforms"), e1 = ":bin:";
+const Di = He("IndexedDB:Waveforms"), t1 = ":bin:";
 async function Ho() {
   let e = await Xt();
   if (!e.objectStoreNames.contains("waveforms") && (Di.warn("waveforms store not found, attempting reconnection..."), e = await Ai(), !e.objectStoreNames.contains("waveforms")))
     throw new Error("waveforms store not found after reconnection");
   return e;
 }
-async function ty(e) {
+async function ny(e) {
   try {
     const r = await (await Ho()).get("waveforms", e);
     return !r || "kind" in r ? void 0 : r;
@@ -3714,7 +3714,7 @@ async function ty(e) {
     return;
   }
 }
-async function vd(e) {
+async function bd(e) {
   try {
     return await (await Ho()).get("waveforms", e);
   } catch (t) {
@@ -3722,7 +3722,7 @@ async function vd(e) {
     return;
   }
 }
-async function bd(e) {
+async function xd(e) {
   const t = await Ho();
   try {
     await t.put("waveforms", e);
@@ -3730,16 +3730,16 @@ async function bd(e) {
     throw Di.error(`Failed to save waveform record ${e.id}:`, r), r;
   }
 }
-async function ry(e) {
-  const t = await vd(e);
+async function ay(e) {
+  const t = await bd(e);
   if (!(!t || !("kind" in t) || t.kind !== "meta"))
     return t;
 }
 async function vu(e) {
-  await bd(e);
+  await xd(e);
 }
 async function bu(e) {
-  await bd(e);
+  await xd(e);
 }
 async function Vn(e) {
   try {
@@ -3753,11 +3753,11 @@ async function Vn(e) {
     throw Di.error(`Failed to delete waveform ${e}:`, t), new Error(`Failed to delete waveform: ${e}`);
   }
 }
-async function ny(e, t) {
+async function iy(e, t) {
   try {
     const r = await Ho(), n = [];
     for (let i = 0; i < t; i++)
-      n.push(`${e}${e1}${i}`);
+      n.push(`${e}${t1}${i}`);
     return (await Promise.all(n.map((i) => r.get("waveforms", i)))).map(
       (i) => i && "kind" in i && i.kind === "bin" ? i : void 0
     );
@@ -3766,7 +3766,7 @@ async function ny(e, t) {
   }
 }
 const To = He("IndexedDB:GifFrames");
-async function ay(e) {
+async function oy(e) {
   try {
     let t = await Xt();
     t.objectStoreNames.contains("gifFrames") || (To.warn("gifFrames store not found, attempting reconnection..."), t = await Ai()), await t.put("gifFrames", e);
@@ -3774,7 +3774,7 @@ async function ay(e) {
     throw To.error("Failed to save GIF frames:", t), new Error("Failed to save GIF frames");
   }
 }
-async function iy(e) {
+async function sy(e) {
   try {
     const t = await Xt();
     if (!t.objectStoreNames.contains("gifFrames")) {
@@ -3790,7 +3790,7 @@ async function iy(e) {
     return;
   }
 }
-async function oy(e) {
+async function cy(e) {
   try {
     let t = await Xt();
     if (!t.objectStoreNames.contains("gifFrames") && (t = await Ai(), !t.objectStoreNames.contains("gifFrames")))
@@ -3801,7 +3801,7 @@ async function oy(e) {
   }
 }
 const Uc = He("IndexedDB:DecodedPreviewAudio");
-async function xd() {
+async function wd() {
   let e = await Xt();
   if (!e.objectStoreNames.contains("decodedPreviewAudio") && (Uc.warn("decodedPreviewAudio store not found, attempting reconnection..."), e = await Ai(), !e.objectStoreNames.contains("decodedPreviewAudio")))
     throw new Error("decodedPreviewAudio store not found after reconnection");
@@ -3809,14 +3809,14 @@ async function xd() {
 }
 async function Mo(e) {
   try {
-    return await (await xd()).get("decodedPreviewAudio", e);
+    return await (await wd()).get("decodedPreviewAudio", e);
   } catch (t) {
     Uc.error(`Failed to get decoded preview audio ${e}:`, t);
     return;
   }
 }
-async function wd(e) {
-  const t = await xd();
+async function Sd(e) {
+  const t = await wd();
   try {
     await t.put("decodedPreviewAudio", e);
   } catch (r) {
@@ -3825,7 +3825,7 @@ async function wd(e) {
 }
 async function xu(e) {
   try {
-    const r = (await xd()).transaction("decodedPreviewAudio", "readwrite");
+    const r = (await wd()).transaction("decodedPreviewAudio", "readwrite");
     await r.store.delete(e);
     let a = await r.store.index("mediaId").openCursor(e);
     for (; a; )
@@ -3843,7 +3843,7 @@ async function wu(e) {
     throw zc.error(`Failed to get transcript for media ${e}:`, t), new Error(`Failed to load transcript: ${e}`);
   }
 }
-async function Sd(e) {
+async function Id(e) {
   if (e.length === 0)
     return /* @__PURE__ */ new Set();
   try {
@@ -3855,7 +3855,7 @@ async function Sd(e) {
     throw zc.error("Failed to enumerate transcript media IDs:", t), new Error("Failed to enumerate transcripts");
   }
 }
-async function sy(e) {
+async function ly(e) {
   try {
     return await (await Xt()).put("transcripts", e), e;
   } catch (t) {
@@ -3869,49 +3869,49 @@ async function nc(e) {
     throw zc.error(`Failed to delete transcript for media ${e}:`, t), new Error(`Failed to delete transcript: ${e}`);
   }
 }
-const t1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const r1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   associateMediaWithProject: ko,
-  createMedia: hd,
+  createMedia: gd,
   createProject: fu,
   decrementContentRef: mu,
   deleteContent: pu,
   deleteDecodedPreviewAudio: xu,
-  deleteGifFrames: oy,
+  deleteGifFrames: cy,
   deleteMedia: po,
-  deleteProject: Z0,
+  deleteProject: J0,
   deleteThumbnailsByMediaId: ho,
   deleteTranscript: nc,
   deleteWaveform: Vn,
   getAllMedia: no,
-  getAllProjects: Y0,
+  getAllProjects: Q0,
   getDecodedPreviewAudio: Mo,
-  getGifFrames: iy,
+  getGifFrames: sy,
   getMedia: qr,
   getMediaForProject: yu,
   getProject: Vo,
   getProjectMediaIds: Nc,
   getProjectsUsingMedia: gu,
-  getThumbnailByMediaId: J0,
+  getThumbnailByMediaId: ty,
   getTranscript: wu,
-  getTranscriptMediaIds: Sd,
-  getWaveform: ty,
-  getWaveformBins: ny,
-  getWaveformMeta: ry,
-  getWaveformRecord: vd,
-  incrementContentRef: ey,
+  getTranscriptMediaIds: Id,
+  getWaveform: ny,
+  getWaveformBins: iy,
+  getWaveformMeta: ay,
+  getWaveformRecord: bd,
+  incrementContentRef: ry,
   removeMediaFromProject: hu,
-  saveDecodedPreviewAudio: wd,
-  saveGifFrames: ay,
+  saveDecodedPreviewAudio: Sd,
+  saveGifFrames: oy,
   saveThumbnail: Bc,
-  saveTranscript: sy,
+  saveTranscript: ly,
   saveWaveformBin: bu,
   saveWaveformMeta: vu,
-  saveWaveformRecord: bd,
-  updateMedia: Q0,
+  saveWaveformRecord: xd,
+  updateMedia: ey,
   updateProject: Pa
-}, Symbol.toStringTag, { value: "Module" })), ym = He("GifFrameCache"), r1 = 200 * 1024 * 1024, vm = 20;
-class n1 {
+}, Symbol.toStringTag, { value: "Module" })), bm = He("GifFrameCache"), n1 = 200 * 1024 * 1024, xm = 20;
+class a1 {
   memoryCache = /* @__PURE__ */ new Map();
   currentCacheSize = 0;
   pendingRequests = /* @__PURE__ */ new Map();
@@ -3947,7 +3947,7 @@ class n1 {
    */
   addToMemoryCache(t, r) {
     const n = this.memoryCache.get(t);
-    for (n && (this.currentCacheSize -= n.sizeBytes); this.currentCacheSize + r.sizeBytes > r1 && this.memoryCache.size > 0; )
+    for (n && (this.currentCacheSize -= n.sizeBytes); this.currentCacheSize + r.sizeBytes > n1 && this.memoryCache.size > 0; )
       this.evictOldest();
     this.memoryCache.set(t, r), this.currentCacheSize += r.sizeBytes;
   }
@@ -4006,7 +4006,7 @@ class n1 {
       if (a.aborted)
         throw new Error("Aborted");
       n?.(15);
-      const s = Zf.parseGIF(o), c = Zf.decompressFrames(s, !0);
+      const s = Jf.parseGIF(o), c = Jf.decompressFrames(s, !0);
       if (a.aborted)
         throw new Error("Aborted");
       n?.(25);
@@ -4051,7 +4051,7 @@ class n1 {
         const _ = C.delay > 0 ? C.delay : 100;
         h.push(_), g += R.size;
         const B = 25 + Math.round(F / c.length * 65);
-        if (n?.(Math.min(B, 90)), m.length - v >= vm) {
+        if (n?.(Math.min(B, 90)), m.length - v >= xm) {
           v = m.length;
           const $ = this.computeCumulativeDelays(h), U = {
             frames: [...m],
@@ -4094,9 +4094,9 @@ class n1 {
           frameCount: p.length,
           createdAt: Date.now()
         };
-        await ay(F);
+        await oy(F);
       } catch (F) {
-        ym.warn("Failed to persist GIF frames to IndexedDB:", F);
+        bm.warn("Failed to persist GIF frames to IndexedDB:", F);
       }
       return n?.(100), S;
     } finally {
@@ -4108,7 +4108,7 @@ class n1 {
    */
   async loadFromIndexedDB(t) {
     try {
-      const r = await iy(t);
+      const r = await sy(t);
       if (!r || !r.frames || r.frames.length === 0)
         return null;
       const n = [];
@@ -4131,7 +4131,7 @@ class n1 {
         isComplete: !0
       };
     } catch (r) {
-      return ym.warn("Failed to load GIF frames from IndexedDB:", r), null;
+      return bm.warn("Failed to load GIF frames from IndexedDB:", r), null;
     }
   }
   /**
@@ -4199,7 +4199,7 @@ class n1 {
           x.close();
         }
         const k = 15 + Math.round(v / u * 80);
-        if (n?.(Math.min(k, 95)), o.length - p >= vm) {
+        if (n?.(Math.min(k, 95)), o.length - p >= xm) {
           p = o.length;
           const M = this.computeCumulativeDelays(f), S = {
             frames: [...o],
@@ -4276,7 +4276,7 @@ class n1 {
         n.close();
       this.currentCacheSize -= r.sizeBytes, this.memoryCache.delete(t);
     }
-    await oy(t);
+    await cy(t);
   }
   /**
    * Clear all cached GIF frames
@@ -4297,8 +4297,8 @@ class n1 {
     this.activeExtractions.clear(), this.updateCallbacks.clear();
   }
 }
-const Jr = new n1();
-function a1(e) {
+const Jr = new a1();
+function i1(e) {
   const t = [], r = /* @__PURE__ */ new Set();
   function n() {
     const l = e.createWorker();
@@ -4336,7 +4336,7 @@ function a1(e) {
     terminateAll: c
   };
 }
-const i1 = {
+const o1 = {
   default: {
     toolbarHeight: 56,
     sidebarRailWidth: 48,
@@ -4399,9 +4399,9 @@ const i1 = {
     timelineClipLabelRowHeight: 18,
     timelineWaveformRowHeight: 20
   }
-}, cy = "compact";
-function jc(e = cy) {
-  return i1[e];
+}, uy = "compact";
+function jc(e = uy) {
+  return o1[e];
 }
 const Nr = jc(), Ht = {
   toolbarHeight: "--editor-toolbar-height",
@@ -4423,7 +4423,7 @@ const Nr = jc(), Ht = {
   timelineTrackHeight: "--editor-timeline-track-height",
   timelineClipLabelRowHeight: "--editor-timeline-clip-label-row-height",
   timelineWaveformRowHeight: "--editor-timeline-waveform-row-height"
-}, gU = {
+}, bU = {
   sidebarRailWidth: `var(${Ht.sidebarRailWidth})`,
   sidebarHeaderHeight: `var(${Ht.sidebarHeaderHeight})`,
   sidebarHeaderButtonSize: `var(${Ht.sidebarHeaderButtonSize})`,
@@ -4440,7 +4440,7 @@ const Nr = jc(), Ht = {
   timelineClipLabelRowHeight: `var(${Ht.timelineClipLabelRowHeight})`,
   timelineWaveformRowHeight: `var(${Ht.timelineWaveformRowHeight})`
 };
-function o1(e = Nr) {
+function s1(e = Nr) {
   return {
     [Ht.toolbarHeight]: `${e.toolbarHeight}px`,
     [Ht.sidebarRailWidth]: `${e.sidebarRailWidth}px`,
@@ -4463,12 +4463,12 @@ function o1(e = Nr) {
     [Ht.timelineWaveformRowHeight]: `${e.timelineWaveformRowHeight}px`
   };
 }
-o1();
-const s1 = 0.45;
-function ly(e, t) {
+s1();
+const c1 = 0.45;
+function dy(e, t) {
   return Math.min(t.maxWidth, Math.max(t.minWidth, e));
 }
-function c1() {
+function l1() {
   if (typeof window < "u" && Number.isFinite(window.innerWidth) && window.innerWidth > 0)
     return window.innerWidth;
   if (typeof document < "u") {
@@ -4478,31 +4478,31 @@ function c1() {
   }
   return null;
 }
-function uy(e = Nr) {
-  const t = typeof e == "string" ? jc(e) : e, r = c1(), n = r === null ? t.leftSidebarMaxWidth : Math.floor(r * s1);
+function fy(e = Nr) {
+  const t = typeof e == "string" ? jc(e) : e, r = l1(), n = r === null ? t.leftSidebarMaxWidth : Math.floor(r * c1);
   return {
     minWidth: t.leftSidebarMinWidth,
     maxWidth: Math.max(t.leftSidebarMinWidth, n)
   };
 }
-function dy(e = Nr) {
+function my(e = Nr) {
   const t = typeof e == "string" ? jc(e) : e;
   return {
     minWidth: t.rightSidebarMinWidth,
     maxWidth: t.rightSidebarMaxWidth
   };
 }
-function yU(e, t = Nr) {
-  return ly(e, uy(t));
+function xU(e, t = Nr) {
+  return dy(e, fy(t));
 }
-function vU(e, t = Nr) {
-  return ly(e, dy(t));
+function wU(e, t = Nr) {
+  return dy(e, my(t));
 }
-const fy = Nr.timelineTrackHeight, l1 = 30, Ur = fy;
+const py = Nr.timelineTrackHeight, u1 = 30, Ur = py;
 Nr.timelineHeaderHeight;
 Nr.timelineTracksHeaderHeight;
 Nr.timelineRulerHeight;
-const bU = Nr.timelineSidebarWidth, u1 = 40, my = 112, d1 = 1, bm = 6, f1 = 48, m1 = 28, xU = 0.22, p1 = Ur, py = Nr.timelineClipLabelRowHeight, h1 = p1 - py, g1 = my - py, y1 = h1, wU = Math.round(y1 * (16 / 9)), Gn = g1, xa = Math.round(Gn * (16 / 9)), v1 = 1e-4, b1 = 50, x1 = 8, ac = 3, SU = 0.8, IU = 0, kU = 1e-3, hy = v1, gy = b1, xm = !1, TU = "rgba(158, 107, 214, 0.5)", MU = "rgba(158, 107, 214, 0.8)", w1 = He("CacheVersion"), S1 = "cache-version-", I1 = {
+const SU = Nr.timelineSidebarWidth, d1 = 40, hy = 112, f1 = 1, wm = 6, m1 = 48, p1 = 28, IU = 0.22, h1 = Ur, gy = Nr.timelineClipLabelRowHeight, g1 = h1 - gy, y1 = hy - gy, v1 = g1, kU = Math.round(v1 * (16 / 9)), Gn = y1, xa = Math.round(Gn * (16 / 9)), b1 = 1e-4, x1 = 50, w1 = 8, ac = 3, TU = 0.8, MU = 0, FU = 1e-3, yy = b1, vy = x1, Sm = !1, CU = "rgba(158, 107, 214, 0.5)", EU = "rgba(158, 107, 214, 0.8)", S1 = He("CacheVersion"), I1 = "cache-version-", k1 = {
   filmstrip: 8,
   // OPFS filmstrip frames (v8: max-height extraction tiles)
   waveform: 3,
@@ -4512,8 +4512,8 @@ const bU = Nr.timelineSidebarWidth, u1 = 40, my = 112, d1 = 1, bm = 6, f1 = 48, 
   media: 1
   // OPFS media files
 };
-function yy(e) {
-  const t = `${S1}${e}`, r = localStorage.getItem(t), n = r ? parseInt(r, 10) : null, a = I1[e], i = n !== a;
+function by(e) {
+  const t = `${I1}${e}`, r = localStorage.getItem(t), n = r ? parseInt(r, 10) : null, a = k1[e], i = n !== a;
   return {
     needsMigration: i,
     oldVersion: n,
@@ -4521,12 +4521,12 @@ function yy(e) {
     markComplete: () => {
       if (localStorage.setItem(t, a.toString()), i) {
         const o = n ?? "none";
-        w1.debug(`${e} cache migrated: v${o} → v${a}`);
+        S1.debug(`${e} cache migrated: v${o} → v${a}`);
       }
     }
   };
 }
-async function wm(e, t) {
+async function Im(e, t) {
   let r;
   try {
     await e.write(t), await e.close();
@@ -4540,19 +4540,19 @@ async function wm(e, t) {
       }
   }
 }
-const Un = He("FilmstripOPFS"), k1 = "filmstrips", vs = 1, ao = "jpg", vy = "webp", T1 = /* @__PURE__ */ new Set([ao, vy]), Sm = 1e4;
-function by(e) {
+const Un = He("FilmstripOPFS"), T1 = "filmstrips", vs = 1, ao = "jpg", xy = "webp", M1 = /* @__PURE__ */ new Set([ao, xy]), km = 1e4;
+function wy(e) {
   const t = e.lastIndexOf(".");
   if (t <= 0) return null;
   const r = e.slice(t + 1).toLowerCase();
-  if (!T1.has(r)) return null;
+  if (!M1.has(r)) return null;
   const n = parseInt(e.slice(0, t), 10);
   return Number.isNaN(n) ? null : { index: n, ext: r };
 }
-function M1(e) {
-  return by(e)?.index ?? null;
+function F1(e) {
+  return wy(e)?.index ?? null;
 }
-class F1 {
+class C1 {
   dirHandle = null;
   initPromise = null;
   objectUrls = /* @__PURE__ */ new Map();
@@ -4592,7 +4592,7 @@ class F1 {
   }
   async initialize() {
     try {
-      const r = await (await navigator.storage.getDirectory()).getDirectoryHandle(k1, { create: !0 }), n = yy("filmstrip");
+      const r = await (await navigator.storage.getDirectory()).getDirectoryHandle(T1, { create: !0 }), n = by("filmstrip");
       if (n.needsMigration) {
         const a = [];
         for await (const i of r.values())
@@ -4613,7 +4613,7 @@ class F1 {
   async getMediaDir(t) {
     const r = this.mediaDirCache.get(t), n = await this.ensureDirectory();
     if (r) {
-      if (Date.now() - r.lastValidated <= Sm)
+      if (Date.now() - r.lastValidated <= km)
         return r.handle;
       try {
         return await r.handle.values().next(), this.mediaDirCache.set(t, {
@@ -4648,7 +4648,7 @@ class F1 {
    */
   async getOrCreateMediaDir(t) {
     const r = this.mediaDirCache.get(t);
-    if (r && Date.now() - r.lastValidated <= Sm)
+    if (r && Date.now() - r.lastValidated <= km)
       return r.handle;
     const a = await (await this.ensureDirectory()).getDirectoryHandle(t, { create: !0 });
     return this.mediaDirCache.set(t, {
@@ -4661,14 +4661,14 @@ class F1 {
    */
   async saveMetadata(t, r) {
     const i = await (await (await this.getOrCreateMediaDir(t)).getFileHandle("meta.json", { create: !0 })).createWritable();
-    await wm(i, JSON.stringify(r));
+    await Im(i, JSON.stringify(r));
   }
   /**
    * Save a frame blob at a specific index
    */
   async saveFrameBlob(t, r, n) {
     const o = await (await (await this.getOrCreateMediaDir(t)).getFileHandle(`${r}.${ao}`, { create: !0 })).createWritable();
-    await wm(o, n);
+    await Im(o, n);
   }
   /**
    * Load filmstrip - returns object URLs for img src
@@ -4687,7 +4687,7 @@ class F1 {
       const a = /* @__PURE__ */ new Map();
       for await (const l of r.values()) {
         if (l.kind !== "file") continue;
-        const u = by(l.name);
+        const u = wy(l.name);
         if (u)
           try {
             const f = await l.getFile();
@@ -4723,7 +4723,7 @@ class F1 {
       const i = /* @__PURE__ */ new Set();
       for await (const o of a.values()) {
         if (o.kind !== "file") continue;
-        const s = M1(o.name);
+        const s = F1(o.name);
         if (s !== null) {
           if (typeof r == "number" && s < r || typeof n == "number" && s >= n)
             continue;
@@ -4750,7 +4750,7 @@ class F1 {
         a = await (await n.getFileHandle(`${r}.${ao}`)).getFile();
       } catch {
         try {
-          a = await (await n.getFileHandle(`${r}.${vy}`)).getFile();
+          a = await (await n.getFileHandle(`${r}.${xy}`)).getFile();
         } catch {
           return null;
         }
@@ -4864,8 +4864,8 @@ class F1 {
     }
   }
 }
-const Sr = new F1(), hr = He("FilmstripCache"), ua = 1, C1 = 120, E1 = 2, P1 = 8, R1 = 12, Im = 1, A1 = 2, hl = 60, D1 = 160, _1 = 6, km = 180, O1 = 2, L1 = 3, B1 = 4, N1 = 300, U1 = 1200, z1 = 2400, j1 = 15e3, Tm = 500 * 1024 * 1024, Hi = 420 * 1024 * 1024, V1 = 120, $1 = 200, H1 = 4, G1 = "image/jpeg", W1 = 0.7, K1 = xa * Gn * 4, X1 = 2, q1 = 2, Y1 = 2, Z1 = 500;
-class Q1 {
+const Sr = new C1(), hr = He("FilmstripCache"), ua = 1, E1 = 120, P1 = 2, R1 = 8, A1 = 12, Tm = 1, D1 = 2, hl = 60, _1 = 160, O1 = 6, Mm = 180, L1 = 2, B1 = 3, N1 = 4, U1 = 300, z1 = 1200, j1 = 2400, V1 = 15e3, Fm = 500 * 1024 * 1024, Hi = 420 * 1024 * 1024, $1 = 120, H1 = 200, G1 = 4, W1 = "image/jpeg", K1 = 0.7, X1 = xa * Gn * 4, q1 = 2, Y1 = 2, Z1 = 2, Q1 = 500;
+class J1 {
   cache = /* @__PURE__ */ new Map();
   cacheMeta = /* @__PURE__ */ new Map();
   cacheBytes = 0;
@@ -4875,11 +4875,11 @@ class Q1 {
   loadingPromises = /* @__PURE__ */ new Map();
   activeExtractions = /* @__PURE__ */ new Set();
   extractionQueue = [];
-  workerPoolManager = a1({
+  workerPoolManager = i1({
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/filmstrip-extraction-worker-DTRru5dc.js", import.meta.url).href,
+        "" + new URL("assets/filmstrip-extraction-worker-DPJGbWSi.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -4904,7 +4904,7 @@ class Q1 {
     return this.workerPoolManager.acquireWorker();
   }
   getMaxIdleWorkers() {
-    return this.isHardMemoryPressure() ? 0 : this.isSoftMemoryPressure() ? 1 : X1;
+    return this.isHardMemoryPressure() ? 0 : this.isSoftMemoryPressure() ? 1 : q1;
   }
   releaseWorker(t) {
     this.workerPoolManager.releaseWorker(t, { maxIdleWorkers: this.getMaxIdleWorkers() });
@@ -4928,12 +4928,12 @@ class Q1 {
   }
   isHardMemoryPressure() {
     const t = this.getUsedJsHeapBytes();
-    return t !== null && t >= Tm ? !0 : this.cacheBytes >= Tm;
+    return t !== null && t >= Fm ? !0 : this.cacheBytes >= Fm;
   }
   estimateFilmstripBytes(t) {
     let r = 0;
     for (const n of t)
-      r += n.byteSize && n.byteSize > 0 ? n.byteSize : K1;
+      r += n.byteSize && n.byteSize > 0 ? n.byteSize : X1;
     return r;
   }
   updateCacheMeta(t, r) {
@@ -4964,7 +4964,7 @@ class Q1 {
     if (this.clearIdleEvictionTimer(t), this.pendingExtractions.has(t) || this.hasSubscribers(t) || !this.cache.has(t)) return;
     const r = setTimeout(() => {
       this.idleEvictionTimers.delete(t), this.tryEvictMedia(t, "idle-timeout");
-    }, j1);
+    }, V1);
     this.idleEvictionTimers.set(t, r);
   }
   hasSubscribers(t) {
@@ -4976,7 +4976,7 @@ class Q1 {
   }
   enforceMemoryBudget(t = !1) {
     const r = Date.now();
-    if (!t && r - this.lastMemoryCheckAt < Z1)
+    if (!t && r - this.lastMemoryCheckAt < Q1)
       return;
     this.lastMemoryCheckAt = r;
     const n = this.getUsedJsHeapBytes();
@@ -4992,36 +4992,36 @@ class Q1 {
     }
   }
   getMaxConcurrentExtractions() {
-    const t = typeof navigator > "u" ? Im : (navigator.hardwareConcurrency || 4) >= R1 ? A1 : Im;
+    const t = typeof navigator > "u" ? Tm : (navigator.hardwareConcurrency || 4) >= A1 ? D1 : Tm;
     return this.isHardMemoryPressure() ? 1 : this.isSoftMemoryPressure() ? Math.min(t, 2) : t;
   }
   buildPriorityIndices(t, r) {
     if (!r || t <= 0) return [];
     const n = Math.max(0, Math.min(t - 1, r.startIndex)), a = Math.max(n + 1, Math.min(t, r.endIndex)), i = Math.max(0, a - n);
     if (i === 0) return [];
-    if (i <= km) {
+    if (i <= Mm) {
       const c = [];
       for (let l = n; l < a; l++) c.push(l);
       return c;
     }
-    const o = /* @__PURE__ */ new Set(), s = Math.ceil(i / km);
+    const o = /* @__PURE__ */ new Set(), s = Math.ceil(i / Mm);
     for (let c = n; c < a; c += s) o.add(c);
     return o.add(n), o.add(a - 1), Array.from(o).sort((c, l) => c - l);
   }
   getTargetFrameBudget(t) {
     if (t <= 0) return 0;
     if (t <= hl) return t;
-    const r = Math.round(Math.sqrt(t) * _1);
+    const r = Math.round(Math.sqrt(t) * O1);
     return Math.max(
       hl,
       Math.min(
         t,
-        Math.min(D1, r)
+        Math.min(_1, r)
       )
     );
   }
   getBackgroundStride(t) {
-    return t <= N1 ? 1 : t <= U1 ? O1 : t <= z1 ? L1 : B1;
+    return t <= U1 ? 1 : t <= z1 ? L1 : t <= j1 ? B1 : N1;
   }
   createExtractionMetrics(t, r, n, a, i) {
     const o = Date.now();
@@ -5059,7 +5059,7 @@ class Q1 {
       extractedFrames: n,
       outcome: r
     };
-    this.metricsHistory.push(i), this.metricsHistory.length > V1 && this.metricsHistory.shift(), r === "completed" && this.metricsTotals.completed++, r === "failed" && this.metricsTotals.failed++, r === "aborted" && this.metricsTotals.aborted++;
+    this.metricsHistory.push(i), this.metricsHistory.length > $1 && this.metricsHistory.shift(), r === "completed" && this.metricsTotals.completed++, r === "failed" && this.metricsTotals.failed++, r === "aborted" && this.metricsTotals.aborted++;
   }
   getMetricsSnapshot() {
     const t = [...this.metricsHistory], r = t.filter((l) => l.outcome === "completed"), n = r.filter(
@@ -5400,9 +5400,9 @@ class Q1 {
     } = t, l = new Set(i), u = c.reduce(
       (x, k) => l.has(k) ? x : x + 1,
       0
-    ), d = typeof navigator < "u" && navigator.hardwareConcurrency || 4, f = this.isSoftMemoryPressure(), m = this.activeExtractions.size > 1 || this.extractionQueue.length > 0, p = o || f || m || d < P1 ? 1 : E1, h = Math.min(
+    ), d = typeof navigator < "u" && navigator.hardwareConcurrency || 4, f = this.isSoftMemoryPressure(), m = this.activeExtractions.size > 1 || this.extractionQueue.length > 0, p = o || f || m || d < R1 ? 1 : P1, h = Math.min(
       p,
-      Math.max(1, Math.floor(u / C1))
+      Math.max(1, Math.floor(u / E1))
     ), g = [...c].sort((x, k) => x - k), v = Math.min(h, Math.max(1, g.length)), b = Math.ceil(g.length / v);
     t.metrics.workerCount = v, hr.info(`Starting ${v} workers for ${r} (${u} frames)`);
     for (let x = 0; x < v; x++) {
@@ -5522,14 +5522,14 @@ class Q1 {
         endIndex: C,
         totalFrames: s,
         workerId: x,
-        maxParallelSaves: f ? Y1 : q1
+        maxParallelSaves: f ? Z1 : Y1
       };
       R.postMessage(j);
     }
   }
   shouldNotifyProgress(t, r, n) {
     const a = Date.now(), i = r - t.lastNotifiedFrameCount, o = a - t.lastNotifyAt;
-    return n >= 99 || i >= H1 || o >= $1 ? (t.lastNotifyAt = a, t.lastNotifiedFrameCount = r, !0) : !1;
+    return n >= 99 || i >= G1 || o >= H1 ? (t.lastNotifyAt = a, t.lastNotifiedFrameCount = r, !0) : !1;
   }
   async loadNewFramesInRange(t, r, n) {
     const a = this.pendingExtractions.get(t);
@@ -5749,8 +5749,8 @@ class Q1 {
           }
           n(new Error("Failed to convert filmstrip fallback canvas to blob"));
         },
-        G1,
-        W1
+        W1,
+        K1
       );
     });
   }
@@ -5896,7 +5896,7 @@ class Q1 {
     this.idleEvictionTimers.clear(), this.cache.clear(), this.cacheMeta.clear(), this.cacheBytes = 0, this.pendingExtractions.clear(), this.clearMetrics(), this.updateCallbacks.clear(), this.loadingPromises.clear(), this.activeExtractions.clear(), this.extractionQueue = [];
   }
 }
-const Ja = new Q1();
+const Ja = new J1();
 function Go(e) {
   let t = null, r = null;
   function n() {
@@ -5926,18 +5926,18 @@ function Go(e) {
     terminate: o
   };
 }
-const wn = He("WaveformOPFS"), bs = "WFORM", Mm = 1, ei = 48, xs = 12, J1 = "waveforms", go = [1e3, 200, 50, 10];
+const wn = He("WaveformOPFS"), bs = "WFORM", Cm = 1, ei = 48, xs = 12, eT = "waveforms", go = [1e3, 200, 50, 10];
 function ws(e) {
   return e >= 2 ? 2 : 1;
 }
-function Fm(e) {
+function Em(e) {
   const t = e / 3;
   for (let r = 0; r < go.length; r++)
     if (go[r] <= t * 2)
       return r;
   return go.length - 1;
 }
-class eT {
+class tT {
   rootHandle = null;
   dirHandle = null;
   initPromise = null;
@@ -5953,9 +5953,9 @@ class eT {
   async initializeWithMigration() {
     try {
       this.rootHandle = await navigator.storage.getDirectory();
-      const t = await this.rootHandle.getDirectoryHandle(J1, {
+      const t = await this.rootHandle.getDirectoryHandle(eT, {
         create: !0
-      }), r = yy("waveform");
+      }), r = by("waveform");
       if (r.needsMigration) {
         const n = [];
         for await (const a of t.values())
@@ -5977,7 +5977,7 @@ class eT {
     let n = 0;
     for (let a = 0; a < bs.length; a++)
       t.setUint8(n++, bs.charCodeAt(a));
-    t.setUint8(n++, Mm), t.setFloat32(n, r.duration, !0), n += 4, t.setUint8(n++, r.channels), t.setUint8(n++, r.levelCount);
+    t.setUint8(n++, Cm), t.setFloat32(n, r.duration, !0), n += 4, t.setUint8(n++, r.channels), t.setUint8(n++, r.levelCount);
   }
   /**
    * Read header from buffer
@@ -5988,7 +5988,7 @@ class eT {
       n += String.fromCharCode(t.getUint8(r++));
     if (n !== bs)
       return wn.warn("Invalid waveform magic bytes"), null;
-    if (t.getUint8(r++) !== Mm)
+    if (t.getUint8(r++) !== Cm)
       return null;
     const i = t.getFloat32(r, !0);
     r += 4;
@@ -6249,13 +6249,13 @@ class eT {
     }
   }
 }
-const Sn = new eT(), ir = He("WaveformCache"), tT = 20 * 1024 * 1024, rT = 1, wa = go[0], Ks = 5, Gi = wa * Ks;
+const Sn = new tT(), ir = He("WaveformCache"), rT = 20 * 1024 * 1024, nT = 1, wa = go[0], Ks = 5, Gi = wa * Ks;
 class In extends Error {
   constructor(t = "Aborted") {
     super(t), this.name = "AbortError";
   }
 }
-class nT {
+class aT {
   memoryCache = /* @__PURE__ */ new Map();
   currentCacheSize = 0;
   pendingRequests = /* @__PURE__ */ new Map();
@@ -6269,7 +6269,7 @@ class nT {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/waveform-worker-B2NInS2j.js", import.meta.url).href,
+        "" + new URL("assets/waveform-worker-Dk7PJ9bc.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -6302,7 +6302,7 @@ class nT {
     }), this.processGenerationQueue(), s;
   }
   processGenerationQueue() {
-    for (; this.activeGenerations.size < rT && this.generationQueue.length > 0; ) {
+    for (; this.activeGenerations.size < nT && this.generationQueue.length > 0; ) {
       const t = this.generationQueue.shift();
       if (!t) return;
       const r = this.pendingRequests.get(t.mediaId);
@@ -6366,7 +6366,7 @@ class nT {
    */
   addToMemoryCache(t, r) {
     const n = this.memoryCache.get(t);
-    for (n && (this.currentCacheSize -= n.sizeBytes, this.memoryCache.delete(t)); this.currentCacheSize + r.sizeBytes > tT && this.memoryCache.size > 0; )
+    for (n && (this.currentCacheSize -= n.sizeBytes, this.memoryCache.delete(t)); this.currentCacheSize + r.sizeBytes > rT && this.memoryCache.size > 0; )
       this.evictOldest();
     this.memoryCache.set(t, r), this.currentCacheSize += r.sizeBytes;
   }
@@ -6450,13 +6450,13 @@ class nT {
    */
   async loadFromStorage(t) {
     try {
-      const r = await ry(t);
+      const r = await ay(t);
       if (r) {
         if (r.channels >= 2 && !r.stereo)
           return ir.debug(`Stale mono waveform for stereo source ${t}; clearing and regenerating`), await Vn(t).catch((i) => {
             ir.debug("Failed to clear stale mono waveform:", t, i);
           }), null;
-        const a = await ny(t, r.binCount);
+        const a = await iy(t, r.binCount);
         if (a.length === r.binCount) {
           const i = new Float32Array(r.totalSamples);
           let o = 0, s = !0;
@@ -6491,7 +6491,7 @@ class nT {
           ir.debug("Failed to clear invalid waveform bins:", t, i);
         }), null;
       }
-      const n = await vd(`${t}:bin:0`);
+      const n = await bd(`${t}:bin:0`);
       if (n && "kind" in n && n.kind === "bin")
         return ir.warn(`Partial waveform bins detected without meta for ${t}; regenerating`), await Vn(t).catch((a) => {
           ir.debug("Failed to clear partial waveform:", t, a);
@@ -6520,7 +6520,7 @@ class nT {
       });
     }
     try {
-      const r = await ty(t);
+      const r = await ny(t);
       if (r && r.peaks) {
         const n = new Float32Array(r.peaks), a = {
           peaks: n,
@@ -6859,7 +6859,7 @@ class nT {
    * Used for rendering only the visible portion of long audio files
    */
   async getWaveformRange(t, r, n, a) {
-    const i = Fm(a);
+    const i = Em(a);
     return Sn.getLevelRange(t, i, r, n);
   }
   /**
@@ -6867,34 +6867,34 @@ class nT {
    * Useful for zoom-optimized rendering
    */
   async getWaveformLevel(t, r) {
-    const n = Fm(r);
+    const n = Em(r);
     return Sn.getLevel(t, n);
   }
 }
-const $n = new nT(), Cm = /* @__PURE__ */ new WeakMap();
-function xy(e) {
+const $n = new aT(), Pm = /* @__PURE__ */ new WeakMap();
+function Sy(e) {
   if (!e.stereo) return e.peaks;
   if (e.isComplete) {
-    const n = Cm.get(e.peaks);
+    const n = Pm.get(e.peaks);
     if (n) return n;
   }
   const t = e.peaks.length / 2, r = new Float32Array(t);
   for (let n = 0; n < t; n++)
     r[n] = Math.max(e.peaks[n * 2] ?? 0, e.peaks[n * 2 + 1] ?? 0);
-  return e.isComplete && Cm.set(e.peaks, r), r;
+  return e.isComplete && Pm.set(e.peaks, r), r;
 }
-const wy = /^V(\d+)$/i, Sy = /^A(\d+)$/i, aT = /^Track\s+\d+$/i;
-function iT(e) {
-  return e === "video" ? wy : Sy;
-}
+const Iy = /^V(\d+)$/i, ky = /^A(\d+)$/i, iT = /^Track\s+\d+$/i;
 function oT(e) {
+  return e === "video" ? Iy : ky;
+}
+function sT(e) {
   return e === "video" ? "V" : "A";
 }
 function zt(e) {
-  return e.kind === "video" || e.kind === "audio" ? e.kind : wy.test(e.name) ? "video" : Sy.test(e.name) ? "audio" : null;
+  return e.kind === "video" || e.kind === "audio" ? e.kind : Iy.test(e.name) ? "video" : ky.test(e.name) ? "audio" : null;
 }
-function Iy(e, t) {
-  const r = iT(t), n = /* @__PURE__ */ new Set();
+function Ty(e, t) {
+  const r = oT(t), n = /* @__PURE__ */ new Set();
   for (const i of e) {
     if (zt(i) !== t) continue;
     const s = i.name.match(r), c = s?.[1] ? Number.parseInt(s[1], 10) : NaN;
@@ -6903,7 +6903,7 @@ function Iy(e, t) {
   let a = 1;
   for (; n.has(a); )
     a += 1;
-  return `${oT(t)}${a}`;
+  return `${sT(t)}${a}`;
 }
 function aa(e, t, r) {
   const n = [...e].sort((o, s) => o.order - s.order), a = n.findIndex((o) => o.id === t.id);
@@ -6916,8 +6916,8 @@ function aa(e, t, r) {
   const i = n[a + 1];
   return i ? (t.order + i.order) / 2 : t.order + 1;
 }
-function Id(e, t, r) {
-  const n = aT.test(e.name) ? Iy(t.filter((a) => a.id !== e.id), r) : e.name;
+function kd(e, t, r) {
+  const n = iT.test(e.name) ? Ty(t.filter((a) => a.id !== e.id), r) : e.name;
   return {
     ...e,
     kind: r,
@@ -6928,7 +6928,7 @@ function zr(e) {
   const { tracks: t, kind: r, order: n, height: a = Ur } = e;
   return {
     id: `track-${crypto.randomUUID()}`,
-    name: Iy(t, r),
+    name: Ty(t, r),
     kind: r,
     height: a,
     locked: !1,
@@ -6940,7 +6940,7 @@ function zr(e) {
     items: []
   };
 }
-function ky(e = Ur) {
+function My(e = Ur) {
   return [
     {
       id: "track-1",
@@ -6961,7 +6961,7 @@ function Wo(e) {
   const { tracks: t, targetTrack: r, kind: n, direction: a } = e;
   return t.filter((o) => !o.isGroup).filter((o) => zt(o) === n).filter((o) => a === "above" ? o.order < r.order : o.order > r.order).sort((o, s) => a === "above" ? s.order - o.order : o.order - s.order)[0] ?? null;
 }
-const kd = 0.1, Fo = 16, ea = 1, tn = 30;
+const Td = 0.1, Fo = 16, ea = 1, tn = 30;
 function Ci(e, t) {
   return e === void 0 || !Number.isFinite(e) || e <= 0 ? t : e;
 }
@@ -6988,33 +6988,33 @@ function wr(e, t, r = tn, n = r) {
   const a = Ci(r, tn), i = Ci(n, a), o = e / a;
   return Math.floor(o * i / t);
 }
-function Ty(e, t) {
+function Fy(e, t) {
   return Math.max(0, e - t);
 }
-function sT(e, t, r, n = tn, a = n) {
-  const i = Ty(e, t);
+function cT(e, t, r, n = tn, a = n) {
+  const i = Fy(e, t);
   return wr(i, r, n, a);
 }
-function cT(e, t, r = tn, n = r) {
+function lT(e, t, r = tn, n = r) {
   return wr(e, t, r, n);
 }
-function My(e, t, r = tn, n = r) {
+function Cy(e, t, r = tn, n = r) {
   if (t <= 0) return ea;
   const a = Ci(r, tn), i = Ci(n, a);
   return e * i / (t * a);
 }
-function Fy(e) {
-  return Math.max(kd, Math.min(Fo, e));
+function Ey(e) {
+  return Math.max(Td, Math.min(Fo, e));
 }
-function lT(e, t) {
+function uT(e, t) {
   return t === void 0 ? !0 : e >= 0 && e < t;
 }
-function uT(e, t, r, n, a = 2, i = tn, o = i) {
+function dT(e, t, r, n, a = 2, i = tn, o = i) {
   if (n === void 0) return !0;
   const s = Bt(t, r, i, o);
   return e + s <= n + a;
 }
-function Td(e, t, r, n, a = tn, i = a) {
+function Md(e, t, r, n, a = tn, i = a) {
   if (n === void 0 || n <= 0) return e;
   const o = Bt(t, r, a, i), s = Math.max(0, n - o);
   return Math.min(e, s);
@@ -7022,7 +7022,7 @@ function Td(e, t, r, n, a = tn, i = a) {
 function Co(e) {
   return e.type === "video" || e.type === "audio" || e.type === "composition";
 }
-function dT(e, t, r, n, a = tn, i = a) {
+function fT(e, t, r, n, a = tn, i = a) {
   const o = Bt(t, n, a, i), s = Bt(t + r, n, a, i);
   return {
     left: {
@@ -7034,10 +7034,10 @@ function dT(e, t, r, n, a = tn, i = a) {
     }
   };
 }
-function Em(e, t) {
+function Rm(e, t) {
   return (e.order ?? 0) - (t.order ?? 0);
 }
-function fT(e, t) {
+function mT(e, t) {
   return {
     id: e,
     name: `Track ${t + 1}`,
@@ -7050,7 +7050,7 @@ function fT(e, t) {
     items: []
   };
 }
-function mT(e, t) {
+function pT(e, t) {
   const r = /* @__PURE__ */ new Map();
   for (const s of e) {
     const c = r.get(s.trackId);
@@ -7060,7 +7060,7 @@ function mT(e, t) {
     }
     r.set(s.trackId, [s]);
   }
-  const n = [...t].sort(Em), a = new Set(n.map((s) => s.id));
+  const n = [...t].sort(Rm), a = new Set(n.map((s) => s.id));
   let i = n.reduce((s, c) => Math.max(s, c.order ?? 0), -1);
   const o = n.map((s) => ({
     ...s,
@@ -7068,25 +7068,25 @@ function mT(e, t) {
   }));
   for (const [s, c] of r.entries())
     a.has(s) || (i += 1, o.push({
-      ...fT(s, i),
+      ...mT(s, i),
       items: c
     }));
-  return o.sort(Em);
+  return o.sort(Rm);
 }
 function gl(e) {
   return {
     ...e,
-    tracks: mT(e.items, e.tracks)
+    tracks: pT(e.items, e.tracks)
   };
 }
-function pT(e) {
+function hT(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e)
     for (const n of r.items)
       n.mediaId && t.add(n.mediaId);
   return [...t].sort();
 }
-function Cy(e) {
+function Py(e) {
   return e.join("|");
 }
 const It = Mt()(
@@ -7112,15 +7112,15 @@ const It = Mt()(
     })
   })
 );
-let Pm = It.getState().compositions, Su = It.getState().mediaDependencyIds, yl = Cy(Su);
+let Am = It.getState().compositions, Su = It.getState().mediaDependencyIds, yl = Py(Su);
 It.subscribe((e) => {
-  if (e.compositions === Pm)
+  if (e.compositions === Am)
     return;
-  Pm = e.compositions;
+  Am = e.compositions;
   const t = {};
   for (const o of e.compositions)
     t[o.id] = o;
-  const r = pT(e.compositions), n = Cy(r), a = n === yl ? e.mediaDependencyIds : r, i = n === yl ? e.mediaDependencyVersion : e.mediaDependencyVersion + 1;
+  const r = hT(e.compositions), n = Py(r), a = n === yl ? e.mediaDependencyIds : r, i = n === yl ? e.mediaDependencyVersion : e.mediaDependencyVersion + 1;
   Su = a, yl = n, It.setState({ compositionById: t, mediaDependencyIds: Su, mediaDependencyVersion: i });
 });
 function Cn(e, t, r, n = 30) {
@@ -7134,13 +7134,13 @@ function Cn(e, t, r, n = 30) {
   } else if (Co(e)) {
     const { sourceStart: o, sourceDuration: s, sourceFps: c, speed: l } = _a(e), u = c ?? n;
     if (t === "start")
-      r < 0 && (i = cT(o, l, u, n), -r > i && (a = -i));
+      r < 0 && (i = lT(o, l, u, n), -r > i && (a = -i));
     else if (s !== void 0) {
-      const d = sT(s, o, l, u, n);
+      const d = cT(s, o, l, u, n);
       i = d - e.durationInFrames, e.durationInFrames + r > d && (a = d - e.durationInFrames);
     }
   }
-  return a = hT(e.durationInFrames, t, a), { clampedAmount: a, maxExtend: i };
+  return a = gT(e.durationInFrames, t, a), { clampedAmount: a, maxExtend: i };
 }
 function Eo(e, t, r, n, a) {
   const i = e.from + e.durationInFrames;
@@ -7168,7 +7168,7 @@ function Eo(e, t, r, n, a) {
   }
   return r;
 }
-function hT(e, t, r) {
+function gT(e, t, r) {
   if (t === "start") {
     if (e - r <= 0)
       return e - 1;
@@ -7191,17 +7191,17 @@ function ic(e, t, r, n, a = 30) {
     };
   }
 }
-function Rm(e) {
+function Dm(e) {
   return e.type === "video" || e.type === "composition";
 }
-function gT(e, t) {
+function yT(e, t) {
   return e.type === "video" && t.type === "audio" || e.type === "audio" && t.type === "video";
 }
-function yT(e, t) {
-  return !gT(e, t) || !e.originId || e.originId !== t.originId || !e.mediaId || e.mediaId !== t.mediaId ? !1 : e.from === t.from && e.durationInFrames === t.durationInFrames;
+function vT(e, t) {
+  return !yT(e, t) || !e.originId || e.originId !== t.originId || !e.mediaId || e.mediaId !== t.mediaId ? !1 : e.from === t.from && e.durationInFrames === t.durationInFrames;
 }
-function Ey(e, t, r) {
-  return t.id === e.id || t.type !== r ? !1 : e.linkedGroupId && t.linkedGroupId ? e.linkedGroupId === t.linkedGroupId : yT(e, t);
+function Ry(e, t, r) {
+  return t.id === e.id || t.type !== r ? !1 : e.linkedGroupId && t.linkedGroupId ? e.linkedGroupId === t.linkedGroupId : vT(e, t);
 }
 function rn(e) {
   return e.type === "audio" && typeof e.compositionId == "string" && e.compositionId.length > 0;
@@ -7209,30 +7209,30 @@ function rn(e) {
 function Vc(e, t) {
   return t.linkedGroupId ? e.find((r) => r.id !== t.id && rn(r) && r.linkedGroupId === t.linkedGroupId && r.compositionId === t.compositionId) ?? null : null;
 }
-function Md(e, t) {
+function Fd(e, t) {
   return t.linkedGroupId ? e.find((r) => r.type === "composition" && r.linkedGroupId === t.linkedGroupId && r.compositionId === t.compositionId) ?? null : null;
 }
 function Po(e, t) {
-  return t.type === "composition" ? Vc(e, t) : t.type !== "video" ? null : e.find((r) => Ey(t, r, "audio")) ?? null;
+  return t.type === "composition" ? Vc(e, t) : t.type !== "video" ? null : e.find((r) => Ry(t, r, "audio")) ?? null;
 }
-function vT(e, t) {
-  return !rn(t) && t.type !== "audio" ? null : rn(t) ? Md(e, t) : e.find((r) => Ey(t, r, "video")) ?? null;
+function bT(e, t) {
+  return !rn(t) && t.type !== "audio" ? null : rn(t) ? Fd(e, t) : e.find((r) => Ry(t, r, "video")) ?? null;
 }
-function Am(e, t) {
+function _m(e, t) {
   return t.from === e.from && t.durationInFrames === e.durationInFrames;
 }
-function bT(e, t, r) {
-  if (!Rm(t) || !Rm(r))
+function xT(e, t, r) {
+  if (!Dm(t) || !Dm(r))
     return null;
   const n = Po(e, t), a = Po(e, r);
-  return !n || !a || n.trackId !== a.trackId || !Am(t, n) || !Am(r, a) ? null : { leftAudio: n, rightAudio: a };
+  return !n || !a || n.trackId !== a.trackId || !_m(t, n) || !_m(r, a) ? null : { leftAudio: n, rightAudio: a };
 }
-function xT(e, t) {
+function wT(e, t) {
   const r = new Map(e.map((a) => [a.id, a])), n = [];
   for (const a of t) {
     const i = r.get(a.leftClipId), o = r.get(a.rightClipId);
     if (!i || !o) continue;
-    const s = bT(e, i, o);
+    const s = xT(e, i, o);
     s && n.push({
       transition: a,
       leftAudio: s.leftAudio,
@@ -7244,7 +7244,7 @@ function xT(e, t) {
 function Ra(e, t) {
   return Po(e, t) !== null;
 }
-function wT(e) {
+function ST(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e)
     r.type === "video" && Ra(e, r) && t.add(r.id);
@@ -7279,14 +7279,14 @@ function Oa(e, t) {
     from: e.from + t
   };
 }
-function Dm(e, t) {
+function Om(e, t) {
   return e.type !== "video" && e.type !== "audio" && e.type !== "composition" || e.sourceEnd === void 0 ? { id: e.id } : {
     id: e.id,
     sourceStart: (e.sourceStart ?? 0) + t,
     sourceEnd: e.sourceEnd + t
   };
 }
-function _m(e, t, r, n, a) {
+function Lm(e, t, r, n, a) {
   const i = {
     id: e.id,
     from: t,
@@ -7301,24 +7301,24 @@ function _m(e, t, r, n, a) {
   }
   return i;
 }
-function Py(e, t) {
+function Ay(e, t) {
   return e.type === "video" && t.type === "audio" || e.type === "audio" && t.type === "video";
 }
-function ST(e, t) {
-  return !Py(e, t) || !e.originId || e.originId !== t.originId || !e.mediaId || e.mediaId !== t.mediaId ? !1 : e.from === t.from && e.durationInFrames === t.durationInFrames;
+function IT(e, t) {
+  return !Ay(e, t) || !e.originId || e.originId !== t.originId || !e.mediaId || e.mediaId !== t.mediaId ? !1 : e.from === t.from && e.durationInFrames === t.durationInFrames;
 }
 function An(e, t) {
   const r = e.find((a) => a.id === t);
   if (!r) return [];
   if (r.linkedGroupId)
     return e.filter((a) => a.linkedGroupId === r.linkedGroupId);
-  const n = e.filter((a) => a.id === t || ST(r, a));
+  const n = e.filter((a) => a.id === t || IT(r, a));
   return n.length > 1 ? n : [r];
 }
 function Lr(e, t) {
   return An(e, t).map((r) => r.id);
 }
-function IT(e, t, r) {
+function kT(e, t, r) {
   if (r.length === 0)
     return [];
   const n = new Set(
@@ -7329,7 +7329,7 @@ function IT(e, t, r) {
   const a = new Map(e.map((i) => [i.id, i]));
   return r.filter((i) => !n.has(a.get(i)?.trackId ?? ""));
 }
-function kT(e, t) {
+function TT(e, t) {
   const r = [], n = /* @__PURE__ */ new Set();
   for (const a of t) {
     if (n.has(a)) continue;
@@ -7342,7 +7342,7 @@ function kT(e, t) {
   }
   return r;
 }
-function TT(e, t) {
+function MT(e, t) {
   return Lr(e, t).length > 1;
 }
 function Gr(e, t) {
@@ -7351,10 +7351,10 @@ function Gr(e, t) {
   const a = r.filter((i) => i.id === n.id || i.from === n.from && i.durationInFrames === n.durationInFrames && (i.sourceStart ?? null) === (n.sourceStart ?? null) && (i.sourceEnd ?? null) === (n.sourceEnd ?? null) && (i.speed ?? 1) === (n.speed ?? 1));
   return a.length > 0 ? a : [n];
 }
-function Om(e, t, r, n) {
+function Bm(e, t, r, n) {
   return Gr(e, t).find((a) => a.id !== t && a.trackId === r && a.type === n) ?? null;
 }
-function Lm(e, t, r) {
+function Nm(e, t, r) {
   const n = Gr(e, t).filter((i) => i.id !== t), a = Gr(e, r).filter((i) => i.id !== r);
   for (const i of n) {
     const o = a.find((s) => s.trackId === i.trackId && s.type === i.type);
@@ -7363,7 +7363,7 @@ function Lm(e, t, r) {
   }
   return null;
 }
-function Bm(e, t) {
+function Um(e, t) {
   const { sourceStart: r, sourceFps: n, speed: a } = _a(e), i = wr(
     r,
     a,
@@ -7372,21 +7372,21 @@ function Bm(e, t) {
   );
   return e.from - i;
 }
-function MT(e, t) {
-  return t.type === "video" || t.type === "composition" ? Po(e, t) : t.type === "audio" ? vT(e, t) : null;
+function FT(e, t) {
+  return t.type === "video" || t.type === "composition" ? Po(e, t) : t.type === "audio" ? bT(e, t) : null;
 }
-function Nm(e, t) {
+function zm(e, t) {
   return t ? { ...e, ...t } : e;
 }
-function FU(e, t, r, n = {}) {
+function PU(e, t, r, n = {}) {
   const a = e.find((u) => u.id === t);
   if (!a) return null;
-  const i = MT(e, a);
+  const i = FT(e, a);
   if (!i) return null;
-  const o = Nm(a, n[a.id]), s = Nm(i, n[i.id]), l = Bm(o, r) - Bm(s, r);
+  const o = zm(a, n[a.id]), s = zm(i, n[i.id]), l = Um(o, r) - Um(s, r);
   return l === 0 ? null : l;
 }
-function FT(e, t) {
+function CT(e, t) {
   const r = new Map(t), n = /* @__PURE__ */ new Set();
   for (const a of e) {
     if (n.has(a.id)) continue;
@@ -7407,7 +7407,7 @@ function FT(e, t) {
     return i !== 0 ? [{ id: a.id, from: a.from + i }] : [];
   });
 }
-function CT(e, t) {
+function ET(e, t) {
   if (t.length === 0)
     return [];
   const r = new Map(e.map((n) => [n.id, n]));
@@ -7416,12 +7416,12 @@ function CT(e, t) {
     return !a || a.from === n.from || An(e, n.id).length <= 1 ? [] : [Oa(a, n.from - a.from)];
   });
 }
-function ET(e) {
+function PT(e) {
   if (e.length !== 2) return !1;
   const [t, r] = e;
-  return !(!t || !r || !Py(t, r) || !t.mediaId || t.mediaId !== r.mediaId || t.from !== r.from || t.durationInFrames !== r.durationInFrames || (t.sourceStart ?? null) !== (r.sourceStart ?? null) || (t.sourceEnd ?? null) !== (r.sourceEnd ?? null));
+  return !(!t || !r || !Ay(t, r) || !t.mediaId || t.mediaId !== r.mediaId || t.from !== r.from || t.durationInFrames !== r.durationInFrames || (t.sourceStart ?? null) !== (r.sourceStart ?? null) || (t.sourceEnd ?? null) !== (r.sourceEnd ?? null));
 }
-function Ry(e, t) {
+function Dy(e, t) {
   const r = Array.from(new Set(t)).filter((o) => e.some((s) => s.id === o));
   if (r.length < 2) return !1;
   const n = Ko(e, r);
@@ -7438,16 +7438,16 @@ function Ko(e, t) {
       r.add(a);
   return Array.from(r);
 }
-function Fd(e) {
+function Cd(e) {
   return !!e.compositionId && (e.type === "composition" || e.type === "audio");
 }
-function Cd(e) {
+function Ed(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e)
-    Fd(r) && t.add(r.compositionId);
+    Cd(r) && t.add(r.compositionId);
   return [...t];
 }
-function Ay(e, t, r, n = /* @__PURE__ */ new Set()) {
+function _y(e, t, r, n = /* @__PURE__ */ new Set()) {
   if (e === t)
     return !0;
   if (n.has(e))
@@ -7456,29 +7456,29 @@ function Ay(e, t, r, n = /* @__PURE__ */ new Set()) {
   const a = r[e];
   if (!a)
     return !1;
-  for (const i of Cd(a.items))
-    if (i === t || Ay(i, t, r, n))
+  for (const i of Ed(a.items))
+    if (i === t || _y(i, t, r, n))
       return !0;
   return !1;
 }
 function $c(e) {
   const { parentCompositionId: t, insertedCompositionId: r, compositionById: n } = e;
-  return t ? Ay(r, t, n) : !1;
+  return t ? _y(r, t, n) : !1;
 }
-function Ed(e, t, r = /* @__PURE__ */ new Set()) {
+function Pd(e, t, r = /* @__PURE__ */ new Set()) {
   const n = [];
-  for (const a of Cd(e)) {
+  for (const a of Ed(e)) {
     if (r.has(a))
       continue;
     r.add(a), n.push(a);
     const i = t[a];
-    i && n.push(...Ed(i.items, t, r));
+    i && n.push(...Pd(i.items, t, r));
   }
   return n;
 }
-function PT(e, t) {
+function RT(e, t) {
   const r = e.flatMap((n) => n.items ?? []);
-  return Ed(r, t);
+  return Pd(r, t);
 }
 const Xo = {
   crossfade: {
@@ -7495,31 +7495,31 @@ const Xo = {
 function Iu(e) {
   return Number.isFinite(e) ? Math.max(1, Math.round(e)) : 1;
 }
-function Um(e) {
+function jm(e) {
   return {
     ...e,
     durationInFrames: Iu(e.durationInFrames),
     timing: e.timing ?? "linear"
   };
 }
-function RT(e, t) {
+function AT(e, t) {
   if (!e || e.length !== t.length) return !1;
   for (let r = 0; r < t.length; r++)
     if (e[r] !== t[r]) return !1;
   return !0;
 }
-function AT(e, t) {
+function DT(e, t) {
   const r = {};
   for (const a of e)
     (r[a.trackId] ??= []).push(a);
   const n = {};
   for (const [a, i] of Object.entries(r)) {
     const o = t[a];
-    n[a] = o && RT(o, i) ? o : i;
+    n[a] = o && AT(o, i) ? o : i;
   }
   return n;
 }
-function DT(e, t) {
+function _T(e, t) {
   const r = {};
   for (const a of e) {
     const i = Math.min(1, Math.max(0, a.alignment ?? 0.5)), o = Math.floor(a.durationInFrames * i), s = a.durationInFrames - o, c = r[a.leftClipId] ?? { left: 0, right: 0 };
@@ -7537,8 +7537,8 @@ function DT(e, t) {
 function ti(e, t) {
   return {
     transitions: e,
-    transitionsByTrackId: AT(e, t.transitionsByTrackId),
-    transitionOverlapByItemId: DT(
+    transitionsByTrackId: DT(e, t.transitionsByTrackId),
+    transitionOverlapByItemId: _T(
       e,
       t.transitionOverlapByItemId
     )
@@ -7552,7 +7552,7 @@ const Je = Mt()(
     transitionOverlapByItemId: {},
     // Bulk setters
     setTransitions: (t) => e((r) => {
-      const n = t.map((a) => Um(a));
+      const n = t.map((a) => jm(a));
       return ti(n, r);
     }),
     // Add transition
@@ -7581,7 +7581,7 @@ const Je = Mt()(
           ...r,
           durationInFrames: Iu(r.durationInFrames)
         };
-        return Um({ ...i, ...o });
+        return jm({ ...i, ...o });
       });
       return ti(a, n);
     }),
@@ -7604,13 +7604,13 @@ const Je = Mt()(
     })
   })
 );
-function Dy(e) {
+function Oy(e) {
   const t = {};
   for (const r of e)
     t[r.itemId] = r;
   return t;
 }
-function zm(e, t = /* @__PURE__ */ new Set()) {
+function Vm(e, t = /* @__PURE__ */ new Set()) {
   const r = /* @__PURE__ */ new Map();
   for (const n of e) {
     const a = r.get(n.frame);
@@ -7629,7 +7629,7 @@ const bt = Mt()(
     keyframes: [],
     keyframesByItemId: {},
     // Bulk setter
-    setKeyframes: (r) => e({ keyframes: r, keyframesByItemId: Dy(r) }),
+    setKeyframes: (r) => e({ keyframes: r, keyframesByItemId: Oy(r) }),
     // Add keyframe
     _addKeyframe: (r, n, a, i, o = "linear", s) => {
       const c = crypto.randomUUID(), l = { id: c, frame: a, value: i, easing: o, easingConfig: s };
@@ -7748,7 +7748,7 @@ const bt = Mt()(
           properties: s.properties.map(
             (c) => c.property === n ? {
               ...c,
-              keyframes: zm(
+              keyframes: Vm(
                 c.keyframes.map((l) => l.id === a ? { ...l, ...i } : l),
                 /* @__PURE__ */ new Set([a])
               )
@@ -7845,7 +7845,7 @@ const bt = Mt()(
               properties: s.properties.map(
                 (c) => c.property === o.property ? {
                   ...c,
-                  keyframes: zm(
+                  keyframes: Vm(
                     c.keyframes.map(
                       (l) => l.id === o.keyframeId ? { ...l, ...o.updates } : l
                     ),
@@ -7948,7 +7948,7 @@ const bt = Mt()(
   })
 );
 bt.subscribe((e, t) => {
-  e.keyframes !== t.keyframes && e.keyframesByItemId === t.keyframesByItemId && bt.setState({ keyframesByItemId: Dy(e.keyframes) });
+  e.keyframes !== t.keyframes && e.keyframesByItemId === t.keyframesByItemId && bt.setState({ keyframesByItemId: Oy(e.keyframes) });
 });
 const Pt = Mt((e) => ({
   // State
@@ -8064,11 +8064,11 @@ const Pt = Mt((e) => ({
 function Wi(e) {
   return Number.isFinite(e) ? Math.max(0, Math.round(e)) : 0;
 }
-function _T(e) {
+function OT(e) {
   return e === 0.5 || e === 0.33 || e === 0.25 ? e : 1;
 }
 const Qe = Mt()(
-  dd(
+  fd(
     (e) => ({
       // State
       currentFrame: 0,
@@ -8151,7 +8151,7 @@ const Qe = Mt()(
       setCaptureCanvasSource: (t) => e({ captureCanvasSource: t }),
       toggleUseProxy: () => e((t) => ({ useProxy: !t.useProxy })),
       setPreviewQuality: (t) => e((r) => {
-        const n = _T(t);
+        const n = OT(t);
         return r.previewQuality === n ? r : { previewQuality: n };
       })
     }),
@@ -8169,10 +8169,10 @@ const Qe = Mt()(
     }
   )
 );
-function CU(e) {
+function RU(e) {
   return e.isPlaying ? e.currentFrame : e.displayedFrame !== null ? e.displayedFrame : e.previewFrame === null ? e.currentFrame : e.previewFrameEpoch >= e.currentFrameEpoch ? e.previewFrame : e.currentFrame;
 }
-function OT(e) {
+function LT(e) {
   return {
     compositionId: e,
     items: J.getState().items,
@@ -8195,11 +8195,11 @@ function Ss(e) {
     durationInFrames: r
   });
 }
-function LT(e) {
+function BT(e) {
   const t = It.getState().getComposition(e);
   return t ? (J.getState().setItems(t.items), J.getState().setTracks(t.tracks), Je.getState().setTransitions(t.transitions ?? []), bt.getState().setKeyframes(t.keyframes ?? []), Pt.getState().clearSelection(), !0) : !1;
 }
-function BT(e, t, r) {
+function NT(e, t, r) {
   if (r) {
     const a = e.find((i) => i.id === r && i.compositionId === t && (i.type === "composition" || i.type === "audio"));
     if (a)
@@ -8208,18 +8208,18 @@ function BT(e, t, r) {
   const n = e.find((a) => a.type === "composition" && a.compositionId === t);
   return n || (e.find((a) => a.type === "audio" && a.compositionId === t) ?? null);
 }
-const NT = 16, Zt = Mt()((e, t) => ({
+const UT = 16, Zt = Mt()((e, t) => ({
   breadcrumbs: [{ compositionId: null, label: "Main Timeline" }],
   activeCompositionId: null,
   stashStack: [],
   enterComposition: (r, n, a) => {
     Qe.getState().pause();
     const i = t();
-    if (i.breadcrumbs.length >= NT || i.activeCompositionId === r || i.breadcrumbs.some((u) => u.compositionId === r)) return;
+    if (i.breadcrumbs.length >= UT || i.activeCompositionId === r || i.breadcrumbs.some((u) => u.compositionId === r)) return;
     i.activeCompositionId !== null && Ss(i.activeCompositionId);
-    const o = OT(i.activeCompositionId);
-    if (!LT(r)) return;
-    const s = Qe.getState().currentFrame, c = BT(o.items, r, a);
+    const o = LT(i.activeCompositionId);
+    if (!BT(r)) return;
+    const s = Qe.getState().currentFrame, c = NT(o.items, r, a);
     let l = 0;
     if (c) {
       const u = s - c.from;
@@ -8295,38 +8295,38 @@ const NT = 16, Zt = Mt()((e, t) => ({
     setTimelineLoading: (r) => e({ isTimelineLoading: r }),
     setPendingInitialZoomFit: (r) => e({ pendingInitialZoomFit: r })
   })
-), UT = -1, zT = 1, _y = 0.04, Oy = 0.96, oc = 0.52, sc = 1e-4, jm = 12;
+), zT = -1, jT = 1, Ly = 0.04, By = 0.96, oc = 0.52, sc = 1e-4, $m = 12;
 function ia(e) {
   const t = typeof e == "number" && Number.isFinite(e) ? e : 0;
-  return Math.max(UT, Math.min(zT, Math.round(t * 100) / 100));
+  return Math.max(zT, Math.min(jT, Math.round(t * 100) / 100));
 }
 function hn(e) {
   const t = typeof e == "number" && Number.isFinite(e) ? e : oc;
-  return Math.max(_y, Math.min(Oy, Math.round(t * 1e3) / 1e3));
+  return Math.max(Ly, Math.min(By, Math.round(t * 1e3) / 1e3));
 }
-function jT(e, t) {
+function VT(e, t) {
   const r = hn(t), n = ia(e), a = r, i = 1 - a, o = a;
   return n >= 0 ? a + n * i : a + n * o;
 }
-function VT(e, t) {
+function $T(e, t) {
   const r = hn(t), n = ia(e), a = 1 - r, i = 1 - a, o = a;
   return n >= 0 ? a + n * i : a + n * o;
 }
-function Pd(e) {
+function Rd(e) {
   return Math.max(0, Math.min(1, e));
 }
-function Vm(e) {
+function Hm(e) {
   return Math.max(sc, Math.min(1 - sc, e));
 }
 function cc(e, t) {
-  const r = Math.log(Vm(t)) / Math.log(Vm(e));
-  return Number.isFinite(r) ? Math.max(1, Math.min(jm, r)) : jm;
+  const r = Math.log(Hm(t)) / Math.log(Hm(e));
+  return Number.isFinite(r) ? Math.max(1, Math.min($m, r)) : $m;
 }
 function lc(e, t) {
-  return Math.pow(Pd(e), t);
+  return Math.pow(Rd(e), t);
 }
 function uc(e, t, r) {
-  const n = Pd(e), a = hn(r), i = jT(t, r);
+  const n = Rd(e), a = hn(r), i = VT(t, r);
   if (Math.abs(i - a) <= sc)
     return n;
   if (i > a) {
@@ -8337,7 +8337,7 @@ function uc(e, t, r) {
   return lc(n, o);
 }
 function dc(e, t, r) {
-  const n = Pd(e), a = hn(r), i = VT(t, r), o = 1 - a;
+  const n = Rd(e), a = hn(r), i = $T(t, r), o = 1 - a;
   if (Math.abs(i - o) <= sc)
     return 1 - n;
   if (i > o) {
@@ -8387,7 +8387,7 @@ function ku({
   }
   return F ? S < 0 ? 0 : S >= m ? 1 : uc(S / m, c, u) : S <= T ? 1 : S > M ? 0 : dc((S - T) / p, l, d);
 }
-function $T(e, t) {
+function HT(e, t) {
   if (!t || t.length === 0)
     return 1;
   const r = t.find((n) => e >= n.startFrame && e < n.startFrame + n.durationInFrames);
@@ -8402,23 +8402,23 @@ function $T(e, t) {
     fadeOutCurveX: r.fadeOutCurveX
   }) : 1;
 }
-const $m = 0.999;
+const Gm = 0.999;
 function vi(e) {
   return !Number.isFinite(e) || e <= 0 ? 0 : e >= 1 ? 1 : e;
 }
-function Rd(e) {
+function Ad(e) {
   return Number.isFinite(e) ? e <= -1 ? -1 : e >= 1 ? 1 : e : 0;
 }
-function Hm(e, t) {
+function Wm(e, t) {
   const r = e + t;
-  if (r <= $m)
+  if (r <= Gm)
     return [e, t];
   if (r <= 0)
     return [0, 0];
-  const n = $m / r;
+  const n = Gm / r;
   return [e * n, t * n];
 }
-function Gm(e, t, r) {
+function Km(e, t, r) {
   if (!Number.isFinite(r) || r <= 0)
     return [0, 0];
   const n = Math.max(0, Math.min(e, r)), a = Math.max(0, Math.min(t, r)), i = n + a;
@@ -8429,43 +8429,43 @@ function Gm(e, t, r) {
   const o = r / i;
   return [n * o, a * o];
 }
-function HT(e, t) {
+function GT(e, t) {
   const r = Number.isFinite(e) && e > 0 ? e : 0, n = Number.isFinite(t) && t > 0 ? t : 0;
   return r === 0 || n === 0 ? Math.max(r, n) : Math.min(r, n);
 }
-function Ad(e) {
-  const [t, r] = Hm(
+function Dd(e) {
+  const [t, r] = Wm(
     vi(e?.left ?? 0),
     vi(e?.right ?? 0)
-  ), [n, a] = Hm(
+  ), [n, a] = Wm(
     vi(e?.top ?? 0),
     vi(e?.bottom ?? 0)
-  ), i = Rd(e?.softness ?? 0);
+  ), i = Ad(e?.softness ?? 0);
   return { left: t, right: r, top: n, bottom: a, softness: i };
 }
-function Ly(e) {
+function Ny(e) {
   if (!e) return;
-  const t = Ad(e);
+  const t = Dd(e);
   if (!(t.left === 0 && t.right === 0 && t.top === 0 && t.bottom === 0))
     return t;
 }
-function GT(e) {
-  const t = Ad(e);
+function WT(e) {
+  const t = Dd(e);
   return t.left > 0 || t.right > 0 || t.top > 0 || t.bottom > 0;
 }
-function EU(e, t) {
+function AU(e, t) {
   return !Number.isFinite(t) || t <= 0 ? 0 : vi(e ?? 0) * t;
 }
-function PU(e, t) {
+function DU(e, t) {
   return !Number.isFinite(t) || t <= 0 ? 0 : vi(e / t);
 }
-function WT(e, t) {
-  return !Number.isFinite(t) || t <= 0 ? 0 : Rd(e ?? 0) * t;
+function KT(e, t) {
+  return !Number.isFinite(t) || t <= 0 ? 0 : Ad(e ?? 0) * t;
 }
-function RU(e, t) {
-  return !Number.isFinite(t) || t <= 0 ? 0 : Rd(e / t);
+function _U(e, t) {
+  return !Number.isFinite(t) || t <= 0 ? 0 : Ad(e / t);
 }
-function KT(e, t, r, n) {
+function XT(e, t, r, n) {
   if (!Number.isFinite(e) || e <= 0 || !Number.isFinite(t) || t <= 0 || !Number.isFinite(r) || r <= 0 || !Number.isFinite(n) || n <= 0)
     return {
       x: 0,
@@ -8481,8 +8481,8 @@ function KT(e, t, r, n) {
     height: o
   };
 }
-function By(e, t, r, n, a) {
-  const i = KT(e, t, r, n), o = Ad(a), s = {
+function Uy(e, t, r, n, a) {
+  const i = XT(e, t, r, n), o = Dd(a), s = {
     left: i.width * o.left,
     right: i.width * o.right,
     top: i.height * o.top,
@@ -8492,9 +8492,9 @@ function By(e, t, r, n, a) {
     y: i.y + s.top,
     width: Math.max(0, i.width - s.left - s.right),
     height: Math.max(0, i.height - s.top - s.bottom)
-  }, l = WT(
+  }, l = KT(
     o.softness,
-    HT(i.width, i.height)
+    GT(i.width, i.height)
   ), u = Math.abs(l), d = l > 0 ? {
     left: s.left > 0 ? Math.min(u, s.left) : 0,
     right: s.right > 0 ? Math.min(u, s.right) : 0,
@@ -8510,11 +8510,11 @@ function By(e, t, r, n, a) {
     right: s.right > 0 ? l > 0 ? d.right : u : 0,
     top: s.top > 0 ? l > 0 ? d.top : u : 0,
     bottom: s.bottom > 0 ? l > 0 ? d.bottom : u : 0
-  }, [b, x] = Gm(
+  }, [b, x] = Km(
     v.left,
     v.right,
     g.width
-  ), [k, M] = Gm(
+  ), [k, M] = Km(
     v.top,
     v.bottom,
     g.height
@@ -8534,7 +8534,7 @@ function By(e, t, r, n, a) {
     }
   };
 }
-function Wm() {
+function Xm() {
   return He("ItemsStore");
 }
 function yr(e, t = 0) {
@@ -8547,7 +8547,7 @@ function Ki(e) {
   if (e !== void 0)
     return yr(e);
 }
-function Ny(e) {
+function zy(e) {
   if (!(e === void 0 || !Number.isFinite(e) || e <= 0))
     return Math.round(e * 1e3) / 1e3;
 }
@@ -8561,8 +8561,8 @@ function Rr(e) {
     sourceStart: Ki(e.sourceStart),
     sourceEnd: Ki(e.sourceEnd),
     sourceDuration: Ki(e.sourceDuration),
-    sourceFps: Ny(e.sourceFps),
-    crop: Ly(e.crop),
+    sourceFps: zy(e.sourceFps),
+    crop: Ny(e.crop),
     audioFadeInCurve: e.audioFadeInCurve === void 0 ? void 0 : ia(e.audioFadeInCurve),
     audioFadeOutCurve: e.audioFadeOutCurve === void 0 ? void 0 : ia(e.audioFadeOutCurve),
     audioFadeInCurveX: e.audioFadeInCurveX === void 0 ? void 0 : hn(e.audioFadeInCurveX),
@@ -8570,28 +8570,28 @@ function Rr(e) {
   };
   return (t.type === "video" || t.type === "audio") && t.sourceEnd !== void 0 && t.sourceStart === void 0 && (t.sourceStart = 0), t;
 }
-function XT(e) {
+function qT(e) {
   const t = { ...e };
-  return t.from !== void 0 && (t.from = yr(t.from)), t.durationInFrames !== void 0 && (t.durationInFrames = Sa(t.durationInFrames)), t.trimStart !== void 0 && (t.trimStart = yr(t.trimStart)), t.trimEnd !== void 0 && (t.trimEnd = yr(t.trimEnd)), t.sourceStart !== void 0 && (t.sourceStart = yr(t.sourceStart)), t.sourceEnd !== void 0 && (t.sourceEnd = yr(t.sourceEnd)), t.sourceDuration !== void 0 && (t.sourceDuration = yr(t.sourceDuration)), t.sourceFps !== void 0 && (t.sourceFps = Ny(t.sourceFps)), t.crop !== void 0 && (t.crop = Ly(t.crop)), t.sourceEnd !== void 0 && t.sourceStart === void 0 && (t.sourceStart = 0), t.audioFadeInCurve !== void 0 && (t.audioFadeInCurve = ia(t.audioFadeInCurve)), t.audioFadeOutCurve !== void 0 && (t.audioFadeOutCurve = ia(t.audioFadeOutCurve)), t.audioFadeInCurveX !== void 0 && (t.audioFadeInCurveX = hn(t.audioFadeInCurveX)), t.audioFadeOutCurveX !== void 0 && (t.audioFadeOutCurveX = hn(t.audioFadeOutCurveX)), t;
+  return t.from !== void 0 && (t.from = yr(t.from)), t.durationInFrames !== void 0 && (t.durationInFrames = Sa(t.durationInFrames)), t.trimStart !== void 0 && (t.trimStart = yr(t.trimStart)), t.trimEnd !== void 0 && (t.trimEnd = yr(t.trimEnd)), t.sourceStart !== void 0 && (t.sourceStart = yr(t.sourceStart)), t.sourceEnd !== void 0 && (t.sourceEnd = yr(t.sourceEnd)), t.sourceDuration !== void 0 && (t.sourceDuration = yr(t.sourceDuration)), t.sourceFps !== void 0 && (t.sourceFps = zy(t.sourceFps)), t.crop !== void 0 && (t.crop = Ny(t.crop)), t.sourceEnd !== void 0 && t.sourceStart === void 0 && (t.sourceStart = 0), t.audioFadeInCurve !== void 0 && (t.audioFadeInCurve = ia(t.audioFadeInCurve)), t.audioFadeOutCurve !== void 0 && (t.audioFadeOutCurve = ia(t.audioFadeOutCurve)), t.audioFadeInCurveX !== void 0 && (t.audioFadeInCurveX = hn(t.audioFadeInCurveX)), t.audioFadeOutCurveX !== void 0 && (t.audioFadeOutCurveX = hn(t.audioFadeOutCurveX)), t;
 }
-function qT(e, t) {
+function YT(e, t) {
   if (!e || e.length !== t.length) return !1;
   for (let r = 0; r < t.length; r++)
     if (e[r] !== t[r]) return !1;
   return !0;
 }
-function YT(e, t) {
+function ZT(e, t) {
   const r = {};
   for (const a of e)
     (r[a.trackId] ??= []).push(a);
   const n = {};
   for (const [a, i] of Object.entries(r)) {
     const o = t[a];
-    n[a] = o && qT(o, i) ? o : i;
+    n[a] = o && YT(o, i) ? o : i;
   }
   return n;
 }
-function ZT(e, t) {
+function QT(e, t) {
   const r = {};
   for (const n of e) {
     const a = t[n.id];
@@ -8599,16 +8599,16 @@ function ZT(e, t) {
   }
   return r;
 }
-function QT(e) {
+function JT(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e)
     r.mediaId && t.add(r.mediaId);
   return [...t].sort();
 }
-function Uy(e) {
+function jy(e) {
   return e.join("|");
 }
-function JT(e) {
+function eM(e) {
   let t = 0;
   for (const r of e) {
     const n = r.from + r.durationInFrames;
@@ -8619,18 +8619,18 @@ function JT(e) {
 function sr(e, t) {
   return {
     items: e,
-    itemsByTrackId: YT(e, t.itemsByTrackId),
-    itemById: ZT(e, t.itemById),
-    maxItemEndFrame: JT(e)
+    itemsByTrackId: ZT(e, t.itemsByTrackId),
+    itemById: QT(e, t.itemById),
+    maxItemEndFrame: eM(e)
   };
 }
-function Km(e) {
+function qm(e) {
   const t = Je.getState().transitions, r = /* @__PURE__ */ new Set();
   for (const n of t)
     n.leftClipId === e && r.add(n.rightClipId), n.rightClipId === e && r.add(n.leftClipId);
   return r;
 }
-function eM(e, t) {
+function tM(e, t) {
   const r = /* @__PURE__ */ new Map();
   for (const a of e) {
     let i = 0;
@@ -8684,7 +8684,7 @@ const J = Mt()(
     }),
     // Update item
     _updateItem: (r, n) => {
-      const a = XT(n);
+      const a = qT(n);
       return e((i) => {
         const o = i.items.map(
           (s) => s.id === r ? Rr({ ...s, ...a }) : s
@@ -8701,7 +8701,7 @@ const J = Mt()(
     _rippleDeleteItems: (r) => e((n) => {
       const a = new Set(r), i = n.items.filter((l) => a.has(l.id));
       if (i.length === 0) return n;
-      const o = n.items.filter((l) => !a.has(l.id)), s = eM(o, i), c = o.map((l) => {
+      const o = n.items.filter((l) => !a.has(l.id)), s = tM(o, i), c = o.map((l) => {
         const u = s.get(l.id) ?? 0;
         return u > 0 ? Rr({ ...l, from: l.from - u }) : l;
       });
@@ -8750,7 +8750,7 @@ const J = Mt()(
       const a = t(), i = new Map(a.items.map((u) => [u.id, u])), o = [], s = Zt.getState().activeCompositionId, c = It.getState().compositionById, l = /* @__PURE__ */ new Map();
       for (let u = 0; u < r.length; u++) {
         const d = i.get(r[u]), f = n[u];
-        if (!d || !f || s !== null && Fd(d) && $c({
+        if (!d || !f || s !== null && Cd(d) && $c({
           parentCompositionId: s,
           insertedCompositionId: d.compositionId,
           compositionById: c
@@ -8781,7 +8781,7 @@ const J = Mt()(
         const c = he.getState().fps;
         let { clampedAmount: l } = Cn(s, "start", n, c);
         if (!a?.skipAdjacentClamp) {
-          const m = Km(r);
+          const m = qm(r);
           l = Eo(s, "start", l, i.items, m);
         }
         const u = s.from + l, d = s.durationInFrames - l;
@@ -8803,7 +8803,7 @@ const J = Mt()(
         const c = he.getState().fps;
         let { clampedAmount: l } = Cn(s, "end", n, c);
         if (!a?.skipAdjacentClamp) {
-          const f = Km(r);
+          const f = qm(r);
           l = Eo(s, "end", l, i.items, f);
         }
         const u = s.durationInFrames + l;
@@ -8836,7 +8836,7 @@ const J = Mt()(
         durationInFrames: d
       };
       if (Co(i)) {
-        const h = he.getState().fps, { sourceStart: g, speed: v, sourceFps: b } = _a(i), k = dT(
+        const h = he.getState().fps, { sourceStart: g, speed: v, sourceFps: b } = _a(i), k = fT(
           g,
           u,
           d,
@@ -8844,7 +8844,7 @@ const J = Mt()(
           h,
           b ?? h
         );
-        m.sourceStart = g, m.sourceEnd = k.left.sourceEnd, p.sourceStart = k.right.sourceStart, p.sourceEnd = k.right.sourceEnd, Wm().debug(`_splitItem: Original sourceStart:${g} speed:${v} leftDuration:${u} rightDuration:${d}`), Wm().debug(`_splitItem: boundaries.right.sourceStart:${k.right.sourceStart} rightItem.sourceStart:${p.sourceStart}`);
+        m.sourceStart = g, m.sourceEnd = k.left.sourceEnd, p.sourceStart = k.right.sourceStart, p.sourceEnd = k.right.sourceEnd, Xm().debug(`_splitItem: Original sourceStart:${g} speed:${v} leftDuration:${u} rightDuration:${d}`), Xm().debug(`_splitItem: boundaries.right.sourceStart:${k.right.sourceStart} rightItem.sourceStart:${p.sourceStart}`);
       }
       return e((h) => {
         const g = h.items.map((v) => v.id === r ? Rr(m) : v).concat(Rr(p));
@@ -8878,7 +8878,7 @@ const J = Mt()(
         let h = i;
         if (u) {
           const k = Math.max(1, (c.sourceEnd ?? d) - d);
-          h = Fy(My(k, p, m, f));
+          h = Ey(Cy(k, p, m, f));
         }
         const g = Bt(p, h, f, m), v = d + g, b = c.sourceDuration ? Math.min(v, c.sourceDuration) : v, x = {
           ...c,
@@ -9011,13 +9011,13 @@ const J = Mt()(
     })
   })
 );
-let Xm = J.getState().items, Tu = J.getState().mediaDependencyIds, qm = Uy(Tu);
+let Ym = J.getState().items, Tu = J.getState().mediaDependencyIds, Zm = jy(Tu);
 J.subscribe((e) => {
-  if (e.items === Xm)
+  if (e.items === Ym)
     return;
-  Xm = e.items;
-  const t = QT(e.items), r = Uy(t);
-  r !== qm && (Tu = t, qm = r, J.setState({
+  Ym = e.items;
+  const t = JT(e.items), r = jy(t);
+  r !== Zm && (Tu = t, Zm = r, J.setState({
     mediaDependencyIds: Tu,
     mediaDependencyVersion: e.mediaDependencyVersion + 1
   }));
@@ -9056,17 +9056,17 @@ const Dt = Mt()(
     // In/out points
     clearInOutPoints: () => e({ inPoint: null, outPoint: null })
   })
-), zy = "whisper-tiny", jy = "hybrid", tM = "", rM = "auto", Is = {
+), Vy = "whisper-tiny", $y = "hybrid", rM = "", nM = "auto", Is = {
   "whisper-tiny": "Tiny",
   "whisper-base": "Base",
   "whisper-small": "Small",
   "whisper-large": "Large v3 Turbo"
-}, AU = [
+}, OU = [
   { value: "whisper-tiny", label: Is["whisper-tiny"] },
   { value: "whisper-base", label: Is["whisper-base"] },
   { value: "whisper-small", label: Is["whisper-small"] },
   { value: "whisper-large", label: Is["whisper-large"] }
-], Vy = {
+], Hy = {
   en: "english",
   zh: "chinese",
   de: "german",
@@ -9168,17 +9168,17 @@ const Dt = Mt()(
   su: "sundanese",
   yue: "cantonese"
 };
-new Set(Object.keys(Vy));
-function nM(e) {
+new Set(Object.keys(Hy));
+function aM(e) {
   return e.replace(/\b\w/g, (t) => t.toUpperCase());
 }
 [
-  ...Object.entries(Vy).map(([e, t]) => ({
+  ...Object.entries(Hy).map(([e, t]) => ({
     value: e,
-    label: nM(t)
+    label: aM(t)
   })).sort((e, t) => e.label.localeCompare(t.label))
 ];
-function aM(e) {
+function iM(e) {
   const t = e?.trim().toLowerCase();
   return t || void 0;
 }
@@ -9252,7 +9252,7 @@ const Ei = {
   CLEAR_IN_OUT: "alt+x",
   INSERT_EDIT: "comma",
   OVERWRITE_EDIT: "period"
-}, $y = ["mod", "alt", "shift"], Hy = new Set($y), Ym = new Map($y.map((e, t) => [e, t])), iM = {
+}, Gy = ["mod", "alt", "shift"], Wy = new Set(Gy), Qm = new Map(Gy.map((e, t) => [e, t])), oM = {
   cmd: "mod",
   command: "mod",
   ctrl: "mod",
@@ -9268,7 +9268,7 @@ const Ei = {
   arrowright: "right",
   arrowup: "up",
   arrowdown: "down"
-}, Zm = {
+}, Jm = {
   space: "Space",
   comma: ",",
   period: ".",
@@ -9292,7 +9292,7 @@ const Ei = {
   escape: "Esc",
   tab: "Tab",
   enter: "Enter"
-}, oM = [
+}, sM = [
   { binding: "alt+left", browserAction: "Back navigation" },
   { binding: "alt+right", browserAction: "Forward navigation" },
   { binding: "f5", browserAction: "Reload page" },
@@ -9323,9 +9323,9 @@ const Ei = {
   { binding: "mod+9", browserAction: "Switch to last tab" }
 ];
 new Map(
-  oM.map((e) => [e.binding, e])
+  sM.map((e) => [e.binding, e])
 );
-const sM = {
+const cM = {
   // Playback
   PLAY_PAUSE: "Play/Pause",
   PREVIOUS_FRAME: "Previous frame",
@@ -9396,101 +9396,101 @@ const sM = {
   INSERT_EDIT: "Insert edit",
   OVERWRITE_EDIT: "Overwrite edit"
 };
-mM();
-function cM() {
+pM();
+function lM() {
   if (typeof navigator > "u") return "Windows";
   const e = navigator.userAgentData;
   return typeof e?.platform == "string" ? e.platform : navigator.platform || navigator.userAgent || "Windows";
 }
-function lM(e) {
-  const t = cM().toLowerCase();
+function uM(e) {
+  const t = lM().toLowerCase();
   return t.includes("mac") || t.includes("iphone") || t.includes("ipad") ? "mac" : "windows";
 }
-function uM(e = {}) {
+function dM(e = {}) {
   return {
     ...Ei,
     ...Mu(e)
   };
 }
-function dM(e) {
+function fM(e) {
   return e in Ei;
 }
-function fM(e) {
+function mM(e) {
   return e.trim().toLowerCase();
 }
-function mM() {
+function pM() {
   const e = /* @__PURE__ */ new Map(), t = /* @__PURE__ */ new Map();
   for (const r of Object.keys(Ei))
-    e.set(fM(sM[r]), r), t.set(Hc(Ei[r]), r);
+    e.set(mM(cM[r]), r), t.set(Hc(Ei[r]), r);
   return {
     byLabel: e,
     byDefaultBinding: t
   };
 }
-function pM(e) {
+function hM(e) {
   const t = e.trim().toLowerCase();
-  return t ? iM[t] ?? t : "";
+  return t ? oM[t] ?? t : "";
 }
-function Gy(e) {
-  return e.split("+").map((t) => pM(t)).filter(Boolean);
+function Ky(e) {
+  return e.split("+").map((t) => hM(t)).filter(Boolean);
 }
 function Hc(e) {
   const t = /* @__PURE__ */ new Set(), r = [];
-  for (const a of Gy(e)) {
-    if (Hy.has(a)) {
+  for (const a of Ky(e)) {
+    if (Wy.has(a)) {
       t.add(a);
       continue;
     }
     r.includes(a) || r.push(a);
   }
-  return [...Array.from(t).sort((a, i) => (Ym.get(a) ?? 99) - (Ym.get(i) ?? 99)), ...r].join("+");
+  return [...Array.from(t).sort((a, i) => (Qm.get(a) ?? 99) - (Qm.get(i) ?? 99)), ...r].join("+");
 }
 function Mu(e) {
   if (!e || typeof e != "object")
     return {};
   const t = {};
   for (const [r, n] of Object.entries(e)) {
-    if (!dM(r) || typeof n != "string")
+    if (!fM(r) || typeof n != "string")
       continue;
     const a = Hc(n);
-    !a || !hM(a) || a !== Ei[r] && (t[r] = a);
+    !a || !gM(a) || a !== Ei[r] && (t[r] = a);
   }
   return t;
 }
-function hM(e) {
-  return Gy(e).some((t) => !Hy.has(t));
+function gM(e) {
+  return Ky(e).some((t) => !Wy.has(t));
 }
-function gM(e, t) {
-  return e === "mod" ? t === "mac" ? "Cmd" : "Ctrl" : e === "alt" ? t === "mac" ? "Option" : "Alt" : e === "shift" ? "Shift" : Zm[e] ? Zm[e] : /^[a-z]$/.test(e) ? e.toUpperCase() : e;
+function yM(e, t) {
+  return e === "mod" ? t === "mac" ? "Cmd" : "Ctrl" : e === "alt" ? t === "mac" ? "Option" : "Alt" : e === "shift" ? "Shift" : Jm[e] ? Jm[e] : /^[a-z]$/.test(e) ? e.toUpperCase() : e;
 }
-function DU(e, t) {
+function LU(e, t) {
   const r = Hc(e);
   if (!r) return "";
-  const n = lM();
-  return r.split("+").map((a) => gM(a, n)).join(" + ");
+  const n = uM();
+  return r.split("+").map((a) => yM(a, n)).join(" + ");
 }
-let Wy = () => !0;
-function _U(e) {
-  Wy = e;
+let Xy = () => !0;
+function BU(e) {
+  Xy = e;
 }
 const ft = {
   enableOnFormTags: !1,
   preventDefault: !0,
   // Returns before preventDefault/stopPropagation, so ignored keys still reach the host.
-  ignoreEventWhen: () => !Wy()
+  ignoreEventWhen: () => !Xy()
 };
-function yM(e, t) {
+function vM(e, t) {
   const r = Object.keys(e), n = Object.keys(t);
   return r.length !== n.length ? !1 : r.every((a) => e[a] === t[a]);
 }
-const Qm = {
+const ep = {
   // Timeline defaults
   snapEnabled: !0,
   showWaveforms: !0,
   showFilmstrips: !0,
   defaultFps: 30,
   // Interface
-  editorDensity: cy,
+  editorDensity: uy,
   // Performance
   maxUndoHistory: 50,
   autoSaveInterval: 0,
@@ -9498,15 +9498,15 @@ const Qm = {
   defaultExportFormat: "mp4",
   defaultExportQuality: "high",
   // Whisper defaults
-  defaultWhisperModel: zy,
-  defaultWhisperQuantization: jy,
-  defaultWhisperLanguage: tM,
+  defaultWhisperModel: Vy,
+  defaultWhisperQuantization: $y,
+  defaultWhisperLanguage: rM,
   // Keyboard shortcuts
   hotkeyOverrides: {}
 }, La = Mt()(
-  dd(
+  fd(
     (e) => ({
-      ...Qm,
+      ...ep,
       setSetting: (t, r) => e({ [t]: r }),
       setHotkeyBinding: (t, r) => e((n) => {
         const a = Hc(r);
@@ -9525,7 +9525,7 @@ const Qm = {
       }),
       replaceHotkeyOverrides: (t) => e((r) => {
         const n = Mu(t);
-        return yM(r.hotkeyOverrides, n) ? r : { hotkeyOverrides: n };
+        return vM(r.hotkeyOverrides, n) ? r : { hotkeyOverrides: n };
       }),
       resetHotkeyBinding: (t) => e((r) => {
         if (!(t in r.hotkeyOverrides))
@@ -9534,7 +9534,7 @@ const Qm = {
         return delete n[t], { hotkeyOverrides: n };
       }),
       resetHotkeys: () => e((t) => Object.keys(t.hotkeyOverrides).length === 0 ? t : { hotkeyOverrides: {} }),
-      resetToDefaults: () => e(Qm)
+      resetToDefaults: () => e(ep)
     }),
     {
       name: "kubeezcut-settings",
@@ -9548,58 +9548,58 @@ const Qm = {
       }
     }
   )
-), ta = 9, vM = 64, bM = 80;
-function xM(e, t) {
+), ta = 9, bM = 64, xM = 80;
+function wM(e, t) {
   return t.id === e.id || !(e.type === "video" && t.type === "audio" || e.type === "audio" && t.type === "video") || !e.originId || e.originId !== t.originId || !e.mediaId || e.mediaId !== t.mediaId ? !1 : e.from === t.from && e.durationInFrames === t.durationInFrames;
 }
-function wM(e, t, r) {
-  return t.id === e.id || t.type !== r ? !1 : e.linkedGroupId && t.linkedGroupId ? e.linkedGroupId === t.linkedGroupId : xM(e, t);
-}
-function Jm(e, t) {
-  return t.type !== "video" ? null : e.find((r) => wM(t, r, "audio")) ?? null;
-}
-function ep(e, t) {
-  return e.type === "video" && t.type === "audio" && t.from === e.from && t.durationInFrames === e.durationInFrames;
-}
 function SM(e, t, r) {
-  if (t.type !== "video" || r.type !== "video") return null;
-  const n = Jm(e, t), a = Jm(e, r);
-  return !n || !a || n.trackId !== a.trackId || !ep(t, n) || !ep(r, a) ? null : { leftAudio: n, rightAudio: a };
+  return t.id === e.id || t.type !== r ? !1 : e.linkedGroupId && t.linkedGroupId ? e.linkedGroupId === t.linkedGroupId : wM(e, t);
 }
 function tp(e, t) {
+  return t.type !== "video" ? null : e.find((r) => SM(t, r, "audio")) ?? null;
+}
+function rp(e, t) {
+  return e.type === "video" && t.type === "audio" && t.from === e.from && t.durationInFrames === e.durationInFrames;
+}
+function IM(e, t, r) {
+  if (t.type !== "video" || r.type !== "video") return null;
+  const n = tp(e, t), a = tp(e, r);
+  return !n || !a || n.trackId !== a.trackId || !rp(t, n) || !rp(r, a) ? null : { leftAudio: n, rightAudio: a };
+}
+function np(e, t) {
   return Math.floor(e / (t ?? 1));
 }
-function IM(e, t) {
+function kM(e, t) {
   if (e.type === "image" || e.type === "text" || e.type === "shape" || e.type === "adjustment")
     return 1 / 0;
   if (e.type !== "video")
     return 0;
   const r = e.sourceStart ?? 0, n = e.sourceDuration ?? 0, a = e.sourceEnd ?? n;
-  return tp(t === "start" ? r : Math.max(0, n - a), e.speed);
+  return np(t === "start" ? r : Math.max(0, n - a), e.speed);
 }
-function rp(e, t) {
-  return IM(e, t);
+function ap(e, t) {
+  return kM(e, t);
 }
-function kM(e, t) {
+function TM(e, t) {
   const r = Math.max(1, Math.floor(e)), n = Math.max(0, Math.min(1, t ?? 0.5)), a = Math.floor(r * n), i = r - a;
   return { leftPortion: a, rightPortion: i };
 }
-function TM(e, t, r) {
+function MM(e, t, r) {
   const n = Math.floor(Math.min(e.durationInFrames, t.durationInFrames) - 1);
   if (n < 1) return 0;
-  const a = rp(e, "end"), i = rp(t, "start");
+  const a = ap(e, "end"), i = ap(t, "start");
   for (let o = n; o >= 1; o -= 1) {
-    const s = kM(o, r);
+    const s = TM(o, r);
     if (s.leftPortion <= a && s.rightPortion <= i)
       return o;
   }
   return 0;
 }
-function np(e, t, r, n, a) {
+function ip(e, t, r, n, a) {
   for (const i of e)
     i.id !== t && i.trackId === r && i.from > n && (i.from += a);
 }
-function ap(e) {
+function op(e) {
   const t = e.transitions ?? [];
   if (t.length === 0)
     return { items: e.items, transitions: e.transitions };
@@ -9614,10 +9614,10 @@ function ap(e) {
       i.push(o);
       continue;
     }
-    const l = c.from, u = s.from + s.durationInFrames, d = Math.max(0, u - c.from), f = d > 1 ? SM(r, s, c) : null;
-    if (d > 1 && (c.from += d, np(r, c.id, c.trackId, l, d), f)) {
+    const l = c.from, u = s.from + s.durationInFrames, d = Math.max(0, u - c.from), f = d > 1 ? IM(r, s, c) : null;
+    if (d > 1 && (c.from += d, ip(r, c.id, c.trackId, l, d), f)) {
       const h = f.rightAudio.from;
-      f.rightAudio.from += d, np(
+      f.rightAudio.from += d, ip(
         r,
         f.rightAudio.id,
         f.rightAudio.trackId,
@@ -9629,7 +9629,7 @@ function ap(e) {
       i.push(o);
       continue;
     }
-    const p = TM(s, c, o.alignment);
+    const p = MM(s, c, o.alignment);
     p < 1 || i.push(
       o.durationInFrames > p ? { ...o, durationInFrames: p } : o
     );
@@ -9639,7 +9639,7 @@ function ap(e) {
     transitions: i
   };
 }
-function ip(e) {
+function sp(e) {
   return e.map((t, r) => ({ track: t, index: r })).sort((t, r) => {
     const n = t.track.order ?? t.index, a = r.track.order ?? r.index;
     return n !== a ? n - a : t.index - r.index;
@@ -9648,25 +9648,25 @@ function ip(e) {
     order: r
   }));
 }
-function op(e) {
+function cp(e) {
   return e.map((t) => t.originId ? t : {
     ...t,
     originId: t.id
   });
 }
-function MM(e) {
+function FM(e) {
   return {
     ...e,
-    tracks: ip(e.tracks),
-    items: op(e.items),
+    tracks: sp(e.tracks),
+    items: cp(e.items),
     compositions: e.compositions?.map((t) => ({
       ...t,
-      tracks: ip(t.tracks),
-      items: op(t.items)
+      tracks: sp(t.tracks),
+      items: cp(t.items)
     }))
   };
 }
-const FM = {
+const CM = {
   /**
    * Version 2: Fix track height inconsistency
    *
@@ -9682,7 +9682,7 @@ const FM = {
     migrate: (e) => {
       if (!e.timeline?.tracks)
         return e;
-      const t = e.timeline.tracks.map((r) => r.height === 80 ? { ...r, height: vM } : r);
+      const t = e.timeline.tracks.map((r) => r.height === 80 ? { ...r, height: bM } : r);
       return {
         ...e,
         timeline: {
@@ -9731,7 +9731,7 @@ const FM = {
     migrate: (e) => {
       if (!e.timeline?.tracks)
         return e;
-      const t = e.timeline.tracks.map((r) => r.height === 64 ? { ...r, height: bM } : r);
+      const t = e.timeline.tracks.map((r) => r.height === 64 ? { ...r, height: xM } : r);
       return {
         ...e,
         timeline: {
@@ -10033,11 +10033,11 @@ const FM = {
     migrate: (e) => {
       if (!e.timeline)
         return e;
-      const t = ap({
+      const t = op({
         items: e.timeline.items ?? [],
         transitions: e.timeline.transitions
       }), r = e.timeline.compositions?.map((n) => {
-        const a = ap({
+        const a = op({
           items: n.items ?? [],
           transitions: n.transitions
         });
@@ -10070,24 +10070,24 @@ const FM = {
     description: "Renumber legacy track orders and backfill missing originId fields",
     migrate: (e) => e.timeline ? {
       ...e,
-      timeline: MM(e.timeline)
+      timeline: FM(e.timeline)
     } : e
   }
 };
-function CM(e, t) {
+function EM(e, t) {
   const r = [];
   for (let n = e + 1; n <= t; n++) {
-    const a = FM[n];
+    const a = CM[n];
     a && r.push(a);
   }
   return r;
 }
-function sp(e, t) {
+function lp(e, t) {
   const r = e.volume, n = e.kind === "video" || e.kind === "audio" ? e.kind : void 0;
   return {
     ...e,
     // Always use current default — no user-facing track resize exists yet
-    height: fy,
+    height: py,
     // Ensure boolean fields have defaults
     locked: e.locked ?? !1,
     visible: e.visible ?? !0,
@@ -10099,7 +10099,7 @@ function sp(e, t) {
     order: e.order ?? t
   };
 }
-function cp(e) {
+function up(e) {
   const t = { ...e }, r = t;
   return t.from = Math.max(0, Math.round(t.from ?? 0)), t.durationInFrames = Math.max(1, Math.round(t.durationInFrames ?? 1)), r.trimStart !== void 0 && (r.trimStart = Math.max(0, Math.round(r.trimStart))), r.trimEnd !== void 0 && (r.trimEnd = Math.max(0, Math.round(r.trimEnd))), r.sourceStart !== void 0 && (r.sourceStart = Math.max(0, Math.round(r.sourceStart))), r.sourceEnd !== void 0 && (r.sourceEnd = Math.max(0, Math.round(r.sourceEnd))), r.sourceDuration !== void 0 && (r.sourceDuration = Math.max(0, Math.round(r.sourceDuration))), r.sourceFps !== void 0 && (r.sourceFps = Number.isFinite(r.sourceFps) && r.sourceFps > 0 ? Math.round(r.sourceFps * 1e3) / 1e3 : void 0), t.speed !== void 0 && (t.speed = Math.max(0.1, Math.min(10, t.speed))), t.volume !== void 0 && (t.volume = Math.max(-60, Math.min(12, t.volume))), t.fadeIn !== void 0 && (t.fadeIn = Math.max(0, t.fadeIn)), t.fadeOut !== void 0 && (t.fadeOut = Math.max(0, t.fadeOut)), t.audioFadeIn !== void 0 && (t.audioFadeIn = Math.max(0, t.audioFadeIn)), t.audioFadeOut !== void 0 && (t.audioFadeOut = Math.max(0, t.audioFadeOut)), t.transform && (t.transform = {
     ...t.transform,
@@ -10111,7 +10111,7 @@ function cp(e) {
     cornerRadius: t.transform.cornerRadius !== void 0 ? Math.max(0, t.transform.cornerRadius) : void 0
   }), t;
 }
-function lp(e) {
+function dp(e) {
   return {
     ...e,
     // Ensure duration is at least 1 frame
@@ -10119,7 +10119,7 @@ function lp(e) {
     timing: e.timing ?? "linear"
   };
 }
-function up(e) {
+function fp(e) {
   return e.filter((t) => !t.isGroup).map((t) => ({
     ...t,
     parentTrackId: void 0,
@@ -10127,15 +10127,15 @@ function up(e) {
     isCollapsed: void 0
   })).sort((t, r) => t.order - r.order);
 }
-function EM(e) {
+function PM(e) {
   const t = /* @__PURE__ */ new Set();
   if (!e) return t;
   for (const r of e)
     t.add(`${r.leftClipId}:${r.rightClipId}`), t.add(`${r.rightClipId}:${r.leftClipId}`);
   return t;
 }
-function dp(e, t) {
-  const r = EM(t), n = /* @__PURE__ */ new Map();
+function mp(e, t) {
+  const r = PM(t), n = /* @__PURE__ */ new Map();
   for (let i = 0; i < e.length; i++) {
     const o = e[i];
     let s = n.get(o.trackId);
@@ -10158,25 +10158,25 @@ function dp(e, t) {
   }
   return a;
 }
-function PM(e) {
-  const t = up(
-    e.tracks.map((a, i) => sp(a, i))
-  ), r = e.items.map(cp), n = e.transitions?.map(lp);
+function RM(e) {
+  const t = fp(
+    e.tracks.map((a, i) => lp(a, i))
+  ), r = e.items.map(up), n = e.transitions?.map(dp);
   return {
     ...e,
     // Normalize tracks
     tracks: t,
     // Normalize items and repair overlaps
-    items: dp(r, n),
+    items: mp(r, n),
     // Normalize transitions if present
     transitions: n,
     // Normalize sub-composition tracks and items
     compositions: e.compositions?.map((a) => {
-      const i = a.items.map(cp), o = a.transitions?.map(lp);
+      const i = a.items.map(up), o = a.transitions?.map(dp);
       return {
         ...a,
-        tracks: up(a.tracks.map((s, c) => sp(s, c))),
-        items: dp(i, o),
+        tracks: fp(a.tracks.map((s, c) => lp(s, c))),
+        items: mp(i, o),
         transitions: o
       };
     }),
@@ -10188,57 +10188,57 @@ function PM(e) {
     scrollPosition: Math.max(0, e.scrollPosition ?? 0)
   };
 }
-function RM(e) {
+function AM(e) {
   return {
     ...e,
     // Ensure dimensions are positive
     width: Math.max(1, e.width),
     height: Math.max(1, e.height),
     // Ensure FPS is valid
-    fps: Math.max(1, Math.min(120, e.fps ?? l1))
+    fps: Math.max(1, Math.min(120, e.fps ?? u1))
   };
 }
-function AM(e) {
+function DM(e) {
   const t = {
     ...e,
     // Normalize metadata
-    metadata: RM(e.metadata)
+    metadata: AM(e.metadata)
   };
-  return t.timeline && (t.timeline = PM(t.timeline)), t;
+  return t.timeline && (t.timeline = RM(t.timeline)), t;
 }
-function DM(e, t) {
+function _M(e, t) {
   return JSON.stringify(e) !== JSON.stringify(t);
 }
-const fp = He("Migrations");
-function _M(e) {
+const pp = He("Migrations");
+function OM(e) {
   return e.schemaVersion ?? 1;
 }
-function OM(e, t) {
+function LM(e, t) {
   return {
     ...e,
     schemaVersion: t
   };
 }
-function LM(e) {
-  const t = _M(e), r = [];
+function BM(e) {
+  const t = OM(e), r = [];
   if (t >= ta)
     return { project: e, appliedMigrations: r, fromVersion: t };
-  const n = CM(t, ta);
+  const n = EM(t, ta);
   let a = e;
   for (const i of n) {
-    fp.info(`Running migration v${i.version}: ${i.description}`);
+    pp.info(`Running migration v${i.version}: ${i.description}`);
     try {
       a = i.migrate(a), r.push(i.version);
     } catch (o) {
-      throw fp.error(`Migration v${i.version} failed:`, o), new Error(
+      throw pp.error(`Migration v${i.version} failed:`, o), new Error(
         `Failed to migrate project from v${t} to v${i.version}: ${o}`
       );
     }
   }
-  return a = OM(a, ta), { project: a, appliedMigrations: r, fromVersion: t };
+  return a = LM(a, ta), { project: a, appliedMigrations: r, fromVersion: t };
 }
-function BM(e) {
-  const { project: t, appliedMigrations: r, fromVersion: n } = LM(e), a = AM(t), i = r.length > 0, o = !i && DM(e, a);
+function NM(e) {
+  const { project: t, appliedMigrations: r, fromVersion: n } = BM(e), a = DM(t), i = r.length > 0, o = !i && _M(e, a);
   return {
     project: a,
     migrated: i || o,
@@ -10247,14 +10247,14 @@ function BM(e) {
     toVersion: ta
   };
 }
-function Ky() {
+function qy() {
   const e = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", t = new Uint8Array(8);
   return crypto.getRandomValues(t), Array.from(t).map((r) => e[r % 62]).join("");
 }
-function NM(e, t) {
+function UM(e, t) {
   const r = Date.now();
   return {
-    id: t || Ky(),
+    id: t || qy(),
     name: e.name,
     description: e.description || "",
     metadata: {
@@ -10269,17 +10269,17 @@ function NM(e, t) {
     thumbnail: void 0
   };
 }
-function UM(e) {
+function zM(e) {
   const t = Date.now();
   return {
     ...e,
-    id: Ky(),
+    id: qy(),
     name: `${e.name} (Copy)`,
     createdAt: t,
     updatedAt: t
   };
 }
-class zM {
+class jM {
   listeners = /* @__PURE__ */ new Map();
   on(t, r) {
     let n = this.listeners.get(t);
@@ -10298,25 +10298,25 @@ class zM {
     this.listeners.clear();
   }
 }
-const jM = new zM();
-function VM(e, t) {
-  jM.emit(e, t);
-}
-const Xy = 1;
+const VM = new jM();
 function $M(e, t) {
-  return Math.abs(e - t) <= Xy;
+  VM.emit(e, t);
 }
+const Yy = 1;
 function HM(e, t) {
-  return t < e - Xy;
+  return Math.abs(e - t) <= Yy;
 }
-function GM(e) {
+function GM(e, t) {
+  return t < e - Yy;
+}
+function WM(e) {
   return Math.max(0, Math.min(1, e ?? 0.5));
 }
 function Ba(e, t) {
-  const r = Math.max(1, Math.floor(e)), n = GM(t), a = Math.floor(r * n), i = r - a;
+  const r = Math.max(1, Math.floor(e)), n = WM(t), a = Math.floor(r * n), i = r - a;
   return { leftPortion: a, rightPortion: i };
 }
-function WM(e, t, r) {
+function KM(e, t, r) {
   const n = Math.max(0, Math.floor(e)), a = Math.max(0, Math.floor(t)), i = Math.max(0, Math.floor(r)), o = a + i;
   if (o <= n)
     return { incomingPortion: a, outgoingPortion: i };
@@ -10331,13 +10331,13 @@ function WM(e, t, r) {
   }
   return { incomingPortion: c, outgoingPortion: l };
 }
-function KM(e, t) {
+function XM(e, t) {
   const r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map(), a = /* @__PURE__ */ new Map();
   for (const o of e) {
     const s = t.get(o.leftClipId), c = t.get(o.rightClipId);
     if (!s || !c) continue;
     const l = s.from + s.durationInFrames;
-    if ($M(l, c.from)) {
+    if (HM(l, c.from)) {
       const d = c.from, f = Ba(
         o.durationInFrames,
         o.alignment
@@ -10353,7 +10353,7 @@ function KM(e, t) {
       }), a.set(s.id, o.id), n.set(c.id, o.id);
       continue;
     }
-    if (!HM(l, c.from)) continue;
+    if (!GM(l, c.from)) continue;
     const u = l - c.from;
     r.set(o.id, {
       transition: o,
@@ -10370,7 +10370,7 @@ function KM(e, t) {
     if (!c) continue;
     const l = r.get(s), u = r.get(c), d = t.get(o);
     if (!l || !u || !d) continue;
-    const f = WM(
+    const f = KM(
       d.durationInFrames,
       l.rightPortion,
       u.leftPortion
@@ -10401,7 +10401,7 @@ function Fu(e, t) {
   const a = e.sourceEnd ?? (e.sourceStart ?? 0) + e.durationInFrames * (e.speed || 1), i = t.sourceStart ?? 0;
   return !(Math.abs(a - i) > 0.5);
 }
-function XM(e) {
+function qM(e) {
   if (e.length < 2) return !1;
   const t = [...e].sort((r, n) => r.from - n.from);
   for (let r = 0; r < t.length - 1; r++)
@@ -10409,30 +10409,30 @@ function XM(e) {
       return !1;
   return !0;
 }
-function Dd(e, t, r, n) {
+function _d(e, t, r, n) {
   if (t === void 0) return 0;
   let a = n;
   return e + a < 0 && (a = -e), r !== void 0 && t + a > r && (a = r - t), a;
 }
-function qy(e, t, r, n, a) {
+function Zy(e, t, r, n, a) {
   if (n === 0 || !t || !r || !Fu(t, e) || !Fu(e, r) || e.type !== "video" && e.type !== "audio" || e.sourceEnd === void 0) return 0;
   const i = e.speed ?? 1, o = e.sourceFps ?? a, s = e.sourceStart ?? 0, c = e.sourceEnd, l = Bt(n, i, a, o);
-  return Dd(
+  return _d(
     s,
     c,
     e.sourceDuration,
     l
   ) === l ? l : 0;
 }
-const Yy = 1;
+const Qy = 1;
 function Rn(e, t) {
-  return Math.abs(e - t) <= Yy;
+  return Math.abs(e - t) <= Qy;
 }
 function fc(e, t) {
-  return t < e - Yy;
+  return t < e - Qy;
 }
 function Ro(e, t, r, n) {
-  const i = (n?.handleConstraint ?? "permissive") === "strict" ? _d : Zy, o = Math.floor(Math.min(e.durationInFrames, t.durationInFrames) - 1);
+  const i = (n?.handleConstraint ?? "permissive") === "strict" ? Od : Jy, o = Math.floor(Math.min(e.durationInFrames, t.durationInFrames) - 1);
   if (o < 1) return 0;
   const s = i(e, "end"), c = i(t, "start");
   for (let l = o; l >= 1; l -= 1) {
@@ -10443,7 +10443,7 @@ function Ro(e, t, r, n) {
   return 0;
 }
 function Na(e, t, r, n, a) {
-  const o = (a?.handleConstraint ?? "permissive") === "strict" ? _d : Zy;
+  const o = (a?.handleConstraint ?? "permissive") === "strict" ? Od : Jy;
   if (e.trackId !== t.trackId)
     return { canAdd: !1, reason: "Clips must be on the same track" };
   const s = e.from + e.durationInFrames, c = Rn(s, t.from), l = fc(s, t.from);
@@ -10474,12 +10474,12 @@ function Na(e, t, r, n, a) {
   }
   return { canAdd: !0, leftHandle: f, rightHandle: m };
 }
-function qM(e, t, r, n, a, i = 30) {
+function YM(e, t, r, n, a, i = 30) {
   if (!a || !n || r === 0) return r;
   const o = a.leftClipId === e.id && t === "end", s = a.rightClipId === e.id && t === "start";
   return !o && !s ? r : Gc(r, (l) => {
     if (o) {
-      const f = mp(e, "end", l, i), m = { ...n, from: n.from + l };
+      const f = hp(e, "end", l, i), m = { ...n, from: n.from + l };
       return Na(
         f,
         m,
@@ -10488,7 +10488,7 @@ function qM(e, t, r, n, a, i = 30) {
         { handleConstraint: "strict" }
       ).canAdd;
     }
-    const u = n, d = mp(e, "start", l, i);
+    const u = n, d = hp(e, "start", l, i);
     return Na(
       u,
       d,
@@ -10498,11 +10498,11 @@ function qM(e, t, r, n, a, i = 30) {
     ).canAdd;
   });
 }
-function YM(e, t, r, n, a, i = 30) {
+function ZM(e, t, r, n, a, i = 30) {
   if (!a || !n || r === 0) return r;
   const o = a.leftClipId === e.id && t === "end", s = a.rightClipId === e.id && t === "start";
   return !o && !s ? r : Gc(r, (l) => {
-    const u = o ? e : n, d = o ? n : e, f = pp(u, "end", l, i), m = pp(d, "start", l, i);
+    const u = o ? e : n, d = o ? n : e, f = gp(u, "end", l, i), m = gp(d, "start", l, i);
     return Na(
       f,
       m,
@@ -10512,11 +10512,11 @@ function YM(e, t, r, n, a, i = 30) {
     ).canAdd;
   });
 }
-function ZM(e, t, r, n) {
+function QM(e, t, r, n) {
   if (t === 0) return t;
   const a = n.filter((o) => o.leftClipId === e.id || o.rightClipId === e.id);
   return a.length === 0 ? t : Gc(t, (o) => {
-    const s = QM(e, o);
+    const s = JM(e, o);
     return a.every((c) => {
       const l = c.leftClipId === e.id ? s : r.find((d) => d.id === c.leftClipId) ?? null, u = c.rightClipId === e.id ? s : r.find((d) => d.id === c.rightClipId) ?? null;
       return !l || !u ? !0 : Na(
@@ -10540,7 +10540,7 @@ function Xs(e, t, r, n, a, i, o = 30) {
     const f = /* @__PURE__ */ new Map();
     r && f.set(r.id, bl(r, vo(r, d, o))), n && f.set(n.id, bl(n, yo(n, d, o)));
     let m = bl(e, Oa(e, d));
-    const p = qy(e, r, n, d, o);
+    const p = Zy(e, r, n, d, o);
     return p !== 0 && (m.type === "video" || m.type === "audio" || m.type === "composition") && m.sourceEnd !== void 0 && (m = {
       ...m,
       sourceStart: (m.sourceStart ?? 0) + p,
@@ -10568,7 +10568,7 @@ function Gc(e, t) {
   }
   return r * n;
 }
-function _d(e, t) {
+function Od(e, t) {
   if (e.type === "text" || e.type === "shape" || e.type === "adjustment" || e.type === "image")
     return 1 / 0;
   if (e.type === "audio")
@@ -10577,18 +10577,18 @@ function _d(e, t) {
   if (t === "start")
     return wr(r, i);
   {
-    const c = Ty(s, o);
+    const c = Fy(s, o);
     return wr(c, i);
   }
 }
-function Zy(e, t) {
-  const r = _d(e, t);
+function Jy(e, t) {
+  const r = Od(e, t);
   if (e.type === "text" || e.type === "shape" || e.type === "adjustment" || e.type === "image" || e.type === "audio")
     return r;
   const n = Math.max(0, e.durationInFrames - 1);
   return Math.max(r, n);
 }
-function mp(e, t, r, n) {
+function hp(e, t, r, n) {
   const a = Math.max(
     1,
     t === "start" ? e.durationInFrames - r : e.durationInFrames + r
@@ -10604,7 +10604,7 @@ function mp(e, t, r, n) {
     ...i
   };
 }
-function pp(e, t, r, n) {
+function gp(e, t, r, n) {
   const a = Math.max(
     1,
     t === "start" ? e.durationInFrames - r : e.durationInFrames + r
@@ -10616,7 +10616,7 @@ function pp(e, t, r, n) {
     ...i
   };
 }
-function QM(e, t) {
+function JM(e, t) {
   return {
     ...e,
     sourceStart: (e.sourceStart ?? 0) + t,
@@ -10627,7 +10627,7 @@ function bl(e, t) {
   return { ...e, ...t };
 }
 const mc = /* @__PURE__ */ new Set(["video", "image"]);
-function JM(e, t, r, n = /* @__PURE__ */ new Set()) {
+function eF(e, t, r, n = /* @__PURE__ */ new Set()) {
   const a = [], i = [], o = [], s = /* @__PURE__ */ new Map();
   for (const u of t)
     s.set(u.id, u);
@@ -10643,7 +10643,7 @@ function JM(e, t, r, n = /* @__PURE__ */ new Set()) {
       a.push(u);
       continue;
     }
-    const m = eF(u, s, n, c);
+    const m = tF(u, s, n, c);
     m.status === "valid" ? a.push(u) : m.status === "repaired" ? i.push({
       original: u,
       repaired: m.repaired,
@@ -10652,10 +10652,10 @@ function JM(e, t, r, n = /* @__PURE__ */ new Set()) {
   }
   return { valid: a, repaired: i, broken: o };
 }
-function eF(e, t, r, n) {
+function tF(e, t, r, n) {
   const a = t.get(e.leftClipId), i = t.get(e.rightClipId);
   if (!a || !i) {
-    const u = tF(e, a, i, t, r, n);
+    const u = rF(e, a, i, t, r, n);
     if (u) return u;
     const d = [];
     return a || d.push(e.leftClipId), i || d.push(e.rightClipId), {
@@ -10755,7 +10755,7 @@ function eF(e, t, r, n) {
   }
   return { status: "valid" };
 }
-function tF(e, t, r, n, a, i) {
+function rF(e, t, r, n, a, i) {
   if (!t && !r) return null;
   const o = t || r;
   if (!o) return null;
@@ -10801,29 +10801,29 @@ const or = {
   opacity: "Opacity",
   cornerRadius: "Corner Radius",
   volume: "Volume (dB)"
-}, Qy = {
+}, ev = {
   tension: 170,
   friction: 26,
   mass: 1
-}, Jy = {
+}, tv = {
   x1: 0.42,
   y1: 0,
   x2: 0.58,
   y2: 1
 };
-function ev(e) {
+function rv(e) {
   return e;
 }
-function tv(e) {
+function nv(e) {
   return e * e;
 }
-function rv(e) {
+function av(e) {
   return e * (2 - e);
 }
-function nv(e) {
+function iv(e) {
   return e < 0.5 ? 2 * e * e : -1 + (4 - 2 * e) * e;
 }
-function Od(e, t) {
+function Ld(e, t) {
   const { x1: r, y1: n, x2: a, y2: i } = t;
   if (e === 0) return 0;
   if (e === 1) return 1;
@@ -10838,7 +10838,7 @@ function Od(e, t) {
   }
   return ((d * f + u) * f + l) * f;
 }
-function Ld(e, t) {
+function Bd(e, t) {
   const { tension: r, friction: n, mass: a } = t;
   if (e === 0) return 0;
   if (e === 1) return 1;
@@ -10855,36 +10855,36 @@ function Ld(e, t) {
   }
   return Math.max(0, Math.min(1.2, l));
 }
-const rF = {
-  linear: ev,
-  "ease-in": tv,
-  "ease-out": rv,
-  "ease-in-out": nv,
-  "cubic-bezier": (e) => Od(e, Jy),
-  spring: (e) => Ld(e, Qy)
+const nF = {
+  linear: rv,
+  "ease-in": nv,
+  "ease-out": av,
+  "ease-in-out": iv,
+  "cubic-bezier": (e) => Ld(e, tv),
+  spring: (e) => Bd(e, ev)
 };
-function av(e) {
-  return rF[e] ?? ev;
+function ov(e) {
+  return nF[e] ?? rv;
 }
-function nF(e, t) {
+function aF(e, t) {
   const r = Math.max(0, Math.min(1, e));
-  return av(t)(r);
+  return ov(t)(r);
 }
-function iv(e, t) {
+function sv(e, t) {
   const r = Math.max(0, Math.min(1, e));
   switch (t.type) {
     case "cubic-bezier":
-      return Od(r, t.bezier ?? Jy);
+      return Ld(r, t.bezier ?? tv);
     case "spring":
-      return Ld(r, t.spring ?? Qy);
+      return Bd(r, t.spring ?? ev);
     default:
-      return av(t.type)(r);
+      return ov(t.type)(r);
   }
 }
-function aF(e, t, r) {
+function iF(e, t, r) {
   const n = t.frame - e.frame;
   if (n <= 0) return e.value;
-  const a = (r - e.frame) / n, i = e.easingConfig ? iv(a, e.easingConfig) : nF(a, e.easing);
+  const a = (r - e.frame) / n, i = e.easingConfig ? sv(a, e.easingConfig) : aF(a, e.easing);
   return e.value + (t.value - e.value) * i;
 }
 function Wc(e, t, r) {
@@ -10896,14 +10896,14 @@ function Wc(e, t, r) {
   for (let i = 0; i < e.length - 1; i++) {
     const o = e[i], s = e[i + 1];
     if (o.frame <= t && s.frame > t)
-      return aF(o, s, t);
+      return iF(o, s, t);
   }
   return r;
 }
-function Bd(e, t) {
+function Nd(e, t) {
   return e ? e.properties.find((n) => n.property === t)?.keyframes ?? [] : [];
 }
-const iF = [
+const oF = [
   "x",
   "y",
   "width",
@@ -10912,12 +10912,12 @@ const iF = [
   "opacity",
   "cornerRadius"
 ];
-function ov(e, t, r) {
+function cv(e, t, r) {
   if (!t || t.properties.length === 0)
     return e;
   const n = { ...e };
-  for (const a of iF) {
-    const i = Bd(t, a);
+  for (const a of oF) {
+    const i = Nd(t, a);
     if (i.length > 0) {
       const o = e[a];
       n[a] = Wc(i, r, o);
@@ -10925,10 +10925,10 @@ function ov(e, t, r) {
   }
   return n;
 }
-function sv(e) {
+function lv(e) {
   return e ? e.properties.some((t) => t.keyframes.length > 0) : !1;
 }
-const hp = [
+const yp = [
   "x",
   "y",
   "width",
@@ -10936,26 +10936,26 @@ const hp = [
   "rotation",
   "opacity",
   "cornerRadius"
-], gp = ["volume"];
-function OU(e) {
+], vp = ["volume"];
+function NU(e) {
   switch (e.type) {
     case "audio":
-      return gp;
+      return vp;
     case "video":
-      return [...hp, ...gp];
+      return [...yp, ...vp];
     default:
-      return hp;
+      return yp;
   }
 }
-const yp = {
+const bp = {
   "ease-in": { x1: 0.42, y1: 0, x2: 1, y2: 1 },
   "ease-out": { x1: 0, y1: 0, x2: 0.58, y2: 1 },
   "ease-in-out": { x1: 0.42, y1: 0, x2: 0.58, y2: 1 }
 };
 function qs(e) {
-  return yp[e] ? { ...yp[e] } : null;
+  return bp[e] ? { ...bp[e] } : null;
 }
-function oF(e, t, r) {
+function sF(e, t, r) {
   const n = [];
   let a, i, o = 0, s = 0;
   for (const c of r) {
@@ -10995,13 +10995,13 @@ function oF(e, t, r) {
     role: "outgoing"
   }), n;
 }
-function sF(e, t, r, n) {
-  const a = oF(t, r, n);
+function cF(e, t, r, n) {
+  const a = sF(t, r, n);
   for (const i of a)
     if (e >= i.start && e < i.end)
       return i;
 }
-function LU(e) {
+function UU(e) {
   return `Keyframes cannot be added here. This region is part of a transition at the ${e.role === "outgoing" ? "end" : "start"} of the clip.`;
 }
 const ki = y.forwardRef(
@@ -11019,8 +11019,8 @@ const ki = y.forwardRef(
   )
 );
 ki.displayName = "Input";
-const cF = Yw, lF = Zw, cv = y.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ w.jsxs(
-  k0,
+const lF = Zw, uF = Qw, uv = y.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ w.jsxs(
+  M0,
   {
     ref: n,
     className: je(
@@ -11030,39 +11030,39 @@ const cF = Yw, lF = Zw, cv = y.forwardRef(({ className: e, children: t, ...r }, 
     ...r,
     children: [
       t,
-      /* @__PURE__ */ w.jsx(Gw, { asChild: !0, children: /* @__PURE__ */ w.jsx(md, { className: "h-4 w-4 opacity-50" }) })
+      /* @__PURE__ */ w.jsx(Ww, { asChild: !0, children: /* @__PURE__ */ w.jsx(pd, { className: "h-4 w-4 opacity-50" }) })
     ]
   }
 ));
-cv.displayName = k0.displayName;
-const lv = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  T0,
-  {
-    ref: r,
-    className: je(
-      "flex cursor-default items-center justify-center py-1",
-      e
-    ),
-    ...t,
-    children: /* @__PURE__ */ w.jsx(lk, { className: "h-4 w-4" })
-  }
-));
-lv.displayName = T0.displayName;
-const uv = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  M0,
-  {
-    ref: r,
-    className: je(
-      "flex cursor-default items-center justify-center py-1",
-      e
-    ),
-    ...t,
-    children: /* @__PURE__ */ w.jsx(md, { className: "h-4 w-4" })
-  }
-));
 uv.displayName = M0.displayName;
-const dv = y.forwardRef(({ className: e, children: t, position: r = "popper", ...n }, a) => /* @__PURE__ */ w.jsx(Ww, { container: pd(), children: /* @__PURE__ */ w.jsxs(
+const dv = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
   F0,
+  {
+    ref: r,
+    className: je(
+      "flex cursor-default items-center justify-center py-1",
+      e
+    ),
+    ...t,
+    children: /* @__PURE__ */ w.jsx(uk, { className: "h-4 w-4" })
+  }
+));
+dv.displayName = F0.displayName;
+const fv = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
+  C0,
+  {
+    ref: r,
+    className: je(
+      "flex cursor-default items-center justify-center py-1",
+      e
+    ),
+    ...t,
+    children: /* @__PURE__ */ w.jsx(pd, { className: "h-4 w-4" })
+  }
+));
+fv.displayName = C0.displayName;
+const mv = y.forwardRef(({ className: e, children: t, position: r = "popper", ...n }, a) => /* @__PURE__ */ w.jsx(Kw, { container: hd(), children: /* @__PURE__ */ w.jsxs(
+  E0,
   {
     ref: a,
     className: je(
@@ -11073,9 +11073,9 @@ const dv = y.forwardRef(({ className: e, children: t, position: r = "popper", ..
     position: r,
     ...n,
     children: [
-      /* @__PURE__ */ w.jsx(lv, {}),
+      /* @__PURE__ */ w.jsx(dv, {}),
       /* @__PURE__ */ w.jsx(
-        Kw,
+        Xw,
         {
           className: je(
             "p-1",
@@ -11084,22 +11084,22 @@ const dv = y.forwardRef(({ className: e, children: t, position: r = "popper", ..
           children: t
         }
       ),
-      /* @__PURE__ */ w.jsx(uv, {})
+      /* @__PURE__ */ w.jsx(fv, {})
     ]
   }
 ) }));
-dv.displayName = F0.displayName;
-const uF = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  C0,
+mv.displayName = E0.displayName;
+const dF = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
+  P0,
   {
     ref: r,
     className: je("px-2 py-1.5 text-sm font-semibold", e),
     ...t
   }
 ));
-uF.displayName = C0.displayName;
-const fv = y.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ w.jsxs(
-  E0,
+dF.displayName = P0.displayName;
+const pv = y.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__ */ w.jsxs(
+  R0,
   {
     ref: n,
     className: je(
@@ -11108,22 +11108,22 @@ const fv = y.forwardRef(({ className: e, children: t, ...r }, n) => /* @__PURE__
     ),
     ...r,
     children: [
-      /* @__PURE__ */ w.jsx("span", { className: "absolute right-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ w.jsx(Xw, { children: /* @__PURE__ */ w.jsx(ba, { className: "h-4 w-4" }) }) }),
-      /* @__PURE__ */ w.jsx(qw, { children: t })
+      /* @__PURE__ */ w.jsx("span", { className: "absolute right-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ w.jsx(qw, { children: /* @__PURE__ */ w.jsx(ba, { className: "h-4 w-4" }) }) }),
+      /* @__PURE__ */ w.jsx(Yw, { children: t })
     ]
   }
 ));
-fv.displayName = E0.displayName;
-const dF = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  P0,
+pv.displayName = R0.displayName;
+const fF = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
+  A0,
   {
     ref: r,
     className: je("-mx-1 my-1 h-px bg-muted", e),
     ...t
   }
 ));
-dF.displayName = P0.displayName;
-const BU = Qw, Hr = {
+fF.displayName = A0.displayName;
+const zU = Jw, Hr = {
   x: { property: "x", min: -1e3, max: 2e3, unit: "px", decimals: 0 },
   y: { property: "y", min: -1e3, max: 2e3, unit: "px", decimals: 0 },
   width: { property: "width", min: 0, max: 2e3, unit: "px", decimals: 0 },
@@ -11132,12 +11132,12 @@ const BU = Qw, Hr = {
   opacity: { property: "opacity", min: 0, max: 1, unit: "", decimals: 2 },
   cornerRadius: { property: "cornerRadius", min: 0, max: 1e3, unit: "px", decimals: 0 },
   volume: { property: "volume", min: -60, max: 20, unit: "dB", decimals: 1 }
-}, vp = {
+}, xp = {
   top: 20,
   right: 10,
   bottom: 40,
   left: 10
-}, fF = y.memo(function({
+}, mF = y.memo(function({
   viewport: t,
   padding: r,
   showLabels: n = !0,
@@ -11239,7 +11239,7 @@ const BU = Qw, Hr = {
         fillOpacity: 0.6,
         fontSize: 9,
         fontFamily: "monospace",
-        children: mF(R, s, c)
+        children: pF(R, s, c)
       },
       `x-label-${R}`
     )),
@@ -11254,7 +11254,7 @@ const BU = Qw, Hr = {
         fillOpacity: 0.4,
         fontSize: 9,
         fontFamily: "monospace",
-        children: pF(R)
+        children: hF(R)
       },
       `y-label-${R}`
     )),
@@ -11274,7 +11274,7 @@ const BU = Qw, Hr = {
     )
   ] });
 });
-function mF(e, t, r) {
+function pF(e, t, r) {
   if (t === "frames" || r <= 0)
     return String(Math.round(e));
   const n = e / r;
@@ -11284,10 +11284,10 @@ function mF(e, t, r) {
   }
   return `${n.toFixed(n < 10 ? 2 : 1)}s`;
 }
-function pF(e) {
+function hF(e) {
   return Math.abs(e) >= 1e3 || Math.abs(e) >= 100 ? e.toFixed(0) : Math.abs(e) >= 10 || Math.abs(e) >= 1 ? e.toFixed(1) : e.toFixed(2);
 }
-const hF = y.memo(function({
+const gF = y.memo(function({
   point: t,
   size: r = 10,
   previewValue: n,
@@ -11384,14 +11384,14 @@ const hF = y.memo(function({
               fill: "#e5e5e5",
               fontSize: 11,
               fontFamily: "monospace",
-              children: yF(h, g, s, c)
+              children: vF(h, g, s, c)
             }
           )
         ] })
       ]
     }
   );
-}), gF = y.memo(function({
+}), yF = y.memo(function({
   points: t,
   size: r = 10,
   previewValuesById: n,
@@ -11403,7 +11403,7 @@ const hF = y.memo(function({
   disabled: l = !1
 }) {
   return /* @__PURE__ */ w.jsx("g", { className: "graph-keyframes", children: t.map((u) => /* @__PURE__ */ w.jsx(
-    hF,
+    gF,
     {
       point: u,
       size: r,
@@ -11418,13 +11418,13 @@ const hF = y.memo(function({
     u.keyframe.id
   )) });
 });
-function yF(e, t, r, n) {
-  return `${r === "seconds" && n > 0 ? `${(e / n).toFixed(2)}s` : `${e}`}  ${vF(t)}`;
+function vF(e, t, r, n) {
+  return `${r === "seconds" && n > 0 ? `${(e / n).toFixed(2)}s` : `${e}`}  ${bF(t)}`;
 }
-function vF(e) {
+function bF(e) {
   return Math.abs(e) >= 100 ? e.toFixed(0) : Math.abs(e) >= 10 ? e.toFixed(1) : e.toFixed(2);
 }
-const bp = 50, bF = y.memo(function({
+const wp = 50, xF = y.memo(function({
   startPoint: t,
   endPoint: r,
   easingConfig: n,
@@ -11433,8 +11433,8 @@ const bp = 50, bF = y.memo(function({
 }) {
   const o = y.useMemo(() => {
     const c = [], l = n || { type: "linear" };
-    for (let u = 0; u <= bp; u++) {
-      const d = u / bp, f = iv(d, l), m = t.x + d * (r.x - t.x), p = t.y + f * (r.y - t.y);
+    for (let u = 0; u <= wp; u++) {
+      const d = u / wp, f = sv(d, l), m = t.x + d * (r.x - t.x), p = t.y + f * (r.y - t.y);
       c.push(`${u === 0 ? "M" : "L"} ${m.toFixed(2)},${p.toFixed(2)}`);
     }
     return c.join(" ");
@@ -11465,7 +11465,7 @@ const bp = 50, bF = y.memo(function({
       }
     )
   ] });
-}), xp = y.memo(function({
+}), Sp = y.memo(function({
   points: t,
   selectedKeyframeIds: r,
   previewBezierConfigs: n,
@@ -11480,7 +11480,7 @@ const bp = 50, bF = y.memo(function({
     if (!c) return null;
     const l = r?.has(o.keyframe.id) || r?.has(c.keyframe.id);
     return /* @__PURE__ */ w.jsx(
-      bF,
+      xF,
       {
         startPoint: o,
         endPoint: c,
@@ -11491,7 +11491,7 @@ const bp = 50, bF = y.memo(function({
       `${o.keyframe.id}-${c.keyframe.id}`
     );
   }) });
-}), xF = y.memo(function({
+}), wF = y.memo(function({
   points: t,
   viewport: r,
   padding: n
@@ -11528,7 +11528,7 @@ const bp = 50, bF = y.memo(function({
       }
     )
   ] });
-}), wF = y.memo(function({
+}), SF = y.memo(function({
   frame: t,
   viewport: r,
   padding: n,
@@ -11622,7 +11622,7 @@ const bp = 50, bF = y.memo(function({
       ]
     }
   );
-}), wp = 2, SF = y.memo(function({
+}), Ip = 2, IF = y.memo(function({
   points: t,
   selectedKeyframeIds: r,
   onHandlePointerDown: n,
@@ -11647,7 +11647,7 @@ const bp = 50, bF = y.memo(function({
       const x = m.x - d.x, k = m.y - d.y, M = d.keyframe.easing, S = M !== "ease-out", F = M !== "ease-in";
       if (S && (o || p)) {
         const C = d.x + b.x1 * x, T = d.y + b.y1 * k;
-        Math.hypot(C - d.x, T - d.y) > wp && u.push({
+        Math.hypot(C - d.x, T - d.y) > Ip && u.push({
           keyframeId: d.keyframe.id,
           type: "out",
           x: C,
@@ -11658,7 +11658,7 @@ const bp = 50, bF = y.memo(function({
       }
       if (F && (o || h)) {
         const C = d.x + b.x2 * x, T = d.y + b.y2 * k;
-        Math.hypot(C - m.x, T - m.y) > wp && u.push({
+        Math.hypot(C - m.x, T - m.y) > Ip && u.push({
           keyframeId: d.keyframe.id,
           type: "in",
           x: C,
@@ -11670,7 +11670,7 @@ const bp = 50, bF = y.memo(function({
     }), u;
   }, [o, c, r, i]);
   return l.length === 0 ? null : /* @__PURE__ */ w.jsx("g", { className: "graph-handles", children: l.map((u) => /* @__PURE__ */ w.jsx(
-    IF,
+    kF,
     {
       handle: u,
       isDragging: a?.keyframeId === u.keyframeId && a?.type === u.type,
@@ -11679,7 +11679,7 @@ const bp = 50, bF = y.memo(function({
     },
     `${u.keyframeId}-${u.type}`
   )) });
-}), IF = y.memo(function({
+}), kF = y.memo(function({
   handle: t,
   isDragging: r,
   onPointerDown: n,
@@ -11735,7 +11735,7 @@ const bp = 50, bF = y.memo(function({
       }
     )
   ] });
-}), kF = y.memo(function({
+}), TF = y.memo(function({
   viewport: t,
   padding: r,
   blockedRanges: n
@@ -11830,11 +11830,11 @@ const bp = 50, bF = y.memo(function({
     })
   ] });
 });
-function Sp(e, t, r, n) {
+function kp(e, t, r, n) {
   return t === "out" ? { ...e, x1: r, y1: n } : { ...e, x2: r, y2: n };
 }
-const pc = 2, TF = "absolute border border-primary/70 bg-primary/20 pointer-events-none z-20";
-function MF({
+const pc = 2, MF = "absolute border border-primary/70 bg-primary/20 pointer-events-none z-20";
+function FF({
   rect: e,
   className: t,
   style: r
@@ -11842,7 +11842,7 @@ function MF({
   return e ? /* @__PURE__ */ w.jsx(
     "div",
     {
-      className: je(TF, t),
+      className: je(MF, t),
       style: {
         left: e.x,
         top: e.y,
@@ -11853,7 +11853,7 @@ function MF({
     }
   ) : null;
 }
-function FF({ rect: e }) {
+function CF({ rect: e }) {
   return e ? /* @__PURE__ */ w.jsx(
     "rect",
     {
@@ -11871,8 +11871,8 @@ function FF({ rect: e }) {
     }
   ) : null;
 }
-const ks = 3, Ip = 8, CF = 0.8, EF = 1.25;
-function PF(e, t) {
+const ks = 3, Tp = 8, EF = 0.8, PF = 1.25;
+function RF(e, t) {
   if (e === t) return !0;
   if (!e || !t) return e === t;
   const r = Object.keys(e), n = Object.keys(t);
@@ -11884,7 +11884,7 @@ function PF(e, t) {
   }
   return !0;
 }
-function RF({
+function AF({
   viewport: e,
   padding: t,
   points: r,
@@ -12011,7 +12011,7 @@ function RF({
     },
     [g]
   ), ye = y.useMemo(() => {
-    const { graphWidth: re, graphHeight: ue, frameRange: ne, valueRange: de } = W, ce = Ip / re * ne, Fe = Ip / ue * de;
+    const { graphWidth: re, graphHeight: ue, frameRange: ne, valueRange: de } = W, ce = Tp / re * ne, Fe = Tp / ue * de;
     return { frameThreshold: ce, valueThreshold: Fe };
   }, [W]), be = y.useCallback(
     (re, ue) => {
@@ -12250,7 +12250,7 @@ function RF({
             let Nt = Le.value + qe;
             Nt = Math.max(Le.minValue, Math.min(Le.maxValue, Nt)), Ve[Oe] = { frame: pt, value: Nt };
           }
-          _((Oe) => PF(Oe, Ve) ? Oe : Ve);
+          _((Oe) => RF(Oe, Ve) ? Oe : Ve);
           return;
         }
         if (Y.current && M?.type === "bezier-handle") {
@@ -12264,7 +12264,7 @@ function RF({
               ke = Ve + Le * Ee, nt = Oe + pt * Ee;
             }
           }
-          const Ue = Math.max(0, Math.min(1, ke)), ve = Sp(
+          const Ue = Math.max(0, Math.min(1, ke)), ve = kp(
             Fe,
             ce.type,
             Ue,
@@ -12278,7 +12278,7 @@ function RF({
               const pt = _e.x - Ve / Le * Ie.initialLength, Nt = _e.y - Oe / Le * Ie.initialLength, rr = Ie.endPoint.x - Ie.startPoint.x, oe = Ie.endPoint.y - Ie.startPoint.y;
               if (rr !== 0) {
                 const Ee = (pt - Ie.startPoint.x) / rr, Be = oe === 0 ? 0.5 : (Nt - Ie.startPoint.y) / oe;
-                Me[Ie.keyframeId] = Sp(
+                Me[Ie.keyframeId] = kp(
                   Ie.initialBezier,
                   Ie.handleType,
                   Math.max(0, Math.min(1, Ee)),
@@ -12357,7 +12357,7 @@ function RF({
       re.preventDefault();
       const ue = re.currentTarget.getBoundingClientRect(), ne = re.clientX - ue.left, de = re.clientY - ue.top, { frameRange: ce, valueRange: Fe } = W, { frame: Ie, value: _e } = ie(ne, de);
       if (re.ctrlKey || re.metaKey) {
-        const mt = re.deltaY > 0 ? EF : CF, et = ce * mt, Ke = (Ie - e.startFrame) / ce, ke = Ie - et * Ke, nt = q({
+        const mt = re.deltaY > 0 ? PF : EF, et = ce * mt, Ke = (Ie - e.startFrame) / ce, ke = Ie - et * Ke, nt = q({
           ...e,
           startFrame: Math.max(0, ke),
           endFrame: Math.max(0, ke) + et,
@@ -12436,7 +12436,7 @@ function RF({
   };
 }
 const ri = 1e-4;
-function AF(e, t, r) {
+function DF(e, t, r) {
   const n = e ?? { min: 0, max: 1 };
   if (!r || t.length === 0)
     return n;
@@ -12456,15 +12456,15 @@ function AF(e, t, r) {
     max: Math.max(l + ri, u)
   };
 }
-function mv(e, t, r) {
+function hv(e, t, r) {
   const n = Math.min(...e.map((i) => i?.min ?? 0), 0), a = Math.max(...e.map((i) => i?.max ?? 1), 1);
-  return AF(
+  return DF(
     { min: n, max: a },
     t.flat(),
     r
   );
 }
-const DF = y.memo(function({
+const _F = y.memo(function({
   frameViewport: t,
   onFrameViewportChange: r,
   itemId: n,
@@ -12505,7 +12505,7 @@ const DF = y.memo(function({
   className: Y
 }) {
   const L = y.useMemo(
-    () => N ? { ...vp, bottom: 8 } : vp,
+    () => N ? { ...xp, bottom: 8 } : xp,
     [N]
   ), ae = y.useRef(null), se = y.useId().replace(/[^a-zA-Z0-9_-]/g, ""), le = y.useRef(!1), fe = (B ? 28 : 0) + (B ? 4 : 0), E = Math.max(60, f - fe), pe = d - L.left - L.right, W = E - L.top - L.bottom, K = y.useMemo(
     () => Object.keys(a),
@@ -12517,7 +12517,7 @@ const DF = y.memo(function({
     () => q ? a[q] || [] : [],
     [q, a]
   ), ye = ie ? Hr[ie] : null, be = y.useMemo(
-    () => mv(
+    () => hv(
       X.map((Q) => Hr[Q] ?? null),
       X.map((Q) => a[Q] || []),
       A
@@ -12642,7 +12642,7 @@ const DF = y.memo(function({
     zoomIn: Ce,
     zoomOut: qe,
     fitToContent: Ve
-  } = RF({
+  } = AF({
     viewport: Ae,
     padding: L,
     points: re,
@@ -12849,14 +12849,14 @@ const DF = y.memo(function({
         B && /* @__PURE__ */ w.jsxs("div", { className: "flex items-center justify-between px-2 flex-shrink-0 min-h-7", children: [
           /* @__PURE__ */ w.jsxs("div", { className: "flex items-center gap-2", children: [
             /* @__PURE__ */ w.jsxs(
-              cF,
+              lF,
               {
                 value: q || "all",
                 onValueChange: Be,
                 disabled: O || K.length === 0,
                 children: [
-                  /* @__PURE__ */ w.jsx(cv, { className: "w-[140px] h-7 text-xs focus:ring-0 focus:ring-offset-0", children: /* @__PURE__ */ w.jsx(lF, { placeholder: "Select property" }) }),
-                  /* @__PURE__ */ w.jsx(dv, { children: K.map((Q) => /* @__PURE__ */ w.jsx(fv, { value: Q, className: "text-xs", children: or[Q] }, Q)) })
+                  /* @__PURE__ */ w.jsx(uv, { className: "w-[140px] h-7 text-xs focus:ring-0 focus:ring-offset-0", children: /* @__PURE__ */ w.jsx(uF, { placeholder: "Select property" }) }),
+                  /* @__PURE__ */ w.jsx(mv, { children: K.map((Q) => /* @__PURE__ */ w.jsx(pv, { value: Q, className: "text-xs", children: or[Q] }, Q)) })
                 ]
               }
             ),
@@ -12905,7 +12905,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0",
                   onClick: ot,
                   disabled: O || !q || !C || ze,
-                  children: /* @__PURE__ */ w.jsx(tk, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(rk, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: ze ? "Keyframe exists at current frame" : "Add keyframe at current frame" })
@@ -12919,7 +12919,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0 text-destructive hover:text-destructive",
                   onClick: Ye,
                   disabled: O || s.size === 0 || !T,
-                  children: /* @__PURE__ */ w.jsx(H0, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(W0, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: s.size > 0 ? `Remove ${s.size} selected keyframe${s.size !== 1 ? "s" : ""}` : "Remove selected keyframes" })
@@ -12974,7 +12974,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0",
                   onClick: qe,
                   disabled: O,
-                  children: /* @__PURE__ */ w.jsx(sk, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(ck, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: "Zoom out" })
@@ -12988,7 +12988,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0",
                   onClick: Ce,
                   disabled: O,
-                  children: /* @__PURE__ */ w.jsx(ok, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(sk, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: "Zoom in" })
@@ -13002,7 +13002,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0",
                   onClick: Ve,
                   disabled: O || me.length === 0,
-                  children: /* @__PURE__ */ w.jsx(ck, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(lk, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: "Fit to content" })
@@ -13016,7 +13016,7 @@ const DF = y.memo(function({
                   className: "h-7 w-7 p-0",
                   onClick: Ee,
                   disabled: O,
-                  children: /* @__PURE__ */ w.jsx(G0, { className: "h-3.5 w-3.5" })
+                  children: /* @__PURE__ */ w.jsx(K0, { className: "h-3.5 w-3.5" })
                 }
               ) }),
               /* @__PURE__ */ w.jsx(fn, { side: "bottom", children: "Reset view" })
@@ -13054,7 +13054,7 @@ const DF = y.memo(function({
                   rx: 4
                 }
               ) }) }),
-              /* @__PURE__ */ w.jsx(fF, { viewport: Ae, padding: L, rulerUnit: z, fps: u, showXLabels: !N }),
+              /* @__PURE__ */ w.jsx(mF, { viewport: Ae, padding: L, rulerUnit: z, fps: u, showXLabels: !N }),
               /* @__PURE__ */ w.jsx(
                 "rect",
                 {
@@ -13069,18 +13069,18 @@ const DF = y.memo(function({
               ),
               /* @__PURE__ */ w.jsxs("g", { clipPath: `url(#${se})`, children: [
                 P.length > 0 && /* @__PURE__ */ w.jsx(
-                  kF,
+                  TF,
                   {
                     viewport: Ae,
                     padding: L,
                     blockedRanges: P
                   }
                 ),
-                /* @__PURE__ */ w.jsx(xF, { points: Le, viewport: Ae, padding: L }),
-                Nt.map(({ property: Q, points: De, color: Te }) => /* @__PURE__ */ w.jsx("g", { opacity: 0.5, children: /* @__PURE__ */ w.jsx(xp, { points: De, strokeColor: Te }) }, Q)),
-                /* @__PURE__ */ w.jsx(xp, { points: Le, selectedKeyframeIds: s, previewBezierConfigs: Ie }),
+                /* @__PURE__ */ w.jsx(wF, { points: Le, viewport: Ae, padding: L }),
+                Nt.map(({ property: Q, points: De, color: Te }) => /* @__PURE__ */ w.jsx("g", { opacity: 0.5, children: /* @__PURE__ */ w.jsx(Sp, { points: De, strokeColor: Te }) }, Q)),
+                /* @__PURE__ */ w.jsx(Sp, { points: Le, selectedKeyframeIds: s, previewBezierConfigs: Ie }),
                 /* @__PURE__ */ w.jsx(
-                  wF,
+                  SF,
                   {
                     frame: c,
                     viewport: Ae,
@@ -13094,7 +13094,7 @@ const DF = y.memo(function({
                   }
                 ),
                 /* @__PURE__ */ w.jsx(
-                  SF,
+                  IF,
                   {
                     points: Le,
                     selectedKeyframeIds: s,
@@ -13106,7 +13106,7 @@ const DF = y.memo(function({
                   }
                 ),
                 /* @__PURE__ */ w.jsx(
-                  gF,
+                  yF,
                   {
                     points: Oe,
                     previewValuesById: pt,
@@ -13117,7 +13117,7 @@ const DF = y.memo(function({
                     disabled: O
                   }
                 ),
-                /* @__PURE__ */ w.jsx(FF, { rect: Me }),
+                /* @__PURE__ */ w.jsx(CF, { rect: Me }),
                 de && _e && ne?.type === "keyframe" && (() => {
                   const Q = Oe.find((Ot) => Ot.keyframe.id === ne.keyframeId);
                   if (!Q) return null;
@@ -13173,7 +13173,7 @@ const DF = y.memo(function({
       ]
     }
   );
-}), pv = ["shift", "alt", "meta", "mod", "ctrl", "control"], _F = {
+}), gv = ["shift", "alt", "meta", "mod", "ctrl", "control"], OF = {
   esc: "escape",
   return: "enter",
   left: "arrowleft",
@@ -13192,10 +13192,10 @@ const DF = y.memo(function({
   ControlRight: "ctrl"
 };
 function ra(e) {
-  return (_F[e.trim()] || e.trim()).toLowerCase().replace(/key|digit|numpad/, "");
+  return (OF[e.trim()] || e.trim()).toLowerCase().replace(/key|digit|numpad/, "");
 }
-function hv(e) {
-  return pv.includes(e);
+function yv(e) {
+  return gv.includes(e);
 }
 function xl(e, t = ",") {
   return e.toLowerCase().split(t);
@@ -13210,7 +13210,7 @@ function wl(e, t = "+", r = ">", n = !1, a) {
     meta: i.includes("meta"),
     mod: i.includes("mod"),
     useKey: n
-  }, c = i.filter((l) => !pv.includes(l));
+  }, c = i.filter((l) => !gv.includes(l));
   return {
     ...s,
     keys: c,
@@ -13220,9 +13220,9 @@ function wl(e, t = "+", r = ">", n = !1, a) {
   };
 }
 typeof document < "u" && (document.addEventListener("keydown", (e) => {
-  e.code !== void 0 && gv([ra(e.code)]);
+  e.code !== void 0 && vv([ra(e.code)]);
 }), document.addEventListener("keyup", (e) => {
-  e.code !== void 0 && yv([ra(e.code)]);
+  e.code !== void 0 && bv([ra(e.code)]);
 })), typeof window < "u" && (window.addEventListener("blur", () => {
   En.clear();
 }), window.addEventListener("contextmenu", () => {
@@ -13231,27 +13231,27 @@ typeof document < "u" && (document.addEventListener("keydown", (e) => {
   }, 0);
 }));
 const En = /* @__PURE__ */ new Set();
-function Nd(e) {
+function Ud(e) {
   return Array.isArray(e);
 }
-function OF(e, t = ",") {
-  return (Nd(e) ? e : e.split(t)).every((r) => En.has(r.trim().toLowerCase()));
+function LF(e, t = ",") {
+  return (Ud(e) ? e : e.split(t)).every((r) => En.has(r.trim().toLowerCase()));
 }
-function gv(e) {
+function vv(e) {
   const t = Array.isArray(e) ? e : [e];
-  En.has("meta") && En.forEach((r) => !hv(r) && En.delete(r.toLowerCase())), t.forEach((r) => En.add(r.toLowerCase()));
+  En.has("meta") && En.forEach((r) => !yv(r) && En.delete(r.toLowerCase())), t.forEach((r) => En.add(r.toLowerCase()));
 }
-function yv(e) {
+function bv(e) {
   const t = Array.isArray(e) ? e : [e];
   e === "meta" ? En.clear() : t.forEach((r) => En.delete(r.toLowerCase()));
 }
-function LF(e, t, r) {
+function BF(e, t, r) {
   (typeof r == "function" && r(e, t) || r === !0) && e.preventDefault();
 }
-function BF(e, t, r) {
+function NF(e, t, r) {
   return typeof r == "function" ? r(e, t) : r === !0 || r === void 0;
 }
-const NF = [
+const UF = [
   "input",
   "textarea",
   "select",
@@ -13265,23 +13265,23 @@ const NF = [
   "radio",
   "textbox"
 ];
-function UF(e) {
-  return vv(e, NF);
+function zF(e) {
+  return xv(e, UF);
 }
-function vv(e, t = !1) {
+function xv(e, t = !1) {
   const { target: r, composed: n } = e;
   let a, i;
-  return zF(r) && n ? (a = e.composedPath()[0] && e.composedPath()[0].tagName, i = e.composedPath()[0] && e.composedPath()[0].role) : (a = r && r.tagName, i = r && r.role), Nd(t) ? !!(a && t && t.some((o) => o.toLowerCase() === a.toLowerCase() || o === i)) : !!(a && t && t);
+  return jF(r) && n ? (a = e.composedPath()[0] && e.composedPath()[0].tagName, i = e.composedPath()[0] && e.composedPath()[0].role) : (a = r && r.tagName, i = r && r.role), Ud(t) ? !!(a && t && t.some((o) => o.toLowerCase() === a.toLowerCase() || o === i)) : !!(a && t && t);
 }
-function zF(e) {
+function jF(e) {
   return !!e.tagName && !e.tagName.startsWith("-") && e.tagName.includes("-");
 }
-function jF(e, t) {
+function VF(e, t) {
   return e.length === 0 && t ? (console.warn(
     'A hotkey has the "scopes" option set, however no active scopes were found. If you want to use the global scopes feature, you need to wrap your app in a <HotkeysProvider>'
   ), !0) : t ? e.some((r) => t.includes(r)) || e.includes("*") : !0;
 }
-const VF = (e, t, r = !1) => {
+const $F = (e, t, r = !1) => {
   const { alt: n, meta: a, mod: i, shift: o, ctrl: s, keys: c, useKey: l } = t, { code: u, key: d, ctrlKey: f, metaKey: m, shiftKey: p, altKey: h } = e, g = ra(u);
   if (l && c?.length === 1 && c.includes(d))
     return !0;
@@ -13296,13 +13296,13 @@ const VF = (e, t, r = !1) => {
     } else if (a !== m && g !== "meta" && g !== "os" || s !== f && g !== "ctrl" && g !== "control")
       return !1;
   }
-  return c && c.length === 1 && c.includes(g) ? !0 : c ? OF(c) : !c;
-}, $F = y.createContext(void 0), HF = () => y.useContext($F);
-function bv(e, t) {
+  return c && c.length === 1 && c.includes(g) ? !0 : c ? LF(c) : !c;
+}, HF = y.createContext(void 0), GF = () => y.useContext(HF);
+function wv(e, t) {
   return e && t && typeof e == "object" && typeof t == "object" ? Object.keys(e).length === Object.keys(t).length && // @ts-expect-error TS7053
-  Object.keys(e).reduce((r, n) => r && bv(e[n], t[n]), !0) : e === t;
+  Object.keys(e).reduce((r, n) => r && wv(e[n], t[n]), !0) : e === t;
 }
-const GF = y.createContext({
+const WF = y.createContext({
   hotkeys: [],
   activeScopes: [],
   // This array has to be empty instead of containing '*' as default, to check if the provider is set or not
@@ -13312,28 +13312,28 @@ const GF = y.createContext({
   },
   disableScope: () => {
   }
-}), WF = () => y.useContext(GF);
-function KF(e) {
+}), KF = () => y.useContext(WF);
+function XF(e) {
   const t = y.useRef(void 0);
-  return bv(t.current, e) || (t.current = e), t.current;
+  return wv(t.current, e) || (t.current = e), t.current;
 }
-const kp = (e) => {
+const Mp = (e) => {
   e.stopPropagation(), e.preventDefault(), e.stopImmediatePropagation();
-}, XF = typeof window < "u" ? y.useLayoutEffect : y.useEffect;
+}, qF = typeof window < "u" ? y.useLayoutEffect : y.useEffect;
 function st(e, t, r, n) {
-  const a = y.useRef(null), i = y.useRef(!1), o = Array.isArray(r) ? Array.isArray(n) ? void 0 : n : r, s = Nd(e) ? e.join(o?.delimiter) : e, c = Array.isArray(r) ? r : Array.isArray(n) ? n : void 0, l = y.useCallback(t, c ?? []), u = y.useRef(l);
+  const a = y.useRef(null), i = y.useRef(!1), o = Array.isArray(r) ? Array.isArray(n) ? void 0 : n : r, s = Ud(e) ? e.join(o?.delimiter) : e, c = Array.isArray(r) ? r : Array.isArray(n) ? n : void 0, l = y.useCallback(t, c ?? []), u = y.useRef(l);
   c ? u.current = l : u.current = t;
-  const d = KF(o), { activeScopes: f } = WF(), m = HF();
-  return XF(() => {
-    if (d?.enabled === !1 || !jF(f, d?.scopes))
+  const d = XF(o), { activeScopes: f } = KF(), m = GF();
+  return qF(() => {
+    if (d?.enabled === !1 || !VF(f, d?.scopes))
       return;
     let p = [], h;
     const g = (k, M = !1) => {
-      if (!(UF(k) && !vv(k, d?.enableOnFormTags))) {
+      if (!(zF(k) && !xv(k, d?.enableOnFormTags))) {
         if (a.current !== null) {
           const S = a.current.getRootNode();
           if ((S instanceof Document || S instanceof ShadowRoot) && S.activeElement !== a.current && !a.current.contains(S.activeElement)) {
-            kp(k);
+            Mp(k);
             return;
           }
         }
@@ -13356,7 +13356,7 @@ function st(e, t, r, n) {
               p = [];
             }, d?.sequenceTimeoutMs ?? 1e3);
             const C = F.useKey ? k.key : ra(k.code);
-            if (hv(C.toLowerCase()))
+            if (yv(C.toLowerCase()))
               return;
             p.push(C);
             const T = F.keys?.[p.length - 1];
@@ -13365,11 +13365,11 @@ function st(e, t, r, n) {
               return;
             }
             p.length === F.keys?.length && (u.current(k, F), h && clearTimeout(h), p = []);
-          } else if (VF(k, F, d?.ignoreModifiers) || F.keys?.includes("*")) {
+          } else if ($F(k, F, d?.ignoreModifiers) || F.keys?.includes("*")) {
             if (d?.ignoreEventWhen?.(k) || M && i.current)
               return;
-            if (LF(k, F, d?.preventDefault), !BF(k, F, d?.enabled)) {
-              kp(k);
+            if (BF(k, F, d?.preventDefault), !NF(k, F, d?.enabled)) {
+              Mp(k);
               return;
             }
             u.current(k, F), M || (i.current = !0);
@@ -13377,9 +13377,9 @@ function st(e, t, r, n) {
         });
       }
     }, v = (k) => {
-      k.code !== void 0 && (gv(ra(k.code)), (d?.keydown === void 0 && d?.keyup !== !0 || d?.keydown) && g(k));
+      k.code !== void 0 && (vv(ra(k.code)), (d?.keydown === void 0 && d?.keyup !== !0 || d?.keydown) && g(k));
     }, b = (k) => {
-      k.code !== void 0 && (yv(ra(k.code)), i.current = !1, d?.keyup && g(k, !0));
+      k.code !== void 0 && (bv(ra(k.code)), i.current = !1, d?.keyup && g(k, !0));
     }, x = a.current || o?.document || document;
     return x.addEventListener("keyup", b, o?.eventListenerOptions), x.addEventListener("keydown", v, o?.eventListenerOptions), m && xl(s, d?.delimiter).forEach(
       (k) => m.addHotkey(
@@ -13406,8 +13406,8 @@ function st(e, t, r, n) {
     };
   }, [s, d, f]), a;
 }
-const Tp = eS, Mp = tS, Cu = y.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ w.jsx(Jw, { container: pd(), children: /* @__PURE__ */ w.jsx(
-  R0,
+const Fp = tS, Cp = rS, Cu = y.forwardRef(({ className: e, sideOffset: t = 4, ...r }, n) => /* @__PURE__ */ w.jsx(eS, { container: hd(), children: /* @__PURE__ */ w.jsx(
+  D0,
   {
     ref: n,
     sideOffset: t,
@@ -13419,9 +13419,9 @@ const Tp = eS, Mp = tS, Cu = y.forwardRef(({ className: e, sideOffset: t = 4, ..
     ...r
   }
 ) }));
-Cu.displayName = R0.displayName;
+Cu.displayName = D0.displayName;
 const dn = y.forwardRef(({ className: e, inset: t, ...r }, n) => /* @__PURE__ */ w.jsx(
-  A0,
+  _0,
   {
     ref: n,
     className: je(
@@ -13432,9 +13432,9 @@ const dn = y.forwardRef(({ className: e, inset: t, ...r }, n) => /* @__PURE__ */
     ...r
   }
 ));
-dn.displayName = A0.displayName;
-const qF = y.forwardRef(({ className: e, inset: t, ...r }, n) => /* @__PURE__ */ w.jsx(
-  D0,
+dn.displayName = _0.displayName;
+const YF = y.forwardRef(({ className: e, inset: t, ...r }, n) => /* @__PURE__ */ w.jsx(
+  O0,
   {
     ref: n,
     className: je(
@@ -13445,73 +13445,73 @@ const qF = y.forwardRef(({ className: e, inset: t, ...r }, n) => /* @__PURE__ */
     ...r
   }
 ));
-qF.displayName = D0.displayName;
+YF.displayName = O0.displayName;
 const io = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  _0,
+  L0,
   {
     ref: r,
     className: je("-mx-1 my-1 h-px bg-muted", e),
     ...t
   }
 ));
-io.displayName = _0.displayName;
-const YF = 12, na = Math.ceil(Math.sqrt(2) * YF / 2);
-function xv(e) {
+io.displayName = L0.displayName;
+const ZF = 12, na = Math.ceil(Math.sqrt(2) * ZF / 2);
+function Sv(e) {
   return Math.max(1, e.endFrame - e.startFrame);
 }
-function wv(e) {
+function Iv(e) {
   return Math.max(0, e - na * 2);
 }
-function Sv(e, t, r) {
+function kv(e, t, r) {
   if (r <= 0) return 0;
-  const n = wv(r);
+  const n = Iv(r);
   if (n <= 0)
     return r / 2;
-  const a = xv(t);
+  const a = Sv(t);
   return na + (e - t.startFrame) / a * n;
 }
-function ZF(e, t, r) {
-  const n = wv(r);
+function QF(e, t, r) {
+  const n = Iv(r);
   if (r <= 0 || n <= 0)
     return t.startFrame;
-  const a = xv(t), o = (Math.max(
+  const a = Sv(t), o = (Math.max(
     na,
     Math.min(r - na, e)
   ) - na) / n;
   return Math.round(t.startFrame + o * a);
 }
-function QF(e, t, r) {
+function JF(e, t, r) {
   if (r <= 0 || e < t.startFrame || e > t.endFrame) return null;
   const n = na, a = r - na;
-  return a <= n ? r / 2 : Math.max(n, Math.min(a, Sv(e, t, r)));
+  return a <= n ? r / 2 : Math.max(n, Math.min(a, kv(e, t, r)));
 }
-const Iv = 28, kv = na;
-function Ud(e) {
+const Tv = 28, Mv = na;
+function zd(e) {
   return Math.max(1, Math.round(e));
 }
-function Tv(e, t) {
+function Fv(e, t) {
   return Math.max(0, e - t * 2);
 }
-function JF(e, t, r = 1) {
+function eC(e, t, r = 1) {
   return Math.max(
     Math.min(r, t),
     Math.min(t, Math.round(e.endFrame - e.startFrame))
   );
 }
-function zd(e, t, r = 1) {
-  const n = Ud(t), a = JF(e, n, r), i = Math.max(0, n - a), o = Math.max(0, Math.min(i, Math.round(e.startFrame)));
+function jd(e, t, r = 1) {
+  const n = zd(t), a = eC(e, n, r), i = Math.max(0, n - a), o = Math.max(0, Math.min(i, Math.round(e.startFrame)));
   return {
     startFrame: o,
     endFrame: o + a
   };
 }
-function Mv({
+function Cv({
   viewport: e,
   contentFrameMax: t,
   trackWidth: r,
-  minThumbWidth: n = Iv
+  minThumbWidth: n = Tv
 }) {
-  const a = Ud(t), i = zd(e, a), o = i.endFrame - i.startFrame, s = Math.max(0, a - o), c = r > 0 ? Math.min(kv, Math.floor(r / 4)) : 0, l = Tv(r, c), u = o / a, d = l > 0 ? u >= 1 ? l : Math.min(l, Math.max(n, u * l)) : 0, f = Math.max(0, l - d), m = s > 0 && f > 0 ? c + i.startFrame / s * f : c;
+  const a = zd(t), i = jd(e, a), o = i.endFrame - i.startFrame, s = Math.max(0, a - o), c = r > 0 ? Math.min(Mv, Math.floor(r / 4)) : 0, l = Fv(r, c), u = o / a, d = l > 0 ? u >= 1 ? l : Math.min(l, Math.max(n, u * l)) : 0, f = Math.max(0, l - d), m = s > 0 && f > 0 ? c + i.startFrame / s * f : c;
   return {
     contentFrameMax: a,
     visibleFrameRange: o,
@@ -13523,7 +13523,7 @@ function Mv({
     thumbLeft: m
   };
 }
-function Fp(e, t) {
+function Ep(e, t) {
   if (t.thumbTravel <= 0 || t.maxStartFrame <= 0)
     return 0;
   const r = Math.max(
@@ -13532,7 +13532,7 @@ function Fp(e, t) {
   );
   return Math.round((r - t.edgeInset) / t.thumbTravel * t.maxStartFrame);
 }
-function eC({
+function tC({
   dragTarget: e,
   deltaX: t,
   dragStartThumbWidth: r,
@@ -13540,14 +13540,14 @@ function eC({
   viewport: a,
   contentFrameMax: i,
   minVisibleFrames: o,
-  minThumbWidth: s = Iv
+  minThumbWidth: s = Tv
 }) {
-  const c = Ud(i);
+  const c = zd(i);
   if (n <= 0)
     return a;
-  const l = Math.min(kv, Math.floor(n / 4)), u = Tv(n, l);
+  const l = Math.min(Mv, Math.floor(n / 4)), u = Fv(n, l);
   if (u <= 0)
-    return zd(a, c, o);
+    return jd(a, c, o);
   const d = e === "left" ? Math.max(s, Math.min(u, r - t)) : Math.max(s, Math.min(u, r + t)), f = Math.max(
     Math.min(o, c),
     Math.min(c, Math.round(d / u * c))
@@ -13568,7 +13568,7 @@ function eC({
     endFrame: p + f
   };
 }
-function tC({
+function rC({
   viewport: e,
   currentFrame: t,
   contentFrameMax: r,
@@ -13576,7 +13576,7 @@ function tC({
   disabled: a = !1,
   onViewportChange: i
 }) {
-  const o = y.useRef(null), [s, c] = y.useState(0), [l, u] = y.useState(null), [d, f] = y.useState(0), [m, p] = y.useState(0), [h, g] = y.useState(0), v = Mv({
+  const o = y.useRef(null), [s, c] = y.useState(0), [l, u] = y.useState(null), [d, f] = y.useState(0), [m, p] = y.useState(0), [h, g] = y.useState(0), v = Cv({
     viewport: e,
     contentFrameMax: r,
     trackWidth: s
@@ -13594,7 +13594,7 @@ function tC({
     const S = o.current.getBoundingClientRect(), F = M.clientX - S.left, C = Math.max(
       v.edgeInset,
       Math.min(v.edgeInset + v.thumbTravel, F - v.thumbWidth / 2)
-    ), T = Fp(C, v);
+    ), T = Ep(C, v);
     i({
       startFrame: T,
       endFrame: T + v.visibleFrameRange
@@ -13622,7 +13622,7 @@ function tC({
         const R = Math.max(
           v.edgeInset,
           Math.min(v.edgeInset + v.thumbTravel, m + T)
-        ), P = Fp(R, v);
+        ), P = Ep(R, v);
         i({
           startFrame: P,
           endFrame: P + v.visibleFrameRange
@@ -13630,7 +13630,7 @@ function tC({
         return;
       }
       i(
-        eC({
+        tC({
           dragTarget: l,
           deltaX: T,
           dragStartThumbWidth: h,
@@ -13719,11 +13719,11 @@ function tC({
     }
   ) });
 }
-const Cp = 2;
-function rC(e, t) {
+const Pp = 2;
+function nC(e, t) {
   return e.selected && e.draggable ? `Slide selected keyframe at frame ${t}` : e.selected ? `Selected keyframe at frame ${t}` : `Select keyframe at frame ${t}`;
 }
-function Ep(e, t) {
+function Rp(e, t) {
   const r = Math.max(1, t.contentFrameMax - 1);
   return Math.max(
     t.edgeInset,
@@ -13733,7 +13733,7 @@ function Ep(e, t) {
     )
   );
 }
-function nC({
+function aC({
   viewport: e,
   contentFrameMax: t,
   markers: r,
@@ -13744,7 +13744,7 @@ function nC({
   onSlideChange: s,
   onSlideEnd: c
 }) {
-  const l = y.useRef(null), u = y.useRef(null), d = y.useRef(null), [f, m] = y.useState(0), [p, h] = y.useState(null), g = Mv({
+  const l = y.useRef(null), u = y.useRef(null), d = y.useRef(null), [f, m] = y.useState(0), [p, h] = y.useState(null), g = Cv({
     viewport: e,
     contentFrameMax: t,
     trackWidth: f,
@@ -13765,7 +13765,7 @@ function nC({
         return;
       const C = F.getBoundingClientRect(), T = S.startClientX - C.left, R = S.currentClientX - C.left, P = Math.min(T, R), _ = Math.max(T, R), B = new Set(
         v.filter((U) => {
-          const j = Ep(U.frame, g);
+          const j = Rp(U.frame, g);
           return j >= P && j <= _;
         }).map((U) => U.id)
       );
@@ -13828,14 +13828,14 @@ function nC({
       const T = u.current;
       if (T && T.pointerId === C.pointerId && g.usableTrackWidth > 0) {
         const P = C.clientX - T.startClientX;
-        if (!T.started && Math.abs(P) > Cp && (T.started = !0, o?.(T.selectedIds)), !T.started)
+        if (!T.started && Math.abs(P) > Pp && (T.started = !0, o?.(T.selectedIds)), !T.started)
           return;
         const _ = Math.max(1, g.contentFrameMax - 1), B = Math.round(P / g.usableTrackWidth * _);
         s?.(B, T.selectedIds);
         return;
       }
       const R = d.current;
-      !R || R.pointerId !== C.pointerId || (R.currentClientX = C.clientX, !R.started && Math.abs(C.clientX - R.startClientX) > Cp && (R.started = !0), R.started && x(R));
+      !R || R.pointerId !== C.pointerId || (R.currentClientX = C.clientX, !R.started && Math.abs(C.clientX - R.startClientX) > Pp && (R.started = !0), R.started && x(R));
     }, F = (C) => {
       const T = u.current;
       if (T && T.pointerId === C.pointerId) {
@@ -13870,7 +13870,7 @@ function nC({
           }
         ) : null,
         v.map((S) => {
-          const F = Ep(S.frame, g), C = rC(S, S.frame), T = {
+          const F = Rp(S.frame, g), C = nC(S, S.frame), T = {
             left: F,
             top: "50%"
           };
@@ -13897,7 +13897,7 @@ function nC({
     }
   ) });
 }
-function Pp(e, t) {
+function Ap(e, t) {
   const r = e.filter((i) => i.frame === t);
   let n = null, a = null;
   for (let i = e.length - 1; i >= 0; i -= 1) {
@@ -13919,7 +13919,7 @@ function Pp(e, t) {
     nextKeyframe: a
   };
 }
-const aC = [
+const iC = [
   {
     id: "transform",
     label: "Transform",
@@ -13931,9 +13931,9 @@ const aC = [
     properties: ["volume"]
   }
 ];
-function Fv(e) {
+function Ev(e) {
   const t = new Set(e), r = [];
-  for (const a of aC) {
+  for (const a of iC) {
     const i = a.properties.filter((o) => t.has(o));
     if (i.length !== 0) {
       for (const o of i)
@@ -13952,7 +13952,7 @@ function Fv(e) {
     properties: n
   }), r;
 }
-function Rp({
+function Dp({
   keyframesByProperty: e,
   selectedKeyframeIds: t,
   totalFrames: r,
@@ -13990,7 +13990,7 @@ function Rp({
   const c = Math.round(n);
   return Math.max(i, Math.min(o, c));
 }
-function Ap(e, t, r, n) {
+function _p(e, t, r, n) {
   const a = e[t] ?? {};
   if (n)
     return {
@@ -14014,10 +14014,10 @@ const Ys = Mt()(
   (e, t) => ({
     enabledByItem: {},
     setAutoKeyframeEnabled: (r, n, a) => e((i) => ({
-      enabledByItem: Ap(i.enabledByItem, r, n, a)
+      enabledByItem: _p(i.enabledByItem, r, n, a)
     })),
     toggleAutoKeyframeEnabled: (r, n) => e((a) => ({
-      enabledByItem: Ap(
+      enabledByItem: _p(
         a.enabledByItem,
         r,
         n,
@@ -14028,11 +14028,11 @@ const Ys = Mt()(
     reset: () => e({ enabledByItem: {} })
   })
 );
-function NU(e, t) {
+function jU(e, t) {
   return Ys.getState().isAutoKeyframeEnabled(e, t);
 }
-const ni = 248, iC = 20, oC = 8, Sl = 22, Ts = 30, ai = 22, sC = 0.8, cC = 1.25, lC = 2, Ms = 24, Dp = 16, uC = {}, ln = "h-4 w-4 flex-shrink-0 rounded-sm p-0 leading-none", Xr = "h-[8px] w-[8px]", Cv = "timeline:keyframeGraphVisibleProperties";
-function dC({ type: e }) {
+const ni = 248, oC = 20, sC = 8, Sl = 22, Ts = 30, ai = 22, cC = 0.8, lC = 1.25, uC = 2, Ms = 24, Op = 16, dC = {}, ln = "h-4 w-4 flex-shrink-0 rounded-sm p-0 leading-none", Xr = "h-[8px] w-[8px]", Pv = "timeline:keyframeGraphVisibleProperties";
+function fC({ type: e }) {
   const t = {
     width: 16,
     height: 16,
@@ -14114,7 +14114,7 @@ function dC({ type: e }) {
 function zn(e, t) {
   return t <= 0 ? 0 : Math.max(0, Math.min(t - 1, e));
 }
-function fC(e) {
+function mC(e) {
   const t = Math.max(1, e / 10), r = Math.pow(10, Math.floor(Math.log10(t))), n = t / r;
   return n <= 1 ? r : n <= 2 ? 2 * r : n <= 5 ? 5 * r : 10 * r;
 }
@@ -14129,7 +14129,7 @@ function Il(e, t, r) {
     }
   return e;
 }
-function mC(e, t) {
+function pC(e, t) {
   if (e === t) return !0;
   if (!e || !t) return e === t;
   const r = Object.keys(e), n = Object.keys(t);
@@ -14138,11 +14138,11 @@ function mC(e, t) {
     if (e[a] !== t[a]) return !1;
   return !0;
 }
-function _p(e, t) {
+function Lp(e, t) {
   const r = new Map(
     e.map((n) => [n.property, n])
   );
-  return Fv(e.map((n) => n.property)).map((n) => {
+  return Ev(e.map((n) => n.property)).map((n) => {
     const a = n.properties.flatMap((u) => {
       const d = r.get(u);
       return d ? [d] : [];
@@ -14178,16 +14178,16 @@ function _p(e, t) {
     };
   }).filter((n) => n.rows.length > 0);
 }
-function pC(e, t) {
+function hC(e, t) {
   if (t && e.includes(t))
     return /* @__PURE__ */ new Set([t]);
   const r = e[0];
   return r ? /* @__PURE__ */ new Set([r]) : /* @__PURE__ */ new Set();
 }
-function Op(e, t, r) {
-  const n = pC(t, r);
+function Bp(e, t, r) {
+  const n = hC(t, r);
   try {
-    const a = localStorage.getItem(`${Cv}:${e}`);
+    const a = localStorage.getItem(`${Pv}:${e}`);
     if (!a)
       return n;
     const i = JSON.parse(a);
@@ -14201,10 +14201,10 @@ function Op(e, t, r) {
     return n;
   }
 }
-function hC(e, t) {
+function gC(e, t) {
   try {
     localStorage.setItem(
-      `${Cv}:${e}`,
+      `${Pv}:${e}`,
       JSON.stringify([...t])
     );
   } catch {
@@ -14216,7 +14216,7 @@ function Xi(e) {
 function hi(e, t) {
   e && "setPointerCapture" in e && typeof e.setPointerCapture == "function" && e.setPointerCapture(t);
 }
-function Lp({
+function Np({
   icon: e,
   label: t,
   value: r,
@@ -14289,7 +14289,7 @@ function Lp({
     )
   ] });
 }
-const UU = y.memo(function({
+const VU = y.memo(function({
   frameViewport: t,
   onFrameViewportChange: r,
   itemId: n,
@@ -14334,14 +14334,14 @@ const UU = y.memo(function({
 }) {
   const le = ae === "split" ? "graph" : ae, ee = y.useRef(null), Z = y.useRef(null), fe = y.useRef(null), E = y.useRef(/* @__PURE__ */ new Map()), pe = y.useRef(i), W = y.useRef(!1), [K, X] = y.useState(0), [q, ie] = y.useState({ width: 0, height: 0 }), me = !0, [ye, be] = y.useState(null), [xe, Ge] = y.useState({}), [Pe, Se] = y.useState(null), Ae = Ys(
     y.useCallback(
-      (I) => I.enabledByItem[n] ?? uC,
+      (I) => I.enabledByItem[n] ?? dC,
       [n]
     )
   ), dt = Ys((I) => I.setAutoKeyframeEnabled), gt = Ys((I) => I.toggleAutoKeyframeEnabled), [Gt, kt] = y.useState(""), [_t, Rt] = y.useState(""), At = y.useRef(null), re = y.useRef(null), ue = y.useRef(null), [ne, de] = y.useState(null), [ce, Fe] = y.useState(null), [Ie, _e] = y.useState(null), xt = y.useRef(null), mt = y.useRef([]), et = y.useMemo(() => Math.max(l, 1), [l]), Ke = y.useMemo(
-    () => Math.max(1, Math.min(iC, et)),
+    () => Math.max(1, Math.min(oC, et)),
     [et]
   ), ke = y.useCallback(
-    (I) => zd(I, et, Ke),
+    (I) => jd(I, et, Ke),
     [et, Ke]
   ), nt = y.useCallback(() => ke({
     startFrame: 0,
@@ -14379,7 +14379,7 @@ const UU = y.memo(function({
     () => Object.keys(a),
     [a]
   ), qe = y.useMemo(
-    () => Fv(Ce),
+    () => Ev(Ce),
     [Ce]
   ), Ve = y.useMemo(() => {
     const I = /* @__PURE__ */ new Map();
@@ -14393,11 +14393,11 @@ const UU = y.memo(function({
     ),
     [Ce, a]
   ), [Le, pt] = y.useState({}), [Nt, rr] = y.useState(!1), [oe, Ee] = y.useState({}), [Be, $e] = y.useState("frames"), [wt, lt] = y.useState(!1), [ze, at] = y.useState(!0), [Yt, Ft] = y.useState(0), [Tt, er] = y.useState(
-    () => Op(n, Ce, i)
+    () => Bp(n, Ce, i)
   );
   y.useEffect(() => {
     W.current = !0, er(
-      Op(n, Ce, pe.current)
+      Bp(n, Ce, pe.current)
     );
   }, [n, Ce]), y.useEffect(() => {
     pe.current = i;
@@ -14406,7 +14406,7 @@ const UU = y.memo(function({
       W.current = !1;
       return;
     }
-    hC(n, Tt);
+    gC(n, Tt);
   }, [Tt, n]), y.useEffect(() => {
     Ft(0);
   }, [n, ze]), y.useEffect(() => {
@@ -14442,7 +14442,7 @@ const UU = y.memo(function({
     () => rt.map((I) => ({
       property: I,
       keyframes: (a[I] ?? []).toSorted((D, V) => D.frame - V.frame),
-      controls: Pp(
+      controls: Ap(
         (a[I] ?? []).toSorted((D, V) => D.frame - V.frame),
         s
       )
@@ -14452,17 +14452,17 @@ const UU = y.memo(function({
     () => tt.map((I) => ({
       property: I,
       keyframes: (a[I] ?? []).toSorted((D, V) => D.frame - V.frame),
-      controls: Pp(
+      controls: Ap(
         (a[I] ?? []).toSorted((D, V) => D.frame - V.frame),
         s
       )
     })),
     [tt, a, s]
   ), ot = y.useMemo(
-    () => _p(it, s),
+    () => Lp(it, s),
     [s, it]
   ), Ye = y.useMemo(
-    () => _p(yt, s),
+    () => Lp(yt, s),
     [s, yt]
   ), vt = y.useMemo(
     () => new Map(yt.map((I) => [I.property, I])),
@@ -14650,7 +14650,7 @@ const UU = y.memo(function({
   ), vn = Math.max(1, Ue.endFrame - Ue.startFrame), sa = y.useMemo(
     () => Math.max(1, et / Math.max(1, Ke)),
     [et, Ke]
-  ), ww = y.useMemo(() => {
+  ), Sw = y.useMemo(() => {
     if (sa <= 1)
       return 0;
     const I = Math.log(et / Math.max(1, vn)) / Math.log(sa);
@@ -14659,7 +14659,7 @@ const UU = y.memo(function({
     () => [...Tt],
     [Tt]
   ), il = y.useMemo(
-    () => mv(
+    () => hv(
       ts.map((I) => Hr[I] ?? null),
       ts.map((I) => a[I] ?? []),
       ze
@@ -14668,30 +14668,30 @@ const UU = y.memo(function({
   ), rs = y.useMemo(
     () => Math.max(1e-4, il.max - il.min),
     [il]
-  ), vf = y.useMemo(
+  ), xf = y.useMemo(
     () => Math.max(rs * 0.02, 1e-4),
     [rs]
-  ), Sw = y.useMemo(
-    () => Math.max(1, rs / vf),
-    [rs, vf]
-  ), Iw = Math.max(d - ni, 1), kr = Math.max(
-    K || Iw,
+  ), Iw = y.useMemo(
+    () => Math.max(1, rs / xf),
+    [rs, xf]
+  ), kw = Math.max(d - ni, 1), kr = Math.max(
+    K || kw,
     1
   ), bn = y.useCallback(
-    (I) => Sv(I, Ue, kr),
+    (I) => kv(I, Ue, kr),
     [Ue, kr]
   ), nn = y.useCallback(
-    (I) => QF(I, Ue, kr),
+    (I) => JF(I, Ue, kr),
     [Ue, kr]
-  ), bf = y.useCallback((I, D) => {
+  ), wf = y.useCallback((I, D) => {
     D ? E.current.set(I, D) : E.current.delete(I);
-  }, []), xf = y.useCallback(
+  }, []), Sf = y.useCallback(
     (I) => {
       const D = ue.current;
-      if (mC(D, I))
+      if (pC(D, I))
         return;
       const V = la.current?.duplicateOnCommit && I ? la.current.selectedKeyframeIds : null;
-      w0.flushSync(() => {
+      I0.flushSync(() => {
         de(I), Fe(V);
       });
       const G = /* @__PURE__ */ new Set([
@@ -14719,9 +14719,9 @@ const UU = y.memo(function({
     [nn]
   ), an = y.useCallback(
     (I) => {
-      xf(I);
+      Sf(I);
     },
-    [xf]
+    [Sf]
   );
   y.useEffect(() => {
     xt.current = Ie;
@@ -14751,7 +14751,7 @@ const UU = y.memo(function({
       entries: I,
       contentHeight: D
     };
-  }, [ut, ot]), wf = y.useMemo(
+  }, [ut, ot]), If = y.useMemo(
     () => Wa.entries.flatMap((I) => I.type === "group" ? I.group.frameGroups.flatMap((D) => {
       const V = nn(D.frame);
       return V === null ? [] : D.keyframes.filter(({ property: G }) => !Te(G)).map(({ keyframe: G }) => ({
@@ -14768,19 +14768,19 @@ const UU = y.memo(function({
       }];
     })),
     [nn, Te, ol, Wa.entries]
-  ), Sf = y.useRef(wf);
-  Sf.current = wf;
-  const If = y.useCallback(
-    (I) => ZF(I, Ue, kr),
+  ), kf = y.useRef(If);
+  kf.current = If;
+  const Tf = y.useCallback(
+    (I) => QF(I, Ue, kr),
     [Ue, kr]
   ), Ka = y.useCallback(
     (I) => {
       const D = ee.current;
       if (!D) return s;
       const V = D.getBoundingClientRect();
-      return zn(If(I - V.left), l);
+      return zn(Tf(I - V.left), l);
     },
-    [If, l, s]
+    [Tf, l, s]
   ), ns = y.useCallback(
     (I) => {
       const D = ee.current;
@@ -14798,7 +14798,7 @@ const UU = y.memo(function({
     },
     [Wa.contentHeight]
   ), Ui = y.useMemo(() => {
-    const I = fC(vn), D = Math.floor(Ue.startFrame / I) * I, V = [];
+    const I = mC(vn), D = Math.floor(Ue.startFrame / I) * I, V = [];
     for (let G = D; G <= Ue.endFrame; G += I)
       G >= Ue.startFrame && V.push(G);
     return V;
@@ -14819,24 +14819,24 @@ const UU = y.memo(function({
   ), on = y.useMemo(
     () => Y.some((I) => s >= I.start && s < I.end),
     [Y, s]
-  ), kf = y.useMemo(() => {
+  ), Mf = y.useMemo(() => {
     const I = [0, s];
     for (const { keyframe: D } of Ga)
       o.has(D.id) || I.push(D.frame);
     return [...new Set(I)];
-  }, [Ga, o, s]), Tf = y.useMemo(
-    () => oC / kr * vn,
+  }, [Ga, o, s]), Ff = y.useMemo(
+    () => sC / kr * vn,
     [kr, vn]
-  ), Mf = y.useCallback(
+  ), Cf = y.useCallback(
     (I) => {
       let D = I, V = 1 / 0;
-      for (const G of kf) {
+      for (const G of Mf) {
         const te = Math.abs(I - G);
-        te <= Tf && te < V && (V = te, D = G);
+        te <= Ff && te < V && (V = te, D = G);
       }
       return D;
     },
-    [kf, Tf]
+    [Mf, Ff]
   ), sl = y.useCallback(
     (I, D) => {
       Me((V) => {
@@ -14850,7 +14850,7 @@ const UU = y.memo(function({
       });
     },
     [et, Ke, ke, Me]
-  ), kw = y.useCallback(
+  ), Tw = y.useCallback(
     (I) => {
       if (sa <= 1)
         return;
@@ -14872,7 +14872,7 @@ const UU = y.memo(function({
       });
     },
     [et, sa, Ke, ke, Me]
-  ), Ff = y.useCallback(
+  ), Ef = y.useCallback(
     (I) => {
       I !== 0 && Me((D) => {
         const V = Math.max(1, D.endFrame - D.startFrame), G = Math.max(0, et - V), te = Math.max(0, Math.min(G, D.startFrame + I));
@@ -14883,9 +14883,9 @@ const UU = y.memo(function({
       });
     },
     [et, ke, Me]
-  ), Tw = y.useCallback(() => {
+  ), Mw = y.useCallback(() => {
     Me(nt());
-  }, [nt, Me]), Mw = y.useCallback(() => {
+  }, [nt, Me]), Fw = y.useCallback(() => {
     !P || ur.length === 0 || P(ur);
   }, [P, ur]), Xa = y.useCallback(
     (I, D) => {
@@ -14899,7 +14899,7 @@ const UU = y.memo(function({
           previewFrames: null,
           appliedDeltaFrames: 0
         };
-      const G = Rp({
+      const G = Dp({
         keyframesByProperty: a,
         selectedKeyframeIds: new Set(V),
         totalFrames: l,
@@ -14940,7 +14940,7 @@ const UU = y.memo(function({
       return V;
     },
     [Te, n, m]
-  ), Cf = y.useCallback(
+  ), Pf = y.useCallback(
     (I, D) => {
       if (!C || !D)
         return !1;
@@ -14994,7 +14994,7 @@ const UU = y.memo(function({
       m,
       zi
     ]
-  ), Ef = y.useCallback(() => {
+  ), Rf = y.useCallback(() => {
     if (Vt.localFrame === null || Vt.hasMixedFrames || !m) {
       On();
       return;
@@ -15027,7 +15027,7 @@ const UU = y.memo(function({
     Vt.localFrame,
     l,
     Y
-  ]), Pf = y.useCallback(() => {
+  ]), Af = y.useCallback(() => {
     if (c === null || Vt.localFrame === null || Vt.hasMixedFrames || !m) {
       On();
       return;
@@ -15058,7 +15058,7 @@ const UU = y.memo(function({
     Vt.localFrame,
     l,
     Y
-  ]), Rf = y.useCallback(
+  ]), Df = y.useCallback(
     (I, D, V) => {
       if (I.key === "Enter") {
         I.preventDefault(), re.current = D, I.currentTarget.blur(), V();
@@ -15087,13 +15087,13 @@ const UU = y.memo(function({
       }
     },
     [n, P, h, o]
-  ), Af = y.useCallback(
+  ), _f = y.useCallback(
     (I) => {
       const D = vt.get(I);
       !D || !_n(D) || (Kr(I), os([D]));
     },
     [Kr, _n, vt, os]
-  ), Df = y.useCallback(
+  ), Of = y.useCallback(
     (I) => {
       if (L || !S && !F) return;
       const D = I.rows.flatMap(
@@ -15109,12 +15109,12 @@ const UU = y.memo(function({
       }
     },
     [is, s, L, S, F]
-  ), _f = y.useCallback(
+  ), Lf = y.useCallback(
     (I) => {
       os(I.rows.filter((D) => _n(D)));
     },
     [_n, os]
-  ), Of = y.useCallback(
+  ), Bf = y.useCallback(
     (I) => {
       const D = I.currentKeyframes.filter(
         ({ property: V }) => !Te(V)
@@ -15134,15 +15134,15 @@ const UU = y.memo(function({
         }
         return;
       }
-      Df(I);
+      Of(I);
     },
-    [Df, Te, n, P, h, o]
+    [Of, Te, n, P, h, o]
   ), Za = y.useCallback(
     (I, D) => {
       !D || !O || (Kr(I), O(D.frame), h?.(/* @__PURE__ */ new Set([D.id])), Qa.current.set(I, D.id));
     },
     [Kr, O, h]
-  ), Lf = y.useCallback(
+  ), Nf = y.useCallback(
     (I, D) => {
       if (!Te(I)) {
         if (Kr(I), D.length > 0) {
@@ -15174,11 +15174,11 @@ const UU = y.memo(function({
       Kr,
       Te
     ]
-  ), Bf = y.useCallback((I, D) => {
+  ), Uf = y.useCallback((I, D) => {
     Ge((V) => ({ ...V, [I]: D }));
-  }, []), Nf = y.useCallback((I) => {
+  }, []), zf = y.useCallback((I) => {
     Te(I) || (Kr(I), gt(n, I));
-  }, [Kr, Te, n, gt]), Uf = y.useCallback(
+  }, [Kr, Te, n, gt]), jf = y.useCallback(
     (I) => {
       const D = I.rows.filter((G) => !Te(G.property));
       if (D.length === 0) return;
@@ -15265,7 +15265,7 @@ const UU = y.memo(function({
       };
     },
     [as, ns]
-  ), zf = y.useCallback(
+  ), Vf = y.useCallback(
     (I, D, V) => {
       if (L || Te(I)) return;
       if (V.preventDefault(), V.stopPropagation(), v?.(I), V.shiftKey && !V.ctrlKey && !V.metaKey) {
@@ -15313,7 +15313,7 @@ const UU = y.memo(function({
       o,
       h
     ]
-  ), jf = y.useCallback(
+  ), $f = y.useCallback(
     (I, D) => {
       if (L || D.button !== 0) return;
       const V = I.keyframes.filter(({ property: $t }) => !Te($t));
@@ -15386,10 +15386,10 @@ const UU = y.memo(function({
       }, []);
     },
     [ce, ne]
-  ), Vf = y.useCallback(
+  ), Hf = y.useCallback(
     (I) => {
       const D = Math.min(I.startX, I.currentX), V = Math.max(I.startX, I.currentX), G = Math.min(I.startY, I.currentY), te = Math.max(I.startY, I.currentY), Re = /* @__PURE__ */ new Set();
-      for (const ht of Sf.current)
+      for (const ht of kf.current)
         ht.x >= D && ht.x <= V && ht.y >= G && ht.y <= te && Re.add(ht.keyframeId);
       let Xe = /* @__PURE__ */ new Set();
       if (I.mode === "replace")
@@ -15409,7 +15409,7 @@ const UU = y.memo(function({
       });
     },
     [h]
-  ), $f = y.useCallback(
+  ), Gf = y.useCallback(
     (I, D) => {
       L || Te(I) || D.button === 0 && (D.preventDefault(), D.stopPropagation(), v?.(I), ls(
         D.pointerId,
@@ -15439,13 +15439,13 @@ const UU = y.memo(function({
       const G = la.current;
       if (!G || G.pointerId !== V.pointerId) return;
       const te = V.clientX - G.startClientX;
-      if (!G.started && Math.abs(te) > lC && (G.started = !0, G.duplicateOnCommit || k?.()), !G.started) return;
+      if (!G.started && Math.abs(te) > uC && (G.started = !0, G.duplicateOnCommit || k?.()), !G.started) return;
       const Re = te / kr * vn;
       let Xe = Math.round(Re);
       if (!V.ctrlKey && !V.metaKey) {
         const nr = G.initialFrames.get(G.anchorKeyframeId);
         if (nr !== void 0) {
-          const $t = zn(nr + Xe, l), dr = Mf($t);
+          const $t = zn(nr + Xe, l), dr = Cf($t);
           Xe += dr - $t;
         }
       }
@@ -15456,7 +15456,7 @@ const UU = y.memo(function({
       if (!(!G || G.pointerId !== V.pointerId)) {
         if (G.started) {
           const te = ue.current;
-          G.duplicateOnCommit ? Cf(G.selectedKeyframeIds, te) : (qa(G.selectedKeyframeIds, te), M?.());
+          G.duplicateOnCommit ? Pf(G.selectedKeyframeIds, te) : (qa(G.selectedKeyframeIds, te), M?.());
         }
         la.current = null, an(null);
       }
@@ -15468,7 +15468,7 @@ const UU = y.memo(function({
     L,
     Xa,
     qa,
-    Cf,
+    Pf,
     m,
     C,
     k,
@@ -15477,10 +15477,10 @@ const UU = y.memo(function({
     vn,
     l,
     me,
-    Mf,
+    Cf,
     an
   ]);
-  const us = y.useRef(null), ds = y.useRef(null), Hf = y.useCallback(
+  const us = y.useRef(null), ds = y.useRef(null), Wf = y.useCallback(
     (I) => {
       if (L) return;
       I.preventDefault(), us.current = I.pointerId, hi(I.currentTarget, I.pointerId);
@@ -15488,7 +15488,7 @@ const UU = y.memo(function({
       ds.current = D, b?.(D);
     },
     [L, b, Ka]
-  ), Gf = y.useCallback(
+  ), Kf = y.useCallback(
     (I) => {
       if (L || us.current !== I.pointerId) return;
       const D = Ka(I.clientX);
@@ -15514,10 +15514,10 @@ const UU = y.memo(function({
         let Vr = 0;
         if (V.clientY < $t) {
           const Lt = Math.min(1, ($t - V.clientY) / Ms);
-          Vr = -Math.max(1, Math.round(Lt * Dp));
+          Vr = -Math.max(1, Math.round(Lt * Op));
         } else if (V.clientY > dr) {
           const Lt = Math.min(1, (V.clientY - dr) / Ms);
-          Vr = Math.max(1, Math.round(Lt * Dp));
+          Vr = Math.max(1, Math.round(Lt * Op));
         }
         if (Vr !== 0) {
           const Lt = Math.max(0, te.scrollHeight - te.clientHeight);
@@ -15528,7 +15528,7 @@ const UU = y.memo(function({
         }
       }
       const Re = ns(V.clientX), Xe = as(V.clientY), ht = Math.abs(Re - G.startX) > pc || Math.abs(Xe - G.startY) > pc;
-      !G.started && ht && (G.started = !0), G.started && (G.currentX = Re, G.currentY = Xe, Vf(G));
+      !G.started && ht && (G.started = !0), G.started && (G.currentX = Re, G.currentY = Xe, Hf(G));
     }, D = (V) => {
       const G = ss.current;
       !G || G.pointerId !== V.pointerId || (G.started ? (ll.current = !0, setTimeout(() => {
@@ -15538,33 +15538,33 @@ const UU = y.memo(function({
     return window.addEventListener("pointermove", I), window.addEventListener("pointerup", D), () => {
       window.removeEventListener("pointermove", I), window.removeEventListener("pointerup", D);
     };
-  }, [ns, as, Vf, h]);
-  const Fw = y.useCallback(
+  }, [ns, as, Hf, h]);
+  const Cw = y.useCallback(
     (I) => {
       if (L) return;
       if (I.preventDefault(), I.ctrlKey || I.metaKey) {
         const V = Ka(I.clientX);
-        I.deltaY > 0 ? sl(V, cC) : sl(V, sC);
+        I.deltaY > 0 ? sl(V, lC) : sl(V, cC);
         return;
       }
       const D = Math.round(I.deltaY / kr * vn);
-      Ff(D);
+      Ef(D);
     },
     [
       L,
       Ka,
       sl,
-      Ff,
+      Ef,
       kr,
       Ue.endFrame,
       Ue.startFrame
     ]
-  ), Cw = Math.max(0, Math.min(kr - 1, bn(s))), Ln = y.useMemo(
+  ), Ew = Math.max(0, Math.min(kr - 1, bn(s))), Ln = y.useMemo(
     () => Tt.size === 0 ? null : ct && Tt.has(ct) ? ct : null,
     [ct, Tt]
-  ), ms = Ln ? Te(Ln) : !1, Wf = y.useCallback(() => {
+  ), ms = Ln ? Te(Ln) : !1, Xf = y.useCallback(() => {
     fe.current?.focus();
-  }, []), Ew = y.useCallback(
+  }, []), Pw = y.useCallback(
     (I) => {
       if (L || ms || ur.length === 0)
         return;
@@ -15586,7 +15586,7 @@ const UU = y.memo(function({
       P,
       ur
     ]
-  ), Kf = y.useMemo(
+  ), qf = y.useMemo(
     () => le === "graph" ? ct ? (a[ct] ?? []).map((I) => ({
       id: I.id,
       frame: I.frame,
@@ -15599,32 +15599,32 @@ const UU = y.memo(function({
       draggable: !!m && !Te(I)
     })),
     [ct, Te, a, m, o, zi, Ga, le]
-  ), Pw = y.useCallback(
-    (I, D) => Rp({
+  ), Rw = y.useCallback(
+    (I, D) => Dp({
       keyframesByProperty: a,
       selectedKeyframeIds: new Set(D),
       totalFrames: l,
       deltaFrames: I
     }),
     [a, l]
-  ), Rw = y.useCallback(
+  ), Aw = y.useCallback(
     (I) => {
       h?.(I);
     },
     [h]
-  ), Aw = y.useCallback((I) => {
+  ), Dw = y.useCallback((I) => {
     L || !m || I.length === 0 || (mt.current = I, k?.());
-  }, [L, k, m]), Dw = y.useCallback(
+  }, [L, k, m]), _w = y.useCallback(
     (I, D) => {
       mt.current = D;
       const V = Xa(D, I);
       _e(V.previewFrames);
     },
     [Xa]
-  ), _w = y.useCallback((I) => {
+  ), Ow = y.useCallback((I) => {
     const D = I.length > 0 ? I : mt.current;
     qa(D, xt.current), mt.current = [], _e(null), M?.();
-  }, [qa, M]), Xf = y.useCallback(
+  }, [qa, M]), Yf = y.useCallback(
     (I) => {
       if (Be === "frames" || !u || u <= 0)
         return String(I);
@@ -15636,17 +15636,17 @@ const UU = y.memo(function({
       return `${D.toFixed(D < 10 ? 2 : 1)}s`;
     },
     [Be, u]
-  ), qf = y.useMemo(
+  ), Zf = y.useMemo(
     () => Ui.map((I) => /* @__PURE__ */ w.jsx(
       "div",
       {
         className: "absolute inset-y-0 border-l border-border/35",
         style: { left: bn(I) },
-        children: /* @__PURE__ */ w.jsx("span", { className: "absolute top-0.5 left-1 text-[10px] text-muted-foreground", children: Xf(I) })
+        children: /* @__PURE__ */ w.jsx("span", { className: "absolute top-0.5 left-1 text-[10px] text-muted-foreground", children: Yf(I) })
       },
       I
     )),
-    [Ui, bn, Xf]
+    [Ui, bn, Yf]
   ), ps = y.useCallback(
     (I, D) => {
       const V = Te(I.property), G = Tt.has(I.property);
@@ -15681,7 +15681,7 @@ const UU = y.memo(function({
                   title: `Show ${or[I.property]} curve`,
                   "aria-label": `Show ${or[I.property]} curve`,
                   "aria-pressed": G,
-                  children: /* @__PURE__ */ w.jsx(sm, { className: Xr })
+                  children: /* @__PURE__ */ w.jsx(lm, { className: Xr })
                 }
               ),
               /* @__PURE__ */ w.jsx(
@@ -15701,7 +15701,7 @@ const UU = y.memo(function({
                   title: V ? `Unlock ${or[I.property]} row` : `Lock ${or[I.property]} row`,
                   "aria-label": V ? `Unlock ${or[I.property]} row` : `Lock ${or[I.property]} row`,
                   "aria-pressed": V,
-                  children: /* @__PURE__ */ w.jsx(im, { className: Xr })
+                  children: /* @__PURE__ */ w.jsx(sm, { className: Xr })
                 }
               ),
               /* @__PURE__ */ w.jsx(
@@ -15715,12 +15715,12 @@ const UU = y.memo(function({
                     "self-center text-muted-foreground hover:text-foreground",
                     Ae[I.property] && "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
                   ),
-                  onClick: () => Nf(I.property),
+                  onClick: () => zf(I.property),
                   disabled: L || V || !R,
                   title: Ae[I.property] ? `Auto-key enabled for ${or[I.property]}` : `Enable auto-key for ${or[I.property]}`,
                   "aria-label": Ae[I.property] ? `Auto-key enabled for ${or[I.property]}` : `Enable auto-key for ${or[I.property]}`,
                   "aria-pressed": Ae[I.property] ?? !1,
-                  children: /* @__PURE__ */ w.jsx(om, { className: Xr })
+                  children: /* @__PURE__ */ w.jsx(cm, { className: Xr })
                 }
               )
             ] }),
@@ -15731,7 +15731,7 @@ const UU = y.memo(function({
                 {
                   type: "number",
                   value: xe[I.property] ?? "",
-                  onChange: (te) => Bf(I.property, te.target.value),
+                  onChange: (te) => Uf(I.property, te.target.value),
                   onFocus: () => {
                     Kr(I.property), Se(I.property);
                   },
@@ -15781,7 +15781,7 @@ const UU = y.memo(function({
                       I.controls.hasKeyframeAtCurrentFrame ? "text-primary hover:text-primary" : "text-muted-foreground hover:text-foreground",
                       on && !I.controls.hasKeyframeAtCurrentFrame && "opacity-40 cursor-not-allowed"
                     ),
-                    onClick: () => Lf(I.property, I.controls.currentKeyframes),
+                    onClick: () => Nf(I.property, I.controls.currentKeyframes),
                     disabled: L || V || !I.controls.hasKeyframeAtCurrentFrame && (on || !S),
                     title: I.controls.hasKeyframeAtCurrentFrame ? `Remove ${or[I.property]} keyframe at playhead` : `Toggle ${or[I.property]} keyframe at playhead`,
                     "aria-label": I.controls.hasKeyframeAtCurrentFrame ? `Remove ${or[I.property]} keyframe at playhead` : `Toggle ${or[I.property]} keyframe at playhead`,
@@ -15819,12 +15819,12 @@ const UU = y.memo(function({
                   size: "sm",
                   className: "h-4 w-4 p-0 text-muted-foreground hover:text-foreground",
                   onClick: (te) => {
-                    te.stopPropagation(), Af(I.property);
+                    te.stopPropagation(), _f(I.property);
                   },
                   disabled: !_n(I),
                   title: `Clear ${or[I.property]} keyframes`,
                   "aria-label": `Clear ${or[I.property]} keyframes`,
-                  children: /* @__PURE__ */ w.jsx(am, { className: "h-[9px] w-[9px]" })
+                  children: /* @__PURE__ */ w.jsx(om, { className: "h-[9px] w-[9px]" })
                 }
               )
             ] })
@@ -15840,11 +15840,11 @@ const UU = y.memo(function({
       pr,
       Ln,
       Tt,
-      Af,
-      Nf,
+      _f,
+      zf,
       Za,
-      Lf,
-      Bf,
+      Nf,
+      Uf,
       cl,
       Te,
       on,
@@ -15882,7 +15882,7 @@ const UU = y.memo(function({
               title: `Show all ${I.label} curves`,
               "aria-label": `Show all ${I.label} curves`,
               "aria-pressed": V,
-              children: /* @__PURE__ */ w.jsx(sm, { className: Xr })
+              children: /* @__PURE__ */ w.jsx(lm, { className: Xr })
             }
           ),
           /* @__PURE__ */ w.jsx(
@@ -15906,7 +15906,7 @@ const UU = y.memo(function({
               title: G ? `Unlock ${I.label} rows` : `Lock ${I.label} rows`,
               "aria-label": G ? `Unlock ${I.label} rows` : `Lock ${I.label} rows`,
               "aria-pressed": G,
-              children: /* @__PURE__ */ w.jsx(im, { className: Xr })
+              children: /* @__PURE__ */ w.jsx(sm, { className: Xr })
             }
           ),
           /* @__PURE__ */ w.jsx(
@@ -15921,13 +15921,13 @@ const UU = y.memo(function({
                 Re && "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
               ),
               onClick: (Lt) => {
-                Lt.stopPropagation(), Uf(I);
+                Lt.stopPropagation(), jf(I);
               },
               disabled: L || te.length === 0 || !R,
               title: Re ? `Auto-key enabled for ${I.label}` : `Enable auto-key for ${I.label}`,
               "aria-label": Re ? `Auto-key enabled for ${I.label}` : `Enable auto-key for ${I.label}`,
               "aria-pressed": Re,
-              children: /* @__PURE__ */ w.jsx(om, { className: Xr })
+              children: /* @__PURE__ */ w.jsx(cm, { className: Xr })
             }
           )
         ] }),
@@ -15940,7 +15940,7 @@ const UU = y.memo(function({
             "aria-expanded": nr,
             "aria-label": `${nr ? "Collapse" : "Expand"} ${I.label}`,
             children: [
-              nr ? /* @__PURE__ */ w.jsx(md, { className: je(Xr, "flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/80") }) : /* @__PURE__ */ w.jsx(mo, { className: je(Xr, "flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/80") }),
+              nr ? /* @__PURE__ */ w.jsx(pd, { className: je(Xr, "flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/80") }) : /* @__PURE__ */ w.jsx(mo, { className: je(Xr, "flex-shrink-0 text-muted-foreground transition-colors group-hover:text-foreground/80") }),
               /* @__PURE__ */ w.jsx("span", { className: "truncate pl-px text-[9px] font-medium uppercase leading-none tracking-[0.06em] text-foreground/90", children: I.label })
             ]
           }
@@ -15975,7 +15975,7 @@ const UU = y.memo(function({
                 on && !I.hasKeyframeAtCurrentFrame && "opacity-40 cursor-not-allowed"
               ),
               onClick: (Lt) => {
-                Lt.stopPropagation(), Of(I);
+                Lt.stopPropagation(), Bf(I);
               },
               disabled: !Vr,
               title: dr ? `Remove ${I.label} keyframes at playhead` : `Toggle ${I.label} keyframes at playhead`,
@@ -16016,12 +16016,12 @@ const UU = y.memo(function({
               size: "sm",
               className: je(ln, "text-muted-foreground hover:text-foreground"),
               onClick: (Lt) => {
-                Lt.stopPropagation(), _f(I);
+                Lt.stopPropagation(), Lf(I);
               },
               disabled: !ht,
               title: `Clear all ${I.label} keyframes`,
               "aria-label": `Clear all ${I.label} keyframes`,
-              children: /* @__PURE__ */ w.jsx(am, { className: Xr })
+              children: /* @__PURE__ */ w.jsx(om, { className: Xr })
             }
           )
         ] })
@@ -16033,9 +16033,9 @@ const UU = y.memo(function({
       _n,
       L,
       ut,
-      _f,
-      Uf,
-      Of,
+      Lf,
+      jf,
+      Bf,
       Za,
       Ln,
       Tt,
@@ -16048,7 +16048,7 @@ const UU = y.memo(function({
       Ut,
       Q
     ]
-  ), Ow = y.useMemo(
+  ), Lw = y.useMemo(
     () => Wa.entries.map((I) => {
       if (I.type === "group")
         return /* @__PURE__ */ w.jsxs(
@@ -16091,7 +16091,7 @@ const UU = y.memo(function({
                             top: "50%"
                           },
                           disabled: Re.length === 0 || L,
-                          onPointerDown: (ht) => jf(G, ht),
+                          onPointerDown: (ht) => $f(G, ht),
                           onClick: (ht) => ht.stopPropagation(),
                           "aria-label": `${I.group.label} keyframe at frame ${G.frame}`,
                           children: /* @__PURE__ */ w.jsx(
@@ -16133,7 +16133,7 @@ const UU = y.memo(function({
           "div",
           {
             className: "relative border-l border-border/35 overflow-hidden",
-            onPointerDown: (G) => $f(D.property, G),
+            onPointerDown: (G) => Gf(D.property, G),
             children: [
               Ui.map((G) => /* @__PURE__ */ w.jsx(
                 "div",
@@ -16161,7 +16161,7 @@ const UU = y.memo(function({
                 return /* @__PURE__ */ w.jsx(
                   "button",
                   {
-                    ref: (Xe) => bf(G.id, Xe),
+                    ref: (Xe) => wf(G.id, Xe),
                     type: "button",
                     "data-testid": `row-keyframe-${D.property}-${G.id}`,
                     className: je(
@@ -16173,7 +16173,7 @@ const UU = y.memo(function({
                       top: "50%"
                     },
                     disabled: V || L,
-                    onPointerDown: (Xe) => zf(D.property, G.id, Xe),
+                    onPointerDown: (Xe) => Vf(D.property, G.id, Xe),
                     onClick: (Xe) => Xe.stopPropagation(),
                     "aria-label": `Keyframe at frame ${G.frame}`,
                     children: /* @__PURE__ */ w.jsx(
@@ -16217,9 +16217,9 @@ const UU = y.memo(function({
     [
       Wa.entries,
       ca,
-      $f,
+      Gf,
       dl,
-      jf,
+      $f,
       ul,
       hs,
       ps,
@@ -16231,10 +16231,10 @@ const UU = y.memo(function({
       o,
       ce,
       ne,
-      zf,
-      bf
+      Vf,
+      wf
     ]
-  ), Lw = y.useMemo(
+  ), Bw = y.useMemo(
     () => Ye.flatMap((I) => {
       const D = ut[I.id] ?? !0, V = [
         /* @__PURE__ */ w.jsx(
@@ -16251,14 +16251,14 @@ const UU = y.memo(function({
       ) : V;
     }),
     [ut, Ye, hs, ps]
-  ), Yf = We ? "No parameters match the current view" : "No keyframes to display";
+  ), Qf = We ? "No parameters match the current view" : "No keyframes to display";
   return /* @__PURE__ */ w.jsxs("div", { className: je("flex h-full flex-col gap-0 overflow-hidden", se), style: { height: f, width: d }, children: [
     /* @__PURE__ */ w.jsxs("div", { className: "flex min-h-7 flex-shrink-0 items-center justify-between gap-2 overflow-hidden px-2", children: [
       /* @__PURE__ */ w.jsxs("div", { className: "flex min-h-7 min-w-0 flex-1 flex-nowrap items-center gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden", children: [
         /* @__PURE__ */ w.jsxs("div", { className: "flex shrink-0 items-center gap-1", children: [
           /* @__PURE__ */ w.jsx("span", { className: "text-xs text-muted-foreground", children: "Parameters" }),
-          /* @__PURE__ */ w.jsxs(Tp, { children: [
-            /* @__PURE__ */ w.jsx(Mp, { asChild: !0, children: /* @__PURE__ */ w.jsx(
+          /* @__PURE__ */ w.jsxs(Fp, { children: [
+            /* @__PURE__ */ w.jsx(Cp, { asChild: !0, children: /* @__PURE__ */ w.jsx(
               Kt,
               {
                 variant: "ghost",
@@ -16266,7 +16266,7 @@ const UU = y.memo(function({
                 className: "h-7 w-7 p-0",
                 disabled: L || Ce.length === 0,
                 "aria-label": "Parameter display options",
-                children: /* @__PURE__ */ w.jsx(Jf, { className: "h-3.5 w-3.5" })
+                children: /* @__PURE__ */ w.jsx(tm, { className: "h-3.5 w-3.5" })
               }
             ) }),
             /* @__PURE__ */ w.jsxs(Cu, { align: "start", className: "w-[240px]", children: [
@@ -16339,9 +16339,9 @@ const UU = y.memo(function({
                     re.current = null;
                     return;
                   }
-                  Ef();
+                  Rf();
                 },
-                onKeyDown: (I) => Rf(I, "local", Ef),
+                onKeyDown: (I) => Df(I, "local", Rf),
                 "aria-label": "Local frame",
                 className: "h-5 w-12 px-1 text-center text-[10px] [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
                 min: 0,
@@ -16364,9 +16364,9 @@ const UU = y.memo(function({
                     re.current = null;
                     return;
                   }
-                  Pf();
+                  Af();
                 },
-                onKeyDown: (I) => Rf(I, "global", Pf),
+                onKeyDown: (I) => Df(I, "global", Af),
                 "aria-label": "Global frame",
                 className: "h-5 w-14 px-1 text-center text-[10px] [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
                 disabled: L || !m || !Vt.hasSelection || Vt.hasMixedFrames
@@ -16397,7 +16397,7 @@ const UU = y.memo(function({
                   title: I.label,
                   "aria-label": `Set interpolation to ${I.label}`,
                   "aria-pressed": D,
-                  children: /* @__PURE__ */ w.jsx(dC, { type: I.value })
+                  children: /* @__PURE__ */ w.jsx(fC, { type: I.value })
                 },
                 I.value
               );
@@ -16415,7 +16415,7 @@ const UU = y.memo(function({
               disabled: L || ur.length === 0 || !_,
               title: "Copy selected keyframes",
               "aria-label": "Copy selected keyframes",
-              children: /* @__PURE__ */ w.jsx(rk, { className: "h-3 w-3" })
+              children: /* @__PURE__ */ w.jsx(nk, { className: "h-3 w-3" })
             }
           ),
           /* @__PURE__ */ w.jsx(
@@ -16428,7 +16428,7 @@ const UU = y.memo(function({
               disabled: L || ur.length === 0 || !B,
               title: "Cut selected keyframes",
               "aria-label": "Cut selected keyframes",
-              children: /* @__PURE__ */ w.jsx(vI, { className: "h-3 w-3" })
+              children: /* @__PURE__ */ w.jsx(bI, { className: "h-3 w-3" })
             }
           ),
           /* @__PURE__ */ w.jsx(
@@ -16441,7 +16441,7 @@ const UU = y.memo(function({
               disabled: L || !U || !$,
               title: j ? "Move keyframes from clipboard" : "Paste keyframes",
               "aria-label": j ? "Move keyframes from clipboard" : "Paste keyframes",
-              children: /* @__PURE__ */ w.jsx(nk, { className: "h-3 w-3" })
+              children: /* @__PURE__ */ w.jsx(ak, { className: "h-3 w-3" })
             }
           ),
           j && U && /* @__PURE__ */ w.jsx("span", { className: "pl-0.5 text-[10px] font-medium text-amber-500", children: "Cut" })
@@ -16453,41 +16453,41 @@ const UU = y.memo(function({
               variant: "ghost",
               size: "sm",
               className: "h-6 w-6 p-0 text-destructive hover:text-destructive",
-              onClick: Mw,
+              onClick: Fw,
               disabled: L || ur.length === 0 || !P,
               title: "Remove selected keyframes",
-              children: /* @__PURE__ */ w.jsx(H0, { className: "h-3 w-3" })
+              children: /* @__PURE__ */ w.jsx(W0, { className: "h-3 w-3" })
             }
           ),
           /* @__PURE__ */ w.jsx("div", { className: "mx-0.5 h-3.5 w-px bg-border/80" }),
           /* @__PURE__ */ w.jsx(
-            Lp,
+            Np,
             {
-              icon: /* @__PURE__ */ w.jsx(bI, { className: "h-3 w-3" }),
+              icon: /* @__PURE__ */ w.jsx(xI, { className: "h-3 w-3" }),
               label: "Horizontal zoom",
-              value: ww,
+              value: Sw,
               disabled: L || sa <= 1,
-              onValueChange: kw,
-              onReset: Tw
+              onValueChange: Tw,
+              onReset: Mw
             }
           ),
           le === "graph" && /* @__PURE__ */ w.jsxs(w.Fragment, { children: [
             /* @__PURE__ */ w.jsx("div", { className: "mx-0.5 h-3.5 w-px bg-border/80" }),
             /* @__PURE__ */ w.jsx(
-              Lp,
+              Np,
               {
-                icon: /* @__PURE__ */ w.jsx(xI, { className: "h-3 w-3" }),
+                icon: /* @__PURE__ */ w.jsx(wI, { className: "h-3 w-3" }),
                 label: "Vertical zoom",
                 value: Yt,
-                disabled: L || ts.length === 0 || Sw <= 1,
+                disabled: L || ts.length === 0 || Iw <= 1,
                 onValueChange: Ft,
                 onReset: () => Ft(0)
               }
             )
           ] })
         ] }),
-        /* @__PURE__ */ w.jsxs(Tp, { children: [
-          /* @__PURE__ */ w.jsx(Mp, { asChild: !0, children: /* @__PURE__ */ w.jsx(
+        /* @__PURE__ */ w.jsxs(Fp, { children: [
+          /* @__PURE__ */ w.jsx(Cp, { asChild: !0, children: /* @__PURE__ */ w.jsx(
             Kt,
             {
               variant: "ghost",
@@ -16496,7 +16496,7 @@ const UU = y.memo(function({
               disabled: L,
               "aria-label": le === "graph" ? "Graph view options" : "Sheet view options",
               title: le === "graph" ? "Graph view options" : "Sheet view options",
-              children: /* @__PURE__ */ w.jsx(Jf, { className: "h-3 w-3" })
+              children: /* @__PURE__ */ w.jsx(tm, { className: "h-3 w-3" })
             }
           ) }),
           /* @__PURE__ */ w.jsxs(Cu, { align: "end", className: "w-[220px]", children: [
@@ -16562,7 +16562,7 @@ const UU = y.memo(function({
           "relative flex-1 min-h-0 overflow-hidden rounded-lg bg-muted/10 ring-1 ring-border/25",
           L && "opacity-60 pointer-events-none"
         ),
-        onWheel: le === "dopesheet" ? Fw : void 0,
+        onWheel: le === "dopesheet" ? Cw : void 0,
         children: [
           /* @__PURE__ */ w.jsx(
             "div",
@@ -16575,7 +16575,7 @@ const UU = y.memo(function({
                 {
                   "data-testid": "dopesheet-playhead-line",
                   className: "absolute top-0 bottom-0 w-px bg-primary/80",
-                  style: { left: Cw }
+                  style: { left: Ew }
                 }
               )
             }
@@ -16590,21 +16590,21 @@ const UU = y.memo(function({
                   ref: ee,
                   className: "relative cursor-ew-resize overflow-hidden border-l border-border/30",
                   style: { height: ai },
-                  onPointerDown: Hf,
-                  onPointerMove: Gf,
+                  onPointerDown: Wf,
+                  onPointerMove: Kf,
                   onPointerUp: fs,
                   onPointerCancel: fs,
-                  children: qf
+                  children: Zf
                 }
               )
             ] }),
-            yt.length === 0 ? /* @__PURE__ */ w.jsx("div", { className: "flex items-center justify-center h-full text-sm text-muted-foreground", children: Yf }) : /* @__PURE__ */ w.jsxs("div", { className: "flex min-h-0", style: { height: `calc(100% - ${ai}px)` }, children: [
+            yt.length === 0 ? /* @__PURE__ */ w.jsx("div", { className: "flex items-center justify-center h-full text-sm text-muted-foreground", children: Qf }) : /* @__PURE__ */ w.jsxs("div", { className: "flex min-h-0", style: { height: `calc(100% - ${ai}px)` }, children: [
               /* @__PURE__ */ w.jsx(
                 "div",
                 {
                   className: "flex-shrink-0 overflow-x-hidden overflow-y-auto",
                   style: { width: ni },
-                  children: Lw
+                  children: Bw
                 }
               ),
               /* @__PURE__ */ w.jsx(
@@ -16614,11 +16614,11 @@ const UU = y.memo(function({
                   "data-testid": "dopesheet-graph-pane",
                   tabIndex: L || ms ? void 0 : -1,
                   className: "min-w-0 flex-1 border-l border-border/25 outline-none",
-                  onMouseEnter: Wf,
-                  onPointerDownCapture: Wf,
-                  onKeyDown: Ew,
+                  onMouseEnter: Xf,
+                  onPointerDownCapture: Xf,
+                  onKeyDown: Pw,
                   children: q.width > 0 && q.height > 0 && Tt.size > 0 ? /* @__PURE__ */ w.jsx(
-                    DF,
+                    _F,
                     {
                       frameViewport: Ue,
                       onFrameViewportChange: Me,
@@ -16634,7 +16634,7 @@ const UU = y.memo(function({
                       height: q.height,
                       onKeyframeMove: m,
                       previewFramesById: Ie,
-                      constrainFrameDelta: Pw,
+                      constrainFrameDelta: Rw,
                       onBezierHandleMove: p,
                       onSelectionChange: h,
                       onPropertyChange: g,
@@ -16671,11 +16671,11 @@ const UU = y.memo(function({
                   ref: ee,
                   className: "relative cursor-ew-resize overflow-hidden border-l border-border/30",
                   style: { height: ai },
-                  onPointerDown: Hf,
-                  onPointerMove: Gf,
+                  onPointerDown: Wf,
+                  onPointerMove: Kf,
                   onPointerUp: fs,
                   onPointerCancel: fs,
-                  children: qf
+                  children: Zf
                 }
               )
             ] }),
@@ -16685,7 +16685,7 @@ const UU = y.memo(function({
                 ref: Z,
                 className: "dopesheet-scroll-area overflow-auto",
                 style: { height: `calc(100% - ${ai}px)` },
-                children: it.length === 0 ? /* @__PURE__ */ w.jsx("div", { className: "flex items-center justify-center h-full text-sm text-muted-foreground", children: Yf }) : /* @__PURE__ */ w.jsxs("div", { className: "relative min-h-full", children: [
+                children: it.length === 0 ? /* @__PURE__ */ w.jsx("div", { className: "flex items-center justify-center h-full text-sm text-muted-foreground", children: Qf }) : /* @__PURE__ */ w.jsxs("div", { className: "relative min-h-full", children: [
                   /* @__PURE__ */ w.jsx(
                     "div",
                     {
@@ -16695,9 +16695,9 @@ const UU = y.memo(function({
                       onPointerDown: dl
                     }
                   ),
-                  /* @__PURE__ */ w.jsx("div", { className: "relative z-10", children: Ow }),
+                  /* @__PURE__ */ w.jsx("div", { className: "relative z-10", children: Lw }),
                   ye && !ll.current && /* @__PURE__ */ w.jsx(
-                    MF,
+                    FF,
                     {
                       rect: {
                         ...ye,
@@ -16715,17 +16715,17 @@ const UU = y.memo(function({
     le === "graph" && /* @__PURE__ */ w.jsxs("div", { className: "grid", style: ca, children: [
       /* @__PURE__ */ w.jsx("div", { className: "h-4 border-t border-border/25 bg-muted/10" }),
       /* @__PURE__ */ w.jsx("div", { "data-testid": "keyframe-timing-strip-viewport-column", children: /* @__PURE__ */ w.jsx(
-        nC,
+        aC,
         {
           viewport: Ue,
           contentFrameMax: et,
-          markers: Kf,
+          markers: qf,
           previewFrames: Ie,
-          disabled: L || Kf.length === 0,
-          onSelectionChange: Rw,
-          onSlideStart: Aw,
-          onSlideChange: Dw,
-          onSlideEnd: _w
+          disabled: L || qf.length === 0,
+          onSelectionChange: Aw,
+          onSlideStart: Dw,
+          onSlideChange: _w,
+          onSlideEnd: Ow
         }
       ) })
     ] }),
@@ -16738,7 +16738,7 @@ const UU = y.memo(function({
         }
       ),
       /* @__PURE__ */ w.jsx("div", { "data-testid": "keyframe-navigator-viewport-column", children: /* @__PURE__ */ w.jsx(
-        tC,
+        rC,
         {
           viewport: Ue,
           currentFrame: s,
@@ -16758,7 +16758,7 @@ function Ne(e, t, r) {
   return Qr.getState().execute({ type: e, payload: r }, t);
 }
 function lr(e, t) {
-  const r = J.getState().items, n = Je.getState().transitions, { valid: a, repaired: i, broken: o } = JM(
+  const r = J.getState().items, n = Je.getState().transitions, { valid: a, repaired: i, broken: o } = eF(
     e,
     r,
     n,
@@ -16767,7 +16767,7 @@ function lr(e, t) {
   if (Je.getState().setTransitions([...a, ...s]), i.length > 0)
     for (const c of i)
       cr().info(`[TransitionRepair] ${c.action}`);
-  o.length > 0 && VM("timeline.transitionBreakagesDetected", {
+  o.length > 0 && $M("timeline.transitionBreakagesDetected", {
     breakages: [...o]
   });
 }
@@ -16775,7 +16775,7 @@ function _i(e, t) {
   const n = J.getState().items.find((o) => o.id === e);
   if (!n) return !1;
   const a = Je.getState().transitions;
-  return sF(t, e, n, a) === void 0;
+  return cF(t, e, n, a) === void 0;
 }
 function Oi() {
   return {
@@ -16785,7 +16785,7 @@ function Oi() {
     keyframes: bt.getState().keyframes
   };
 }
-function Ev(e) {
+function Rv(e) {
   const t = Zt.getState();
   if (t.activeCompositionId === null)
     return {
@@ -16817,24 +16817,24 @@ function Eu(e) {
     keyframes: e.keyframes
   });
 }
-function gC(e, t) {
+function yC(e, t) {
   return e.length === 0 ? 0 : Math.max(
     t,
     ...e.map((r) => r.from + r.durationInFrames)
   );
 }
-function yC(e) {
+function vC(e) {
   Ne("SET_TRACKS", () => {
     J.getState().setTracks(e), he.getState().markDirty();
   }, { count: e.length });
 }
-const Bp = 320;
-function Np(e, t, r) {
+const Up = 320;
+function zp(e, t, r) {
   if (!Number.isFinite(e)) return t;
-  const n = e === Bp && t !== Bp ? t : e;
+  const n = e === Up && t !== Up ? t : e;
   return Math.min(r.maxWidth, Math.max(r.minWidth, n));
 }
-function Up(e, t) {
+function jp(e, t) {
   try {
     const r = localStorage.getItem(e);
     if (r !== null) {
@@ -16853,8 +16853,8 @@ const mr = Mt((e) => ({
   lastLibraryTab: "media",
   activeTab: "media",
   clipInspectorTab: "video",
-  sidebarWidth: Up("editor:sidebarWidth", Nr.leftSidebarDefaultWidth),
-  rightSidebarWidth: Up("editor:rightSidebarWidth", Nr.rightSidebarDefaultWidth),
+  sidebarWidth: jp("editor:sidebarWidth", Nr.leftSidebarDefaultWidth),
+  rightSidebarWidth: jp("editor:rightSidebarWidth", Nr.rightSidebarDefaultWidth),
   timelineHeight: 250,
   sourcePreviewMediaId: null,
   mediaSkimPreviewMediaId: null,
@@ -16931,15 +16931,15 @@ const mr = Mt((e) => ({
   syncSidebarLayout: (t) => e((r) => {
     const n = typeof t == "string" ? jc(t) : t;
     return {
-      sidebarWidth: Np(
+      sidebarWidth: zp(
         r.sidebarWidth,
         n.leftSidebarDefaultWidth,
-        uy(n)
+        fy(n)
       ),
-      rightSidebarWidth: Np(
+      rightSidebarWidth: zp(
         r.rightSidebarWidth,
         n.rightSidebarDefaultWidth,
-        dy(n)
+        my(n)
       )
     };
   }),
@@ -17016,21 +17016,21 @@ const mr = Mt((e) => ({
     }
     return { mediaFullColumn: r };
   })
-})), jd = /* @__PURE__ */ new Map();
+})), Vd = /* @__PURE__ */ new Map();
 function Zs(e, t) {
-  jd.set(e, t);
+  Vd.set(e, t);
 }
-function vC(e) {
-  return jd.get(e) ?? null;
+function bC(e) {
+  return Vd.get(e) ?? null;
 }
 function oo(e) {
-  jd.delete(e);
+  Vd.delete(e);
 }
-const Fs = "proxies", bC = 3, $r = He("ProxyService");
+const Fs = "proxies", xC = 3, $r = He("ProxyService");
 function ii(e) {
   oo(e), URL.revokeObjectURL(e);
 }
-const xC = 1920, wC = 1080, SC = /* @__PURE__ */ new Set([
+const wC = 1920, SC = 1080, IC = /* @__PURE__ */ new Set([
   "ac-3",
   "ac3",
   "ec-3",
@@ -17056,7 +17056,7 @@ const xC = 1920, wC = 1080, SC = /* @__PURE__ */ new Set([
   "sowt",
   "lpcm"
 ]);
-class IC {
+class kC {
   proxyBlobUrlByKey = /* @__PURE__ */ new Map();
   sourceBlobUrlByProxyKey = /* @__PURE__ */ new Map();
   proxyKeyByMediaId = /* @__PURE__ */ new Map();
@@ -17069,7 +17069,7 @@ class IC {
     createWorker: () => new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/proxy-generation-worker-BYSOLsXQ.js", import.meta.url).href,
+        "" + new URL("assets/proxy-generation-worker-BLqmPKpo.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
@@ -17126,7 +17126,7 @@ class IC {
   needsProxy(t, r, n, a) {
     if (!n.startsWith("video/")) return !1;
     const i = (a ?? "").toLowerCase();
-    return SC.has(i) ? !0 : t > xC || r > wC;
+    return IC.has(i) ? !0 : t > wC || r > SC;
   }
   /**
    * Start proxy generation for a media item
@@ -17216,7 +17216,7 @@ class IC {
         try {
           const c = await a.getDirectoryHandle(s), u = await (await c.getFileHandle("meta.json")).getFile(), d = JSON.parse(await u.text());
           if (d.status !== "ready") continue;
-          if (d.version !== bC) {
+          if (d.version !== xC) {
             const h = this.mediaIdsByProxyKey.get(s);
             h && h.size > 0 ? r.push(...h) : $r.debug(`Stale proxy ${s} has no mapped media ids; deleting stale file only`);
             try {
@@ -17343,8 +17343,8 @@ class IC {
     this.statusListener?.(t, r, n);
   }
 }
-const vr = new IC();
-function zp(e) {
+const vr = new kC();
+function Vp(e) {
   let t = 2166136261;
   for (let r = 0; r < e.length; r++)
     t ^= e.charCodeAt(r), t += (t << 1) + (t << 4) + (t << 7) + (t << 8) + (t << 24);
@@ -17354,7 +17354,7 @@ function Aa(e) {
   if (e.contentHash)
     return `h-${e.contentHash}`;
   if (e.storageType === "opfs" && e.opfsPath)
-    return `o-${zp(e.opfsPath)}-${e.fileSize}`;
+    return `o-${Vp(e.opfsPath)}-${e.fileSize}`;
   const t = [
     e.fileName,
     e.fileSize,
@@ -17363,9 +17363,9 @@ function Aa(e) {
     e.width,
     e.height
   ].join("|");
-  return `f-${zp(t)}-${e.fileSize}-${e.fileLastModified ?? 0}`;
+  return `f-${Vp(t)}-${e.fileSize}-${e.fileLastModified ?? 0}`;
 }
-const Pv = [
+const Av = [
   "video/mp4",
   "video/webm",
   "video/quicktime",
@@ -17376,7 +17376,7 @@ const Pv = [
   // .mkv files (alternate browser MIME)
   "video/x-msvideo"
   // .avi files
-], Rv = [
+], Dv = [
   "audio/mp3",
   "audio/mpeg",
   // MP3 also uses audio/mpeg
@@ -17391,7 +17391,7 @@ const Pv = [
   "audio/webm",
   // Opus or Vorbis in WebM (browser and Android recordings)
   "audio/flac"
-], Av = [
+], _v = [
   "image/jpeg",
   "image/jpg",
   "image/png",
@@ -17399,14 +17399,14 @@ const Pv = [
   "image/webp",
   "image/svg+xml"
   // .svg files
-], kC = /* @__PURE__ */ new Set([
+], TC = /* @__PURE__ */ new Set([
   "",
   "application/octet-stream",
   "binary/octet-stream"
-]), TC = /* @__PURE__ */ new Set([
+]), MC = /* @__PURE__ */ new Set([
   ".mkv",
   ".m4a"
-]), MC = {
+]), FC = {
   "audio/x-wav": "audio/wav",
   "audio/wave": "audio/wav",
   "audio/vnd.wave": "audio/wav",
@@ -17425,7 +17425,7 @@ const Pv = [
   "video/mkv": "video/x-matroska",
   "video/avi": "video/x-msvideo",
   "image/pjpeg": "image/jpeg"
-}, FC = {
+}, CC = {
   // Video
   ".mp4": "video/mp4",
   ".webm": "video/webm",
@@ -17454,34 +17454,34 @@ const Pv = [
   ".svg": "image/svg+xml"
 };
 function Zr(e) {
-  const t = e.name.toLowerCase().match(/\.[^.]+$/)?.[0], r = t ? FC[t] : void 0;
-  return t && r && TC.has(t) ? r : kC.has(e.type) ? r || "" : MC[e.type] ?? e.type;
+  const t = e.name.toLowerCase().match(/\.[^.]+$/)?.[0], r = t ? CC[t] : void 0;
+  return t && r && MC.has(t) ? r : TC.has(e.type) ? r || "" : FC[e.type] ?? e.type;
 }
-function Dv(e) {
-  return Pv.includes(e) || Rv.includes(e) || Av.includes(e);
+function Ov(e) {
+  return Av.includes(e) || Dv.includes(e) || _v.includes(e);
 }
 function Or(e, t, r = 0) {
   if (e.length < r + t.length) return !1;
   for (let n = 0; n < t.length; n++) if (e[r + n] !== t.charCodeAt(n)) return !1;
   return !0;
 }
-function CC(e) {
+function EC(e) {
   if (Or(e, "ftyp", 4)) {
     const t = String.fromCharCode(...e.subarray(8, 12));
     return t === "qt  " ? "video/quicktime" : t.startsWith("M4A") || t.startsWith("M4B") ? "audio/mp4" : "video/mp4";
   }
   return Or(e, "Eß£") ? "video/webm" : Or(e, "RIFF") && Or(e, "WAVE", 8) ? "audio/wav" : Or(e, "RIFF") && Or(e, "AVI ", 8) ? "video/x-msvideo" : Or(e, "RIFF") && Or(e, "WEBP", 8) ? "image/webp" : Or(e, "OggS") ? "audio/ogg" : Or(e, "fLaC") ? "audio/flac" : Or(e, "ID3") ? "audio/mpeg" : e[0] === 255 && ((e[1] ?? 0) & 246) === 240 ? "audio/aac" : e[0] === 255 && ((e[1] ?? 0) & 224) === 224 ? "audio/mpeg" : Or(e, "PNG") ? "image/png" : e[0] === 255 && e[1] === 216 ? "image/jpeg" : Or(e, "GIF8") ? "image/gif" : null;
 }
-async function EC(e) {
-  if (Dv(Zr(e))) return e;
-  const t = CC(new Uint8Array(await e.slice(0, 16).arrayBuffer()));
+async function PC(e) {
+  if (Ov(Zr(e))) return e;
+  const t = EC(new Uint8Array(await e.slice(0, 16).arrayBuffer()));
   return t ? new File([e], e.name, { type: t, lastModified: e.lastModified }) : e;
 }
-function _v(e) {
+function Lv(e) {
   if (e.size === 0)
     return { valid: !1, error: "File is empty" };
   const t = Zr(e);
-  return Dv(t) ? e.name.length > 255 ? {
+  return Ov(t) ? e.name.length > 255 ? {
     valid: !1,
     error: "Filename too long (max 255 characters)"
   } : { valid: !0 } : {
@@ -17489,33 +17489,33 @@ function _v(e) {
     error: `Unsupported file type: ${t || e.name.split(".").pop()}. Supported types: video (mp4, 3gp, webm, mov, mkv, avi), audio (mp3, wav, aac, m4a, ogg/opus, webm, flac), image (jpg/jpeg, png, gif, webp, svg)`
   };
 }
-function Vd(e) {
-  return Pv.includes(e) ? "video" : Rv.includes(e) ? "audio" : Av.includes(e) ? "image" : "unknown";
+function $d(e) {
+  return Av.includes(e) ? "video" : Dv.includes(e) ? "audio" : _v.includes(e) ? "image" : "unknown";
 }
-function zU(e) {
+function $U(e) {
   if (isNaN(e) || e < 0)
     return "0:00";
   const t = Math.floor(e / 3600), r = Math.floor(e % 3600 / 60), n = Math.floor(e % 60);
   return t > 0 ? `${t}:${String(r).padStart(2, "0")}:${String(n).padStart(2, "0")}` : `${r}:${String(n).padStart(2, "0")}`;
 }
-const PC = "brave://flags/#file-system-access-api";
-function RC() {
+const RC = "brave://flags/#file-system-access-api";
+function AC() {
   return typeof navigator < "u" && "brave" in navigator;
 }
-function AC() {
+function DC() {
   return typeof window < "u" && typeof window.showOpenFilePicker == "function";
 }
-function DC(e) {
-  return AC() ? null : RC() ? {
+function _C(e) {
+  return DC() ? null : AC() ? {
     message: "Brave disables the File System Access API by default. Copy the URL below, paste it in the address bar, set the flag to Enabled, and relaunch Brave.",
-    flagUrl: PC
+    flagUrl: RC
   } : {
     message: "File picker not supported in this browser. Use Chrome or Edge.",
     flagUrl: null
   };
 }
 const Qs = He("MediaImport");
-function jp(e, t, r, n) {
+function $p(e, t, r, n) {
   const a = [], i = [], o = [];
   let s = 0, c = 0;
   const l = [];
@@ -17551,7 +17551,7 @@ function jp(e, t, r, n) {
     }
   return l.length > 0 && r({ error: l.length === 1 ? `Could not import ${l[0]}` : `Could not import ${l.length} files. ${l.join("; ")}`, errorLink: null }), { results: a, importedCount: s, duplicateNames: i, unsupportedCodecFiles: o, failedCount: c };
 }
-function Vp(e, t, r) {
+function Hp(e, t, r) {
   if (e.length > 0) {
     const n = e.length === 1 ? `"${e[0]}" already exists in library` : `${e.length} files already exist in library`;
     r().showNotification({ type: "info", message: n });
@@ -17566,7 +17566,7 @@ function Vp(e, t, r) {
     });
   }
 }
-function _C(e, t) {
+function OC(e, t) {
   const r = async (a) => {
     const i = [];
     for (const o of a) {
@@ -17600,7 +17600,7 @@ function _C(e, t) {
     const { currentProjectId: o } = t();
     if (!o)
       return e({ error: "No project selected" }), [];
-    const s = Qf(), c = Qs.startEvent("import", s);
+    const s = em(), c = Qs.startEvent("import", s);
     c.merge({
       source: "drag-drop",
       projectId: o,
@@ -17611,8 +17611,8 @@ function _C(e, t) {
         g,
         o
       ), tempId: v, file: b, handle: g }))
-    ), { results: d, importedCount: f, duplicateNames: m, unsupportedCodecFiles: p, failedCount: h } = jp(u, l, e, i);
-    return Vp(m, p, t), c.success({
+    ), { results: d, importedCount: f, duplicateNames: m, unsupportedCodecFiles: p, failedCount: h } = $p(u, l, e, i);
+    return Hp(m, p, t), c.success({
       imported: f,
       duplicates: m.length,
       failed: h,
@@ -17624,10 +17624,10 @@ function _C(e, t) {
       const { currentProjectId: a } = t();
       if (!a)
         return e({ error: "No project selected" }), [];
-      const i = DC();
+      const i = _C();
       if (i)
         return e({ error: i.message, errorLink: i.flagUrl }), [];
-      const o = Qf(), s = Qs.startEvent("import", o);
+      const o = em(), s = Qs.startEvent("import", o);
       s.set("source", "picker"), s.set("projectId", a);
       try {
         const c = await window.showOpenFilePicker({
@@ -17649,8 +17649,8 @@ function _C(e, t) {
             g,
             a
           ), tempId: v, file: b, handle: g }))
-        ), { results: d, importedCount: f, duplicateNames: m, unsupportedCodecFiles: p, failedCount: h } = jp(u, l, e);
-        return Vp(m, p, t), s.success({
+        ), { results: d, importedCount: f, duplicateNames: m, unsupportedCodecFiles: p, failedCount: h } = $p(u, l, e);
+        return Hp(m, p, t), s.success({
           imported: f,
           duplicates: m.length,
           failed: h,
@@ -17664,8 +17664,8 @@ function _C(e, t) {
     importHandlesForPlacement: async (a) => n(a, { includeDuplicatesInResults: !0 })
   };
 }
-const $p = He("BlobUrlManager");
-class OC {
+const Gp = He("BlobUrlManager");
+class LC {
   entries = /* @__PURE__ */ new Map();
   version = 0;
   listeners = /* @__PURE__ */ new Set();
@@ -17718,7 +17718,7 @@ class OC {
    */
   release(t) {
     const r = this.entries.get(t);
-    r && (r.refCount--, r.refCount <= 0 && (oo(r.url), URL.revokeObjectURL(r.url), this.entries.delete(t), this.notify(), $p.debug(`Revoked blob URL for media ${t}`)));
+    r && (r.refCount--, r.refCount <= 0 && (oo(r.url), URL.revokeObjectURL(r.url), this.entries.delete(t), this.notify(), Gp.debug(`Revoked blob URL for media ${t}`)));
   }
   /**
    * Revoke and remove all blob URLs regardless of reference count.
@@ -17735,7 +17735,7 @@ class OC {
    */
   releaseAll() {
     for (const [t, r] of this.entries)
-      oo(r.url), URL.revokeObjectURL(r.url), $p.debug(`Revoked blob URL for media ${t}`);
+      oo(r.url), URL.revokeObjectURL(r.url), Gp.debug(`Revoked blob URL for media ${t}`);
     this.entries.clear(), this.notify();
   }
   /**
@@ -17745,11 +17745,11 @@ class OC {
     return this.entries.size;
   }
 }
-const xr = new OC();
-function Ov() {
+const xr = new LC();
+function Bv() {
   return y.useSyncExternalStore(xr.subscribe, xr.getSnapshot);
 }
-function LC(e, t) {
+function BC(e, t) {
   return {
     // Delete a media item (v3: project-scoped with reference counting)
     deleteMedia: async (r) => {
@@ -17799,7 +17799,7 @@ function LC(e, t) {
   };
 }
 const oi = He("MediaRelinkingActions");
-function BC(e, t) {
+function NC(e, t) {
   return {
     markMediaBroken: (r, n) => {
       e((a) => {
@@ -17899,7 +17899,7 @@ function BC(e, t) {
           const s = a.fps > 0 ? a.fps : i;
           o.sourceFps = s, o.sourceDuration = Math.round(a.duration * s);
         }
-        return D2(r, o), oi.debug(
+        return L2(r, o), oi.debug(
           `[relinkOrphanedClip] Relinked clip ${r} to media ${n}`
         ), e((s) => ({
           orphanedClips: s.orphanedClips.filter(
@@ -17918,7 +17918,7 @@ function BC(e, t) {
     },
     removeOrphanedClips: (r) => {
       try {
-        A2(r), e((n) => ({
+        O2(r), e((n) => ({
           orphanedClips: n.orphanedClips.filter(
             (a) => !r.includes(a.itemId)
           )
@@ -17932,11 +17932,11 @@ function BC(e, t) {
     }
   };
 }
-function Lv(e) {
+function Nv(e) {
   return Math.max(0, Math.min(1, e));
 }
 function Pu(e) {
-  const t = Lv(e.progress);
+  const t = Nv(e.progress);
   switch (e.stage) {
     case "loading":
       return t * 0.35;
@@ -17946,17 +17946,17 @@ function Pu(e) {
       return 0.7 + t * 0.3;
   }
 }
-function jU(e) {
+function HU(e) {
   return Pu(e) * 100;
 }
-function NC(e, t) {
+function UC(e, t) {
   const r = {
     stage: t.stage,
-    progress: Lv(t.progress)
+    progress: Nv(t.progress)
   };
   return e ? Pu(r) >= Pu(e) ? r : e : r;
 }
-function VU(e) {
+function GU(e) {
   switch (e) {
     case "loading":
       return "Loading model";
@@ -17968,14 +17968,14 @@ function VU(e) {
 }
 const si = He("MediaLibraryStore");
 let un = null;
-function Bv(e) {
+function Uv(e) {
   const t = {};
   for (const r of e)
     t[r.id] = r;
   return t;
 }
 const qt = Mt()(
-  S0(
+  k0(
     (e, t) => ({
       // Initial state
       currentProjectId: null,
@@ -18069,11 +18069,11 @@ const qt = Mt()(
           const n = await tr.getMediaForProject(r);
           e({
             mediaItems: n,
-            mediaById: Bv(n),
+            mediaById: Uv(n),
             isLoading: !1
           });
           try {
-            const a = await Sd(n.map((o) => o.id)), i = /* @__PURE__ */ new Map();
+            const a = await Id(n.map((o) => o.id)), i = /* @__PURE__ */ new Map();
             for (const o of n)
               i.set(o.id, a.has(o.id) ? "ready" : "idle");
             e({
@@ -18139,9 +18139,9 @@ const qt = Mt()(
         }
       },
       // Extracted action groups
-      ..._C(e, t),
-      ...LC(e, t),
+      ...OC(e, t),
       ...BC(e, t),
+      ...NC(e, t),
       // Selection management
       setSelection: ({ mediaIds: r, compositionIds: n }) => e({
         selectedMediaIds: r,
@@ -18222,7 +18222,7 @@ const qt = Mt()(
           const i = new Map(a.transcriptProgress);
           return i.set(
             r,
-            NC(i.get(r), n)
+            UC(i.get(r), n)
           ), { transcriptProgress: i };
         });
       },
@@ -18239,15 +18239,15 @@ const qt = Mt()(
     }
   )
 );
-let Hp = qt.getState().mediaItems;
+let Wp = qt.getState().mediaItems;
 qt.subscribe((e) => {
-  e.mediaItems !== Hp && (Hp = e.mediaItems, qt.setState({ mediaById: Bv(e.mediaItems) }));
+  e.mediaItems !== Wp && (Wp = e.mediaItems, qt.setState({ mediaById: Uv(e.mediaItems) }));
 });
 vr.onStatusChange((e, t, r) => {
   const n = qt.getState();
   n.setProxyStatus(e, t), r !== void 0 && n.setProxyProgress(e, r);
 });
-const $U = () => {
+const WU = () => {
   const e = qt((o) => o.mediaItems), t = qt((o) => o.searchQuery), r = qt((o) => o.filterByType), n = qt((o) => o.sortBy);
   let a = e;
   if (t) {
@@ -18272,8 +18272,8 @@ const $U = () => {
         return 0;
     }
   });
-}, Gp = He("MediaProcessorService");
-class UC {
+}, Kp = He("MediaProcessorService");
+class zC {
   requestId = 0;
   pendingRequests = /* @__PURE__ */ new Map();
   workerManager = Go({
@@ -18288,7 +18288,7 @@ class UC {
     setupWorker: (t) => (t.onmessage = (r) => {
       this.handleMessage(r.data);
     }, t.onerror = (r) => {
-      Gp.error("Media processor worker error:", r.message), this.workerManager.terminate();
+      Kp.error("Media processor worker error:", r.message), this.workerManager.terminate();
       for (const [n, a] of this.pendingRequests)
         a.reject(new Error(`Worker error: ${r.message}`)), this.pendingRequests.delete(n);
     }, () => {
@@ -18307,7 +18307,7 @@ class UC {
   handleMessage(t) {
     const r = this.pendingRequests.get(t.requestId);
     if (!r) {
-      Gp.warn("Received response for unknown request:", t.requestId);
+      Kp.warn("Received response for unknown request:", t.requestId);
       return;
     }
     this.pendingRequests.delete(t.requestId), t.type === "error" ? r.reject(new Error(t.error || "Unknown error")) : t.type === "complete" && t.metadata ? r.resolve({
@@ -18406,7 +18406,7 @@ class UC {
       r.reject(new Error("Worker disposed")), this.pendingRequests.delete(t);
   }
 }
-const so = new UC();
+const so = new zC();
 Mt((e) => ({
   runtimesById: {},
   registerRuntime: (t) => e((r) => ({
@@ -18436,36 +18436,36 @@ Mt((e) => ({
   }),
   clearRuntimes: () => e({ runtimesById: {} })
 }));
-const zC = "Local inference unloaded";
-function HU(e) {
-  return e instanceof Error && e.message === zC;
+const jC = "Local inference unloaded";
+function KU(e) {
+  return e instanceof Error && e.message === jC;
 }
-function Nv(e) {
+function zv(e) {
   return e.map((t) => ({
     text: t.text.trim(),
     start: Math.max(0, t.start),
     end: Math.max(t.start, t.end)
   })).filter((t) => t.text.length > 0 && t.end > t.start);
 }
-function Uv(e, t) {
+function jv(e, t) {
   return Math.max(0, Math.floor(e * t));
 }
-function zv(e, t) {
+function Vv(e, t) {
   return Math.max(0, Math.ceil(e * t));
 }
-function jv(e, t, r, n) {
+function $v(e, t, r, n) {
   if (e <= 0)
     return 0;
   const a = e / r;
   return Math.max(0, Math.floor(a * n / t));
 }
-function Vv(e, t, r, n) {
+function Hv(e, t, r, n) {
   if (e <= 0)
     return 0;
   const a = e / r;
   return Math.max(0, Math.ceil(a * n / t));
 }
-function $v(e, t) {
+function Gv(e, t) {
   const r = e.speed ?? 1, n = e.sourceStart ?? 0, a = e.sourceFps ?? t, i = n + Bt(
     e.durationInFrames,
     r,
@@ -18479,22 +18479,22 @@ function $v(e, t) {
     speed: r
   };
 }
-function jC(e, t, r) {
-  const n = Nv(t);
+function VC(e, t, r) {
+  const n = zv(t);
   if (n.length === 0)
     return null;
-  const { sourceStart: a, sourceEnd: i, sourceFps: o, speed: s } = $v(e, r);
+  const { sourceStart: a, sourceEnd: i, sourceFps: o, speed: s } = Gv(e, r);
   let c = null, l = null;
   for (const u of n) {
-    const d = Uv(u.start, o), f = zv(u.end, o), m = Math.max(a, d), p = Math.min(i, f);
+    const d = jv(u.start, o), f = Vv(u.end, o), m = Math.max(a, d), p = Math.min(i, f);
     if (p <= m)
       continue;
-    const h = jv(
+    const h = $v(
       m - a,
       s,
       o,
       r
-    ), g = Vv(
+    ), g = Hv(
       p - a,
       s,
       o,
@@ -18507,7 +18507,7 @@ function jC(e, t, r) {
   }
   return c === null || l === null || l <= c ? null : { startFrame: c, endFrame: l };
 }
-function VC(e, t, r) {
+function $C(e, t, r) {
   const n = [...e].sort((a, i) => a.order - i.order);
   for (const a of n) {
     if (a.visible === !1 || a.locked || a.isGroup)
@@ -18524,7 +18524,7 @@ function VC(e, t, r) {
   }
   return null;
 }
-function $C(e) {
+function HC(e) {
   const t = e.reduce((r, n) => Math.max(r, n.order), -1);
   return {
     id: `track-captions-${Date.now()}`,
@@ -18538,32 +18538,32 @@ function $C(e) {
     items: []
   };
 }
-function HC(e, t) {
+function GC(e, t) {
   return {
     type: "transcript",
     mediaId: e,
     clipId: t
   };
 }
-function GC(e) {
+function WC(e) {
   return e.type === "text" && e.captionSource?.type === "transcript" && e.captionSource.clipId.length > 0 && e.captionSource.mediaId.length > 0;
 }
-function WC(e, t) {
+function KC(e, t) {
   return e.filter(
-    (r) => GC(r) && r.captionSource.clipId === t
+    (r) => WC(r) && r.captionSource.clipId === t
   );
 }
-function KC(e, t) {
+function XC(e, t) {
   if (e.type !== "text" || e.captionSource || e.mediaId !== t.mediaId)
     return !1;
   const r = t.from + t.durationInFrames, n = e.from + e.durationInFrames;
   return e.from >= t.from && n <= r && e.text.trim().length > 0 && e.label === e.text.slice(0, 48);
 }
-function Wp(e, t) {
-  const r = WC(e, t.id);
-  return r.length > 0 ? r : e.filter((n) => KC(n, t));
+function Xp(e, t) {
+  const r = KC(e, t.id);
+  return r.length > 0 ? r : e.filter((n) => XC(n, t));
 }
-function XC(e) {
+function qC(e) {
   return {
     fontSize: e.fontSize,
     fontFamily: e.fontFamily,
@@ -18581,7 +18581,7 @@ function XC(e) {
     transform: e.transform ? { ...e.transform } : void 0
   };
 }
-function qC({
+function YC({
   mediaId: e,
   trackId: t,
   segments: r,
@@ -18591,17 +18591,17 @@ function qC({
   canvasHeight: o,
   styleTemplate: s
 }) {
-  const c = Nv(r), { sourceStart: l, sourceEnd: u, sourceFps: d, speed: f } = $v(n, a);
+  const c = zv(r), { sourceStart: l, sourceEnd: u, sourceFps: d, speed: f } = Gv(n, a);
   return c.flatMap((m) => {
-    const p = Uv(m.start, d), h = zv(m.end, d), g = Math.max(l, p), v = Math.min(u, h);
+    const p = jv(m.start, d), h = Vv(m.end, d), g = Math.max(l, p), v = Math.min(u, h);
     if (v <= g)
       return [];
-    const b = jv(
+    const b = $v(
       g - l,
       f,
       d,
       a
-    ), x = Vv(
+    ), x = Hv(
       v - l,
       f,
       d,
@@ -18618,7 +18618,7 @@ function qC({
         from: k,
         durationInFrames: S,
         mediaId: e,
-        captionSource: HC(e, n.id),
+        captionSource: GC(e, n.id),
         label: m.text.slice(0, 48),
         text: m.text,
         fontSize: Math.max(36, Math.round(o * 0.045)),
@@ -18651,11 +18651,11 @@ function qC({
     }];
   });
 }
-const YC = !1, ZC = He("MediaTranscriptionService"), QC = zy, JC = jy;
-class eE {
+const ZC = !1, QC = He("MediaTranscriptionService"), JC = Vy, eE = $y;
+class tE {
   transcriber = null;
   getTranscript = wu;
-  getTranscriptMediaIds = Sd;
+  getTranscriptMediaIds = Id;
   deleteTranscript = nc;
   async transcribeMedia(t, r = {}) {
     const n = await tr.getMedia(t);
@@ -18669,7 +18669,7 @@ class eE {
     const i = a instanceof File ? a : new File([a], n.fileName, {
       type: n.mimeType,
       lastModified: n.fileLastModified ?? Date.now()
-    }), o = La.getState(), s = r.model ?? o.defaultWhisperModel ?? QC, c = r.quantization ?? o.defaultWhisperQuantization ?? JC, l = aM(r.language ?? o.defaultWhisperLanguage);
+    }), o = La.getState(), s = r.model ?? o.defaultWhisperModel ?? JC, c = r.quantization ?? o.defaultWhisperQuantization ?? eE, l = iM(r.language ?? o.defaultWhisperLanguage);
     if (!this.transcriber) throw new Error("Transcription is not available in this build");
     const d = await this.transcriber.transcribe(i, {
       model: s,
@@ -18691,7 +18691,7 @@ class eE {
       createdAt: Date.now(),
       updatedAt: Date.now()
     };
-    return await sy(f), ZC.info("Saved transcript", {
+    return await ly(f), QC.info("Saved transcript", {
       mediaId: t,
       segments: f.segments.length,
       model: f.model
@@ -18706,26 +18706,26 @@ class eE {
       throw new Error("Select a clip for this media, or place one on the timeline first");
     const s = i?.metadata.width ?? 1920, c = i?.metadata.height ?? 1080, l = [...a.tracks], u = r.replaceExisting ? new Set(
       o.flatMap(
-        (p) => Wp(a.items, p).map((h) => h.id)
+        (p) => Xp(a.items, p).map((h) => h.id)
       )
     ) : /* @__PURE__ */ new Set(), d = a.items.filter((p) => !u.has(p.id)), f = [];
     for (const p of o) {
-      const h = jC(p, n.segments, a.fps);
+      const h = VC(p, n.segments, a.fps);
       if (!h)
         continue;
-      const g = r.replaceExisting ? Wp(a.items, p) : [], v = this.resolvePreferredCaptionTrackId(
+      const g = r.replaceExisting ? Xp(a.items, p) : [], v = this.resolvePreferredCaptionTrackId(
         l,
         d,
         g,
         h
       );
-      let b = v ? l.find((k) => k.id === v) ?? null : VC(
+      let b = v ? l.find((k) => k.id === v) ?? null : $C(
         l,
         d,
         [{ startFrame: h.startFrame, endFrame: h.endFrame }]
       );
-      b || (b = $C(l), l.push(b), l.sort((k, M) => k.order - M.order));
-      const x = qC({
+      b || (b = HC(l), l.push(b), l.sort((k, M) => k.order - M.order));
+      const x = YC({
         mediaId: t,
         trackId: b.id,
         segments: n.segments,
@@ -18733,7 +18733,7 @@ class eE {
         timelineFps: a.fps,
         canvasWidth: s,
         canvasHeight: c,
-        styleTemplate: g[0] ? XC(g[0]) : void 0
+        styleTemplate: g[0] ? qC(g[0]) : void 0
       });
       x.length !== 0 && (f.push(...x), d.push(...x));
     }
@@ -18777,11 +18777,11 @@ class eE {
     }) ? null : o.id;
   }
 }
-const GU = new eE();
-function Kp(e) {
+const XU = new tE();
+function qp(e) {
   return e === 0 ? "0 B" : e < 1024 ? `${e} B` : e < 1024 * 1024 ? `${(e / 1024).toFixed(1)} KB` : e < 1024 * 1024 * 1024 ? `${(e / (1024 * 1024)).toFixed(1)} MB` : `${(e / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
-class tE {
+class rE {
   workerManager = Go({
     createWorker: () => new Worker(
       new URL(
@@ -18971,7 +18971,7 @@ class tE {
       canUpload: !1,
       availableBytes: a,
       usagePercent: i,
-      message: `Insufficient storage. Need ${Kp(t)}, only ${Kp(a)} available.`
+      message: `Insufficient storage. Need ${qp(t)}, only ${qp(a)} available.`
     } : i > 80 || (r + t) / n > 0.8 ? {
       canUpload: !0,
       availableBytes: a,
@@ -18996,8 +18996,8 @@ class tE {
     this.workerManager.terminate();
   }
 }
-const Ca = new tE();
-function rE(e, t) {
+const Ca = new rE();
+function nE(e, t) {
   if (e.length === 0 || e[0] > t) return null;
   let r = 0, n = e.length - 1;
   for (; r < n; ) {
@@ -19006,35 +19006,35 @@ function rE(e, t) {
   }
   return e[r];
 }
-const $d = /* @__PURE__ */ new Map();
-function nE(e, t) {
-  $d.set(e, t);
+const Hd = /* @__PURE__ */ new Map();
+function aE(e, t) {
+  Hd.set(e, t);
 }
-function Hv(e) {
-  return $d.get(e);
+function Wv(e) {
+  return Hd.get(e);
 }
-function aE(e, t, r = 0.05) {
-  const n = $d.get(e);
+function iE(e, t, r = 0.05) {
+  const n = Hd.get(e);
   if (!n || n.length === 0) return null;
-  const a = rE(n, t);
+  const a = nE(n, t);
   return a === null ? null : Math.max(0, a - r);
 }
-let Hd = null, Xp = null;
-const hc = /* @__PURE__ */ new Map(), Ru = /* @__PURE__ */ new Set(), Gv = (e) => `scene-audio:${e}`;
-function qp() {
-  for (const e of hc.keys()) xr.invalidate(Gv(e));
-  hc.clear();
-  for (const e of Ru) e();
+let Gd = null, Yp = null, oE = 0;
+const Ru = /* @__PURE__ */ new Map(), hc = /* @__PURE__ */ new Map(), Au = /* @__PURE__ */ new Set();
+function Zp() {
+  for (const e of hc.values()) e.then((t) => t?.release());
+  hc.clear(), Ru.clear();
+  for (const e of Au) e();
 }
-function WU(e) {
-  Xp?.(), Hd = e, Xp = e?.subscribe?.(qp) ?? null, qp();
+function qU(e) {
+  Yp?.(), Gd = e, Yp = e?.subscribe?.(Zp) ?? null, Zp();
 }
-function KU(e) {
-  return Ru.add(e), () => {
-    Ru.delete(e);
+function YU(e) {
+  return Au.add(e), () => {
+    Au.delete(e);
   };
 }
-function iE({ samples: e, sampleRate: t }) {
+function sE({ samples: e, sampleRate: t }) {
   const r = e.length, n = e[0]?.length ?? 0, a = n * r * 2, i = new DataView(new ArrayBuffer(44 + a)), o = (s, c) => {
     for (let l = 0; l < c.length; l++) i.setUint8(s + l, c.charCodeAt(l));
   };
@@ -19044,10 +19044,16 @@ function iE({ samples: e, sampleRate: t }) {
       i.setInt16(c, Math.max(-1, Math.min(1, l[s] ?? 0)) * 32767, !0), c += 2;
   return new Blob([i.buffer], { type: "audio/wav" });
 }
-const XU = (e) => Hd?.live?.(e) ?? !1;
-function oE(e) {
+const ZU = (e) => Gd?.live?.(e) ?? !1;
+async function cE(e) {
+  let t = Ru.get(e);
+  t || (t = { key: `scene-audio:${e}:${++oE}`, wav: (Gd?.getAudio(e) ?? Promise.resolve(null)).then((i) => i && sE(i)) }, Ru.set(e, t));
+  const { key: r, wav: n } = t, a = await n;
+  return a && { url: xr.acquire(r, a), release: () => xr.release(r) };
+}
+async function lE(e) {
   let t = hc.get(e);
-  return t || (t = (Hd?.getAudio(e) ?? Promise.resolve(null)).then((r) => r ? xr.acquire(Gv(e), iE(r)) : ""), hc.set(e, t)), t;
+  return t || (t = cE(e), hc.set(e, t)), (await t)?.url ?? "";
 }
 const kl = He("MediaResolver"), Cs = /* @__PURE__ */ new Map();
 async function qo(e) {
@@ -19065,7 +19071,7 @@ async function qo(e) {
       if (!a)
         return kl.warn(`Media blob not found: ${e}`), "";
       const i = xr.acquire(e, a);
-      return n.keyframeTimestamps && n.keyframeTimestamps.length > 0 && nE(i, n.keyframeTimestamps), i;
+      return n.keyframeTimestamps && n.keyframeTimestamps.length > 0 && aE(i, n.keyframeTimestamps), i;
     } catch (n) {
       if (kl.error(`Failed to resolve media ${e}:`, n), n instanceof yi) {
         const a = await tr.getMedia(e);
@@ -19082,7 +19088,7 @@ async function qo(e) {
   })();
   return Cs.set(e, r), r;
 }
-function sE(e) {
+function uE(e) {
   const t = qt.getState().mediaById[e];
   if (t) {
     const r = Aa(t);
@@ -19090,7 +19096,7 @@ function sE(e) {
   }
   return vr.getProxyBlobUrl(e);
 }
-async function Wv(e, t) {
+async function Kv(e, t) {
   const r = t?.useProxy ?? !0, n = t?.signal, a = e.map((o) => ({
     ...o,
     items: o.items.map((s) => s.mediaId && (s.type === "video" || s.type === "audio" || s.type === "image") || s.type === "audio" && s.scene ? { ...s } : s)
@@ -19098,7 +19104,7 @@ async function Wv(e, t) {
   for (const o of a)
     for (const s of o.items) {
       if (s.type === "audio" && s.scene) {
-        i.push(oE(s.scene).then((c) => {
+        i.push(lE(s.scene).then((c) => {
           s.src = c;
         }));
         continue;
@@ -19106,7 +19112,7 @@ async function Wv(e, t) {
       if (s.mediaId && (s.type === "video" || s.type === "audio" || s.type === "image")) {
         const c = qo(s.mediaId).then((l) => {
           if (r && s.type === "video") {
-            const u = sE(s.mediaId);
+            const u = uE(s.mediaId);
             s.src = u || l;
           } else
             s.src = l;
@@ -19118,22 +19124,22 @@ async function Wv(e, t) {
     throw new DOMException("Media resolution aborted", "AbortError");
   return a;
 }
-let Gd = null;
-function qU(e) {
-  Gd = e;
+let Wd = null;
+function QU(e) {
+  Wd = e;
 }
-function Kv() {
-  return Gd;
+function Xv() {
+  return Wd;
 }
-function YU() {
-  Gd = null;
+function JU() {
+  Wd = null;
 }
-function cE(e) {
+function dE(e) {
   const t = e.items[0];
   return !!t && "getAsFileSystemHandle" in t;
 }
-async function lE(e) {
-  if (!cE(e))
+async function fE(e) {
+  if (!dE(e))
     return {
       supported: !1,
       entries: [],
@@ -19148,7 +19154,7 @@ async function lE(e) {
       continue;
     const s = o;
     try {
-      const c = await s.getFile(), l = _v(c);
+      const c = await s.getFile(), l = Lv(c);
       if (!l.valid) {
         i.push(`${c.name}: ${l.error}`);
         continue;
@@ -19156,7 +19162,7 @@ async function lE(e) {
       a.push({
         handle: s,
         file: c,
-        mediaType: Vd(Zr(c))
+        mediaType: $d(Zr(c))
       });
     } catch (c) {
       const l = c instanceof Error ? c.message : "Unable to read file";
@@ -19169,7 +19175,7 @@ async function lE(e) {
     errors: i
   };
 }
-function uE(e, t, r) {
+function mE(e, t, r) {
   let n = Math.max(0, e);
   for (const a of r) {
     const i = a.from + a.durationInFrames;
@@ -19181,7 +19187,7 @@ function uE(e, t, r) {
   }
   return n;
 }
-function Xv(e) {
+function qv(e) {
   const t = /* @__PURE__ */ new Map(), r = [];
   for (const n of J.getState().items) {
     const a = t.get(n.trackId);
@@ -19192,7 +19198,7 @@ function Xv(e) {
   for (const n of e) {
     let a = t.get(n.trackId);
     a || (a = [], t.set(n.trackId, a));
-    const i = uE(
+    const i = mE(
       n.from,
       n.durationInFrames,
       a
@@ -19205,10 +19211,10 @@ function Xv(e) {
   }
   return r;
 }
-function Au(e) {
+function Du(e) {
   return mr.getState().linkedSelectionEnabled ? Ko(J.getState().items, e) : Array.from(new Set(e));
 }
-function dE(e, t) {
+function pE(e, t) {
   if (mr.getState().linkedSelectionEnabled)
     return An(e, t);
   const r = e.find((n) => n.id === t);
@@ -19220,11 +19226,11 @@ function Li(e, t) {
   const r = e.find((n) => n.id === t);
   return r ? [r] : [];
 }
-function qv(e, t, r) {
-  return mr.getState().linkedSelectionEnabled ? fE(e, t, r) : null;
+function Yv(e, t, r) {
+  return mr.getState().linkedSelectionEnabled ? hE(e, t, r) : null;
 }
-function Yp(e, t, r, n) {
-  return mr.getState().linkedSelectionEnabled ? mE(e, t, r, n) : null;
+function Qp(e, t, r, n) {
+  return mr.getState().linkedSelectionEnabled ? gE(e, t, r, n) : null;
 }
 function Kc(e, t) {
   if (!mr.getState().linkedSelectionEnabled)
@@ -19257,7 +19263,7 @@ function Ao(e, t) {
   const a = r.filter((i) => i.id === n.id || i.from === n.from && i.durationInFrames === n.durationInFrames && (i.sourceStart ?? null) === (n.sourceStart ?? null) && (i.sourceEnd ?? null) === (n.sourceEnd ?? null) && (i.speed ?? 1) === (n.speed ?? 1));
   return a.length > 0 ? a : [n];
 }
-function fE(e, t, r) {
+function hE(e, t, r) {
   const n = Ao(e, t).filter((i) => i.id !== t), a = Ao(e, r).filter((i) => i.id !== r);
   for (const i of n) {
     const o = a.find((s) => s.trackId === i.trackId && s.type === i.type);
@@ -19266,10 +19272,10 @@ function fE(e, t, r) {
   }
   return null;
 }
-function mE(e, t, r, n) {
+function gE(e, t, r, n) {
   return Ao(e, t).find((a) => a.id !== t && a.trackId === r && a.type === n) ?? null;
 }
-function pE(e, t) {
+function yE(e, t) {
   if (!mr.getState().linkedSelectionEnabled)
     return e.flatMap((a) => {
       const i = t.get(a.id) ?? 0;
@@ -19295,25 +19301,25 @@ function pE(e, t) {
     return i !== 0 ? [{ id: a.id, from: a.from + i }] : [];
   });
 }
-function Yv(e) {
-  const [t] = Xv([e]);
+function Zv(e) {
+  const [t] = qv([e]);
   t && Ne("ADD_ITEM", () => {
     J.getState()._addItem(t), he.getState().markDirty();
   }, { itemId: t.id, type: t.type });
 }
-function hE(e) {
+function vE(e) {
   if (e.length === 0) return;
-  const t = Xv(e);
+  const t = qv(e);
   Ne("ADD_ITEMS", () => {
     J.getState()._addItems(t), he.getState().markDirty();
   }, { count: t.length });
 }
-function Zv(e, t) {
+function Qv(e, t) {
   Ne("UPDATE_ITEM", () => {
     J.getState()._updateItem(e, t), ("from" in t || "durationInFrames" in t || "trackId" in t) && lr([e]), he.getState().markDirty();
   }, { id: e, updates: t });
 }
-function gE(e) {
+function bE(e) {
   const t = J.getState().items, r = /* @__PURE__ */ new Set();
   for (const i of e)
     for (const o of Lr(t, i))
@@ -19337,9 +19343,9 @@ function gE(e) {
     Pt.getState().clearSelection(), he.getState().markDirty();
   }, { ids: n.map((i) => i.id) });
 }
-function yE(e) {
+function xE(e) {
   const t = J.getState().items, n = Ko(t, e).map((i) => t.find((o) => o.id === i)).filter((i) => i !== void 0);
-  if (!Ry(t, e) || n.length < 2)
+  if (!Dy(t, e) || n.length < 2)
     return !1;
   const a = crypto.randomUUID();
   return Ne("LINK_ITEMS", () => {
@@ -19352,14 +19358,14 @@ function yE(e) {
     Pt.getState().selectItems(n.map((o) => o.id)), he.getState().markDirty();
   }, { ids: n.map((i) => i.id) }), !0;
 }
-function vE(e) {
-  const t = Au(e);
+function wE(e) {
+  const t = Du(e);
   t.length !== 0 && Ne("REMOVE_ITEMS", () => {
     J.getState()._removeItems(t), Je.getState()._removeTransitionsForItems(t), bt.getState()._removeKeyframesForItems(t), he.getState().markDirty();
   }, { ids: t });
 }
-function bE(e) {
-  const t = J.getState().items, r = Au(e);
+function SE(e) {
+  const t = J.getState().items, r = Du(e);
   if (r.length === 0) return;
   const n = new Set(r), a = t.filter((m) => !n.has(m.id)), i = /* @__PURE__ */ new Map();
   for (const m of a) {
@@ -19380,12 +19386,12 @@ function bE(e) {
       }
     }
   }
-  const l = Au(c), u = [...r, ...l], d = new Set(l), f = d.size > 0 ? o.filter((m) => !d.has(m.id)) : o;
+  const l = Du(c), u = [...r, ...l], d = new Set(l), f = d.size > 0 ? o.filter((m) => !d.has(m.id)) : o;
   Ne("RIPPLE_DELETE_ITEMS", () => {
     J.getState()._removeItems(u), f.length > 0 && J.getState()._moveItems(f), Je.getState()._removeTransitionsForItems(u), bt.getState()._removeKeyframesForItems(u), f.length > 0 && lr(f.map((m) => m.id)), he.getState().markDirty();
   }, { ids: u });
 }
-function xE(e, t) {
+function IE(e, t) {
   const r = J.getState().items, n = Math.max(0, Math.round(t)), a = r.filter((f) => f.trackId === e).sort((f, m) => f.from - m.from);
   if (a.length === 0) return;
   let i = 0, o = 0;
@@ -19420,7 +19426,7 @@ function xE(e, t) {
     d.length > 0 && (J.getState()._removeItems(d), Je.getState()._removeTransitionsForItems(d), bt.getState()._removeKeyframesForItems(d)), J.getState()._moveItems(l), lr(l.map((f) => f.id)), he.getState().markDirty();
   }, { trackId: e, frame: t });
 }
-function wE(e, t) {
+function kE(e, t) {
   const r = J.getState().items, n = Math.max(0, Math.round(t)), a = r.filter((f) => f.trackId === e).sort((f, m) => f.from - m.from);
   if (a.length === 0) return;
   let i = 0, o = 0;
@@ -19455,7 +19461,7 @@ function wE(e, t) {
     d.length > 0 && (J.getState()._removeItems(d), Je.getState()._removeTransitionsForItems(d), bt.getState()._removeKeyframesForItems(d)), J.getState()._moveItems(l), lr(l.map((f) => f.id)), he.getState().markDirty();
   }, { trackId: e, frame: t });
 }
-function SE(e) {
+function TE(e) {
   const t = J.getState().items, r = t.filter((o) => o.trackId === e).sort((o, s) => o.from - s.from);
   if (r.length === 0) return;
   let n = 0;
@@ -19469,7 +19475,7 @@ function SE(e) {
     J.getState()._moveItems(i), lr(i.map((o) => o.id)), he.getState().markDirty();
   }, { trackId: e });
 }
-function IE(e, t) {
+function ME(e, t) {
   if (t === 0) return;
   const r = J.getState().items, n = r.find((o) => o.id === e);
   if (!n) return;
@@ -19480,12 +19486,12 @@ function IE(e, t) {
     J.getState()._moveItems(i), lr(i.map((o) => o.id)), he.getState().markDirty();
   }, { anchorId: e, delta: t });
 }
-function kE(e, t, r) {
+function FE(e, t, r) {
   Ne("MOVE_ITEM", () => {
     J.getState()._moveItem(e, t, r), lr([e]), he.getState().markDirty();
   }, { id: e, newFrom: t, newTrackId: r });
 }
-function TE(e) {
+function CE(e) {
   Ne("MOVE_ITEMS", () => {
     J.getState()._moveItems(e);
     const t = new Set(e.map((i) => i.id)), r = J.getState().items, a = Je.getState().transitions.map((i) => {
@@ -19500,7 +19506,7 @@ function TE(e) {
     Je.getState().setTransitions(a), lr(e.map((i) => i.id)), he.getState().markDirty();
   }, { count: e.length });
 }
-function ME(e, t) {
+function EE(e, t) {
   Ne("MOVE_ITEMS_WITH_TRACKS", () => {
     J.getState().setTracks(e), J.getState()._moveItems(t);
     const r = new Set(t.map((o) => o.id)), n = J.getState().items, i = Je.getState().transitions.map((o) => {
@@ -19515,20 +19521,20 @@ function ME(e, t) {
     Je.getState().setTransitions(i), lr(t.map((o) => o.id)), he.getState().markDirty();
   }, { count: t.length, trackCount: e.length });
 }
-function FE(e, t) {
+function PE(e, t) {
   return Ne("DUPLICATE_ITEMS", () => {
     const r = J.getState()._duplicateItems(e, t);
     return he.getState().markDirty(), r;
   }, { itemIds: e, count: t.length });
 }
-function CE(e, t, r) {
+function RE(e, t, r) {
   return Ne("DUPLICATE_ITEMS_WITH_TRACKS", () => {
     J.getState().setTracks(e);
     const n = J.getState()._duplicateItems(t, r);
     return he.getState().markDirty(), n;
   }, { itemIds: t, count: r.length, trackCount: e.length });
 }
-function Wd(e, t, r) {
+function Kd(e, t, r) {
   const n = J.getState(), a = n.items, i = Li(a, e), o = i.find((l) => l.id === e);
   if (!o) return;
   t === "start" ? n._trimItemStart(e, r) : n._trimItemEnd(e, r);
@@ -19538,19 +19544,19 @@ function Wd(e, t, r) {
       l.id !== e && (t === "start" ? n._trimItemStart(l.id, c, { skipAdjacentClamp: !0 }) : n._trimItemEnd(l.id, c, { skipAdjacentClamp: !0 }));
   lr(i.map((l) => l.id)), he.getState().markDirty();
 }
-function EE(e, t) {
+function AE(e, t) {
   Ne("TRIM_ITEM_START", () => {
-    Wd(e, "start", t);
+    Kd(e, "start", t);
   }, { id: e, trimAmount: t });
 }
-function PE(e, t) {
+function DE(e, t) {
   Ne("TRIM_ITEM_END", () => {
-    Wd(e, "end", t);
+    Kd(e, "end", t);
   }, { id: e, trimAmount: t });
 }
-function RE(e, t, r, n) {
+function _E(e, t, r, n) {
   Ne(t === "start" ? "TRIM_ITEM_START" : "TRIM_ITEM_END", () => {
-    n.length > 0 && Je.getState()._removeTransitions(n), Wd(e, t, r);
+    n.length > 0 && Je.getState()._removeTransitions(n), Kd(e, t, r);
   }, {
     id: e,
     handle: t,
@@ -19558,19 +19564,19 @@ function RE(e, t, r, n) {
     removedTransitionCount: n.length
   });
 }
-function Qv(e, t, r) {
+function Jv(e, t, r) {
   return Je.getState().transitions.some((a) => {
     const i = Ba(a.durationInFrames, a.alignment);
     return a.leftClipId === e && t >= r - i.leftPortion || a.rightClipId === e && t < i.rightPortion;
   });
 }
-function Jv(e, t) {
-  const r = J.getState().items, n = dE(r, e);
+function eb(e, t) {
+  const r = J.getState().items, n = pE(r, e);
   for (const a of n) {
     if (t <= a.from || t >= a.from + a.durationInFrames)
       return null;
     const i = t - a.from;
-    if (Qv(a.id, i, a.durationInFrames))
+    if (Jv(a.id, i, a.durationInFrames))
       return Ct.warning("Cannot split inside a transition zone"), null;
   }
   return Ne("SPLIT_ITEM", () => {
@@ -19591,7 +19597,7 @@ function Jv(e, t) {
     return Pt.getState().selectItems(i.map((u) => u.result.leftItem.id)), he.getState().markDirty(), o;
   }, { id: e, splitFrame: t });
 }
-function AE(e, t) {
+function OE(e, t) {
   if (t.length === 0) return 0;
   const r = [...t].sort((a, i) => i - a);
   let n = 0;
@@ -19611,7 +19617,7 @@ function AE(e, t) {
     he.getState().markDirty();
   }, { id: e, splitFrames: r }), n;
 }
-function DE(e) {
+function LE(e) {
   Ne("JOIN_ITEMS", () => {
     const t = J.getState().items, r = t.filter((s) => e.includes(s.id)).toSorted((s, c) => s.from - c.from);
     if (r.length < 2) return;
@@ -19619,7 +19625,7 @@ function DE(e) {
     if (r.length === 2) {
       const [s, c] = r;
       if (s && c) {
-        const l = qv(t, s.id, c.id);
+        const l = Yv(t, s.id, c.id);
         l && n.push([l.leftCounterpart.id, l.rightCounterpart.id]);
       }
     }
@@ -19649,7 +19655,7 @@ function DE(e) {
     o.length > 0 && bt.getState()._removeKeyframesForItems(o), he.getState().markDirty();
   }, { itemIds: e });
 }
-function _E(e, t, r, n) {
+function BE(e, t, r, n) {
   Ne("RATE_STRETCH_ITEM", () => {
     const a = J.getState(), i = a.items, o = Li(i, e), s = o.find((T) => T.id === e);
     if (!s) return;
@@ -19740,7 +19746,7 @@ function _E(e, t, r, n) {
     lr(C), he.getState().markDirty();
   }, { id: e, newFrom: t, newDuration: r, newSpeed: n });
 }
-function OE(e) {
+function NE(e) {
   Ne("RESET_SPEED_WITH_RIPPLE", () => {
     const r = J.getState(), n = he.getState().fps, a = /* @__PURE__ */ new Set(), i = [];
     for (const d of e) {
@@ -19808,11 +19814,11 @@ function OE(e) {
     lr(u), he.getState().markDirty();
   }, { itemIds: e });
 }
-async function LE(e, t) {
+async function UE(e, t) {
   const n = J.getState().items.find((g) => g.id === e);
   if (!n || n.type !== "video") return !1;
   const a = n.from, i = n.from + n.durationInFrames;
-  if (t <= a || t >= i || Qv(e, t - a, n.durationInFrames))
+  if (t <= a || t >= i || Jv(e, t - a, n.durationInFrames))
     return !1;
   const o = he.getState().fps, s = n.speed ?? 1, c = n.sourceStart ?? 0, l = n.sourceFps ?? o, u = t - a, d = c + Bt(u, s, o, l), m = qt.getState().mediaItems.find((g) => g.id === n.mediaId);
   if (!m)
@@ -19843,7 +19849,7 @@ async function LE(e, t) {
         "image/png"
       );
     }), T.dispose?.(), M.dispose();
-    const { createMedia: B, saveThumbnail: $, associateMediaWithProject: U } = await Promise.resolve().then(() => t1), j = qt.getState().currentProjectId;
+    const { createMedia: B, saveThumbnail: $, associateMediaWithProject: U } = await Promise.resolve().then(() => r1), j = qt.getState().currentProjectId;
     if (!j)
       return cr().error("[insertFreezeFrame] No project context"), !1;
     const z = crypto.randomUUID(), A = xr.acquire(z, _), H = `freeze-frame-${n.label || "video"}-${Math.round(h * 100) / 100}s.png`, N = {
@@ -19910,7 +19916,7 @@ async function LE(e, t) {
     return cr().error("[insertFreezeFrame] Failed:", g), !1;
   }
 }
-function eb(e, t, r) {
+function tb(e, t, r) {
   r !== 0 && Ne("RIPPLE_EDIT", () => {
     const n = J.getState(), a = n.items, i = a.find((g) => g.id === e);
     if (!i) return;
@@ -19947,7 +19953,7 @@ function eb(e, t, r) {
         for (const C of g)
           s.has(C.id) || C.trackId === M.trackId && (C.from >= S || F.has(C.id)) && v.set(C.id, m);
       }
-      const x = pE(g, v);
+      const x = yE(g, v);
       x.length > 0 && n._moveItems(x);
     }
     const p = J.getState().items, h = Array.from(/* @__PURE__ */ new Set([
@@ -19957,22 +19963,22 @@ function eb(e, t, r) {
     lr(h), he.getState().markDirty();
   }, { id: e, handle: t, trimDelta: r });
 }
-function Du(e, t, r) {
+function _u(e, t, r) {
   r !== 0 && Ne("ROLLING_EDIT", () => {
-    const n = J.getState(), a = n.items, i = qv(a, e, t), o = a.find((l) => l.id === t);
+    const n = J.getState(), a = n.items, i = Yv(a, e, t), o = a.find((l) => l.id === t);
     if (!o) return;
     r > 0 ? (n._trimItemStart(t, r), n._trimItemEnd(e, r)) : (n._trimItemEnd(e, r), n._trimItemStart(t, r));
     const s = J.getState().itemById[t], c = s ? s.from - o.from : 0;
     i && c !== 0 && (c > 0 ? (n._trimItemStart(i.rightCounterpart.id, c, { skipAdjacentClamp: !0 }), n._trimItemEnd(i.leftCounterpart.id, c, { skipAdjacentClamp: !0 })) : (n._trimItemEnd(i.leftCounterpart.id, c, { skipAdjacentClamp: !0 }), n._trimItemStart(i.rightCounterpart.id, c, { skipAdjacentClamp: !0 }))), lr(i ? [e, t, i.leftCounterpart.id, i.rightCounterpart.id] : [e, t]), he.getState().markDirty();
   }, { leftId: e, rightId: t, editPointDelta: r });
 }
-function BE(e, t) {
+function zE(e, t) {
   t !== 0 && Ne("SLIP_EDIT", () => {
     const r = J.getState(), n = r.items, a = n.find((u) => u.id === e);
     if (!a || a.type !== "video" && a.type !== "audio" && a.type !== "composition") return;
     const i = Li(n, e), o = a.sourceStart ?? 0, s = a.sourceEnd, c = a.sourceDuration;
     if (s === void 0) return;
-    const l = Dd(o, s, c, t);
+    const l = _d(o, s, c, t);
     if (l !== 0) {
       r._updateItem(e, {
         sourceStart: o + l,
@@ -19987,7 +19993,7 @@ function BE(e, t) {
     }
   }, { id: e, slipDelta: t });
 }
-function NE(e, t, r, n) {
+function jE(e, t, r, n) {
   t !== 0 && Ne("SLIDE_EDIT", () => {
     const a = J.getState(), i = a.items, o = Je.getState().transitions, s = i.find((F) => F.id === e);
     if (!s) return;
@@ -20001,7 +20007,7 @@ function NE(e, t, r, n) {
       he.getState().fps
     );
     if (u === 0) return;
-    const d = Li(i, e).find((F) => F.id !== e) ?? null, f = d && r ? Yp(i, r, d.trackId, d.type) : null, m = d && n ? Yp(i, n, d.trackId, d.type) : null, p = s.from, h = s.sourceStart, g = qy(
+    const d = Li(i, e).find((F) => F.id !== e) ?? null, f = d && r ? Qp(i, r, d.trackId, d.type) : null, m = d && n ? Qp(i, n, d.trackId, d.type) : null, p = s.from, h = s.sourceStart, g = Zy(
       s,
       c,
       l,
@@ -20030,7 +20036,7 @@ function NE(e, t, r, n) {
     r && S.push(r), n && S.push(n), d && (S.push(d.id), k && S.push(k.id), M && S.push(M.id)), lr(S), he.getState().markDirty();
   }, { id: e, slideDelta: t, leftNeighborId: r, rightNeighborId: n });
 }
-function UE(e) {
+function VE(e) {
   const t = /* @__PURE__ */ new Map(), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
   for (const a of e)
     n.set(a.id, a), r.has(a.trackId) || r.set(a.trackId, []), r.get(a.trackId).push(a), t.has(a.leftClipId) || t.set(a.leftClipId, {}), t.get(a.leftClipId).outgoing = a, t.has(a.rightClipId) || t.set(a.rightClipId, {}), t.get(a.rightClipId).incoming = a;
@@ -20048,20 +20054,20 @@ function Xc(e) {
   );
   return t && !r && !n && !a && !i && !o ? "move" : r && !t && !n && !a && !i && !o ? "resize" : n && !t && !r && !a && !i && !o ? "rotate" : a && !t && !r && !n && !i && !o ? "opacity" : i && !t && !r && !n && !a && !o ? "corner_radius" : "transform";
 }
-function zE(e) {
+function $E(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e.values())
     for (const n of Object.keys(r))
       t.add(n);
   return Xc(t);
 }
-function jE(e, t, r) {
+function HE(e, t, r) {
   const n = r?.operation ?? Xc(gc(t));
   Ne("UPDATE_TRANSFORM", () => {
     J.getState()._updateItemTransform(e, t), he.getState().markDirty();
   }, { id: e, operation: n, properties: [...gc(t)] });
 }
-function VE(e, t, r) {
+function GE(e, t, r) {
   const n = t.transform ?? {}, a = gc(n), i = t.autoKeyframeOperations ?? [];
   if (!t.pathVertices && a.size === 0 && i.length === 0)
     return;
@@ -20106,49 +20112,49 @@ function VE(e, t, r) {
     autoKeyframeOperationCount: i.length
   });
 }
-function $E(e) {
+function WE(e) {
   Ne("RESET_TRANSFORM", () => {
     J.getState()._resetItemTransform(e), he.getState().markDirty();
   }, { id: e });
 }
-function HE(e, t, r) {
+function KE(e, t, r) {
   const n = gc(t), a = r?.operation ?? Xc(n);
   Ne("UPDATE_TRANSFORMS", () => {
     J.getState()._updateItemsTransform(e, t), he.getState().markDirty();
   }, { ids: e, count: e.length, operation: a, properties: [...n] });
 }
-function GE(e, t) {
-  const r = t?.operation ?? zE(e);
+function XE(e, t) {
+  const r = t?.operation ?? $E(e);
   Ne("UPDATE_TRANSFORMS", () => {
     J.getState()._updateItemsTransformMap(e), he.getState().markDirty();
   }, { count: e.size, operation: r });
 }
-function WE(e, t) {
+function qE(e, t) {
   Ne("ADD_EFFECT", () => {
     J.getState()._addEffect(e, t), he.getState().markDirty();
   }, { itemId: e, effectType: t.type });
 }
-function KE(e) {
+function YE(e) {
   Ne("ADD_EFFECTS", () => {
     J.getState()._addEffects(e), he.getState().markDirty();
   }, { count: e.length });
 }
-function XE(e, t, r) {
+function ZE(e, t, r) {
   Ne("UPDATE_EFFECT", () => {
     J.getState()._updateEffect(e, t, r), he.getState().markDirty();
   }, { itemId: e, effectId: t });
 }
-function qE(e, t) {
+function QE(e, t) {
   Ne("REMOVE_EFFECT", () => {
     J.getState()._removeEffect(e, t), he.getState().markDirty();
   }, { itemId: e, effectId: t });
 }
-function YE(e, t) {
+function JE(e, t) {
   Ne("TOGGLE_EFFECT", () => {
     J.getState()._toggleEffect(e, t), he.getState().markDirty();
   }, { itemId: e, effectId: t });
 }
-function ZE(e, t, r = "crossfade", n, a, i) {
+function e2(e, t, r = "crossfade", n, a, i) {
   return Ne("ADD_TRANSITION", () => {
     const o = J.getState().items, s = Je.getState().transitions, c = o.find((b) => b.id === e), l = o.find((b) => b.id === t);
     if (!c || !l)
@@ -20189,7 +20195,7 @@ function ZE(e, t, r = "crossfade", n, a, i) {
     ), he.getState().markDirty(), !0) : (cr().warn("[addTransition] Cannot add transition:", g.reason), !1);
   }, { leftClipId: e, rightClipId: t, type: r });
 }
-function tb(e, t) {
+function rb(e, t) {
   Ne("UPDATE_TRANSITION", () => {
     const n = Je.getState().transitions.find((c) => c.id === e);
     if (!n) return;
@@ -20209,14 +20215,14 @@ function tb(e, t) {
     Je.getState()._updateTransition(e, t), he.getState().markDirty();
   }, { id: e, updates: t });
 }
-function QE(e) {
+function t2(e) {
   e.length !== 0 && Ne("UPDATE_TRANSITIONS", () => {
     const t = Je.getState();
     for (const { id: r, updates: n } of e) {
       if (n.durationInFrames !== void 0) {
         const i = t.transitions.find((o) => o.id === r);
         if (i && n.durationInFrames !== i.durationInFrames) {
-          tb(r, n);
+          rb(r, n);
           continue;
         }
       }
@@ -20225,18 +20231,18 @@ function QE(e) {
     he.getState().markDirty();
   }, { updates: e });
 }
-function JE(e) {
+function r2(e) {
   Ne("REMOVE_TRANSITION", () => {
     Je.getState()._removeTransition(e), he.getState().markDirty();
   }, { id: e });
 }
-function e2(e, t, r, n, a) {
+function n2(e, t, r, n, a) {
   return _i(e, r) ? Ne("ADD_KEYFRAME", () => {
     const i = bt.getState()._addKeyframe(e, t, r, n, a);
     return he.getState().markDirty(), i;
   }, { itemId: e, property: t, frame: r }) : (cr().warn("Cannot add keyframe in transition region", { itemId: e, property: t, frame: r }), "");
 }
-function t2(e) {
+function a2(e) {
   if (e.length === 0) return [];
   const t = e.filter((r) => _i(r.itemId, r.frame));
   return t.length === 0 ? (cr().warn("All keyframes blocked by transition regions", { originalCount: e.length }), []) : (t.length < e.length && cr().warn("Some keyframes blocked by transition regions", {
@@ -20247,7 +20253,7 @@ function t2(e) {
     return he.getState().markDirty(), r;
   }, { count: t.length }));
 }
-function r2(e, t, r, n) {
+function i2(e, t, r, n) {
   if (typeof n.frame == "number" && !_i(e, n.frame)) {
     cr().warn("Cannot move keyframe into transition region", {
       itemId: e,
@@ -20261,7 +20267,7 @@ function r2(e, t, r, n) {
     bt.getState()._updateKeyframe(e, t, r, n), he.getState().markDirty();
   }, { itemId: e, property: t, keyframeId: r });
 }
-function ZU(e) {
+function ez(e) {
   if (e.length === 0) return;
   const t = e.filter((r) => {
     if (typeof r.updates.frame != "number")
@@ -20278,7 +20284,7 @@ function ZU(e) {
     bt.getState()._updateKeyframes(t), he.getState().markDirty();
   }, { count: t.length });
 }
-function n2(e) {
+function o2(e) {
   e.length !== 0 && Ne("APPLY_AUTO_KEYFRAME_OPERATIONS", () => {
     const t = bt.getState();
     let r = !1;
@@ -20311,94 +20317,94 @@ function n2(e) {
     r && he.getState().markDirty();
   }, { count: e.length });
 }
-function a2(e, t, r) {
+function s2(e, t, r) {
   Ne("REMOVE_KEYFRAME", () => {
     bt.getState()._removeKeyframe(e, t, r), he.getState().markDirty();
   }, { itemId: e, property: t, keyframeId: r });
 }
-function i2(e) {
+function c2(e) {
   Ne("REMOVE_KEYFRAMES_FOR_ITEM", () => {
     bt.getState()._removeKeyframesForItem(e), he.getState().markDirty();
   }, { itemId: e });
 }
-function o2(e, t) {
+function l2(e, t) {
   Ne("REMOVE_KEYFRAMES_FOR_PROPERTY", () => {
     bt.getState()._removeKeyframesForProperty(e, t), he.getState().markDirty();
   }, { itemId: e, property: t });
 }
-function s2(e) {
+function u2(e) {
   return bt.getState().getKeyframesForItem(e);
 }
-function c2(e, t, r) {
+function d2(e, t, r) {
   return bt.getState().hasKeyframesAtFrame(e, t, r);
 }
-function l2(e) {
+function f2(e) {
   e.length !== 0 && Ne("REMOVE_KEYFRAMES", () => {
     bt.getState()._removeKeyframes(e), he.getState().markDirty();
   }, { count: e.length });
 }
-const u2 = 10;
-function rb() {
+const m2 = 10;
+function nb() {
   const e = J.getState().items, t = he.getState().fps, r = e.reduce(
     (a, i) => Math.max(a, i.from + i.durationInFrames),
     0
-  ), n = Math.max(1, Math.floor(u2 * t));
+  ), n = Math.max(1, Math.floor(m2 * t));
   return Math.max(r, n);
 }
-function nb(e, t, r) {
+function ab(e, t, r) {
   Ne("ADD_MARKER", () => {
     Dt.getState().addMarker(e, t, r), he.getState().markDirty();
   }, { frame: e, color: t, label: r });
 }
-function d2(e, t) {
+function p2(e, t) {
   Ne("UPDATE_MARKER", () => {
     Dt.getState().updateMarker(e, t), he.getState().markDirty();
   }, { id: e, updates: t });
 }
-function ab(e) {
+function ib(e) {
   Ne("REMOVE_MARKER", () => {
     Dt.getState().removeMarker(e), he.getState().markDirty();
   }, { id: e });
 }
-function f2() {
+function h2() {
   Ne("CLEAR_MARKERS", () => {
     Dt.getState().clearAllMarkers(), he.getState().markDirty();
   });
 }
-function m2(e) {
+function g2(e) {
   Ne("SET_IN_POINT", () => {
-    const t = Dt.getState().outPoint, r = rb(), n = Math.max(0, Math.min(e, r));
+    const t = Dt.getState().outPoint, r = nb(), n = Math.max(0, Math.min(e, r));
     t === null && Dt.getState().setOutPoint(r), t !== null && n >= t && Dt.getState().setOutPoint(r), Dt.getState().setInPoint(n), he.getState().markDirty();
   }, { frame: e });
 }
-function p2(e) {
+function y2(e) {
   Ne("SET_OUT_POINT", () => {
-    const t = Dt.getState().inPoint, r = rb(), n = Math.max(1, Math.min(e, r));
+    const t = Dt.getState().inPoint, r = nb(), n = Math.max(1, Math.min(e, r));
     t === null && Dt.getState().setInPoint(0), t !== null && n <= t && Dt.getState().setInPoint(0), Dt.getState().setOutPoint(n), he.getState().markDirty();
   }, { frame: e });
 }
-function h2() {
+function v2() {
   Ne("CLEAR_IN_OUT_POINTS", () => {
     Dt.getState().clearInOutPoints(), he.getState().markDirty();
   });
 }
-function g2() {
+function b2() {
   Ne("TOGGLE_SNAP", () => {
     he.getState().toggleSnap();
   });
 }
-function y2(e) {
+function x2(e) {
   he.getState().setScrollPosition(e);
 }
-function v2() {
+function w2() {
   Ne("CLEAR_TIMELINE", () => {
     J.getState().setItems([]), J.getState().setTracks([]), Je.getState().setTransitions([]), bt.getState().setKeyframes([]), Dt.getState().setMarkers([]), Dt.getState().clearInOutPoints(), he.getState().markClean();
   }), Qr.getState().clearHistory();
 }
-function b2() {
+function S2() {
   he.getState().markDirty();
 }
-function x2() {
+function I2() {
   he.getState().markClean();
 }
 const gi = Mt((e) => ({
@@ -20418,7 +20424,7 @@ const gi = Mt((e) => ({
   clearInOutPoints: () => e({ inPoint: null, outPoint: null }),
   setPendingSeekFrame: (t) => e({ pendingSeekFrame: t })
 }));
-function _u(e, t, r, n) {
+function Ou(e, t, r, n) {
   const a = r / e, i = n / t, o = Math.min(a, i);
   return {
     x: 0,
@@ -20428,7 +20434,7 @@ function _u(e, t, r, n) {
     rotation: 0
   };
 }
-function w2(e, t, r, n) {
+function k2(e, t, r, n) {
   return e.filter((i) => !i.locked && zt(i) === r).filter((i) => n === "above" ? i.order < t.order : i.order > t.order).sort((i, o) => n === "above" ? o.order - i.order : i.order - o.order)[0] ?? null;
 }
 function fa(e) {
@@ -20441,13 +20447,13 @@ function fa(e) {
     preferTarget: o = !1
   } = e, s = zt(r);
   if (o || s === n || s === null) {
-    const u = Id(r, t, n);
+    const u = kd(r, t, n);
     return u === r ? { tracks: t, trackId: r.id } : {
       tracks: t.map((d) => d.id === r.id ? u : d),
       trackId: r.id
     };
   }
-  const c = w2(t, r, n, a);
+  const c = k2(t, r, n, a);
   if (c)
     return { tracks: t, trackId: c.id };
   const l = zr({
@@ -20461,7 +20467,7 @@ function fa(e) {
     trackId: l.id
   };
 }
-function S2(e) {
+function T2(e) {
   const { tracks: t, activeTrackId: r, mediaType: n, hasAudio: a, patchVideo: i, patchAudio: o, preferredTrackHeight: s } = e, c = t.find((h) => h.id === r);
   if (!c)
     return null;
@@ -20561,7 +20567,7 @@ function S2(e) {
     audioTrackId: f.trackId
   };
 }
-async function ib() {
+async function ob() {
   const {
     sourcePreviewMediaId: e,
     sourcePatchVideoEnabled: t,
@@ -20580,10 +20586,10 @@ async function ib() {
   const l = qt.getState().mediaItems.find((_) => _.id === e);
   if (!l)
     return cr().warn("Source edit: Source media not found"), null;
-  const u = Vd(l.mimeType);
+  const u = $d(l.mimeType);
   if (u === "unknown")
     return cr().warn("Source edit: Unknown media type"), null;
-  const d = l.fps || 30, f = he.getState().fps, m = u === "image" ? f * 3 : Math.max(1, Math.round(l.duration * d)), p = n ?? 0, h = a ?? m, g = h - p, v = d === f ? g : Math.max(1, Math.round(g * f / d)), b = Qe.getState().currentFrame, x = Br.getState().currentProject, k = x?.metadata.width ?? 1920, M = x?.metadata.height ?? 1080, S = u === "video" && !!l.audioCodec, F = S2({
+  const d = l.fps || 30, f = he.getState().fps, m = u === "image" ? f * 3 : Math.max(1, Math.round(l.duration * d)), p = n ?? 0, h = a ?? m, g = h - p, v = d === f ? g : Math.max(1, Math.round(g * f / d)), b = Qe.getState().currentFrame, x = Br.getState().currentProject, k = x?.metadata.width ?? 1920, M = x?.metadata.height ?? 1080, S = u === "video" && !!l.audioCodec, F = T2({
     tracks: o,
     activeTrackId: i,
     mediaType: u,
@@ -20632,7 +20638,7 @@ async function ib() {
     resolvedTracks: F.tracks
   };
 }
-function ob(e) {
+function sb(e) {
   const t = e.media.fps || 30, r = e.mediaType === "image" ? e.projectFps * 3 : Math.round(e.media.duration * t), n = crypto.randomUUID(), a = e.mediaType === "video" && e.hasAudio ? crypto.randomUUID() : void 0, i = {
     from: e.insertFrame,
     durationInFrames: e.clipDurationFrames,
@@ -20657,7 +20663,7 @@ function ob(e) {
       thumbnailUrl: e.thumbnailUrl,
       sourceWidth: e.media.width || void 0,
       sourceHeight: e.media.height || void 0,
-      transform: _u(o, s, e.canvasWidth, e.canvasHeight)
+      transform: Ou(o, s, e.canvasWidth, e.canvasHeight)
     };
     if (!e.audioTrackId)
       return [c];
@@ -20690,16 +20696,16 @@ function ob(e) {
       thumbnailUrl: e.thumbnailUrl,
       sourceWidth: e.media.width || void 0,
       sourceHeight: e.media.height || void 0,
-      transform: _u(o, s, e.canvasWidth, e.canvasHeight),
+      transform: Ou(o, s, e.canvasWidth, e.canvasHeight),
       linkedGroupId: void 0
     }];
   }
   return [];
 }
-async function I2() {
-  const e = await ib();
+async function M2() {
+  const e = await ob();
   if (!e) return;
-  const { insertFrame: t, clipDurationFrames: r } = e, n = ob(e), a = Array.from(new Set(n.map((i) => i.trackId)));
+  const { insertFrame: t, clipDurationFrames: r } = e, n = sb(e), a = Array.from(new Set(n.map((i) => i.trackId)));
   if (n.length === 0 || a.length === 0) {
     Ct.warning("Unable to resolve source patch targets");
     return;
@@ -20728,10 +20734,10 @@ async function I2() {
     lr(c), he.getState().markDirty();
   }, { trackIds: a, insertFrame: t, clipDurationFrames: r }), Qe.getState().setCurrentFrame(t + r), Ct.success("Insert edit applied");
 }
-async function k2() {
-  const e = await ib();
+async function F2() {
+  const e = await ob();
   if (!e) return;
-  const { insertFrame: t, clipDurationFrames: r } = e, n = t, a = t + r, i = ob(e), o = Array.from(new Set(i.map((s) => s.trackId)));
+  const { insertFrame: t, clipDurationFrames: r } = e, n = t, a = t + r, i = sb(e), o = Array.from(new Set(i.map((s) => s.trackId)));
   if (i.length === 0 || o.length === 0) {
     Ct.warning("Unable to resolve source patch targets");
     return;
@@ -20769,14 +20775,14 @@ async function k2() {
     lr(c), he.getState().markDirty();
   }, { trackIds: o, overwriteStart: n, overwriteEnd: a }), Qe.getState().setCurrentFrame(a), Ct.success("Overwrite edit applied");
 }
-function T2(e) {
+function C2(e) {
   const t = e.some((r) => r.solo);
   return new Set(
     e.filter((r) => t ? r.solo === !0 : r.visible !== !1).map((r) => r.id)
   );
 }
-function sb(e) {
-  const t = T2(e.tracks), r = new Map(e.tracks.map((n) => [n.id, n.order ?? 0]));
+function cb(e) {
+  const t = C2(e.tracks), r = new Map(e.tracks.map((n) => [n.id, n.order ?? 0]));
   return e.items.filter((n) => t.has(n.trackId)).toSorted((n, a) => {
     const i = r.get(n.trackId) ?? 0, o = r.get(a.trackId) ?? 0;
     return i !== o ? i - o : n.from !== a.from ? n.from - a.from : n.id.localeCompare(a.id);
@@ -20785,7 +20791,7 @@ function sb(e) {
 function Do(e) {
   return e.type === "video" || e.type === "audio" ? e.sourceStart ?? e.trimStart ?? e.offset ?? 0 : e.type === "composition" ? e.sourceStart ?? e.trimStart ?? 0 : 0;
 }
-function cb(e) {
+function lb(e) {
   const { subItem: t, wrapper: r, parentFps: n, subCompFps: a } = e, i = r.speed ?? 1, o = r.sourceFps ?? a, s = Do(r), c = r.sourceEnd ?? s + Bt(
     r.durationInFrames,
     i,
@@ -20829,7 +20835,7 @@ function cb(e) {
   }
   return v;
 }
-function Zp(e) {
+function Jp(e) {
   const { wrapper: t, parentFps: r, compositionById: n, activeCompositionPath: a, mediaFpsById: i } = e;
   if (!n) return [];
   if (a.has(t.compositionId)) return [];
@@ -20838,7 +20844,7 @@ function Zp(e) {
   const s = new Set(a);
   s.add(t.compositionId);
   const c = o.items.flatMap((l) => {
-    const u = cb({
+    const u = lb({
       subItem: l,
       wrapper: t,
       parentFps: r,
@@ -20855,7 +20861,7 @@ function Zp(e) {
     activeCompositionPath: s
   });
 }
-function M2(e) {
+function E2(e) {
   const { wrapper: t, parentFps: r, compositionById: n, activeCompositionPath: a, mediaFpsById: i } = e;
   if (!n || a.has(t.compositionId)) return null;
   const o = n[t.compositionId];
@@ -20863,7 +20869,7 @@ function M2(e) {
   const s = new Set(a);
   s.add(t.compositionId);
   const c = o.items.flatMap((l) => {
-    const u = cb({
+    const u = lb({
       subItem: l,
       wrapper: t,
       parentFps: r,
@@ -20871,7 +20877,7 @@ function M2(e) {
     });
     return u ? [u] : [];
   });
-  return lb({
+  return ub({
     items: c,
     tracks: o.tracks,
     fps: r,
@@ -20880,8 +20886,8 @@ function M2(e) {
     activeCompositionPath: s
   });
 }
-function lb(e) {
-  const t = sb(e), r = e.activeCompositionPath ?? /* @__PURE__ */ new Set();
+function ub(e) {
+  const t = cb(e), r = e.activeCompositionPath ?? /* @__PURE__ */ new Set();
   for (const n of t) {
     if (n.type === "video" && n.mediaId)
       return {
@@ -20893,7 +20899,7 @@ function lb(e) {
         speed: n.speed ?? 1
       };
     if (n.type === "composition") {
-      const a = M2({
+      const a = E2({
         wrapper: n,
         parentFps: e.fps,
         compositionById: e.compositionById,
@@ -20907,14 +20913,14 @@ function lb(e) {
   return null;
 }
 function Yo(e) {
-  const t = sb(e), r = new Map(e.tracks.map((a) => [a.id, a])), n = e.activeCompositionPath ?? /* @__PURE__ */ new Set();
-  return t.flatMap((a) => r.get(a.trackId)?.muted ? [] : a.type === "audio" && a.compositionId ? Zp({
+  const t = cb(e), r = new Map(e.tracks.map((a) => [a.id, a])), n = e.activeCompositionPath ?? /* @__PURE__ */ new Set();
+  return t.flatMap((a) => r.get(a.trackId)?.muted ? [] : a.type === "audio" && a.compositionId ? Jp({
     wrapper: a,
     parentFps: e.fps,
     compositionById: e.compositionById,
     activeCompositionPath: n,
     mediaFpsById: e.mediaFpsById
-  }) : a.type === "composition" ? Ra(t, a) ? [] : Zp({
+  }) : a.type === "composition" ? Ra(t, a) ? [] : Jp({
     wrapper: a,
     parentFps: e.fps,
     compositionById: e.compositionById,
@@ -20938,14 +20944,14 @@ function Yo(e) {
     speed: a.speed ?? 1
   }] : [] : []);
 }
-function QU(e) {
+function tz(e) {
   const t = Yo({
     items: e.items,
     tracks: e.tracks,
     fps: e.fps ?? 30,
     mediaFpsById: e.mediaFpsById,
     compositionById: e.compositionById
-  }), r = lb({
+  }), r = ub({
     items: e.items,
     tracks: e.tracks,
     fps: e.fps ?? 30,
@@ -20960,13 +20966,13 @@ function QU(e) {
     visualSource: r
   };
 }
-function Ou(e, t) {
+function Lu(e, t) {
   return zt(e ?? { name: "" }) ?? (t.every((r) => r.type === "audio") ? "audio" : "video");
 }
-function F2(e) {
+function P2(e) {
   return e.some((t) => t.type !== "audio");
 }
-function C2(e) {
+function R2(e) {
   return {
     sourceStart: 0,
     sourceEnd: e.durationInFrames,
@@ -20975,7 +20981,7 @@ function C2(e) {
     speed: 1
   };
 }
-function E2(e, t) {
+function A2(e, t) {
   const r = new Set(t);
   for (const n of e)
     if (r.has(n.id)) {
@@ -20985,7 +20991,7 @@ function E2(e, t) {
         continue;
       }
       if (rn(n)) {
-        const a = Md(e, n);
+        const a = Fd(e, n);
         a && r.add(a.id);
       }
     }
@@ -20994,20 +21000,20 @@ function E2(e, t) {
 function Tl(e, t, r) {
   const n = /* @__PURE__ */ new Set([t]);
   let a = !1;
-  const i = e.map((o) => !Kd(o, n) || o.label === r ? o : (a = !0, {
+  const i = e.map((o) => !Xd(o, n) || o.label === r ? o : (a = !0, {
     ...o,
     label: r
   }));
   return a ? i : e;
 }
-function Kd(e, t) {
+function Xd(e, t) {
   return !!e.compositionId && (e.type === "composition" || rn(e)) && t.has(e.compositionId);
 }
-function Qp(e, t) {
-  return e.filter((r) => Kd(r, t)).length;
+function eh(e, t) {
+  return e.filter((r) => Xd(r, t)).length;
 }
 function Ml(e, t) {
-  const r = e.items.filter((a) => Kd(a, t)).map((a) => a.id);
+  const r = e.items.filter((a) => Xd(a, t)).map((a) => a.id);
   if (r.length === 0)
     return {
       ...e,
@@ -21022,7 +21028,7 @@ function Ml(e, t) {
     removedItemIds: r
   };
 }
-function P2(e) {
+function D2(e) {
   const t = new Set(e.filter(Boolean));
   if (t.size === 0)
     return {
@@ -21030,17 +21036,17 @@ function P2(e) {
       nestedReferenceCount: 0,
       totalReferenceCount: 0
     };
-  const r = Oi(), n = Qp(
-    Ev(r).items,
+  const r = Oi(), n = eh(
+    Rv(r).items,
     t
-  ), a = Eu(r).filter((i) => !t.has(i.id)).reduce((i, o) => i + Qp(o.items, t), 0);
+  ), a = Eu(r).filter((i) => !t.has(i.id)).reduce((i, o) => i + eh(o.items, t), 0);
   return {
     rootReferenceCount: n,
     nestedReferenceCount: a,
     totalReferenceCount: n + a
   };
 }
-function JU(e, t) {
+function rz(e, t) {
   const r = t.trim();
   return !e || !r ? !1 : Ne("RENAME_COMPOUND_CLIP", () => {
     const n = It.getState().getComposition(e);
@@ -21067,7 +21073,7 @@ function JU(e, t) {
     })), he.getState().markDirty(), !0;
   }, { compositionId: e, nextName: r });
 }
-function Jp(e) {
+function th(e) {
   const {
     subTracks: t,
     subItems: r,
@@ -21111,7 +21117,7 @@ function Jp(e) {
     });
   }
 }
-function R2(e) {
+function _2(e) {
   const { subItem: t, wrapper: r, timelineFps: n, subCompFps: a } = e, i = r.speed ?? 1, o = r.sourceFps ?? a, s = r.sourceStart ?? r.trimStart ?? 0, c = r.sourceEnd ?? s + Bt(r.durationInFrames, i, n, o), l = t.from, u = t.from + t.durationInFrames, d = Math.max(l, s), f = Math.min(u, c);
   if (f <= d)
     return null;
@@ -21145,14 +21151,14 @@ function R2(e) {
   }
   return g;
 }
-function ez(e, t) {
+function nz(e, t) {
   return Ne("CREATE_PRE_COMP", () => {
-    const { items: r, tracks: n } = J.getState(), { transitions: a } = Je.getState(), { keyframes: i } = bt.getState(), { fps: o } = he.getState(), s = t ?? Pt.getState().selectedItemIds, l = mr.getState().linkedSelectionEnabled ? Ko(r, s) : Array.from(new Set(s)), u = E2(r, l);
+    const { items: r, tracks: n } = J.getState(), { transitions: a } = Je.getState(), { keyframes: i } = bt.getState(), { fps: o } = he.getState(), s = t ?? Pt.getState().selectedItemIds, l = mr.getState().linkedSelectionEnabled ? Ko(r, s) : Array.from(new Set(s)), u = A2(r, l);
     if (u.length === 0) return null;
     const d = r.filter((E) => u.includes(E.id));
     if (d.length === 0) return null;
     const f = Zt.getState().activeCompositionId, m = It.getState().compositionById;
-    if (f !== null && Cd(d).some((W) => $c({
+    if (f !== null && Ed(d).some((W) => $c({
       parentCompositionId: f,
       insertedCompositionId: W,
       compositionById: m
@@ -21163,7 +21169,7 @@ function ez(e, t) {
       return {
         id: crypto.randomUUID(),
         name: W?.name ?? `Track ${pe + 1}`,
-        kind: Ou(W, K),
+        kind: Lu(W, K),
         height: W?.height ?? Ur,
         locked: !1,
         visible: W?.visible ?? !0,
@@ -21212,7 +21218,7 @@ function ez(e, t) {
       backgroundColor: k
     };
     It.getState().addComposition(j);
-    const z = F2(R), A = Yo({
+    const z = P2(R), A = Yo({
       items: R,
       tracks: C,
       fps: o,
@@ -21243,7 +21249,7 @@ function ez(e, t) {
       (E) => !M.has(E.leftClipId) && !M.has(E.rightClipId)
     );
     Je.getState().setTransitions(ae), bt.getState()._removeKeyframesForItems(u), Y !== n && J.getState().setTracks(Y);
-    const se = C2(j), le = z && A ? crypto.randomUUID() : void 0;
+    const se = R2(j), le = z && A ? crypto.randomUUID() : void 0;
     let ee = null, Z = null;
     z && O && (ee = {
       id: crypto.randomUUID(),
@@ -21279,13 +21285,13 @@ function ez(e, t) {
     return fe.length > 0 && Pt.getState().selectItems(fe), he.getState().markDirty(), ee ?? Z ?? null;
   }, { name: e });
 }
-function tz(e) {
+function az(e) {
   return Ne("DISSOLVE_PRE_COMP", () => {
     const { items: t } = J.getState(), r = t.find((P) => P.id === e && (P.type === "composition" || rn(P)));
     if (!r) return !1;
     const n = r.compositionId;
     if (!n) return !1;
-    const a = rn(r), i = r.type === "composition" ? r : a ? Md(t, r) : null, o = r.type === "composition" ? Vc(t, r) : a ? r : null, s = It.getState().getComposition(n);
+    const a = rn(r), i = r.type === "composition" ? r : a ? Fd(t, r) : null, o = r.type === "composition" ? Vc(t, r) : a ? r : null, s = It.getState().getComposition(n);
     if (!s) return !1;
     const { tracks: c } = J.getState(), l = [i?.id, o?.id].filter((P) => !!P), u = i ?? o;
     if (!u) return !1;
@@ -21312,10 +21318,10 @@ function tz(e) {
       return m = [...m, z], z.id;
     }, h = [...s.tracks].sort((P, _) => (P.order ?? 0) - (_.order ?? 0)), g = h.filter((P) => {
       const _ = s.items.filter((B) => B.trackId === P.id);
-      return Ou(P, _) === "video";
+      return Lu(P, _) === "video";
     }), v = h.filter((P) => {
       const _ = s.items.filter((B) => B.trackId === P.id);
-      return Ou(P, _) === "audio";
+      return Lu(P, _) === "audio";
     }), b = p(
       i?.trackId ?? null,
       o?.trackId ?? null,
@@ -21327,7 +21333,7 @@ function tz(e) {
       "audio",
       "below"
     ), k = /* @__PURE__ */ new Map(), M = [], S = t.filter((P) => !l.includes(P.id));
-    Jp({
+    th({
       subTracks: g,
       subItems: s.items,
       anchorTrackId: b,
@@ -21337,7 +21343,7 @@ function tz(e) {
       currentItems: S,
       trackIdMapping: k,
       newTracks: M
-    }), Jp({
+    }), th({
       subTracks: v,
       subItems: s.items,
       anchorTrackId: x,
@@ -21349,7 +21355,7 @@ function tz(e) {
       newTracks: M
     }), M.length > 0 && (m = [...m, ...M], J.getState().setTracks(m));
     const F = /* @__PURE__ */ new Map(), C = s.items.flatMap((P) => {
-      const _ = R2({
+      const _ = _2({
         subItem: P,
         wrapper: u,
         timelineFps: f,
@@ -21386,10 +21392,10 @@ function tz(e) {
       }));
       bt.getState().setKeyframes([...P, ..._]);
     }
-    return P2([n]).totalReferenceCount === 0 && It.getState().removeComposition(n), Pt.getState().selectItems(C.map((P) => P.id)), he.getState().markDirty(), !0;
+    return D2([n]).totalReferenceCount === 0 && It.getState().removeComposition(n), Pt.getState().selectItems(C.map((P) => P.id)), he.getState().markDirty(), !0;
   }, { compositionItemId: e });
 }
-function rz(e) {
+function iz(e) {
   const t = Array.from(new Set(e.filter(Boolean)));
   return t.length === 0 ? !1 : Ne("DELETE_COMPOUND_CLIPS", () => {
     const r = new Set(t);
@@ -21416,7 +21422,7 @@ function rz(e) {
         tracks: f.tracks,
         transitions: f.transitions,
         keyframes: f.keyframes,
-        durationInFrames: gC(
+        durationInFrames: yC(
           f.items,
           u.durationInFrames
         )
@@ -21435,14 +21441,14 @@ function rz(e) {
     })), Pt.getState().clearSelection(), he.getState().markDirty(), !0;
   }, { compositionIds: t });
 }
-function ub(e, t) {
+function db(e, t) {
   return !!e.mediaId && t.has(e.mediaId);
 }
-function eh(e, t) {
-  return e.filter((r) => ub(r, t)).length;
+function rh(e, t) {
+  return e.filter((r) => db(r, t)).length;
 }
-function th(e, t) {
-  return e.filter((r) => ub(r, t)).map((r) => r.id);
+function nh(e, t) {
+  return e.filter((r) => db(r, t)).map((r) => r.id);
 }
 function Fl(e, t) {
   const r = e.items.filter((a) => t.has(a.id)).map((a) => a.id);
@@ -21471,7 +21477,7 @@ function Cl(e, t, r) {
     changed: n
   };
 }
-function nz(e) {
+function oz(e) {
   const t = new Set(e.filter(Boolean));
   if (t.size === 0)
     return {
@@ -21480,15 +21486,15 @@ function nz(e) {
       nestedReferenceCount: 0,
       totalReferenceCount: 0
     };
-  const r = Oi(), n = Ev(r), a = th(n.items, t), i = Eu(r).flatMap((s) => th(s.items, t)), o = Array.from(/* @__PURE__ */ new Set([...a, ...i]));
+  const r = Oi(), n = Rv(r), a = nh(n.items, t), i = Eu(r).flatMap((s) => nh(s.items, t)), o = Array.from(/* @__PURE__ */ new Set([...a, ...i]));
   return {
     itemIds: o,
-    rootReferenceCount: eh(n.items, t),
-    nestedReferenceCount: Eu(r).reduce((s, c) => s + eh(c.items, t), 0),
+    rootReferenceCount: rh(n.items, t),
+    nestedReferenceCount: Eu(r).reduce((s, c) => s + rh(c.items, t), 0),
     totalReferenceCount: o.length
   };
 }
-function A2(e) {
+function O2(e) {
   const t = Array.from(new Set(e.filter(Boolean)));
   return t.length === 0 ? !1 : Ne("REMOVE_PROJECT_ITEMS", () => {
     const r = new Set(t), n = Oi(), a = Fl(n, r);
@@ -21536,7 +21542,7 @@ function A2(e) {
     })), Pt.getState().clearSelection(), he.getState().markDirty()), i;
   }, { itemIds: t });
 }
-function D2(e, t) {
+function L2(e, t) {
   return e ? Ne("UPDATE_PROJECT_ITEM", () => {
     const r = Oi(), n = Cl(r.items, e, t);
     let a = n.changed;
@@ -21565,21 +21571,21 @@ function D2(e, t) {
     })), ("from" in t || "durationInFrames" in t || "trackId" in t) && n.changed && lr([e]), he.getState().markDirty(), !0) : !1;
   }, { itemId: e, updates: t }) : !1;
 }
-function _2(e) {
+function B2(e) {
   return e.type === "video" || e.type === "composition";
 }
-function O2(e) {
+function N2(e) {
   return [...e].sort((t, r) => (t.order ?? 0) - (r.order ?? 0));
 }
-function L2(e, t) {
+function U2(e, t) {
   return Math.max(0, t - e - 1);
 }
-function db(e) {
+function fb(e) {
   return e.type !== "audio";
 }
-function B2(e, t) {
+function z2(e, t) {
   const r = e.map((o) => {
-    const s = t.get(o.id) ?? [], c = s.some(db), l = s.some((u) => u.type === "audio");
+    const s = t.get(o.id) ?? [], c = s.some(fb), l = s.some((u) => u.type === "audio");
     return c ? "video" : l ? "audio" : zt(o);
   }), n = r.findIndex((o) => o === "audio"), a = n === 0 ? "audio" : "video", i = /* @__PURE__ */ new Map();
   return e.forEach((o, s) => {
@@ -21587,7 +21593,7 @@ function B2(e, t) {
     i.set(o.id, c);
   }), i;
 }
-function rh(e) {
+function ah(e) {
   const { tracks: t, items: r } = e;
   if (t.length === 0 || r.length === 0)
     return !1;
@@ -21617,8 +21623,8 @@ function El(e) {
     items: []
   };
 }
-function N2(e) {
-  const t = e.items.filter((i) => _2(i)).toSorted((i, o) => {
+function j2(e) {
+  const t = e.items.filter((i) => B2(i)).toSorted((i, o) => {
     const s = e.trackOrderMap.get(i.trackId) ?? 0, c = e.trackOrderMap.get(o.trackId) ?? 0;
     return s !== c ? s - c : i.from !== o.from ? i.from - o.from : i.id.localeCompare(o.id);
   }), r = e.items.filter((i) => i.type === "audio"), n = /* @__PURE__ */ new Set(), a = [];
@@ -21627,11 +21633,11 @@ function N2(e) {
     if (o === void 0) continue;
     const s = Po(e.items, i);
     let c = s && !n.has(s.id) ? s : null;
-    !c && i.type === "video" && (c = r.find((l) => !n.has(l.id) && ET([i, l])) ?? null), c && (n.add(c.id), a.push({ video: i, audio: c, videoLaneIndex: o }));
+    !c && i.type === "video" && (c = r.find((l) => !n.has(l.id) && PT([i, l])) ?? null), c && (n.add(c.id), a.push({ video: i, audio: c, videoLaneIndex: o }));
   }
   return a;
 }
-function nh(e, t) {
+function ih(e, t) {
   const r = e?.properties.find((a) => a.property === "volume");
   if (!r || r.keyframes.length === 0)
     return null;
@@ -21644,7 +21650,7 @@ function nh(e, t) {
     properties: [n]
   };
 }
-function U2(e, t, r) {
+function V2(e, t, r) {
   return {
     id: r(),
     type: "audio",
@@ -21673,16 +21679,16 @@ function U2(e, t, r) {
     offset: e.offset
   };
 }
-function Lu(e) {
-  const t = e.createId ?? (() => crypto.randomUUID()), r = O2(e.tracks), n = new Map(r.map((N) => [N.id, N])), a = /* @__PURE__ */ new Map();
+function Bu(e) {
+  const t = e.createId ?? (() => crypto.randomUUID()), r = N2(e.tracks), n = new Map(r.map((N) => [N.id, N])), a = /* @__PURE__ */ new Map();
   for (const N of e.items) {
     const O = a.get(N.trackId);
     O ? O.push(N) : a.set(N.trackId, [N]);
   }
-  const i = B2(r, a), o = r.filter((N) => i.get(N.id) === "video").map((N) => N.id), s = r.filter((N) => i.get(N.id) === "audio").map((N) => N.id), c = new Map(o.map((N, O) => [
+  const i = z2(r, a), o = r.filter((N) => i.get(N.id) === "video").map((N) => N.id), s = r.filter((N) => i.get(N.id) === "audio").map((N) => N.id), c = new Map(o.map((N, O) => [
     N,
-    L2(O, o.length)
-  ])), l = [...o].reverse(), u = new Map(r.map((N) => [N.id, N.order ?? 0])), d = N2({
+    U2(O, o.length)
+  ])), l = [...o].reverse(), u = new Map(r.map((N) => [N.id, N.order ?? 0])), d = j2({
     items: e.items,
     videoTrackLaneIndex: c,
     trackOrderMap: u
@@ -21753,7 +21759,7 @@ function Lu(e) {
         z.set(O.video.id, ae);
         const se = O.audio.trackId === L && O.audio.linkedGroupId === ae ? O.audio : { ...O.audio, trackId: L, linkedGroupId: ae };
         if (!B.get(N.id)?.properties.some((ee) => ee.property === "volume")) {
-          const ee = nh(B.get(O.video.id), N.id);
+          const ee = ih(B.get(O.video.id), N.id);
           ee && $.push(ee);
         }
         U.push(se);
@@ -21775,16 +21781,16 @@ function Lu(e) {
         if (se) {
           const le = ae.linkedGroupId ?? t();
           ae.linkedGroupId !== le && (ae = { ...ae, linkedGroupId: le });
-          const ee = U2(ae, se, t);
+          const ee = V2(ae, se, t);
           j.push(ee);
-          const Z = nh(B.get(N.id), ee.id);
+          const Z = ih(B.get(N.id), ee.id);
           Z && $.push(Z);
         }
       }
       U.push(ae);
       continue;
     }
-    if (db(N)) {
+    if (fb(N)) {
       const O = c.get(N.trackId) ?? 0, Y = R.get(O) ?? N.trackId;
       U.push(Y !== N.trackId ? { ...N, trackId: Y } : N);
       continue;
@@ -21808,7 +21814,7 @@ function Lu(e) {
     changed: H
   };
 }
-async function z2(e) {
+async function $2(e) {
   const t = qt.getState().mediaById, r = Array.from(new Set(
     e.filter((a) => a.type === "video" && !!a.mediaId).map((a) => a.mediaId)
   )), n = await Promise.all(r.map(async (a) => {
@@ -21820,10 +21826,10 @@ async function z2(e) {
   }));
   return Object.fromEntries(n);
 }
-async function j2() {
+async function H2() {
   const e = J.getState().items, t = J.getState().tracks, r = bt.getState().keyframes;
   he.getState().fps;
-  const n = Zt.getState().activeCompositionId, a = await z2(e), i = Lu({
+  const n = Zt.getState().activeCompositionId, a = await $2(e), i = Bu({
     tracks: t,
     items: e,
     keyframes: r,
@@ -21835,7 +21841,7 @@ async function j2() {
     keyframes: i.keyframes
   }), he.getState().markDirty(), !0), { activeCompositionId: n ?? "root" }) : !1;
 }
-async function V2(e, t) {
+async function G2(e, t) {
   const r = [], n = e.filter(
     (o) => !!o.mediaId && (o.type === "video" || o.type === "audio" || o.type === "image")
   );
@@ -21852,7 +21858,7 @@ async function V2(e, t) {
     });
   return r;
 }
-async function $2(e) {
+async function W2(e) {
   const t = [
     ...e.rootItems,
     ...e.compositions.flatMap((n) => n.items)
@@ -21862,9 +21868,9 @@ async function $2(e) {
   const r = Array.from(
     new Map(t.map((n) => [n.id, n])).values()
   );
-  return V2(r, e.projectId);
+  return G2(r, e.projectId);
 }
-function H2(e, t) {
+function K2(e, t) {
   const r = e.fileName.toLowerCase(), n = t.find(
     (o) => o.fileName.toLowerCase() === r
   );
@@ -21873,19 +21879,19 @@ function H2(e, t) {
   const a = r.replace(/\.[^.]+$/, "");
   return t.find((o) => o.fileName.toLowerCase().replace(/\.[^.]+$/, "") === a) || null;
 }
-function G2(e, t) {
+function X2(e, t) {
   const r = `${t}/`;
   return e.filter((n) => n.mimeType.startsWith(r));
 }
-function az(e, t) {
+function sz(e, t) {
   const r = /* @__PURE__ */ new Map();
   for (const n of e) {
-    const a = G2(t, n.itemType), i = H2(n, a);
+    const a = X2(t, n.itemType), i = K2(n, a);
     i && r.set(n.itemId, i.id);
   }
   return r;
 }
-function iz(e) {
+function cz(e) {
   if (!e) return;
   const t = qt.getState().mediaById[e];
   if (t) {
@@ -21895,13 +21901,13 @@ function iz(e) {
       return t.codec;
   }
 }
-const W2 = He("VideoSourcePool"), fb = "VIDEO_POOL_ABORT:";
-function ah(e) {
-  const t = new Error(`${fb}${e}`);
+const q2 = He("VideoSourcePool"), mb = "VIDEO_POOL_ABORT:";
+function oh(e) {
+  const t = new Error(`${mb}${e}`);
   return t.name = "AbortError", t;
 }
-function K2(e) {
-  return e instanceof Error ? e.name === "AbortError" || e.message.startsWith(fb) : !1;
+function Y2(e) {
+  return e instanceof Error ? e.name === "AbortError" || e.message.startsWith(mb) : !1;
 }
 class Ia {
   sourceUrl;
@@ -21945,7 +21951,7 @@ class Ia {
       }, i = () => {
         const s = t.getAttribute("src") ?? "", c = t.error?.message || "Unknown error";
         if (!s && /empty\s+src\s+attribute/i.test(c)) {
-          o(), n(ah("source-cleared-during-load"));
+          o(), n(oh("source-cleared-during-load"));
           return;
         }
         o(), n(
@@ -21958,7 +21964,7 @@ class Ia {
       };
       t.addEventListener("canplay", a), t.addEventListener("error", i), this._loadTimeoutId = setTimeout(() => {
         if (!(t.getAttribute("src") ?? "")) {
-          o(), n(ah("source-cleared-before-ready"));
+          o(), n(oh("source-cleared-before-ready"));
           return;
         }
         o(), n(
@@ -22005,7 +22011,7 @@ class Ia {
       const a = this.createElementSync();
       return this.overflow.push(a), this.assignments.set(t, a), a;
     }
-    W2.warn(
+    q2.warn(
       `All pooled elements in use for ${this.sourceUrl}, creating extra overflow element`
     );
     const n = this.createElementSync();
@@ -22124,7 +22130,7 @@ class Ia {
     }), t;
   }
 }
-class mb {
+class pb {
   sources = /* @__PURE__ */ new Map();
   clipToSource = /* @__PURE__ */ new Map();
   pendingReleaseTimers = /* @__PURE__ */ new Map();
@@ -22251,39 +22257,39 @@ class mb {
   }
 }
 let Pl = null;
-function X2() {
-  return Pl || (Pl = new mb()), Pl;
+function Z2() {
+  return Pl || (Pl = new pb()), Pl;
 }
-const oz = 8, sz = 24;
-function pb(e) {
+const lz = 8, uz = 24;
+function hb(e) {
   const { playerSize: t, projectSize: r, zoom: n } = e;
   return n === -1 ? Math.min(
     t.width / r.width,
     t.height / r.height
   ) : n;
 }
-function cz(e, t, r) {
-  const { containerRect: n, playerSize: a } = r, i = pb(r), o = (n.width - a.width) / 2, s = (n.height - a.height) / 2, c = e - n.left - o, l = t - n.top - s;
+function dz(e, t, r) {
+  const { containerRect: n, playerSize: a } = r, i = hb(r), o = (n.width - a.width) / 2, s = (n.height - a.height) / 2, c = e - n.left - o, l = t - n.top - s;
   return {
     x: c / i,
     y: l / i
   };
 }
-function ih(e, t, r) {
+function sh(e, t, r) {
   const n = r * Math.PI / 180, a = Math.cos(n), i = Math.sin(n), o = e.x - t.x, s = e.y - t.y;
   return {
     x: t.x + o * a - s * i,
     y: t.y + o * i + s * a
   };
 }
-function lz(e, t, r) {
+function fz(e, t, r) {
   return {
     x: t / 2 + e.x,
     y: r / 2 + e.y
   };
 }
-function uz(e, t) {
-  const { projectSize: r } = t, n = pb(t), a = r.width / 2, i = r.height / 2, o = a + e.x - e.width / 2, s = i + e.y - e.height / 2;
+function mz(e, t) {
+  const { projectSize: r } = t, n = hb(t), a = r.width / 2, i = r.height / 2, o = a + e.x - e.width / 2, s = i + e.y - e.height / 2;
   return {
     left: o * n,
     top: s * n,
@@ -22291,10 +22297,10 @@ function uz(e, t) {
     height: e.height * n
   };
 }
-function oh(e, t) {
+function ch(e, t) {
   return Math.atan2(e.y - t.y, e.x - t.x) * (180 / Math.PI);
 }
-function dz(e, t) {
+function pz(e, t) {
   const a = (({
     e: 0,
     se: 45,
@@ -22308,12 +22314,12 @@ function dz(e, t) {
   return ["ew-resize", "nwse-resize", "ns-resize", "nesw-resize"][i] ?? "default";
 }
 const ci = 20;
-function q2(e, t, r, n, a, i = !1) {
+function Q2(e, t, r, n, a, i = !1) {
   switch (e.mode) {
     case "translate":
-      return Y2(e.startTransform, e.startPoint, t);
+      return J2(e.startTransform, e.startPoint, t);
     case "scale":
-      return Z2(
+      return eP(
         e.startTransform,
         e.activeHandle,
         e.startPoint,
@@ -22325,7 +22331,7 @@ function q2(e, t, r, n, a, i = !1) {
         i
       );
     case "rotate":
-      return Q2(
+      return tP(
         e.startTransform,
         e.startPoint,
         t,
@@ -22336,15 +22342,15 @@ function q2(e, t, r, n, a, i = !1) {
       return e.startTransform;
   }
 }
-function Y2(e, t, r) {
+function J2(e, t, r) {
   return {
     ...e,
     x: e.x + (r.x - t.x),
     y: e.y + (r.y - t.y)
   };
 }
-function Z2(e, t, r, n, a, i, o, s = !1) {
-  const c = i / 2 + e.x, l = o / 2 + e.y, u = { x: c, y: l }, d = ih(r, u, -e.rotation), f = ih(n, u, -e.rotation), m = t.includes("w"), p = t.includes("e"), h = t.includes("n"), g = t.includes("s"), v = (m || p) && (h || g);
+function eP(e, t, r, n, a, i, o, s = !1) {
+  const c = i / 2 + e.x, l = o / 2 + e.y, u = { x: c, y: l }, d = sh(r, u, -e.rotation), f = sh(n, u, -e.rotation), m = t.includes("w"), p = t.includes("e"), h = t.includes("n"), g = t.includes("s"), v = (m || p) && (h || g);
   let b, x, k = e.x, M = e.y;
   if (a && v)
     if (s) {
@@ -22384,8 +22390,8 @@ function Z2(e, t, r, n, a, i, o, s = !1) {
     height: x
   };
 }
-function Q2(e, t, r, n, a) {
-  const i = n / 2 + e.x, o = a / 2 + e.y, s = { x: i, y: o }, c = oh(t, s), u = oh(r, s) - c;
+function tP(e, t, r, n, a) {
+  const i = n / 2 + e.x, o = a / 2 + e.y, s = { x: i, y: o }, c = ch(t, s), u = ch(r, s) - c;
   let d = e.rotation + u;
   for (; d > 180; ) d -= 360;
   for (; d < -180; ) d += 360;
@@ -22395,7 +22401,7 @@ function Q2(e, t, r, n, a) {
   };
 }
 const yc = 8, vc = 18;
-function J2(e, t) {
+function rP(e, t) {
   return {
     vertical: [
       { pos: 0, label: "Edge" },
@@ -22409,7 +22415,7 @@ function J2(e, t) {
     ]
   };
 }
-function eP(e, t) {
+function nP(e, t) {
   return {
     vertical: [
       { pos: 0, label: "0%" },
@@ -22427,10 +22433,10 @@ function eP(e, t) {
     ]
   };
 }
-const tP = 0.02;
-function hb(e, t, r, n = 0, a) {
+const aP = 0.02;
+function gb(e, t, r, n = 0, a) {
   const i = t / 2 + e.x, o = r / 2 + e.y, s = n / 2, c = e.width, l = e.height, u = a;
-  if (u && u.width > 0 && u.height > 0 && Math.abs(e.rotation) < tP) {
+  if (u && u.width > 0 && u.height > 0 && Math.abs(e.rotation) < aP) {
     const d = u.x + u.width / 2 - c / 2, f = u.y + u.height / 2 - l / 2, m = i + d, p = o + f;
     return {
       left: m - u.width / 2 - s,
@@ -22450,8 +22456,8 @@ function hb(e, t, r, n = 0, a) {
     centerY: o
   };
 }
-function rP(e, t, r, n = [], a = 0, i) {
-  const o = J2(t, r), s = hb(e, t, r, a, i), c = [], l = n.find((g) => g.type === "vertical"), u = n.find((g) => g.type === "horizontal");
+function iP(e, t, r, n = [], a = 0, i) {
+  const o = rP(t, r), s = gb(e, t, r, a, i), c = [], l = n.find((g) => g.type === "vertical"), u = n.find((g) => g.type === "horizontal");
   let d = 0, f = 0;
   const m = [
     { edge: s.left, type: "left" },
@@ -22502,8 +22508,8 @@ function rP(e, t, r, n = [], a = 0, i) {
     snapLines: c
   };
 }
-function nP(e, t, r, n = [], a = 0) {
-  const i = eP(t, r), o = hb(e, t, r, a), s = [], c = e.width / e.height, l = n.filter((P) => P.type === "vertical").map((P) => P.position), u = n.filter((P) => P.type === "horizontal").map((P) => P.position);
+function oP(e, t, r, n = [], a = 0) {
+  const i = nP(t, r), o = gb(e, t, r, a), s = [], c = e.width / e.height, l = n.filter((P) => P.type === "vertical").map((P) => P.position), u = n.filter((P) => P.type === "horizontal").map((P) => P.position);
   let d = null;
   for (const P of i.vertical) {
     const B = l.includes(P.pos) ? vc : yc, $ = Math.abs(o.left - P.pos);
@@ -22659,7 +22665,7 @@ const Er = Mt(
       if (!o) return;
       let l;
       o.aspectRatioLocked !== void 0 ? l = o.aspectRatioLocked : l = !(o.itemType === "text" || o.itemType === "shape");
-      let d = q2(
+      let d = Q2(
         o,
         r,
         !(n ? !l : l),
@@ -22671,14 +22677,14 @@ const Er = Mt(
       let m = [];
       const p = o.strokeWidth ?? 0;
       if (c && !i && o.mode !== "rotate") {
-        const h = o.mode === "translate" ? rP(
+        const h = o.mode === "translate" ? iP(
           d,
           s.width,
           s.height,
           f,
           p,
           o.mediaViewportInLayer
-        ) : nP(d, s.width, s.height, f, p);
+        ) : oP(d, s.width, s.height, f, p);
         d = h.transform, m = h.snapLines;
       } else
         d = {
@@ -22753,7 +22759,7 @@ const Er = Mt(
     setCanvasBackgroundPreview: (r) => e({ canvasBackgroundPreview: r }),
     clearCanvasBackgroundPreview: () => e({ canvasBackgroundPreview: null })
   })
-), aP = Mt()(
+), sP = Mt()(
   (e) => ({
     isEditing: !1,
     editingItemId: null,
@@ -22780,10 +22786,10 @@ const Er = Mt(
     clearPreview: () => e({ previewCornerPin: null, draggingHandle: null })
   })
 );
-function iP(e) {
+function cP(e) {
   return [...new Set(e.filter((t) => Number.isInteger(t) && t >= 0))].sort((t, r) => t - r);
 }
-const sh = Mt()((e, t) => ({
+const lh = Mt()((e, t) => ({
   isEditing: !1,
   editingItemId: null,
   selectedVertexIndices: [],
@@ -22843,7 +22849,7 @@ const sh = Mt()((e, t) => ({
     convertSelectedVertexRequestMode: null
   }),
   selectVertices: (r, n = null) => e(() => {
-    const a = iP(r), i = a.length === 0 ? null : n !== null && a.includes(n) ? n : a[a.length - 1] ?? null;
+    const a = cP(r), i = a.length === 0 ? null : n !== null && a.includes(n) ? n : a[a.length - 1] ?? null;
     return {
       selectedVertexIndices: a,
       selectedVertexIndex: i
@@ -22957,7 +22963,7 @@ const sh = Mt()((e, t) => ({
     convertSelectedVertexRequestVersion: n.convertSelectedVertexRequestVersion + 1,
     convertSelectedVertexRequestMode: r
   }))
-})), oP = Mt(() => ({
+})), lP = Mt(() => ({
   showVideoDebugOverlay: !1,
   setShowVideoDebugOverlay: () => {
   },
@@ -22969,7 +22975,7 @@ const sh = Mt()((e, t) => ({
   toggleDebugPanel: () => {
   }
 }));
-function gb(e, t, r) {
+function yb(e, t, r) {
   const n = e.transform, a = r?.width ?? t.width, i = r?.height ?? t.height, o = t.width / a, s = t.height / i, c = Math.min(o, s), l = a * c, u = i * c, d = n?.width ?? l, f = n?.height ?? u;
   return {
     x: n?.x ?? 0,
@@ -23010,7 +23016,7 @@ function bc(e) {
     return t.compositionWidth && t.compositionHeight ? { width: t.compositionWidth, height: t.compositionHeight } : void 0;
   }
 }
-function sP(e, t) {
+function uP(e, t) {
   const r = t.width / 2, n = t.height / 2, a = r + e.x - e.width / 2, i = n + e.y - e.height / 2, o = Math.abs(e.rotation) < 0.01 ? 0 : Math.round(e.rotation * 100) / 100;
   return {
     position: "absolute",
@@ -23036,10 +23042,10 @@ function qc(e, t) {
     pathVertices: r
   };
 }
-function cP(e, t) {
+function dP(e, t) {
   return e.type !== "shape" ? e : qc(e, t);
 }
-const yb = "Inter", vb = [
+const vb = "Inter", bb = [
   { value: "Roboto", label: "Roboto", family: "Roboto", weights: [100, 200, 300, 400, 500, 600, 700, 800, 900] },
   { value: "Open Sans", label: "Open Sans", family: "Open Sans", weights: [300, 400, 500, 600, 700, 800] },
   { value: "Google Sans", label: "Google Sans", family: "Google Sans", weights: [400, 500, 600, 700] },
@@ -23160,60 +23166,60 @@ const yb = "Inter", vb = [
   { value: "Domine", label: "Domine", family: "Domine", weights: [400, 500, 600, 700] },
   { value: "Shadows Into Light", label: "Shadows Into Light", family: "Shadows Into Light", weights: [400] },
   { value: "M PLUS 1p", label: "M PLUS 1p", family: "M PLUS 1p", weights: [100, 300, 400, 500, 700, 800, 900] }
-], lP = He("FontLoader"), Xd = {
+], fP = He("FontLoader"), qd = {
   normal: 400,
   medium: 500,
   semibold: 600,
   bold: 700
-}, Bu = /* @__PURE__ */ new Map(), Rl = /* @__PURE__ */ new Map(), xc = /* @__PURE__ */ new Map();
-function uP(e) {
+}, Nu = /* @__PURE__ */ new Map(), Rl = /* @__PURE__ */ new Map(), xc = /* @__PURE__ */ new Map();
+function mP(e) {
   const t = [...new Set(e)].filter((r) => Number.isFinite(r) && r > 0).sort((r, n) => r - n);
   return t.length > 0 ? t : [400];
 }
-function Nu(e, t) {
+function Uu(e, t) {
   return {
     family: e,
-    weights: uP(t),
+    weights: mP(t),
     display: "swap"
   };
 }
-function dP(e, t = e, r = [400]) {
+function pP(e, t = e, r = [400]) {
   if (typeof t == "string") {
-    xc.set(e, Nu(t, r));
+    xc.set(e, Uu(t, r));
     return;
   }
-  xc.set(e, Nu(e, t));
+  xc.set(e, Uu(e, t));
 }
-function fP(e) {
+function hP(e) {
   for (const t of e)
-    dP(t.value, t.family, t.weights);
+    pP(t.value, t.family, t.weights);
 }
-function qd(e) {
+function Yd(e) {
   const t = xc.get(e);
   if (t)
     return t;
-  const r = Nu(e, [400]);
+  const r = Uu(e, [400]);
   return xc.set(e, r), r;
 }
-fP(vb);
-function mP(e) {
+hP(bb);
+function gP(e) {
   const t = e.family.replace(/ /g, "+"), r = e.weights.length > 0 ? `:wght@${e.weights.join(";")}` : "";
   return `https://fonts.googleapis.com/css2?family=${t}${r}&display=${e.display ?? "swap"}`;
 }
-async function bb(e) {
+async function xb(e) {
   if (typeof document > "u")
     return e;
-  const t = qd(e), r = Rl.get(e);
+  const t = Yd(e), r = Rl.get(e);
   if (r)
     return r;
-  const n = Bu.get(e);
+  const n = Nu.get(e);
   if (n)
     return n;
   const a = (async () => {
     try {
       if (!document.querySelector(`link[data-font="${e}"]`)) {
         const s = document.createElement("link");
-        s.rel = "stylesheet", s.href = mP(t), s.crossOrigin = "anonymous", s.setAttribute("data-font", e), document.head.appendChild(s), await new Promise((c, l) => {
+        s.rel = "stylesheet", s.href = gP(t), s.crossOrigin = "anonymous", s.setAttribute("data-font", e), document.head.appendChild(s), await new Promise((c, l) => {
           s.onload = () => c(), s.onerror = () => l(new Error(`Failed to load font: ${e}`));
         });
       }
@@ -23223,46 +23229,46 @@ async function bb(e) {
         document.fonts.check(s) || await document.fonts.load(s);
       }
       const o = `"${t.family}", sans-serif`;
-      return Bu.set(e, o), o;
+      return Nu.set(e, o), o;
     } catch (i) {
-      return lP.warn(`Failed to load font "${e}":`, i), e;
+      return fP.warn(`Failed to load font "${e}":`, i), e;
     } finally {
       Rl.delete(e);
     }
   })();
   return Rl.set(e, a), a;
 }
-function xb(e) {
-  const t = Bu.get(e);
-  return t || (bb(e), `"${qd(e).family}", sans-serif`);
+function wb(e) {
+  const t = Nu.get(e);
+  return t || (xb(e), `"${Yd(e).family}", sans-serif`);
 }
-async function fz(e, t = [400]) {
+async function hz(e, t = [400]) {
   if (e.length === 0 || typeof document > "u" || !document.fonts)
     return;
-  const r = [...new Set(e.map((n) => n.trim() || yb))];
-  await Promise.all(r.map((n) => bb(n))), await Promise.all(
+  const r = [...new Set(e.map((n) => n.trim() || vb))];
+  await Promise.all(r.map((n) => xb(n))), await Promise.all(
     r.flatMap((n) => {
-      const a = qd(n), i = a.family;
+      const a = Yd(n), i = a.family;
       return (t.length > 0 ? t : a.weights).map((s) => document.fonts.load(`${s} 16px "${i}"`, "BESbswy"));
     })
   );
 }
-function pP(e) {
-  return [...new Set(e.map((r) => r.trim() || yb))].map(xb);
+function yP(e) {
+  return [...new Set(e.map((r) => r.trim() || vb))].map(wb);
 }
 let Al = null;
-async function mz() {
+async function gz() {
   if (Al)
     return Al;
-  const e = [...vb];
+  const e = [...bb];
   return Al = e, e;
 }
-const ch = 16;
+const uh = 16;
 let kn;
-function hP() {
+function vP() {
   return kn !== void 0 || typeof OffscreenCanvas < "u" && (kn = new OffscreenCanvas(1, 1).getContext("2d"), kn) ? kn : typeof document < "u" ? (kn = document.createElement("canvas").getContext("2d"), kn) : (kn = null, kn);
 }
-function Uu(e, t, r, n) {
+function zu(e, t, r, n) {
   if (!t) return 0;
   if (!e) {
     const i = n * 0.6;
@@ -23274,17 +23280,17 @@ function Uu(e, t, r, n) {
     a += e.measureText(t[i] ?? "").width, i < t.length - 1 && (a += r);
   return a;
 }
-function gP(e, t, r, n, a) {
+function bP(e, t, r, n, a) {
   if (!t) return [""];
   const i = [];
   let o = "";
   for (const s of t) {
     const c = o + s;
-    Uu(e, c, n, a) > r && o ? (i.push(o), o = s) : o = c;
+    zu(e, c, n, a) > r && o ? (i.push(o), o = s) : o = c;
   }
   return o && i.push(o), i;
 }
-function yP(e, t, r, n, a) {
+function xP(e, t, r, n, a) {
   if (!t) return [""];
   const i = [], o = t.split(`
 `);
@@ -23297,9 +23303,9 @@ function yP(e, t, r, n, a) {
     let l = "";
     for (const u of c) {
       const d = l ? `${l} ${u}` : u;
-      if (Uu(e, d, n, a) > r)
-        if (l && i.push(l), Uu(e, u, n, a) > r) {
-          const m = gP(e, u, r, n, a);
+      if (zu(e, d, n, a) > r)
+        if (l && i.push(l), zu(e, u, n, a) > r) {
+          const m = bP(e, u, r, n, a);
           for (let p = 0; p < m.length - 1; p++)
             i.push(m[p] ?? "");
           l = m[m.length - 1] ?? "";
@@ -23312,14 +23318,14 @@ function yP(e, t, r, n, a) {
   }
   return i.length > 0 ? i : [""];
 }
-function vP(e, t, r) {
-  const n = r?.fontSize ?? e.fontSize ?? 60, a = r?.lineHeight ?? e.lineHeight ?? 1.2, i = r?.letterSpacing ?? e.letterSpacing ?? 0, o = e.fontFamily ?? "Inter", s = e.fontStyle ?? "normal", c = Xd[e.fontWeight ?? "normal"] ?? 400, l = Math.max(1, t - ch * 2), u = hP();
+function wP(e, t, r) {
+  const n = r?.fontSize ?? e.fontSize ?? 60, a = r?.lineHeight ?? e.lineHeight ?? 1.2, i = r?.letterSpacing ?? e.letterSpacing ?? 0, o = e.fontFamily ?? "Inter", s = e.fontStyle ?? "normal", c = qd[e.fontWeight ?? "normal"] ?? 400, l = Math.max(1, t - uh * 2), u = vP();
   u && (u.font = `${s} ${c} ${n}px "${o}", sans-serif`);
-  const d = yP(u, e.text ?? "", l, i, n), f = n * a, m = d.length * f, p = r ? Object.prototype.hasOwnProperty.call(r, "stroke") : !1, h = r ? Object.prototype.hasOwnProperty.call(r, "textShadow") : !1, g = p ? r?.stroke : e.stroke, v = h ? r?.textShadow : e.textShadow, b = (g?.width ?? 0) * 2, x = v ? Math.abs(v.offsetY) + v.blur : 0;
-  return m + ch * 2 + b + x * 2;
+  const d = xP(u, e.text ?? "", l, i, n), f = n * a, m = d.length * f, p = r ? Object.prototype.hasOwnProperty.call(r, "stroke") : !1, h = r ? Object.prototype.hasOwnProperty.call(r, "textShadow") : !1, g = p ? r?.stroke : e.stroke, v = h ? r?.textShadow : e.textShadow, b = (g?.width ?? 0) * 2, x = v ? Math.abs(v.offsetY) + v.blur : 0;
+  return m + uh * 2 + b + x * 2;
 }
-function wb(e, t, r) {
-  const n = vP(e, t.width, r);
+function Sb(e, t, r) {
+  const n = wP(e, t.width, r);
   return n <= t.height + 0.5 ? t : {
     ...t,
     height: n
@@ -23336,24 +23342,24 @@ function Dl({
     t >= i.endFrame + Math.max(0, n) || t + r < i.startFrame || (a.add(i.transition.leftClipId), a.add(i.transition.rightClipId));
   return a;
 }
-function bP(e, t, r, n) {
+function SP(e, t, r, n) {
   const a = Math.max(1, t - 1), i = Math.max(0, Math.min(1, e / a));
   switch (r) {
     case "spring":
-      return Ld(i, { tension: 180, friction: 12, mass: 1 });
+      return Bd(i, { tension: 180, friction: 12, mass: 1 });
     case "ease-in":
-      return tv(i);
-    case "ease-out":
-      return rv(i);
-    case "ease-in-out":
       return nv(i);
+    case "ease-out":
+      return av(i);
+    case "ease-in-out":
+      return iv(i);
     case "cubic-bezier":
-      return n ? Od(i, n) : i;
+      return n ? Ld(i, n) : i;
     default:
       return i;
   }
 }
-function xP({
+function IP({
   transitionWindows: e,
   frame: t
 }) {
@@ -23365,7 +23371,7 @@ function xP({
       transition: a.transition,
       leftClip: a.leftClip,
       rightClip: a.rightClip,
-      progress: bP(
+      progress: SP(
         i,
         a.durationInFrames,
         a.transition.timing,
@@ -23381,16 +23387,16 @@ function xP({
   }
   return { activeTransitions: r, transitionClipIds: n };
 }
-function Sb(e) {
+function Ib(e) {
   return e ? (e.frames?.length ?? 0) > 0 || (e.ranges?.length ?? 0) > 0 : !1;
 }
-function wP(e, t) {
+function kP(e, t) {
   return e >= t.startFrame && e < t.endFrame;
 }
-function Ib(e, t) {
-  return t.some((r) => wP(e, r));
+function kb(e, t) {
+  return t.some((r) => kP(e, r));
 }
-function pz(e) {
+function yz(e) {
   const t = e.filter((n) => Number.isFinite(n.startFrame) && Number.isFinite(n.endFrame)).map((n) => ({
     startFrame: Math.trunc(n.startFrame),
     endFrame: Math.trunc(n.endFrame)
@@ -23415,22 +23421,22 @@ function Js(e, t) {
     cornerRadius: t.cornerRadius ?? e.cornerRadius
   } : e;
 }
-function kb(e, {
+function Tb(e, {
   canvas: t,
   relativeFrame: r,
   keyframes: n,
   previewTransform: a
 }) {
-  const i = gb(e, t, bc(e)), o = n && sv(n) ? ov(i, n, r) : i, s = Js(o, a);
-  return e.type === "text" ? wb(e, s) : s;
+  const i = yb(e, t, bc(e)), o = n && lv(n) ? cv(i, n, r) : i, s = Js(o, a);
+  return e.type === "text" ? Sb(e, s) : s;
 }
-function Tb(e, {
+function Mb(e, {
   canvas: t,
   frame: r,
   keyframes: n,
   previewTransform: a
 }) {
-  return kb(e, {
+  return Tb(e, {
     canvas: t,
     relativeFrame: r - e.from,
     keyframes: n,
@@ -23452,7 +23458,7 @@ function Yc(e, {
     return {
       shape: c,
       trackOrder: s,
-      transform: Tb(c, {
+      transform: Mb(c, {
         canvas: t,
         frame: r,
         keyframes: n?.(o.id),
@@ -23461,7 +23467,7 @@ function Yc(e, {
     };
   });
 }
-function SP({
+function TP({
   renderPlan: e,
   frame: t,
   canvas: r,
@@ -23478,22 +23484,22 @@ function SP({
       getPreviewTransform: a,
       getPreviewPathVertices: i
     }),
-    transitionFrameState: xP({
+    transitionFrameState: IP({
       transitionWindows: e.transitionWindows,
       frame: t
     })
   };
 }
-function IP() {
+function MP() {
   let e = null, t = -1, r, n = null, a = -1, i = -1, o = -1, s, c, l;
   return {
     resolve(u, d) {
       const f = a === u.canvas.width && i === u.canvas.height && o === u.canvas.fps, m = s === u.getKeyframes && c === u.getPreviewTransform && l === u.getPreviewPathVertices;
-      return e && t === u.frame && r === d && n === u.renderPlan && f && m || (e = SP(u), t = u.frame, r = d, n = u.renderPlan, a = u.canvas.width, i = u.canvas.height, o = u.canvas.fps, s = u.getKeyframes, c = u.getPreviewTransform, l = u.getPreviewPathVertices), e;
+      return e && t === u.frame && r === d && n === u.renderPlan && f && m || (e = TP(u), t = u.frame, r = d, n = u.renderPlan, a = u.canvas.width, i = u.canvas.height, o = u.canvas.fps, s = u.getKeyframes, c = u.getPreviewTransform, l = u.getPreviewPathVertices), e;
     },
     invalidate(u) {
-      if (e && u && Sb(u)) {
-        const d = u.frames?.includes(t) ?? !1, f = u.ranges ? Ib(t, u.ranges) : !1;
+      if (e && u && Ib(u)) {
+        const d = u.frames?.includes(t) ?? !1, f = u.ranges ? kb(t, u.ranges) : !1;
         if (!d && !f)
           return;
       }
@@ -23501,7 +23507,7 @@ function IP() {
     }
   };
 }
-function kP({
+function FP({
   activeTransitions: e,
   getTrackOrder: t
 }) {
@@ -23516,7 +23522,7 @@ function kP({
   }
   return r;
 }
-function Mb(e) {
+function Fb(e) {
   const t = e.some((l) => l.solo), r = Math.max(...e.map((l) => l.order ?? 0), 0), n = e.filter((l) => t ? l.solo === !0 : l.visible !== !1), a = new Set(n.map((l) => l.id)), i = [...n].sort((l, u) => (u.order ?? 0) - (l.order ?? 0)), o = [...i].reverse(), s = [...e].sort((l, u) => (u.order ?? 0) - (l.order ?? 0)), c = /* @__PURE__ */ new Map();
   for (const l of e)
     c.set(l.id, l.order ?? 0);
@@ -23531,44 +23537,44 @@ function Mb(e) {
     trackOrderMap: c
   };
 }
-function Fb({
+function Cb({
   tracks: e,
   transitions: t = []
 }) {
-  const r = Mb(e), { visibleTracks: n, visibleTrackIds: a, maxOrder: i } = r, o = FP({
+  const r = Fb(e), { visibleTracks: n, visibleTrackIds: a, maxOrder: i } = r, o = PP({
     tracks: e,
     visibleTrackIds: a,
     maxOrder: i
-  }), s = RP(e);
+  }), s = _P(e);
   return {
     trackRenderState: r,
     visualItems: o,
     videoItems: o.filter((c) => c.type === "video"),
-    audioItems: CP({ tracks: e, visibleTrackIds: a }),
-    stableDomTracks: EP({ tracks: e, visibleTrackIds: a }),
-    visibleShapeMasks: TP(n),
-    visibleAdjustmentLayers: MP(n),
-    visibleTextFontFamilies: PP(n),
+    audioItems: RP({ tracks: e, visibleTrackIds: a }),
+    stableDomTracks: AP({ tracks: e, visibleTrackIds: a }),
+    visibleShapeMasks: CP(n),
+    visibleAdjustmentLayers: EP(n),
+    visibleTextFontFamilies: DP(n),
     transitionClipItems: s,
-    transitionClipMap: Cb(s),
-    transitionWindows: Yd(t, s)
+    transitionClipMap: Eb(s),
+    transitionWindows: Zd(t, s)
   };
 }
-function TP(e) {
+function CP(e) {
   const t = [];
   for (const r of e)
     for (const n of r.items)
       n.type === "shape" && n.isMask && t.push({ mask: n, trackOrder: r.order ?? 0 });
   return t;
 }
-function MP(e) {
+function EP(e) {
   const t = [];
   for (const r of e)
     for (const n of r.items)
       n.type === "adjustment" && t.push({ layer: n, trackOrder: r.order ?? 0 });
   return t;
 }
-function FP({
+function PP({
   tracks: e,
   visibleTrackIds: t,
   maxOrder: r
@@ -23584,7 +23590,7 @@ function FP({
     }))
   );
 }
-function CP({
+function RP({
   tracks: e,
   visibleTrackIds: t
 }) {
@@ -23597,7 +23603,7 @@ function CP({
     }))
   );
 }
-function EP({
+function AP({
   tracks: e,
   visibleTrackIds: t
 }) {
@@ -23607,28 +23613,28 @@ function EP({
     items: r.items.filter((n) => !(n.type === "video" || n.type === "audio" || n.type === "adjustment" || n.type === "shape" && n.isMask))
   }));
 }
-function PP(e) {
+function DP(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e)
     for (const n of r.items)
       n.type === "text" && t.add(n.fontFamily ?? "Inter");
   return [...t];
 }
-function RP(e) {
+function _P(e) {
   return e.flatMap(
     (t) => t.items.filter((r) => r.type === "video" || r.type === "image" || r.type === "composition")
   );
 }
-function Cb(e) {
+function Eb(e) {
   const t = /* @__PURE__ */ new Map();
   for (const r of e)
     t.set(r.id, r);
   return t;
 }
-function Yd(e, t) {
-  return KM(e, Cb(t));
+function Zd(e, t) {
+  return XM(e, Eb(t));
 }
-function AP({
+function OP({
   tracksByOrderDesc: e,
   visibleTrackIds: t,
   shouldRenderItem: r,
@@ -23650,7 +23656,7 @@ function AP({
   }
   return i;
 }
-function DP({
+function LP({
   tracksByOrderAsc: e,
   visibleTrackIds: t,
   disableOcclusion: r,
@@ -23668,7 +23674,7 @@ function DP({
   }
   return null;
 }
-function _P({
+function BP({
   tracksByOrderDesc: e,
   tracksByOrderAsc: t,
   visibleTrackIds: r,
@@ -23678,16 +23684,16 @@ function _P({
   shouldRenderItem: o,
   isFullyOccluding: s
 }) {
-  const c = kP({
+  const c = FP({
     activeTransitions: n,
     getTrackOrder: a
-  }), l = DP({
+  }), l = LP({
     tracksByOrderAsc: t,
     visibleTrackIds: r,
     disableOcclusion: i,
     shouldRenderItem: o,
     isFullyOccluding: s
-  }), u = AP({
+  }), u = OP({
     tracksByOrderDesc: e,
     visibleTrackIds: r,
     shouldRenderItem: o,
@@ -23716,20 +23722,20 @@ function _l({
     }
   return i;
 }
-function zu(e) {
+function ju(e) {
   const { width: t, height: r, cornerRadius: n = 0 } = e, a = Math.min(n, t / 2, r / 2);
   let i;
   return a > 0 ? i = `M ${a} 0 L ${t - a} 0 A ${a} ${a} 0 0 1 ${t} ${a} L ${t} ${r - a} A ${a} ${a} 0 0 1 ${t - a} ${r} L ${a} ${r} A ${a} ${a} 0 0 1 0 ${r - a} L 0 ${a} A ${a} ${a} 0 0 1 ${a} 0 Z` : i = `M 0 0 L ${t} 0 L ${t} ${r} L 0 ${r} Z`, { path: i, width: t, height: r };
 }
-function Eb(e) {
+function Pb(e) {
   const { radius: t } = e, r = t * 2;
   return { path: `M ${t} 0 A ${t} ${t} 0 1 1 ${t} ${r} A ${t} ${t} 0 1 1 ${t} 0 Z`, width: r, height: r };
 }
-function Pb(e) {
+function Rb(e) {
   const { rx: t, ry: r } = e, n = t * 2, a = r * 2;
   return { path: `M ${t} 0 A ${t} ${r} 0 1 1 ${t} ${a} A ${t} ${r} 0 1 1 ${t} 0 Z`, width: n, height: a };
 }
-function Rb(e) {
+function Ab(e) {
   const { length: t, direction: r = "up", cornerRadius: n = 0 } = e, a = t * Math.sqrt(3) / 2;
   let i, o, s;
   switch (r) {
@@ -23762,25 +23768,25 @@ function Rb(e) {
       ];
       break;
   }
-  return { path: n > 0 ? Qd(i, n) : Zd(i), width: o, height: s };
+  return { path: n > 0 ? Jd(i, n) : Qd(i), width: o, height: s };
 }
-function Ab(e) {
+function Db(e) {
   const { points: t, outerRadius: r, innerRadius: n, cornerRadius: a = 0 } = e, i = r * 2, o = [], s = Math.PI / t;
   for (let l = 0; l < t * 2; l++) {
     const u = l % 2 === 0 ? r : n, d = l * s - Math.PI / 2, f = r + u * Math.cos(d), m = r + u * Math.sin(d);
     o.push([f, m]);
   }
-  return { path: a > 0 ? Qd(o, a) : Zd(o), width: i, height: i };
+  return { path: a > 0 ? Jd(o, a) : Qd(o), width: i, height: i };
 }
-function Db(e) {
+function _b(e) {
   const { points: t, radius: r, cornerRadius: n = 0 } = e, a = r * 2, i = [], o = Math.PI * 2 / t;
   for (let c = 0; c < t; c++) {
     const l = c * o - Math.PI / 2, u = r + r * Math.cos(l), d = r + r * Math.sin(l);
     i.push([u, d]);
   }
-  return { path: n > 0 ? Qd(i, n) : Zd(i), width: a, height: a };
+  return { path: n > 0 ? Jd(i, n) : Qd(i), width: a, height: a };
 }
-function _b(e) {
+function Ob(e) {
   const { height: t } = e, r = t * 1.1, n = 23 / 110 * r, a = 69 / 100 * t, i = 60 / 100 * t, o = 13 / 100 * t, s = 29 / 110 * r, c = 15 / 110 * r, l = 5 / 110 * r, u = 7 / 100 * t, d = 17 / 100 * t;
   return { path: [
     // Start at bottom tip
@@ -23800,14 +23806,14 @@ function _b(e) {
     "Z"
   ].join(" "), width: r, height: t };
 }
-function Zd(e) {
+function Qd(e) {
   if (e.length < 3) return "";
   const [t, ...r] = e, n = [`M ${t[0]} ${t[1]}`];
   for (const [a, i] of r)
     n.push(`L ${a} ${i}`);
   return n.push("Z"), n.join(" ");
 }
-function Qd(e, t) {
+function Jd(e, t) {
   if (e.length < 3) return "";
   const r = [], n = e.length;
   for (let a = 0; a < n; a++) {
@@ -24009,12 +24015,12 @@ function Zc(e, t, r) {
   let p;
   switch (e.shapeType) {
     case "rectangle": {
-      const h = zu({ width: c, height: l, cornerRadius: u });
+      const h = ju({ width: c, height: l, cornerRadius: u });
       p = Ar(h.path, d, f);
       break;
     }
     case "circle": {
-      const h = m / 2, g = Eb({ radius: h }), v = g.width, b = g.height;
+      const h = m / 2, g = Pb({ radius: h }), v = g.width, b = g.height;
       if (i) {
         const x = (c - v) / 2, k = (l - b) / 2;
         p = Ar(g.path, d + x, f + k);
@@ -24025,12 +24031,12 @@ function Zc(e, t, r) {
       break;
     }
     case "ellipse": {
-      const h = c / 2, g = l / 2, v = Pb({ rx: h, ry: g });
+      const h = c / 2, g = l / 2, v = Rb({ rx: h, ry: g });
       p = Ar(v.path, d, f);
       break;
     }
     case "triangle": {
-      const h = e.direction ?? "up", g = Rb({ length: m, direction: h, cornerRadius: u }), v = g.width, b = g.height;
+      const h = e.direction ?? "up", g = Ab({ length: m, direction: h, cornerRadius: u }), v = g.width, b = g.height;
       if (i) {
         const x = (c - v) / 2, k = (l - b) / 2;
         p = Ar(g.path, d + x, f + k);
@@ -24041,7 +24047,7 @@ function Zc(e, t, r) {
       break;
     }
     case "star": {
-      const h = m / 2, g = e.innerRadius ?? 0.5, v = h * g, b = e.points ?? 5, x = Ab({
+      const h = m / 2, g = e.innerRadius ?? 0.5, v = h * g, b = e.points ?? 5, x = Db({
         points: b,
         outerRadius: h,
         innerRadius: v,
@@ -24057,7 +24063,7 @@ function Zc(e, t, r) {
       break;
     }
     case "polygon": {
-      const h = m / 2, g = e.points ?? 6, v = Db({ points: g, radius: h, cornerRadius: u }), b = v.width, x = v.height;
+      const h = m / 2, g = e.points ?? 6, v = _b({ points: g, radius: h, cornerRadius: u }), b = v.width, x = v.height;
       if (i) {
         const k = (c - b) / 2, M = (l - x) / 2;
         p = Ar(v.path, d + k, f + M);
@@ -24068,7 +24074,7 @@ function Zc(e, t, r) {
       break;
     }
     case "heart": {
-      const h = m / 1.1, g = _b({ height: h }), v = g.width, b = g.height;
+      const h = m / 1.1, g = Ob({ height: h }), v = g.width, b = g.height;
       if (i) {
         const x = (c - v) / 2, k = (l - b) / 2;
         p = Ar(g.path, d + x, f + k);
@@ -24079,11 +24085,11 @@ function Zc(e, t, r) {
       break;
     }
     case "path": {
-      p = OP(e.pathVertices ?? [], c, l), p = Ar(p, d, f);
+      p = NP(e.pathVertices ?? [], c, l), p = Ar(p, d, f);
       break;
     }
     default: {
-      const h = zu({ width: c, height: l, cornerRadius: 0 });
+      const h = ju({ width: c, height: l, cornerRadius: 0 });
       p = Ar(h.path, d, f);
       break;
     }
@@ -24152,7 +24158,7 @@ function Qc(e, t, r, n) {
   }
   return c.join(" ");
 }
-function OP(e, t, r) {
+function NP(e, t, r) {
   if (e.length < 2) return `M 0 0 L ${t} 0 L ${t} ${r} L 0 ${r} Z`;
   const n = [], a = e[0];
   n.push(`M ${a.position[0] * t} ${a.position[1] * r}`);
@@ -24167,18 +24173,18 @@ function OP(e, t, r) {
   }
   return n.push("Z"), n.join(" ");
 }
-function Ob(e) {
+function Lb(e) {
   return e ? e.topLeft[0] !== 0 || e.topLeft[1] !== 0 || e.topRight[0] !== 0 || e.topRight[1] !== 0 || e.bottomRight[0] !== 0 || e.bottomRight[1] !== 0 || e.bottomLeft[0] !== 0 || e.bottomLeft[1] !== 0 : !1;
 }
-function Lb(e, t, r) {
+function Bb(e, t, r) {
   const n = r.topLeft[0], a = r.topLeft[1], i = e + r.topRight[0], o = r.topRight[1], s = e + r.bottomRight[0], c = t + r.bottomRight[1], l = r.bottomLeft[0], u = t + r.bottomLeft[1], d = i - s, f = l - s, m = n - i + s - l, p = o - c, h = u - c, g = a - o + c - u, v = d * h - p * f;
   if (Math.abs(v) < 1e-10)
     return [1, 0, 0, 0, 1, 0, 0, 0, 1];
   const b = (m * h - g * f) / v, x = (d * g - p * m) / v, k = (i - n + b * i) / e, M = (l - n + x * l) / t, S = n, F = (o - a + b * o) / e, C = (u - a + x * u) / t;
   return [k, M, S, F, C, a, b / e, x / t, 1];
 }
-function LP(e, t, r) {
-  const n = Lb(e, t, r);
+function UP(e, t, r) {
+  const n = Bb(e, t, r);
   return `matrix3d(${n[0]},${n[3]},0,${n[6]},${n[1]},${n[4]},0,${n[7]},0,0,1,0,${n[2]},${n[5]},0,${n[8]})`;
 }
 function Es(e, t, r) {
@@ -24188,7 +24194,7 @@ function Es(e, t, r) {
     (e[3] * t + e[4] * r + e[5]) / n
   ];
 }
-function lh(e, t, r, n, a, i, o, s, c, l, u, d, f, m) {
+function dh(e, t, r, n, a, i, o, s, c, l, u, d, f, m) {
   e.save();
   const p = (c + u + f) / 3, h = (l + d + m) / 3, g = 1.5, v = (j, z) => {
     const A = j - p, H = z - h, N = Math.sqrt(A * A + H * H);
@@ -24203,12 +24209,12 @@ function lh(e, t, r, n, a, i, o, s, c, l, u, d, f, m) {
   const T = 1 / C, R = (c * (i - s) + u * (s - n) + f * (n - i)) * T, P = (l * (i - s) + d * (s - n) + m * (n - i)) * T, _ = (c * (o - a) + u * (r - o) + f * (a - r)) * T, B = (l * (o - a) + d * (r - o) + m * (a - r)) * T, $ = (c * (a * s - o * i) + u * (o * n - r * s) + f * (r * i - a * n)) * T, U = (l * (a * s - o * i) + d * (o * n - r * s) + m * (r * i - a * n)) * T;
   e.setTransform(R, P, _, B, $, U), e.drawImage(t, 0, 0), e.restore();
 }
-function uh(e, t, r, n, a, i, o, s = 16) {
-  const c = Lb(r, n, o);
+function fh(e, t, r, n, a, i, o, s = 16) {
+  const c = Bb(r, n, o);
   for (let l = 0; l < s; l++)
     for (let u = 0; u < s; u++) {
       const d = u / s * r, f = l / s * n, m = (u + 1) / s * r, p = (l + 1) / s * n, [h, g] = Es(c, d, f), [v, b] = Es(c, m, f), [x, k] = Es(c, m, p), [M, S] = Es(c, d, p);
-      lh(
+      dh(
         e,
         t,
         d,
@@ -24223,7 +24229,7 @@ function uh(e, t, r, n, a, i, o, s = 16) {
         i + b,
         a + x,
         i + k
-      ), lh(
+      ), dh(
         e,
         t,
         d,
@@ -24241,17 +24247,17 @@ function uh(e, t, r, n, a, i, o, s = 16) {
       );
     }
 }
-function BP(e) {
+function zP(e) {
   return e <= 0 ? 0 : e >= 1 ? 1 : e;
 }
 function li(e, t, r) {
-  return e + (t - e) * BP(r);
+  return e + (t - e) * zP(r);
 }
-function NP(e) {
+function jP(e) {
   return e.type === "video" || e.type === "composition";
 }
-function UP(e, t, r) {
-  if (!NP(e) || e.durationInFrames <= 0)
+function VP(e, t, r) {
+  if (!jP(e) || e.durationInFrames <= 0)
     return 1;
   if (t < e.from || t >= e.from + e.durationInFrames)
     return 0;
@@ -24281,7 +24287,7 @@ function UP(e, t, r) {
   );
 }
 function _o(e, t, r, n) {
-  const a = Tb(e, {
+  const a = Mb(e, {
     canvas: {
       width: n.width,
       height: n.height,
@@ -24289,21 +24295,21 @@ function _o(e, t, r, n) {
     },
     frame: r,
     keyframes: t
-  }), i = UP(e, r, n.fps);
+  }), i = VP(e, r, n.fps);
   return i >= 1 ? a : {
     ...a,
     opacity: a.opacity * i
   };
 }
-function zP(e) {
+function $P(e) {
   const t = /* @__PURE__ */ new Map();
   if (!e) return t;
   for (const r of e)
     t.set(r.itemId, r);
   return t;
 }
-const jP = He("CanvasEffects");
-function VP(e) {
+const HP = He("CanvasEffects");
+function GP(e) {
   return e.filter((t) => t.enabled && t.effect.type === "gpu-effect").map((t) => {
     const r = t.effect;
     return {
@@ -24315,39 +24321,39 @@ function VP(e) {
     };
   });
 }
-function $P(e, t, r, n) {
+function WP(e, t, r, n) {
   if (r.length === 0) return null;
   try {
     const a = n.applyEffectsToCanvas(e.canvas, r);
     if (a)
       return n.isBatching() ? a : (e.clearRect(0, 0, t.width, t.height), e.drawImage(a, 0, 0), null);
   } catch (a) {
-    jP.warn("GPU effects zero-copy path failed, skipping", a);
+    HP.warn("GPU effects zero-copy path failed, skipping", a);
   }
   return null;
 }
-function ju(e, t, r, n) {
+function Vu(e, t, r, n) {
   return t.length === 0 ? [] : t.filter(({ layer: a, trackOrder: i }) => e <= i ? !1 : r >= a.from && r < a.from + a.durationInFrames).sort((a, i) => a.trackOrder - i.trackOrder).flatMap(({ layer: a }) => (n?.(a.id) ?? a.effects)?.filter((o) => o.enabled) ?? []);
 }
-function Bb(e, t) {
+function Nb(e, t) {
   const r = [...t];
   return e && r.push(...e.filter((n) => n.enabled)), r;
 }
-function HP(e, t, r, n, a, i) {
+function KP(e, t, r, n, a, i) {
   if (r.length === 0)
     return e.drawImage(t, 0, 0), null;
   e.drawImage(t, 0, 0);
-  const o = VP(r);
+  const o = GP(r);
   if (o.length > 0 && i) {
-    const s = $P(e, a, o, i);
+    const s = WP(e, a, o, i);
     if (s) return s;
   }
   return null;
 }
-async function Vu(e, t, r, n, a, i) {
-  return HP(e, t, r, n, a, i);
+async function $u(e, t, r, n, a, i) {
+  return KP(e, t, r, n, a, i);
 }
-const GP = (
+const XP = (
   /* wgsl */
   `
 struct VertexOutput {
@@ -24472,10 +24478,10 @@ fn noise2d(p: vec2f) -> f32 {
 }
 `
 );
-function WP() {
+function qP() {
   return He("EffectsPipeline");
 }
-const Nb = (
+const Ub = (
   /* wgsl */
   `
 struct VertexOutput {
@@ -24498,10 +24504,10 @@ fn vertexMain(@builtin(vertex_index) vi: u32) -> VertexOutput {
   return o;
 }
 `
-), KP = (
+), YP = (
   /* wgsl */
   `
-${Nb}
+${Ub}
 @group(0) @binding(0) var texSampler: sampler;
 @group(0) @binding(1) var inputTex: texture_2d<f32>;
 @fragment
@@ -24509,10 +24515,10 @@ fn blitFragment(input: VertexOutput) -> @location(0) vec4f {
   return textureSample(inputTex, texSampler, input.uv);
 }
 `
-), XP = (
+), ZP = (
   /* wgsl */
   `
-${Nb}
+${Ub}
 @group(0) @binding(0) var texSampler: sampler;
 @group(0) @binding(1) var videoTex: texture_external;
 @group(0) @binding(2) var<uniform> destRect: vec4f;
@@ -24611,7 +24617,7 @@ class Ir {
     }
   }
   createBlitPipeline() {
-    const t = this.device.createShaderModule({ label: "blit", code: KP });
+    const t = this.device.createShaderModule({ label: "blit", code: YP });
     this.blitBindGroupLayout = this.device.createBindGroupLayout({
       label: "blit-layout",
       entries: [
@@ -24628,7 +24634,7 @@ class Ir {
   }
   createImportExternalPipeline() {
     try {
-      const t = this.device.createShaderModule({ label: "import-external", code: XP });
+      const t = this.device.createShaderModule({ label: "import-external", code: ZP });
       this.importBindGroupLayout = this.device.createBindGroupLayout({
         label: "import-external-layout",
         entries: [
@@ -24653,7 +24659,7 @@ class Ir {
   }
   createEffectPipeline(t, r) {
     try {
-      const n = `${GP}
+      const n = `${XP}
 ${r.shader}`, a = this.device.createShaderModule({ label: `effect-${t}`, code: n }), i = [
         { binding: 0, visibility: GPUShaderStage.FRAGMENT, sampler: {} },
         { binding: 1, visibility: GPUShaderStage.FRAGMENT, texture: {} }
@@ -24674,7 +24680,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `effect-${t}`, code: n
       });
       this.pipelines.set(t, s);
     } catch (n) {
-      WP().warn(`Failed to create pipeline for ${t}`, n);
+      qP().warn(`Failed to create pipeline for ${t}`, n);
     }
   }
   ensurePingPong(t, r) {
@@ -24699,7 +24705,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `effect-${t}`, code: n
     for (const d of r) {
       const f = this.pipelines.get(d.type), m = this.bindGroupLayouts.get(d.type);
       if (!f || !m) continue;
-      const p = zb(d.type);
+      const p = jb(d.type);
       if (!p) continue;
       const h = p.packUniforms(d.params, i, o);
       let g;
@@ -25006,7 +25012,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `effect-${t}`, code: n
     this.uniformBuffers.clear(), this.effectBindGroupCache.clear(), this.blitBindGroupPing = null, this.blitBindGroupPong = null, this.gpuFramesInFlight = 0, this.pipelines.clear(), this.bindGroupLayouts.clear(), this.blitPipeline = null, this.blitBindGroupLayout = null, this.importPipeline = null, this.importBindGroupLayout = null, this.importUniformBuffer?.destroy(), this.importUniformBuffer = null, this.initialized = !1;
   }
 }
-const qP = {
+const QP = {
   id: "gpu-brightness",
   name: "Brightness",
   category: "color",
@@ -25030,7 +25036,7 @@ fn brightnessFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 0, min: -1, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 0, 0, 0, 0])
-}, YP = {
+}, JP = {
   id: "gpu-contrast",
   name: "Contrast",
   category: "color",
@@ -25054,7 +25060,7 @@ fn contrastFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 1, min: 0, max: 3, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 1, 0, 0, 0])
-}, ZP = {
+}, eR = {
   id: "gpu-exposure",
   name: "Exposure",
   category: "color",
@@ -25087,7 +25093,7 @@ fn exposureFragment(input: VertexOutput) -> @location(0) vec4f {
     e.gamma ?? 1,
     0
   ])
-}, QP = {
+}, tR = {
   id: "gpu-hue-shift",
   name: "Hue Shift",
   category: "color",
@@ -25112,7 +25118,7 @@ fn hueShiftFragment(input: VertexOutput) -> @location(0) vec4f {
     shift: { type: "number", label: "Shift", default: 0, min: 0, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.shift ?? 0, 0, 0, 0])
-}, JP = {
+}, rR = {
   id: "gpu-invert",
   name: "Invert",
   category: "color",
@@ -25131,7 +25137,7 @@ fn invertFragment(input: VertexOutput) -> @location(0) vec4f {
   ),
   params: {},
   packUniforms: () => null
-}, eR = {
+}, nR = {
   id: "gpu-levels",
   name: "Levels",
   category: "color",
@@ -25175,7 +25181,7 @@ fn levelsFragment(input: VertexOutput) -> @location(0) vec4f {
     0,
     0
   ])
-}, tR = {
+}, aR = {
   id: "gpu-saturation",
   name: "Saturation",
   category: "color",
@@ -25200,7 +25206,7 @@ fn saturationFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 1, min: 0, max: 3, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 1, 0, 0, 0])
-}, rR = {
+}, iR = {
   id: "gpu-temperature",
   name: "Temperature",
   category: "color",
@@ -25235,7 +25241,7 @@ fn temperatureFragment(input: VertexOutput) -> @location(0) vec4f {
     0,
     0
   ])
-}, nR = {
+}, oR = {
   id: "gpu-grayscale",
   name: "Grayscale",
   category: "color",
@@ -25260,7 +25266,7 @@ fn grayscaleFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 1, min: 0, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 1, 0, 0, 0])
-}, aR = {
+}, sR = {
   id: "gpu-sepia",
   name: "Sepia",
   category: "color",
@@ -25288,7 +25294,7 @@ fn sepiaFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 1, min: 0, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 1, 0, 0, 0])
-}, iR = {
+}, cR = {
   id: "gpu-curves",
   name: "Curves",
   category: "color",
@@ -25359,7 +25365,7 @@ fn curvesFragment(input: VertexOutput) -> @location(0) vec4f {
     0,
     0
   ])
-}, oR = {
+}, lR = {
   id: "gpu-color-wheels",
   name: "Color Wheels",
   category: "color",
@@ -25433,7 +25439,7 @@ fn colorWheelsFragment(input: VertexOutput) -> @location(0) vec4f {
     0,
     0
   ])
-}, sR = {
+}, uR = {
   id: "gpu-vibrance",
   name: "Vibrance",
   category: "color",
@@ -25462,22 +25468,22 @@ fn vibranceFragment(input: VertexOutput) -> @location(0) vec4f {
     amount: { type: "number", label: "Amount", default: 0, min: -1, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 0, 0, 0, 0])
-}, cR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, dR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  brightness: qP,
-  colorWheels: oR,
-  contrast: YP,
-  curves: iR,
-  exposure: ZP,
-  grayscale: nR,
-  hueShift: QP,
-  invert: JP,
-  levels: eR,
-  saturation: tR,
-  sepia: aR,
-  temperature: rR,
-  vibrance: sR
-}, Symbol.toStringTag, { value: "Module" })), lR = {
+  brightness: QP,
+  colorWheels: lR,
+  contrast: JP,
+  curves: cR,
+  exposure: eR,
+  grayscale: oR,
+  hueShift: tR,
+  invert: rR,
+  levels: nR,
+  saturation: aR,
+  sepia: sR,
+  temperature: iR,
+  vibrance: uR
+}, Symbol.toStringTag, { value: "Module" })), fR = {
   id: "gpu-gaussian-blur",
   name: "Gaussian Blur",
   category: "blur",
@@ -25523,7 +25529,7 @@ fn gaussianBlurFragment(input: VertexOutput) -> @location(0) vec4f {
     r,
     e.samples ?? 5
   ])
-}, uR = {
+}, mR = {
   id: "gpu-box-blur",
   name: "Box Blur",
   category: "blur",
@@ -25559,7 +25565,7 @@ fn boxBlurFragment(input: VertexOutput) -> @location(0) vec4f {
     radius: { type: "number", label: "Radius", default: 5, min: 0, max: 20, step: 1, animatable: !0 }
   },
   packUniforms: (e, t, r) => new Float32Array([e.radius ?? 5, t, r, 0])
-}, dR = {
+}, pR = {
   id: "gpu-motion-blur",
   name: "Motion Blur",
   category: "blur",
@@ -25602,7 +25608,7 @@ fn motionBlurFragment(input: VertexOutput) -> @location(0) vec4f {
     e.samples ?? 24,
     0
   ])
-}, fR = {
+}, hR = {
   id: "gpu-radial-blur",
   name: "Radial Blur",
   category: "blur",
@@ -25650,7 +25656,7 @@ fn radialBlurFragment(input: VertexOutput) -> @location(0) vec4f {
     e.centerY ?? 0.5,
     e.samples ?? 32
   ])
-}, mR = {
+}, gR = {
   id: "gpu-zoom-blur",
   name: "Zoom Blur",
   category: "blur",
@@ -25691,13 +25697,13 @@ fn zoomBlurFragment(input: VertexOutput) -> @location(0) vec4f {
     e.centerY ?? 0.5,
     e.samples ?? 16
   ])
-}, pR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, yR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  boxBlur: uR,
-  gaussianBlur: lR,
-  motionBlur: dR,
-  radialBlur: fR,
-  zoomBlur: mR
+  boxBlur: mR,
+  gaussianBlur: fR,
+  motionBlur: pR,
+  radialBlur: hR,
+  zoomBlur: gR
 }, Symbol.toStringTag, { value: "Module" }));
 function Ol(e, t) {
   if (!e.startsWith("#")) return t;
@@ -25723,7 +25729,7 @@ function Ol(e, t) {
   }
   return t;
 }
-const hR = {
+const vR = {
   id: "gpu-pixelate",
   name: "Pixelate",
   category: "distort",
@@ -25751,7 +25757,7 @@ fn pixelateFragment(input: VertexOutput) -> @location(0) vec4f {
     size: { type: "number", label: "Pixel Size", default: 8, min: 1, max: 64, step: 1, animatable: !0 }
   },
   packUniforms: (e, t, r) => new Float32Array([e.size ?? 8, t, r, 0])
-}, gR = {
+}, bR = {
   id: "gpu-rgb-split",
   name: "RGB Split",
   category: "distort",
@@ -25779,7 +25785,7 @@ fn rgbSplitFragment(input: VertexOutput) -> @location(0) vec4f {
     angle: { type: "number", label: "Angle", default: 0, min: 0, max: 6.28318, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.amount ?? 0.01, e.angle ?? 0, 0, 0])
-}, yR = {
+}, xR = {
   id: "gpu-twirl",
   name: "Twirl",
   category: "distort",
@@ -25821,7 +25827,7 @@ fn twirlFragment(input: VertexOutput) -> @location(0) vec4f {
     e.centerX ?? 0.5,
     e.centerY ?? 0.5
   ])
-}, vR = {
+}, wR = {
   id: "gpu-wave",
   name: "Wave",
   category: "distort",
@@ -25854,7 +25860,7 @@ fn waveFragment(input: VertexOutput) -> @location(0) vec4f {
     e.frequencyX ?? 5,
     e.frequencyY ?? 5
   ])
-}, bR = {
+}, SR = {
   id: "gpu-bulge",
   name: "Bulge/Pinch",
   category: "distort",
@@ -25895,7 +25901,7 @@ fn bulgeFragment(input: VertexOutput) -> @location(0) vec4f {
     e.centerX ?? 0.5,
     e.centerY ?? 0.5
   ])
-}, xR = {
+}, IR = {
   id: "gpu-kaleidoscope",
   name: "Kaleidoscope",
   category: "distort",
@@ -25925,7 +25931,7 @@ fn kaleidoscopeFragment(input: VertexOutput) -> @location(0) vec4f {
     rotation: { type: "number", label: "Rotation", default: 0, min: 0, max: 6.28318, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.segments ?? 6, e.rotation ?? 0, 0, 0])
-}, wR = {
+}, kR = {
   id: "gpu-mirror",
   name: "Mirror",
   category: "distort",
@@ -25951,7 +25957,7 @@ fn mirrorFragment(input: VertexOutput) -> @location(0) vec4f {
     vertical: { type: "boolean", label: "Vertical", default: !1 }
   },
   packUniforms: (e) => new Float32Array([e.horizontal ? 1 : 0, e.vertical ? 1 : 0, 0, 0])
-}, SR = {
+}, TR = {
   id: "gpu-fluted-glass",
   name: "Fluted Glass",
   category: "distort",
@@ -26374,17 +26380,17 @@ fn flutedGlassFragment(input: VertexOutput) -> @location(0) vec4f {
       l
     ]);
   }
-}, IR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, MR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  bulge: bR,
-  flutedGlass: SR,
-  kaleidoscope: xR,
-  mirror: wR,
-  pixelate: hR,
-  rgbSplit: gR,
-  twirl: yR,
-  wave: vR
-}, Symbol.toStringTag, { value: "Module" })), kR = {
+  bulge: SR,
+  flutedGlass: TR,
+  kaleidoscope: IR,
+  mirror: kR,
+  pixelate: vR,
+  rgbSplit: bR,
+  twirl: xR,
+  wave: wR
+}, Symbol.toStringTag, { value: "Module" })), FR = {
   id: "gpu-vignette",
   name: "Vignette",
   category: "stylize",
@@ -26420,7 +26426,7 @@ fn vignetteFragment(input: VertexOutput) -> @location(0) vec4f {
     e.softness ?? 0.5,
     e.roundness ?? 1
   ])
-}, TR = {
+}, CR = {
   id: "gpu-grain",
   name: "Film Grain",
   category: "stylize",
@@ -26457,7 +26463,7 @@ fn grainFragment(input: VertexOutput) -> @location(0) vec4f {
     const t = performance.now() / 1e3;
     return new Float32Array([e.amount ?? 0.1, e.size ?? 1, e.speed ?? 1, t]);
   }
-}, MR = {
+}, ER = {
   id: "gpu-sharpen",
   name: "Sharpen",
   category: "stylize",
@@ -26497,7 +26503,7 @@ fn sharpenFragment(input: VertexOutput) -> @location(0) vec4f {
     radius: { type: "number", label: "Radius", default: 1, min: 0.5, max: 5, step: 0.1, animatable: !0 }
   },
   packUniforms: (e, t, r) => new Float32Array([e.amount ?? 1, e.radius ?? 1, t, r])
-}, FR = {
+}, PR = {
   id: "gpu-posterize",
   name: "Posterize",
   category: "stylize",
@@ -26522,7 +26528,7 @@ fn posterizeFragment(input: VertexOutput) -> @location(0) vec4f {
     levels: { type: "number", label: "Levels", default: 6, min: 2, max: 32, step: 1, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.levels ?? 6, 0, 0, 0])
-}, CR = {
+}, RR = {
   id: "gpu-glow",
   name: "Glow",
   category: "stylize",
@@ -26587,7 +26593,7 @@ fn glowFragment(input: VertexOutput) -> @location(0) vec4f {
     e.rings ?? 4,
     e.samplesPerRing ?? 16
   ])
-}, ER = {
+}, AR = {
   id: "gpu-edge-detect",
   name: "Edge Detect",
   category: "stylize",
@@ -26624,7 +26630,7 @@ fn edgeDetectFragment(input: VertexOutput) -> @location(0) vec4f {
     invert: { type: "boolean", label: "Invert", default: !1 }
   },
   packUniforms: (e, t, r) => new Float32Array([e.strength ?? 1, t, r, e.invert ? 1 : 0])
-}, PR = {
+}, DR = {
   id: "gpu-scanlines",
   name: "Scanlines",
   category: "stylize",
@@ -26655,7 +26661,7 @@ fn scanlinesFragment(input: VertexOutput) -> @location(0) vec4f {
     const t = performance.now() / 1e3;
     return new Float32Array([e.density ?? 5, e.opacity ?? 0.3, e.speed ?? 0, t]);
   }
-}, RR = {
+}, _R = {
   id: "gpu-color-glitch",
   name: "Color Glitch",
   category: "stylize",
@@ -26690,7 +26696,7 @@ fn colorGlitchFragment(input: VertexOutput) -> @location(0) vec4f {
     return new Float32Array([e.intensity ?? 0.5, e.speed ?? 1, t, 0]);
   }
 };
-function AR(e) {
+function OR(e) {
   return Math.min(1, Math.max(0, e));
 }
 function wc(e, t) {
@@ -26717,15 +26723,15 @@ function wc(e, t) {
   }
   return t;
 }
-function DR(e, t) {
+function LR(e, t) {
   if (!e || e <= 0 || !Number.isFinite(e)) return 0.5;
-  const r = Math.max(7, Math.min(300, t / e)), n = AR((300 - r) / 293);
+  const r = Math.max(7, Math.min(300, t / e)), n = OR((300 - r) / 293);
   return Math.pow(n, 1 / 0.7);
 }
-function _R(e, t) {
+function BR(e, t) {
   return !e || !t || t <= 0 ? 1.25 : Math.max(0, Math.min(2, e / t * 2));
 }
-const OR = {
+const NR = {
   id: "gpu-halftone",
   name: "Halftone",
   category: "stylize",
@@ -27125,7 +27131,7 @@ fn halftoneFragment(input: VertexOutput) -> @location(0) vec4f {
     grainSize: { type: "number", label: "Grain Size", default: 0.5, min: 0, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e, t, r) => {
-    const n = { square: 0, hex: 1 }, a = { classic: 0, gooey: 1, holes: 2, soft: 3 }, i = wc(e.colorFront ?? "#2b2b2b", [43 / 255, 43 / 255, 43 / 255, 1]), o = wc(e.colorBack ?? "#f2f1e8", [242 / 255, 241 / 255, 232 / 255, 1]), s = e.size ?? DR(e.spacing, r), c = e.radius ?? _R(e.dotSize, e.spacing), l = e.contrast ?? 0.4, u = e.originalColors ?? !1, d = e.inverted ?? e.invert ?? !1, f = e.grainMixer ?? 0.2, m = e.grainOverlay ?? 0.2, p = e.grainSize ?? 0.5, h = e.grid ?? "hex", g = e.type ?? e.dotStyle ?? "gooey";
+    const n = { square: 0, hex: 1 }, a = { classic: 0, gooey: 1, holes: 2, soft: 3 }, i = wc(e.colorFront ?? "#2b2b2b", [43 / 255, 43 / 255, 43 / 255, 1]), o = wc(e.colorBack ?? "#f2f1e8", [242 / 255, 241 / 255, 232 / 255, 1]), s = e.size ?? LR(e.spacing, r), c = e.radius ?? BR(e.dotSize, e.spacing), l = e.contrast ?? 0.4, u = e.originalColors ?? !1, d = e.inverted ?? e.invert ?? !1, f = e.grainMixer ?? 0.2, m = e.grainOverlay ?? 0.2, p = e.grainSize ?? 0.5, h = e.grid ?? "hex", g = e.type ?? e.dotStyle ?? "gooey";
     return new Float32Array([
       i[0],
       i[1],
@@ -27149,7 +27155,7 @@ fn halftoneFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, LR = {
+}, UR = {
   bayer2: 0,
   bayer4: 1,
   bayer8: 2,
@@ -27159,29 +27165,29 @@ fn halftoneFragment(input: VertexOutput) -> @location(0) vec4f {
   dots: 6,
   grid: 7,
   scales: 8
-}, BR = {
+}, zR = {
   image: 0,
   linear: 1,
   radial: 2
-}, NR = {
+}, jR = {
   threshold: 0,
   scaled: 1
-}, UR = {
+}, VR = {
   circle: 0,
   square: 1,
   diamond: 2
-}, zR = {
+}, $R = {
   bw: 0,
   gameboy: 1,
   cga: 2,
   sepia: 3
-}, jR = {
+}, HR = {
   standard: 0,
   simple: 1,
   blocks: 2,
   dots: 3,
   minimal: 4
-}, VR = {
+}, GR = {
   id: "gpu-dither",
   name: "Dither",
   category: "stylize",
@@ -27559,13 +27565,13 @@ fn ditherFragment(input: VertexOutput) -> @location(0) vec4f {
     r,
     e.offsetX ?? 0,
     e.offsetY ?? 0,
-    LR[e.pattern] ?? 1,
-    BR[e.mode] ?? 0,
-    NR[e.style] ?? 0,
-    UR[e.shape] ?? 1,
-    zR[e.palette] ?? 1
+    UR[e.pattern] ?? 1,
+    zR[e.mode] ?? 0,
+    jR[e.style] ?? 0,
+    VR[e.shape] ?? 1,
+    $R[e.palette] ?? 1
   ])
-}, $R = {
+}, WR = {
   id: "gpu-ascii",
   name: "ASCII",
   category: "stylize",
@@ -27880,7 +27886,7 @@ fn asciiFragment(input: VertexOutput) -> @location(0) vec4f {
       e.fontSize ?? 8,
       e.letterSpacing ?? 0,
       e.lineHeight ?? 1,
-      jR[e.charSet] ?? 0,
+      HR[e.charSet] ?? 0,
       e.matchSourceColor === !1 ? 0 : 1,
       e.invert === !0 ? 1 : 0,
       (e.asciiOpacity ?? 100) / 100,
@@ -27903,7 +27909,7 @@ fn asciiFragment(input: VertexOutput) -> @location(0) vec4f {
       a[3]
     ]);
   }
-}, HR = {
+}, KR = {
   id: "gpu-threshold",
   name: "Threshold",
   category: "stylize",
@@ -27928,21 +27934,21 @@ fn thresholdFragment(input: VertexOutput) -> @location(0) vec4f {
     level: { type: "number", label: "Level", default: 0.5, min: 0, max: 1, step: 0.01, animatable: !0 }
   },
   packUniforms: (e) => new Float32Array([e.level ?? 0.5, 0, 0, 0])
-}, GR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, XR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  ascii: $R,
-  colorGlitch: RR,
-  dither: VR,
-  edgeDetect: ER,
-  glow: CR,
-  grain: TR,
-  halftone: OR,
-  posterize: FR,
-  scanlines: PR,
-  sharpen: MR,
-  threshold: HR,
-  vignette: kR
-}, Symbol.toStringTag, { value: "Module" })), WR = {
+  ascii: WR,
+  colorGlitch: _R,
+  dither: GR,
+  edgeDetect: AR,
+  glow: RR,
+  grain: CR,
+  halftone: NR,
+  posterize: PR,
+  scanlines: DR,
+  sharpen: ER,
+  threshold: KR,
+  vignette: FR
+}, Symbol.toStringTag, { value: "Module" })), qR = {
   id: "gpu-chroma-key",
   name: "Chroma Key",
   category: "keying",
@@ -28020,33 +28026,33 @@ fn chromaKeyFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, KR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, YR = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  chromaKey: WR
-}, Symbol.toStringTag, { value: "Module" })), Jc = /* @__PURE__ */ new Map(), Ub = {
+  chromaKey: qR
+}, Symbol.toStringTag, { value: "Module" })), Jc = /* @__PURE__ */ new Map(), zb = {
   color: [],
   blur: [],
   distort: [],
   stylize: [],
   keying: []
 };
-function XR(e) {
+function ZR(e) {
   return typeof e == "object" && e !== null && "id" in e && "name" in e && "category" in e && "shader" in e && "entryPoint" in e && "packUniforms" in e;
 }
 function Zo(e) {
   Object.values(e).forEach((t) => {
-    XR(t) && (Jc.set(t.id, t), Ub[t.category]?.push(t));
+    ZR(t) && (Jc.set(t.id, t), zb[t.category]?.push(t));
   });
 }
-Zo(cR);
-Zo(pR);
-Zo(IR);
-Zo(GR);
-Zo(KR);
-function zb(e) {
+Zo(dR);
+Zo(yR);
+Zo(MR);
+Zo(XR);
+Zo(YR);
+function jb(e) {
   return Jc.get(e);
 }
-function qR(e) {
+function QR(e) {
   const t = Jc.get(e);
   if (!t) return {};
   const r = {};
@@ -28054,19 +28060,19 @@ function qR(e) {
     r[n] = a.default;
   return r;
 }
-function YR() {
-  return Object.entries(Ub).filter(([, e]) => e.length > 0).map(([e, t]) => ({
+function JR() {
+  return Object.entries(zb).filter(([, e]) => e.length > 0).map(([e, t]) => ({
     category: e,
     effects: t
   }));
 }
-const hz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const vz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   EffectsPipeline: Ir,
-  getGpuCategoriesWithEffects: YR,
-  getGpuEffect: zb,
-  getGpuEffectDefaultParams: qR
-}, Symbol.toStringTag, { value: "Module" })), ZR = (
+  getGpuCategoriesWithEffects: JR,
+  getGpuEffect: jb,
+  getGpuEffectDefaultParams: QR
+}, Symbol.toStringTag, { value: "Module" })), eA = (
   /* wgsl */
   `
 struct VertexOutput {
@@ -28130,7 +28136,7 @@ fn fbm(p: vec2f) -> f32 {
 }
 `
 );
-function dh() {
+function mh() {
   return He("TransitionPipeline");
 }
 class el {
@@ -28167,18 +28173,18 @@ class el {
   }
   init() {
     if (!this.initialized) {
-      for (const [t, r] of Jd)
+      for (const [t, r] of ef)
         this.createTransitionPipeline(t, r);
       this.initialized = !0;
     }
   }
   createTransitionPipeline(t, r) {
     try {
-      const n = `${ZR}
+      const n = `${eA}
 ${r.shader}`, a = this.device.createShaderModule({ label: `transition-${t}`, code: n });
       a.getCompilationInfo().then((c) => {
         for (const l of c.messages)
-          l.type === "error" && dh().error(`Shader "${t}" error at line ${l.lineNum}:${l.linePos}: ${l.message}`);
+          l.type === "error" && mh().error(`Shader "${t}" error at line ${l.lineNum}:${l.linePos}: ${l.message}`);
       }).catch(() => {
       });
       const i = [
@@ -28202,7 +28208,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `transition-${t}`, cod
       });
       this.pipelines.set(t, s);
     } catch (n) {
-      dh().warn(`Failed to create pipeline for "${t}"`, n);
+      mh().warn(`Failed to create pipeline for "${t}"`, n);
     }
   }
   ensureTextures(t, r) {
@@ -28230,7 +28236,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `transition-${t}`, cod
    * Bind groups are cached and reused when texture size is unchanged.
    */
   render(t, r, n, a, i, o, s, c) {
-    const l = this.pipelines.get(t), u = this.bindGroupLayouts.get(t), d = fA(t);
+    const l = this.pipelines.get(t), u = this.bindGroupLayouts.get(t), d = hA(t);
     if (!l || !u || !d || i < 2 || o < 2) return null;
     const f = this.texW !== i || this.texH !== o;
     if (this.ensureTextures(i, o), !this.leftTexture || !this.rightTexture) return null;
@@ -28250,7 +28256,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `transition-${t}`, cod
       { texture: this.rightTexture, premultipliedAlpha: !0 },
       { width: i, height: o }
     );
-    const m = QR(s), p = d.packUniforms(a, i, o, m, c), h = this.getOrCreateUniformBuffer(t, p.byteLength);
+    const m = tA(s), p = d.packUniforms(a, i, o, m, c), h = this.getOrCreateUniformBuffer(t, p.byteLength);
     this.device.queue.writeBuffer(h, 0, p.buffer, p.byteOffset, p.byteLength);
     let g = this.cachedBindGroups.get(t);
     if (!g || f) {
@@ -28280,7 +28286,7 @@ ${r.shader}`, a = this.device.createShaderModule({ label: `transition-${t}`, cod
     this.uniformBuffers.clear(), this.cachedBindGroups.clear(), this.pipelines.clear(), this.bindGroupLayouts.clear(), this.initialized = !1;
   }
 }
-function QR(e) {
+function tA(e) {
   switch (e) {
     case "from-left":
       return 0;
@@ -28294,7 +28300,7 @@ function QR(e) {
       return 0;
   }
 }
-const JR = {
+const rA = {
   id: "dissolve",
   name: "Dissolve",
   category: "basic",
@@ -28356,7 +28362,7 @@ fn dissolveFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, eA = {
+}, nA = {
   id: "sparkles",
   name: "Sparkles",
   category: "custom",
@@ -28598,7 +28604,7 @@ fn sparklesFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, tA = {
+}, aA = {
   id: "glitch",
   name: "Glitch",
   category: "custom",
@@ -28704,7 +28710,7 @@ fn glitchFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, rA = {
+}, iA = {
   id: "lightLeak",
   name: "Light Leak",
   category: "light",
@@ -28793,7 +28799,7 @@ fn lightLeakFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, nA = {
+}, oA = {
   id: "pixelate",
   name: "Pixelate",
   category: "custom",
@@ -28852,7 +28858,7 @@ fn pixelateFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, aA = {
+}, sA = {
   id: "chromatic",
   name: "Chromatic",
   category: "custom",
@@ -28953,7 +28959,7 @@ fn chromaticFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, iA = {
+}, cA = {
   id: "radialBlur",
   name: "Radial Blur",
   category: "custom",
@@ -29056,7 +29062,7 @@ fn radialBlurFragment(input: VertexOutput) -> @location(0) vec4f {
       0
     ]);
   }
-}, oA = {
+}, lA = {
   id: "fade",
   name: "Fade",
   category: "basic",
@@ -29090,7 +29096,7 @@ fn fadeFragment(input: VertexOutput) -> @location(0) vec4f {
 }`
   ),
   packUniforms: (e, t, r) => new Float32Array([e, t, r, 0])
-}, sA = {
+}, uA = {
   id: "wipe",
   name: "Wipe",
   category: "wipe",
@@ -29135,7 +29141,7 @@ fn wipeFragment(input: VertexOutput) -> @location(0) vec4f {
 }`
   ),
   packUniforms: (e, t, r, n) => new Float32Array([e, t, r, n])
-}, cA = {
+}, dA = {
   id: "slide",
   name: "Slide",
   category: "slide",
@@ -29202,7 +29208,7 @@ fn slideFragment(input: VertexOutput) -> @location(0) vec4f {
 }`
   ),
   packUniforms: (e, t, r, n) => new Float32Array([e, t, r, n])
-}, lA = {
+}, fA = {
   id: "flip",
   name: "Flip",
   category: "flip",
@@ -29262,7 +29268,7 @@ fn flipFragment(input: VertexOutput) -> @location(0) vec4f {
 }`
   ),
   packUniforms: (e, t, r, n) => new Float32Array([e, t, r, n])
-}, uA = {
+}, mA = {
   id: "clockWipe",
   name: "Clock Wipe",
   category: "mask",
@@ -29322,7 +29328,7 @@ fn clockWipeFragment(input: VertexOutput) -> @location(0) vec4f {
     const i = a?.edgeSoftness ?? 8;
     return new Float32Array([e, t, r, i]);
   }
-}, dA = {
+}, pA = {
   id: "iris",
   name: "Iris",
   category: "mask",
@@ -29381,13 +29387,10 @@ fn irisFragment(input: VertexOutput) -> @location(0) vec4f {
     const i = a?.edgeSoftness ?? 6;
     return new Float32Array([e, t, r, i]);
   }
-}, Jd = /* @__PURE__ */ new Map();
+}, ef = /* @__PURE__ */ new Map();
 function jr(e) {
-  Jd.set(e.id, e);
+  ef.set(e.id, e);
 }
-jr(JR);
-jr(eA);
-jr(tA);
 jr(rA);
 jr(nA);
 jr(aA);
@@ -29398,13 +29401,16 @@ jr(cA);
 jr(lA);
 jr(uA);
 jr(dA);
-function fA(e) {
-  return Jd.get(e);
+jr(fA);
+jr(mA);
+jr(pA);
+function hA(e) {
+  return ef.get(e);
 }
-const gz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const bz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   TransitionPipeline: el
-}, Symbol.toStringTag, { value: "Module" })), mA = {
+}, Symbol.toStringTag, { value: "Module" })), gA = {
   normal: 0,
   dissolve: 1,
   darken: 2,
@@ -29430,7 +29436,7 @@ const gz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   saturation: 22,
   color: 23,
   luminosity: 24
-}, yz = {
+}, xz = {
   normal: "Normal",
   dissolve: "Dissolve",
   darken: "Darken",
@@ -29456,14 +29462,14 @@ const gz = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   saturation: "Saturation",
   color: "Color",
   luminosity: "Luminosity"
-}, vz = [
+}, wz = [
   { label: "Normal", modes: ["normal", "dissolve"] },
   { label: "Darken", modes: ["darken", "multiply", "color-burn", "linear-burn"] },
   { label: "Lighten", modes: ["lighten", "screen", "color-dodge", "linear-dodge"] },
   { label: "Contrast", modes: ["overlay", "soft-light", "hard-light", "vivid-light", "linear-light", "pin-light", "hard-mix"] },
   { label: "Inversion", modes: ["difference", "exclusion", "subtract", "divide"] },
   { label: "Component", modes: ["hue", "saturation", "color", "luminosity"] }
-], jb = (
+], Vb = (
   /* wgsl */
   `
 // ─── HSL helpers (needed for component blend modes) ───
@@ -29648,7 +29654,7 @@ fn applyBlendMode(base: vec3f, layer: vec3f, mode: u32) -> vec3f {
   }
 }
 `
-), fh = He("CompositorPipeline"), pA = (
+), ph = He("CompositorPipeline"), yA = (
   /* wgsl */
   `
 struct VertexOutput {
@@ -29681,7 +29687,7 @@ fn blitFragment(input: VertexOutput) -> @location(0) vec4f {
   return vec4f(c.rgb * c.a, c.a);
 }
 `
-), mh = (
+), hh = (
   /* wgsl */
   `
 struct VertexOutput {
@@ -29704,7 +29710,7 @@ fn vertexMain(@builtin(vertex_index) vi: u32) -> VertexOutput {
   return o;
 }
 `
-), Vb = (
+), $b = (
   /* wgsl */
   `
 struct CompositeUniforms {
@@ -29726,11 +29732,11 @@ struct CompositeUniforms {
   maskFeather: f32,        // 15
 };
 `
-), hA = (
+), vA = (
   /* wgsl */
   `
-${jb}
 ${Vb}
+${$b}
 
 @group(0) @binding(0) var texSampler: sampler;
 @group(0) @binding(1) var baseTex: texture_2d<f32>;
@@ -29817,11 +29823,11 @@ fn compositeFragment(input: VertexOutput) -> @location(0) vec4f {
   return vec4f(outRgb, outAlpha);
 }
 `
-), gA = (
+), bA = (
   /* wgsl */
   `
-${jb}
 ${Vb}
+${$b}
 
 @group(0) @binding(0) var texSampler: sampler;
 @group(0) @binding(1) var baseTex: texture_2d<f32>;
@@ -29874,7 +29880,7 @@ fn compositeExternalFragment(input: VertexOutput) -> @location(0) vec4f {
   return vec4f(outRgb, outAlpha);
 }
 `
-), yA = 64, vA = {
+), xA = 64, wA = {
   opacity: 1,
   blendMode: "normal",
   posX: 0,
@@ -29892,11 +29898,11 @@ fn compositeExternalFragment(input: VertexOutput) -> @location(0) vec4f {
   perspective: 0,
   maskFeather: 0
 };
-function bA(e) {
+function SA(e) {
   const t = new Float32Array(16);
-  return t[0] = e.opacity, new Uint32Array(t.buffer, 4, 1)[0] = mA[e.blendMode] ?? 0, t[2] = e.posX, t[3] = e.posY, t[4] = e.scaleX, t[5] = e.scaleY, t[6] = e.rotationZ, t[7] = e.sourceAspect, t[8] = e.outputAspect, t[9] = e.time, new Uint32Array(t.buffer, 40, 1)[0] = e.hasMask ? 1 : 0, new Uint32Array(t.buffer, 44, 1)[0] = e.maskInvert ? 1 : 0, t[12] = e.rotationX, t[13] = e.rotationY, t[14] = e.perspective, t[15] = e.maskFeather, t;
+  return t[0] = e.opacity, new Uint32Array(t.buffer, 4, 1)[0] = gA[e.blendMode] ?? 0, t[2] = e.posX, t[3] = e.posY, t[4] = e.scaleX, t[5] = e.scaleY, t[6] = e.rotationZ, t[7] = e.sourceAspect, t[8] = e.outputAspect, t[9] = e.time, new Uint32Array(t.buffer, 40, 1)[0] = e.hasMask ? 1 : 0, new Uint32Array(t.buffer, 44, 1)[0] = e.maskInvert ? 1 : 0, t[12] = e.rotationX, t[13] = e.rotationY, t[14] = e.perspective, t[15] = e.maskFeather, t;
 }
-class xA {
+class IA {
   device;
   canvasFormat;
   sampler;
@@ -29919,7 +29925,7 @@ class xA {
   lastUniforms = null;
   constructor(t) {
     this.device = t, this.canvasFormat = navigator.gpu.getPreferredCanvasFormat(), this.sampler = t.createSampler({ magFilter: "linear", minFilter: "linear" }), this.uniformBuffer = t.createBuffer({
-      size: yA,
+      size: xA,
       usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
     }), this.createPipelines();
   }
@@ -29927,7 +29933,7 @@ class xA {
     try {
       const t = this.device.createShaderModule({
         label: "compositor-regular",
-        code: mh + hA
+        code: hh + vA
       });
       this.regularLayout = this.device.createBindGroupLayout({
         label: "compositor-regular-layout",
@@ -29946,12 +29952,12 @@ class xA {
         primitive: { topology: "triangle-list" }
       });
     } catch (t) {
-      fh.warn("Failed to create regular compositor pipeline", t);
+      ph.warn("Failed to create regular compositor pipeline", t);
     }
     try {
       const t = this.device.createShaderModule({
         label: "compositor-external",
-        code: mh + gA
+        code: hh + bA
       });
       this.externalLayout = this.device.createBindGroupLayout({
         label: "compositor-external-layout",
@@ -29975,7 +29981,7 @@ class xA {
     try {
       const t = this.device.createShaderModule({
         label: "compositor-blit",
-        code: pA
+        code: yA
       });
       this.blitLayout = this.device.createBindGroupLayout({
         label: "compositor-blit-layout",
@@ -29991,7 +29997,7 @@ class xA {
         primitive: { topology: "triangle-list" }
       });
     } catch (t) {
-      fh.warn("Failed to create compositor blit pipeline", t);
+      ph.warn("Failed to create compositor blit pipeline", t);
     }
   }
   ensurePingPong(t, r) {
@@ -30005,7 +30011,7 @@ class xA {
     this.pingTexture = this.device.createTexture(n), this.pongTexture = this.device.createTexture(n), this.pingView = this.pingTexture.createView(), this.pongView = this.pongTexture.createView(), this.texW = t, this.texH = r, this.blitBindGroupPing = null, this.blitBindGroupPong = null;
   }
   writeUniforms(t) {
-    const r = bA(t);
+    const r = SA(t);
     this.lastUniforms && r.every((n, a) => n === this.lastUniforms[a]) || (this.device.queue.writeBuffer(this.uniformBuffer, 0, r.buffer), this.lastUniforms = r);
   }
   /**
@@ -30101,11 +30107,11 @@ class xA {
     this.pingTexture?.destroy(), this.pongTexture?.destroy(), this.uniformBuffer.destroy(), this.pingTexture = null, this.pongTexture = null, this.pingView = null, this.pongView = null, this.blitPipeline = null, this.blitLayout = null, this.blitBindGroupPing = null, this.blitBindGroupPong = null;
   }
 }
-const wA = He("GpuTexturePool");
-function ph(e, t, r) {
+const kA = He("GpuTexturePool");
+function gh(e, t, r) {
   return `${e}x${t}x${r}`;
 }
-class SA {
+class TA {
   device;
   pools = /* @__PURE__ */ new Map();
   usage;
@@ -30116,7 +30122,7 @@ class SA {
     this.device = t, this.usage = r;
   }
   acquire(t, r, n = "rgba8unorm") {
-    const a = ph(t, r, n);
+    const a = gh(t, r, n);
     this.totalAcquires++;
     const i = this.pools.get(a);
     if (i) {
@@ -30132,7 +30138,7 @@ class SA {
     return i ? i.push(s) : this.pools.set(a, [s]), this.totalCreated++, o;
   }
   release(t) {
-    const r = ph(t.width, t.height, t.format), n = this.pools.get(r);
+    const r = gh(t.width, t.height, t.format), n = this.pools.get(r);
     if (n) {
       for (const a of n)
         if (a.texture === t) {
@@ -30145,7 +30151,7 @@ class SA {
     for (const t of this.pools.values())
       for (const r of t)
         r.texture.destroy();
-    this.pools.clear(), wA.debug("Texture pool destroyed", {
+    this.pools.clear(), kA.debug("Texture pool destroyed", {
       totalCreated: this.totalCreated,
       totalAcquires: this.totalAcquires,
       cacheHitRate: this.totalAcquires > 0 ? `${(this.cacheHits / this.totalAcquires * 100).toFixed(1)}%` : "n/a"
@@ -30170,7 +30176,7 @@ class SA {
     };
   }
 }
-class IA {
+class MA {
   device;
   textures = /* @__PURE__ */ new Map();
   views = /* @__PURE__ */ new Map();
@@ -30226,13 +30232,13 @@ class IA {
     this.textures.clear(), this.views.clear(), this.fallbackTexture.destroy();
   }
 }
-function kA(e, t) {
+function FA(e, t) {
   return e instanceof Map ? e.get(t) : e(t);
 }
-function ef(e) {
+function tf(e) {
   return new Path2D(e);
 }
-function TA(e, t, r) {
+function CA(e, t, r) {
   let n = Zc(
     e,
     {
@@ -30254,14 +30260,14 @@ function TA(e, t, r) {
   }
   const a = e.maskType ?? "clip", i = a === "alpha" ? e.maskFeather ?? 0 : 0;
   return {
-    path: ef(n),
+    path: tf(n),
     inverted: e.maskInvert ?? !1,
     feather: i,
     maskType: a,
     trackOrder: 0
   };
 }
-function MA(e) {
+function EA(e) {
   const t = [];
   for (const r of e)
     if (r.visible !== !1)
@@ -30274,14 +30280,14 @@ function MA(e) {
         });
   return t;
 }
-function hh(e, t, r, n) {
+function yh(e, t, r, n) {
   if (r) {
     const a = new Path2D();
     a.rect(0, 0, n.width, n.height), a.addPath(t), e.clip(a, "evenodd");
   } else
     e.clip(t);
 }
-function FA(e, t, r, n, a, i) {
+function PA(e, t, r, n, a, i) {
   const o = new OffscreenCanvas(i.width, i.height), s = o.getContext("2d");
   n ? (s.fillStyle = "white", s.fillRect(0, 0, i.width, i.height), s.globalCompositeOperation = "destination-out", s.fill(r), s.globalCompositeOperation = "source-over") : (s.fillStyle = "white", s.fill(r));
   let c = o;
@@ -30291,7 +30297,7 @@ function FA(e, t, r, n, a, i) {
   }
   e.drawImage(t, 0, 0), e.globalCompositeOperation = "destination-in", e.drawImage(c, 0, 0), e.globalCompositeOperation = "source-over";
 }
-function $b(e, t, r, n) {
+function Hb(e, t, r, n) {
   if (r.length === 0) {
     e.drawImage(t, 0, 0);
     return;
@@ -30299,14 +30305,14 @@ function $b(e, t, r, n) {
   if (!r.some((o) => o.maskType === "alpha" || o.feather > 0)) {
     e.save();
     for (const o of r)
-      hh(e, o.path, o.inverted, n);
+      yh(e, o.path, o.inverted, n);
     e.drawImage(t, 0, 0), e.restore();
     return;
   }
   let i = t;
   for (const o of r) {
     const s = new OffscreenCanvas(n.width, n.height), c = s.getContext("2d");
-    o.maskType === "clip" && o.feather === 0 ? (c.save(), hh(c, o.path, o.inverted, n), c.drawImage(i, 0, 0), c.restore()) : FA(
+    o.maskType === "clip" && o.feather === 0 ? (c.save(), yh(c, o.path, o.inverted, n), c.drawImage(i, 0, 0), c.restore()) : PA(
       c,
       i,
       o.path,
@@ -30317,8 +30323,8 @@ function $b(e, t, r, n) {
   }
   e.drawImage(i, 0, 0);
 }
-function CA(e, t) {
-  const r = MA(e), n = [];
+function RA(e, t) {
+  const r = EA(e), n = [];
   for (const { mask: a, trackOrder: i } of r)
     n.push({
       mask: a,
@@ -30328,7 +30334,7 @@ function CA(e, t) {
     });
   return { masks: n };
 }
-function EA(e, t, r, n, a, i, o) {
+function AA(e, t, r, n, a, i, o) {
   const s = [], c = e.masks.map(({ mask: u, trackOrder: d }) => ({
     mask: o?.(u.id) ?? u,
     trackOrder: d
@@ -30337,19 +30343,19 @@ function EA(e, t, r, n, a, i, o) {
     {
       canvas: r,
       frame: t,
-      getKeyframes: (u) => kA(n, u),
+      getKeyframes: (u) => FA(n, u),
       getPreviewTransform: a,
       getPreviewPathVertices: i
     }
   );
   for (const u of l)
     s.push({
-      ...TA(u.shape, u.transform, r),
+      ...CA(u.shape, u.transform, r),
       trackOrder: u.trackOrder
     });
   return s;
 }
-function Hb(e) {
+function Gb(e) {
   return new Set(
     tl(e).filter((t) => t.visible !== !1).map((t) => t.id)
   );
@@ -30368,18 +30374,18 @@ function tl(e) {
     } : r;
   });
 }
-function tf(e) {
+function rf(e) {
   if (!e) return !1;
   const t = e.toLowerCase();
   return t.endsWith(".gif") || t.includes(".gif");
 }
-function Gb(e) {
+function Wb(e) {
   if (!e) return !1;
   const t = e.toLowerCase();
   return t.endsWith(".webp") || t.includes(".webp");
 }
-const PA = He("CanvasPool");
-class RA {
+const DA = He("CanvasPool");
+class _A {
   available = [];
   inUse = /* @__PURE__ */ new Set();
   width;
@@ -30395,7 +30401,7 @@ class RA {
    */
   acquire() {
     let t;
-    this.available.length > 0 ? t = this.available.pop() : this.inUse.size < this.maxSize ? t = new OffscreenCanvas(this.width, this.height) : (PA.warn("Canvas pool exhausted, creating temporary canvas"), t = new OffscreenCanvas(this.width, this.height)), this.inUse.add(t), (t.width !== this.width || t.height !== this.height) && (t.width = this.width, t.height = this.height);
+    this.available.length > 0 ? t = this.available.pop() : this.inUse.size < this.maxSize ? t = new OffscreenCanvas(this.width, this.height) : (DA.warn("Canvas pool exhausted, creating temporary canvas"), t = new OffscreenCanvas(this.width, this.height)), this.inUse.add(t), (t.width !== this.width || t.height !== this.height) && (t.width = this.width, t.height = this.height);
     const r = t.getContext("2d");
     return r.globalAlpha = 1, r.globalCompositeOperation = "source-over", r.clearRect(0, 0, this.width, this.height), { canvas: t, ctx: r };
   }
@@ -30422,7 +30428,7 @@ class RA {
     };
   }
 }
-class AA {
+class OA {
   cache = /* @__PURE__ */ new Map();
   maxSize = 1e3;
   /**
@@ -30447,6 +30453,10 @@ class AA {
   clear() {
     this.cache.clear();
   }
+}
+function nf(e) {
+  const t = e instanceof Request ? e.url : String(e);
+  return /^(blob|data):/.test(t) ? { getRetryDelay: () => null } : {};
 }
 const jn = He("VideoFrameExtractor");
 class ka {
@@ -30487,7 +30497,7 @@ class ka {
       const t = await import("./media-bunny-core-CXIwd4FE.js").then((r) => r.i);
       return this.input = new t.Input({
         formats: t.ALL_FORMATS,
-        source: new t.UrlSource(this.src)
+        source: new t.UrlSource(this.src, nf(this.src))
       }), this.videoTrack = await this.input.getPrimaryVideoTrack(), this.videoTrack ? typeof this.videoTrack.canDecode == "function" && !await this.videoTrack.canDecode() ? (jn.warn("Video track is not decodable via mediabunny/WebCodecs", {
         itemId: this.itemId
       }), !1) : (this.duration = await this.input.computeDuration(), this.sink = new t.VideoSampleSink(
@@ -30556,7 +30566,7 @@ class ka {
   }
   resetSampleIterator(t, r) {
     if (this.closeStreamState(), !this.sink) return;
-    const n = aE(this.src, t), a = n ?? Math.max(0, t - ka.STREAM_BACKTRACK_SECONDS);
+    const n = iE(this.src, t), a = n ?? Math.max(0, t - ka.STREAM_BACKTRACK_SECONDS);
     r === "recover" && jn.debug("Restarting mediabunny sample stream", {
       itemId: this.itemId,
       reason: r,
@@ -30742,8 +30752,8 @@ class ka {
     this.sink = null, this.input = null, this.videoTrack = null, this.ready = !1, this.drawFailureCount = 0, this.lastFailureKind = "none";
   }
 }
-const DA = He("SharedVideoExtractorPool"), _A = 4;
-class OA {
+const LA = He("SharedVideoExtractorPool"), BA = 4;
+class NA {
   constructor(t, r, n) {
     this.pool = t, this.itemId = r, this.src = n;
   }
@@ -30784,21 +30794,21 @@ class OA {
   dispose() {
   }
 }
-class LA {
+class UA {
   maxLanesPerSource;
   sourceStates = /* @__PURE__ */ new Map();
   itemSources = /* @__PURE__ */ new Map();
   itemWrappers = /* @__PURE__ */ new Map();
   laneIdCounter = 0;
   constructor(t) {
-    this.maxLanesPerSource = Math.max(1, t?.maxLanesPerSource ?? _A);
+    this.maxLanesPerSource = Math.max(1, t?.maxLanesPerSource ?? BA);
   }
   getOrCreateItemExtractor(t, r) {
     const n = this.itemWrappers.get(t), a = this.itemSources.get(t);
     if (n && a === r)
       return n;
     a && a !== r && this.releaseItem(t), this.itemSources.set(t, r), this.ensureSourceState(r);
-    const i = new OA(this, t, r);
+    const i = new NA(this, t, r);
     return this.itemWrappers.set(t, i), i;
   }
   async initSource(t) {
@@ -30893,7 +30903,7 @@ class LA {
   async ensureLaneInitialized(t, r) {
     if (r < 0 || r >= t.lanes.length) return !1;
     const n = t.lanes[r];
-    return n.initialized ? !0 : (n.initPromise || (n.initPromise = n.extractor.init().then((a) => (n.initialized = a, a)).catch((a) => (DA.warn("Shared lane initialization failed", { laneIndex: r, src: t.src, error: a }), n.initialized = !1, !1)).finally(() => {
+    return n.initialized ? !0 : (n.initPromise || (n.initPromise = n.extractor.init().then((a) => (n.initialized = a, a)).catch((a) => (LA.warn("Shared lane initialization failed", { laneIndex: r, src: t.src, error: a }), n.initialized = !1, !1)).finally(() => {
       n.initPromise = null;
     })), n.initPromise);
   }
@@ -30924,7 +30934,7 @@ class LA {
     }
   }
 }
-const BA = {
+const zA = {
   normal: "normal",
   dissolve: "normal",
   // no CSS equivalent
@@ -30959,7 +30969,7 @@ const BA = {
   saturation: "saturation",
   color: "color",
   luminosity: "luminosity"
-}, NA = {
+}, jA = {
   normal: "source-over",
   dissolve: "source-over",
   darken: "darken",
@@ -30989,17 +30999,17 @@ const BA = {
   luminosity: "luminosity"
 };
 function Ll(e) {
-  const t = NA[e];
+  const t = jA[e];
   return t === "color-over" ? "source-over" : t;
 }
-function rf(e, t) {
+function af(e, t) {
   return e < t;
 }
-let Wb = null;
-const bz = (e) => {
-  Wb = e;
-}, $u = () => Wb;
-function Kb(e, t, r, n, a) {
+let Kb = null;
+const Sz = (e) => {
+  Kb = e;
+}, Hu = () => Kb;
+function Xb(e, t, r, n, a) {
   return {
     scene: e.scene,
     camera: e.camera,
@@ -31009,16 +31019,16 @@ function Kb(e, t, r, n, a) {
     quality: a
   };
 }
-function UA() {
+function VA() {
   return He("TransitionRegistry");
 }
-class zA {
+class $A {
   entries = /* @__PURE__ */ new Map();
   /**
    * Register a transition with its definition and renderer.
    */
   register(t, r, n) {
-    this.entries.has(t) && UA().warn(`Transition "${t}" is being overwritten`), this.entries.set(t, { definition: r, renderer: n });
+    this.entries.has(t) && VA().warn(`Transition "${t}" is being overwritten`), this.entries.set(t, { definition: r, renderer: n });
   }
   /**
    * Unregister a transition by ID.
@@ -31090,40 +31100,40 @@ class zA {
     return this.entries.size;
   }
 }
-const jA = new zA();
+const HA = new $A();
 function Bi(e) {
   return Math.max(0, Math.min(1, e));
 }
-function gh(e, t) {
+function vh(e, t) {
   const r = Math.cos(e * Math.PI / 2);
   return t ? r * r : 1 - r * r;
 }
-function yh(e, t) {
+function bh(e, t) {
   return t ? 1 - 0.04 * e : 1.04 - 0.04 * e;
 }
-function vh(e, t, r, n, a) {
+function xh(e, t, r, n, a) {
   e.save(), e.globalAlpha = a, e.translate(r.width / 2, r.height / 2), e.scale(n, n), e.translate(-r.width / 2, -r.height / 2), e.drawImage(t, 0, 0), e.restore();
 }
 function Sc(e, t, r, n, a = 1) {
   e.save(), e.globalAlpha = a, e.translate(r.width / 2, r.height / 2), e.scale(n, n), e.translate(-r.width / 2, -r.height / 2), e.drawImage(t, 0, 0), e.restore();
 }
-function VA(e, t, r, n, a) {
+function GA(e, t, r, n, a) {
   const i = Bi(n);
-  e.save(), e.globalCompositeOperation = "copy", vh(
+  e.save(), e.globalCompositeOperation = "copy", xh(
     e,
     r,
     a,
-    yh(i, !1),
-    gh(i, !1)
-  ), e.globalCompositeOperation = "lighter", vh(
+    bh(i, !1),
+    vh(i, !1)
+  ), e.globalCompositeOperation = "lighter", xh(
     e,
     t,
     a,
-    yh(i, !0),
-    gh(i, !0)
+    bh(i, !0),
+    vh(i, !0)
   ), e.restore();
 }
-function $A(e) {
+function WA(e) {
   switch (e) {
     case "from-left":
       return { x: 1, y: 0 };
@@ -31137,14 +31147,14 @@ function $A(e) {
       return { x: 0, y: 0 };
   }
 }
-function bh(e, t, r, n) {
-  const a = Bi(e), i = $A(t), o = r ? 0.035 : 0.025, s = r ? a : a - 1;
+function wh(e, t, r, n) {
+  const a = Bi(e), i = WA(t), o = r ? 0.035 : 0.025, s = r ? a : a - 1;
   return {
     x: i.x * s * n.width * o,
     y: i.y * s * n.height * o
   };
 }
-function xh(e, t, r, n) {
+function Sh(e, t, r, n) {
   const a = Bi(e), i = new Path2D();
   switch (t) {
     case "from-left":
@@ -31162,17 +31172,17 @@ function xh(e, t, r, n) {
   }
   return i;
 }
-function HA(e, t, r, n, a, i) {
-  const o = Bi(n), s = bh(o, a, !1, i);
+function KA(e, t, r, n, a, i) {
+  const o = Bi(n), s = wh(o, a, !1, i);
   e.save();
-  const c = xh(o, a, !1, i);
+  const c = Sh(o, a, !1, i);
   e.clip(c), e.globalAlpha = 1, e.drawImage(r, s.x, s.y), e.restore();
-  const l = bh(o, a, !0, i);
+  const l = wh(o, a, !0, i);
   e.save();
-  const u = xh(o, a, !0, i);
+  const u = Sh(o, a, !0, i);
   e.clip(u), e.globalAlpha = 1, e.drawImage(t, l.x, l.y), e.restore();
 }
-function wh(e, t, r, n) {
+function Ih(e, t, r, n) {
   const a = r ? e : e - 1;
   switch (t) {
     case "from-left":
@@ -31187,13 +31197,13 @@ function wh(e, t, r, n) {
       return { x: 0, y: 0 };
   }
 }
-function GA(e, t, r, n, a, i) {
-  const o = wh(n, a, !1, i);
+function XA(e, t, r, n, a, i) {
+  const o = Ih(n, a, !1, i);
   e.drawImage(r, o.x, o.y);
-  const s = wh(n, a, !0, i);
+  const s = Ih(n, a, !0, i);
   e.drawImage(t, s.x, s.y);
 }
-function WA(e, t, r, n, a, i) {
+function qA(e, t, r, n, a, i) {
   const o = Math.max(0, Math.min(1, n)), s = a === "from-left" || a === "from-right", c = 0.5;
   if (o < c) {
     const l = o / c, u = Math.cos(l * Math.PI / 2);
@@ -31203,26 +31213,26 @@ function WA(e, t, r, n, a, i) {
     e.save(), e.translate(i.width / 2, i.height / 2), s ? e.scale(u, 1) : e.scale(1, u), e.translate(-i.width / 2, -i.height / 2), e.drawImage(r, 0, 0), e.restore();
   }
 }
-function KA(e, t, r, n, a) {
+function YA(e, t, r, n, a) {
   const i = Bi(n), o = a.width / 2, s = a.height / 2, c = Math.sqrt(a.width * a.width + a.height * a.height), l = -Math.PI / 2, u = i * Math.PI * 2, d = l + u;
   Sc(e, r, a, 1.04 - 0.04 * i, 0.85 + 0.15 * i), e.save();
   const f = new Path2D();
   f.moveTo(o, s), f.arc(o, s, c, d, l + Math.PI * 2, !1), f.closePath(), e.clip(f), Sc(e, t, a, 1 - 0.04 * i, 1 - 0.1 * i), e.restore();
 }
-function XA(e, t) {
+function ZA(e, t) {
   return Math.sqrt(Math.pow(e / 2, 2) + Math.pow(t / 2, 2)) * 1.2;
 }
-function qA(e, t, r, n, a) {
-  const i = Bi(n), o = XA(a.width, a.height), s = i * o, c = a.width / 2, l = a.height / 2;
+function QA(e, t, r, n, a) {
+  const i = Bi(n), o = ZA(a.width, a.height), s = i * o, c = a.width / 2, l = a.height / 2;
   Sc(e, r, a, 1.04 - 0.04 * i, 0.85 + 0.15 * i), e.save();
   const u = new Path2D();
   u.rect(0, 0, a.width, a.height), u.arc(c, l, s, 0, Math.PI * 2), e.clip(u, "evenodd"), Sc(e, t, a, 1 - 0.04 * i, 1 - 0.1 * i), e.restore();
 }
-function YA(e, t, r, n) {
+function JA(e, t, r, n) {
   n < 0.5 ? e.drawImage(t, 0, 0) : e.drawImage(r, 0, 0);
 }
-function ZA(e, t, r, n, a, i) {
-  const { transition: o, progress: s } = t, c = o.presentation, l = o.direction, u = jA.getRenderer(c);
+function eD(e, t, r, n, a, i) {
+  const { transition: o, progress: s } = t, c = o.presentation, l = o.direction, u = HA.getRenderer(c);
   if (u?.gpuTransitionId && i?.has(u.gpuTransitionId)) {
     const d = i.render(
       u.gpuTransitionId,
@@ -31245,10 +31255,10 @@ function ZA(e, t, r, n, a, i) {
   }
   switch (c) {
     case "fade":
-      VA(e, r, n, s, a);
+      GA(e, r, n, s, a);
       break;
     case "wipe":
-      HA(
+      KA(
         e,
         r,
         n,
@@ -31258,7 +31268,7 @@ function ZA(e, t, r, n, a, i) {
       );
       break;
     case "slide":
-      GA(
+      XA(
         e,
         r,
         n,
@@ -31268,7 +31278,7 @@ function ZA(e, t, r, n, a, i) {
       );
       break;
     case "flip":
-      WA(
+      qA(
         e,
         r,
         n,
@@ -31278,19 +31288,19 @@ function ZA(e, t, r, n, a, i) {
       );
       break;
     case "clockWipe":
-      KA(e, r, n, s, a);
+      YA(e, r, n, s, a);
       break;
     case "iris":
-      qA(e, r, n, s, a);
+      QA(e, r, n, s, a);
       break;
     case "none":
     default:
-      YA(e, r, n, s);
+      JA(e, r, n, s);
       break;
   }
 }
-const QA = He("CanvasShapes");
-function JA(e, t, r) {
+const tD = He("CanvasShapes");
+function rD(e, t, r) {
   const n = Zc(
     e,
     {
@@ -31311,14 +31321,14 @@ function JA(e, t, r) {
     const i = r.width / 2 + t.x, o = r.height / 2 + t.y;
     a = Qc(n, t.rotation, i, o);
   }
-  return ef(a);
+  return tf(a);
 }
-function eD(e, t, r, n) {
+function nD(e, t, r, n) {
   if (!t.isMask) {
     e.save();
     try {
-      const a = JA(t, r, n);
-      e.globalAlpha = r.opacity, t.fillColor && (e.fillStyle = t.fillColor, e.fill(a)), t.strokeWidth && t.strokeWidth > 0 && t.strokeColor && (e.strokeStyle = t.strokeColor, e.lineWidth = t.strokeWidth, e.stroke(a)), r.cornerRadius > 0 && QA.debug("Corner radius applied via shape path", {
+      const a = rD(t, r, n);
+      e.globalAlpha = r.opacity, t.fillColor && (e.fillStyle = t.fillColor, e.fill(a)), t.strokeWidth && t.strokeWidth > 0 && t.strokeColor && (e.strokeStyle = t.strokeColor, e.lineWidth = t.strokeWidth, e.stroke(a)), r.cornerRadius > 0 && tD.debug("Corner radius applied via shape path", {
         shapeId: t.id,
         cornerRadius: r.cornerRadius
       });
@@ -31327,14 +31337,14 @@ function eD(e, t, r, n) {
     }
   }
 }
-function tD(e) {
+function aD(e) {
   return Math.abs(e - 1) >= 0.01;
 }
-function rD(e, t) {
+function iD(e, t) {
   const r = t ? 1 : 0.2;
   return Math.abs(e) > 1.01 ? Math.max(r, 0.5 * Math.abs(e)) : r;
 }
-function nD(e) {
+function oD(e) {
   const { domVideo: t, sourceTime: r, speed: n, isRenderingTransition: a } = e;
   if (!t || t.readyState < 2 || t.videoWidth <= 0)
     return {
@@ -31343,7 +31353,7 @@ function nD(e) {
       drift: null,
       driftThreshold: null
     };
-  const i = Math.abs(t.currentTime - r), o = rD(
+  const i = Math.abs(t.currentTime - r), o = iD(
     n,
     a || t.dataset.transitionHold === "1"
   );
@@ -31354,7 +31364,7 @@ function nD(e) {
     driftThreshold: o
   };
 }
-function aD(e) {
+function sD(e) {
   const {
     renderMode: t,
     hasMediabunny: r,
@@ -31362,17 +31372,17 @@ function aD(e) {
     hasEnsureVideoItemReady: a,
     speed: i
   } = e;
-  return t !== "preview" || r || n || !a ? "none" : tD(i) ? "warm-background-and-skip" : "await-ready";
+  return t !== "preview" || r || n || !a ? "none" : aD(i) ? "warm-background-and-skip" : "await-ready";
 }
-function iD(e) {
+function cD(e) {
   const { renderMode: t, hasMediabunny: r, hasFallbackVideoElement: n } = e;
   return t === "preview" && !r && !n;
 }
-function Sh(e) {
+function kh(e) {
   const { renderMode: t, hasReadyDomVideo: r } = e;
   return t === "preview" && !r;
 }
-function oD(e) {
+function lD(e) {
   const {
     renderMode: t,
     hasFallbackVideoElement: r,
@@ -31382,10 +31392,10 @@ function oD(e) {
   } = e;
   return t === "preview" && r && (i || !n || a);
 }
-const Zn = He("CanvasItemRenderer"), sD = 0.9, cD = 12;
+const Zn = He("CanvasItemRenderer"), uD = 0.9, dD = 12;
 async function Oo(e, t, r, n, a, i = 0) {
-  if (Ob(t.cornerPin)) {
-    await uD(e, t, r, n, a, i);
+  if (Lb(t.cornerPin)) {
+    await mD(e, t, r, n, a, i);
     return;
   }
   if (e.save(), r.opacity !== 1 && (e.globalAlpha = r.opacity), r.rotation !== 0) {
@@ -31396,41 +31406,41 @@ async function Oo(e, t, r, n, a, i = 0) {
     const o = a.canvasSettings.width / 2 + r.x - r.width / 2, s = a.canvasSettings.height / 2 + r.y - r.height / 2;
     e.beginPath(), e.roundRect(o, s, r.width, r.height, r.cornerRadius), e.clip();
   }
-  await Xb(e, t, r, n, a, i), e.restore();
+  await qb(e, t, r, n, a, i), e.restore();
 }
-async function Xb(e, t, r, n, a, i) {
-  const o = a.renderMode === "preview" ? cP(t, a.getPreviewPathVerticesOverride) : t;
+async function qb(e, t, r, n, a, i) {
+  const o = a.renderMode === "preview" ? dP(t, a.getPreviewPathVerticesOverride) : t;
   switch (o.type) {
     case "video":
-      await fD(e, o, r, n, a, i);
+      await hD(e, o, r, n, a, i);
       break;
     case "image":
-      mD(e, o, r, a, n);
+      gD(e, o, r, a, n);
       break;
     case "text":
-      pD(e, o, r, a);
+      yD(e, o, r, a);
       break;
     case "shape":
-      eD(e, o, r, {
+      nD(e, o, r, {
         width: a.canvasSettings.width,
         height: a.canvasSettings.height
       });
       break;
     case "composition":
-      await vD(e, o, r, n, a);
+      await wD(e, o, r, n, a);
       break;
     case "scene":
-      await lD(e, o, r, n, a);
+      await fD(e, o, r, n, a);
       break;
   }
 }
-async function lD(e, t, r, n, a) {
-  const i = $u();
+async function fD(e, t, r, n, a) {
+  const i = Hu();
   if (!i) return;
-  const { width: o, height: s } = a.canvasSettings, c = Kb(t, n - t.from, o, s, a.renderMode === "export" ? "final" : "preview"), l = i.peekFrame?.(c) ?? await i.getFrame(c);
+  const { width: o, height: s } = a.canvasSettings, c = Xb(t, n - t.from, o, s, a.renderMode === "export" ? "final" : "preview"), l = i.peekFrame?.(c) ?? await i.getFrame(c);
   l && Ua(e, l, l.width, l.height, r, a.canvasSettings, t.crop, void 0, a.canvasPool);
 }
-async function uD(e, t, r, n, a, i) {
+async function mD(e, t, r, n, a, i) {
   const o = Math.ceil(r.width), s = Math.ceil(r.height);
   if (o <= 0 || s <= 0) return;
   const c = new OffscreenCanvas(o, s), l = c.getContext("2d");
@@ -31443,7 +31453,7 @@ async function uD(e, t, r, n, a, i) {
     ...a,
     canvasSettings: { width: o, height: s, fps: a.canvasSettings.fps }
   };
-  await Xb(l, t, u, n, d, i), r.cornerRadius > 0 && (l.save(), l.globalCompositeOperation = "destination-in", l.beginPath(), l.roundRect(0, 0, o, s, r.cornerRadius), l.fill(), l.restore());
+  await qb(l, t, u, n, d, i), r.cornerRadius > 0 && (l.save(), l.globalCompositeOperation = "destination-in", l.beginPath(), l.roundRect(0, 0, o, s, r.cornerRadius), l.fill(), l.restore());
   const f = a.canvasSettings.width / 2 + r.x - r.width / 2, m = a.canvasSettings.height / 2 + r.y - r.height / 2, p = r.opacity !== 1;
   e.save(), p && (e.globalAlpha = r.opacity);
   const h = a.canvasSettings.width / 2 + r.x, g = a.canvasSettings.height / 2 + r.y;
@@ -31452,7 +31462,7 @@ async function uD(e, t, r, n, a, i) {
     if (p) {
       const { canvas: v, ctx: b } = a.canvasPool.acquire();
       try {
-        (v.width !== a.canvasSettings.width || v.height !== a.canvasSettings.height) && (v.width = a.canvasSettings.width, v.height = a.canvasSettings.height), b.clearRect(0, 0, v.width, v.height), uh(
+        (v.width !== a.canvasSettings.width || v.height !== a.canvasSettings.height) && (v.width = a.canvasSettings.width, v.height = a.canvasSettings.height), b.clearRect(0, 0, v.width, v.height), fh(
           b,
           c,
           o,
@@ -31465,13 +31475,13 @@ async function uD(e, t, r, n, a, i) {
         a.canvasPool.release(v);
       }
     } else
-      uh(e, c, o, s, f, m, t.cornerPin);
+      fh(e, c, o, s, f, m, t.cornerPin);
   } finally {
     e.restore();
   }
 }
-function dD(e) {
-  return 1 / (Number.isFinite(e) && e > 0 ? e : 30) * sD;
+function pD(e) {
+  return 1 / (Number.isFinite(e) && e > 0 ? e : 30) * uD;
 }
 function Bl(e, t, r, n, a, i, o, s) {
   try {
@@ -31491,7 +31501,7 @@ function Bl(e, t, r, n, a, i, o, s) {
     return !1;
   }
 }
-async function Ih(e, t, r, n, a, i, o) {
+async function Th(e, t, r, n, a, i, o) {
   if (a.renderMode !== "preview" || !t.src)
     return !1;
   const s = (u) => Ua(
@@ -31513,11 +31523,11 @@ async function Ih(e, t, r, n, a, i, o) {
     t.src,
     i,
     o,
-    cD
+    dD
   );
   return !!(l && s(l));
 }
-async function fD(e, t, r, n, a, i = 0) {
+async function hD(e, t, r, n, a, i = 0) {
   const {
     fps: o,
     videoExtractors: s,
@@ -31529,7 +31539,7 @@ async function fD(e, t, r, n, a, i = 0) {
     scrubbingCache: m
   } = a, p = a.renderMode === "preview", h = !p, g = c.has(t.id), v = s.get(t.id);
   let b = !1;
-  const k = (n - t.from) / o, M = t.sourceStart ?? t.trimStart ?? 0, S = t.sourceFps ?? o, F = t.speed ?? 1, T = (M + i) / S + k * F, R = dD(S), P = p && a.domVideoElementProvider && i === 0 ? a.domVideoElementProvider(t.id) : null, _ = nD({
+  const k = (n - t.from) / o, M = t.sourceStart ?? t.trimStart ?? 0, S = t.sourceFps ?? o, F = t.speed ?? 1, T = (M + i) / S + k * F, R = pD(S), P = p && a.domVideoElementProvider && i === 0 ? a.domVideoElementProvider(t.id) : null, _ = oD({
     domVideo: P,
     sourceTime: T,
     speed: F,
@@ -31549,7 +31559,7 @@ async function fD(e, t, r, n, a, i = 0) {
     );
     return;
   }
-  const $ = aD({
+  const $ = sD({
     renderMode: a.renderMode,
     hasMediabunny: l.has(t.id),
     isMediabunnyDisabled: u.has(t.id),
@@ -31567,7 +31577,7 @@ async function fD(e, t, r, n, a, i = 0) {
       } catch {
       }
   }
-  if (iD({
+  if (cD({
     renderMode: a.renderMode,
     hasMediabunny: l.has(t.id),
     hasFallbackVideoElement: g
@@ -31586,7 +31596,7 @@ async function fD(e, t, r, n, a, i = 0) {
       ))
         return;
     }
-    if (Sh({ renderMode: a.renderMode, hasReadyDomVideo: B }) && await Ih(
+    if (kh({ renderMode: a.renderMode, hasReadyDomVideo: B }) && await Th(
       e,
       t,
       r,
@@ -31600,7 +31610,7 @@ async function fD(e, t, r, n, a, i = 0) {
     }
     return;
   }
-  if (Sh({ renderMode: a.renderMode, hasReadyDomVideo: B }) && await Ih(
+  if (kh({ renderMode: a.renderMode, hasReadyDomVideo: B }) && await Th(
     e,
     t,
     r,
@@ -31613,7 +31623,7 @@ async function fD(e, t, r, n, a, i = 0) {
     return;
   }
   if (l.has(t.id) && !u.has(t.id) && v) {
-    const Y = Math.max(0, Math.min(T, v.getDuration() - 0.01)), L = v.getDimensions(), ae = qb(
+    const Y = Math.max(0, Math.min(T, v.getDuration() - 0.01)), L = v.getDimensions(), ae = Yb(
       L.width,
       L.height,
       r,
@@ -31658,7 +31668,7 @@ async function fD(e, t, r, n, a, i = 0) {
       capturedFrame: null,
       capturedSourceTime: null
     };
-    if (Yb(ae.featherPixels)) {
+    if (Zb(ae.featherPixels)) {
       const { canvas: E, ctx: pe } = a.canvasPool.acquire();
       try {
         pe.save(), Ic(pe, ae.viewportRect);
@@ -31668,7 +31678,7 @@ async function fD(e, t, r, n, a, i = 0) {
         } finally {
           pe.restore();
         }
-        se && (Zb(pe, ae.viewportRect, ae.featherPixels), e.drawImage(E, 0, 0));
+        se && (Qb(pe, ae.viewportRect, ae.featherPixels), e.drawImage(E, 0, 0));
       } finally {
         a.canvasPool.release(E);
       }
@@ -31722,7 +31732,7 @@ async function fD(e, t, r, n, a, i = 0) {
       });
     }
   }
-  const U = oD({
+  const U = lD({
     renderMode: a.renderMode,
     hasFallbackVideoElement: g,
     hasMediabunny: l.has(t.id),
@@ -31767,7 +31777,7 @@ async function fD(e, t, r, n, a, i = 0) {
     a.canvasPool
   );
 }
-function mD(e, t, r, n, a) {
+function gD(e, t, r, n, a) {
   const { fps: i, canvasSettings: o, imageElements: s, gifFramesMap: c } = n, l = c.get(t.id);
   if (l && l.frames.length > 0) {
     const d = a - t.from, f = t.speed ?? 1, m = d / i * 1e3 * f, { frame: p } = Jr.getFrameAtTime(l, m);
@@ -31797,12 +31807,12 @@ function mD(e, t, r, n, a) {
     n.canvasPool
   );
 }
-function pD(e, t, r, n) {
-  const { canvasSettings: a, textMeasureCache: i } = n, o = t.fontSize ?? 60, s = t.fontFamily ?? "Inter", c = t.fontStyle ?? "normal", l = t.fontWeight ?? "normal", u = Xd[l] ?? 400, d = t.underline ?? !1, f = t.lineHeight ?? 1.2, m = t.letterSpacing ?? 0, p = t.textAlign ?? "center", h = t.verticalAlign ?? "middle", g = 16, v = a.width / 2 + r.x - r.width / 2, b = a.height / 2 + r.y - r.height / 2;
+function yD(e, t, r, n) {
+  const { canvasSettings: a, textMeasureCache: i } = n, o = t.fontSize ?? 60, s = t.fontFamily ?? "Inter", c = t.fontStyle ?? "normal", l = t.fontWeight ?? "normal", u = qd[l] ?? 400, d = t.underline ?? !1, f = t.lineHeight ?? 1.2, m = t.letterSpacing ?? 0, p = t.textAlign ?? "center", h = t.verticalAlign ?? "middle", g = 16, v = a.width / 2 + r.x - r.width / 2, b = a.height / 2 + r.y - r.height / 2;
   e.save(), n.renderMode !== "preview" && (e.beginPath(), e.rect(v, b, r.width, r.height), e.clip()), e.font = `${c} ${u} ${o}px "${s}", sans-serif`, e.fillStyle = t.color ?? "#ffffff";
   const x = r.width - g * 2, k = o * f, M = e.measureText("Hg"), S = M.fontBoundingBoxAscent ?? o * 0.8, F = M.fontBoundingBoxDescent ?? o * 0.2, C = S + F, T = (k - C) / 2;
   e.textBaseline = "alphabetic";
-  const R = T + S, P = t.text ?? "", _ = hD(e, P, x, m, i), B = _.length * k, $ = r.height - g * 2;
+  const R = T + S, P = t.text ?? "", _ = vD(e, P, x, m, i), B = _.length * k, $ = r.height - g * 2;
   let U;
   switch (h) {
     case "top":
@@ -31832,7 +31842,7 @@ function pD(e, t, r, n) {
         e.textAlign = "center", H = v + r.width / 2;
         break;
     }
-    t.stroke && t.stroke.width > 0 && (e.strokeStyle = t.stroke.color, e.lineWidth = t.stroke.width * 2, e.lineJoin = "round", kh(e, z, H, A, m, !0, i)), kh(e, z, H, A, m, !1, i), d && yD(
+    t.stroke && t.stroke.width > 0 && (e.strokeStyle = t.stroke.color, e.lineWidth = t.stroke.width * 2, e.lineJoin = "round", Mh(e, z, H, A, m, !0, i)), Mh(e, z, H, A, m, !1, i), d && xD(
       e,
       z,
       H,
@@ -31845,7 +31855,7 @@ function pD(e, t, r, n) {
   }
   e.restore();
 }
-function hD(e, t, r, n, a) {
+function vD(e, t, r, n, a) {
   const i = [], o = t.split(`
 `);
   for (const s of o) {
@@ -31859,7 +31869,7 @@ function hD(e, t, r, n, a) {
       const d = l ? `${l} ${u}` : u;
       if (a.measure(e, d, n) > r && l) {
         if (i.push(l), l = u, a.measure(e, u, n) > r) {
-          const m = gD(e, u, r, n, a);
+          const m = bD(e, u, r, n, a);
           for (let p = 0; p < m.length - 1; p++)
             i.push(m[p] ?? "");
           l = m[m.length - 1] ?? "";
@@ -31871,7 +31881,7 @@ function hD(e, t, r, n, a) {
   }
   return i.length > 0 ? i : [""];
 }
-function gD(e, t, r, n, a) {
+function bD(e, t, r, n, a) {
   const i = [];
   let o = "";
   for (const s of t) {
@@ -31880,7 +31890,7 @@ function gD(e, t, r, n, a) {
   }
   return o && i.push(o), i;
 }
-function kh(e, t, r, n, a, i, o) {
+function Mh(e, t, r, n, a, i, o) {
   if (a === 0) {
     i ? e.strokeText(t, r, n) : e.fillText(t, r, n);
     return;
@@ -31905,7 +31915,7 @@ function kh(e, t, r, n, a, i, o) {
     i ? e.strokeText(d, u, n) : e.fillText(d, u, n), u += e.measureText(d).width + a;
   e.textAlign = c;
 }
-function yD(e, t, r, n, a, i, o, s) {
+function xD(e, t, r, n, a, i, o, s) {
   const c = s.measure(e, t, i);
   if (c <= 0) return;
   let l = r;
@@ -31913,7 +31923,7 @@ function yD(e, t, r, n, a, i, o, s) {
   const u = n + Math.max(1, o * 0.08), d = Math.max(1, o * 0.05), f = e.lineWidth, m = e.strokeStyle;
   e.beginPath(), e.lineWidth = d, e.strokeStyle = e.fillStyle, e.moveTo(l, u), e.lineTo(l + c, u), e.stroke(), e.lineWidth = f, e.strokeStyle = m;
 }
-async function vD(e, t, r, n, a) {
+async function wD(e, t, r, n, a) {
   const i = a.subCompRenderData.get(t.compositionId);
   if (!i) {
     n === 0 && Zn.warn("renderCompositionItem: no subCompRenderData found", {
@@ -31976,7 +31986,7 @@ async function vD(e, t, r, n, a) {
             T = Qc(T, M.rotation, R, P);
           }
           h.push({
-            path: ef(T),
+            path: tf(T),
             inverted: C.maskInvert ?? !1,
             feather: F,
             maskType: S,
@@ -31986,7 +31996,7 @@ async function vD(e, t, r, n, a) {
     let g = 0;
     for (const b of i.sortedTracks) {
       if (!b.visible) continue;
-      const x = h.filter((k) => rf(k.trackOrder, b.order));
+      const x = h.filter((k) => af(k.trackOrder, b.order));
       for (const k of b.items) {
         if (s < k.from || s >= k.from + k.durationInFrames || k.type === "shape" && k.isMask)
           continue;
@@ -32005,7 +32015,7 @@ async function vD(e, t, r, n, a) {
         else {
           const { canvas: F, ctx: C } = a.canvasPool.acquire();
           try {
-            await Oo(C, k, S, s, p), $b(d, F, x, m);
+            await Oo(C, k, S, s, p), Hb(d, F, x, m);
           } finally {
             a.canvasPool.release(F);
           }
@@ -32019,7 +32029,7 @@ async function vD(e, t, r, n, a) {
       renderedSubItems: g,
       trackCount: i.sortedTracks.length
     }), l.drawImage(u, 0, 0);
-    const v = xD(
+    const v = ID(
       c.width,
       c.height,
       r,
@@ -32036,8 +32046,8 @@ async function vD(e, t, r, n, a) {
     a.canvasPool.release(u), a.canvasPool.release(c);
   }
 }
-async function bD(e, t, r, n, a) {
-  const { canvasPool: i, canvasSettings: o } = n, { leftClip: s, rightClip: c } = t, l = Th(s, r, a, n), u = Th(c, r, a, n), { canvas: d, ctx: f } = i.acquire(), { canvas: m, ctx: p } = i.acquire(), h = n.isRenderingTransition;
+async function SD(e, t, r, n, a) {
+  const { canvasPool: i, canvasSettings: o } = n, { leftClip: s, rightClip: c } = t, l = Fh(s, r, a, n), u = Fh(c, r, a, n), { canvas: d, ctx: f } = i.acquire(), { canvas: m, ctx: p } = i.acquire(), h = n.isRenderingTransition;
   n.isRenderingTransition = !0, await Promise.all([
     Oo(f, l.item, l.transform, r, n, 0),
     Oo(p, u.item, u.transform, r, n, 0)
@@ -32050,11 +32060,11 @@ async function bD(e, t, r, n, a) {
     let T, R;
     if (k) {
       const { canvas: B, ctx: $ } = i.acquire();
-      S = B, b = B, T = Vu($, d, g, r, o, n.gpuPipeline);
+      S = B, b = B, T = $u($, d, g, r, o, n.gpuPipeline);
     }
     if (M) {
       const { canvas: B, ctx: $ } = i.acquire();
-      F = B, x = B, R = Vu($, m, v, r, o, n.gpuPipeline);
+      F = B, x = B, R = $u($, m, v, r, o, n.gpuPipeline);
     }
     const [P, _] = await Promise.all([
       T ?? Promise.resolve(null),
@@ -32062,9 +32072,9 @@ async function bD(e, t, r, n, a) {
     ]);
     P && (b = P), _ && (x = _);
   }
-  ZA(e, t, b, x, o, n.gpuTransitionPipeline), S && i.release(S), i.release(d), F && i.release(F), i.release(m);
+  eD(e, t, b, x, o, n.gpuTransitionPipeline), S && i.release(S), i.release(d), F && i.release(F), i.release(m);
 }
-function Th(e, t, r, n) {
+function Fh(e, t, r, n) {
   const a = n.getCurrentItemSnapshot?.(e) ?? e, i = n.getCurrentKeyframes?.(a.id) ?? n.keyframesMap.get(a.id);
   let o = _o(a, i, t, n.canvasSettings);
   if (n.renderMode === "preview") {
@@ -32083,7 +32093,7 @@ function Th(e, t, r, n) {
       cornerPin: u
     });
   }
-  const c = (n.renderMode === "preview" ? n.getPreviewEffectsOverride?.(a.id) : void 0) ?? s.effects, l = ju(
+  const c = (n.renderMode === "preview" ? n.getPreviewEffectsOverride?.(a.id) : void 0) ?? s.effects, l = Vu(
     r,
     n.adjustmentLayers,
     t,
@@ -32092,10 +32102,10 @@ function Th(e, t, r, n) {
   return {
     item: s,
     transform: o,
-    effects: Bb(c, l)
+    effects: Nb(c, l)
   };
 }
-function xD(e, t, r, n) {
+function ID(e, t, r, n) {
   if (r.width && r.height)
     return {
       x: n.width / 2 + r.x - r.width / 2,
@@ -32111,8 +32121,8 @@ function xD(e, t, r, n) {
     height: c
   };
 }
-function qb(e, t, r, n, a) {
-  const i = n.width / 2 + r.x - r.width / 2, o = n.height / 2 + r.y - r.height / 2, s = By(
+function Yb(e, t, r, n, a) {
+  const i = n.width / 2 + r.x - r.width / 2, o = n.height / 2 + r.y - r.height / 2, s = Uy(
     e,
     t,
     r.width,
@@ -32135,7 +32145,7 @@ function qb(e, t, r, n, a) {
     featherPixels: s.featherPixels
   };
 }
-function Yb(e) {
+function Zb(e) {
   return e.left > 0 || e.right > 0 || e.top > 0 || e.bottom > 0;
 }
 function Ic(e, t) {
@@ -32146,7 +32156,7 @@ function Ic(e, t) {
     t.height
   ), e.clip();
 }
-function Zb(e, t, r) {
+function Qb(e, t, r) {
   if (t.width <= 0 || t.height <= 0)
     return;
   const n = (a) => {
@@ -32208,7 +32218,7 @@ function Zb(e, t, r) {
   e.restore();
 }
 function Ua(e, t, r, n, a, i, o, s, c) {
-  const l = qb(r, n, a, i, o);
+  const l = Yb(r, n, a, i, o);
   if (l.viewportRect.width <= 0 || l.viewportRect.height <= 0)
     return !1;
   const u = (p) => {
@@ -32234,19 +32244,19 @@ function Ua(e, t, r, n, a, i, o, s, c) {
       l.mediaRect.height
     );
   };
-  if (!Yb(l.featherPixels))
+  if (!Zb(l.featherPixels))
     return e.save(), Ic(e, l.viewportRect), u(e), e.restore(), !0;
   const d = c?.acquire(), f = d?.canvas ?? new OffscreenCanvas(i.width, i.height), m = d?.ctx ?? f.getContext("2d");
   if (!m)
     return d && c?.release(f), !1;
   try {
-    d || m.clearRect(0, 0, i.width, i.height), m.save(), Ic(m, l.viewportRect), u(m), m.restore(), Zb(m, l.viewportRect, l.featherPixels), e.drawImage(f, 0, 0);
+    d || m.clearRect(0, 0, i.width, i.height), m.save(), Ic(m, l.viewportRect), u(m), m.restore(), Qb(m, l.viewportRect, l.featherPixels), e.drawImage(f, 0, 0);
   } finally {
     d && c?.release(f);
   }
   return !0;
 }
-class wD {
+class kD {
   cache = /* @__PURE__ */ new Map();
   maxFrames;
   device = null;
@@ -32325,7 +32335,7 @@ class wD {
     this.cache.clear();
   }
 }
-class SD {
+class TD {
   cache = /* @__PURE__ */ new Map();
   get(t) {
     return this.cache.get(t);
@@ -32346,7 +32356,7 @@ class SD {
     this.cache.clear();
   }
 }
-class ID {
+class MD {
   cache = /* @__PURE__ */ new Map();
   maxFrames;
   maxBytes;
@@ -32405,7 +32415,7 @@ class ID {
     this.cache.clear(), this.currentBytes = 0;
   }
 }
-class Qb {
+class Jb {
   tier1;
   tier2;
   tier3;
@@ -32425,7 +32435,7 @@ class Qb {
   blitW = 0;
   blitH = 0;
   constructor(t = 300, r = 900, n = 8e9) {
-    this.tier1 = new wD(t), this.tier2 = new SD(), this.tier3 = new ID(r, n);
+    this.tier1 = new kD(t), this.tier2 = new TD(), this.tier3 = new MD(r, n);
   }
   /**
    * Connect the GPU device (deferred — called after EffectsPipeline initializes).
@@ -32527,11 +32537,11 @@ class Qb {
   // -----------------------------------------------------------------------
   /** Evict specific cached frames, cached frame ranges, or flush all tiers. */
   invalidate(t) {
-    if (!t || !Sb(t)) {
+    if (!t || !Ib(t)) {
       this.tier1.clear(), this.tier3.clear();
       return;
     }
-    const r = t.frames ? new Set(t.frames) : null, n = t.ranges ?? [], a = (i) => (r?.has(i) ?? !1) || Ib(i, n);
+    const r = t.frames ? new Set(t.frames) : null, n = t.ranges ?? [], a = (i) => (r?.has(i) ?? !1) || kb(i, n);
     this.tier1.deleteMatching(a), this.tier3.deleteMatching(a);
   }
   /** Clear Tier 2 (per-video last-frame). Call when timeline items change. */
@@ -32629,10 +32639,10 @@ struct VertexOutput {
     return a.setPipeline(this.blitPipeline), a.setBindGroup(0, r), a.draw(6), a.end(), this.blitDevice.queue.submit([n.finish()]), this.blitCanvas;
   }
 }
-const bo = He("DecoderPrewarm"), kD = 6, Mh = 1 / 240, Fh = Math.max(3, Math.min(6, Math.floor((navigator.hardwareConcurrency ?? 4) / 2)));
-let co = [], Ch = !1, Jb = 0;
+const bo = He("DecoderPrewarm"), FD = 6, Ch = 1 / 240, Eh = Math.max(3, Math.min(6, Math.floor((navigator.hardwareConcurrency ?? 4) / 2)));
+let co = [], Ph = !1, ex = 0;
 const Ta = /* @__PURE__ */ new Map(), Ma = /* @__PURE__ */ new Map(), lo = /* @__PURE__ */ new Map(), Da = /* @__PURE__ */ new Set(), Ti = /* @__PURE__ */ new Map();
-function TD(e) {
+function CD(e) {
   const t = e.data;
   if (t.type === "preseek_done") {
     const r = Ta.get(t.id);
@@ -32649,17 +32659,17 @@ function TD(e) {
     }
   }
 }
-function MD() {
+function ED() {
   try {
     const e = new Worker(
       new URL(
         /* @vite-ignore */
-        "" + new URL("assets/decoder-prewarm-worker-BPaVP83Y.js", import.meta.url).href,
+        "" + new URL("assets/decoder-prewarm-worker-D9rAcTUB.js", import.meta.url).href,
         import.meta.url
       ),
       { type: "module" }
     );
-    return e.onmessage = TD, e.onerror = (t) => {
+    return e.onmessage = CD, e.onerror = (t) => {
       bo.warn("Decoder prewarm worker error", { message: t.message, filename: t.filename, lineno: t.lineno });
     }, e.addEventListener("messageerror", (t) => {
       bo.warn("Decoder prewarm worker message error", { data: t.data });
@@ -32668,17 +32678,17 @@ function MD() {
     return bo.warn("Failed to create decoder prewarm worker", { error: e }), null;
   }
 }
-function FD() {
-  if (!Ch) {
-    Ch = !0, bo.info(`Creating decoder prewarm worker pool (size: ${Fh})`);
-    for (let e = 0; e < Fh; e++) {
-      const t = MD();
+function PD() {
+  if (!Ph) {
+    Ph = !0, bo.info(`Creating decoder prewarm worker pool (size: ${Eh})`);
+    for (let e = 0; e < Eh; e++) {
+      const t = ED();
       t && co.push(t);
     }
   }
 }
-function ex() {
-  if (FD(), co.length === 0) return null;
+function tx() {
+  if (PD(), co.length === 0) return null;
   let e = co[0];
   for (let t = 1; t < co.length; t++) {
     const r = co[t];
@@ -32689,7 +32699,7 @@ function ex() {
 function bi(e) {
   e.inflightCount = Math.max(0, e.inflightCount - 1);
 }
-function CD(e, t, r) {
+function RD(e, t, r) {
   const n = lo.get(e);
   if (!n || n.length === 0) return null;
   let a = null, i = 1 / 0;
@@ -32699,7 +32709,7 @@ function CD(e, t, r) {
   }
   return a;
 }
-function tx(e, t, r) {
+function rx(e, t, r) {
   const n = Ti.get(e);
   if (!n || n.length === 0) return null;
   let a = null, i = 1 / 0;
@@ -32709,17 +32719,17 @@ function tx(e, t, r) {
   }
   return a;
 }
-function rx(e, t, r) {
+function nx(e, t, r) {
   const n = lo.get(e) ?? [];
-  for (n.push({ bitmap: r, timestamp: t }); n.length > kD; )
+  for (n.push({ bitmap: r, timestamp: t }); n.length > FD; )
     n.shift()?.bitmap.close();
   lo.set(e, n), lo.size, [...lo.values()].reduce((a, i) => a + i.length, 0);
 }
-function ED(e, t) {
+function AD(e, t) {
   const r = Ti.get(e) ?? [];
   r.push(t), Ti.set(e, r);
 }
-function PD(e, t) {
+function DD(e, t) {
   const r = Ti.get(e);
   if (!r || r.length === 0) return;
   const n = r.filter((a) => a !== t);
@@ -32729,62 +32739,62 @@ function PD(e, t) {
   }
   Ti.set(e, n);
 }
-const Hu = /* @__PURE__ */ new Map(), kc = /* @__PURE__ */ new Set();
-function nf(e) {
-  const t = Hu.get(e);
+const Gu = /* @__PURE__ */ new Map(), kc = /* @__PURE__ */ new Set();
+function of(e) {
+  const t = Gu.get(e);
   if (t)
     return Da.delete(e), t;
-  const r = vC(e);
-  return r ? (Hu.set(e, r), Da.delete(e), r) : null;
+  const r = bC(e);
+  return r ? (Gu.set(e, r), Da.delete(e), r) : null;
 }
-async function nx(e) {
-  const t = nf(e);
+async function ax(e) {
+  const t = of(e);
   if (t)
     return t;
   if (!e.startsWith("blob:") || Da.has(e))
     return null;
   try {
     const n = await (await fetch(e)).blob();
-    return Hu.set(e, n), Da.delete(e), n;
+    return Gu.set(e, n), Da.delete(e), n;
   } catch (r) {
     return Da.add(e), bo.debug("Failed to resolve blob URL for decoder prewarm", { src: e, error: r }), null;
   }
 }
-function RD(e, t) {
-  const r = ex();
+function _D(e, t) {
+  const r = tx();
   if (!r) return Promise.resolve(null);
   const n = Tc(
     e,
     t,
-    Mh
+    Ch
   );
   if (n)
     return bi(r), Promise.resolve(n);
-  const a = tx(
+  const a = rx(
     e,
     t,
-    Mh
+    Ch
   );
   if (a)
     return bi(r), a.promise;
-  const i = `preseek-${++Jb}`, o = new Promise((c) => {
+  const i = `preseek-${++ex}`, o = new Promise((c) => {
     const l = setTimeout(() => {
       Ta.delete(i), bi(r), c(null);
     }, 5e3);
     Ta.set(i, {
       resolve: (h) => {
-        clearTimeout(l), bi(r), h && rx(e, t, h), c(h);
+        clearTimeout(l), bi(r), h && nx(e, t, h), c(h);
       }
     });
     const u = r.worker;
     let d;
-    kc.has(e) || (d = Hv(e), d && kc.add(e));
+    kc.has(e) || (d = Wv(e), d && kc.add(e));
     const f = (h) => {
       Ta.has(i) && u.postMessage(h ? { type: "preseek", id: i, src: e, timestamp: t, blob: h, keyframeTimestamps: d } : { type: "preseek", id: i, src: e, timestamp: t, keyframeTimestamps: d });
     }, m = () => {
       const h = Ta.get(i);
       h && (Ta.delete(i), h.resolve(null));
-    }, p = nf(e);
+    }, p = of(e);
     if (p)
       f(p);
     else if (e.startsWith("blob:")) {
@@ -32792,7 +32802,7 @@ function RD(e, t) {
         m();
         return;
       }
-      nx(e).then((h) => {
+      ax(e).then((h) => {
         if (h) {
           f(h);
           return;
@@ -32802,22 +32812,22 @@ function RD(e, t) {
     } else
       f();
   }), s = { timestamp: t, promise: o };
-  return ED(e, s), o.finally(() => {
-    PD(e, s);
+  return AD(e, s), o.finally(() => {
+    DD(e, s);
   }), o;
 }
-function xz(e, t) {
+function Iz(e, t) {
   if (t.length === 0) return Promise.resolve(/* @__PURE__ */ new Map());
   if (t.length === 1)
-    return RD(e, t[0]).then((o) => {
+    return _D(e, t[0]).then((o) => {
       const s = /* @__PURE__ */ new Map();
       return o && s.set(t[0], o), s;
     });
-  const r = ex();
+  const r = tx();
   if (!r) return Promise.resolve(/* @__PURE__ */ new Map());
-  const n = `batch-preseek-${++Jb}`;
+  const n = `batch-preseek-${++ex}`;
   let a;
-  return kc.has(e) || (a = Hv(e), a && kc.add(e)), new Promise((o) => {
+  return kc.has(e) || (a = Wv(e), a && kc.add(e)), new Promise((o) => {
     const s = setTimeout(() => {
       Ma.delete(n), bi(r), o(/* @__PURE__ */ new Map());
     }, 8e3);
@@ -32825,7 +32835,7 @@ function xz(e, t) {
       resolve: (f) => {
         clearTimeout(s), bi(r);
         for (const [m, p] of f)
-          rx(e, m, p);
+          nx(e, m, p);
         o(f);
       }
     });
@@ -32837,7 +32847,7 @@ function xz(e, t) {
     }, u = () => {
       const f = Ma.get(n);
       f && (Ma.delete(n), f.resolve(/* @__PURE__ */ new Map()));
-    }, d = nf(e);
+    }, d = of(e);
     if (d)
       l(d);
     else if (e.startsWith("blob:")) {
@@ -32845,7 +32855,7 @@ function xz(e, t) {
         u();
         return;
       }
-      nx(e).then((f) => {
+      ax(e).then((f) => {
         if (f) {
           l(f);
           return;
@@ -32857,10 +32867,10 @@ function xz(e, t) {
   });
 }
 function Tc(e, t, r = 0.5) {
-  return CD(e, t, r)?.bitmap ?? null;
+  return RD(e, t, r)?.bitmap ?? null;
 }
-async function AD(e, t, r = 0.5, n = 12) {
-  const a = tx(e, t, r);
+async function OD(e, t, r = 0.5, n = 12) {
+  const a = rx(e, t, r);
   if (!a) return null;
   let i = null;
   return n <= 0 ? i = await a.promise : i = await new Promise((o) => {
@@ -32874,23 +32884,23 @@ async function AD(e, t, r = 0.5, n = 12) {
     });
   }), i ? Tc(e, t, r) ?? i : Tc(e, t, r);
 }
-const DD = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const LD = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  ScrubbingCache: Qb,
+  ScrubbingCache: Jb,
   getCachedPredecodedBitmap: Tc,
-  waitForInflightPredecodedBitmap: AD
+  waitForInflightPredecodedBitmap: OD
 }, Symbol.toStringTag, { value: "Module" }));
-function _D(e) {
+function BD(e) {
   const t = e.activeMaskCount === 0 && e.activeTransitionCount === 0 && e.renderTaskCount === 1;
   return {
     shouldDirectRenderSingleTask: t,
     shouldUseDeferredGpuBatch: e.hasGpuEffects && e.renderTaskCount > 1 && !t
   };
 }
-function Eh() {
+function Rh() {
   return He("CanvasRenderOrchestrator");
 }
-async function ax(e) {
+async function ix(e) {
   const {
     composition: t,
     frame: r,
@@ -32899,11 +32909,11 @@ async function ax(e) {
     quality: i = 0.85,
     format: o = "image/jpeg"
   } = e, s = t.width || 1920, c = t.height || 1080;
-  Eh().debug("Rendering single frame", { frame: r, width: n, height: a, compositionWidth: s, compositionHeight: c });
+  Rh().debug("Rendering single frame", { frame: r, width: n, height: a, compositionWidth: s, compositionHeight: c });
   const l = new OffscreenCanvas(s, c), u = l.getContext("2d");
   if (!u)
     throw new Error("Failed to get 2d context");
-  const d = await OD(t, l, u);
+  const d = await ND(t, l, u);
   try {
     await d.preload(), await d.renderFrame(r);
     let f = l, m = s, p = c;
@@ -32919,21 +32929,21 @@ async function ax(e) {
     try {
       d.dispose();
     } catch (f) {
-      Eh().warn("Failed to dispose single-frame renderer", { error: f });
+      Rh().warn("Failed to dispose single-frame renderer", { error: f });
     }
   }
 }
 function Jt() {
   return He("ClientRenderEngine");
 }
-function Ph(e) {
+function Ah(e) {
   const t = e.label?.toLowerCase() ?? "";
-  return tf(e.src) || t.endsWith(".gif") || Gb(e.src) || t.endsWith(".webp");
+  return rf(e.src) || t.endsWith(".gif") || Wb(e.src) || t.endsWith(".webp");
 }
-function Rh(e) {
-  return tf(e.src) || (e.label?.toLowerCase() ?? "").endsWith(".gif");
+function Dh(e) {
+  return rf(e.src) || (e.label?.toLowerCase() ?? "").endsWith(".gif");
 }
-async function OD(e, t, r, n = {}) {
+async function ND(e, t, r, n = {}) {
   const {
     fps: a,
     tracks: i = [],
@@ -32944,14 +32954,14 @@ async function OD(e, t, r, n = {}) {
     width: t.width,
     height: t.height,
     fps: a
-  }, k = IP();
+  }, k = MP();
   let M = 0;
-  const S = Fb({ tracks: i, transitions: o }), { trackRenderState: F } = S, {
+  const S = Cb({ tracks: i, transitions: o }), { trackRenderState: F } = S, {
     visibleTrackIds: C,
     visibleTracksByOrderDesc: T,
     visibleTracksByOrderAsc: R,
     trackOrderMap: P
-  } = F, _ = new RA(t.width, t.height, 10, 20), B = new AA(), U = l === "preview" ? new Qb() : null;
+  } = F, _ = new _A(t.width, t.height, 10, 20), B = new OA(), U = l === "preview" ? new Jb() : null;
   let j = -1;
   const z = (oe) => {
     if (!U)
@@ -32970,7 +32980,7 @@ async function OD(e, t, r, n = {}) {
     if (L) return !0;
     if (!A) return !1;
     const oe = A.getDevice();
-    return L = new xA(oe), ae = new SA(oe), se = new IA(oe), !0;
+    return L = new IA(oe), ae = new TA(oe), se = new MA(oe), !0;
   }
   function W(oe, Ee) {
     if (!A) return null;
@@ -32984,17 +32994,17 @@ async function OD(e, t, r, n = {}) {
     }
     return { canvas: le, ctx: ee };
   }
-  const K = zP(c), X = (oe) => h?.(oe) ?? K.get(oe), q = (oe) => {
+  const K = $P(c), X = (oe) => h?.(oe) ?? K.get(oe), q = (oe) => {
     const Ee = p?.(oe.id);
     return Ee && Ee.type === oe.type ? Ee : oe;
   }, ie = p ? (oe) => {
     const Ee = p(oe);
     return Ee && Ee.type === "shape" ? Ee : void 0;
-  } : void 0, me = new LA({
+  } : void 0, me = new UA({
     // Same-source transitions and overlaps can require multiple concurrent decode
     // timelines. Keep a small fixed lane cap to prevent per-clip duplication.
     maxLanesPerSource: 4
-  }), ye = /* @__PURE__ */ new Map(), be = /* @__PURE__ */ new Map(), xe = /* @__PURE__ */ new Map(), Ge = /* @__PURE__ */ new Map(), Pe = /* @__PURE__ */ new Map(), Se = v && !b ? new mb() : null, Ae = /* @__PURE__ */ new Set(), dt = /* @__PURE__ */ new Map();
+  }), ye = /* @__PURE__ */ new Map(), be = /* @__PURE__ */ new Map(), xe = /* @__PURE__ */ new Map(), Ge = /* @__PURE__ */ new Map(), Pe = /* @__PURE__ */ new Map(), Se = v && !b ? new pb() : null, Ae = /* @__PURE__ */ new Set(), dt = /* @__PURE__ */ new Map();
   let gt = 0;
   const Gt = (oe, Ee) => {
     if (!Ee) return;
@@ -33028,7 +33038,7 @@ async function OD(e, t, r, n = {}) {
     for (const Ee of oe.items ?? [])
       if (Ee.type === "image" && Ee.src) {
         const Be = Ee;
-        if (Ph(Be) && (Rh(Be) ? At.push(Be) : re.push(Be)), v && typeof Image < "u") {
+        if (Ah(Be) && (Dh(Be) ? At.push(Be) : re.push(Be)), v && typeof Image < "u") {
           const $e = new Image();
           $e.crossOrigin = "anonymous";
           const wt = new Promise((lt, ze) => {
@@ -33063,7 +33073,7 @@ async function OD(e, t, r, n = {}) {
     const Ee = oe.transition.trackId, Be = Ee ? P.get(Ee) ?? 0 : 0;
     de.set(oe.transition.id, Be);
   }
-  const ce = x, Fe = CA(i), Ie = /* @__PURE__ */ new Set(), _e = /* @__PURE__ */ new Map(), xt = /* @__PURE__ */ new Map(), mt = /* @__PURE__ */ new Set(), et = 4, Ke = 3, ke = /* @__PURE__ */ new Map();
+  const ce = x, Fe = RA(i), Ie = /* @__PURE__ */ new Set(), _e = /* @__PURE__ */ new Map(), xt = /* @__PURE__ */ new Map(), mt = /* @__PURE__ */ new Set(), et = 4, Ke = 3, ke = /* @__PURE__ */ new Map();
   let nt = !1;
   const Ue = /* @__PURE__ */ new Map(), ve = 6;
   let Me = null, Ce = null, qe = !1;
@@ -33150,7 +33160,7 @@ async function OD(e, t, r, n = {}) {
     });
     return ke.set(oe, Be), Be;
   };
-  Ve.ensureVideoItemReady = Nt, l === "preview" && Promise.resolve().then(() => DD).then(({
+  Ve.ensureVideoItemReady = Nt, l === "preview" && Promise.resolve().then(() => LD).then(({
     getCachedPredecodedBitmap: oe,
     waitForInflightPredecodedBitmap: Ee
   }) => {
@@ -33250,12 +33260,12 @@ async function OD(e, t, r, n = {}) {
           if (rt.type !== "composition") continue;
           const tt = rt, We = er[tt.compositionId];
           if (!We || !(Be !== null && tt.from <= Be + $e && tt.from + tt.durationInFrames >= Be - $e)) continue;
-          const yt = Ed(We.items, er), ot = [We, ...yt.flatMap((Ye) => er[Ye] ? [er[Ye]] : [])];
+          const yt = Pd(We.items, er), ot = [We, ...yt.flatMap((Ye) => er[Ye] ? [er[Ye]] : [])];
           for (const Ye of ot)
             for (const vt of Ye.items)
               vt.type === "video" && Tt.add(vt.id);
         }
-      const gr = PT(i, er);
+      const gr = RT(i, er);
       for (const ct of gr) {
         const rt = er[ct];
         if (!rt) {
@@ -33345,7 +33355,7 @@ async function OD(e, t, r, n = {}) {
         for (const { subItem: ot, src: Ye } of Yt)
           if (ot.type === "image" && !_t.has(ot.id)) {
             const ut = { ...ot, src: Ye };
-            if (Ph(ut) && (Rh(ut) ? it.push(ut) : yt.push(ut)), v && typeof Image < "u") {
+            if (Ah(ut) && (Dh(ut) ? it.push(ut) : yt.push(ut)), v && typeof Image < "u") {
               const St = new Image();
               St.crossOrigin = "anonymous", We.push(new Promise((Q) => {
                 St.onload = () => {
@@ -33421,7 +33431,7 @@ async function OD(e, t, r, n = {}) {
         }
       }
       r.fillStyle = s, r.fillRect(0, 0, t.width, t.height);
-      const Ee = EA(
+      const Ee = AA(
         Fe,
         oe,
         ce,
@@ -33466,12 +33476,12 @@ async function OD(e, t, r, n = {}) {
           const Ot = f?.(Ye.id);
           Ot !== void 0 && (St = { ...Ye, cornerPin: Ot });
         }
-        const Q = (l === "preview" ? d?.(Ye.id) : void 0) ?? St.effects, De = ju(
+        const Q = (l === "preview" ? d?.(Ye.id) : void 0) ?? St.effects, De = Vu(
           it,
           ne,
           oe,
           l === "preview" ? d : void 0
-        ), Te = Bb(Q, De), { canvas: Qt, ctx: jt } = _.acquire();
+        ), Te = Nb(Q, De), { canvas: Qt, ctx: jt } = _.acquire();
         if (await Oo(
           jt,
           St,
@@ -33480,7 +33490,7 @@ async function OD(e, t, r, n = {}) {
           Ve
         ), Te.length > 0) {
           Te.some((Wr) => Wr.enabled && Wr.effect.type === "gpu-effect") && !Ve.gpuPipeline && (Ve.gpuPipeline = await N(), Ve.gpuPipeline || Jt().warn("GPU pipeline init failed — GPU effects will be skipped"));
-          const { canvas: Ut, ctx: Pr } = _.acquire(), pr = await Vu(Pr, Qt, Te, oe, x, Ve.gpuPipeline);
+          const { canvas: Ut, ctx: Pr } = _.acquire(), pr = await $u(Pr, Qt, Te, oe, x, Ve.gpuPipeline);
           _.release(Qt);
           const oa = pr ?? Ut;
           return yt ? { source: oa, poolCanvases: [Ut] } : (ot.drawImage(oa, 0, 0), _.release(Ut), null);
@@ -33491,14 +33501,14 @@ async function OD(e, t, r, n = {}) {
         return !(oe < it.from || oe >= it.from + it.durationInFrames || wt.has(it.id) || it.type === "audio" || it.type === "adjustment" || it.type === "shape" && it.isMask);
       }, Yt = (We, it) => {
         const yt = q(We);
-        if (yt.type !== "video" && yt.type !== "image" || wt.has(yt.id) || yt.blendMode && yt.blendMode !== "normal" || yt.cornerPin || GT(yt.crop)) return !1;
+        if (yt.type !== "video" && yt.type !== "image" || wt.has(yt.id) || yt.blendMode && yt.blendMode !== "normal" || yt.cornerPin || WT(yt.crop)) return !1;
         const ot = X(yt.id), Ye = _o(yt, ot, oe, x);
         if (Ye.opacity < 1) return !1;
         const vt = Ye.rotation % 360;
         if (vt !== 0 && vt !== 180 && vt !== -180 || Ye.cornerRadius > 0) return !1;
         const ut = t.width / 2 + Ye.x - Ye.width / 2, St = t.height / 2 + Ye.y - Ye.height / 2, Q = ut + Ye.width, De = St + Ye.height, Te = 1;
         if (ut > Te || St > Te || Q < t.width - Te || De < t.height - Te) return !1;
-        const Qt = yt.effects ?? [], jt = ju(
+        const Qt = yt.effects ?? [], jt = Vu(
           it,
           ne,
           oe,
@@ -33514,7 +33524,7 @@ async function OD(e, t, r, n = {}) {
       }, {
         occlusionCutoffOrder: Ft,
         renderTasks: Tt
-      } = _P({
+      } = BP({
         tracksByOrderDesc: T,
         tracksByOrderAsc: R,
         visibleTrackIds: C,
@@ -33526,7 +33536,7 @@ async function OD(e, t, r, n = {}) {
       }), {
         shouldDirectRenderSingleTask: er,
         shouldUseDeferredGpuBatch: gr
-      } = _D({
+      } = BD({
         activeMaskCount: Ee.length,
         activeTransitionCount: $e.length,
         hasGpuEffects: lt,
@@ -33556,11 +33566,11 @@ async function OD(e, t, r, n = {}) {
         Ft !== null && T.filter((vt) => C.has(vt.id) && (vt.order ?? 0) > Ft).length;
         const We = (vt, ut) => {
           if (!vt) return null;
-          const St = Ee.filter((Te) => rf(Te.trackOrder, ut));
+          const St = Ee.filter((Te) => af(Te.trackOrder, ut));
           if (St.length === 0)
             return vt;
           const { canvas: Q, ctx: De } = _.acquire();
-          return $b(De, vt.source, St, ce), {
+          return Hb(De, vt.source, St, ce), {
             source: Q,
             poolCanvases: [...vt.poolCanvases, Q]
           };
@@ -33569,7 +33579,7 @@ async function OD(e, t, r, n = {}) {
             if (vt.type === "item")
               return ze(vt.item, vt.trackOrder, !0, rt);
             const { canvas: ut, ctx: St } = _.acquire();
-            return await bD(St, vt.transition, oe, Ve, vt.trackOrder), { source: ut, poolCanvases: [ut] };
+            return await SD(St, vt.transition, oe, Ve, vt.trackOrder), { source: ut, poolCanvases: [ut] };
           })
         );
         gr && Ve.gpuPipeline && Ve.gpuPipeline.endBatch();
@@ -33591,7 +33601,7 @@ async function OD(e, t, r, n = {}) {
               { texture: pr },
               { width: ut, height: St }
             ), De.push(pr), Q.push({
-              params: { ...vA, blendMode: Pr, sourceAspect: ut / St, outputAspect: ut / St },
+              params: { ...wA, blendMode: Pr, sourceAspect: ut / St, outputAspect: ut / St },
               textureView: pr.createView(),
               maskView: se.getFallbackView()
             });
@@ -33791,8 +33801,8 @@ async function OD(e, t, r, n = {}) {
     }
   };
 }
-const LD = He("TimelineToComposition");
-function ix(e, t, r, n, a, i, o, s, c, l) {
+const UD = He("TimelineToComposition");
+function ox(e, t, r, n, a, i, o, s, c, l) {
   e = tl(e);
   const u = o != null && s !== null && s !== void 0 && s > o;
   let d = t, f;
@@ -33825,7 +33835,7 @@ function ix(e, t, r, n, a, i, o, s, c, l) {
     items: d.filter((k) => k.trackId === x.id)
   })).sort((x, k) => k.order - x.order), g = new Set(d.map((x) => x.id)), v = r.filter(
     (x) => g.has(x.leftClipId) && g.has(x.rightClipId)
-  ), b = BD(
+  ), b = zD(
     c ?? [],
     d,
     t,
@@ -33833,7 +33843,7 @@ function ix(e, t, r, n, a, i, o, s, c, l) {
     m,
     g
   );
-  return LD.debug("Keyframes processing", {
+  return UD.debug("Keyframes processing", {
     inputKeyframes: c?.length ?? 0,
     outputKeyframes: b.length,
     hasIOMarkerOffsets: m.size > 0,
@@ -33858,7 +33868,7 @@ function ix(e, t, r, n, a, i, o, s, c, l) {
     backgroundColor: l
   };
 }
-function BD(e, t, r, n, a) {
+function zD(e, t, r, n, a) {
   const i = n.size > 0, o = t.some((l) => l.originId);
   if (!i && !o)
     return e.filter((l) => a.has(l.itemId));
@@ -33872,7 +33882,7 @@ function BD(e, t, r, n, a) {
     let m = !1;
     if (!u && l.originId) {
       const g = s.get(l.originId);
-      g && (u = g, m = !0, f && (d = ND(f, r)));
+      g && (u = g, m = !0, f && (d = jD(f, r)));
     }
     if (!u) continue;
     if (m) {
@@ -33882,7 +33892,7 @@ function BD(e, t, r, n, a) {
     }
     const p = n.get(l.id) ?? 0, h = d + p;
     if (h > 0) {
-      const g = UD(
+      const g = VD(
         { ...u, itemId: l.id },
         // Use the current item's ID
         h
@@ -33893,7 +33903,7 @@ function BD(e, t, r, n, a) {
   }
   return c;
 }
-function ND(e, t) {
+function jD(e, t) {
   if (!e.originId || e.type !== "video" && e.type !== "audio")
     return 0;
   const r = e.sourceStart ?? 0, n = e.speed ?? 1, a = t.filter(
@@ -33909,7 +33919,7 @@ function ND(e, t) {
   ), s = r - o;
   return Math.round(s / n);
 }
-function UD(e, t) {
+function VD(e, t) {
   if (t === 0)
     return e;
   const r = e.properties.map((n) => {
@@ -33959,13 +33969,13 @@ function UD(e, t) {
     properties: r
   };
 }
-function zD(e) {
+function $D(e) {
   const t = {
     ...e
   };
   return delete t.src, delete t.thumbnailUrl, delete t.waveformData, t;
 }
-function ox(e, t, r) {
+function sx(e, t, r) {
   const n = t[e];
   if (!n)
     return { id: e, missing: !0 };
@@ -33982,15 +33992,15 @@ function ox(e, t, r) {
     backgroundColor: n.backgroundColor ?? null,
     tracks: n.tracks,
     items: n.items.map((i) => ({
-      item: zD(i),
-      child: i.type === "composition" && i.compositionId ? ox(i.compositionId, t, a) : null
+      item: $D(i),
+      child: i.type === "composition" && i.compositionId ? sx(i.compositionId, t, a) : null
     })),
     transitions: n.transitions,
     keyframes: n.keyframes
   };
 }
-function jD(e) {
-  return ix(
+function HD(e) {
+  return ox(
     e.tracks,
     e.items,
     e.transitions,
@@ -34003,7 +34013,7 @@ function jD(e) {
     e.backgroundColor
   );
 }
-function VD(e, t) {
+function GD(e, t) {
   const r = /* @__PURE__ */ new Set(), n = /* @__PURE__ */ new Set(), a = (i) => {
     if (n.has(i))
       return;
@@ -34015,22 +34025,22 @@ function VD(e, t) {
   };
   return a(e), [...r];
 }
-function $D(e, t) {
-  return JSON.stringify(ox(e, t, /* @__PURE__ */ new Set()));
+function WD(e, t) {
+  return JSON.stringify(sx(e, t, /* @__PURE__ */ new Set()));
 }
-function HD(e) {
+function KD(e) {
   return e <= 1 ? 0 : Math.min(
     e - 1,
     Math.max(0, Math.round((e - 1) * 0.2))
   );
 }
-const af = {
+const sf = {
   maxSize: 320,
   quality: 0.6,
   timestamp: 1
-}, GD = () => import("./media-bunny-core-CXIwd4FE.js").then((e) => e.i);
-async function WD(e, t = {}) {
-  const r = { ...af, ...t }, { Input: n, BlobSource: a, CanvasSink: i, ALL_FORMATS: o } = await GD();
+}, XD = () => import("./media-bunny-core-CXIwd4FE.js").then((e) => e.i);
+async function qD(e, t = {}) {
+  const r = { ...sf, ...t }, { Input: n, BlobSource: a, CanvasSink: i, ALL_FORMATS: o } = await XD();
   let s = null, c = null;
   try {
     s = new n({
@@ -34067,8 +34077,8 @@ async function WD(e, t = {}) {
     c?.dispose?.(), s?.dispose?.();
   }
 }
-async function KD(e, t = {}) {
-  const r = { ...af, ...t }, n = r.maxSize, a = Math.round(r.maxSize * (9 / 16));
+async function YD(e, t = {}) {
+  const r = { ...sf, ...t }, n = r.maxSize, a = Math.round(r.maxSize * (9 / 16));
   return new Promise((i, o) => {
     const s = document.createElement("canvas"), c = s.getContext("2d");
     if (!c) {
@@ -34092,8 +34102,8 @@ async function KD(e, t = {}) {
     );
   });
 }
-async function XD(e, t = {}) {
-  const r = { ...af, ...t };
+async function ZD(e, t = {}) {
+  const r = { ...sf, ...t };
   return new Promise((n, a) => {
     const i = new Image(), o = document.createElement("canvas"), s = o.getContext("2d");
     if (!s) {
@@ -34118,26 +34128,26 @@ async function XD(e, t = {}) {
     }, i.src = URL.createObjectURL(e);
   });
 }
-async function Ah(e, t = {}) {
+async function _h(e, t = {}) {
   const r = Zr(e);
   if (r.startsWith("video/"))
-    return WD(e, t);
+    return qD(e, t);
   if (r.startsWith("audio/"))
-    return KD(e, t);
+    return YD(e, t);
   if (r.startsWith("image/"))
-    return XD(e, t);
+    return ZD(e, t);
   throw new Error(`Unsupported file type: ${r}`);
 }
 const Wt = He("MediaLibraryService");
-function qD(e) {
+function QD(e) {
   return {
     width: e.width,
     height: e.height
   };
 }
-async function YD(e) {
+async function JD(e) {
   if (typeof createImageBitmap == "function") {
-    const t = await createImageBitmap(e), r = qD(t);
+    const t = await createImageBitmap(e), r = QD(t);
     return t.close(), r;
   }
   return new Promise((t, r) => {
@@ -34152,7 +34162,7 @@ async function YD(e) {
     }, n.src = a;
   });
 }
-function ZD(e, t, r) {
+function e_(e, t, r) {
   const n = Math.max(1, Math.round(e)), a = Math.max(1, Math.round(t));
   return n >= a ? {
     width: r,
@@ -34162,7 +34172,7 @@ function ZD(e, t, r) {
     height: r
   };
 }
-async function QD(e) {
+async function t_(e) {
   return typeof e.arrayBuffer == "function" ? e.arrayBuffer() : new Response(e).arrayBuffer();
 }
 async function Nl({
@@ -34177,7 +34187,7 @@ async function Nl({
   try {
     if (!r.opfsPath)
       throw new Error("Generated media is missing an OPFS path.");
-    if (await Ca.saveFile(r.opfsPath, await QD(e)), n && a && i) {
+    if (await Ca.saveFile(r.opfsPath, await t_(e)), n && a && i) {
       const c = crypto.randomUUID();
       await Bc({
         id: c,
@@ -34188,7 +34198,7 @@ async function Nl({
         height: i
       }), r.thumbnailId = c, s = !0;
     }
-    return await hd(r), o = !0, await ko(t, r.id), r;
+    return await gd(r), o = !0, await ko(t, r.id), r;
   } catch (c) {
     if (o)
       try {
@@ -34223,7 +34233,7 @@ class yi extends Error {
     super(t), this.type = r, this.name = "FileAccessError";
   }
 }
-class JD {
+class r_ {
   /** In-memory cache for thumbnail blob URLs to prevent flicker on re-renders */
   thumbnailUrlCache = /* @__PURE__ */ new Map();
   /**
@@ -34257,7 +34267,7 @@ class JD {
         "Permission denied to access file",
         "permission_denied"
       );
-    const a = await EC(await t.getFile()), i = _v(a);
+    const a = await PC(await t.getFile()), i = Lv(a);
     if (!i.valid)
       throw new Error(i.error);
     const s = (await yu(r)).find(
@@ -34275,7 +34285,7 @@ class JD {
     let m = f;
     if (!m && c === "image/svg+xml")
       try {
-        m = await Ah(a, { maxSize: 320, quality: 0.6 });
+        m = await _h(a, { maxSize: 320, quality: 0.6 });
       } catch (g) {
         Wt.warn("Failed to generate SVG thumbnail on main thread:", g);
       }
@@ -34315,7 +34325,7 @@ class JD {
       createdAt: Date.now(),
       updatedAt: Date.now()
     };
-    if (await hd(h), await ko(r, l), c === "image/gif") {
+    if (await gd(h), await ko(r, l), c === "image/gif") {
       const g = URL.createObjectURL(a);
       Jr.getGifFrames(l, g).catch((v) => Wt.warn("Failed to pre-extract GIF frames:", v)).finally(() => URL.revokeObjectURL(g));
     }
@@ -34357,7 +34367,7 @@ class JD {
     const a = t.type || Zr(t);
     if (!a.startsWith("image/"))
       throw new Error(`Generated file must be an image. Received "${a}".`);
-    const i = Number.isFinite(n?.width) && (n?.width ?? 0) > 0 ? Math.round(n?.width ?? 0) : 0, o = Number.isFinite(n?.height) && (n?.height ?? 0) > 0 ? Math.round(n?.height ?? 0) : 0, s = i > 0 && o > 0 ? { width: i, height: o } : await YD(t), c = crypto.randomUUID(), l = Date.now(), u = `content/${c.slice(0, 2)}/${c.slice(2, 4)}/${c}/data`, d = n?.codec ?? a.split("/")[1] ?? "unknown", f = n?.thumbnailMaxSize ?? 320, m = n?.thumbnailQuality ?? 0.6, p = {
+    const i = Number.isFinite(n?.width) && (n?.width ?? 0) > 0 ? Math.round(n?.width ?? 0) : 0, o = Number.isFinite(n?.height) && (n?.height ?? 0) > 0 ? Math.round(n?.height ?? 0) : 0, s = i > 0 && o > 0 ? { width: i, height: o } : await JD(t), c = crypto.randomUUID(), l = Date.now(), u = `content/${c.slice(0, 2)}/${c.slice(2, 4)}/${c}/data`, d = n?.codec ?? a.split("/")[1] ?? "unknown", f = n?.thumbnailMaxSize ?? 320, m = n?.thumbnailQuality ?? 0.6, p = {
       id: c,
       storageType: "opfs",
       opfsPath: u,
@@ -34376,10 +34386,10 @@ class JD {
     };
     let h, g;
     try {
-      h = await Ah(t, {
+      h = await _h(t, {
         maxSize: f,
         quality: m
-      }), g = ZD(
+      }), g = e_(
         s.width,
         s.height,
         f
@@ -34675,7 +34685,7 @@ class JD {
     const n = await qr(t);
     if (!n)
       throw new Error(`Media not found: ${t}`);
-    await ko(r, t), n.storageType === "opfs" && n.contentHash && await ey(n.contentHash);
+    await ko(r, t), n.storageType === "opfs" && n.contentHash && await ry(n.contentHash);
   }
   /**
    * Get media file as Blob object
@@ -34772,7 +34782,7 @@ class JD {
         "permission_denied"
       );
     const i = await r.getFile();
-    return await Q0(t, {
+    return await ey(t, {
       fileHandle: r,
       fileName: i.name,
       fileSize: i.size,
@@ -34791,7 +34801,7 @@ class JD {
    * Get thumbnail for a media item
    */
   async getThumbnail(t) {
-    return await J0(t) || null;
+    return await ty(t) || null;
   }
   /**
    * Get thumbnail as blob URL (cached in memory to prevent flicker)
@@ -34845,9 +34855,9 @@ class JD {
     return { cleaned: t.length };
   }
 }
-const tr = new JD(), Rs = He("ProjectStore"), Br = Mt()(
-  S0(
-    Nw(
+const tr = new r_(), Rs = He("ProjectStore"), Br = Mt()(
+  k0(
+    Uw(
       (e, t) => ({
         // Initial state
         projects: [],
@@ -34863,7 +34873,7 @@ const tr = new JD(), Rs = He("ProjectStore"), Br = Mt()(
         loadProjects: async () => {
           e({ isLoading: !0, error: null });
           try {
-            const r = await Y0();
+            const r = await Q0();
             e({ projects: r, isLoading: !1 });
           } catch (r) {
             const n = r instanceof Error ? r.message : "Failed to load projects";
@@ -34884,7 +34894,7 @@ const tr = new JD(), Rs = He("ProjectStore"), Br = Mt()(
         // Create a new project with optimistic update
         createProject: async (r) => {
           e({ isLoading: !0, error: null });
-          const n = NM(r), a = t().projects;
+          const n = UM(r), a = t().projects;
           e({ projects: [...a, n] });
           try {
             return await fu(n), e({ isLoading: !1, currentProject: n }), n;
@@ -34962,7 +34972,7 @@ const tr = new JD(), Rs = He("ProjectStore"), Br = Mt()(
               } catch (f) {
                 Rs.error(`Failed to clear local files for project ${r}:`, f);
               }
-            return await tr.deleteAllMediaFromProject(r), await Z0(r), e({ isLoading: !1 }), { localFilesDeleted: o };
+            return await tr.deleteAllMediaFromProject(r), await J0(r), e({ isLoading: !1 }), { localFilesDeleted: o };
           } catch (f) {
             if (o || s) {
               const h = `${o ? "All local files deleted" : "Some local files deleted"} but database cleanup failed â€” project may be inconsistent`;
@@ -34979,7 +34989,7 @@ const tr = new JD(), Rs = He("ProjectStore"), Br = Mt()(
           const n = t().projects.find((o) => o.id === r);
           if (!n)
             throw e({ error: `Project not found: ${r}`, isLoading: !1 }), new Error(`Project not found: ${r}`);
-          const a = UM(n), i = t().projects;
+          const a = zM(n), i = t().projects;
           e({ projects: [...i, a] });
           try {
             await fu(a);
@@ -35083,15 +35093,15 @@ La.subscribe((e, t) => {
     });
   }
 });
-const e_ = He("TimelineSnapshot");
-function sx(e, t) {
+const n_ = He("TimelineSnapshot");
+function cx(e, t) {
   return e === t ? !0 : !e || !t ? e === t : e.width === t.width && e.height === t.height && e.fps === t.fps && (e.backgroundColor ?? "#000000") === (t.backgroundColor ?? "#000000");
 }
-function t_(e) {
+function a_(e) {
   if (!e.projectId || !e.projectMetadata)
     return;
   const t = Br.getState(), r = t.currentProject, n = r?.id === e.projectId ? r : t.projects.find((i) => i.id === e.projectId) ?? null;
-  if (!n || sx(n.metadata, e.projectMetadata))
+  if (!n || cx(n.metadata, e.projectMetadata))
     return;
   const a = Date.now();
   Br.setState((i) => ({
@@ -35108,7 +35118,7 @@ function t_(e) {
   })), Promise.resolve(Pa(e.projectId, {
     metadata: { ...e.projectMetadata }
   })).catch((i) => {
-    e_.error(`Failed to persist restored project metadata for ${e.projectId}:`, i);
+    n_.error(`Failed to persist restored project metadata for ${e.projectId}:`, i);
   });
 }
 function Fa() {
@@ -35130,24 +35140,24 @@ function Fa() {
     projectMetadata: c ? { ...c.metadata } : null
   };
 }
-function Dh(e) {
-  J.getState().setItems(e.items), J.getState().setTracks(e.tracks), Je.getState().setTransitions(e.transitions), bt.getState().setKeyframes(e.keyframes), Dt.getState().setMarkers(e.markers), Dt.getState().setInPoint(e.inPoint), Dt.getState().setOutPoint(e.outPoint), It.getState().setCompositions(e.compositions), he.getState().setFps(e.fps), he.getState().setScrollPosition(e.scrollPosition), he.getState().setSnapEnabled(e.snapEnabled), Qe.getState().setCurrentFrame(e.currentFrame), t_(e);
+function Oh(e) {
+  J.getState().setItems(e.items), J.getState().setTracks(e.tracks), Je.getState().setTransitions(e.transitions), bt.getState().setKeyframes(e.keyframes), Dt.getState().setMarkers(e.markers), Dt.getState().setInPoint(e.inPoint), Dt.getState().setOutPoint(e.outPoint), It.getState().setCompositions(e.compositions), he.getState().setFps(e.fps), he.getState().setScrollPosition(e.scrollPosition), he.getState().setSnapEnabled(e.snapEnabled), Qe.getState().setCurrentFrame(e.currentFrame), a_(e);
 }
-function _h(e, t) {
-  return e.items === t.items && e.tracks === t.tracks && e.transitions === t.transitions && e.keyframes === t.keyframes && e.markers === t.markers && e.compositions === t.compositions && e.inPoint === t.inPoint && e.outPoint === t.outPoint && e.fps === t.fps && e.scrollPosition === t.scrollPosition && e.snapEnabled === t.snapEnabled && e.currentFrame === t.currentFrame && e.projectId === t.projectId && sx(e.projectMetadata, t.projectMetadata);
+function Lh(e, t) {
+  return e.items === t.items && e.tracks === t.tracks && e.transitions === t.transitions && e.keyframes === t.keyframes && e.markers === t.markers && e.compositions === t.compositions && e.inPoint === t.inPoint && e.outPoint === t.outPoint && e.fps === t.fps && e.scrollPosition === t.scrollPosition && e.snapEnabled === t.snapEnabled && e.currentFrame === t.currentFrame && e.projectId === t.projectId && cx(e.projectMetadata, t.projectMetadata);
 }
 function Va() {
   return La(
-    Uw((e) => uM(e.hotkeyOverrides))
+    zw((e) => dM(e.hotkeyOverrides))
   );
 }
-function r_(e) {
+function i_(e) {
   return e.toLowerCase().split("_").filter(Boolean).map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(" ");
 }
 function ec(e) {
   return e ? typeof e.count == "number" && Number.isFinite(e.count) ? Math.max(1, Math.round(e.count)) : Array.isArray(e.ids) ? Math.max(1, e.ids.length) : typeof e.id == "string" && e.id.length > 0 ? 1 : null : null;
 }
-function n_(e) {
+function o_(e) {
   const t = e.payload, r = typeof t?.operation == "string" ? t.operation : "transform", n = ec(t), a = n === null || n === 1 ? "item" : `${n} items`;
   switch (r) {
     case "move":
@@ -35164,9 +35174,9 @@ function n_(e) {
       return `Transform ${a}`;
   }
 }
-function Gu(e) {
+function Wu(e) {
   if (e.type === "UPDATE_TRANSFORM" || e.type === "UPDATE_TRANSFORMS")
-    return n_(e);
+    return o_(e);
   if (e.type === "UPDATE_PROJECT_METADATA") {
     const n = Array.isArray(e.payload?.fields) ? e.payload.fields.filter((a) => typeof a == "string") : [];
     return n.includes("fps") && (n.includes("width") || n.includes("height")) ? "Resize canvas and change frame rate" : n.includes("width") || n.includes("height") ? "Resize canvas" : n.includes("fps") ? "Change frame rate" : n.includes("backgroundColor") ? "Change canvas background" : "Update project settings";
@@ -35184,19 +35194,19 @@ function Gu(e) {
   if (e.type === "CLEAR_IN_OUT_POINTS") return "Clear In/Out points";
   if (e.type === "CLEAR_MARKERS") return "Clear markers";
   if (e.type === "CLEAR_TIMELINE") return "Clear timeline";
-  const t = ec(e.payload), r = r_(e.type);
+  const t = ec(e.payload), r = i_(e.type);
   return t !== null && t > 1 ? `${r} (${t})` : r;
 }
 let Wn = null, As = null;
-function wz(e) {
+function kz(e) {
   Wn = e, Qr.getState().clearHistory();
 }
-function Oh(e) {
+function Bh(e) {
   const t = Wn;
   t && (As === null && queueMicrotask(() => {
     const r = As ?? "Edit";
     As = null, t.commit(r);
-  }), As = Gu(e));
+  }), As = Wu(e));
 }
 const Qr = Mt()(
   (e, t) => ({
@@ -35208,9 +35218,9 @@ const Qr = Mt()(
     // Execute a command
     execute: (r, n) => {
       const a = Fa(), i = n(), o = Fa();
-      if (!_h(a, o)) {
+      if (!Lh(a, o)) {
         if (Wn)
-          return Oh(r), i;
+          return Bh(r), i;
         const s = La.getState().maxUndoHistory;
         e((c) => ({
           undoStack: [
@@ -35234,7 +35244,7 @@ const Qr = Mt()(
       const { undoStack: r } = t();
       if (r.length === 0) return;
       const n = Fa(), a = r[r.length - 1];
-      Dh(a.beforeSnapshot), e((i) => ({
+      Oh(a.beforeSnapshot), e((i) => ({
         undoStack: i.undoStack.slice(0, -1),
         redoStack: [
           ...i.redoStack,
@@ -35253,7 +35263,7 @@ const Qr = Mt()(
       const { redoStack: r } = t();
       if (r.length === 0) return;
       const n = Fa(), a = r[r.length - 1];
-      Dh(a.beforeSnapshot), e((i) => ({
+      Oh(a.beforeSnapshot), e((i) => ({
         redoStack: i.redoStack.slice(0, -1),
         undoStack: [
           ...i.undoStack,
@@ -35281,20 +35291,20 @@ const Qr = Mt()(
       const { undoStack: r } = t();
       if (r.length === 0) return null;
       const n = r[r.length - 1];
-      return n ? Gu(n.command) : null;
+      return n ? Wu(n.command) : null;
     },
     getRedoLabel: () => {
       const { redoStack: r } = t();
       if (r.length === 0) return null;
       const n = r[r.length - 1];
-      return n ? Gu(n.command) : null;
+      return n ? Wu(n.command) : null;
     },
     // Add pre-captured snapshot to undo stack (for drag operations)
     addUndoEntry: (r, n) => {
       const a = Fa();
-      if (!_h(n, a)) {
+      if (!Lh(n, a)) {
         if (Wn) {
-          Oh(r);
+          Bh(r);
           return;
         }
         const i = La.getState().maxUndoHistory;
@@ -35319,7 +35329,7 @@ function Mc(e) {
     ...e.properties && { properties: { ...e.properties } }
   };
 }
-function a_(e) {
+function s_(e) {
   return e.map((t) => ({
     itemId: t.itemId,
     properties: t.properties.map((r) => ({
@@ -35334,17 +35344,17 @@ function a_(e) {
     }))
   }));
 }
-const Lh = () => ({
+const Nh = () => ({
   items: J.getState().items,
   tracks: J.getState().tracks,
   transitions: Je.getState().transitions,
   keyframes: bt.getState().keyframes
 });
-function Sz() {
-  const e = Zt.getState(), t = e.stashStack[0] ?? Lh(), r = /* @__PURE__ */ new Map();
+function Tz() {
+  const e = Zt.getState(), t = e.stashStack[0] ?? Nh(), r = /* @__PURE__ */ new Map();
   e.stashStack.forEach((i, o) => {
     o > 0 && i.compositionId && r.set(i.compositionId, i);
-  }), e.activeCompositionId && r.set(e.activeCompositionId, Lh());
+  }), e.activeCompositionId && r.set(e.activeCompositionId, Nh());
   const n = Dt.getState(), a = It.getState().compositions.map((i) => {
     const o = r.get(i.id);
     if (!o) return i;
@@ -35365,7 +35375,7 @@ function Sz() {
       markers: n.markers.map((i) => ({ id: i.id, frame: i.frame, color: i.color, ...i.label && { label: i.label } }))
     },
     ...t.transitions.length > 0 && { transitions: t.transitions.map(Mc) },
-    ...t.keyframes.length > 0 && { keyframes: a_(t.keyframes) },
+    ...t.keyframes.length > 0 && { keyframes: s_(t.keyframes) },
     ...a.length > 0 && {
       compositions: a.map((i) => ({
         id: i.id,
@@ -35383,17 +35393,17 @@ function Sz() {
     }
   };
 }
-function i_(e) {
+function c_(e) {
   return [...e].map((t, r) => ({ track: t, index: r })).sort((t, r) => (t.track.order ?? t.index) - (r.track.order ?? r.index)).map(({ track: t }) => ({ ...t, items: [] }));
 }
-function Iz(e, { defaultTracks: t }) {
+function Mz(e, { defaultTracks: t }) {
   const n = Zt.getState().breadcrumbs.filter((u) => u.compositionId !== null).map((u) => ({ compositionId: u.compositionId, label: u.label, entryItemId: u.entryItemId }));
   Zt.setState({
     breadcrumbs: [{ compositionId: null, label: "Main Timeline" }],
     activeCompositionId: null,
     stashStack: []
   });
-  const i = (e.tracks?.length ?? 0) > 0 ? i_(e.tracks) : t(), o = e.items ?? [], s = new Set(o.map((u) => u.id)), c = Pt.getState(), l = c.selectedItemIds.filter((u) => s.has(u));
+  const i = (e.tracks?.length ?? 0) > 0 ? c_(e.tracks) : t(), o = e.items ?? [], s = new Set(o.map((u) => u.id)), c = Pt.getState(), l = c.selectedItemIds.filter((u) => s.has(u));
   J.getState().setTracks(i), J.getState().setItems(o), Je.getState().setTransitions(e.transitions ?? []), bt.getState().setKeyframes(e.keyframes ?? []), Dt.getState().setMarkers(e.markers ?? []), Dt.getState().setInPoint(e.inPoint ?? null), Dt.getState().setOutPoint(e.outPoint ?? null), It.getState().setCompositions((e.compositions ?? []).map((u) => ({
     id: u.id,
     name: u.name,
@@ -35413,39 +35423,39 @@ function Iz(e, { defaultTracks: t }) {
   }
   n.length === 0 && l.length !== c.selectedItemIds.length && c.selectItems(l);
 }
-const o_ = 50, Bh = 240, s_ = 480, c_ = 0.35;
-function cx(e, t, r) {
+const l_ = 50, Uh = 240, u_ = 480, d_ = 0.35;
+function lx(e, t, r) {
   return Math.max(t, Math.min(r, e));
 }
-const l_ = 10;
-function u_(e, t, r = {}) {
-  const n = Math.max(l_, t), a = r.maxDurationSeconds !== void 0 ? Math.min(r.maxDurationSeconds, n) : n, i = Math.max(0, e - o_);
-  return cx(i / (a * 100), hy, gy);
+const f_ = 10;
+function m_(e, t, r = {}) {
+  const n = Math.max(f_, t), a = r.maxDurationSeconds !== void 0 ? Math.min(r.maxDurationSeconds, n) : n, i = Math.max(0, e - l_);
+  return lx(i / (a * 100), yy, vy);
 }
-function d_(e) {
-  return e <= 0 ? Bh : cx(
-    e * c_,
-    Bh,
-    s_
+function p_(e) {
+  return e <= 0 ? Uh : lx(
+    e * d_,
+    Uh,
+    u_
   );
 }
-function kz({ contentWidth: e, viewportWidth: t }) {
-  return t <= 0 ? Math.max(0, e) : e <= t ? t : Math.max(t, e + d_(t));
+function Fz({ contentWidth: e, viewportWidth: t }) {
+  return t <= 0 ? Math.max(0, e) : e <= t ? t : Math.max(t, e + p_(t));
 }
-const Nh = 120;
+const zh = 120;
 let Yi = 0, ma = null, ui = null;
 const fr = Mt((e) => ({
   level: 1,
   pixelsPerSecond: 100,
   setZoomLevel: (t) => {
     const r = performance.now();
-    if (ma = t, r - Yi >= Nh) {
+    if (ma = t, r - Yi >= zh) {
       Yi = r, e({ level: t, pixelsPerSecond: t * 100 }), ma = null;
       return;
     }
     ui || (ui = setTimeout(() => {
       ui = null, ma !== null && (Yi = performance.now(), e({ level: ma, pixelsPerSecond: ma * 100 }), ma = null);
-    }, Nh - (r - Yi)));
+    }, zh - (r - Yi)));
   },
   // Immediate zoom update - bypasses throttle for synchronized scroll calculations
   setZoomLevelImmediate: (t) => {
@@ -35460,19 +35470,19 @@ const fr = Mt((e) => ({
     return { level: r, pixelsPerSecond: r * 100 };
   }),
   zoomToFit: (t, r) => {
-    const n = u_(t, r);
+    const n = m_(t, r);
     e({ level: n, pixelsPerSecond: n * 100 });
   }
 }));
-let lx = null;
-function Tz(e) {
-  lx = e;
+let ux = null;
+function Cz(e) {
+  ux = e;
 }
-function Uh() {
-  return lx;
+function jh() {
+  return ux;
 }
 const mn = He("TimelineStore");
-async function f_(e, t, r, n) {
+async function h_(e, t, r, n) {
   let a = e.width, i = e.height, o = e;
   for (; a > t * 2 || i > r * 2; ) {
     const l = Math.max(Math.ceil(a / 2), t), u = Math.max(Math.ceil(i / 2), r), d = new OffscreenCanvas(l, u), f = d.getContext("2d");
@@ -35481,7 +35491,7 @@ async function f_(e, t, r, n) {
   const s = new OffscreenCanvas(t, r), c = s.getContext("2d");
   return c.imageSmoothingQuality = "high", c.drawImage(o, 0, 0, t, r), s.convertToBlob({ type: "image/jpeg", quality: n });
 }
-function m_(e) {
+function g_(e) {
   const t = /* @__PURE__ */ new Set(), r = e.timeline;
   if (!r) return [];
   for (const n of r.items ?? [])
@@ -35491,7 +35501,7 @@ function m_(e) {
       a.type === "video" && a.mediaId && t.add(a.mediaId);
   return [...t];
 }
-async function p_(e) {
+async function y_(e) {
   const t = qt.getState().mediaById, r = await Promise.all(e.map(async (n) => {
     const a = t[n];
     if (a)
@@ -35501,7 +35511,7 @@ async function p_(e) {
   }));
   return Object.fromEntries(r);
 }
-function zh(e) {
+function Vh(e) {
   const { item: t, compositionFps: r, timelineFps: n, fallbackDurationInFrames: a } = e, i = t.sourceFps ?? r, o = t.speed ?? 1, s = t.sourceStart ?? 0, c = Bt(
     t.durationInFrames || a,
     o,
@@ -35516,10 +35526,10 @@ function zh(e) {
     speed: o
   };
 }
-function h_(e) {
+function v_(e) {
   return e.some((t) => t.type !== "audio");
 }
-function g_(e) {
+function b_(e) {
   if (!e.timeline?.tracks?.length)
     return { project: e, cleaned: !1 };
   const t = /* @__PURE__ */ new Map();
@@ -35545,7 +35555,7 @@ function g_(e) {
     }
   };
 }
-function y_(e) {
+function x_(e) {
   if (!e.timeline?.tracks || !e.timeline.items || !e.timeline.compositions?.length)
     return { project: e, repaired: !1 };
   let t = e.timeline.tracks.map((c) => ({ ...c }));
@@ -35574,11 +35584,11 @@ function y_(e) {
     if (!l) continue;
     const u = r.findIndex((T) => T.id === c.id);
     if (u === -1) continue;
-    const d = h_(l.items), f = Yo({
+    const d = v_(l.items), f = Yo({
       items: l.items,
       tracks: l.tracks,
       fps: l.fps
-    }).length > 0, m = t.find((T) => T.id === c.trackId) ?? null, p = m ? zt(m) : null, h = Vc(r, c) ?? r.find((T) => T.id !== c.id && rn(T) && T.compositionId === c.compositionId) ?? null, g = zh({
+    }).length > 0, m = t.find((T) => T.id === c.trackId) ?? null, p = m ? zt(m) : null, h = Vc(r, c) ?? r.find((T) => T.id !== c.id && rn(T) && T.compositionId === c.compositionId) ?? null, g = Vh({
       item: c,
       compositionFps: l.fps,
       timelineFps: a,
@@ -35623,7 +35633,7 @@ function y_(e) {
       }), i = !0;
       continue;
     }
-    const S = r[M], F = zh({
+    const S = r[M], F = Vh({
       item: S,
       compositionFps: l.fps,
       timelineFps: a,
@@ -35653,13 +35663,13 @@ function y_(e) {
     }
   } : { project: e, repaired: !1 };
 }
-async function v_(e) {
+async function w_(e) {
   if (!e.timeline)
     return { project: e, repaired: !1 };
-  const t = m_(e), r = t.length > 0 ? await p_(t) : {}, n = e.timeline.items ?? [], a = rh({
+  const t = g_(e), r = t.length > 0 ? await y_(t) : {}, n = e.timeline.items ?? [], a = ah({
     tracks: e.timeline.tracks ?? [],
     items: n
-  }) ? Lu({
+  }) ? Bu({
     tracks: e.timeline.tracks ?? [],
     items: n,
     keyframes: e.timeline.keyframes ?? [],
@@ -35671,10 +35681,10 @@ async function v_(e) {
     keyframes: e.timeline.keyframes ?? [],
     changed: !1
   }, i = (e.timeline.compositions ?? []).map((u) => {
-    const d = u.tracks, f = u.items, m = rh({
+    const d = u.tracks, f = u.items, m = ah({
       tracks: d,
       items: f
-    }) ? Lu({
+    }) ? Bu({
       tracks: d,
       items: f,
       keyframes: u.keyframes ?? [],
@@ -35704,13 +35714,13 @@ async function v_(e) {
       keyframes: a.keyframes,
       compositions: i.map((u) => u.composition)
     }
-  }, s = y_(o), c = g_(s.project);
+  }, s = x_(o), c = b_(s.project);
   return a.changed || i.some((u) => u.repair.changed) || s.repaired || c.cleaned ? {
     repaired: !0,
     project: c.project
   } : { project: e, repaired: !1 };
 }
-async function b_(e) {
+async function S_(e) {
   const t = Zt.getState(), r = t.breadcrumbs.filter((u) => u.compositionId !== null).map((u) => ({
     compositionId: u.compositionId,
     label: u.label,
@@ -35796,11 +35806,11 @@ async function b_(e) {
         if (F)
           try {
             const C = await F();
-            C && (S = await f_(C, k, M, 0.85));
+            C && (S = await h_(C, k, M, 0.85));
           } catch {
           }
         if (!S) {
-          const C = u.metadata?.fps || 30, T = u.metadata?.backgroundColor, R = ix(
+          const C = u.metadata?.fps || 30, T = u.metadata?.backgroundColor, R = ox(
             a.tracks,
             a.items,
             i.transitions,
@@ -35811,8 +35821,8 @@ async function b_(e) {
             null,
             o.keyframes,
             T
-          ), P = await Wv(R.tracks), _ = { ...R, tracks: P };
-          S = await ax({
+          ), P = await Kv(R.tracks), _ = { ...R, tracks: P };
+          S = await ix({
             composition: _,
             frame: c,
             width: k,
@@ -35841,7 +35851,7 @@ async function b_(e) {
     throw mn.error("Failed to save timeline:", u), r.length > 0 && n(), u;
   }
 }
-async function x_(e, t = {}) {
+async function I_(e, t = {}) {
   he.getState().setTimelineLoading(!0);
   try {
     const r = await Vo(e);
@@ -35852,7 +35862,7 @@ async function x_(e, t = {}) {
       throw new Error(
         `Project schema v${n} requires confirmation before upgrading to v${ta}`
       );
-    const i = BM(r), o = await v_(i.project), s = o.project;
+    const i = NM(r), o = await w_(i.project), s = o.project;
     if ((i.migrated || o.repaired) && (i.appliedMigrations.length > 0 ? mn.info(
       `Migrated project from v${i.fromVersion} to v${i.toVersion}`,
       { migrations: i.appliedMigrations }
@@ -35889,9 +35899,9 @@ async function x_(e, t = {}) {
         }))
       ) : It.getState().setCompositions([]), Zt.getState().resetToRoot(), u.zoomLevel !== void 0 ? (fr.getState().setZoomLevel(u.zoomLevel), he.getState().setPendingInitialZoomFit(!1)) : (fr.getState().setZoomLevel(1), he.getState().setPendingInitialZoomFit(!0)), u.currentFrame !== void 0 ? Qe.getState().setCurrentFrame(u.currentFrame) : Qe.getState().setCurrentFrame(0);
     } else
-      mn.debug("loadTimeline: initializing new project with default track"), J.getState().setTracks(ky(Ur)), J.getState().setItems([]), Je.getState().setTransitions([]), bt.getState().setKeyframes([]), Dt.getState().setMarkers([]), Dt.getState().setInPoint(null), Dt.getState().setOutPoint(null), It.getState().setCompositions([]), Zt.getState().resetToRoot(), he.getState().setScrollPosition(0), fr.getState().setZoomLevel(1), he.getState().setPendingInitialZoomFit(!0), Qe.getState().setCurrentFrame(0);
+      mn.debug("loadTimeline: initializing new project with default track"), J.getState().setTracks(My(Ur)), J.getState().setItems([]), Je.getState().setTransitions([]), bt.getState().setKeyframes([]), Dt.getState().setMarkers([]), Dt.getState().setInPoint(null), Dt.getState().setOutPoint(null), It.getState().setCompositions([]), Zt.getState().resetToRoot(), he.getState().setScrollPosition(0), fr.getState().setZoomLevel(1), he.getState().setPendingInitialZoomFit(!0), Qe.getState().setCurrentFrame(0);
     he.getState().setFps(s.metadata?.fps || 30), he.getState().setSnapEnabled(La.getState().snapEnabled), he.getState().markClean(), Qr.getState().clearHistory();
-    const c = J.getState().items, l = await $2({
+    const c = J.getState().items, l = await W2({
       rootItems: c,
       compositions: It.getState().compositions,
       projectId: e
@@ -35901,10 +35911,10 @@ async function x_(e, t = {}) {
     throw mn.error("Failed to load timeline:", r), he.getState().setTimelineLoading(!1), r;
   }
 }
-let Ul = null, jh = null, Vh = null, $h = null, Hh = null, Gh = null, Wh = null, Kh = null, Xh = null, qh = null, Yh = null, Zh = null;
-function Qh() {
-  const e = J.getState(), t = Je.getState(), r = bt.getState(), n = Dt.getState(), a = he.getState(), i = jh !== e.items || Vh !== e.tracks || $h !== t.transitions || Hh !== r.keyframes || Gh !== n.markers || Wh !== n.inPoint || Kh !== n.outPoint || Xh !== a.fps || qh !== a.scrollPosition || Yh !== a.snapEnabled || Zh !== a.isDirty;
-  return (!Ul || i) && (jh = e.items, Vh = e.tracks, $h = t.transitions, Hh = r.keyframes, Gh = n.markers, Wh = n.inPoint, Kh = n.outPoint, Xh = a.fps, qh = a.scrollPosition, Yh = a.snapEnabled, Zh = a.isDirty, Ul = {
+let Ul = null, $h = null, Hh = null, Gh = null, Wh = null, Kh = null, Xh = null, qh = null, Yh = null, Zh = null, Qh = null, Jh = null;
+function eg() {
+  const e = J.getState(), t = Je.getState(), r = bt.getState(), n = Dt.getState(), a = he.getState(), i = $h !== e.items || Hh !== e.tracks || Gh !== t.transitions || Wh !== r.keyframes || Kh !== n.markers || Xh !== n.inPoint || qh !== n.outPoint || Yh !== a.fps || Zh !== a.scrollPosition || Qh !== a.snapEnabled || Jh !== a.isDirty;
+  return (!Ul || i) && ($h = e.items, Hh = e.tracks, Gh = t.transitions, Wh = r.keyframes, Kh = n.markers, Xh = n.inPoint, qh = n.outPoint, Yh = a.fps, Zh = a.scrollPosition, Qh = a.snapEnabled, Jh = a.isDirty, Ul = {
     // State
     items: e.items,
     tracks: e.tracks,
@@ -35918,95 +35928,95 @@ function Qh() {
     snapEnabled: a.snapEnabled,
     isDirty: a.isDirty,
     // Actions (static references, never change)
-    setTracks: yC,
-    addItem: Yv,
-    addItems: hE,
-    updateItem: Zv,
-    removeItems: vE,
-    rippleDeleteItems: bE,
-    closeGapAtPosition: xE,
-    closeGapOnTrackAtPosition: wE,
-    closeAllGapsOnTrack: SE,
-    toggleSnap: g2,
-    setScrollPosition: y2,
-    moveItem: kE,
-    moveItems: TE,
-    moveItemsWithTrackChanges: ME,
-    duplicateItems: FE,
-    duplicateItemsWithTrackChanges: CE,
-    trimItemStart: EE,
-    trimItemEnd: PE,
-    rollingTrimItems: Du,
-    rippleTrimItem: eb,
-    splitItem: Jv,
-    splitItemAtFrames: AE,
-    joinItems: DE,
-    rateStretchItem: _E,
-    resetSpeedWithRipple: OE,
-    setInPoint: m2,
-    setOutPoint: p2,
-    clearInOutPoints: h2,
-    addMarker: nb,
-    updateMarker: d2,
-    removeMarker: ab,
-    clearAllMarkers: f2,
-    updateItemTransform: jE,
-    resetItemTransform: $E,
-    updateItemsTransform: HE,
-    updateItemsTransformMap: GE,
-    commitMaskEdit: VE,
-    addEffect: WE,
-    addEffects: KE,
-    updateEffect: XE,
-    removeEffect: qE,
-    toggleEffect: YE,
-    addTransition: ZE,
-    updateTransition: tb,
-    updateTransitions: QE,
-    removeTransition: JE,
-    addKeyframe: e2,
-    addKeyframes: t2,
-    updateKeyframe: r2,
-    applyAutoKeyframeOperations: n2,
-    removeKeyframe: a2,
-    removeKeyframesForItem: i2,
-    removeKeyframesForProperty: o2,
-    getKeyframesForItem: s2,
-    hasKeyframesAtFrame: c2,
-    repairLegacyAvTracks: j2,
-    clearTimeline: v2,
-    markDirty: b2,
-    markClean: x2,
-    saveTimeline: b_,
-    loadTimeline: x_
+    setTracks: vC,
+    addItem: Zv,
+    addItems: vE,
+    updateItem: Qv,
+    removeItems: wE,
+    rippleDeleteItems: SE,
+    closeGapAtPosition: IE,
+    closeGapOnTrackAtPosition: kE,
+    closeAllGapsOnTrack: TE,
+    toggleSnap: b2,
+    setScrollPosition: x2,
+    moveItem: FE,
+    moveItems: CE,
+    moveItemsWithTrackChanges: EE,
+    duplicateItems: PE,
+    duplicateItemsWithTrackChanges: RE,
+    trimItemStart: AE,
+    trimItemEnd: DE,
+    rollingTrimItems: _u,
+    rippleTrimItem: tb,
+    splitItem: eb,
+    splitItemAtFrames: OE,
+    joinItems: LE,
+    rateStretchItem: BE,
+    resetSpeedWithRipple: NE,
+    setInPoint: g2,
+    setOutPoint: y2,
+    clearInOutPoints: v2,
+    addMarker: ab,
+    updateMarker: p2,
+    removeMarker: ib,
+    clearAllMarkers: h2,
+    updateItemTransform: HE,
+    resetItemTransform: WE,
+    updateItemsTransform: KE,
+    updateItemsTransformMap: XE,
+    commitMaskEdit: GE,
+    addEffect: qE,
+    addEffects: YE,
+    updateEffect: ZE,
+    removeEffect: QE,
+    toggleEffect: JE,
+    addTransition: e2,
+    updateTransition: rb,
+    updateTransitions: t2,
+    removeTransition: r2,
+    addKeyframe: n2,
+    addKeyframes: a2,
+    updateKeyframe: i2,
+    applyAutoKeyframeOperations: o2,
+    removeKeyframe: s2,
+    removeKeyframesForItem: c2,
+    removeKeyframesForProperty: l2,
+    getKeyframesForItem: u2,
+    hasKeyframesAtFrame: d2,
+    repairLegacyAvTracks: H2,
+    clearTimeline: w2,
+    markDirty: S2,
+    markClean: I2,
+    saveTimeline: S_,
+    loadTimeline: I_
   }), Ul;
 }
-function Jh(e) {
+function tg(e) {
   const t = J.subscribe(e), r = Je.subscribe(e), n = bt.subscribe(e), a = Dt.subscribe(e), i = he.subscribe(e);
   return () => {
     t(), r(), n(), a(), i();
   };
 }
-function w_() {
+function k_() {
   function e(t) {
     const r = y.useRef(t), n = y.useRef(null), a = y.useRef(void 0);
     r.current = t;
     const i = y.useCallback(() => {
-      const o = Qh();
+      const o = eg();
       if (n.current === o && a.current !== void 0)
         return a.current;
       const s = r.current(o);
       return a.current !== void 0 && Object.is(a.current, s) ? (n.current = o, a.current) : (n.current = o, a.current = s, s);
     }, []);
     return y.useSyncExternalStore(
-      Jh,
+      tg,
       i,
       i
     );
   }
-  return e.getState = Qh, e.setState = (t) => {
+  return e.getState = eg, e.setState = (t) => {
     "items" in t && t.items !== void 0 && J.getState().setItems(t.items), "tracks" in t && t.tracks !== void 0 && J.getState().setTracks(t.tracks), "transitions" in t && t.transitions !== void 0 && Je.getState().setTransitions(t.transitions), "keyframes" in t && t.keyframes !== void 0 && bt.getState().setKeyframes(t.keyframes), "markers" in t && t.markers !== void 0 && Dt.getState().setMarkers(t.markers), "inPoint" in t && Dt.getState().setInPoint(t.inPoint ?? null), "outPoint" in t && Dt.getState().setOutPoint(t.outPoint ?? null), "fps" in t && t.fps !== void 0 && he.getState().setFps(t.fps), "scrollPosition" in t && t.scrollPosition !== void 0 && he.getState().setScrollPosition(t.scrollPosition), "snapEnabled" in t && t.snapEnabled !== void 0 && he.getState().setSnapEnabled(t.snapEnabled), "isDirty" in t && t.isDirty !== void 0 && he.getState().setIsDirty(t.isDirty);
-  }, e.subscribe = Jh, e.temporal = {
+  }, e.subscribe = tg, e.temporal = {
     getState: () => ({
       undo: Qr.getState().undo,
       redo: Qr.getState().redo,
@@ -36016,16 +36026,16 @@ function w_() {
     })
   }, e;
 }
-const we = w_(), S_ = He("TimelineZoom");
+const we = k_(), T_ = He("TimelineZoom");
 function $a(e = {}) {
   const {
-    minZoom: t = hy,
-    maxZoom: r = gy
+    minZoom: t = yy,
+    maxZoom: r = vy
   } = e, n = fr((g) => g.level), a = fr((g) => g.setZoomLevel), i = fr((g) => g.setZoomLevelImmediate), o = fr((g) => g.zoomIn), s = fr((g) => g.zoomOut), c = fr((g) => g.pixelsPerSecond), l = we((g) => g.fps), u = y.useCallback(
     (g) => g * c,
     [c]
   ), d = y.useCallback(
-    (g) => c <= 0 ? (S_.warn("pixelsPerSecond is zero or negative, returning 0"), 0) : g / c,
+    (g) => c <= 0 ? (T_.warn("pixelsPerSecond is zero or negative, returning 0"), 0) : g / c,
     [c]
   ), f = y.useCallback(
     (g) => {
@@ -36062,11 +36072,11 @@ function $a(e = {}) {
     setZoomImmediate: (g) => i(Math.max(t, Math.min(r, g)))
   };
 }
-function I_(e, t, r) {
+function M_(e, t, r) {
   const n = Math.round(e.duration * r);
   return n > 0 ? n : t === "image" ? r * 3 : r;
 }
-function k_(e) {
+function F_(e) {
   const { media: t, mediaId: r, label: n, timelineFps: a, placement: i, originId: o, linkedGroupId: s } = e, c = t.fps || a, l = Math.round(t.duration * c), u = Math.min(
     l,
     Math.round(i.durationInFrames * c / a)
@@ -36088,7 +36098,7 @@ function k_(e) {
     trimEnd: 0
   };
 }
-function Wu(e) {
+function Ku(e) {
   const {
     media: t,
     mediaId: r,
@@ -36102,7 +36112,7 @@ function Wu(e) {
     placement: u,
     originId: d,
     linkedGroupId: f
-  } = e, m = k_({
+  } = e, m = F_({
     media: t,
     mediaId: r,
     label: a,
@@ -36117,7 +36127,7 @@ function Wu(e) {
       type: "audio",
       src: o
     };
-  const p = t.width || c, h = t.height || l, g = _u(
+  const p = t.width || c, h = t.height || l, g = Ou(
     p,
     h,
     c,
@@ -36141,7 +36151,7 @@ function Wu(e) {
     transform: g
   };
 }
-function T_(e) {
+function C_(e) {
   const {
     media: t,
     mediaId: r,
@@ -36154,7 +36164,7 @@ function T_(e) {
     canvasHeight: l,
     placement: u,
     linkVideoAudio: d = !1
-  } = e, f = crypto.randomUUID(), m = n === "video" && d ? crypto.randomUUID() : void 0, p = Wu({
+  } = e, f = crypto.randomUUID(), m = n === "video" && d ? crypto.randomUUID() : void 0, p = Ku({
     media: t,
     mediaId: r,
     mediaType: n,
@@ -36170,7 +36180,7 @@ function T_(e) {
   });
   if (n !== "video" || !d || !u.linkedAudio)
     return [p];
-  const h = Wu({
+  const h = Ku({
     media: t,
     mediaId: r,
     mediaType: "audio",
@@ -36186,29 +36196,29 @@ function T_(e) {
   });
   return [p, h];
 }
-function ux(e) {
+function dx(e) {
   return {
     hours: Math.floor(e / 3600),
     minutes: Math.floor(e % 3600 / 60),
     seconds: Math.floor(e % 60)
   };
 }
-function dx(e) {
+function fx(e) {
   if (e <= 0)
     throw new Error(`Invalid FPS: ${e}. FPS must be a positive number.`);
 }
-function fx(e, t) {
-  dx(t);
-  const r = e / t, { hours: n, minutes: a, seconds: i } = ux(r), o = Math.floor(e % t);
+function mx(e, t) {
+  fx(t);
+  const r = e / t, { hours: n, minutes: a, seconds: i } = dx(r), o = Math.floor(e % t);
   return `${Yr(n)}:${Yr(a)}:${Yr(i)}:${Yr(o)}`;
 }
-function Mz(e, t) {
-  dx(t);
-  const r = e / t, { hours: n, minutes: a, seconds: i } = ux(r), o = Math.floor(e % t);
+function Ez(e, t) {
+  fx(t);
+  const r = e / t, { hours: n, minutes: a, seconds: i } = dx(r), o = Math.floor(e % t);
   return n > 0 ? `${Yr(n)}:${Yr(a)}:${Yr(i)}:${Yr(o)}` : `${Yr(a)}:${Yr(i)}:${Yr(o)}`;
 }
-function Fz(e, t) {
-  const r = fx(Math.abs(e), t).split(":");
+function Pz(e, t) {
+  const r = mx(Math.abs(e), t).split(":");
   for (; r.length > 2 && r[0] === "00"; )
     r.shift();
   return `${e > 0 ? "+" : "-"}${r.join(":")}`;
@@ -36216,27 +36226,27 @@ function Fz(e, t) {
 function Yr(e) {
   return e.toString().padStart(2, "0");
 }
-async function M_(e, t) {
+async function E_(e, t) {
   return "convertToBlob" in e ? e.convertToBlob({ type: t }) : new Promise((r, n) => {
     e.toBlob((a) => {
       a ? r(a) : n(new Error("Failed to convert frame to blob"));
     }, t);
   });
 }
-async function F_(e) {
+async function P_(e) {
   return (await fetch(e)).blob();
 }
-function C_(e, t) {
+function R_(e, t) {
   const r = Math.max(0, Math.round(e)), n = Number.isFinite(t) && t > 0 ? t : 30;
-  return `freeze-${fx(r, n).replaceAll(":", "-")}-f${r}.png`;
+  return `freeze-${mx(r, n).replaceAll(":", "-")}-f${r}.png`;
 }
-function E_(e, t) {
+function A_(e, t) {
   if (mr.getState().linkedSelectionEnabled)
     return An(e, t);
   const r = e.find((n) => n.id === t);
   return r ? [r] : [];
 }
-function P_(e) {
+function D_(e) {
   const t = J.getState().items, r = we.getState().tracks, n = new Map(r.map((o) => [o.id, o.order])), a = new Map(r.map((o) => [o.id, o.locked])), i = t.filter((o) => {
     if (o.type !== "video") return !1;
     const s = r.find((c) => c.id === o.trackId);
@@ -36244,7 +36254,7 @@ function P_(e) {
   });
   return i.length === 0 ? null : (i.sort((o, s) => (n.get(s.trackId) ?? 0) - (n.get(o.trackId) ?? 0)), i[0]);
 }
-async function Cz() {
+async function Rz() {
   const e = Qe.getState(), t = Br.getState().currentProject, r = qt.getState().currentProjectId, n = he.getState().fps;
   if (!t || !r) {
     Ct.error("No active project.");
@@ -36254,7 +36264,7 @@ async function Cz() {
     Ct.error("Pause playback before adding a freeze frame.");
     return;
   }
-  const a = Math.round(e.previewFrame ?? e.currentFrame), i = P_(a);
+  const a = Math.round(e.previewFrame ?? e.currentFrame), i = D_(a);
   if (!i) {
     Ct.error("No video clip at the playhead.");
     return;
@@ -36263,11 +36273,11 @@ async function Cz() {
     Ct.error("Not enough room after the playhead for a freeze frame.");
     return;
   }
-  const s = J.getState().items, c = E_(s, i.id), l = new Set(c.map((P) => P.trackId));
+  const s = J.getState().items, c = A_(s, i.id), l = new Set(c.map((P) => P.trackId));
   let u = null, d, f;
   if (e.captureCanvasSource) {
     const P = await e.captureCanvasSource();
-    P && (u = await M_(P, "image/png"), d = P.width, f = P.height);
+    P && (u = await E_(P, "image/png"), d = P.width, f = P.height);
   }
   if (!u && e.captureFrame) {
     const P = await e.captureFrame({
@@ -36275,18 +36285,18 @@ async function Cz() {
       quality: 1,
       fullResolution: !0
     });
-    P && (u = await F_(P));
+    P && (u = await P_(P));
   }
   if (!u) {
     Ct.error("Failed to capture the current frame.");
     return;
   }
-  const m = Jv(i.id, a);
+  const m = eb(i.id, a);
   if (!m) {
     Ct.error("Could not split the clip at the playhead (edge, transition, or locked).");
     return;
   }
-  const p = C_(a, n), h = new File([u], p, {
+  const p = R_(a, n), h = new File([u], p, {
     type: "image/png",
     lastModified: Date.now()
   });
@@ -36316,7 +36326,7 @@ async function Cz() {
     (P) => P.from === a && l.has(P.trackId)
   );
   for (const P of M)
-    Zv(P.id, { from: P.from + x });
+    Qv(P.id, { from: P.from + x });
   const S = t.metadata.width, F = t.metadata.height, [C, T] = await Promise.all([
     qo(g.id),
     tr.getThumbnailBlobUrl(g.id)
@@ -36325,7 +36335,7 @@ async function Cz() {
     Ct.error("Could not resolve media URL for the freeze frame.");
     return;
   }
-  const R = Wu({
+  const R = Ku({
     media: g,
     mediaId: g.id,
     mediaType: "image",
@@ -36341,14 +36351,14 @@ async function Cz() {
       durationInFrames: x
     }
   });
-  Yv(R), Pt.getState().selectItems([R.id]), Ct.success("Freeze frame added to the timeline.");
+  Zv(R), Pt.getState().selectItems([R.id]), Ct.success("Freeze frame added to the timeline.");
 }
-const xi = 0.5, eg = 50;
+const xi = 0.5, rg = 50;
 let Zi = 0, di = null, fi = null;
-function R_(e, t) {
+function __(e, t) {
   return Math.abs(e.viewportWidth - t.viewportWidth) <= xi && Math.abs(e.viewportHeight - t.viewportHeight) <= xi;
 }
-function A_(e, t) {
+function O_(e, t) {
   return Math.abs(e.scrollLeft - t.scrollLeft) > xi || Math.abs(e.scrollTop - t.scrollTop) > xi || Math.abs(e.viewportWidth - t.viewportWidth) > xi || Math.abs(e.viewportHeight - t.viewportHeight) > xi;
 }
 const Pn = Mt()(
@@ -36366,14 +36376,14 @@ const Pn = Mt()(
         ...r,
         pendingScrollToFrame: r.pendingScrollToFrame !== void 0 ? r.pendingScrollToFrame : n.pendingScrollToFrame
       };
-      if (!A_(n, a))
+      if (!O_(n, a))
         return;
-      if (!R_(n, a)) {
+      if (!__(n, a)) {
         Zi = performance.now(), di = null, fi && (clearTimeout(fi), fi = null), e(a);
         return;
       }
       const i = performance.now();
-      if (di = a, i - Zi >= eg) {
+      if (di = a, i - Zi >= rg) {
         Zi = i, di = null, e(a);
         return;
       }
@@ -36383,11 +36393,11 @@ const Pn = Mt()(
           const o = di;
           di = null, e(o);
         }
-      }, eg - (i - Zi)));
+      }, rg - (i - Zi)));
     }
   })
-), tg = 800, rg = 200, ng = 200;
-function Ez() {
+), ng = 800, ag = 200, ig = 200;
+function Az() {
   const e = y.useRef(Pn.getState().scrollLeft);
   y.useEffect(() => {
     const t = () => {
@@ -36398,7 +36408,7 @@ function Ez() {
       }
       const s = n - e.current;
       e.current = n;
-      const c = s >= 0, l = c ? n - rg : n - tg, u = c ? n + a + tg : n + a + rg, d = n - ng, f = n + a + ng, m = Math.max(0, Math.floor(l / i * o)), p = Math.ceil(u / i * o), h = Math.max(0, Math.floor(d / i * o)), g = Math.ceil(f / i * o), v = J.getState().items;
+      const c = s >= 0, l = c ? n - ag : n - ng, u = c ? n + a + ng : n + a + ag, d = n - ig, f = n + a + ig, m = Math.max(0, Math.floor(l / i * o)), p = Math.ceil(u / i * o), h = Math.max(0, Math.floor(d / i * o)), g = Math.ceil(f / i * o), v = J.getState().items;
       for (const b of v) {
         if (b.type !== "video" && b.type !== "audio") continue;
         const x = b.from + b.durationInFrames;
@@ -36420,8 +36430,8 @@ function Ez() {
     };
   }, []);
 }
-const Pz = 40, Rz = 30, Az = 300;
-function Dz() {
+const Dz = 40, _z = 30, Oz = 300;
+function Lz() {
   const e = fr((n) => n.level), t = we((n) => n.fps), r = e * 100;
   return y.useMemo(() => ({
     zoomLevel: e,
@@ -36433,20 +36443,20 @@ function Dz() {
     pixelsToFrame: (n) => Math.round(n / r * t)
   }), [e, r, t]);
 }
-function D_(e, t, r) {
+function L_(e, t, r) {
   return Math.min(r, Math.max(t, e));
 }
-function __(e) {
+function B_(e) {
   return e >= 2.2 ? 14 : e >= 1.2 ? 10 : e >= 0.7 ? 6 : e >= 0.35 ? 3 : 0;
 }
-function O_(e) {
+function N_(e) {
   return e <= 45 ? 8 : e <= 80 ? 5 : e <= 140 ? 2 : 0;
 }
-function L_(e, t) {
+function U_(e, t) {
   const r = t <= 45 ? 2 : t <= 80 ? 1 : 0;
   return e >= 2.2 ? 6 + r : e >= 1.2 ? 4 + r : e >= 0.7 ? 3 + r : 2 + r;
 }
-function _z(e = {}) {
+function Bz(e = {}) {
   const t = e.pointerX ?? 0, r = Math.round(e.frame ?? 0), n = e.nowMs ?? 0;
   return {
     lastPointerX: t,
@@ -36455,7 +36465,7 @@ function _z(e = {}) {
     lastCommittedTimeMs: n
   };
 }
-function Oz({
+function Nz({
   state: e,
   pointerX: t,
   targetFrame: r,
@@ -36466,14 +36476,14 @@ function Oz({
   e.lastPointerX = t, e.lastPointerTimeMs = a;
   const c = Math.abs(i - e.lastCommittedFrame);
   if (c === 0) return !1;
-  const l = D_(
-    __(s) + O_(n),
+  const l = L_(
+    B_(s) + N_(n),
     0,
     18
-  ), u = a - e.lastCommittedTimeMs, d = L_(s, n);
+  ), u = a - e.lastCommittedTimeMs, d = U_(s, n);
   return u < l && c < d ? !1 : (e.lastCommittedFrame = i, e.lastCommittedTimeMs = a, !0);
 }
-const B_ = [2, 3, 5, 10, 15], mx = [1, 2, 3, 5, 10, 15], xo = [
+const z_ = [2, 3, 5, 10, 15], px = [1, 2, 3, 5, 10, 15], xo = [
   1,
   2,
   3,
@@ -36493,22 +36503,22 @@ const B_ = [2, 3, 5, 10, 15], mx = [1, 2, 3, 5, 10, 15], xo = [
   21600,
   43200,
   86400
-], ag = 120, Ku = 18, Lz = 8;
-function Bz({
+], og = 120, Xu = 18, Uz = 8;
+function zz({
   pixelsPerSecond: e,
   fps: t
 }) {
-  const r = Math.max(1, t), n = e / r, a = N_({
+  const r = Math.max(1, t), n = e / r, a = j_({
     pixelsPerFrame: n,
     pixelsPerSecond: e,
     fps: r
-  }), i = px({
+  }), i = hx({
     pixelsPerFrame: n,
     pixelsPerSecond: e,
     fps: r,
-    minSpacingPx: Ku,
-    frameIntervals: mx
-  }), o = U_({
+    minSpacingPx: Xu,
+    frameIntervals: px
+  }), o = V_({
     tickIntervalSeconds: i,
     labelIntervalSeconds: a,
     pixelsPerFrame: n,
@@ -36517,28 +36527,28 @@ function Bz({
   });
   return { labelIntervalSeconds: a, tickIntervalSeconds: o };
 }
-function N_({
+function j_({
   pixelsPerFrame: e,
   pixelsPerSecond: t,
   fps: r
 }) {
   for (const n of xo)
-    if (t * n >= ag)
+    if (t * n >= og)
       return n;
-  return px({
+  return hx({
     pixelsPerFrame: e,
     pixelsPerSecond: t,
     fps: r,
-    minSpacingPx: ag,
-    frameIntervals: B_
+    minSpacingPx: og,
+    frameIntervals: z_
   });
 }
-function Nz(e, t) {
+function jz(e, t) {
   if (t < 3 - 1e-5) return !1;
   const r = Math.floor(e / t) * t, n = e - r, a = t / 3, i = 2 * t / 3, o = 1e-3;
   return Math.abs(n - a) < o || Math.abs(n - i) < o;
 }
-function U_({
+function V_({
   tickIntervalSeconds: e,
   labelIntervalSeconds: t,
   pixelsPerFrame: r,
@@ -36548,17 +36558,17 @@ function U_({
   const i = Math.round(t * a), o = Math.round(e * a);
   if (i % o === 0)
     return e;
-  for (const s of mx)
-    if (i % s === 0 && r * s >= Ku)
+  for (const s of px)
+    if (i % s === 0 && r * s >= Xu)
       return s / a;
   for (const s of xo) {
     const c = t / s;
-    if (Math.abs(c - Math.round(c)) < 1e-4 && n * s >= Ku)
+    if (Math.abs(c - Math.round(c)) < 1e-4 && n * s >= Xu)
       return s;
   }
   return t;
 }
-function px({
+function hx({
   pixelsPerFrame: e,
   pixelsPerSecond: t,
   fps: r,
@@ -36573,36 +36583,36 @@ function px({
       return i;
   return xo[xo.length - 1] ?? 3600;
 }
-function Uz({
+function Vz({
   time: e,
   labelIntervalSeconds: t
 }) {
   const n = e % t;
   return n < 1e-4 || n > t - 1e-4;
 }
-function zz({
+function $z({
   timeInSeconds: e,
   fps: t
 }) {
-  return z_({ timeInSeconds: e }) ? V_({ timeInSeconds: e }) : `${j_({ timeInSeconds: e, fps: t })}f`;
+  return $_({ timeInSeconds: e }) ? G_({ timeInSeconds: e }) : `${H_({ timeInSeconds: e, fps: t })}f`;
 }
-function z_({ timeInSeconds: e }) {
+function $_({ timeInSeconds: e }) {
   const r = e % 1;
   return r < 1e-4 || r > 1 - 1e-4;
 }
-function j_({
+function H_({
   timeInSeconds: e,
   fps: t
 }) {
   const r = e % 1;
   return Math.round(r * t);
 }
-function V_({ timeInSeconds: e }) {
+function G_({ timeInSeconds: e }) {
   const t = Math.round(e), r = Math.floor(t / 3600), n = Math.floor(t % 3600 / 60), a = t % 60, i = n.toString().padStart(2, "0"), o = a.toString().padStart(2, "0");
   return r > 0 ? `${r}:${i}:${o}` : `${i}:${o}`;
 }
-const $_ = "default", Mi = /* @__PURE__ */ new Map(), uo = /* @__PURE__ */ new Map();
-function hx(e) {
+const W_ = "default", Mi = /* @__PURE__ */ new Map(), uo = /* @__PURE__ */ new Map();
+function gx(e) {
   const t = /* @__PURE__ */ new Set();
   for (const r of e) {
     const n = uo.get(r);
@@ -36613,8 +36623,8 @@ function hx(e) {
   for (const r of t)
     r();
 }
-function jz(e) {
-  H_($_, e);
+function Hz(e) {
+  K_(W_, e);
 }
 function Lo(e) {
   let t = 1;
@@ -36622,7 +36632,7 @@ function Lo(e) {
     t *= r.get(e) ?? 1;
   return t;
 }
-function H_(e, t) {
+function K_(e, t) {
   if (t.length === 0) return;
   const r = Mi.get(e), n = /* @__PURE__ */ new Map();
   for (const { itemId: o } of t)
@@ -36640,55 +36650,55 @@ function H_(e, t) {
   const i = [];
   for (const [o, s] of n.entries())
     Object.is(s, Lo(o)) || i.push(o);
-  i.length > 0 && hx(i);
+  i.length > 0 && gx(i);
 }
-function of(e) {
+function cf(e) {
   const t = Lo(e);
   let r = !1;
   for (const [n, a] of Mi.entries())
     a.delete(e) && (r = !0, a.size === 0 && Mi.delete(n));
-  r && !Object.is(t, Lo(e)) && hx([e]);
+  r && !Object.is(t, Lo(e)) && gx([e]);
 }
-function G_(e) {
+function X_(e) {
   return Lo(e);
 }
-function W_(e, t) {
+function q_(e, t) {
   let r = uo.get(e);
   return r || (r = /* @__PURE__ */ new Set(), uo.set(e, r)), r.add(t), () => {
     const n = uo.get(e);
     n && (n.delete(t), n.size === 0 && uo.delete(e));
   };
 }
-function K_(e) {
+function Y_(e) {
   let t = 1;
   const r = /* @__PURE__ */ new Set();
   for (const n of e)
-    r.has(n) || (r.add(n), t *= G_(n));
+    r.has(n) || (r.add(n), t *= X_(n));
   return t;
 }
-function gx(e) {
+function yx(e) {
   const t = e.join("\0"), r = y.useCallback((a) => {
-    const i = e.map((o) => W_(o, a));
+    const i = e.map((o) => q_(o, a));
     return () => {
       for (const o of i)
         o();
     };
-  }, [t]), n = y.useCallback(() => K_(e), [t]);
+  }, [t]), n = y.useCallback(() => Y_(e), [t]);
   return y.useSyncExternalStore(r, n, n);
 }
-function X_(e) {
-  return gx([e]);
+function Z_(e) {
+  return yx([e]);
 }
-function ig(e) {
+function sg(e) {
   return () => {
   };
 }
-const Vz = Mt((e) => ({
+const Gz = Mt((e) => ({
   targetItemIds: [],
   hoveredItemId: null,
   setPreview: (t, r) => e({ targetItemIds: t, hoveredItemId: r }),
   clearPreview: () => e({ targetItemIds: [], hoveredItemId: null })
-})), $z = Mt((e) => ({
+})), Wz = Mt((e) => ({
   ghostPreviews: [],
   setGhostPreviews: (t) => e({ ghostPreviews: t }),
   clearGhostPreviews: () => e({ ghostPreviews: [] })
@@ -36779,7 +36789,7 @@ const Vz = Mt((e) => ({
     maxDelta: 0
   })
 }));
-function yx(e, t, r, n, a = {}) {
+function vx(e, t, r, n, a = {}) {
   const i = [], o = n ? new Set(n) : null, s = a.includeTransitionMidpoints ?? !0, c = new Map(e.map((d) => [d.id, d])), l = /* @__PURE__ */ new Set(), u = /* @__PURE__ */ new Set();
   for (const d of t) {
     l.add(d.leftClipId), u.add(d.rightClipId);
@@ -36793,7 +36803,7 @@ function yx(e, t, r, n, a = {}) {
     r.has(d.trackId) && (o?.has(d.id) || (u.has(d.id) || i.push({ frame: d.from, type: "item-start", itemId: d.id }), l.has(d.id) || i.push({ frame: d.from + d.durationInFrames, type: "item-end", itemId: d.id })));
   return i;
 }
-function q_(e, t, r) {
+function Q_(e, t, r) {
   const n = [];
   let a;
   r > 2 ? a = 1 : r > 0.5 ? a = 5 : a = 10;
@@ -36801,7 +36811,7 @@ function q_(e, t, r) {
     n.push(Math.round(i * t));
   return n;
 }
-function og(e, t, r) {
+function cg(e, t, r) {
   if (t.length === 0)
     return null;
   let n = null, a = r;
@@ -36811,23 +36821,23 @@ function og(e, t, r) {
   }
   return n;
 }
-function Y_(e, t, r, n) {
+function J_(e, t, r, n) {
   const a = t / Math.sqrt(e), i = 1 / r, o = a * i, s = Math.ceil(o * n);
   return Math.max(1, s);
 }
-const Z_ = () => we.getState().items, Q_ = () => we.getState().tracks;
+const eO = () => we.getState().items, tO = () => we.getState().tracks;
 function Qo(e, t, r = {}) {
-  const n = r.includeTransitionMidpoints ?? !0, a = y.useMemo(() => t ? Array.isArray(t) ? t : [t] : [], [t]), i = we((p) => p.fps), o = we((p) => p.snapEnabled), s = fr((p) => p.level), { pixelsPerSecond: c } = $a(), l = y.useMemo(() => Y_(
+  const n = r.includeTransitionMidpoints ?? !0, a = y.useMemo(() => t ? Array.isArray(t) ? t : [t] : [], [t]), i = we((p) => p.fps), o = we((p) => p.snapEnabled), s = fr((p) => p.level), { pixelsPerSecond: c } = $a(), l = y.useMemo(() => J_(
     s,
-    x1,
+    w1,
     c,
     i
   ), [s, c, i]), u = y.useCallback(() => {
-    const p = Z_(), h = Je.getState().transitions, g = Hb(Q_()), v = [];
-    q_(e, i, s).forEach((x) => {
+    const p = eO(), h = Je.getState().transitions, g = Gb(tO()), v = [];
+    Q_(e, i, s).forEach((x) => {
       v.push({ frame: x, type: "grid" });
     });
-    for (const x of yx(p, h, g, a, { includeTransitionMidpoints: n }))
+    for (const x of vx(p, h, g, a, { includeTransitionMidpoints: n }))
       v.push(x);
     return v;
   }, [a, n, e, i, s]), d = y.useCallback((p, h) => {
@@ -36840,11 +36850,11 @@ function Qo(e, t, r = {}) {
     const g = p + h, v = Qe.getState().currentFrame, b = [
       ...u(),
       { frame: v, type: "playhead" }
-    ], x = og(
+    ], x = cg(
       p,
       b,
       l
-    ), k = og(
+    ), k = cg(
       g,
       b,
       l
@@ -36878,18 +36888,18 @@ function Qo(e, t, r = {}) {
     snapEnabled: o
   };
 }
-const J_ = He("CollisionUtils");
+const rO = He("CollisionUtils");
 function Jo(e, t, r, n) {
   return e < n && r < t;
 }
-function vx(e, t, r) {
+function bx(e, t, r) {
   const n = e + t;
   return !r.some((a) => {
     const i = a.from + a.durationInFrames;
     return Jo(e, n, a.from, i);
   });
 }
-function sg(e, t, r) {
+function lg(e, t, r) {
   const n = e + t, a = r.find((o) => {
     const s = o.from + o.durationInFrames;
     return Jo(e, n, o.from, s);
@@ -36897,9 +36907,9 @@ function sg(e, t, r) {
   if (!a)
     return e;
   const i = a.from - t;
-  return i < 0 ? null : vx(i, t, r) ? i : null;
+  return i < 0 ? null : bx(i, t, r) ? i : null;
 }
-function cg(e, t, r) {
+function ug(e, t, r) {
   let n = e;
   const a = 1e3;
   let i = 0;
@@ -36913,11 +36923,11 @@ function cg(e, t, r) {
       return n;
     n = o.from + o.durationInFrames;
   }
-  return J_.error("findSpaceForward: too many iterations, aborting"), null;
+  return rO.error("findSpaceForward: too many iterations, aborting"), null;
 }
 function gn(e, t, r, n) {
   const a = n.filter((u) => u.trackId === r).sort((u, d) => u.from - d.from);
-  if (vx(e, t, a))
+  if (bx(e, t, a))
     return e;
   const i = e + t, o = a.find((u) => {
     const d = u.from + u.durationInFrames;
@@ -36927,14 +36937,14 @@ function gn(e, t, r, n) {
     return e;
   const s = o.from + o.durationInFrames, c = e - (o.from - t), l = s - e;
   if (c <= l) {
-    const u = sg(e, t, a);
-    return u !== null ? u : cg(e, t, a);
+    const u = lg(e, t, a);
+    return u !== null ? u : ug(e, t, a);
   } else {
-    const u = cg(e, t, a);
-    return u !== null ? u : sg(e, t, a);
+    const u = ug(e, t, a);
+    return u !== null ? u : lg(e, t, a);
   }
 }
-function Hz(e, t, r, n, a, i) {
+function Kz(e, t, r, n, a, i) {
   const o = /* @__PURE__ */ new Set();
   for (const c of i)
     c.leftClipId === e && o.add(c.rightClipId), c.rightClipId === e && o.add(c.leftClipId);
@@ -36945,10 +36955,10 @@ function Hz(e, t, r, n, a, i) {
     return Jo(t, s, c.from, l);
   });
 }
-function eO(e) {
+function nO(e) {
   return e === "audio" ? "audio" : "video";
 }
-function tO(e, t) {
+function aO(e, t) {
   const r = zt(e);
   if (r)
     return r;
@@ -36963,11 +36973,11 @@ function tO(e, t) {
     }
   return n ? "audio" : null;
 }
-function bx(e, t, r) {
-  const n = tO(e, t), a = eO(r);
+function xx(e, t, r) {
+  const n = aO(e, t), a = nO(r);
   return n === a || n === null && a === "video";
 }
-function sf(e) {
+function lf(e) {
   const {
     tracks: t,
     items: r,
@@ -36976,7 +36986,7 @@ function sf(e) {
     includeLocked: i = !1,
     includeHidden: o = !1,
     allowPreferredTrackFallback: s = !0
-  } = e, c = t.filter((f) => !(f.isGroup || !i && f.locked || !o && f.visible === !1)), l = c.filter((f) => bx(f, r, n));
+  } = e, c = t.filter((f) => !(f.isGroup || !i && f.locked || !o && f.visible === !1)), l = c.filter((f) => xx(f, r, n));
   if (l.length === 0)
     return null;
   if (!a)
@@ -37000,10 +37010,10 @@ function Fc(e, t) {
   const a = Number.parseInt(n[1], 10);
   return Number.isFinite(a) && a > 0 ? a : null;
 }
-function Xu(e, t, r) {
+function qu(e, t, r) {
   return Cr(e, t).findIndex((n) => n.id === r);
 }
-function xx(e, t) {
+function wx(e, t) {
   const r = [...e].sort((o, s) => o.order - s.order), n = Cr(r, t);
   if (t === "video") {
     const o = n[n.length - 1], s = Cr(r, "audio")[0];
@@ -37015,7 +37025,7 @@ function xx(e, t) {
   const i = Cr(r, "video").at(-1);
   return i ? i.order + 1 : 1;
 }
-function qu(e, t) {
+function Yu(e, t) {
   if (t === "video") {
     const a = Cr(e, "video")[0], i = Cr(e, "audio")[0];
     return a ? a.order - 1 : i ? i.order - 1 : 0;
@@ -37023,19 +37033,19 @@ function qu(e, t) {
   const r = Cr(e, "audio").at(-1), n = Cr(e, "video").at(-1);
   return r ? r.order + 1 : n ? n.order + 1 : 1;
 }
-function rO(e) {
+function iO(e) {
   const t = zr({
     tracks: e.tracks,
     kind: e.kind,
-    order: qu(e.tracks, e.kind),
+    order: Yu(e.tracks, e.kind),
     height: e.preferredTrackHeight
   });
   return [...e.tracks, t];
 }
-function nO(e) {
+function oO(e) {
   return e === "audio" ? "audio" : "video";
 }
-function aO(e) {
+function sO(e) {
   const t = /* @__PURE__ */ new Map();
   if (e.sourceTrackIds.length === 0 || e.targetTracks.length === 0)
     return t;
@@ -37045,11 +37055,11 @@ function aO(e) {
     i && t.set(n, i.id);
   }), t;
 }
-function wx(e) {
+function Sx(e) {
   const { tracks: t, draggedItems: r, zone: n, preferredTrackHeight: a } = e;
   if (r.length === 0)
     return null;
-  const i = Array.from(new Set(r.map((v) => nO(v.type))));
+  const i = Array.from(new Set(r.map((v) => oO(v.type))));
   if (i.length !== 1)
     return null;
   const o = i[0];
@@ -37058,14 +37068,14 @@ function wx(e) {
   let s = [...t];
   const c = Array.from(new Set(r.map((v) => v.initialTrackId))), l = Cr(s, o).length, u = Math.max(1, c.length - l);
   for (let v = 0; v < u; v += 1)
-    s = rO({
+    s = iO({
       tracks: s,
       kind: o,
       preferredTrackHeight: a
     });
   const d = Cr(s, o), f = c.map((v) => t.find((b) => b.id === v)).filter((v) => v !== void 0).sort((v, b) => v.order - b.order), m = /* @__PURE__ */ new Map();
   if (f.length === c.length && f.every((v) => zt(v) === o)) {
-    const v = f.map((x) => Xu(t, o, x.id));
+    const v = f.map((x) => qu(t, o, x.id));
     if (v.every((x) => x >= 0))
       if (n === "video") {
         const x = Math.min(...v);
@@ -37081,7 +37091,7 @@ function wx(e) {
         });
       }
   }
-  m.size === 0 && aO({
+  m.size === 0 && sO({
     sourceTrackIds: f.length > 0 ? f.map((b) => b.id) : c,
     targetTracks: d,
     zone: n
@@ -37102,14 +37112,14 @@ function wx(e) {
     trackAssignments: g
   };
 }
-function lg(e) {
+function dg(e) {
   const { kind: t, index: r, preferredTrackHeight: n } = e;
   let a = [...e.tracks];
   for (; Cr(a, t).length <= r; ) {
     const i = zr({
       tracks: a,
       kind: t,
-      order: xx(a, t),
+      order: wx(a, t),
       height: n
     });
     a = [...a, i];
@@ -37119,13 +37129,13 @@ function lg(e) {
     trackId: Cr(a, t)[r].id
   };
 }
-function ug(e) {
+function fg(e) {
   let t = [...e.tracks];
   for (; !Cr(t, e.kind).some((n) => Fc(n, e.kind) === e.number); ) {
     const n = zr({
       tracks: t,
       kind: e.kind,
-      order: xx(t, e.kind),
+      order: wx(t, e.kind),
       height: e.preferredTrackHeight
     });
     t = [...t, n];
@@ -37136,7 +37146,7 @@ function ug(e) {
     trackId: r.id
   };
 }
-function Sx(e) {
+function Ix(e) {
   const { tracks: t, hoveredTrackId: r, zone: n, createNew: a = !1, preferredTrackHeight: i } = e, o = t.find((g) => g.id === r);
   if (!o)
     return null;
@@ -37144,12 +37154,12 @@ function Sx(e) {
     const g = zr({
       tracks: t,
       kind: "video",
-      order: qu(t, "video"),
+      order: Yu(t, "video"),
       height: i
     }), v = [...t, g], b = zr({
       tracks: v,
       kind: "audio",
-      order: qu(v, "audio"),
+      order: Yu(v, "audio"),
       height: i
     });
     return {
@@ -37162,33 +37172,33 @@ function Sx(e) {
   let u = [...t], d, f;
   const m = l ? Fc(o, l) : null;
   if (!o.locked && (l === s || l === null)) {
-    const g = Id(o, u, s);
-    g !== o && (u = u.map((v) => v.id === o.id ? g : v)), d = o.id, f = Xu(u, s, d);
+    const g = kd(o, u, s);
+    g !== o && (u = u.map((v) => v.id === o.id ? g : v)), d = o.id, f = qu(u, s, d);
   } else {
     const v = Cr(u, l === c ? c : s);
     f = Math.max(0, v.findIndex((x) => x.id === o.id));
-    const b = m !== null ? ug({
+    const b = m !== null ? fg({
       tracks: u,
       kind: s,
       number: m,
       preferredTrackHeight: i
-    }) : lg({
+    }) : dg({
       tracks: u,
       kind: s,
       index: f,
       preferredTrackHeight: i
     });
-    u = b.tracks, d = b.trackId, f = Xu(u, s, d);
+    u = b.tracks, d = b.trackId, f = qu(u, s, d);
   }
   const p = Fc(
     u.find((g) => g.id === d),
     s
-  ), h = p !== null ? ug({
+  ), h = p !== null ? fg({
     tracks: u,
     kind: c,
     number: p,
     preferredTrackHeight: i
-  }) : lg({
+  }) : dg({
     tracks: u,
     kind: c,
     index: f,
@@ -37205,13 +37215,13 @@ function Sx(e) {
   };
 }
 const jl = He("TimelineDrag"), Vl = { current: { x: 0, y: 0 } }, Os = { current: {} }, Bo = /* @__PURE__ */ new Map();
-function Gz(e, t) {
+function Xz(e, t) {
   Bo.set(e, t);
 }
-function Wz(e, t) {
+function qz(e, t) {
   Bo.get(e) === t && Bo.delete(e);
 }
-function dg(e, t, r) {
+function mg(e, t, r) {
   const n = Bo.get(e);
   n && (n.style.transform = `translate(${t}px, ${r}px)`);
 }
@@ -37221,7 +37231,7 @@ function $l(e) {
     r && (r.style.transform = "");
   }
 }
-function fg(e, t, r, n, a) {
+function pg(e, t, r, n, a) {
   const i = e + t;
   let o = 0, s = 1 / 0;
   for (const l of a) {
@@ -37239,12 +37249,12 @@ function fg(e, t, r, n, a) {
   const c = s - t;
   return Math.max(o, Math.min(c, e));
 }
-const Ix = {
+const kx = {
   grabbing: "timeline-item-drag-cursor-grabbing",
   copy: "timeline-item-drag-cursor-copy",
   "not-allowed": "timeline-item-drag-cursor-not-allowed"
-}, kx = Object.values(Ix), mg = 0, pg = 18;
-function iO(e, t) {
+}, Tx = Object.values(kx), hg = 0, gg = 18;
+function cO(e, t) {
   if (t.length !== 2)
     return null;
   const r = t.map((o) => e.find((s) => s.id === o)).filter((o) => o !== void 0);
@@ -37256,13 +37266,13 @@ function iO(e, t) {
     audioItemId: a.id
   };
 }
-function hg(e) {
+function yg(e) {
   const { items: t, draggedItems: r, tracks: n, dropTarget: a, preferredTrackHeight: i } = e;
   if (!a.zone)
     return null;
-  const o = r.map((l) => l.id), s = iO(t, o);
+  const o = r.map((l) => l.id), s = cO(t, o);
   if (s) {
-    const l = Sx({
+    const l = Ix({
       tracks: n,
       hoveredTrackId: a.trackId,
       zone: a.zone,
@@ -37279,7 +37289,7 @@ function hg(e) {
   }
   if (!a.createNew)
     return null;
-  const c = wx({
+  const c = Sx({
     tracks: n,
     draggedItems: r.map((l) => {
       const u = t.find((d) => d.id === l.id);
@@ -37297,7 +37307,7 @@ function hg(e) {
     trackAssignments: c.trackAssignments
   } : null;
 }
-function oO(e) {
+function lO(e) {
   const t = Array.from(document.querySelectorAll(".timeline-tracks [data-track-id]")).filter((s) => s instanceof HTMLElement), r = /* @__PURE__ */ new Map();
   for (const s of t) {
     const c = s.getAttribute("data-track-id");
@@ -37311,32 +37321,32 @@ function oO(e) {
   for (let s = a - 1; s >= 0; s -= 1) {
     const c = n[s], l = n[s + 1], u = i.get(l.id);
     if (u === void 0) continue;
-    const d = c.kind === "video" && l.kind === "audio" ? mg : 0;
+    const d = c.kind === "video" && l.kind === "audio" ? hg : 0;
     i.set(c.id, u - c.height - d);
   }
   for (let s = a + 1; s < n.length; s += 1) {
     const c = n[s - 1], l = n[s], u = i.get(c.id);
     if (u === void 0) continue;
-    const d = c.kind === "video" && l.kind === "audio" ? mg : 0;
+    const d = c.kind === "video" && l.kind === "audio" ? hg : 0;
     i.set(l.id, u + c.height + d);
   }
   return i;
 }
-function gg(e) {
-  document.body.classList.remove(...kx), document.body.classList.add(Ix[e]);
+function vg(e) {
+  document.body.classList.remove(...Tx), document.body.classList.add(kx[e]);
 }
 function Hl() {
-  document.body.classList.remove(...kx);
+  document.body.classList.remove(...Tx);
 }
-function Kz(e, t, r = !1, n) {
+function Yz(e, t, r = !1, n) {
   const [a, i] = y.useState(!1), [o, s] = y.useState({ x: 0, y: 0 }), c = y.useRef(null), l = y.useRef(""), u = y.useRef(!1), d = y.useRef(null), f = we((W) => W.moveItem), m = we((W) => W.moveItems), p = we((W) => W.moveItemsWithTrackChanges), h = we((W) => W.duplicateItems), g = we((W) => W.duplicateItemsWithTrackChanges), v = we((W) => W.tracks), b = Pt((W) => W.selectedItemIds), x = Pt((W) => W.selectItems), k = Pt((W) => W.setDragState), M = y.useCallback(() => {
     l.current !== "" && (l.current = "", Mr.getState().clear());
   }, []), S = y.useCallback((W, K) => {
-    const X = CT(W, K), q = X.map((me) => `${me.id}:${me.from ?? ""}`).join("|");
+    const X = ET(W, K), q = X.map((me) => `${me.id}:${me.from ?? ""}`).join("|");
     if (q === l.current)
       return;
     l.current = q;
-    const ie = ig();
+    const ie = sg();
     X.length === 0 ? Mr.getState().clear() : Mr.getState().setUpdates(X), ie();
   }, []), { pixelsToFramePrecise: F, frameToPixels: C } = $a(), T = Pt((W) => W.dragState?.isAltDrag ?? !1), R = y.useMemo(() => T ? null : b.includes(e.id) ? b : e.id, [b, e.id, T]), { magneticSnapTargets: P, snapThresholdFrames: _, snapEnabled: B } = Qo(
     t,
@@ -37365,7 +37375,7 @@ function Kz(e, t, r = !1, n) {
     const ye = ie.findIndex((Se) => Se.id === K), be = me.height || 64, xe = W - (c.current?.startMouseY || 0), Ge = Math.round(xe / be), Pe = Math.max(0, Math.min(ie.length - 1, ye + Ge));
     return ie[Pe]?.id || K;
   }, []), Z = y.useCallback((W, K) => {
-    const X = document.querySelector(".timeline-tracks"), q = document.querySelector(".timeline-container"), ie = (X ?? q ?? document).querySelectorAll("[data-track-id]"), me = Array.from(ie).filter((Se) => Se instanceof HTMLElement).map((Se) => ({ el: Se, rect: Se.getBoundingClientRect(), trackId: Se.getAttribute("data-track-id") })).filter((Se) => !!Se.trackId).sort((Se, Ae) => Se.rect.top - Ae.rect.top), ye = c.current, be = O.current.find((Se) => Se.id === K), xe = be ? Math.max(pg, Math.round(be.height * 0.25)) : pg;
+    const X = document.querySelector(".timeline-tracks"), q = document.querySelector(".timeline-container"), ie = (X ?? q ?? document).querySelectorAll("[data-track-id]"), me = Array.from(ie).filter((Se) => Se instanceof HTMLElement).map((Se) => ({ el: Se, rect: Se.getBoundingClientRect(), trackId: Se.getAttribute("data-track-id") })).filter((Se) => !!Se.trackId).sort((Se, Ae) => Se.rect.top - Ae.rect.top), ye = c.current, be = O.current.find((Se) => Se.id === K), xe = be ? Math.max(gg, Math.round(be.height * 0.25)) : gg;
     if (ye && Math.abs(W - ye.startMouseY) < xe)
       return { trackId: K, zone: null };
     const Ge = O.current.find((Se) => zt(Se) === "video"), Pe = [...O.current].reverse().find((Se) => zt(Se) === "audio");
@@ -37395,7 +37405,7 @@ function Kz(e, t, r = !1, n) {
     };
   }, [ee]), fe = y.useCallback((W, K, X) => {
     const q = ee(W, K);
-    return sf({
+    return lf({
       tracks: O.current,
       items: L(),
       itemType: X,
@@ -37425,7 +37435,7 @@ function Kz(e, t, r = !1, n) {
       W.stopPropagation();
       const X = Y.current, q = X.includes(e.id), ie = L(), me = O.current, ye = mr.getState().linkedSelectionEnabled, be = ye ? Lr(ie, e.id) : [e.id];
       q || x(be);
-      const xe = q ? ye ? Ko(ie, X) : X : be, Ge = IT(ie, me, xe);
+      const xe = q ? ye ? Ko(ie, X) : X : be, Ge = kT(ie, me, xe);
       q && xe.length !== X.length && x(xe);
       const Pe = Ge.map((dt) => {
         const gt = ie.find((Gt) => Gt.id === dt);
@@ -37450,7 +37460,7 @@ function Kz(e, t, r = !1, n) {
         if (!c.current) return;
         const gt = dt.clientX - c.current.startMouseX, Gt = dt.clientY - c.current.startMouseY;
         if (Math.abs(gt) > ac || Math.abs(Gt) > ac) {
-          u.current = dt.altKey, i(!0), gg(dt.altKey ? "copy" : "grabbing"), document.body.style.userSelect = "none";
+          u.current = dt.altKey, i(!0), vg(dt.altKey ? "copy" : "grabbing"), document.body.style.userSelect = "none";
           const kt = c.current?.draggedItems.map((_t) => _t.id) || [];
           k({
             isDragging: !0,
@@ -37471,13 +37481,13 @@ function Kz(e, t, r = !1, n) {
     if (!c.current || !a) return;
     const W = (X) => {
       if (!c.current) return;
-      const q = ig(), ie = X.clientX, me = X.clientY, ye = X.altKey, be = ie - c.current.startMouseX, xe = me - c.current.startMouseY, Ge = u.current !== ye;
+      const q = sg(), ie = X.clientX, me = X.clientY, ye = X.altKey, be = ie - c.current.startMouseX, xe = me - c.current.startMouseY, Ge = u.current !== ye;
       u.current = ye;
       const Pe = U.current(be), Se = c.current.draggedItems;
       let Ae = 1 / 0;
       for (const Me of Se)
         Me.initialFrame < Ae && (Ae = Me.initialFrame);
-      const dt = -Ae, gt = Math.max(dt, Pe), Gt = Pe !== 0 ? be * (gt / Pe) : be, kt = L(), _t = Z(me, c.current.startTrackId), Rt = hg({
+      const dt = -Ae, gt = Math.max(dt, Pe), Gt = Pe !== 0 ? be * (gt / Pe) : be, kt = L(), _t = Z(me, c.current.startTrackId), Rt = yg({
         items: kt,
         draggedItems: c.current.draggedItems,
         tracks: O.current,
@@ -37488,7 +37498,7 @@ function Kz(e, t, r = !1, n) {
         c.current.startTrackId,
         e.type
       ), re = _t.zone !== null && !Rt && At === null, ue = _t.zone && !re ? { trackId: _t.trackId, zone: _t.zone, createNew: _t.createNew } : null, ne = Rt?.trackAssignments.get(c.current.itemId) ?? At ?? c.current.startTrackId;
-      c.current.currentMouseX = ie, c.current.currentMouseY = me, gg(re ? "not-allowed" : ye ? "copy" : "grabbing");
+      c.current.currentMouseX = ie, c.current.currentMouseY = me, vg(re ? "not-allowed" : ye ? "copy" : "grabbing");
       let de, ce, Fe = 0;
       if (Se.length > 1) {
         let Me = 1 / 0, Ce = -1 / 0;
@@ -37501,7 +37511,7 @@ function Kz(e, t, r = !1, n) {
         Fe = Me, de = Math.max(0, Me), ce = Ce - Me;
       } else
         de = Math.max(0, c.current.startFrame + Pe), ce = kt.find((Ce) => Ce.id === c.current?.itemId)?.durationInFrames || 0;
-      const Ie = E(de, ce), _e = oO(
+      const Ie = E(de, ce), _e = lO(
         (Rt?.tracks ?? O.current).map((Me) => ({
           id: Me.id,
           order: Me.order ?? 0,
@@ -37541,7 +37551,7 @@ function Kz(e, t, r = !1, n) {
           const Oe = new Set(Ve.map((pt) => pt.id));
           let Le = 0;
           for (const pt of Ve) {
-            const rr = fg(
+            const rr = pg(
               pt.newFrom,
               pt.durationInFrames,
               pt.newTrackId,
@@ -37570,7 +37580,7 @@ function Kz(e, t, r = !1, n) {
           y: xe
         };
       } else {
-        const Me = Math.max(0, Ie.snappedFrame), Ce = Rt?.trackAssignments.get(c.current.itemId) ?? ne, qe = new Set(Se.map((pt) => pt.id)), Ve = u.current ? Me : fg(Me, e.durationInFrames, Ce, qe, kt), Oe = _e.get(c.current.startTrackId), Le = _e.get(Ce);
+        const Me = Math.max(0, Ie.snappedFrame), Ce = Rt?.trackAssignments.get(c.current.itemId) ?? ne, qe = new Set(Se.map((pt) => pt.id)), Ve = u.current ? Me : pg(Me, e.durationInFrames, Ce, qe, kt), Oe = _e.get(c.current.startTrackId), Le = _e.get(Ce);
         mt = {
           x: $.current((Ve ?? c.current.startFrame) - c.current.startFrame),
           y: Oe !== void 0 && Le !== void 0 ? Le - Oe : xe
@@ -37580,10 +37590,10 @@ function Kz(e, t, r = !1, n) {
         if (xt)
           for (const Me of Se) {
             const Ce = xt[Me.id] ?? mt;
-            dg(Me.id, Ce.x, Ce.y);
+            mg(Me.id, Ce.x, Ce.y);
           }
         else
-          dg(c.current.itemId, mt.x, mt.y);
+          mg(c.current.itemId, mt.x, mt.y);
       s(mt);
       const Ke = d.current, ke = Ie.snapTarget, nt = Pt.getState().dragState?.activeLinkedDropTarget ?? null, Ue = nt === null && ue !== null || nt !== null && ue === null || nt !== null && ue !== null && (nt.trackId !== ue.trackId || nt.zone !== ue.zone || !!nt.createNew != !!ue.createNew);
       if (Ke === null && ke !== null || Ke !== null && ke === null || Ke !== null && ke !== null && (Ke.frame !== ke.frame || Ke.type !== ke.type) || Ge || Ue) {
@@ -37601,7 +37611,7 @@ function Kz(e, t, r = !1, n) {
       q();
     }, K = () => {
       if (!c.current || !a) return;
-      const X = c.current, q = X.currentMouseX - X.startMouseX, ie = u.current, me = U.current(q), ye = L(), be = Z(X.currentMouseY, X.startTrackId), xe = hg({
+      const X = c.current, q = X.currentMouseX - X.startMouseX, ie = u.current, me = U.current(q), ye = L(), be = Z(X.currentMouseY, X.startTrackId), xe = yg({
         items: ye,
         draggedItems: X.draggedItems,
         tracks: O.current,
@@ -37737,7 +37747,7 @@ const mi = Mt()((e) => ({
     delta: 0
   })
 }));
-function sO(e, t) {
+function uO(e, t) {
   const r = e.from + e.durationInFrames;
   let n = null, a = null;
   for (const i of t) {
@@ -37746,7 +37756,7 @@ function sO(e, t) {
   }
   return { leftNeighbor: n, rightNeighbor: a };
 }
-function cO(e, t, r) {
+function dO(e, t, r) {
   let n = null, a = null;
   for (const i of r) {
     if (i.rightClipId === e.id) {
@@ -37760,16 +37770,16 @@ function cO(e, t, r) {
   }
   return { leftNeighbor: n, rightNeighbor: a };
 }
-function Tx(e, t, r) {
-  const n = sO(e, t);
+function Mx(e, t, r) {
+  const n = uO(e, t);
   if (n.leftNeighbor && n.rightNeighbor) return n;
-  const a = new Map(t.map((o) => [o.id, o])), i = cO(e, a, r);
+  const a = new Map(t.map((o) => [o.id, o])), i = dO(e, a, r);
   return {
     leftNeighbor: n.leftNeighbor ?? i.leftNeighbor,
     rightNeighbor: n.rightNeighbor ?? i.rightNeighbor
   };
 }
-function yg(e, t) {
+function bg(e, t) {
   const r = e.from + e.durationInFrames;
   let n = null, a = null;
   for (const i of t) {
@@ -37779,17 +37789,17 @@ function yg(e, t) {
   }
   return { leftNeighbor: n, rightNeighbor: a };
 }
-function vg(e, t, r, n) {
-  const { leftNeighbor: a, rightNeighbor: i } = Tx(e, r, n);
+function xg(e, t, r, n) {
+  const { leftNeighbor: a, rightNeighbor: i } = Mx(e, r, n);
   return t === "start" ? a : i;
 }
-function Xz(e, t, r) {
+function Zz(e, t, r) {
   return r === "start" ? e.some((n) => n.rightClipId === t) : e.some((n) => n.leftClipId === t);
 }
-function bg(e, t, r) {
+function wg(e, t, r) {
   return r === "start" ? e.find((n) => n.rightClipId === t) ?? null : e.find((n) => n.leftClipId === t) ?? null;
 }
-function qz(e, t, r = !1) {
+function Qz(e, t, r = !1) {
   const { pixelsToTime: n } = $a(), a = we((S) => S.fps), i = we((S) => S.trimItemStart), o = we((S) => S.trimItemEnd), s = Pt((S) => S.setDragState), c = y.useCallback(() => we.getState().items.find((S) => S.id === e.id) ?? e, [e.id]), { getMagneticSnapTargets: l, snapThresholdFrames: u, snapEnabled: d } = Qo(
     t,
     e.id
@@ -37833,7 +37843,7 @@ function qz(e, t, r = !1) {
       const { handle: R, initialFrom: P, initialDuration: _ } = p.current, B = p.current.forcedMode, $ = B === "rolling" || B === null && h.current && !g.current, U = B === "ripple" || B === null && g.current, j = we.getState().items, z = Je.getState().transitions, A = c();
       let H = null;
       if ($) {
-        const K = vg(
+        const K = xg(
           A,
           R,
           j,
@@ -37877,7 +37887,7 @@ function qz(e, t, r = !1) {
           const { clampedAmount: ie } = Cn(K, "end", T, a);
           Math.abs(ie) < Math.abs(T) && (se = !0, le = "cut limit", T = ie);
         }
-        const X = bg(z, A.id, R), q = YM(
+        const X = wg(z, A.id, R), q = ZM(
           A,
           R,
           T,
@@ -37888,7 +37898,7 @@ function qz(e, t, r = !1) {
         q !== T && (se = !0, le = "transition limit", T = q);
       }
       if (U && !p.current.destroyTransitionAtHandle) {
-        const K = bg(z, A.id, R), X = K ? j.find((ie) => R === "end" ? ie.id === K.rightClipId : ie.id === K.leftClipId) ?? null : null, q = qM(
+        const K = wg(z, A.id, R), X = K ? j.find((ie) => R === "end" ? ie.id === K.rightClipId : ie.id === K.leftClipId) ?? null : null, q = YM(
           A,
           R,
           T,
@@ -37947,7 +37957,7 @@ function qz(e, t, r = !1) {
       }
       const Z = $ && H !== null, fe = [], E = mr.getState().linkedSelectionEnabled;
       if (Z && H) {
-        const K = E ? R === "end" ? Lm(j, A.id, H) : Lm(j, H, A.id) : null;
+        const K = E ? R === "end" ? Nm(j, A.id, H) : Nm(j, H, A.id) : null;
         K && fe.push(
           vo(K.leftCounterpart, T, a),
           yo(K.rightCounterpart, T, a)
@@ -37972,7 +37982,7 @@ function qz(e, t, r = !1) {
               ie.has(Se.id) || Se.trackId === xe.trackId && (Se.from >= Ge || Pe.has(Se.id)) && ye.set(Se.id, q);
           }
           fe.push(
-            ...FT(j, ye).filter((be) => j.find((xe) => xe.id === be.id)?.trackId !== A.trackId).map((be) => Oa(
+            ...CT(j, ye).filter((be) => j.find((xe) => xe.id === be.id)?.trackId !== A.trackId).map((be) => Oa(
               j.find((xe) => xe.id === be.id),
               be.from - (j.find((xe) => xe.id === be.id)?.from ?? be.from)
             ))
@@ -38008,7 +38018,7 @@ function qz(e, t, r = !1) {
       const S = p.current, F = p.current.currentDelta;
       if (F !== 0) {
         const C = S.destroyTransitionAtHandle && S.handle ? Je.getState().transitions.filter((T) => S.handle === "start" ? T.rightClipId === e.id : T.leftClipId === e.id).map((T) => T.id) : [];
-        S.destroyTransitionAtHandle && S.handle ? RE(e.id, S.handle, F, C) : S.isRippleEdit ? eb(e.id, S.handle, F) : S.isRollingEdit && S.neighborId ? S.handle === "end" ? Du(e.id, S.neighborId, F) : Du(S.neighborId, e.id, F) : S.handle === "start" ? i(e.id, F) : S.handle === "end" && o(e.id, F);
+        S.destroyTransitionAtHandle && S.handle ? _E(e.id, S.handle, F, C) : S.isRippleEdit ? tb(e.id, S.handle, F) : S.isRollingEdit && S.neighborId ? S.handle === "end" ? _u(e.id, S.neighborId, F) : _u(S.neighborId, e.id, F) : S.handle === "start" ? i(e.id, F) : S.handle === "end" && o(e.id, F);
       }
       Qi.getState().clearPreview(), zl.getState().clearPreview(), mi.getState().clearPreview(), Mr.getState().clear(), s(null), v.current = null, h.current = !1, g.current = !1, m({
         isTrimming: !1,
@@ -38045,7 +38055,7 @@ function qz(e, t, r = !1) {
       S.stopPropagation(), S.preventDefault(), Qe.getState().setPreviewFrame(null);
       const T = C?.forcedMode ?? null, R = C?.destroyTransitionAtHandle ?? !1, P = S.altKey && !S.shiftKey, _ = S.shiftKey, B = T === "rolling" || T === null && P, $ = T === "ripple" || T === null && _, U = c(), j = Je.getState().transitions;
       let z = null;
-      if (B && (z = vg(
+      if (B && (z = xg(
         U,
         F,
         we.getState().items,
@@ -38097,7 +38107,7 @@ function qz(e, t, r = !1) {
     handleTrimStart: M
   };
 }
-function Yz(e, t, r = !1) {
+function Jz(e, t, r = !1) {
   const { pixelsToTime: n } = $a(), a = we((v) => v.fps), i = Pt((v) => v.setDragState), { getMagneticSnapTargets: o, snapThresholdFrames: s, snapEnabled: c } = Qo(
     t,
     e.id
@@ -38140,7 +38150,7 @@ function Yz(e, t, r = !1) {
   }, [n, a, r, m, i, e.id, e.from]), h = y.useCallback(() => {
     if (!d.current.isActive) return;
     const v = d.current.currentDelta;
-    v !== 0 && IE(e.id, v), Ji.getState().clearPreview(), i(null), f.current = null, u({ isActive: !1, startX: 0, currentDelta: 0, maxLeftFrames: 0 });
+    v !== 0 && ME(e.id, v), Ji.getState().clearPreview(), i(null), f.current = null, u({ isActive: !1, startX: 0, currentDelta: 0, maxLeftFrames: 0 });
   }, [e.id, i]);
   y.useEffect(() => {
     if (l.isActive)
@@ -38193,16 +38203,16 @@ function Yz(e, t, r = !1) {
     handleTrackPushStart: g
   };
 }
-const lO = 30 * 60 * 10;
-function uO(e) {
+const fO = 30 * 60 * 10;
+function mO(e) {
   const t = e.type === "image" && e.label.toLowerCase().endsWith(".gif");
   return e.type === "video" || e.type === "audio" || e.type === "composition" || t;
 }
 function Gl(e, t) {
   const r = -(t / 30) * 0.1;
-  return Math.round(Math.max(kd, Math.min(Fo, e + r)) * 100) / 100;
+  return Math.round(Math.max(Td, Math.min(Fo, e + r)) * 100) / 100;
 }
-function dO(e, t, r, n, a, i, o) {
+function pO(e, t, r, n, a, i, o) {
   const s = i - n, c = o - a;
   if (s === 0 && c === 0) return [];
   const l = Je.getState().transitions, u = /* @__PURE__ */ new Set(), d = [], f = /* @__PURE__ */ new Set();
@@ -38236,21 +38246,21 @@ function dO(e, t, r, n, a, i, o) {
   }
   return d;
 }
-function Mx(e, t, r, n) {
+function Fx(e, t, r, n) {
   return t <= 0 || r <= 0 || n <= 0 ? 1 : e / r * n / t;
 }
 function Wl(e, t, r, n) {
   if (t)
     return {
       min: Math.max(1, Math.ceil(e / Fo)),
-      max: lO
+      max: fO
     };
   const a = Math.max(
     1,
-    Math.ceil(Mx(e, Fo, r, n))
+    Math.ceil(Fx(e, Fo, r, n))
   ), i = Math.max(
     a,
-    wr(e, kd, r, n)
+    wr(e, Td, r, n)
   );
   return {
     min: a,
@@ -38258,7 +38268,7 @@ function Wl(e, t, r, n) {
   };
 }
 function Kl(e, t, r, n) {
-  return Fy(My(e, t, r, n));
+  return Ey(Cy(e, t, r, n));
 }
 function Xl(e, t, r, n) {
   let a = Math.max(1, Math.round(t)), i = Kl(e, a, r, n);
@@ -38273,7 +38283,7 @@ function Xl(e, t, r, n) {
     if (s < e && Math.abs(i - Fo) < 1e-6) {
       const c = Math.max(
         1,
-        Math.ceil(Mx(e, i, r, n))
+        Math.ceil(Fx(e, i, r, n))
       );
       if (c === a) break;
       a = c, i = Kl(e, a, r, n);
@@ -38283,7 +38293,7 @@ function Xl(e, t, r, n) {
   }
   return { duration: a, speed: i };
 }
-function Zz(e, t, r = !1) {
+function e5(e, t, r = !1) {
   const { pixelsToTime: n } = $a(), a = we((k) => k.fps), i = we((k) => k.rateStretchItem), o = Pt((k) => k.setDragState), s = y.useCallback(() => we.getState().items.find((k) => k.id === e.id) ?? e, [e.id]), { magneticSnapTargets: c, snapThresholdFrames: l, snapEnabled: u } = Qo(
     t,
     e.id
@@ -38322,7 +38332,7 @@ function Zz(e, t, r = !1) {
     if ($) {
       const ie = -(F / 30) * 0.1, me = B + ie, ye = Gl(B, F), be = Math.abs(ye - me) > 1e-4;
       (F !== m.current.currentDelta || be !== m.current.isConstrained) && f((Pe) => ({ ...Pe, currentDelta: F, isConstrained: be, constraintLabel: be ? "speed limit" : null }));
-      const Ge = mr.getState().linkedSelectionEnabled ? Gr(we.getState().items, e.id).filter((Pe) => Pe.id !== e.id).map((Pe) => _m(Pe, T, R, ye, a)) : [];
+      const Ge = mr.getState().linkedSelectionEnabled ? Gr(we.getState().items, e.id).filter((Pe) => Pe.id !== e.id).map((Pe) => Lm(Pe, T, R, ye, a)) : [];
       Mr.getState().setUpdates(Ge);
       return;
     }
@@ -38355,7 +38365,7 @@ function Zz(e, t, r = !1) {
       from: Y,
       durationInFrames: O,
       speed: ae
-    }, E = le ? ee.filter((ie) => ie.id !== e.id).map((ie) => _m(ie, ie.from + (Y - T), O, ae, a)) : [], pe = T + R, W = Y + O, K = dO(
+    }, E = le ? ee.filter((ie) => ie.id !== e.id).map((ie) => Lm(ie, ie.from + (Y - T), O, ae, a)) : [], pe = T + R, W = Y + O, K = pO(
       se,
       e.id,
       Z,
@@ -38419,7 +38429,7 @@ function Zz(e, t, r = !1) {
     (k, M) => {
       if (k.button !== 0 || r) return;
       const S = s();
-      if (!uO(S)) return;
+      if (!mO(S)) return;
       k.stopPropagation(), k.preventDefault(), Qe.getState().setPreviewFrame(null), o({
         isDragging: !0,
         draggedItemIds: [e.id],
@@ -38487,10 +38497,10 @@ function Zz(e, t, r = !1) {
     getVisualFeedback: x
   };
 }
-function fO(e, t, r, n, a) {
+function hO(e, t, r, n, a) {
   return Math.abs(r - e) > a || Math.abs(n - t) > a;
 }
-function Qz(e, t, r = !1) {
+function t5(e, t, r = !1) {
   const { pixelsToTime: n } = $a(), a = we((S) => S.fps), i = Pt((S) => S.setDragState), { getMagneticSnapTargets: o, snapThresholdFrames: s, snapEnabled: c } = Qo(
     t,
     e.id
@@ -38508,7 +38518,7 @@ function Qz(e, t, r = !1) {
   d.current = l;
   const f = y.useRef(0), m = y.useRef(null), p = y.useCallback(() => we.getState().items.find((S) => S.id === e.id) ?? e, [e.id]), h = y.useCallback(() => {
     const S = we.getState().items, F = p(), C = Je.getState().transitions;
-    return Tx(F, S, C);
+    return Mx(F, S, C);
   }, [p]), g = y.useCallback((S, F) => {
     Qe.getState().setPreviewFrame(null);
     const { leftNeighbor: C, rightNeighbor: T } = h(), R = p();
@@ -38564,7 +38574,7 @@ function Qz(e, t, r = !1) {
       const _ = we.getState().items, B = Gr(_, R.id).filter(($) => $.id !== R.id);
       if (B.length > 0) {
         const $ = B.map(
-          (U) => F === "slip" ? Dm(U, 0) : Oa(U, 0)
+          (U) => F === "slip" ? Om(U, 0) : Oa(U, 0)
         );
         Mr.getState().setUpdates($);
       }
@@ -38573,7 +38583,7 @@ function Qz(e, t, r = !1) {
     const F = p();
     if (!Co(F)) return 0;
     const { sourceStart: C, sourceEnd: T, sourceDuration: R } = _a(F);
-    return Dd(C, T, R, S);
+    return _d(C, T, R, S);
   }, [p]), b = y.useCallback((S, F, C) => {
     const T = p();
     let R = S;
@@ -38615,7 +38625,7 @@ function Qz(e, t, r = !1) {
           Math.abs(O) < Math.abs(R) && (R = O);
         }
       }
-      const A = yg(U, P);
+      const A = bg(U, P);
       if (A.leftNeighbor && !z.has(A.leftNeighbor.id)) {
         const H = A.leftNeighbor.from + A.leftNeighbor.durationInFrames, N = -(U.from - H);
         R < N && (R = N);
@@ -38626,7 +38636,7 @@ function Qz(e, t, r = !1) {
       }
     }
     {
-      const U = T.from + T.durationInFrames, j = yg(T, P);
+      const U = T.from + T.durationInFrames, j = bg(T, P);
       if (j.leftNeighbor && !_.has(j.leftNeighbor.id)) {
         const z = j.leftNeighbor.from + j.leftNeighbor.durationInFrames, A = -(T.from - z);
         R < A && (R = A);
@@ -38644,7 +38654,7 @@ function Qz(e, t, r = !1) {
       let T = Math.round(C * a);
       const R = d.current.mode;
       if (R === "slip") {
-        const P = p(), { speed: _, sourceFps: B } = _a(P), U = -Bt(T, _, a, B ?? a), j = v(U), A = ZM(
+        const P = p(), { speed: _, sourceFps: B } = _a(P), U = -Bt(T, _, a, B ?? a), j = v(U), A = QM(
           P,
           j,
           we.getState().items,
@@ -38664,7 +38674,7 @@ function Qz(e, t, r = !1) {
         const ae = mr.getState().linkedSelectionEnabled ? Gr(
           we.getState().items,
           P.id
-        ).filter((se) => se.id !== P.id).map((se) => Dm(se, A)) : [];
+        ).filter((se) => se.id !== P.id).map((se) => Om(se, A)) : [];
         Mr.getState().setUpdates(ae);
       } else if (R === "slide") {
         const { leftNeighborId: P, rightNeighborId: _ } = d.current, B = p();
@@ -38707,7 +38717,7 @@ function Qz(e, t, r = !1) {
         const L = mr.getState().linkedSelectionEnabled ? Gr($, B.id).find((se) => se.id !== B.id) ?? null : null, ae = [];
         if (L) {
           ae.push(Oa(L, z));
-          const se = P ? Om($, P, L.trackId, L.type) : null, le = _ ? Om($, _, L.trackId, L.type) : null;
+          const se = P ? Bm($, P, L.trackId, L.type) : null, le = _ ? Bm($, _, L.trackId, L.type) : null;
           se && ae.push(vo(se, z, a)), le && ae.push(yo(le, z, a));
         }
         Mr.getState().setUpdates(ae);
@@ -38718,7 +38728,7 @@ function Qz(e, t, r = !1) {
     if (!d.current.isActive) return;
     const { mode: S, leftNeighborId: F, rightNeighborId: C } = d.current, T = f.current;
     try {
-      T !== 0 && (S === "slip" ? BE(e.id, T) : S === "slide" && NE(e.id, T, F, C));
+      T !== 0 && (S === "slip" ? zE(e.id, T) : S === "slide" && jE(e.id, T, F, C));
     } finally {
       Ds.getState().clearPreview(), _s.getState().clearPreview(), Mr.getState().clear(), i(null), u({
         isActive: !1,
@@ -38748,7 +38758,7 @@ function Qz(e, t, r = !1) {
           const T = S.clientX, R = S.clientY, P = () => {
             window.removeEventListener("mousemove", _), window.removeEventListener("mouseup", B), m.current = null;
           }, _ = ($) => {
-            fO(T, R, $.clientX, $.clientY, ac) && (P(), g(T, F));
+            hO(T, R, $.clientX, $.clientY, ac) && (P(), g(T, F));
           }, B = () => {
             P();
           };
@@ -38770,28 +38780,28 @@ function Qz(e, t, r = !1) {
     handleSlipSlideStart: M
   };
 }
-const xg = 600, wg = 2e-3;
-function Jz(e, t) {
+const Sg = 600, Ig = 2e-3;
+function r5(e, t) {
   const [r, n] = y.useState(() => {
     const a = Pn.getState();
-    return Sg(a, e, t);
+    return kg(a, e, t);
   });
   return y.useEffect(() => {
     const a = (o) => {
-      const s = Sg(o, e, t);
-      n((c) => c.isVisible === s.isVisible && Math.abs(c.visibleStartRatio - s.visibleStartRatio) < wg && Math.abs(c.visibleEndRatio - s.visibleEndRatio) < wg ? c : s);
+      const s = kg(o, e, t);
+      n((c) => c.isVisible === s.isVisible && Math.abs(c.visibleStartRatio - s.visibleStartRatio) < Ig && Math.abs(c.visibleEndRatio - s.visibleEndRatio) < Ig ? c : s);
     };
     return a(Pn.getState()), Pn.subscribe(a);
   }, [e, t]), r;
 }
-function Sg(e, t, r) {
+function kg(e, t, r) {
   if (r <= 0 || e.viewportWidth <= 0)
     return {
       isVisible: !1,
       visibleStartRatio: 0,
       visibleEndRatio: 1
     };
-  const n = e.scrollLeft - xg, a = e.scrollLeft + e.viewportWidth + xg, i = t + r, o = Math.max(t, n), s = Math.min(i, a);
+  const n = e.scrollLeft - Sg, a = e.scrollLeft + e.viewportWidth + Sg, i = t + r, o = Math.max(t, n), s = Math.min(i, a);
   if (!(s > o))
     return {
       isVisible: !1,
@@ -38808,14 +38818,14 @@ function Sg(e, t, r) {
 function Cc(e) {
   return e.type === "video" || e.type === "image";
 }
-function mO(e) {
+function gO(e) {
   return new Map(e.map((t) => [`${t.leftClipId}->${t.rightClipId}`, t]));
 }
-function Ig(e, t, r, n, a = 0.5) {
+function Tg(e, t, r, n, a = 0.5) {
   if (!Cc(e) || !Cc(t) || e.trackId !== t.trackId) return null;
   const i = e.from + e.durationInFrames;
   if (!Rn(i, t.from)) return null;
-  const o = mO(r).get(`${e.id}->${t.id}`);
+  const o = gO(r).get(`${e.id}->${t.id}`);
   if (o)
     return {
       leftClipId: e.id,
@@ -38853,7 +38863,7 @@ function Ig(e, t, r, n, a = 0.5) {
     alignment: a
   };
 }
-function kg(e) {
+function Mg(e) {
   const {
     itemId: t,
     edge: r,
@@ -38866,12 +38876,12 @@ function kg(e) {
   const c = n.filter((u) => u.trackId === s.trackId && Cc(u)).toSorted((u, d) => u.from - d.from || u.id.localeCompare(d.id));
   if (r === "right") {
     const u = c.find((d) => d.id !== s.id && Rn(s.from + s.durationInFrames, d.from));
-    return u ? Ig(s, u, a, i, o) : null;
+    return u ? Tg(s, u, a, i, o) : null;
   }
   const l = c.findLast((u) => u.id !== s.id && Rn(u.from + u.durationInFrames, s.from));
-  return l ? Ig(l, s, a, i, o) : null;
+  return l ? Tg(l, s, a, i, o) : null;
 }
-function e5(e) {
+function n5(e) {
   const {
     selectedItemIds: t,
     items: r,
@@ -38880,7 +38890,7 @@ function e5(e) {
     alignment: i = 0.5
   } = e;
   if (t.length !== 1) return null;
-  const o = t[0], s = kg({
+  const o = t[0], s = Mg({
     itemId: o,
     edge: "right",
     items: r,
@@ -38890,7 +38900,7 @@ function e5(e) {
   });
   if (s && (s.hasExisting || s.canApply))
     return s;
-  const c = kg({
+  const c = Mg({
     itemId: o,
     edge: "left",
     items: r,
@@ -38900,7 +38910,7 @@ function e5(e) {
   });
   return c && (c.hasExisting || c.canApply) ? c : s ?? c ?? null;
 }
-function t5({
+function a5({
   mediaId: e,
   blobUrl: t,
   duration: r,
@@ -38958,8 +38968,8 @@ function t5({
     error: f
   };
 }
-function r5(e) {
-  const t = xr.get(e), [r, n] = y.useState(t), a = y.useRef(!1), i = y.useRef(null), o = y.useRef(t), s = Ov(), c = y.useCallback((l) => {
+function i5(e) {
+  const t = xr.get(e), [r, n] = y.useState(t), a = y.useRef(!1), i = y.useRef(null), o = y.useRef(t), s = Bv(), c = y.useCallback((l) => {
     o.current = l, n(l);
   }, []);
   return y.useEffect(() => {
@@ -38979,7 +38989,7 @@ function r5(e) {
     blobUrlVersion: s
   };
 }
-function pO({
+function yO({
   mediaId: e,
   blobUrl: t,
   isVisible: r,
@@ -39028,8 +39038,8 @@ function pO({
     [i, s, l, d, h]
   );
 }
-const hO = He("useWaveform");
-function n5({
+const vO = He("useWaveform");
+function o5({
   mediaId: e,
   blobUrl: t,
   isVisible: r,
@@ -39048,14 +39058,14 @@ function n5({
     !n || !t || f.current || a?.isComplete || (f.current = !0, s(!0), l(0), d(null), $n.getWaveform(e, t, p).then((h) => {
       i(h), s(!1), l(100);
     }).catch((h) => {
-      h.message !== "Aborted" && (hO.warn(`Waveform generation failed for ${e}`, h), d(h.message || "Failed to generate waveform")), s(!1);
+      h.message !== "Aborted" && (vO.warn(`Waveform generation failed for ${e}`, h), d(h.message || "Failed to generate waveform")), s(!1);
     }).finally(() => {
       f.current = !1;
     }));
   }, [e, t, r, n, a?.isComplete]), y.useEffect(() => () => {
     $n.abort(e);
   }, [e]), {
-    peaks: a ? xy(a) : null,
+    peaks: a ? Sy(a) : null,
     duration: a?.duration || 0,
     sampleRate: a?.sampleRate || 100,
     channels: a?.channels || 1,
@@ -39064,15 +39074,15 @@ function n5({
     error: u
   };
 }
-const gO = /(^|[^a-z0-9])(ac-?3|ec-?3|e-?ac-?3|eac3)([^a-z0-9]|$)/i, yO = /(^|[^a-z0-9])pcm[-_](?:[su](?:8|16|24|32|64)|f(?:32|64))(?:be|le)([^a-z0-9]|$)/i, vO = /(^|[^a-z0-9])(lpcm|twos|sowt|in24|in32|fl32|fl64)([^a-z0-9]|$)/i;
-function bO(e) {
+const bO = /(^|[^a-z0-9])(ac-?3|ec-?3|e-?ac-?3|eac3)([^a-z0-9]|$)/i, xO = /(^|[^a-z0-9])pcm[-_](?:[su](?:8|16|24|32|64)|f(?:32|64))(?:be|le)([^a-z0-9]|$)/i, wO = /(^|[^a-z0-9])(lpcm|twos|sowt|in24|in32|fl32|fl64)([^a-z0-9]|$)/i;
+function SO(e) {
   if (!e) return !1;
   const t = e.toLowerCase().trim();
-  if (gO.test(t) || yO.test(t) || vO.test(t)) return !0;
+  if (bO.test(t) || xO.test(t) || wO.test(t)) return !0;
   const r = t.replace(/[_-]+/g, " ");
   return !!(r.includes("dolby digital") || t.includes("pcm") && (r.includes("little endian") || r.includes("big endian")));
 }
-function a5(e) {
+function s5(e) {
   const t = Math.max(
     1,
     ...e.sources.map((a) => e.waveformsByMediaId.get(a.mediaId)?.sampleRate ?? 0)
@@ -39081,7 +39091,7 @@ function a5(e) {
     const i = e.waveformsByMediaId.get(a.mediaId);
     if (!i || i.peaks.length === 0 || i.sampleRate <= 0)
       continue;
-    const o = xy(i), s = Math.max(0, Math.floor(a.from / e.fps * t)), c = Math.max(0, Math.ceil(a.durationInFrames / e.fps * t)), l = a.sourceStart / a.sourceFps;
+    const o = Sy(i), s = Math.max(0, Math.floor(a.from / e.fps * t)), c = Math.max(0, Math.ceil(a.durationInFrames / e.fps * t)), l = a.sourceStart / a.sourceFps;
     for (let u = 0; u < c; u += 1) {
       const d = s + u;
       if (d >= n.length) break;
@@ -39094,26 +39104,26 @@ function a5(e) {
   }
   return { peaks: n, sampleRate: t };
 }
-function i5(e, t, r, n) {
+function c5(e, t, r, n) {
   return !e || e <= 0 ? 0 : Math.max(0, Math.min(n, r(e * t)));
 }
-function o5(e) {
+function l5(e) {
   const t = Math.max(0, Math.min(e.clipWidthPixels, e.pointerOffsetPixels)), r = e.handle === "in" ? t : e.clipWidthPixels - t;
   return Math.max(0, Math.min(e.maxDurationFrames, e.pixelsToFrame(r))) / e.fps;
 }
-function s5(e) {
+function u5(e) {
   const t = e.handle === "in" ? e.fadePixels : e.clipWidthPixels - e.fadePixels;
   return Math.max(0, Math.min(e.clipWidthPixels, t));
 }
-const xO = Mt((e) => ({
+const IO = Mt((e) => ({
   isOpen: !1,
   itemIds: [],
   property: null,
   openClearAll: (t) => e({ isOpen: !0, itemIds: t, property: null }),
   openClearProperty: (t, r) => e({ isOpen: !0, itemIds: t, property: r }),
   close: () => e({ isOpen: !1, itemIds: [], property: null })
-})), wO = 5, SO = 12;
-function c5({
+})), kO = 5, TO = 12;
+function d5({
   cursorX: e,
   currentFrame: t,
   isPlaying: r,
@@ -39123,7 +39133,7 @@ function c5({
   snapTargets: o
 }) {
   if (i && o && o.length > 0) {
-    let d = null, f = SO;
+    let d = null, f = TO;
     for (const m of o) {
       const p = n(m.frame), h = Math.abs(e - p);
       h < f && (f = h, d = m);
@@ -39137,7 +39147,7 @@ function c5({
       };
   }
   const s = Math.round(t), c = n(s);
-  if (!r && Math.abs(e - c) <= wO)
+  if (!r && Math.abs(e - c) <= kO)
     return {
       splitFrame: s,
       snappedX: c,
@@ -39150,26 +39160,26 @@ function c5({
     snappedToPlayhead: !1
   };
 }
-function Tg(e) {
+function Fg(e) {
   return e.type !== "audio";
 }
-function l5(e) {
+function f5(e) {
   const { hoveredItemId: t, items: r, selectedItemIds: n } = e, a = new Map(r.map((s) => [s.id, s])), i = a.get(t);
-  if (!i || !Tg(i))
+  if (!i || !Fg(i))
     return [];
   if (!n.includes(t) || n.length <= 1)
     return [t];
   const o = n.filter((s) => {
     const c = a.get(s);
-    return !!c && Tg(c);
+    return !!c && Fg(c);
   });
   return o.length > 0 ? o : [t];
 }
-function u5(e, t) {
+function m5(e, t) {
   const r = t.getBoundingClientRect();
   return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
 }
-const pa = "repeating-conic-gradient(#2a2a2a 0% 25%, #1f1f1f 0% 50%) 50% / 16px 16px", Mg = {
+const pa = "repeating-conic-gradient(#2a2a2a 0% 25%, #1f1f1f 0% 50%) 50% / 16px 16px", Cg = {
   id: "plain",
   label: "Plain text",
   cardBg: "#0a0a0a",
@@ -39191,7 +39201,7 @@ const pa = "repeating-conic-gradient(#2a2a2a 0% 25%, #1f1f1f 0% 50%) 50% / 16px 
     backgroundColor: void 0,
     letterSpacing: 0
   })
-}, IO = [
+}, MO = [
   {
     id: "bold-title",
     label: "Bold Title",
@@ -39457,26 +39467,26 @@ const pa = "repeating-conic-gradient(#2a2a2a 0% 25%, #1f1f1f 0% 50%) 50% / 16px 
       stroke: void 0
     })
   }
-], kO = new Map(
-  [[Mg.id, Mg], ...IO.map((e) => [e.id, e])]
+], FO = new Map(
+  [[Cg.id, Cg], ...MO.map((e) => [e.id, e])]
 );
-function TO(e) {
-  const t = kO.get(e);
+function CO(e) {
+  const t = FO.get(e);
   return t ? t.getItemOverrides() : null;
 }
-const MO = 60;
-function cf(e) {
+const EO = 60;
+function uf(e) {
   if (!e || typeof e != "object") return !1;
   const t = e;
   return t.type !== "timeline-template" || t.itemType !== "text" && t.itemType !== "shape" && t.itemType !== "adjustment" || typeof t.label != "string" || t.label.trim().length === 0 || t.effects !== void 0 && !Array.isArray(t.effects) || t.stylePresetId !== void 0 && (typeof t.stylePresetId != "string" || t.stylePresetId.trim().length === 0) ? !1 : t.itemType !== "shape" || t.shapeType === "rectangle" || t.shapeType === "circle" || t.shapeType === "triangle" || t.shapeType === "ellipse" || t.shapeType === "star" || t.shapeType === "polygon" || t.shapeType === "heart" || t.shapeType === "path";
 }
-function FO(e) {
-  return Math.max(1, Math.round(e * MO));
+function PO(e) {
+  return Math.max(1, Math.round(e * EO));
 }
-function d5(e) {
-  return !cf(e) || e.itemType !== "adjustment" || !Array.isArray(e.effects) || e.effects.length === 0 ? null : e.effects;
+function p5(e) {
+  return !uf(e) || e.itemType !== "adjustment" || !Array.isArray(e.effects) || e.effects.length === 0 ? null : e.effects;
 }
-function CO(e) {
+function RO(e) {
   const { trackId: t, from: r, durationInFrames: n, canvasWidth: a, canvasHeight: i } = e;
   return {
     id: crypto.randomUUID(),
@@ -39505,7 +39515,7 @@ function CO(e) {
     }
   };
 }
-function EO(e) {
+function AO(e) {
   const { trackId: t, from: r, durationInFrames: n, canvasWidth: a, canvasHeight: i, shapeType: o } = e, s = Math.min(a, i) * 0.25;
   return {
     id: crypto.randomUUID(),
@@ -39533,7 +39543,7 @@ function EO(e) {
     }
   };
 }
-function PO(e) {
+function DO(e) {
   const { trackId: t, from: r, durationInFrames: n, effects: a, label: i } = e;
   return {
     id: crypto.randomUUID(),
@@ -39550,30 +39560,30 @@ function PO(e) {
     effectOpacity: 1
   };
 }
-function RO(e) {
+function _O(e) {
   const { template: t, placement: r } = e;
   if (t.itemType === "text") {
-    const n = CO(r), a = t.stylePresetId?.trim();
+    const n = RO(r), a = t.stylePresetId?.trim();
     if (a) {
-      const i = TO(a);
+      const i = CO(a);
       if (i)
         return { ...n, ...i };
     }
     return { ...n, label: t.label };
   }
-  return t.itemType === "adjustment" ? PO({
+  return t.itemType === "adjustment" ? DO({
     trackId: r.trackId,
     from: r.from,
     durationInFrames: r.durationInFrames,
     label: t.label,
     effects: t.effects
-  }) : EO({
+  }) : AO({
     ...r,
     shapeType: t.shapeType ?? "rectangle"
   });
 }
-const AO = 12, DO = 4, _O = 2;
-function f5({
+const OO = 12, LO = 4, BO = 2;
+function h5({
   x: e,
   width: t,
   hasLeftNeighbor: r,
@@ -39582,9 +39592,9 @@ function f5({
   hasEndBridge: i = !1,
   preferRippleOuterEdges: o = !1,
   currentIntent: s = null,
-  edgeZonePx: c = AO,
-  rollZonePx: l = DO,
-  retentionPx: u = _O
+  edgeZonePx: c = OO,
+  rollZonePx: l = LO,
+  retentionPx: u = BO
 }) {
   if (t <= 0) return null;
   const d = (g) => g === "start" ? o || a ? "ripple-start" : "trim-start" : o || i ? "ripple-end" : "trim-end", f = Math.max(0, e), m = Math.max(0, t - e);
@@ -39595,13 +39605,13 @@ function f5({
   const p = f <= m ? "start" : "end", h = p === "start" ? f : m;
   return h > c ? null : p === "start" ? r && h <= l ? "roll-start" : d("start") : n && h <= l ? "roll-end" : d("end");
 }
-function m5(e) {
+function g5(e) {
   return e === "trim-start" || e === "ripple-start" || e === "roll-start" || e === "track-push" ? "start" : e === "trim-end" || e === "ripple-end" || e === "roll-end" ? "end" : null;
 }
-function p5(e) {
+function y5(e) {
   return e === "roll-start" || e === "roll-end" ? "rolling" : e === "ripple-start" || e === "ripple-end" ? "ripple" : null;
 }
-function h5({
+function v5({
   y: e,
   height: t,
   labelRowHeight: r,
@@ -39614,7 +39624,7 @@ function h5({
   const s = Math.max(0, Math.min(r, t));
   return s <= 0 || s >= t ? null : a === "slide-body" ? e <= s + i ? "slide-body" : "slip-body" : a === "slip-body" ? e >= s - o ? "slip-body" : "slide-body" : e <= s ? "slide-body" : "slip-body";
 }
-const g5 = Mt()((e) => ({
+const b5 = Mt()((e) => ({
   overlaysByItemId: {},
   upsertOverlay: (t, r) => e((n) => {
     const a = n.overlaysByItemId[t] ?? [], i = a.findIndex((s) => s.id === r.id), o = i === -1 ? [...a, r] : a.map((s, c) => c === i ? r : s);
@@ -39649,7 +39659,7 @@ const g5 = Mt()((e) => ({
     const n = { ...r.overlaysByItemId };
     return delete n[t], { overlaysByItemId: n };
   })
-})), y5 = Mt()((e, t) => ({
+})), x5 = Mt()((e, t) => ({
   sourceItemId: null,
   neighborItemId: null,
   neighborEdge: null,
@@ -39661,7 +39671,7 @@ const g5 = Mt()((e) => ({
     t().sourceItemId === r && e({ sourceItemId: null, neighborItemId: null, neighborEdge: null });
   }
 }));
-function v5(e, t, r, n) {
+function w5(e, t, r, n) {
   let a = t, i = r;
   const { slide: o, rolling: s, ripple: c } = n;
   o.itemId === e && (a += o.delta), o.leftNeighborId === e && (i += o.delta), o.rightNeighborId === e && (a += o.delta, i -= o.delta), s.trimmedItemId === e && s.handle === "start" && (a += s.delta, i -= s.delta), s.trimmedItemId === e && s.handle === "end" && (i += s.delta), s.neighborItemId === e && s.handle === "start" && (i += s.delta), s.neighborItemId === e && s.handle === "end" && (a += s.delta, i -= s.delta), c.trimmedItemId === e && (i += c.delta), c.isDownstream && c.trimmedItemId != null && c.trimmedItemId !== e && (a += c.delta), n.trackPush?.isShifted && (a += n.trackPush.delta);
@@ -39671,7 +39681,7 @@ function v5(e, t, r, n) {
     durationInFrames: Math.max(1, i)
   };
 }
-function b5(e, t, r, n, a = 0.5) {
+function S5(e, t, r, n, a = 0.5) {
   const i = e + t;
   if (Math.abs(i - r) <= 1) {
     const o = Ba(n, a);
@@ -39685,37 +39695,37 @@ function b5(e, t, r, n, a = 0.5) {
     rightFrame: i
   };
 }
-const Fg = 24, OO = 6;
+const Eg = 24, NO = 6;
 function eo(e) {
   return Number(e.toFixed(2)).toString();
 }
-function Fx(e, t, r, n) {
+function Cx(e, t, r, n) {
   return e === "in" ? uc(t, r, n) : dc(t, r, n);
 }
-function x5(e) {
-  const t = Math.max(0, Math.min(e.fadePixels, e.clipWidthPixels)), r = e.handle === "in" ? 0 : Math.max(0, e.clipWidthPixels - t), n = e.handle === "in" ? t : e.clipWidthPixels, a = hn(e.curveX), i = r + (n - r) * a, o = Fx(e.handle, a, e.curve, a);
+function I5(e) {
+  const t = Math.max(0, Math.min(e.fadePixels, e.clipWidthPixels)), r = e.handle === "in" ? 0 : Math.max(0, e.clipWidthPixels - t), n = e.handle === "in" ? t : e.clipWidthPixels, a = hn(e.curveX), i = r + (n - r) * a, o = Cx(e.handle, a, e.curve, a);
   return {
     x: Math.max(Math.min(r, n), Math.min(Math.max(r, n), i)),
     y: Math.max(0, Math.min(100, 100 - o * 100))
   };
 }
-function w5(e) {
+function k5(e) {
   const t = Math.max(0, Math.min(e.fadePixels, e.clipWidthPixels));
   if (t <= 0)
     return "";
   const r = e.handle === "in" ? 0 : Math.max(0, e.clipWidthPixels - t), n = e.handle === "in" ? t : e.clipWidthPixels, a = [];
-  for (let i = 0; i <= Fg; i += 1) {
-    const o = i / Fg, s = r + (n - r) * o, l = 100 - Fx(e.handle, o, e.curve, e.curveX) * 100;
+  for (let i = 0; i <= Eg; i += 1) {
+    const o = i / Eg, s = r + (n - r) * o, l = 100 - Cx(e.handle, o, e.curve, e.curveX) * 100;
     a.push(`${eo(s)} ${eo(l)}`);
   }
   return e.handle === "in" ? `M 0 0 L ${eo(t)} 0 L ${a.slice().reverse().join(" L ")} Z` : `M ${eo(r)} 0 L ${a.join(" L ")} L ${eo(e.clipWidthPixels)} 0 Z`;
 }
-function S5(e) {
+function T5(e) {
   if (!Number.isFinite(e.rowHeight) || e.rowHeight <= 0 || e.fadePixels <= 0)
     return { curve: 0, curveX: oc };
-  const t = Math.max(0, Math.min(e.fadePixels, e.clipWidthPixels)), r = e.handle === "in" ? 0 : Math.max(0, e.clipWidthPixels - t), n = e.handle === "in" ? t : e.clipWidthPixels, a = Math.min(OO, Math.max(0, (n - r) / 2));
+  const t = Math.max(0, Math.min(e.fadePixels, e.clipWidthPixels)), r = e.handle === "in" ? 0 : Math.max(0, e.clipWidthPixels - t), n = e.handle === "in" ? t : e.clipWidthPixels, a = Math.min(NO, Math.max(0, (n - r) / 2));
   let i;
-  e.pointerOffsetX <= r + a ? i = _y : e.pointerOffsetX >= n - a ? i = Oy : i = hn((e.pointerOffsetX - r) / Math.max(1, n - r));
+  e.pointerOffsetX <= r + a ? i = Ly : e.pointerOffsetX >= n - a ? i = By : i = hn((e.pointerOffsetX - r) / Math.max(1, n - r));
   const o = Math.min(i, 1 - i), c = 1 + (1 - Math.min(1, o * 5)) * 2, l = Math.max(0, Math.min(100, e.pointerOffsetY / e.rowHeight * 100)), u = e.handle === "in" ? 100 : 0, d = e.handle === "in" ? 0 : 100, f = u + (d - u) * i;
   if (l <= f) {
     const h = Math.max(1, f), g = (f - l) / h;
@@ -39724,35 +39734,35 @@ function S5(e) {
   const m = Math.max(1, 100 - f), p = (l - f) / m;
   return { curve: ia(-Math.pow(p, c)), curveX: i };
 }
-const lf = -60, Ec = 12, Cg = 12, Ls = 0, LO = 0.2;
-function Cx(e) {
-  const t = Cg, r = e - Cg, n = (t + r) / 2;
+const df = -60, Ec = 12, Pg = 12, Ls = 0, UO = 0.2;
+function Ex(e) {
+  const t = Pg, r = e - Pg, n = (t + r) / 2;
   return { usableTop: t, usableBottom: r, centerY: n };
 }
-function uf(e) {
+function ff(e) {
   return Math.max(
-    lf,
+    df,
     Math.min(Ec, Math.round(e * 10) / 10)
   );
 }
-function I5(e, t) {
-  const r = uf(e), { usableTop: n, usableBottom: a, centerY: i } = Cx(t);
+function M5(e, t) {
+  const r = ff(e), { usableTop: n, usableBottom: a, centerY: i } = Ex(t);
   if (r >= Ls) {
     const s = (Ec - r) / (Ec - Ls);
     return n + s * (i - n);
   }
-  const o = (Ls - r) / (Ls - lf);
+  const o = (Ls - r) / (Ls - df);
   return i + o * (a - i);
 }
-function k5(e) {
-  const { usableTop: t, usableBottom: r } = Cx(e.height), n = Math.max(1, r - t), a = Ec - lf, i = e.startVolumeDb - e.pointerDeltaY / n * a * LO;
-  return uf(i);
+function F5(e) {
+  const { usableTop: t, usableBottom: r } = Ex(e.height), n = Math.max(1, r - t), a = Ec - df, i = e.startVolumeDb - e.pointerDeltaY / n * a * UO;
+  return ff(i);
 }
-function T5(e) {
-  const t = Math.pow(10, uf(e) / 40);
+function C5(e) {
+  const t = Math.pow(10, ff(e) / 40);
   return Math.max(0.06, Math.min(2.5, t));
 }
-const Kn = 160, Xn = 90, ha = 3, Eg = (
+const Kn = 160, Xn = 90, ha = 3, Rg = (
   /* wgsl */
   `
 
@@ -40019,8 +40029,8 @@ fn clearStatsMain() {
   atomicStore(&clearStats.dirBin7, 0u);
 }
 `
-), BO = 2, NO = 1e-3, UO = 8, zO = 0.7, jO = 0.5, VO = 0.6, ql = 64;
-class $O {
+), zO = 2, jO = 1e-3, VO = 8, $O = 0.7, HO = 0.5, GO = 0.6, ql = 64;
+class WO {
   device;
   // Compute pipelines
   grayscalePipeline;
@@ -40067,7 +40077,7 @@ class $O {
   async checkShaderCompilation() {
     const n = (await this.device.createShaderModule({
       label: "optical-flow-check",
-      code: Eg
+      code: Rg
     }).getCompilationInfo()).messages.filter((a) => a.type === "error");
     if (n.length > 0) {
       for (const a of n)
@@ -40079,7 +40089,7 @@ class $O {
   createPipelines() {
     const t = this.device.createShaderModule({
       label: "optical-flow",
-      code: Eg
+      code: Rg
     }), r = { sampleType: "unfilterable-float" };
     this.grayscaleLayout = this.device.createBindGroupLayout({
       entries: [
@@ -40195,7 +40205,7 @@ class $O {
       size: 16,
       usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
     });
-    const t = new Float32Array([jO, 0, 0, 0]);
+    const t = new Float32Array([HO, 0, 0, 0]);
     this.device.queue.writeBuffer(this.statsParamsBuffer, 0, t);
   }
   dispatch(t, r, n, a, i) {
@@ -40273,7 +40283,7 @@ class $O {
       });
       this.dispatch(a, this.temporalGradPipeline, g, p.w, p.h);
       const v = m < ha - 1 ? 2 : 0, b = m < ha - 1 ? this.flowTextures[m + 1] : this.dummyFlowTexture, x = new ArrayBuffer(16), k = new DataView(x);
-      k.setUint32(0, BO, !0), k.setFloat32(4, NO, !0), k.setFloat32(8, v, !0), k.setUint32(12, 0, !0), this.device.queue.writeBuffer(this.lkParamsBuffer, 0, x);
+      k.setUint32(0, zO, !0), k.setFloat32(4, jO, !0), k.setFloat32(8, v, !0), k.setUint32(12, 0, !0), this.device.queue.writeBuffer(this.lkParamsBuffer, 0, x);
       const M = this.device.createBindGroup({
         layout: this.lucasKanadeLayout,
         entries: [
@@ -40312,11 +40322,11 @@ class $O {
         dominantDirection: 0,
         directionCoherence: 0
       };
-    const c = r / i, l = n / i, u = a / i, d = Math.sqrt(l * l + u * u), f = c > 0.01 ? Math.min(1, d / c) : 0, m = Kn * Xn, p = o / m, h = c > UO && p > zO, g = Math.min(1, c / 10);
+    const c = r / i, l = n / i, u = a / i, d = Math.sqrt(l * l + u * u), f = c > 0.01 ? Math.min(1, d / c) : 0, m = Kn * Xn, p = o / m, h = c > VO && p > $O, g = Math.min(1, c / 10);
     let v, b;
     if (h)
       v = g, b = 0;
-    else if (f > VO)
+    else if (f > GO)
       v = g * f, b = g * (1 - f);
     else {
       const F = (t[1] ?? 0) / 1e3 / i - c * c, C = Math.min(1, Math.sqrt(Math.max(0, F)) / 5);
@@ -40360,8 +40370,8 @@ class $O {
     }
   }
 }
-const Pg = He("SceneDetection"), HO = 500, Rg = 2;
-async function GO(e, t) {
+const Ag = He("SceneDetection"), KO = 500, Dg = 2;
+async function XO(e, t) {
   return new Promise((r) => {
     const n = () => {
       e.removeEventListener("seeked", n), clearTimeout(a), r();
@@ -40371,9 +40381,9 @@ async function GO(e, t) {
     e.addEventListener("seeked", n), e.currentTime = t;
   });
 }
-async function M5(e, t, r = {}) {
+async function E5(e, t, r = {}) {
   const {
-    sampleIntervalMs: n = HO,
+    sampleIntervalMs: n = KO,
     useGemmaVerification: a = !0,
     onProgress: i,
     signal: o
@@ -40382,7 +40392,7 @@ async function M5(e, t, r = {}) {
     throw new Error("WebGPU not supported — scene detection requires GPU");
   const s = await navigator.gpu.requestAdapter();
   if (!s) throw new Error("No GPU adapter available");
-  const c = await s.requestDevice(), l = new $O(c);
+  const c = await s.requestDevice(), l = new WO(c);
   if (!await l.checkShaderCompilation())
     throw l.destroy(), c.destroy(), new Error("Optical flow shader compilation failed — check console for details");
   const d = [], f = e.duration, m = n / 1e3, p = Math.ceil(f / m), h = new OffscreenCanvas(Kn, Xn), g = h.getContext("2d");
@@ -40390,7 +40400,7 @@ async function M5(e, t, r = {}) {
     let b = 0;
     for (let x = 0; x < p && !o?.aborted; x++) {
       const k = x * m;
-      await GO(e, k), g.drawImage(e, 0, 0, Kn, Xn);
+      await XO(e, k), g.drawImage(e, 0, 0, Kn, Xn);
       const M = await createImageBitmap(h), S = await l.analyzeFrame(M);
       if (M.close(), S.totalMotion > b && (b = S.totalMotion), S.isSceneCut) {
         const F = Math.round(k * t);
@@ -40404,14 +40414,14 @@ async function M5(e, t, r = {}) {
         stage: "optical-flow"
       });
     }
-    Pg.info("Optical flow pass complete", { totalSamples: p, maxMotion: b.toFixed(4), rawCuts: d.length });
+    Ag.info("Optical flow pass complete", { totalSamples: p, maxMotion: b.toFixed(4), rawCuts: d.length });
   } finally {
     l.destroy(), c.destroy();
   }
-  const v = WO(d, Rg);
-  return Pg.info("Deduplication complete", { cuts: v.length, minGapSec: Rg }), v;
+  const v = qO(d, Dg);
+  return Ag.info("Deduplication complete", { cuts: v.length, minGapSec: Dg }), v;
 }
-function WO(e, t) {
+function qO(e, t) {
   if (e.length <= 1) return e;
   const r = [];
   let n = e[0];
@@ -40421,7 +40431,7 @@ function WO(e, t) {
   }
   return r.push(n), r;
 }
-function F5(e) {
+function P5(e) {
   const { pixelsToTime: t } = $a(), r = we((p) => p.fps), n = we(
     (p) => p.updateTransition
   ), a = J(
@@ -40504,18 +40514,18 @@ function F5(e) {
     previewDuration: c.isResizing ? c.initialDuration + c.currentDelta : e.durationInFrames
   };
 }
-const C5 = Mt((e, t) => ({
+const R5 = Mt((e, t) => ({
   active: null,
   setActive: (r) => e({ active: r }),
   clearForTrack: (r) => {
     t().active?.hoveredTrackId === r && e({ active: null });
   }
-})), Ag = 2e3, KO = 800, XO = [], Yu = [];
-function Ex(e) {
-  return Je.getState().transitionsByTrackId[e] ?? Yu;
+})), _g = 2e3, YO = 800, ZO = [], Zu = [];
+function Px(e) {
+  return Je.getState().transitionsByTrackId[e] ?? Zu;
 }
-function qO(e) {
-  const { scrollLeft: t, viewportWidth: r } = Pn.getState(), { pixelsPerSecond: n } = fr.getState(), { fps: a } = he.getState(), i = J.getState().itemsByTrackId[e], o = Ex(e), s = Px(t, r, n, a), c = Rx(i, s), l = Ax(
+function QO(e) {
+  const { scrollLeft: t, viewportWidth: r } = Pn.getState(), { pixelsPerSecond: n } = fr.getState(), { fps: a } = he.getState(), i = J.getState().itemsByTrackId[e], o = Px(e), s = Rx(t, r, n, a), c = Ax(i, s), l = Dx(
     o,
     i,
     c,
@@ -40523,23 +40533,23 @@ function qO(e) {
   );
   return { visibleItems: c, visibleTransitions: l };
 }
-function E5(e) {
-  const [t, r] = y.useState(() => qO(e)), n = y.useRef(null), a = y.useRef({ pps: 0, fps: 0, itemsRef: void 0, transRef: void 0 });
+function A5(e) {
+  const [t, r] = y.useState(() => QO(e)), n = y.useRef(null), a = y.useRef({ pps: 0, fps: 0, itemsRef: void 0, transRef: void 0 });
   return y.useEffect(() => {
     const i = () => {
-      const { pixelsPerSecond: s } = fr.getState(), { fps: c } = he.getState(), l = J.getState().itemsByTrackId[e], u = Ex(e), { scrollLeft: d, viewportWidth: f } = Pn.getState(), m = Px(d, f, s, c), p = a.current, h = n.current;
+      const { pixelsPerSecond: s } = fr.getState(), { fps: c } = he.getState(), l = J.getState().itemsByTrackId[e], u = Px(e), { scrollLeft: d, viewportWidth: f } = Pn.getState(), m = Rx(d, f, s, c), p = a.current, h = n.current;
       if (h && p.pps === s && p.fps === c && p.itemsRef === l && p.transRef === u) {
-        const x = c > 0 && s > 0 ? KO / s * c : 0;
+        const x = c > 0 && s > 0 ? YO / s * c : 0;
         if (Math.abs(m.start - h.start) < x && Math.abs(m.end - h.end) < x)
           return;
       }
-      const g = Rx(l, m), v = Ax(
+      const g = Ax(l, m), v = Dx(
         u,
         l,
         g,
         m
       ), b = { visibleItems: g, visibleTransitions: v };
-      n.current = m, a.current = { pps: s, fps: c, itemsRef: l, transRef: u }, r((x) => YO(x, b) ? x : b);
+      n.current = m, a.current = { pps: s, fps: c, itemsRef: l, transRef: u }, r((x) => JO(x, b) ? x : b);
     };
     i();
     const o = [
@@ -40555,21 +40565,21 @@ function E5(e) {
     };
   }, [e]), t;
 }
-function Px(e, t, r, n) {
+function Rx(e, t, r, n) {
   if (r <= 0 || n <= 0)
     return { start: 0, end: 1 / 0 };
-  const a = e - Ag, i = e + t + Ag, o = Math.max(0, Math.floor(a / r * n)), s = Math.ceil(i / r * n);
+  const a = e - _g, i = e + t + _g, o = Math.max(0, Math.floor(a / r * n)), s = Math.ceil(i / r * n);
   return { start: o, end: s };
 }
-function Rx(e, t) {
+function Ax(e, t) {
   if (!e || e.length === 0)
-    return XO;
+    return ZO;
   const { start: r, end: n } = t, a = e.filter((i) => i.from + i.durationInFrames > r && i.from < n);
   return a.length === e.length ? e : a;
 }
-function Ax(e, t, r, n) {
+function Dx(e, t, r, n) {
   if (!e || e.length === 0 || !t || t.length === 0)
-    return Yu;
+    return Zu;
   const { start: a, end: i } = n, o = new Set(r.map((c) => c.id)), s = e.filter((c) => {
     if (o.has(c.leftClipId) || o.has(c.rightClipId))
       return !0;
@@ -40581,10 +40591,10 @@ function Ax(e, t, r, n) {
   });
   return s.length === e.length ? e : s;
 }
-function YO(e, t) {
-  return Dg(e.visibleItems, t.visibleItems) && Dg(e.visibleTransitions, t.visibleTransitions);
+function JO(e, t) {
+  return Og(e.visibleItems, t.visibleItems) && Og(e.visibleTransitions, t.visibleTransitions);
 }
-function Dg(e, t) {
+function Og(e, t) {
   if (e === t)
     return !0;
   if (e.length !== t.length)
@@ -40594,7 +40604,7 @@ function Dg(e, t) {
       return !1;
   return !0;
 }
-function ZO(e) {
+function e3(e) {
   return Yo({
     items: e.composition.items,
     tracks: e.composition.tracks,
@@ -40602,7 +40612,7 @@ function ZO(e) {
     compositionById: e.compositionById
   }).length > 0;
 }
-function QO(e) {
+function t3(e) {
   const t = e.placements.find((o) => o.mediaType !== "audio"), r = e.placements.find((o) => o.mediaType === "audio"), n = {
     sourceStart: 0,
     sourceEnd: e.composition.durationInFrames,
@@ -40641,10 +40651,10 @@ function QO(e) {
     ...n
   }), i;
 }
-function _g(e, t) {
+function Lg(e, t) {
   return !t.some((r) => e.includes(r.trackId));
 }
-function JO(e, t, r, n) {
+function r3(e, t, r, n) {
   let a = Math.max(0, e);
   for (let i = 0; i < 50; i += 1) {
     const o = r.map((l) => gn(
@@ -40662,10 +40672,10 @@ function JO(e, t, r, n) {
   }
   return null;
 }
-function e3(e, t, r, n, a = !1) {
+function n3(e, t, r, n, a = !1) {
   const i = zt(t);
   if (a || i === r || i === null) {
-    const c = Id(t, e, r);
+    const c = kd(t, e, r);
     return c === t ? { tracks: e, trackId: t.id } : {
       tracks: e.map((l) => l.id === t.id ? c : l),
       trackId: t.id
@@ -40686,7 +40696,7 @@ function e3(e, t, r, n, a = !1) {
   });
   return { tracks: [...e, s], trackId: s.id };
 }
-function Dx(e) {
+function _x(e) {
   let t = Math.max(0, e.dropFrame);
   const r = [], n = [];
   let a = [...e.tracks], i = null;
@@ -40729,7 +40739,7 @@ function Dx(e) {
         a = [...a, p], d = p, i = p.id;
       }
     }
-    const f = e3(
+    const f = n3(
       a,
       d,
       u ? "video" : "audio",
@@ -40739,7 +40749,7 @@ function Dx(e) {
     a = f.tracks;
     let m;
     if (l) {
-      const p = zt(d), h = Sx({
+      const p = zt(d), h = Ix({
         tracks: a,
         hoveredTrackId: d.id,
         zone: p === "audio" ? "audio" : "video",
@@ -40748,7 +40758,7 @@ function Dx(e) {
       if (!h)
         continue;
       a = h.tracks;
-      const g = [h.videoTrackId, h.audioTrackId], v = _g(g, c) ? 0 : t, b = JO(
+      const g = [h.videoTrackId, h.audioTrackId], v = Lg(g, c) ? 0 : t, b = r3(
         v,
         o.durationInFrames,
         g,
@@ -40771,7 +40781,7 @@ function Dx(e) {
         }
       ];
     } else {
-      const p = _g([f.trackId], c) ? 0 : t, h = gn(
+      const p = Lg([f.trackId], c) ? 0 : t, h = gn(
         p,
         o.durationInFrames,
         f.trackId,
@@ -40804,7 +40814,7 @@ function Dx(e) {
     tracks: a
   };
 }
-function P5(e) {
+function D5(e) {
   return e.plannedItems.flatMap((t) => t.placements.map((r) => {
     const n = e.existingTrackIds.has(r.trackId), a = r.mediaType === "video" || r.mediaType === "image", i = !n && a ? e.dropTargetTrackId : void 0, o = !n && r.mediaType === "audio" ? e.dropTargetTrackId : void 0;
     return {
@@ -40818,8 +40828,8 @@ function P5(e) {
     };
   }));
 }
-const t3 = He("AsyncUtils");
-async function r3(e, t, r) {
+const a3 = He("AsyncUtils");
+async function i3(e, t, r) {
   const n = new Array(e.length).fill(null), a = Number.isFinite(t) ? Math.max(1, Math.floor(t)) : 1, i = Math.max(1, Math.min(a, e.length));
   let o = 0;
   return await Promise.all(
@@ -40831,7 +40841,7 @@ async function r3(e, t, r) {
           const c = await r(e[s], s);
           n[s] = c;
         } catch (c) {
-          t3.warn("mapWithConcurrency mapper failed", {
+          a3.warn("mapWithConcurrency mapper failed", {
             index: s,
             error: c
           }), n[s] = null;
@@ -40840,10 +40850,10 @@ async function r3(e, t, r) {
     })
   ), n;
 }
-function Og(e, t) {
+function Bg(e, t) {
   return e.includes(t) ? e : [...e, t];
 }
-const n3 = Mt((e, t) => ({
+const o3 = Mt((e, t) => ({
   isOpen: !1,
   projectId: null,
   candidate: null,
@@ -40869,12 +40879,12 @@ const n3 = Mt((e, t) => ({
       projectId: null,
       candidate: null,
       resolver: null,
-      handledProjectIds: a ? Og(i, a) : i
+      handledProjectIds: a ? Bg(i, a) : i
     });
   },
   markProjectMediaMatchHandled: (r) => {
     r && e((n) => ({
-      handledProjectIds: Og(n.handledProjectIds, r)
+      handledProjectIds: Bg(n.handledProjectIds, r)
     }));
   },
   hasHandledProjectMediaMatch: (r) => t().handledProjectIds.includes(r),
@@ -40889,7 +40899,7 @@ const n3 = Mt((e, t) => ({
     });
   }
 }));
-async function a3(e) {
+async function s3(e) {
   const t = qt.getState().currentProjectId;
   if (!t || qt.getState().mediaItems.some((o) => o.mimeType.startsWith("video/")))
     return;
@@ -40901,33 +40911,33 @@ async function a3(e) {
   });
   if (i.type !== "video")
     throw new Error("Unable to inspect dropped video.");
-  await n3.getState().requestProjectMediaMatch(t, {
+  await o3.getState().requestProjectMediaMatch(t, {
     fileName: n.file.name,
     width: i.width,
     height: i.height,
     fps: i.fps
   });
 }
-const Hn = He("ExecuteTimelineMediaDrop"), i3 = 3;
-function Lg(e) {
+const Hn = He("ExecuteTimelineMediaDrop"), c3 = 3;
+function Ng(e) {
   return typeof e == "string" && e.trim().length > 0;
 }
-function Zu(e) {
+function Qu(e) {
   return e === "video" || e === "audio" || e === "image";
 }
-function o3(e) {
+function l3(e) {
   if (!e || typeof e != "object") return !1;
   const t = e;
-  return Lg(t.mediaId) && Zu(t.mediaType) && Lg(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
+  return Ng(t.mediaId) && Qu(t.mediaType) && Ng(t.fileName) && typeof t.duration == "number" && Number.isFinite(t.duration);
 }
-function _x() {
+function Ox() {
   const e = Br.getState().currentProject;
   return {
     width: e?.metadata.width ?? 1920,
     height: e?.metadata.height ?? 1080
   };
 }
-function s3(e) {
+function u3(e) {
   const t = we.getState().tracks.find((a) => a.id === e);
   if (!t) return !0;
   const r = tl(we.getState().tracks).find((a) => a.id === e);
@@ -40936,19 +40946,19 @@ function s3(e) {
   const n = r.kind;
   return n === "audio" ? r.muted : n === "video" ? r.visible === !1 : r.visible === !1 || r.muted;
 }
-function R5(e) {
-  if (Kv()) return !0;
+function _5(e) {
+  if (Xv()) return !0;
   const t = e.dataTransfer.types;
   return !!(t.includes("Files") || t.includes("application/json") || t.includes("text/plain"));
 }
-function c3(e) {
+function d3(e) {
   const t = e.getData("application/json");
   if (t && t.trim())
     return t;
   const r = e.getData("text/plain");
   if (r && r.trim().startsWith("{"))
     return r;
-  const n = Kv();
+  const n = Xv();
   if (n)
     try {
       return JSON.stringify(n);
@@ -40957,13 +40967,13 @@ function c3(e) {
     }
   return null;
 }
-async function Bg(e, t, r, n) {
-  const a = we.getState().fps, { plannedItems: i, tracks: o } = Dx({
+async function Ug(e, t, r, n) {
+  const a = we.getState().fps, { plannedItems: i, tracks: o } = _x({
     entries: e.map((c) => ({
       payload: c,
       label: c.label,
       mediaType: c.mediaType,
-      durationInFrames: I_(c.media, c.mediaType, a),
+      durationInFrames: M_(c.media, c.mediaType, a),
       hasLinkedAudio: c.mediaType === "video" && !!c.media.audioCodec
     })),
     dropFrame: t,
@@ -40973,9 +40983,9 @@ async function Bg(e, t, r, n) {
     preferNewAudioLane: n
   });
   return i.length === 0 ? { items: [], tracks: o } : {
-    items: (await r3(
+    items: (await i3(
       i,
-      i3,
+      c3,
       async (c) => {
         const { entry: l, placements: u } = c, d = l.payload, f = l.mediaType === "video" || l.mediaType === "image", [m, p] = await Promise.all([
           qo(d.mediaId),
@@ -40983,8 +40993,8 @@ async function Bg(e, t, r, n) {
         ]);
         if (!m)
           return Hn.error("Failed to get media blob URL for", l.label), null;
-        const h = u.find((b) => b.mediaType !== "audio") ?? u[0], g = u.find((b) => b.mediaType === "audio"), v = _x();
-        return T_({
+        const h = u.find((b) => b.mediaType !== "audio") ?? u[0], g = u.find((b) => b.mediaType === "audio"), v = Ox();
+        return C_({
           media: d.media,
           mediaId: d.mediaId,
           mediaType: l.mediaType,
@@ -41013,10 +41023,10 @@ async function Bg(e, t, r, n) {
     tracks: o
   };
 }
-function l3(e, t, r) {
-  if (!cf(e))
+function f3(e, t, r) {
+  if (!uf(e))
     return null;
-  const n = we.getState(), a = n.fps, i = FO(a), o = sf({
+  const n = we.getState(), a = n.fps, i = PO(a), o = lf({
     tracks: n.tracks,
     items: n.items,
     itemType: e.itemType,
@@ -41033,8 +41043,8 @@ function l3(e, t, r) {
   );
   if (s === null)
     return null;
-  const c = _x();
-  return RO({
+  const c = Ox();
+  return _O({
     template: e,
     placement: {
       trackId: o.id,
@@ -41045,18 +41055,18 @@ function l3(e, t, r) {
     }
   });
 }
-async function A5({
+async function O5({
   dataTransfer: e,
   dropFrame: t,
   dropTargetTrackId: r,
   preferNewAudioLane: n = !1
 }) {
   const { setTracks: a, tracks: i } = we.getState();
-  i.length === 0 && a(ky());
+  i.length === 0 && a(My());
   const o = we.getState().tracks, s = o.find((x) => x.id === r) ? r : o[0]?.id ?? r;
-  if (s3(s))
+  if (u3(s))
     return;
-  const c = we.getState().addItem, l = we.getState().addItems, u = qt.getState().mediaItems, d = qt.getState().importHandlesForPlacement, f = c3(e);
+  const c = we.getState().addItem, l = we.getState().addItems, u = qt.getState().mediaItems, d = qt.getState().importHandlesForPlacement, f = d3(e);
   if (f)
     try {
       const x = JSON.parse(f);
@@ -41073,13 +41083,13 @@ async function A5({
           Hn.warn("Cannot drop composition: compound clip definition not found");
           return;
         }
-        const { plannedItems: $, tracks: U } = Dx({
+        const { plannedItems: $, tracks: U } = _x({
           entries: [{
             payload: x,
             label: T,
             mediaType: "video",
             durationInFrames: R,
-            hasLinkedAudio: ZO({ composition: B, compositionById: _ })
+            hasLinkedAudio: e3({ composition: B, compositionById: _ })
           }],
           dropFrame: t,
           tracks: P.tracks,
@@ -41091,7 +41101,7 @@ async function A5({
           return;
         }
         U !== P.tracks && we.getState().setTracks(U);
-        const z = QO({
+        const z = t3({
           compositionId: C,
           composition: B,
           label: T,
@@ -41104,8 +41114,8 @@ async function A5({
         l(z);
         return;
       }
-      if (cf(x)) {
-        const S = l3(x, t, s);
+      if (uf(x)) {
+        const S = f3(x, t, s);
         if (!S) {
           Ct.error("Unable to add dropped timeline item");
           return;
@@ -41115,7 +41125,7 @@ async function A5({
       }
       let k = [];
       if (typeof x == "object" && x !== null && x.type === "media-items") {
-        const S = Array.isArray(x.items) ? x.items : [], F = S.filter(o3);
+        const S = Array.isArray(x.items) ? x.items : [], F = S.filter(l3);
         F.length !== S.length && Hn.warn("Skipping invalid media-items payload entries", {
           invalidCount: S.length - F.length
         });
@@ -41131,7 +41141,7 @@ async function A5({
         });
       } else if (typeof x == "object" && x !== null && x.type === "media-item" && x.mediaId && x.mediaType && x.fileName) {
         const S = x;
-        if (!Zu(S.mediaType))
+        if (!Qu(S.mediaType))
           return;
         const F = u.find((C) => C.id === S.mediaId);
         if (!F) {
@@ -41147,7 +41157,7 @@ async function A5({
       }
       if (k.length === 0)
         return;
-      const M = await Bg(
+      const M = await Ug(
         k,
         t,
         s,
@@ -41164,7 +41174,7 @@ async function A5({
     }
   if (!e.types.includes("Files"))
     return;
-  const { supported: m, entries: p, errors: h } = await lE(e);
+  const { supported: m, entries: p, errors: h } = await fE(e);
   if (!m) {
     Ct.warning("Drag-drop not supported in this browser. Use Chrome or Edge.");
     return;
@@ -41172,7 +41182,7 @@ async function A5({
   if (h.length > 0 && Ct.error(`Some files were rejected: ${h.join(", ")}`), p.length === 0)
     return;
   try {
-    await a3(p);
+    await s3(p);
   } catch (x) {
     Ct.error("Unable to inspect dropped file.", {
       description: x instanceof Error ? x.message : "Please try again."
@@ -41185,8 +41195,8 @@ async function A5({
     return;
   }
   const v = g.flatMap((x) => {
-    const k = Vd(x.mimeType);
-    return Zu(k) ? [{
+    const k = $d(x.mimeType);
+    return Qu(k) ? [{
       media: x,
       mediaId: x.id,
       mediaType: k,
@@ -41197,7 +41207,7 @@ async function A5({
     Ct.warning("Dropped files were imported, but none could be placed on the timeline.");
     return;
   }
-  const b = await Bg(
+  const b = await Ug(
     v,
     t,
     s,
@@ -41209,7 +41219,7 @@ async function A5({
   }
   b.tracks !== we.getState().tracks && we.getState().setTracks(b.tracks), b.items.length < v.length && Ct.warning(`Some dropped files could not be added: ${v.length - b.items.length} failed`), b.items.length === 1 ? c(b.items[0]) : l(b.items);
 }
-function D5(e) {
+function L5(e) {
   if (e) {
     const t = e.closest(".timeline-container");
     if (t)
@@ -41217,20 +41227,20 @@ function D5(e) {
   }
   return document.querySelector(".timeline-container");
 }
-const _5 = Mt((e) => ({
+const B5 = Mt((e) => ({
   ghostPreviews: [],
   topVideoNewLaneDropActive: !1,
   setGhostPreviews: (t) => e({ ghostPreviews: t }),
   clearGhostPreviews: () => e({ ghostPreviews: [] }),
   setTopVideoNewLaneDropActive: (t) => e({ topVideoNewLaneDropActive: t })
 }));
-function u3(e) {
+function m3(e) {
   return e === "audio" ? "audio" : "video";
 }
 function Yl(e, t) {
   return !t.some((r) => e.includes(r.trackId));
 }
-function d3(e, t, r, n) {
+function p3(e, t, r, n) {
   let a = Math.max(0, e);
   for (let i = 0; i < 50; i += 1) {
     const o = r.map((l) => gn(
@@ -41248,13 +41258,13 @@ function d3(e, t, r, n) {
   }
   return null;
 }
-function f3(e) {
-  const t = `__zone-${e.trackZone}__`, r = wx({
+function h3(e) {
+  const t = `__zone-${e.trackZone}__`, r = Sx({
     tracks: e.currentTracks,
     draggedItems: [{
       id: t,
       initialTrackId: e.anchorTrackId,
-      type: u3(e.trackZone)
+      type: m3(e.trackZone)
     }],
     zone: e.trackZone,
     preferredTrackHeight: e.preferredTrackHeight
@@ -41264,7 +41274,7 @@ function f3(e) {
     trackId: n
   };
 }
-function O5(e) {
+function N5(e) {
   let t = Math.max(0, e.dropFrame);
   const r = [], n = [];
   let a = [...e.tracks], i = null, o = null;
@@ -41272,7 +41282,7 @@ function O5(e) {
     const l = c === "video" ? i : o;
     if (l && a.some((d) => d.id === l))
       return l;
-    const u = f3({
+    const u = h3({
       currentTracks: a,
       trackZone: c,
       preferredTrackHeight: e.preferredTrackHeight,
@@ -41291,7 +41301,7 @@ function O5(e) {
         const p = s("audio");
         if (!p)
           continue;
-        const h = [m, p], g = Yl(h, l) ? 0 : t, v = d3(
+        const h = [m, p], g = Yl(h, l) ? 0 : t, v = p3(
           g,
           c.durationInFrames,
           h,
@@ -41368,7 +41378,7 @@ function O5(e) {
     tracks: a
   };
 }
-function L5(e) {
+function U5(e) {
   return e.plannedItems.flatMap((t) => {
     const r = t.placements.find((o) => o.mediaType !== "audio") ?? t.placements[0], n = t.placements.find((o) => o.mediaType === "audio");
     if (!r)
@@ -41398,15 +41408,15 @@ function L5(e) {
     }];
   });
 }
-function df(e) {
-  return Math.max(u1, Math.min(my, Math.round(e)));
+function mf(e) {
+  return Math.max(d1, Math.min(hy, Math.round(e)));
 }
-function B5(e, t) {
+function z5(e, t) {
   const r = e - t;
-  return r <= bm ? bm : Math.min(r, f1);
+  return r <= wm ? wm : Math.min(r, m1);
 }
-function Ng(e, t, r) {
-  const n = df(r);
+function zg(e, t, r) {
+  const n = mf(r);
   let a = !1;
   const i = e.map((o) => o.id !== t || o.height === n ? o : (a = !0, {
     ...o,
@@ -41414,8 +41424,8 @@ function Ng(e, t, r) {
   }));
   return a ? i : e;
 }
-function Ox(e, t) {
-  const r = df(t);
+function Lx(e, t) {
+  const r = mf(t);
   let n = !1;
   const a = e.map((i) => i.height === r ? i : (n = !0, {
     ...i,
@@ -41423,22 +41433,22 @@ function Ox(e, t) {
   }));
   return n ? a : e;
 }
-function N5(e, t, r) {
+function j5(e, t, r) {
   let n = !1;
   const a = e.map((i) => {
     if (zt(i) !== t) return i;
-    const o = df(i.height + r);
+    const o = mf(i.height + r);
     return o === i.height ? i : (n = !0, { ...i, height: o });
   });
   return n ? a : e;
 }
-function m3(e) {
-  return Ox(e, Ur);
+function g3(e) {
+  return Lx(e, Ur);
 }
-function p3(e) {
+function y3(e) {
   return Math.max(0, Math.round(e * 1.5));
 }
-function Lx(e) {
+function Bx(e) {
   const t = e.reduce(
     (n, a) => n + (zt(a) === "video" ? a.height : 0),
     0
@@ -41452,8 +41462,8 @@ function Lx(e) {
     hasTrackSections: t > 0 && r > 0
   };
 }
-function Bx(e, t, r) {
-  const { hasTrackSections: n } = Lx(t);
+function Nx(e, t, r) {
+  const { hasTrackSections: n } = Bx(t);
   if (!n)
     return {
       hasTrackSections: n,
@@ -41461,8 +41471,8 @@ function Bx(e, t, r) {
       minimumSectionDividerPosition: 0,
       maximumSectionDividerPosition: 0
     };
-  const a = Math.max(0, e - d1), i = Math.min(
-    p3(r),
+  const a = Math.max(0, e - f1), i = Math.min(
+    y3(r),
     Math.floor(a / 2)
   );
   return {
@@ -41475,7 +41485,7 @@ function Bx(e, t, r) {
     )
   };
 }
-function h3({
+function v3({
   viewportHeight: e,
   tracks: t,
   requestedDividerPosition: r,
@@ -41485,23 +41495,23 @@ function h3({
     hasTrackSections: a,
     minimumSectionDividerPosition: i,
     maximumSectionDividerPosition: o
-  } = Bx(e, t, n);
+  } = Nx(e, t, n);
   return a ? Math.max(
     i,
     Math.min(o, r)
   ) : 0;
 }
-function U5({
+function V5({
   viewportHeight: e,
   tracks: t,
   sectionDividerPosition: r,
   trackTitleBarHeight: n
 }) {
-  const { videoSectionHeight: a, audioSectionHeight: i, hasTrackSections: o } = Lx(t), {
+  const { videoSectionHeight: a, audioSectionHeight: i, hasTrackSections: o } = Bx(t), {
     availablePaneHeight: s,
     minimumSectionDividerPosition: c,
     maximumSectionDividerPosition: l
-  } = Bx(e, t, n), u = o ? a + m1 : a > 0 ? s : 0, d = o ? s <= 0 ? u : h3({
+  } = Nx(e, t, n), u = o ? a + p1 : a > 0 ? s : 0, d = o ? s <= 0 ? u : v3({
     viewportHeight: e,
     tracks: t,
     requestedDividerPosition: r ?? u,
@@ -41519,7 +41529,7 @@ function U5({
     audioSectionHeight: i
   };
 }
-function z5(e, t) {
+function $5(e, t) {
   const r = document.elementsFromPoint(e, t);
   for (const n of r) {
     if (!(n instanceof Element)) continue;
@@ -41530,21 +41540,21 @@ function z5(e, t) {
   }
   return null;
 }
-function g3(e, t) {
+function b3(e, t) {
   const r = zt(t);
   return e.filter((n) => zt(n) === r);
 }
-function Ug(e, t) {
+function jg(e, t) {
   return e.filter((r) => zt(r) === t).sort((r, n) => r.order - n.order);
 }
-function y3(e) {
+function x3(e) {
   const t = e.tracks.find((o) => o.id === e.anchorTrackId);
   if (!t)
     return null;
   const r = zt(t);
   if (!r)
     return null;
-  const n = g3(e.tracks, t);
+  const n = b3(e.tracks, t);
   if (n.length === 0)
     return null;
   const a = new Set(e.selectedTrackIds), i = n.filter((o) => a.has(o.id)).map((o) => o.id);
@@ -41554,14 +41564,14 @@ function y3(e) {
     draggedTrackIds: i.includes(t.id) ? i : [t.id]
   };
 }
-function v3(e) {
-  const t = Ug(e.tracks, e.kind), r = new Set(e.draggedTrackIds), n = t.filter((l) => r.has(l.id));
+function w3(e) {
+  const t = jg(e.tracks, e.kind), r = new Set(e.draggedTrackIds), n = t.filter((l) => r.has(l.id));
   if (n.length === 0)
     return null;
   let a = [...e.tracks];
   const i = [];
   for (const l of n) {
-    const u = Ug(a, e.kind), d = e.kind === "video" ? u[0] ?? null : u.at(-1) ?? null, f = e.kind === "video" ? "above" : "below", m = d ? aa(a, d, f) : e.kind === "video" ? 0 : 1, p = zr({
+    const u = jg(a, e.kind), d = e.kind === "video" ? u[0] ?? null : u.at(-1) ?? null, f = e.kind === "video" ? "above" : "below", m = d ? aa(a, d, f) : e.kind === "video" ? 0 : 1, p = zr({
       tracks: a,
       kind: e.kind,
       order: m,
@@ -41587,7 +41597,7 @@ function v3(e) {
     updates: c
   };
 }
-function b3(e) {
+function S3(e) {
   const t = e.sectionTrackIds.filter((l) => e.draggedTrackIds.includes(l));
   if (t.length === 0)
     return [];
@@ -41611,8 +41621,8 @@ function b3(e) {
     }] : [];
   });
 }
-const zg = { current: 0 }, jg = { current: !1 }, Zl = { current: -1 };
-function j5(e) {
+const Vg = { current: 0 }, $g = { current: !1 }, Zl = { current: -1 };
+function H5(e) {
   const [t, r] = y.useState(!1), [n, a] = y.useState(0), [i, o] = y.useState(-1), s = y.useRef(null), c = we((S) => S.tracks), l = we((S) => S.items), u = we((S) => S.moveItems), d = we((S) => S.moveItemsWithTrackChanges), f = Pt((S) => S.selectedTrackIds), m = Pt((S) => S.selectTracks), p = Pt((S) => S.setDragState), h = y.useRef(c), g = y.useRef(l), v = y.useRef(f), b = y.useRef(u), x = y.useRef(d);
   y.useEffect(() => {
     h.current = c, g.current = l, v.current = f, b.current = u, x.current = d;
@@ -41644,7 +41654,7 @@ function j5(e) {
         return;
       const C = v.current, T = C.includes(e.id);
       T || m([e.id]);
-      const R = T ? [...C] : [e.id], P = h.current, _ = y3({
+      const R = T ? [...C] : [e.id], P = h.current, _ = x3({
         tracks: P,
         anchorTrackId: e.id,
         selectedTrackIds: R
@@ -41683,11 +41693,11 @@ function j5(e) {
   return y.useEffect(() => {
     if (!s.current || !t) return;
     const S = () => {
-      r(!1), a(0), o(-1), p(null), zg.current = 0, Zl.current = -1, s.current = null, document.body.style.cursor = "", document.body.style.userSelect = "";
+      r(!1), a(0), o(-1), p(null), Vg.current = 0, Zl.current = -1, s.current = null, document.body.style.cursor = "", document.body.style.userSelect = "";
     }, F = (R) => {
       if (!s.current) return;
       const P = R.clientY - s.current.startMouseY;
-      a(P), zg.current = P;
+      a(P), Vg.current = P;
       const _ = h.current, $ = s.current.sectionTrackIds.map((j) => _.find((z) => z.id === j)).filter((j) => j !== void 0), U = k(R.clientY);
       if ($.length > 0 && s.current) {
         const j = _.findIndex((H) => H.id === $[0]?.id);
@@ -41756,7 +41766,7 @@ function j5(e) {
         N = Y;
       }
       if (B === R.kind) {
-        const O = v3({
+        const O = w3({
           tracks: P,
           items: g.current,
           kind: R.kind,
@@ -41764,7 +41774,7 @@ function j5(e) {
         });
         O && O.updates.length > 0 && x.current(O.tracks, O.updates);
       } else {
-        const O = b3({
+        const O = S3({
           sectionTrackIds: R.sectionTrackIds,
           draggedTrackIds: $,
           items: g.current,
@@ -41772,8 +41782,8 @@ function j5(e) {
         });
         O.length > 0 && b.current(O);
       }
-      jg.current = !0, requestAnimationFrame(() => {
-        jg.current = !1;
+      $g.current = !0, requestAnimationFrame(() => {
+        $g.current = !1;
       }), S();
     };
     if (s.current)
@@ -41787,10 +41797,10 @@ function j5(e) {
     handleDragStart: M
   };
 }
-function x3(e) {
+function I3(e) {
   return Math.max(-60, Math.min(12, Math.round(e * 10) / 10));
 }
-function V5() {
+function G5() {
   const e = we((p) => p.tracks), t = we((p) => p.setTracks), r = y.useCallback(
     (p) => {
       const h = we.getState().tracks, g = h.length > 0 ? Math.min(...h.map((b) => b.order ?? 0)) : 0, v = { ...p, order: g - 1 };
@@ -41889,7 +41899,7 @@ function V5() {
     [o]
   ), m = y.useCallback(
     (p, h) => {
-      o(p, { volume: x3(h) });
+      o(p, { volume: I3(h) });
     },
     [o]
   );
@@ -41909,11 +41919,11 @@ function V5() {
     setTrackVolume: m
   };
 }
-function $5(e, t, r) {
+function W5(e, t, r) {
   const n = e.filter((a) => (t[a.id]?.length ?? 0) === 0).map((a) => a.id);
   return n.length >= e.length ? n.filter((a) => a !== r) : n;
 }
-const Vg = {
+const Hg = {
   trackId: null,
   startY: 0,
   startHeight: 0,
@@ -41923,8 +41933,8 @@ const Vg = {
   didChange: !1,
   beforeSnapshot: null
 };
-function H5() {
-  const [e, t] = y.useState(Vg), r = y.useRef(e);
+function K5() {
+  const [e, t] = y.useState(Hg), r = y.useRef(e);
   r.current = e;
   const n = y.useCallback(() => {
     const c = r.current;
@@ -41934,12 +41944,12 @@ function H5() {
         payload: c.applyToAll ? { count: J.getState().tracks.length } : { id: c.trackId }
       },
       c.beforeSnapshot
-    ), he.getState().markDirty()), t(Vg), document.body.style.cursor = "", document.body.style.userSelect = "");
+    ), he.getState().markDirty()), t(Hg), document.body.style.cursor = "", document.body.style.userSelect = "");
   }, []), a = y.useCallback((c) => {
     const l = r.current;
     if (!l.trackId) return;
     c.preventDefault(), c.stopPropagation();
-    const u = J.getState().tracks, d = l.startHeight + (c.clientY - l.startY) * l.deltaDirection, f = l.applyToAll ? Ox(u, d) : Ng(u, l.trackId, d);
+    const u = J.getState().tracks, d = l.startHeight + (c.clientY - l.startY) * l.deltaDirection, f = l.applyToAll ? Lx(u, d) : zg(u, l.trackId, d);
     if (f === u)
       return;
     const m = f.find((p) => p.id === l.trackId);
@@ -41965,7 +41975,7 @@ function H5() {
   }, []), s = y.useCallback((c, l) => {
     if (!J.getState().tracks.find((m) => m.id === l))
       return;
-    const d = Fa(), f = c.altKey ? m3(J.getState().tracks) : Ng(J.getState().tracks, l, Ur);
+    const d = Fa(), f = c.altKey ? g3(J.getState().tracks) : zg(J.getState().tracks, l, Ur);
     c.preventDefault(), c.stopPropagation(), f !== J.getState().tracks && (Qe.getState().setPreviewFrame(null), J.getState().setTracks(f), Qr.getState().addUndoEntry(
       {
         type: c.altKey ? "RESET_ALL_TRACK_HEIGHTS" : "RESET_TRACK_HEIGHT",
@@ -41989,7 +41999,7 @@ function H5() {
   };
 }
 Mt()(
-  dd(
+  fd(
     (e) => ({
       customPresets: [],
       addPreset: (t) => e((r) => ({
@@ -42007,13 +42017,13 @@ Mt()(
     }
   )
 );
-function Qu(e, t) {
+function Ju(e, t) {
   return e.itemId === t.itemId && e.property === t.property && e.keyframeId === t.keyframeId;
 }
 function Bs(e, t) {
-  return t.some((r) => Qu(r, e));
+  return t.some((r) => Ju(r, e));
 }
-const w3 = Mt()((e, t) => ({
+const k3 = Mt()((e, t) => ({
   // State
   selectedKeyframes: [],
   clipboard: null,
@@ -42039,11 +42049,11 @@ const w3 = Mt()((e, t) => ({
   }),
   // Remove single keyframe from selection
   removeFromSelection: (r) => e((n) => ({
-    selectedKeyframes: n.selectedKeyframes.filter((a) => !Qu(a, r))
+    selectedKeyframes: n.selectedKeyframes.filter((a) => !Ju(a, r))
   })),
   // Toggle single keyframe selection
   toggleSelection: (r) => e((n) => Bs(r, n.selectedKeyframes) ? {
-    selectedKeyframes: n.selectedKeyframes.filter((i) => !Qu(i, r))
+    selectedKeyframes: n.selectedKeyframes.filter((i) => !Ju(i, r))
   } : {
     selectedKeyframes: [...n.selectedKeyframes, r]
   }),
@@ -42117,7 +42127,7 @@ const w3 = Mt()((e, t) => ({
   // Cut selected keyframes (copy + mark for deletion)
   cutSelectedKeyframes: () => {
     const r = t();
-    r.selectedKeyframes.length !== 0 && (r.copySelectedKeyframes(), l2(r.selectedKeyframes), e({ selectedKeyframes: [], isCut: !0 }));
+    r.selectedKeyframes.length !== 0 && (r.copySelectedKeyframes(), f2(r.selectedKeyframes), e({ selectedKeyframes: [], isCut: !0 }));
   },
   // Clear clipboard
   clearClipboard: () => e({
@@ -42137,15 +42147,15 @@ const w3 = Mt()((e, t) => ({
   // Check if clipboard has content
   hasClipboard: () => t().clipboard !== null && t().clipboard.keyframes.length > 0
 }));
-function $g() {
-  const e = J.getState().items, t = Dt.getState().markers, r = Je.getState().transitions, n = J.getState().tracks, a = Hb(n), i = /* @__PURE__ */ new Set();
-  for (const o of yx(e, r, a))
+function Gg() {
+  const e = J.getState().items, t = Dt.getState().markers, r = Je.getState().transitions, n = J.getState().tracks, a = Gb(n), i = /* @__PURE__ */ new Set();
+  for (const o of vx(e, r, a))
     i.add(o.frame);
   for (const o of t)
     i.add(o.frame);
   return Array.from(i).sort((o, s) => o - s);
 }
-function S3(e) {
+function T3(e) {
   const t = Va(), r = Qe((c) => c.togglePlayPause), n = Qe((c) => c.setCurrentFrame), a = Qe((c) => c.setPreviewFrame), i = Qe((c) => c.setDisplayedFrame), o = Qe((c) => c.isPlaying), s = y.useCallback((c) => {
     a(null), i(null), n(c);
   }, [a, i, n]);
@@ -42224,7 +42234,7 @@ function S3(e) {
     t.NEXT_SNAP_POINT,
     (c) => {
       c.preventDefault();
-      const l = Qe.getState().currentFrame, u = $g().find((d) => d > l);
+      const l = Qe.getState().currentFrame, u = Gg().find((d) => d > l);
       u !== void 0 && s(u);
     },
     ft,
@@ -42233,7 +42243,7 @@ function S3(e) {
     t.PREVIOUS_SNAP_POINT,
     (c) => {
       c.preventDefault();
-      const l = Qe.getState().currentFrame, u = $g();
+      const l = Qe.getState().currentFrame, u = Gg();
       let d;
       for (let f = u.length - 1; f >= 0; f--)
         if (u[f] < l) {
@@ -42246,7 +42256,7 @@ function S3(e) {
     [s]
   );
 }
-function I3(e) {
+function M3(e) {
   const t = Va(), r = Pt((g) => g.selectedItemIds), n = Pt((g) => g.selectedMarkerId), a = Pt((g) => g.selectedTransitionId), i = Pt((g) => g.clearSelection), o = we((g) => g.removeItems), s = we((g) => g.removeMarker), c = we((g) => g.removeTransition), l = we((g) => g.rippleDeleteItems), u = we((g) => g.updateItemsTransformMap), d = we((g) => g.joinItems), f = we((g) => g.splitItem), m = we((g) => g.items), p = mr((g) => g.toggleLinkedSelectionEnabled), h = y.useCallback((g, v) => {
     if (r.length === 0 || g === 0 && v === 0) return;
     const b = /* @__PURE__ */ new Map();
@@ -42367,21 +42377,21 @@ function I3(e) {
     (g) => {
       if (r.length < 2) return;
       const v = r.map((b) => m.find((x) => x.id === b)).filter((b) => b !== void 0);
-      v.length < 2 || XM(v) && (g.preventDefault(), d(r));
+      v.length < 2 || qM(v) && (g.preventDefault(), d(r));
     },
     ft,
     [r, m, d]
   ), st(
     t.LINK_AUDIO_VIDEO,
     (g) => {
-      r.length < 2 || Ry(m, r) && (g.preventDefault(), yE(r));
+      r.length < 2 || Dy(m, r) && (g.preventDefault(), xE(r));
     },
     ft,
     [r, m]
   ), st(
     t.UNLINK_AUDIO_VIDEO,
     (g) => {
-      r.length !== 0 && r.some((v) => TT(m, v)) && (g.preventDefault(), gE(r));
+      r.length !== 0 && r.some((v) => MT(m, v)) && (g.preventDefault(), bE(r));
     },
     ft,
     [r, m]
@@ -42399,7 +42409,7 @@ function I3(e) {
       const { hoverFrame: v, currentFrame: b } = Qe.getState(), x = v ?? b, k = m.filter((S) => {
         const F = S.from, C = S.from + S.durationInFrames;
         return x > F && x < C;
-      }).map((S) => S.id), M = kT(m, k);
+      }).map((S) => S.id), M = TT(m, k);
       for (const S of M)
         f(S, x);
     },
@@ -42410,7 +42420,7 @@ function I3(e) {
     (g) => {
       if (r.length !== 1) return;
       const v = Qe.getState().currentFrame, b = m.find((x) => x.id === r[0]);
-      !b || b.type !== "video" || v <= b.from || v >= b.from + b.durationInFrames || (g.preventDefault(), LE(b.id, v));
+      !b || b.type !== "video" || v <= b.from || v >= b.from + b.durationInFrames || (g.preventDefault(), UE(b.id, v));
     },
     ft,
     [r, m]
@@ -42420,13 +42430,13 @@ function I3(e) {
       if (r.length === 0) return;
       g.preventDefault();
       const v = we.getState().keyframes, b = r.filter((x) => v.find((M) => M.itemId === x)?.properties.some((M) => M.keyframes.length > 0));
-      b.length !== 0 && xO.getState().openClearAll(b);
+      b.length !== 0 && IO.getState().openClearAll(b);
     },
     ft,
     [r]
   );
 }
-function k3(e) {
+function F3(e) {
   const t = Va(), r = Pt((a) => a.activeTool), n = Pt((a) => a.setActiveTool);
   st(
     t.SELECTION_TOOL,
@@ -42473,25 +42483,25 @@ function k3(e) {
     (a) => {
       a.preventDefault(), n(r === "slip" ? "select" : "slip");
     },
-    { ...ft, enabled: xm },
+    { ...ft, enabled: Sm },
     [r, n]
   ), st(
     t.SLIDE_TOOL,
     (a) => {
       a.preventDefault(), n(r === "slide" ? "select" : "slide");
     },
-    { ...ft, enabled: xm },
+    { ...ft, enabled: Sm },
     [r, n]
   );
 }
-function T3() {
+function C3() {
   const e = Va(), t = Qe((n) => n.setCurrentFrame), r = Pt((n) => n.clearSelection);
   st(
     e.ADD_MARKER,
     (n) => {
       n.preventDefault();
       const { hoverFrame: a, currentFrame: i } = Qe.getState();
-      nb(a ?? i);
+      ab(a ?? i);
     },
     ft,
     []
@@ -42500,7 +42510,7 @@ function T3() {
     (n) => {
       n.preventDefault();
       const a = Pt.getState().selectedMarkerId;
-      a && (ab(a), r());
+      a && (ib(a), r());
     },
     ft,
     [r]
@@ -42534,7 +42544,7 @@ function T3() {
     [t]
   );
 }
-function M3(e) {
+function E3(e) {
   const t = Va(), r = we((o) => o.toggleSnap), n = fr((o) => o.zoomIn), a = fr((o) => o.zoomOut);
   st(
     t.UNDO,
@@ -42600,7 +42610,7 @@ function M3(e) {
     t.ZOOM_TO_100,
     (o) => {
       o.preventDefault();
-      const { currentFrame: s, hoverFrame: c } = Qe.getState(), l = c ?? s, u = Uh();
+      const { currentFrame: s, hoverFrame: c } = Qe.getState(), l = c ?? s, u = jh();
       u && u(l);
     },
     ft,
@@ -42609,7 +42619,7 @@ function M3(e) {
     t.ZOOM_TO_100_ALT,
     (o) => {
       o.preventDefault();
-      const { currentFrame: s, hoverFrame: c } = Qe.getState(), l = c ?? s, u = Uh();
+      const { currentFrame: s, hoverFrame: c } = Qe.getState(), l = c ?? s, u = jh();
       u && u(l);
     },
     i,
@@ -42653,7 +42663,7 @@ const to = Mt((e, t) => ({
   },
   hasItemsClipboard: () => t().itemsClipboard !== null
 }));
-function F3(e) {
+function P3(e) {
   e.length !== 0 && window.requestAnimationFrame(() => {
     const t = document.querySelector(".timeline-container");
     if (!t)
@@ -42668,8 +42678,8 @@ function F3(e) {
     o < l + c ? d = Math.max(0, o - c) : s > u - c && (d = Math.max(0, s - t.clientWidth + c)), t.scrollLeft = d;
   });
 }
-function C3() {
-  const e = Va(), t = Pt((b) => b.selectedItemIds), r = Pt((b) => b.selectedTransitionId), n = w3((b) => b.selectedKeyframes), a = Pt((b) => b.selectItems), i = Pt((b) => b.clearItemSelection), o = Pt((b) => b.activeTrackId), s = we((b) => b.items), c = we((b) => b.transitions), l = we((b) => b.tracks), u = we((b) => b.addItem), d = we((b) => b.removeItems), f = we((b) => b.updateTransition), m = to((b) => b.copyTransition), p = to((b) => b.transitionClipboard), h = to((b) => b.copyItems), g = to((b) => b.itemsClipboard), v = {
+function R3() {
+  const e = Va(), t = Pt((b) => b.selectedItemIds), r = Pt((b) => b.selectedTransitionId), n = k3((b) => b.selectedKeyframes), a = Pt((b) => b.selectItems), i = Pt((b) => b.clearItemSelection), o = Pt((b) => b.activeTrackId), s = we((b) => b.items), c = we((b) => b.transitions), l = we((b) => b.tracks), u = we((b) => b.addItem), d = we((b) => b.removeItems), f = we((b) => b.updateTransition), m = to((b) => b.copyTransition), p = to((b) => b.transitionClipboard), h = to((b) => b.copyItems), g = to((b) => b.itemsClipboard), v = {
     ...ft,
     eventListenerOptions: { capture: !0 }
   };
@@ -42724,7 +42734,7 @@ function C3() {
         b.preventDefault();
         const x = Qe.getState().currentFrame, k = we.getState().items, M = [], S = /* @__PURE__ */ new Set(), F = /* @__PURE__ */ new Map(), C = Zt.getState().activeCompositionId, T = It.getState().compositionById, R = C === null ? g.items : g.items.filter((B) => {
           const $ = B;
-          return !Fd($) || !$c({
+          return !Cd($) || !$c({
             parentCompositionId: C,
             insertedCompositionId: $.compositionId,
             compositionById: T
@@ -42767,7 +42777,7 @@ function C3() {
           u(N), S.add(U);
         }
         if (M.length > 0) {
-          a(M), F3(M);
+          a(M), P3(M);
           const B = o ? l.find((j) => j.id === o) : null, $ = l.filter((j) => S.has(j.id)), U = M.length === 1 ? "Pasted 1 item" : `Pasted ${M.length} items`;
           B ? Ct.success(U, {
             description: `Active Track: ${B.name.replace(/^Track\s+/i, "")}`
@@ -42781,28 +42791,28 @@ function C3() {
     [r, p, f, g, l, u, a, o, n.length]
   );
 }
-function E3() {
+function A3() {
   const e = Va();
   st(
     e.INSERT_EDIT,
     (t) => {
-      t.preventDefault(), mr.getState().sourcePreviewMediaId && I2();
+      t.preventDefault(), mr.getState().sourcePreviewMediaId && M2();
     },
     ft,
     []
   ), st(
     e.OVERWRITE_EDIT,
     (t) => {
-      t.preventDefault(), mr.getState().sourcePreviewMediaId && k2();
+      t.preventDefault(), mr.getState().sourcePreviewMediaId && F2();
     },
     ft,
     []
   );
 }
-function G5(e = {}) {
-  S3(e), I3(e), k3(e), T3(), M3(e), C3(), E3();
+function X5(e = {}) {
+  T3(e), M3(e), F3(e), C3(), E3(e), R3(), A3();
 }
-const Hg = Mt()(
+const Wg = Mt()(
   (e, t) => ({
     // Initial state (empty)
     transitionsByClipId: /* @__PURE__ */ new Map(),
@@ -42811,7 +42821,7 @@ const Hg = Mt()(
     enrichedItemsById: /* @__PURE__ */ new Map(),
     computeVersion: 0,
     recompute: (r, n, a) => {
-      const i = t(), o = UE(n), s = /* @__PURE__ */ new Map(), c = Math.max(...a.map((l) => l.order ?? 0), 0);
+      const i = t(), o = VE(n), s = /* @__PURE__ */ new Map(), c = Math.max(...a.map((l) => l.order ?? 0), 0);
       for (const l of a)
         for (const u of r.filter((d) => d.trackId === l.id))
           (u.type === "video" || u.type === "image") && s.set(u.id, {
@@ -42842,9 +42852,9 @@ const Hg = Mt()(
     }
   })
 );
-function W5() {
+function q5() {
   const e = we.getState();
-  Hg.getState().recompute(
+  Wg.getState().recompute(
     e.items,
     e.transitions,
     e.tracks
@@ -42852,11 +42862,11 @@ function W5() {
   let t = e.items, r = e.transitions, n = e.tracks;
   return we.subscribe(() => {
     const i = we.getState();
-    (i.items !== t || i.transitions !== r || i.tracks !== n) && (t = i.items, r = i.transitions, n = i.tracks, Hg.getState().recompute(i.items, i.transitions, i.tracks));
+    (i.items !== t || i.transitions !== r || i.tracks !== n) && (t = i.items, r = i.transitions, n = i.tracks, Wg.getState().recompute(i.items, i.transitions, i.tracks));
   });
 }
-const P3 = rS, R3 = nS, A3 = aS, D3 = He("CompoundClipThumbnailService"), _3 = 320;
-function O3(e, t, r) {
+const D3 = nS, _3 = aS, O3 = iS, L3 = He("CompoundClipThumbnailService"), B3 = 320;
+function N3(e, t, r) {
   const n = Math.max(1, Math.round(e)), a = Math.max(1, Math.round(t));
   return n >= a ? {
     width: r,
@@ -42866,14 +42876,14 @@ function O3(e, t, r) {
     height: r
   };
 }
-class L3 {
+class U3 {
   thumbnailUrlCache = /* @__PURE__ */ new Map();
   pending = /* @__PURE__ */ new Map();
   async getThumbnailBlobUrl(t) {
     const r = It.getState().compositionById, n = r[t];
     if (!n || typeof OffscreenCanvas != "function")
       return null;
-    const a = $D(t, r), i = this.thumbnailUrlCache.get(t);
+    const a = WD(t, r), i = this.thumbnailUrlCache.get(t);
     if (i?.signature === a)
       return i.url;
     const o = this.pending.get(t);
@@ -42891,18 +42901,18 @@ class L3 {
   async generateThumbnailBlobUrl(t, r, n) {
     const a = t.id;
     try {
-      const i = VD(a, r);
+      const i = GD(a, r);
       await Promise.all(i.map((m) => qo(m)));
-      const o = jD(t), s = await Wv(o.tracks, { useProxy: !1 }), c = O3(
+      const o = HD(t), s = await Kv(o.tracks, { useProxy: !1 }), c = N3(
         t.width,
         t.height,
-        _3
-      ), l = await ax({
+        B3
+      ), l = await ix({
         composition: {
           ...o,
           tracks: s
         },
-        frame: HD(t.durationInFrames),
+        frame: KD(t.durationInFrames),
         width: c.width,
         height: c.height,
         quality: 0.8,
@@ -42913,7 +42923,7 @@ class L3 {
       const f = this.thumbnailUrlCache.get(a);
       return f && f.url !== u && URL.revokeObjectURL(f.url), this.thumbnailUrlCache.set(a, { signature: n, url: u }), u;
     } catch (i) {
-      return D3.warn(`Failed to generate thumbnail for compound clip ${a}:`, i), this.thumbnailUrlCache.get(a)?.url ?? null;
+      return L3.warn(`Failed to generate thumbnail for compound clip ${a}:`, i), this.thumbnailUrlCache.get(a)?.url ?? null;
     }
   }
   clearThumbnailCache(t) {
@@ -42921,8 +42931,8 @@ class L3 {
     r && (URL.revokeObjectURL(r.url), this.thumbnailUrlCache.delete(t));
   }
 }
-const K5 = new L3();
-function Nx(e) {
+const Y5 = new U3();
+function Ux(e) {
   return {
     startFrame: e.startFrame,
     durationInFrames: e.durationInFrames,
@@ -42937,7 +42947,7 @@ function Nx(e) {
 function za(e) {
   return e.sourceStart ?? e.trimStart ?? e.offset ?? 0;
 }
-function Ux(e) {
+function zx(e) {
   return e.sourceStart !== void 0 || e.trimStart !== void 0 || e.offset !== void 0;
 }
 function No(e, t, r = 30) {
@@ -42951,13 +42961,13 @@ function No(e, t, r = 30) {
     r,
     l
   ), d = e.sourceEnd, f = Math.abs(c - u) <= 2, m = d !== void 0 ? Math.abs(c - d) <= 2 : !1;
-  return f || m ? !0 : !Ux(t);
+  return f || m ? !0 : !zx(t);
 }
-function ff(e, t) {
+function pf(e, t) {
   const r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map(), a = e.toSorted((i, o) => i.trackId !== o.trackId ? i.trackId.localeCompare(o.trackId) : i.from !== o.from ? i.from - o.from : i.id.localeCompare(o.id));
   for (const i of a) {
     let s = za(i);
-    if (!Ux(i)) {
+    if (!zx(i)) {
       const c = n.get(i.trackId);
       if (c && No(c, i, t)) {
         const l = r.get(c.id) ?? za(c), u = c.sourceFps ?? t;
@@ -42973,8 +42983,8 @@ function ff(e, t) {
   }
   return r;
 }
-function B3(e, t) {
-  const r = e.toSorted((s, c) => s.trackId !== c.trackId ? s.trackId.localeCompare(c.trackId) : s.from !== c.from ? s.from - c.from : s.id.localeCompare(c.id)), n = ff(r, t), a = [];
+function z3(e, t) {
+  const r = e.toSorted((s, c) => s.trackId !== c.trackId ? s.trackId.localeCompare(c.trackId) : s.from !== c.from ? s.from - c.from : s.id.localeCompare(c.id)), n = pf(r, t), a = [];
   for (const s of r)
     s.src && a.push({
       key: `audio-${s.id}`,
@@ -42995,7 +43005,7 @@ function B3(e, t) {
       audioFadeOutCurve: s.audioFadeOutCurve ?? 0,
       audioFadeInCurveX: s.audioFadeInCurveX ?? 0.52,
       audioFadeOutCurveX: s.audioFadeOutCurveX ?? 0.52,
-      clipFadeSpans: [Nx({
+      clipFadeSpans: [Ux({
         startFrame: 0,
         durationInFrames: s.durationInFrames,
         audioFadeIn: s.audioFadeIn,
@@ -43064,8 +43074,8 @@ function B3(e, t) {
     clipFadeSpans: o.clipFadeSpans
   }), i;
 }
-function Gg(e, t, r) {
-  const n = e.toSorted((d, f) => d.trackId !== f.trackId ? d.trackId.localeCompare(f.trackId) : d.from !== f.from ? d.from - f.from : d.id.localeCompare(f.id)), a = ff(n, r), i = Yd(t, n), o = /* @__PURE__ */ new Map(), s = (d) => {
+function Kg(e, t, r) {
+  const n = e.toSorted((d, f) => d.trackId !== f.trackId ? d.trackId.localeCompare(f.trackId) : d.from !== f.from ? d.from - f.from : d.id.localeCompare(f.id)), a = pf(n, r), i = Zd(t, n), o = /* @__PURE__ */ new Map(), s = (d) => {
     const f = o.get(d);
     if (f) return f;
     const m = { before: 0, after: 0, overlapFadeOut: 0, overlapFadeIn: 0, fadeInDelay: 0, fadeOutLead: 0 };
@@ -43113,7 +43123,7 @@ function Gg(e, t, r) {
       audioFadeOutCurve: d.audioFadeOutCurve ?? 0,
       audioFadeInCurveX: d.audioFadeInCurveX ?? 0.52,
       audioFadeOutCurveX: d.audioFadeOutCurveX ?? 0.52,
-      clipFadeSpans: [Nx({
+      clipFadeSpans: [Ux({
         startFrame: v,
         durationInFrames: d.durationInFrames,
         audioFadeIn: d.audioFadeIn,
@@ -43203,8 +43213,8 @@ function Gg(e, t, r) {
     crossfadeFadeOut: u.crossfadeFadeOut
   }), l;
 }
-function N3(e, t, r) {
-  const n = e.toSorted((c, l) => c.trackId !== l.trackId ? c.trackId.localeCompare(l.trackId) : c.from !== l.from ? c.from - l.from : c.id.localeCompare(l.id)), a = ff(n, r), i = Yd(t, n), o = /* @__PURE__ */ new Map(), s = (c) => {
+function j3(e, t, r) {
+  const n = e.toSorted((c, l) => c.trackId !== l.trackId ? c.trackId.localeCompare(l.trackId) : c.from !== l.from ? c.from - l.from : c.id.localeCompare(l.id)), a = pf(n, r), i = Zd(t, n), o = /* @__PURE__ */ new Map(), s = (c) => {
     const l = o.get(c);
     if (l) return l;
     const u = { before: 0, after: 0, overlapFadeOut: 0, overlapFadeIn: 0, fadeInDelay: 0, fadeOutLead: 0 };
@@ -43246,14 +43256,14 @@ function N3(e, t, r) {
     };
   });
 }
-const U3 = /(^|[^a-z0-9])(ac-?3|ec-?3|e-?ac-?3|eac3)([^a-z0-9]|$)/i;
+const V3 = /(^|[^a-z0-9])(ac-?3|ec-?3|e-?ac-?3|eac3)([^a-z0-9]|$)/i;
 let Ql = null;
-function zx(e) {
+function jx(e) {
   if (!e) return !1;
   const t = e.toLowerCase().trim();
-  return U3.test(t) ? !0 : t.replace(/[_-]+/g, " ").includes("dolby digital");
+  return V3.test(t) ? !0 : t.replace(/[_-]+/g, " ").includes("dolby digital");
 }
-async function jx() {
+async function Vx() {
   return Ql || (Ql = (async () => {
     const { registerAc3Decoder: e } = await import("./media-ac3-decoder-DWBO8pCx.js");
     try {
@@ -43265,23 +43275,23 @@ async function jx() {
     }
   })()), Ql;
 }
-const pn = He("PreviewAudioCache"), Uo = /* @__PURE__ */ new Map(), tc = /* @__PURE__ */ new Map(), Fi = [], z3 = 200 * 1024 * 1024;
+const pn = He("PreviewAudioCache"), Uo = /* @__PURE__ */ new Map(), tc = /* @__PURE__ */ new Map(), Fi = [], $3 = 200 * 1024 * 1024;
 let Pc = 0;
-function Ju(e) {
+function ed(e) {
   return e.numberOfChannels * e.length * 4;
 }
-function Vx(e) {
+function $x(e) {
   const t = Fi.indexOf(e);
   t >= 0 && Fi.splice(t, 1), Fi.push(e);
 }
-function j3() {
-  for (; Pc > z3 && Fi.length > 0; ) {
+function H3() {
+  for (; Pc > $3 && Fi.length > 0; ) {
     const e = Fi.shift(), t = Uo.get(e);
-    t && (Pc -= Ju(t), Uo.delete(e), pn.debug("LRU evicted audio cache entry", { mediaId: e, freedMB: (Ju(t) / (1024 * 1024)).toFixed(1) }));
+    t && (Pc -= ed(t), Uo.delete(e), pn.debug("LRU evicted audio cache entry", { mediaId: e, freedMB: (ed(t) / (1024 * 1024)).toFixed(1) }));
   }
 }
-const $x = 22050, Wg = 10;
-function Kg(e) {
+const Hx = 22050, Xg = 10;
+function qg(e) {
   const t = new Int16Array(e.length);
   for (let r = 0; r < e.length; r++) {
     const n = Math.max(-1, Math.min(1, e[r]));
@@ -43297,7 +43307,7 @@ function Rc(e) {
   }
   return t;
 }
-async function V3(e, t) {
+async function G3(e, t) {
   if (e.sampleRate <= t) return e;
   const r = t / e.sampleRate, n = e.numberOfChannels, a = e.length, i = Math.ceil(a * r), s = new OfflineAudioContext(n, i, t).createBuffer(n, i, t);
   for (let c = 0; c < n; c++) {
@@ -43309,33 +43319,33 @@ async function V3(e, t) {
   }
   return s;
 }
-function Hx(e, t) {
+function Gx(e, t) {
   return `${e}:bin:${t}`;
 }
-function $3(e, t) {
+function W3(e, t) {
   const r = tc.get(e);
   if (r) return r;
-  const n = H3(e, t).then((a) => (Uo.set(e, a), Pc += Ju(a), Vx(e), j3(), a)).finally(() => {
+  const n = K3(e, t).then((a) => (Uo.set(e, a), Pc += ed(a), $x(e), H3(), a)).finally(() => {
     tc.delete(e);
   });
   return tc.set(e, n), n;
 }
-async function Gx(e, t) {
+async function Wx(e, t) {
   const r = Uo.get(e);
-  return r ? (Vx(e), r) : $3(e, t);
+  return r ? ($x(e), r) : W3(e, t);
 }
 function Ns(e) {
   return tc.has(e);
 }
-function X5() {
+function Z5() {
   Uo.clear(), Fi.length = 0, Pc = 0, pn.debug("Preview audio cache cleared");
 }
-async function H3(e, t) {
+async function K3(e, t) {
   try {
     const r = await Mo(e);
     if (r && "kind" in r && r.kind === "meta")
       try {
-        return await G3(r);
+        return await X3(r);
       } catch (n) {
         pn.warn("Cached decoded audio is incomplete/invalid, re-decoding", { mediaId: e, err: n }), await xu(e).catch(() => {
         });
@@ -43345,15 +43355,15 @@ async function H3(e, t) {
   } catch (r) {
     pn.warn("Failed to load from IndexedDB, will decode", { mediaId: e, err: r });
   }
-  return Wx(e, t);
+  return Kx(e, t);
 }
-async function G3(e) {
+async function X3(e) {
   const { mediaId: t, sampleRate: r, totalFrames: n, binCount: a } = e;
   if (!Number.isFinite(r) || r <= 0 || !Number.isFinite(n) || n <= 0 || a <= 0)
     throw new Error("Invalid decoded preview audio meta");
   const o = new OfflineAudioContext(2, n, r).createBuffer(2, n, r), s = o.getChannelData(0), c = o.getChannelData(1), l = Array.from(
     { length: a },
-    (f, m) => Mo(Hx(t, m))
+    (f, m) => Mo(Gx(t, m))
   ), u = await Promise.all(l);
   let d = 0;
   for (let f = 0; f < u.length; f++) {
@@ -43380,7 +43390,7 @@ async function G3(e) {
     sizeMB: (n * 2 * 2 / (1024 * 1024)).toFixed(1)
   }), o;
 }
-function W3(e, t) {
+function q3(e, t) {
   if (e.length <= 2) {
     const p = e[0] ?? new Float32Array(t), h = e[1] ?? p;
     return { left: p, right: h };
@@ -43396,19 +43406,19 @@ function W3(e, t) {
   }
   return { left: i, right: o };
 }
-function Xg(e, t) {
+function Yg(e, t) {
   const r = new Float32Array(t);
   let n = 0;
   for (const a of e)
     r.set(a, n), n += a.length;
   return r;
 }
-async function qg(e, t, r, n, a, i) {
-  const o = Xg(r, a), s = Xg(n, a), l = new OfflineAudioContext(2, a, i).createBuffer(2, a, i);
+async function Zg(e, t, r, n, a, i) {
+  const o = Yg(r, a), s = Yg(n, a), l = new OfflineAudioContext(2, a, i).createBuffer(2, a, i);
   l.getChannelData(0).set(o), l.getChannelData(1).set(s);
-  const u = await V3(l, $x), d = Kg(u.getChannelData(0)), f = Kg(u.getChannelData(1));
-  return await wd({
-    id: Hx(e, t),
+  const u = await G3(l, Hx), d = qg(u.getChannelData(0)), f = qg(u.getChannelData(1));
+  return await Sd({
+    id: Gx(e, t),
     mediaId: e,
     kind: "bin",
     binIndex: t,
@@ -43425,24 +43435,24 @@ async function qg(e, t, r, n, a, i) {
     right: f
   };
 }
-async function K3(e) {
+async function Y3(e) {
   try {
     const t = await qr(e);
     if (!t) return !1;
     const r = t.mimeType.startsWith("audio/") ? t.codec : t.audioCodec;
-    return zx(r);
+    return jx(r);
   } catch (t) {
     return pn.debug("Failed to load media metadata for AC-3 decoder pre-check", { mediaId: e, err: t }), !1;
   }
 }
-async function Wx(e, t, r = !1) {
+async function Kx(e, t, r = !1) {
   pn.info("Decoding audio for preview", { mediaId: e, src: t.substring(0, 50) });
-  const n = r || await K3(e);
+  const n = r || await Y3(e);
   try {
-    n && await jx();
+    n && await Vx();
     const a = await import("./media-bunny-core-CXIwd4FE.js").then((s) => s.i), i = new a.Input({
       formats: a.ALL_FORMATS,
-      source: new a.UrlSource(t)
+      source: new a.UrlSource(t, nf(t))
     }), o = await i.getPrimaryAudioTrack();
     try {
       if (!o)
@@ -43461,24 +43471,24 @@ async function Wx(e, t, r = !1) {
             const z = new Float32Array(R);
             T.copyTo(z, { planeIndex: j, format: "f32-planar" }), _.push(z);
           }
-          const { left: B, right: $ } = W3(_, R);
+          const { left: B, right: $ } = q3(_, R);
           u.push(B), d.push($), f += R;
-          const U = Wg * l;
+          const U = Xg * l;
           f >= U && (p.push(
-            qg(e, m, u, d, f, l)
+            Zg(e, m, u, d, f, l)
           ), m++, u = [], d = [], f = 0);
         } finally {
           C.close();
         }
       f > 0 && (p.push(
-        qg(e, m, u, d, f, l)
+        Zg(e, m, u, d, f, l)
       ), m++);
       const h = m, g = await Promise.all(p);
       g.sort((C, T) => C.binIndex - T.binIndex);
       const v = g.reduce((C, T) => C + T.frames, 0);
       if (g.length === 0 || v === 0)
         throw new Error(`Audio decode produced no output for media ${e}`);
-      const b = g[0]?.sampleRate ?? $x, k = new OfflineAudioContext(2, v, b).createBuffer(2, v, b), M = k.getChannelData(0), S = k.getChannelData(1);
+      const b = g[0]?.sampleRate ?? Hx, k = new OfflineAudioContext(2, v, b).createBuffer(2, v, b), M = k.getChannelData(0), S = k.getChannelData(1);
       let F = 0;
       for (const C of g)
         M.set(Rc(C.left), F), S.set(Rc(C.right), F), F += C.frames;
@@ -43490,14 +43500,14 @@ async function Wx(e, t, r = !1) {
         duration: k.duration.toFixed(2),
         bins: h,
         sizeMB: (v * 2 * 2 / (1024 * 1024)).toFixed(1)
-      }), wd({
+      }), Sd({
         id: e,
         mediaId: e,
         kind: "meta",
         sampleRate: b,
         totalFrames: v,
         binCount: h,
-        binDurationSec: Wg,
+        binDurationSec: Xg,
         createdAt: Date.now()
       }).then(() => {
         pn.info("All bins persisted to IndexedDB", { mediaId: e, binCount: h });
@@ -43510,14 +43520,14 @@ async function Wx(e, t, r = !1) {
   } catch (a) {
     if (!r && !n)
       try {
-        return await Wx(e, t, !0);
+        return await Kx(e, t, !0);
       } catch {
       }
     throw a;
   }
 }
-const X3 = He("Clock");
-class q3 {
+const Z3 = He("Clock");
+class Q3 {
   // Configuration
   _fps;
   _durationInFrames;
@@ -43771,7 +43781,7 @@ class q3 {
       try {
         a(r);
       } catch (i) {
-        X3.error(`Error in clock event listener (${t}):`, i);
+        Z3.error(`Error in clock event listener (${t}):`, i);
       }
     });
   }
@@ -43817,17 +43827,17 @@ class q3 {
     this._animationFrameId !== null && (cancelAnimationFrame(this._animationFrameId), this._animationFrameId = null);
   }
 }
-function Kx(e) {
-  return new q3(e);
+function Xx(e) {
+  return new Q3(e);
 }
-const Xx = y.createContext(null);
+const qx = y.createContext(null);
 function Ha() {
-  const e = y.useContext(Xx);
+  const e = y.useContext(qx);
   if (!e)
     throw new Error("useClock must be used within a ClockProvider");
   return e.clock;
 }
-function qx() {
+function Yx() {
   const e = Ha(), t = y.useCallback(
     (n) => (e.addEventListener("framechange", n), e.addEventListener("seek", n), () => {
       e.removeEventListener("framechange", n), e.removeEventListener("seek", n);
@@ -43836,7 +43846,7 @@ function qx() {
   ), r = y.useCallback(() => e.currentFrame, [e]);
   return y.useSyncExternalStore(t, r, r);
 }
-function Y3() {
+function J3() {
   const e = Ha(), t = y.useCallback(
     (n) => (e.addEventListener("play", n), e.addEventListener("pause", n), e.addEventListener("ended", n), () => {
       e.removeEventListener("play", n), e.removeEventListener("pause", n), e.removeEventListener("ended", n);
@@ -43845,7 +43855,7 @@ function Y3() {
   ), r = y.useCallback(() => e.isPlaying, [e]);
   return y.useSyncExternalStore(t, r, r);
 }
-function Z3() {
+function eL() {
   const e = Ha(), t = y.useCallback(
     (n) => (e.addEventListener("ratechange", n), () => {
       e.removeEventListener("ratechange", n);
@@ -43854,7 +43864,7 @@ function Z3() {
   ), r = y.useCallback(() => e.playbackRate, [e]);
   return y.useSyncExternalStore(t, r, r);
 }
-function Q3({
+function tL({
   children: e,
   fps: t,
   durationInFrames: r,
@@ -43875,7 +43885,7 @@ function Q3({
         loop: a,
         onEnded: i
       };
-      s.current = Kx(u);
+      s.current = Xx(u);
     }
   const c = s.current;
   ge.useEffect(() => {
@@ -43893,29 +43903,29 @@ function Q3({
     }),
     [c]
   );
-  return /* @__PURE__ */ w.jsx(Xx.Provider, { value: l, children: e });
+  return /* @__PURE__ */ w.jsx(qx.Provider, { value: l, children: e });
 }
-const Yx = y.createContext(null), Zx = y.createContext(null);
+const Zx = y.createContext(null), Qx = y.createContext(null);
 function es() {
-  const e = y.useContext(Yx);
+  const e = y.useContext(Zx);
   if (!e)
     throw new Error("useBridgedTimelineContext must be used within a ClockBridgeProvider");
   return e;
 }
-function J3() {
-  const e = y.useContext(Zx);
+function rL() {
+  const e = y.useContext(Qx);
   if (!e)
     throw new Error("useBridgedSetTimelineContext must be used within a ClockBridgeProvider");
   return e;
 }
-function eL() {
+function nL() {
   return es().frame;
 }
-function tL() {
+function aL() {
   return es().playing;
 }
-function q5() {
-  const { setFrame: e } = J3(), { inFrame: t, outFrame: r } = es();
+function Q5() {
+  const { setFrame: e } = rL(), { inFrame: t, outFrame: r } = es();
   return y.useCallback(
     (n) => {
       let a = n;
@@ -43927,20 +43937,20 @@ function q5() {
     [e, t, r]
   );
 }
-function Y5() {
+function J5() {
   const { inFrame: e } = es();
   return e ?? 0;
 }
-function Z5(e) {
+function ej(e) {
   const { outFrame: t } = es();
   return t ?? e - 1;
 }
-function rL({
+function iL({
   children: e,
   inFrame: t,
   outFrame: r
 }) {
-  const n = Ha(), a = qx(), i = Y3(), o = Z3(), s = y.useRef(i);
+  const n = Ha(), a = Yx(), i = J3(), o = eL(), s = y.useRef(i);
   y.useEffect(() => {
     s.current = i;
   }, [i]), y.useEffect(() => {
@@ -43980,9 +43990,9 @@ function rL({
     setFrame: l,
     setPlaying: u
   }), [l, u]);
-  return /* @__PURE__ */ w.jsx(Yx.Provider, { value: c, children: /* @__PURE__ */ w.jsx(Zx.Provider, { value: d, children: e }) });
+  return /* @__PURE__ */ w.jsx(Zx.Provider, { value: c, children: /* @__PURE__ */ w.jsx(Qx.Provider, { value: d, children: e }) });
 }
-function Q5({
+function tj({
   children: e,
   fps: t,
   durationInFrames: r,
@@ -43996,14 +44006,14 @@ function Q5({
   onVolumeChange: u
 }) {
   const d = y.useRef(null);
-  return d.current === null && (d.current = Kx({
+  return d.current === null && (d.current = Xx({
     fps: t,
     durationInFrames: r,
     initialFrame: n,
     loop: i,
     onEnded: c
   }), a !== 1 && (d.current.playbackRate = a)), /* @__PURE__ */ w.jsx(
-    Q3,
+    tL,
     {
       fps: t,
       durationInFrames: r,
@@ -44011,13 +44021,13 @@ function Q5({
       loop: i,
       onEnded: c,
       clock: d.current,
-      children: /* @__PURE__ */ w.jsx(rL, { inFrame: o, outFrame: s, children: e })
+      children: /* @__PURE__ */ w.jsx(iL, { inFrame: o, outFrame: s, children: e })
     }
   );
 }
-const Qx = y.createContext(null);
+const Jx = y.createContext(null);
 function Dn() {
-  return y.useContext(Qx);
+  return y.useContext(Jx);
 }
 const qn = y.memo(
   ({
@@ -44032,7 +44042,7 @@ const qn = y.memo(
     premountFor: c = 0,
     showLoopTimestamps: l
   }) => {
-    const u = qx(), f = Dn()?.from ?? 0, m = f + t, p = m + r, h = m - c, g = u >= m && u < p, v = u >= h && u < p, b = u - m, x = y.useMemo(
+    const u = Yx(), f = Dn()?.from ?? 0, m = f + t, p = m + r, h = m - c, g = u >= m && u < p, v = u >= h && u < p, b = u - m, x = y.useMemo(
       () => ({
         from: m,
         durationInFrames: r,
@@ -44046,7 +44056,7 @@ const qn = y.memo(
       };
       return i === "absolute-fill" && (M.position = "absolute", M.top = 0, M.left = 0, M.right = 0, M.bottom = 0, M.width = "100%", M.height = "100%"), g || (a && !v ? M.display = "none" : (M.visibility = "hidden", M.pointerEvents = "none")), M;
     }, [o, i, g, v, a]);
-    return v ? /* @__PURE__ */ w.jsx(Qx.Provider, { value: x, children: /* @__PURE__ */ w.jsx(
+    return v ? /* @__PURE__ */ w.jsx(Jx.Provider, { value: x, children: /* @__PURE__ */ w.jsx(
       "div",
       {
         "data-sequence-name": n,
@@ -44060,7 +44070,7 @@ const qn = y.memo(
   }
 );
 qn.displayName = "Sequence";
-const Yg = {
+const Qg = {
   position: "absolute",
   top: 0,
   left: 0,
@@ -44073,7 +44083,7 @@ const Yg = {
 }, Fr = y.memo(
   y.forwardRef(
     ({ children: e, style: t, className: r }, n) => {
-      const a = t ? { ...Yg, ...t } : Yg;
+      const a = t ? { ...Qg, ...t } : Qg;
       return /* @__PURE__ */ w.jsx("div", { ref: n, className: r, style: a, children: e });
     }
   )
@@ -44147,14 +44157,14 @@ function Qn(e, t, r, n = {}) {
   let m = 0;
   return u !== l && (m = (e - l) / (u - l)), o && (m = o(m)), d + m * (f - d);
 }
-const Jx = y.createContext(null);
-function nL() {
-  const e = y.useContext(Jx);
+const ew = y.createContext(null);
+function oL() {
+  const e = y.useContext(ew);
   if (!e)
     throw new Error("No video config found. Make sure to use this component within a Player.");
   return e;
 }
-const aL = ({ children: e, fps: t, width: r, height: n, durationInFrames: a, id: i = "player" }) => {
+const sL = ({ children: e, fps: t, width: r, height: n, durationInFrames: a, id: i = "player" }) => {
   const o = y.useMemo(
     () => ({
       fps: t,
@@ -44165,15 +44175,15 @@ const aL = ({ children: e, fps: t, width: r, height: n, durationInFrames: a, id:
     }),
     [t, r, n, a, i]
   );
-  return /* @__PURE__ */ w.jsx(Jx.Provider, { value: o, children: e });
+  return /* @__PURE__ */ w.jsx(ew.Provider, { value: o, children: e });
 };
-function iL(e, t) {
+function cL(e, t) {
   if (e.length !== t.length) return !1;
   for (let r = 0; r < e.length; r++)
     if (e[r] !== t[r]) return !1;
   return !0;
 }
-function oL(e, t) {
+function lL(e, t) {
   const r = [];
   let n = 0, a = 0;
   for (; n < e.length && a < t.length; ) {
@@ -44194,41 +44204,41 @@ function oL(e, t) {
     r.push(t[a]), a += 1;
   return r;
 }
-function ew() {
-  const e = J.getState().mediaDependencyIds, t = It.getState().mediaDependencyIds;
-  return oL(e, t);
-}
 function tw() {
-  const e = ew();
-  sL.setState((t) => iL(t.mediaIds, e) ? t : {
+  const e = J.getState().mediaDependencyIds, t = It.getState().mediaDependencyIds;
+  return lL(e, t);
+}
+function rw() {
+  const e = tw();
+  uL.setState((t) => cL(t.mediaIds, e) ? t : {
     mediaIds: e,
     mediaDependencyVersion: t.mediaDependencyVersion + 1
   });
 }
-const sL = Mt()(() => ({
-  mediaIds: ew(),
+const uL = Mt()(() => ({
+  mediaIds: tw(),
   mediaDependencyVersion: 0
 }));
-let Zg = J.getState().mediaDependencyVersion;
+let Jg = J.getState().mediaDependencyVersion;
 J.subscribe((e) => {
-  e.mediaDependencyVersion !== Zg && (Zg = e.mediaDependencyVersion, tw());
+  e.mediaDependencyVersion !== Jg && (Jg = e.mediaDependencyVersion, rw());
 });
-let Qg = It.getState().mediaDependencyVersion;
+let e0 = It.getState().mediaDependencyVersion;
 It.subscribe((e) => {
-  e.mediaDependencyVersion !== Qg && (Qg = e.mediaDependencyVersion, tw());
+  e.mediaDependencyVersion !== e0 && (e0 = e.mediaDependencyVersion, rw());
 });
-function J5(e) {
+function rj(e) {
   const { tracks: t, items: r, activeTrackId: n, proposedFrame: a, durationInFrames: i, itemType: o } = e, s = tl(t).filter(
     (d) => d.visible !== !1 && !d.locked && !d.muted
   );
   if (s.length === 0)
     return null;
-  const c = sf({
+  const c = lf({
     tracks: s,
     items: r,
     itemType: o,
     preferredTrackId: n
-  }), l = new Set(s.filter((d) => bx(d, r, o)).map((d) => d.id)), u = n ? s.toSorted((d, f) => c && d.id === c.id ? -1 : c && f.id === c.id ? 1 : d.order - f.order) : s.toSorted((d, f) => d.order - f.order);
+  }), l = new Set(s.filter((d) => xx(d, r, o)).map((d) => d.id)), u = n ? s.toSorted((d, f) => c && d.id === c.id ? -1 : c && f.id === c.id ? 1 : d.order - f.order) : s.toSorted((d, f) => d.order - f.order);
   for (const d of u) {
     if (!l.has(d.id))
       continue;
@@ -44263,20 +44273,20 @@ function J5(e) {
   }
   return null;
 }
-const cL = y.createContext(null);
-function mf() {
-  return y.useContext(cL) ?? X2();
+const dL = y.createContext(null);
+function hf() {
+  return y.useContext(dL) ?? Z2();
 }
 function _r() {
+  return oL();
+}
+function nw() {
   return nL();
 }
-function rw() {
-  return eL();
+function gf() {
+  return aL();
 }
-function pf() {
-  return tL();
-}
-const lL = ({
+const fL = ({
   id: e,
   from: t,
   speed: r,
@@ -44465,20 +44475,20 @@ const lL = ({
       ]
     }
   );
-  return typeof document < "u" ? w0.createPortal(S, document.body) : S;
+  return typeof document < "u" ? I0.createPortal(S, document.body) : S;
 };
 function fo(e, t, r, n, a, i = 0) {
   const o = r - i;
   return e / t + o * n / a;
 }
-function nw(e, t, r, n, a) {
+function aw(e, t, r, n, a) {
   return e / t + r * n / a;
 }
-const hf = y.createContext(null);
+const yf = y.createContext(null);
 function rl(e) {
-  return y.useContext(hf)?.getItemKeyframes(e);
+  return y.useContext(yf)?.getItemKeyframes(e);
 }
-const aw = ({ keyframes: e, children: t }) => {
+const iw = ({ keyframes: e, children: t }) => {
   const r = y.useMemo(() => {
     const i = /* @__PURE__ */ new Map();
     if (e)
@@ -44492,9 +44502,9 @@ const aw = ({ keyframes: e, children: t }) => {
     }),
     [e, n]
   );
-  return !e || e.length === 0 ? /* @__PURE__ */ w.jsx(w.Fragment, { children: t }) : /* @__PURE__ */ w.jsx(hf.Provider, { value: a, children: t });
+  return !e || e.length === 0 ? /* @__PURE__ */ w.jsx(w.Fragment, { children: t }) : /* @__PURE__ */ w.jsx(yf.Provider, { value: a, children: t });
 };
-function iw({
+function ow({
   itemId: e,
   liveGainItemIds: t,
   volume: r = 0,
@@ -44515,14 +44525,14 @@ function iw({
   crossfadeFadeOut: v,
   volumeMultiplier: b = 1
 }) {
-  const k = Dn()?.localFrame ?? 0, { fps: M } = _r(), S = pf(), C = Er(
+  const k = Dn()?.localFrame ?? 0, { fps: M } = _r(), S = gf(), C = Er(
     y.useCallback((L) => L.preview?.[e], [e])
   )?.properties, T = Qe((L) => L.volume), R = Qe((L) => L.muted), P = rl(e), _ = we(
     y.useCallback(
       (L) => L.keyframes.find((ae) => ae.itemId === e),
       [e]
     )
-  ), $ = Bd(P ?? _, "volume"), U = C?.volume ?? r, j = $.length > 0 ? Wc($, k, U) : U, A = (d ? $T(k, d) : ku({
+  ), $ = Nd(P ?? _, "volume"), U = C?.volume ?? r, j = $.length > 0 ? Wc($, k, U) : U, A = (d ? HT(k, d) : ku({
     frame: k,
     durationInFrames: a,
     fadeInFrames: (C?.audioFadeIn ?? i) * M,
@@ -44541,9 +44551,9 @@ function iw({
     fadeInFrames: g,
     fadeOutFrames: v,
     useEqualPower: !0
-  }), H = Math.pow(10, j / 20), N = n ? 0 : Math.max(0, H * A), O = R ? 0 : T, Y = gx([e, ...t ?? []]);
+  }), H = Math.pow(10, j / 20), N = n ? 0 : Math.max(0, H * A), O = R ? 0 : T, Y = yx([e, ...t ?? []]);
   return y.useEffect(() => {
-    of(e);
+    cf(e);
   }, [e, r]), {
     frame: k,
     fps: M,
@@ -44583,7 +44593,7 @@ const Ac = ge.memo(({
   liveGainItemIds: M,
   volumeMultiplier: S = 1
 }) => {
-  const { frame: F, fps: C, playing: T, resolvedVolume: R } = iw({
+  const { frame: F, fps: C, playing: T, resolvedVolume: R } = ow({
     itemId: t,
     liveGainItemIds: M,
     volume: r,
@@ -44639,7 +44649,7 @@ const Ac = ge.memo(({
   }, [R, o]), y.useEffect(() => {
     const A = P.current;
     if (!A) return;
-    const H = i ?? C, N = nw(a, H, F, n, C), O = Math.max(0, a / H), Y = F < 0, L = Y ? O : Math.max(0, N), ae = j.current, se = F !== ae;
+    const H = i ?? C, N = aw(a, H, F, n, C), O = Math.max(0, a / H), Y = F < 0, L = Y ? O : Math.max(0, N), ae = j.current, se = F !== ae;
     j.current = F;
     const le = A.readyState >= 1;
     if (Y) {
@@ -44738,7 +44748,7 @@ const Ac = ge.memo(({
       }
     }
   }, [F, C, i, T, n, a]), null;
-}), uL = y.memo(function({ frame: t, fit: r, style: n }) {
+}), mL = y.memo(function({ frame: t, fit: r, style: n }) {
   const a = y.useRef(null), i = y.useRef(null);
   return y.useEffect(() => {
     const o = a.current, s = i.current;
@@ -44780,7 +44790,7 @@ const Ac = ge.memo(({
       )
     }
   );
-}), dL = ({
+}), pL = ({
   mediaId: e,
   src: t,
   fit: r = "cover",
@@ -44789,7 +44799,7 @@ const Ac = ge.memo(({
   format: i = "gif",
   style: o
 }) => {
-  const c = Dn()?.localFrame ?? 0, { fps: l } = _r(), { getFrameAtTime: u, totalDuration: d, isLoading: f, isComplete: m, frames: p, error: h } = pO({
+  const c = Dn()?.localFrame ?? 0, { fps: l } = _r(), { getFrameAtTime: u, totalDuration: d, isLoading: f, isComplete: m, frames: p, error: h } = yO({
     mediaId: e,
     blobUrl: t,
     isVisible: !0,
@@ -44821,9 +44831,9 @@ const Ac = ge.memo(({
         "..."
       ] })
     }
-  ) : /* @__PURE__ */ w.jsx(Fr, { style: o, children: /* @__PURE__ */ w.jsx(uL, { frame: g, fit: r }) });
-}, ow = y.createContext(null);
-function fL(e, t, r, n) {
+  ) : /* @__PURE__ */ w.jsx(Fr, { style: o, children: /* @__PURE__ */ w.jsx(mL, { frame: g, fit: r }) });
+}, sw = y.createContext(null);
+function hL(e, t, r, n) {
   const a = e > 0 ? r / e : 1, i = t > 0 ? n / t : 1;
   return {
     scaleX: a,
@@ -44831,9 +44841,9 @@ function fL(e, t, r, n) {
     scale: Math.min(a, i)
   };
 }
-const sw = ({ projectWidth: e, projectHeight: t, renderWidth: r, renderHeight: n, children: a }) => {
+const cw = ({ projectWidth: e, projectHeight: t, renderWidth: r, renderHeight: n, children: a }) => {
   const i = y.useMemo(() => {
-    const o = e > 0 ? e : r, s = t > 0 ? t : n, { scaleX: c, scaleY: l, scale: u } = fL(
+    const o = e > 0 ? e : r, s = t > 0 ? t : n, { scaleX: c, scaleY: l, scale: u } = hL(
       o,
       s,
       r,
@@ -44849,12 +44859,12 @@ const sw = ({ projectWidth: e, projectHeight: t, renderWidth: r, renderHeight: n
       scale: u
     };
   }, [e, t, r, n]);
-  return /* @__PURE__ */ w.jsx(ow.Provider, { value: i, children: a });
+  return /* @__PURE__ */ w.jsx(sw.Provider, { value: i, children: a });
 };
 function nl() {
-  return y.useContext(ow);
+  return y.useContext(sw);
 }
-function mL(e, t = []) {
+function gL(e, t = []) {
   const { width: r, height: n, fps: a } = _r(), i = nl(), o = i?.projectWidth ?? r, s = i?.projectHeight ?? n, c = i?.scaleX ?? 1, l = i?.scaleY ?? 1, u = i?.scale ?? 1, f = Dn()?.localFrame ?? 0, m = { width: o, height: s, fps: a }, p = { width: r, height: n, fps: a }, h = f - (e._sequenceFrameOffset ?? 0), g = Er((H) => H.activeGizmo), v = Er((H) => H.previewTransform), b = Er(
     y.useCallback((H) => H.preview?.[e.id], [e.id])
   ), x = rl(e.id), k = we(
@@ -44862,18 +44872,18 @@ function mL(e, t = []) {
       (H) => H.keyframes.find((N) => N.itemId === e.id),
       [e.id]
     )
-  ), M = x ?? k, S = y.useMemo(() => new Set(t.map((H) => H.shape.id)), [t]), F = sh(
+  ), M = x ?? k, S = y.useMemo(() => new Set(t.map((H) => H.shape.id)), [t]), F = lh(
     y.useCallback((H) => !H.editingItemId || !H.previewVertices || !S.has(H.editingItemId) ? null : H.editingItemId, [S])
-  ), C = sh(
+  ), C = lh(
     y.useCallback((H) => !H.editingItemId || !H.previewVertices || !S.has(H.editingItemId) ? null : H.previewVertices, [S])
   ), { transform: T, transformStyle: R, fadeOpacity: P, finalOpacity: _ } = y.useMemo(() => {
-    const H = g?.itemId === e.id && v !== null, N = b?.transform, O = N !== void 0, Y = b?.properties, L = kb(e, {
+    const H = g?.itemId === e.id && v !== null, N = b?.transform, O = N !== void 0, Y = b?.properties, L = Tb(e, {
       canvas: m,
       relativeFrame: h,
       keyframes: M
     });
     let ae = L;
-    O && N ? ae = Js(L, N) : H && v && (ae = Js(L, v)), e.type === "text" && (ae = wb(e, ae, Y));
+    O && N ? ae = Js(L, N) : H && v && (ae = Js(L, v)), e.type === "text" && (ae = Sb(e, ae, Y));
     const se = Y?.fadeIn ?? e.fadeIn ?? 0, le = Y?.fadeOut ?? e.fadeOut ?? 0, ee = Math.min(se * a, e.durationInFrames), Z = Math.min(le * a, e.durationInFrames);
     let fe = 1;
     const E = ee > 0, pe = Z > 0;
@@ -44915,7 +44925,7 @@ function mL(e, t = []) {
       height: ae.height * l,
       cornerRadius: ae.cornerRadius * u,
       opacity: W
-    }, X = sP(K, p);
+    }, X = uP(K, p);
     return {
       transform: ae,
       transformStyle: X,
@@ -45036,45 +45046,45 @@ function mL(e, t = []) {
     propertiesPreview: A
   };
 }
-const Jg = 960, pL = 48, hL = 256, Fn = /* @__PURE__ */ new Map(), ga = /* @__PURE__ */ new Map();
-let e0 = null;
-function gL(e) {
+const t0 = 960, yL = 48, vL = 256, Fn = /* @__PURE__ */ new Map(), ga = /* @__PURE__ */ new Map();
+let r0 = null;
+function bL(e) {
   const t = Fn.get(e);
   return t ? (Fn.delete(e), Fn.set(e, t), t) : null;
 }
-function yL(e, t) {
-  for (Fn.has(e) && Fn.delete(e), Fn.set(e, t); Fn.size > pL; ) {
+function xL(e, t) {
+  for (Fn.has(e) && Fn.delete(e), Fn.set(e, t); Fn.size > yL; ) {
     const r = Fn.keys().next().value;
     if (!r) break;
     Fn.delete(r);
   }
 }
-function vL(e) {
+function wL(e) {
   const t = ga.get(e);
   if (t)
     return ga.delete(e), ga.set(e, t), t;
   const r = new Path2D(e);
-  for (ga.set(e, r); ga.size > hL; ) {
+  for (ga.set(e, r); ga.size > vL; ) {
     const n = ga.keys().next().value;
     if (!n) break;
     ga.delete(n);
   }
   return r;
 }
-function bL(e, t) {
+function SL(e, t) {
   if (typeof document > "u") return null;
-  const r = e0 ?? document.createElement("canvas");
-  e0 = r, r.width !== e && (r.width = e), r.height !== t && (r.height = t);
+  const r = r0 ?? document.createElement("canvas");
+  r0 = r, r.width !== e && (r.width = e), r.height !== t && (r.height = t);
   try {
     return r.getContext("2d");
   } catch {
     return null;
   }
 }
-function t0(e) {
+function n0(e) {
   return Math.round(e * 1e3) / 1e3;
 }
-function xL(e) {
+function IL(e) {
   let t = 2166136261;
   for (const { path: r, strokeWidth: n } of e) {
     for (let a = 0; a < r.length; a += 1)
@@ -45083,21 +45093,21 @@ function xL(e) {
   }
   return (t >>> 0).toString(36);
 }
-function wL(e, t, r) {
+function kL(e, t, r) {
   if (e <= 0.5) return 1;
   const n = Math.max(1, Math.round(t), Math.round(r));
-  return n <= Jg ? 1 : Jg / n;
+  return n <= t0 ? 1 : t0 / n;
 }
-function SL(e, t, r) {
-  const n = wL(e, t, r);
+function TL(e, t, r) {
+  const n = kL(e, t, r);
   return {
     width: Math.max(1, Math.round(t * n)),
     height: Math.max(1, Math.round(r * n)),
     scale: n
   };
 }
-function IL(e, t, r, n, a) {
-  const { width: i, height: o, scale: s } = SL(
+function ML(e, t, r, n, a) {
+  const { width: i, height: o, scale: s } = TL(
     n,
     t,
     r
@@ -45108,29 +45118,29 @@ function IL(e, t, r, n, a) {
     type: "svg-mask",
     width: i,
     height: o,
-    scale: t0(s),
-    feather: t0(n),
+    scale: n0(s),
+    feather: n0(n),
     invert: a,
-    pathHash: xL(e)
-  }), l = gL(c);
+    pathHash: IL(e)
+  }), l = bL(c);
   if (l) return l;
-  const u = bL(i, o);
+  const u = SL(i, o);
   if (!u) return null;
   u.setTransform(1, 0, 0, 1, 0, 0), u.filter = "none", u.globalCompositeOperation = "source-over", u.clearRect(0, 0, i, o), a ? (u.fillStyle = "#ffffff", u.fillRect(0, 0, i, o), u.globalCompositeOperation = "destination-out") : u.globalCompositeOperation = "source-over";
   const d = n * s;
   u.fillStyle = "#ffffff", u.strokeStyle = "#ffffff", d > 0.5 && (u.filter = `blur(${d}px)`), u.save(), u.scale(s, s);
   for (const { path: m, strokeWidth: p } of e) {
-    const h = vL(m);
+    const h = wL(m);
     u.fill(h), p > 0 && (u.lineWidth = p, u.stroke(h));
   }
   u.restore(), u.filter = "none", u.globalCompositeOperation = "source-over";
   const f = u.canvas.toDataURL("image/png");
-  return yL(c, f), f;
+  return xL(c, f), f;
 }
 function js(e, t) {
   return !Number.isFinite(e) || !Number.isFinite(t) || t <= 0 ? "0%" : `${e / t * 100}%`;
 }
-function kL(e) {
+function FL(e) {
   const { mediaRect: t, viewportRect: r, featherPixels: n, crop: a } = e;
   if (!(a.left > 0 || a.right > 0 || a.top > 0 || a.bottom > 0)) return;
   const o = t.width, s = t.height;
@@ -45155,7 +45165,7 @@ function kL(e) {
   if (g.length !== 0)
     return g.join(", ");
 }
-function TL({
+function CL({
   sourceWidth: e,
   sourceHeight: t,
   containerWidth: r,
@@ -45163,7 +45173,7 @@ function TL({
   crop: a,
   children: i
 }) {
-  const o = By(
+  const o = Uy(
     e,
     t,
     r,
@@ -45172,7 +45182,7 @@ function TL({
   );
   if (o.mediaRect.width <= 0 || o.mediaRect.height <= 0)
     return /* @__PURE__ */ w.jsx("div", { style: { position: "relative", width: "100%", height: "100%" } });
-  const s = kL(o), c = s?.includes(", ") ? "intersect" : void 0;
+  const s = FL(o), c = s?.includes(", ") ? "intersect" : void 0;
   return /* @__PURE__ */ w.jsx("div", { style: { position: "relative", width: "100%", height: "100%" }, children: /* @__PURE__ */ w.jsx(
     "div",
     {
@@ -45199,7 +45209,7 @@ const ya = ({
   mediaContent: r,
   children: n
 }) => {
-  const { width: a, height: i } = _r(), o = mL(e, t), s = o.maskType === "svg-mask" && !!o.svgMaskPaths && o.maskFeather > 0, c = y.useMemo(() => !s || !o.svgMaskPaths ? null : IL(
+  const { width: a, height: i } = _r(), o = gL(e, t), s = o.maskType === "svg-mask" && !!o.svgMaskPaths && o.maskFeather > 0, c = y.useMemo(() => !s || !o.svgMaskPaths ? null : ML(
     o.svgMaskPaths,
     a,
     i,
@@ -45227,14 +45237,14 @@ const ya = ({
   } : o.maskType === "svg-mask" && o.svgMaskId ? {
     mask: `url(#${o.svgMaskId})`,
     WebkitMask: `url(#${o.svgMaskId})`
-  } : {}, [o.maskType, o.maskClipPath, o.svgMaskId, c]), d = aP(
+  } : {}, [o.maskType, o.maskClipPath, o.svgMaskId, c]), d = sP(
     (b) => b.editingItemId === e.id ? b.previewCornerPin : null
   ) ?? e.cornerPin, f = y.useMemo(() => {
-    if (!Ob(d)) return null;
+    if (!Lb(d)) return null;
     const b = o.transform.width, x = o.transform.height;
     return {
       transformOrigin: "0 0",
-      transform: LP(b, x, d)
+      transform: UP(b, x, d)
     };
   }, [d, o.transform.width, o.transform.height]), m = y.useMemo(() => {
     if (c || o.maskType !== "svg-mask" || !o.svgMaskId || !o.svgMaskPaths)
@@ -45290,7 +45300,7 @@ const ya = ({
         ] })
       }
     );
-  }, [c, o.maskType, o.svgMaskId, o.svgMaskPaths, o.maskFeather, o.maskInvert, a, i]), p = e.blendMode && e.blendMode !== "normal" ? BA[e.blendMode] : void 0, h = y.useMemo(() => ({
+  }, [c, o.maskType, o.svgMaskId, o.svgMaskPaths, o.maskFeather, o.maskInvert, a, i]), p = e.blendMode && e.blendMode !== "normal" ? zA[e.blendMode] : void 0, h = y.useMemo(() => ({
     position: "absolute",
     left: 0,
     top: 0,
@@ -45299,7 +45309,7 @@ const ya = ({
     ...l,
     mixBlendMode: p
   }), [l, p]), g = r?.fitMode === "contain" ? /* @__PURE__ */ w.jsx(
-    TL,
+    CL,
     {
       sourceWidth: r.sourceWidth ?? o.transform.width,
       sourceHeight: r.sourceHeight ?? o.transform.height,
@@ -45359,17 +45369,17 @@ const ya = ({
       }
     ) })
   ] });
-}, ML = Xd;
-function FL(e) {
-  return xb(e);
+}, EL = qd;
+function PL(e) {
+  return wb(e);
 }
-function CL(e) {
-  return pP(e);
+function RL(e) {
+  return yP(e);
 }
-const EL = ({ item: e }) => {
+const AL = ({ item: e }) => {
   const t = nl(), r = t?.scaleX ?? 1, n = t?.scaleY ?? 1, a = t?.scale ?? 1, o = Er(
     y.useCallback((T) => T.preview?.[e.id], [e.id])
-  )?.properties, s = (o?.fontSize ?? e.fontSize ?? 60) * a, c = (o?.letterSpacing ?? e.letterSpacing ?? 0) * r, l = o?.lineHeight ?? e.lineHeight ?? 1.2, u = o?.color ?? e.color, d = o?.backgroundColor ?? e.backgroundColor, f = o !== void 0 && Object.prototype.hasOwnProperty.call(o, "textShadow"), m = o !== void 0 && Object.prototype.hasOwnProperty.call(o, "stroke"), p = f ? o.textShadow : e.textShadow, h = m ? o.stroke : e.stroke, g = e.fontFamily ?? "Inter", v = FL(g), b = ML[e.fontWeight ?? "normal"] ?? 400, k = {
+  )?.properties, s = (o?.fontSize ?? e.fontSize ?? 60) * a, c = (o?.letterSpacing ?? e.letterSpacing ?? 0) * r, l = o?.lineHeight ?? e.lineHeight ?? 1.2, u = o?.color ?? e.color, d = o?.backgroundColor ?? e.backgroundColor, f = o !== void 0 && Object.prototype.hasOwnProperty.call(o, "textShadow"), m = o !== void 0 && Object.prototype.hasOwnProperty.call(o, "stroke"), p = f ? o.textShadow : e.textShadow, h = m ? o.stroke : e.stroke, g = e.fontFamily ?? "Inter", v = PL(g), b = EL[e.fontWeight ?? "normal"] ?? 400, k = {
     left: "flex-start",
     center: "center",
     right: "flex-end"
@@ -45419,8 +45429,8 @@ const EL = ({ item: e }) => {
       )
     }
   );
-}, PL = ({ width: e, height: t, cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
-  const { path: c } = zu({ width: e, height: t, cornerRadius: r });
+}, DL = ({ width: e, height: t, cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
+  const { path: c } = ju({ width: e, height: t, cornerRadius: r });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45432,8 +45442,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: c, fill: n, stroke: a, strokeWidth: i })
     }
   );
-}, RL = ({ radius: e, fill: t, stroke: r, strokeWidth: n, style: a, className: i }) => {
-  const { path: o, width: s, height: c } = Eb({ radius: e });
+}, _L = ({ radius: e, fill: t, stroke: r, strokeWidth: n, style: a, className: i }) => {
+  const { path: o, width: s, height: c } = Pb({ radius: e });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45445,8 +45455,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: o, fill: t, stroke: r, strokeWidth: n })
     }
   );
-}, AL = ({ rx: e, ry: t, fill: r, stroke: n, strokeWidth: a, style: i, className: o }) => {
-  const { path: s, width: c, height: l } = Pb({ rx: e, ry: t });
+}, OL = ({ rx: e, ry: t, fill: r, stroke: n, strokeWidth: a, style: i, className: o }) => {
+  const { path: s, width: c, height: l } = Rb({ rx: e, ry: t });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45458,8 +45468,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: s, fill: r, stroke: n, strokeWidth: a })
     }
   );
-}, DL = ({ length: e, direction: t = "up", cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
-  const { path: c, width: l, height: u } = Rb({ length: e, direction: t, cornerRadius: r });
+}, LL = ({ length: e, direction: t = "up", cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
+  const { path: c, width: l, height: u } = Ab({ length: e, direction: t, cornerRadius: r });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45471,8 +45481,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: c, fill: n, stroke: a, strokeWidth: i })
     }
   );
-}, _L = ({ points: e, outerRadius: t, innerRadius: r, cornerRadius: n = 0, fill: a, stroke: i, strokeWidth: o, style: s, className: c }) => {
-  const { path: l, width: u, height: d } = Ab({ points: e, outerRadius: t, innerRadius: r, cornerRadius: n });
+}, BL = ({ points: e, outerRadius: t, innerRadius: r, cornerRadius: n = 0, fill: a, stroke: i, strokeWidth: o, style: s, className: c }) => {
+  const { path: l, width: u, height: d } = Db({ points: e, outerRadius: t, innerRadius: r, cornerRadius: n });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45484,8 +45494,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: l, fill: a, stroke: i, strokeWidth: o })
     }
   );
-}, OL = ({ points: e, radius: t, cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
-  const { path: c, width: l, height: u } = Db({ points: e, radius: t, cornerRadius: r });
+}, NL = ({ points: e, radius: t, cornerRadius: r = 0, fill: n, stroke: a, strokeWidth: i, style: o, className: s }) => {
+  const { path: c, width: l, height: u } = _b({ points: e, radius: t, cornerRadius: r });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45497,8 +45507,8 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: c, fill: n, stroke: a, strokeWidth: i })
     }
   );
-}, LL = ({ height: e, fill: t, stroke: r, strokeWidth: n, style: a, className: i }) => {
-  const o = _b({ height: e });
+}, UL = ({ height: e, fill: t, stroke: r, strokeWidth: n, style: a, className: i }) => {
+  const o = Ob({ height: e });
   return /* @__PURE__ */ w.jsx(
     "svg",
     {
@@ -45510,7 +45520,7 @@ const EL = ({ item: e }) => {
       children: /* @__PURE__ */ w.jsx("path", { d: o.path, fill: t, stroke: r, strokeWidth: n })
     }
   );
-}, BL = ({ item: e }) => {
+}, zL = ({ item: e }) => {
   const t = nl(), r = t?.scaleX ?? 1, n = t?.scaleY ?? 1, a = t?.scale ?? 1, i = Er((B) => B.activeGizmo), o = Er((B) => B.previewTransform), s = Er(
     y.useCallback((B) => B.preview?.[e.id], [e.id])
   ), c = s?.properties, l = c?.fillColor ?? e.fillColor ?? "#3b82f6", u = c?.strokeColor ?? e.strokeColor, d = (c?.strokeWidth ?? e.strokeWidth ?? 0) * a, f = (c?.cornerRadius ?? e.cornerRadius ?? 0) * a, m = c?.direction ?? e.direction ?? "up", p = c?.points ?? e.points ?? 5, h = c?.innerRadius ?? e.innerRadius ?? 0.5, g = c?.shapeType ?? e.shapeType;
@@ -45535,7 +45545,7 @@ const EL = ({ item: e }) => {
   switch (g) {
     case "rectangle":
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx(
-        PL,
+        DL,
         {
           width: v,
           height: b,
@@ -45547,7 +45557,7 @@ const EL = ({ item: e }) => {
     case "circle": {
       const B = C / 2;
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx("div", { style: _, children: /* @__PURE__ */ w.jsx(
-        RL,
+        _L,
         {
           radius: B,
           fill: l,
@@ -45557,7 +45567,7 @@ const EL = ({ item: e }) => {
     }
     case "triangle":
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx("div", { style: _, children: /* @__PURE__ */ w.jsx(
-        DL,
+        LL,
         {
           length: C,
           direction: m,
@@ -45569,7 +45579,7 @@ const EL = ({ item: e }) => {
     case "ellipse": {
       const B = v / 2, $ = b / 2;
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx(
-        AL,
+        OL,
         {
           rx: B,
           ry: $,
@@ -45581,7 +45591,7 @@ const EL = ({ item: e }) => {
     case "star": {
       const B = C / 2, $ = B * h;
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx("div", { style: _, children: /* @__PURE__ */ w.jsx(
-        _L,
+        BL,
         {
           points: p,
           outerRadius: B,
@@ -45595,7 +45605,7 @@ const EL = ({ item: e }) => {
     case "polygon": {
       const B = C / 2;
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx("div", { style: _, children: /* @__PURE__ */ w.jsx(
-        OL,
+        NL,
         {
           points: p,
           radius: B,
@@ -45608,7 +45618,7 @@ const EL = ({ item: e }) => {
     case "heart": {
       const B = C / 1.1;
       return /* @__PURE__ */ w.jsx("div", { style: F, children: /* @__PURE__ */ w.jsx("div", { style: _, children: /* @__PURE__ */ w.jsx(
-        LL,
+        UL,
         {
           height: B,
           fill: l,
@@ -45650,20 +45660,20 @@ const EL = ({ item: e }) => {
       );
   }
 }, Pi = /* @__PURE__ */ new Map();
-function NL(e) {
+function jL(e) {
   const t = Pi.get(e);
   if (t) return t;
   const r = /* @__PURE__ */ new Set();
   return Pi.set(e, r), r;
 }
-function UL(e, t) {
-  NL(e).add(t);
+function VL(e, t) {
+  jL(e).add(t);
 }
-function r0(e, t) {
+function a0(e, t) {
   const r = Pi.get(e);
   r && (r.delete(t), r.size === 0 && Pi.delete(e));
 }
-function ej(e) {
+function nj(e) {
   const t = Pi.get(e);
   if (!t || t.size === 0)
     return null;
@@ -45677,19 +45687,19 @@ function ej(e) {
   }
   return t.size === 0 && Pi.delete(e), r;
 }
-const ed = /* @__PURE__ */ new WeakSet(), td = /* @__PURE__ */ new WeakMap(), Dc = /* @__PURE__ */ new WeakMap(), rd = 8e-3;
+const td = /* @__PURE__ */ new WeakSet(), rd = /* @__PURE__ */ new WeakMap(), Dc = /* @__PURE__ */ new WeakMap(), nd = 8e-3;
 let wi = null;
-function zL() {
+function $L() {
   if (typeof window > "u") return null;
   const e = window, t = window.AudioContext ?? e.webkitAudioContext;
   return t ? ((wi === null || wi.state === "closed") && (wi = new t()), wi) : null;
 }
-function n0(e, t) {
-  if (e.muted = !1, ed.has(e)) {
-    const r = td.get(e), n = Dc.get(e);
+function i0(e, t) {
+  if (e.muted = !1, td.has(e)) {
+    const r = rd.get(e), n = Dc.get(e);
     if (r && n && n.state === "running") {
       const a = n.currentTime;
-      r.gain.cancelScheduledValues(a), r.gain.setValueAtTime(r.gain.value, a), r.gain.linearRampToValueAtTime(Math.max(0, t), a + rd);
+      r.gain.cancelScheduledValues(a), r.gain.setValueAtTime(r.gain.value, a), r.gain.linearRampToValueAtTime(Math.max(0, t), a + nd);
     } else r && (r.gain.value = t);
     n?.state === "suspended" && n.resume();
     return;
@@ -45699,38 +45709,38 @@ function n0(e, t) {
     return;
   }
   try {
-    const r = zL();
+    const r = $L();
     if (!r) {
       e.volume = Math.min(1, Math.max(0, t));
       return;
     }
     const n = r.createGain();
-    n.gain.value = 0, r.createMediaElementSource(e).connect(n), n.connect(r.destination), ed.add(e), td.set(e, n), Dc.set(e, r), r.state === "suspended" && r.resume();
+    n.gain.value = 0, r.createMediaElementSource(e).connect(n), n.connect(r.destination), td.add(e), rd.set(e, n), Dc.set(e, r), r.state === "suspended" && r.resume();
     const i = r.currentTime;
-    n.gain.setValueAtTime(0, i), n.gain.linearRampToValueAtTime(Math.max(0, t), i + rd);
+    n.gain.setValueAtTime(0, i), n.gain.linearRampToValueAtTime(Math.max(0, t), i + nd);
   } catch {
     e.volume = Math.min(1, Math.max(0, t));
   }
 }
-function jL() {
+function HL() {
   wi?.state === "suspended" && wi.resume();
 }
-function a0(e) {
-  const t = td.get(e), r = Dc.get(e);
+function o0(e) {
+  const t = rd.get(e), r = Dc.get(e);
   if (t && r && r.state === "running") {
     const n = r.currentTime;
-    t.gain.cancelScheduledValues(n), t.gain.setValueAtTime(t.gain.value, n), t.gain.linearRampToValueAtTime(0, n + rd);
+    t.gain.cancelScheduledValues(n), t.gain.setValueAtTime(t.gain.value, n), t.gain.linearRampToValueAtTime(0, n + nd);
   } else t ? t.gain.value = 0 : e.volume = 0;
 }
-function tj(e, t) {
+function aj(e, t) {
   if (Math.abs(e.playbackRate - t) > 0.01 && (e.playbackRate = t), !e.paused) {
-    a0(e);
+    o0(e);
     return;
   }
-  a0(e), e.play().catch(() => {
+  o0(e), e.play().catch(() => {
   });
 }
-function VL(e, t) {
+function GL(e, t) {
   const { fps: r } = _r(), i = (Dn()?.localFrame ?? 0) - (e._sequenceFrameOffset ?? 0), s = Er(
     y.useCallback((z) => z.preview?.[e.id], [e.id])
   )?.properties, c = Qe((z) => z.volume), l = Qe((z) => z.muted), u = rl(e.id), d = we(
@@ -45738,7 +45748,7 @@ function VL(e, t) {
       (z) => z.keyframes.find((A) => A.itemId === e.id),
       [e.id]
     )
-  ), m = Bd(u ?? d, "volume"), p = s?.volume ?? e.volume ?? 0, g = (m.length > 0 ? Wc(m, i, p) : p) + (e.trackVolumeDb ?? 0), v = s?.audioFadeIn ?? e.audioFadeIn ?? 0, b = s?.audioFadeOut ?? e.audioFadeOut ?? 0, x = s?.audioFadeInCurve ?? e.audioFadeInCurve ?? 0, k = s?.audioFadeOutCurve ?? e.audioFadeOutCurve ?? 0, M = s?.audioFadeInCurveX ?? e.audioFadeInCurveX ?? 0.52, S = s?.audioFadeOutCurveX ?? e.audioFadeOutCurveX ?? 0.52;
+  ), m = Nd(u ?? d, "volume"), p = s?.volume ?? e.volume ?? 0, g = (m.length > 0 ? Wc(m, i, p) : p) + (e.trackVolumeDb ?? 0), v = s?.audioFadeIn ?? e.audioFadeIn ?? 0, b = s?.audioFadeOut ?? e.audioFadeOut ?? 0, x = s?.audioFadeInCurve ?? e.audioFadeInCurve ?? 0, k = s?.audioFadeOutCurve ?? e.audioFadeOutCurve ?? 0, M = s?.audioFadeInCurveX ?? e.audioFadeInCurveX ?? 0.52, S = s?.audioFadeOutCurveX ?? e.audioFadeOutCurveX ?? 0.52;
   if (t) return 0;
   const F = Math.min(v * r, e.durationInFrames), C = Math.min(b * r, e.durationInFrames);
   let T = 1;
@@ -45763,14 +45773,14 @@ function VL(e, t) {
         );
     else R ? T = uc(i / F, x, M) : T = dc((i - z) / C, k, S);
   }
-  const _ = Math.pow(10, g / 20), B = Math.max(0, _ * T), $ = l ? 0 : c, U = X_(e.id), j = e.trackVolumeDb;
+  const _ = Math.pow(10, g / 20), B = Math.max(0, _ * T), $ = l ? 0 : c, U = Z_(e.id), j = e.trackVolumeDb;
   return y.useEffect(() => {
-    of(e.id);
+    cf(e.id);
   }, [j, e.id]), B * $ * U;
 }
-const Tr = He("NativePreviewVideo"), $L = He("VideoContent");
+const Tr = He("NativePreviewVideo"), WL = He("VideoContent");
 Tr.setLevel(2);
-const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback" in HTMLVideoElement.prototype, GL = ({
+const KL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback" in HTMLVideoElement.prototype, XL = ({
   poolClipId: e,
   itemId: t,
   src: r,
@@ -45785,11 +45795,11 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
   forceCssComposite: d = !1,
   sharedTransitionSync: f = !1
 }) => {
-  const p = Dn()?.localFrame ?? 0, { fps: h } = _r(), g = mf(), v = y.useRef(null), b = y.useRef(null), x = y.useRef(null), k = y.useRef(0), M = y.useRef(s), S = y.useRef(c), F = y.useRef(Date.now()), C = y.useRef(!0), T = y.useRef(-1), R = y.useRef(null), P = y.useRef(null);
+  const p = Dn()?.localFrame ?? 0, { fps: h } = _r(), g = hf(), v = y.useRef(null), b = y.useRef(null), x = y.useRef(null), k = y.useRef(0), M = y.useRef(s), S = y.useRef(c), F = y.useRef(Date.now()), C = y.useRef(!0), T = y.useRef(-1), R = y.useRef(null), P = y.useRef(null);
   M.current = s, S.current = c;
   const _ = Ha(), B = y.useRef(0), $ = y.useRef(n), U = y.useRef(i), j = y.useRef(o), z = y.useRef(h), A = y.useRef(a);
   $.current = n, U.current = i, j.current = o, z.current = h, A.current = a;
-  const H = pf(), N = fo(
+  const H = gf(), N = fo(
     n,
     i,
     p,
@@ -45804,10 +45814,10 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
   }, [t]);
   const L = y.useCallback((ee, Z) => {
     const fe = R.current, E = P.current;
-    fe && E && (fe !== Z || E !== ee) && r0(E, fe), Z && (fe !== Z || E !== ee) && UL(ee, Z), R.current = Z, P.current = Z ? ee : null;
+    fe && E && (fe !== Z || E !== ee) && a0(E, fe), Z && (fe !== Z || E !== ee) && VL(ee, Z), R.current = Z, P.current = Z ? ee : null;
   }, []), ae = y.useCallback(() => {
     const ee = R.current, Z = P.current;
-    ee && Z && r0(Z, ee), R.current = null, P.current = null;
+    ee && Z && a0(Z, ee), R.current = null, P.current = null;
   }, []);
   if (y.useLayoutEffect(() => {
     L(t, v.current);
@@ -45818,14 +45828,14 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
     }
     let ee = !1;
     C.current = !0, F.current = 0, Tr.debug(`[${Y}] acquiring element for:`, r), g.preloadSource(r).catch((xe) => {
-      ee || K2(xe) || Tr.warn(`Failed to preload ${r}:`, xe);
+      ee || Y2(xe) || Tr.warn(`Failed to preload ${r}:`, xe);
     });
     const Z = g.acquireForClip(e, r);
     if (!Z) {
       Tr.error(`Failed to acquire element for ${e}`);
       return;
     }
-    if (Tr.debug(`[${Y}] acquired:`, Z.readyState), Z.muted = !1, ed.has(Z)) {
+    if (Tr.debug(`[${Y}] acquired:`, Z.readyState), Z.muted = !1, td.has(Z)) {
       const xe = Dc.get(Z);
       xe?.state === "suspended" && xe.resume();
     }
@@ -45837,7 +45847,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
       h,
       a
     ), E = Math.min(fe, (Z.duration || 1 / 0) - 0.1), pe = Qe.getState().isPlaying, W = Math.abs(Z.currentTime - E) < 0.2, K = pe && W && Z.readyState >= 2;
-    v.current = Z, L(t, Z), n0(Z, M.current), K ? (Z.playbackRate = o, Z.play().catch(() => {
+    v.current = Z, L(t, Z), i0(Z, M.current), K ? (Z.playbackRate = o, Z.play().catch(() => {
     }), C.current = !1) : pe ? (Z.playbackRate = o, Z.currentTime = E, Z.readyState >= 2 && Z.play().catch(() => {
     }), C.current = !1) : Z.pause();
     const X = () => {
@@ -45902,7 +45912,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
         }
       }
     }, 3e3)), () => {
-      ee = !0, Z.removeEventListener("canplay", X), Z.removeEventListener("seeked", q), Z.removeEventListener("error", ie), Z.removeEventListener("ended", me), Z.pause(), b.current !== null && (clearTimeout(b.current), b.current = null), x.current !== null && (clearTimeout(x.current), x.current = null), be !== null && (clearTimeout(be), be = null), Z.parentElement && Z.parentElement.removeChild(Z), ae(), g.releaseClip(e, { delayMs: HL }), v.current = null, Tr.debug(`[${Y}] released`);
+      ee = !0, Z.removeEventListener("canplay", X), Z.removeEventListener("seeked", q), Z.removeEventListener("error", ie), Z.removeEventListener("ended", me), Z.pause(), b.current !== null && (clearTimeout(b.current), b.current = null), x.current !== null && (clearTimeout(x.current), x.current = null), be !== null && (clearTimeout(be), be = null), Z.parentElement && Z.parentElement.removeChild(Z), ae(), g.releaseClip(e, { delayMs: KL }), v.current = null, Tr.debug(`[${Y}] released`);
     };
   }, [e, r, g, l, Y, L, ae, u]), y.useEffect(() => {
     const ee = v.current;
@@ -45998,7 +46008,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
   }, [p, h, H, o, n, f, i, N, a]), y.useEffect(() => {
     const ee = v.current;
     if (!ee || !H || !Vs || f) return;
-    jL(), ee.playbackRate = j.current;
+    HL(), ee.playbackRate = j.current;
     let Z;
     const fe = () => {
       const E = v.current;
@@ -46035,7 +46045,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
     };
   }, [_, H, e, f]), y.useEffect(() => {
     const ee = v.current;
-    ee && n0(ee, s);
+    ee && i0(ee, s);
   }, [s]), !t)
     return /* @__PURE__ */ w.jsx("div", { style: { width: "100%", height: "100%", backgroundColor: "#1a1a1a" } });
   const se = `video-container-${t}`, le = p - a >= 0;
@@ -46060,9 +46070,9 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
       }
     }
   );
-}, cw = ({ item: e, muted: t, safeTrimBefore: r, playbackRate: n, sourceFps: a, forceCssComposite: i = !1 }) => {
-  const o = VL(e, t), s = e._sharedTransitionSync ? 0 : o, [c, l] = y.useState(!1), u = y.useRef(null), d = y.useCallback((f) => {
-    $L.warn(`Media error for item ${e.id}:`, f.message), l(!0);
+}, lw = ({ item: e, muted: t, safeTrimBefore: r, playbackRate: n, sourceFps: a, forceCssComposite: i = !1 }) => {
+  const o = GL(e, t), s = e._sharedTransitionSync ? 0 : o, [c, l] = y.useState(!1), u = y.useRef(null), d = y.useCallback((f) => {
+    WL.warn(`Media error for item ${e.id}:`, f.message), l(!0);
   }, [e.id]);
   return c ? /* @__PURE__ */ w.jsx(
     "div",
@@ -46078,7 +46088,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
       children: /* @__PURE__ */ w.jsx("p", { style: { color: "#666", fontSize: 14 }, children: "Media unavailable" })
     }
   ) : /* @__PURE__ */ w.jsx(
-    GL,
+    XL,
     {
       poolClipId: e._poolClipId ?? e.id,
       itemId: e.id,
@@ -46096,7 +46106,7 @@ const HL = 400, Vs = typeof HTMLVideoElement < "u" && "requestVideoFrameCallback
     }
   );
 };
-function WL(e, t, r) {
+function qL(e, t, r) {
   if (r === "leader")
     return e;
   const n = Math.max(0.03, Math.abs(e) * 0.06), a = -t * 0.25;
@@ -46105,8 +46115,8 @@ function WL(e, t, r) {
     Math.min(e + n, e + a)
   );
 }
-function KL(e, t, r) {
-  const n = Ha(), a = mf(), i = pf();
+function YL(e, t, r) {
+  const n = Ha(), a = hf(), i = gf();
   y.useEffect(() => {
     if (!i || e.length < 2)
       return;
@@ -46145,7 +46155,7 @@ function KL(e, t, r) {
           }
           u.playbackRate = l.playbackRate;
         } else
-          u.playbackRate = WL(
+          u.playbackRate = qL(
             l.playbackRate,
             g,
             l.role
@@ -46157,7 +46167,7 @@ function KL(e, t, r) {
     return o(n.currentFrame), n.onFrameChange(o);
   }, [n, t, i, e, a, r]);
 }
-function XL(e, t) {
+function ZL(e, t) {
   let r = 0, n = e.length - 1;
   for (; r <= n; ) {
     const a = r + n >> 1, i = e[a], o = i.from, s = i.from + i.durationInFrames;
@@ -46182,7 +46192,7 @@ function XL(e, t) {
   }
   return -1;
 }
-function qL(e) {
+function QL(e) {
   const t = /* @__PURE__ */ new Map();
   for (const n of e) {
     const a = n.originId || n.id, i = `${n.mediaId}-${a}`, o = t.get(i);
@@ -46220,7 +46230,7 @@ function qL(e) {
   }
   return r;
 }
-function YL(e, t) {
+function JL(e, t) {
   if (!e?.src || t.length === 0)
     return [];
   const r = /* @__PURE__ */ new Map(), n = (a) => {
@@ -46242,8 +46252,8 @@ function YL(e, t) {
   }
   return [...r.values()];
 }
-const ZL = He("StableVideoWarmup"), QL = 8, JL = 3, eB = 3, tB = 1.5;
-function rB(e, t) {
+const eB = He("StableVideoWarmup"), tB = 8, rB = 3, nB = 3, aB = 1.5;
+function iB(e, t) {
   if (e.group === t.group && e.renderItem === t.renderItem && e.transitionWindows === t.transitionWindows)
     return !0;
   if (e.renderItem !== t.renderItem || e.transitionWindows !== t.transitionWindows || e.group.originKey !== t.group.originKey || e.group.minFrom !== t.group.minFrom || e.group.maxEnd !== t.group.maxEnd || e.group.items.length !== t.group.items.length)
@@ -46255,7 +46265,7 @@ function rB(e, t) {
   }
   return !0;
 }
-const nB = {
+const oB = {
   position: "absolute",
   top: 0,
   left: 0,
@@ -46263,11 +46273,11 @@ const nB = {
   height: "100%",
   visibility: "hidden",
   pointerEvents: "none"
-}, lw = ge.memo(({ item: e }) => {
+}, uw = ge.memo(({ item: e }) => {
   const { fps: t } = _r(), r = qt((s) => e.mediaId ? s.mediaItems.find((c) => c.id === e.mediaId)?.fps : void 0);
   if (!e.src)
     return null;
-  const n = e.sourceStart ?? e.trimStart ?? e.offset ?? 0, a = e.sourceFps ?? r ?? t, i = e.speed ?? ea, o = Td(
+  const n = e.sourceStart ?? e.trimStart ?? e.offset ?? 0, a = e.sourceFps ?? r ?? t, i = e.speed ?? ea, o = Md(
     n,
     e.durationInFrames,
     i,
@@ -46275,8 +46285,8 @@ const nB = {
     t,
     a
   );
-  return /* @__PURE__ */ w.jsx("div", { style: nB, "data-shadow-bridge": e.id, children: /* @__PURE__ */ w.jsx(
-    cw,
+  return /* @__PURE__ */ w.jsx("div", { style: oB, "data-shadow-bridge": e.id, children: /* @__PURE__ */ w.jsx(
+    lw,
     {
       item: e,
       muted: !0,
@@ -46286,9 +46296,9 @@ const nB = {
     }
   ) });
 });
-lw.displayName = "HiddenShadowVideoBridge";
-const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
-  const a = Dn()?.localFrame ?? 0, i = a < 0, o = a + e.minFrom, s = i ? -1 : XL(e.items, o), c = y.useMemo(() => {
+uw.displayName = "HiddenShadowVideoBridge";
+const dw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
+  const a = Dn()?.localFrame ?? 0, i = a < 0, o = a + e.minFrom, s = i ? -1 : ZL(e.items, o), c = y.useMemo(() => {
     if (s < 0 || e.items.length <= 1) return s;
     for (const F of t)
       if (o >= F.startFrame && o < F.endFrame) {
@@ -46297,12 +46307,12 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
           return C;
       }
     return s;
-  }, [s, o, e.items, t]), l = c >= 0 ? e.items[c] : null, { fps: u } = _r(), d = mf(), f = y.useMemo(() => {
+  }, [s, o, e.items, t]), l = c >= 0 ? e.items[c] : null, { fps: u } = _r(), d = hf(), f = y.useMemo(() => {
     if (i || c < 0 || e.items.length <= 1) return "";
     const F = Dl({
       transitionWindows: t,
       frame: o,
-      lookaheadFrames: Math.round(u * tB)
+      lookaheadFrames: Math.round(u * aB)
     });
     return e.items.map((C, T) => ({ item: C, index: T })).filter(({ item: C, index: T }) => T !== c && F.has(C.id)).map(({ index: C }) => C).join(",");
   }, [c, u, o, e.items, i, t]), m = y.useMemo(() => {
@@ -46310,15 +46320,15 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
     const C = Dl({
       transitionWindows: t,
       frame: o,
-      lookaheadFrames: QL,
-      lookbehindFrames: JL
+      lookaheadFrames: tB,
+      lookbehindFrames: rB
     });
     return e.items.map((T, R) => ({ item: T, index: R })).filter(({ item: T, index: R }) => R !== c && C.has(T.id)).map(({ index: T }) => T).join(",");
   }, [i, c, e.items, t, o, u]), p = y.useMemo(() => Dl({
     transitionWindows: t,
     frame: o,
     lookaheadFrames: 0,
-    lookbehindFrames: eB
+    lookbehindFrames: nB
   }), [o, t]), h = y.useMemo(() => f ? f.split(",").map(Number).map((C) => e.items[C]) : [], [e.items, f]), g = y.useMemo(() => m ? m.split(",").map(Number).map((C) => {
     const T = e.items[C];
     return {
@@ -46342,8 +46352,8 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
       _poolClipId: `group-${e.originKey}`,
       _sharedTransitionSync: p.has(l.id)
     };
-  }, [l, p, e.minFrom]), b = y.useMemo(() => v ? r(v) : null, [v, r]), x = y.useMemo(() => g.length === 0 ? null : g.map((F) => /* @__PURE__ */ w.jsx(lw, { item: F }, F.id)), [g]), k = y.useMemo(
-    () => YL(v, h),
+  }, [l, p, e.minFrom]), b = y.useMemo(() => v ? r(v) : null, [v, r]), x = y.useMemo(() => g.length === 0 ? null : g.map((F) => /* @__PURE__ */ w.jsx(uw, { item: F }, F.id)), [g]), k = y.useMemo(
+    () => JL(v, h),
     [v, h]
   ), M = y.useMemo(
     () => g.filter((F) => p.has(F.id)),
@@ -46352,7 +46362,7 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
     if (!v || M.length === 0 || !p.has(v.id))
       return [];
     const F = qt.getState().mediaItems, C = (T, R) => {
-      const P = T.sourceStart ?? T.trimStart ?? T.offset ?? 0, _ = T.mediaId ? F.find((j) => j.id === T.mediaId)?.fps : void 0, B = T.sourceFps ?? _ ?? u, $ = T.speed ?? ea, U = Td(
+      const P = T.sourceStart ?? T.trimStart ?? T.offset ?? 0, _ = T.mediaId ? F.find((j) => j.id === T.mediaId)?.fps : void 0, B = T.sourceFps ?? _ ?? u, $ = T.speed ?? ea, U = Md(
         P,
         T.durationInFrames,
         $,
@@ -46374,7 +46384,7 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
       ...M.map((T) => C(T, "follower"))
     ];
   }, [p, v, u, M]);
-  return KL(S, e.minFrom, u), y.useEffect(() => {
+  return YL(S, e.minFrom, u), y.useEffect(() => {
     if (k.length === 0)
       return;
     let F = !1;
@@ -46383,7 +46393,7 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
         targetTimeSeconds: C.targetTimeSeconds,
         warmDecode: !0
       }).catch((T) => {
-        F || ZL.debug("Transition shadow warmup failed:", C.sourceUrl, T);
+        F || eB.debug("Transition shadow warmup failed:", C.sourceUrl, T);
       });
     return () => {
       F = !0;
@@ -46392,27 +46402,27 @@ const uw = ge.memo(({ group: e, transitionWindows: t = [], renderItem: r }) => {
     b,
     x
   ] });
-}, rB);
-uw.displayName = "GroupRenderer";
-const dw = ({
+}, iB);
+dw.displayName = "GroupRenderer";
+const fw = ({
   items: e,
   transitionWindows: t,
   renderItem: r,
   premountFor: n = 0
 }) => {
-  const { fps: a } = _r(), i = n || Math.round(a * 2), o = y.useMemo(() => qL(e), [e]);
+  const { fps: a } = _r(), i = n || Math.round(a * 2), o = y.useMemo(() => QL(e), [e]);
   return /* @__PURE__ */ w.jsx(w.Fragment, { children: o.map((s) => /* @__PURE__ */ w.jsx(
     qn,
     {
       from: s.minFrom,
       durationInFrames: s.maxEnd - s.minFrom,
       premountFor: i,
-      children: /* @__PURE__ */ w.jsx(uw, { group: s, transitionWindows: t, renderItem: r })
+      children: /* @__PURE__ */ w.jsx(dw, { group: s, transitionWindows: t, renderItem: r })
     },
     s.originKey
   )) });
 }, en = [];
-function aB({ shape: e, transform: t, trackOrder: r }) {
+function sB({ shape: e, transform: t, trackOrder: r }) {
   return {
     shape: e,
     trackOrder: r,
@@ -46427,28 +46437,28 @@ function aB({ shape: e, transform: t, trackOrder: r }) {
     }
   };
 }
-function iB(e, t) {
+function cB(e, t) {
   return e.x === t.x && e.y === t.y && e.width === t.width && e.height === t.height && e.rotation === t.rotation && e.opacity === t.opacity && e.cornerRadius === t.cornerRadius;
 }
-function fw(e) {
-  return e.length === 0 ? en : e.map(aB);
+function mw(e) {
+  return e.length === 0 ? en : e.map(sB);
 }
-function mw(e, t) {
+function pw(e, t) {
   if (t.length === 0) return en;
   if (e.length === 0) return t;
   let r = e.length !== t.length;
   const n = t.map((a, i) => {
     const o = e[i];
-    return o && o.shape === a.shape && o.trackOrder === a.trackOrder && iB(o.transform, a.transform) ? o : (r = !0, a);
+    return o && o.shape === a.shape && o.trackOrder === a.trackOrder && cB(o.transform, a.transform) ? o : (r = !0, a);
   });
   return r ? n : e;
 }
-function nd(e, t) {
+function ad(e, t) {
   if (e.length === 0) return en;
-  const r = e.filter((n) => rf(n.trackOrder, t));
+  const r = e.filter((n) => af(n.trackOrder, t));
   return r.length === 0 ? en : r.length === e.length ? e : r;
 }
-function oB(e) {
+function lB(e) {
   if (e.mediaId && (e.type === "video" || e.type === "audio" || e.type === "image")) {
     const t = xr.get(e.mediaId) ?? "";
     if (t !== e.src)
@@ -46456,7 +46466,7 @@ function oB(e) {
   }
   return e;
 }
-function sB(e) {
+function uB(e) {
   const { subItem: t, wrapper: r, parentFps: n, subCompFps: a } = e, i = r.speed ?? 1, o = r.sourceFps ?? a, s = r.sourceStart ?? r.trimStart ?? 0, c = r.sourceEnd ?? s + Bt(r.durationInFrames, i, n, o), l = t.from, u = t.from + t.durationInFrames, d = Math.max(l, s), f = Math.min(u, c);
   if (f <= d)
     return null;
@@ -46487,8 +46497,8 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     e.sourceStart,
     e.speed,
     e.trimStart
-  ]), x = Ov(), k = y.useMemo(() => l ? l.items.map(oB).flatMap((q) => {
-    const ie = sB({
+  ]), x = Bv(), k = y.useMemo(() => l ? l.items.map(lB).flatMap((q) => {
+    const ie = uB({
       subItem: q,
       wrapper: b,
       parentFps: f,
@@ -46509,15 +46519,15 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
       (q) => q.keyframes.find((ie) => ie.itemId === e.id),
       [e.id]
     )
-  ), R = C ?? T, P = !!(R && sv(R)), B = Dn()?.localFrame ?? 0, $ = B - (e._sequenceFrameOffset ?? 0), j = (e.sourceStart ?? e.trimStart ?? 0) + Bt(
+  ), R = C ?? T, P = !!(R && lv(R)), B = Dn()?.localFrame ?? 0, $ = B - (e._sequenceFrameOffset ?? 0), j = (e.sourceStart ?? e.trimStart ?? 0) + Bt(
     $,
     e.speed ?? 1,
     f,
     e.sourceFps ?? l?.fps ?? f
   ), z = P ? $ : 0, A = y.useMemo(() => {
-    const q = { width: p, height: h }, ie = bc(e), me = gb(e, q, ie);
+    const q = { width: p, height: h }, ie = bc(e), me = yb(e, q, ie);
     let ye = me;
-    P && (ye = ov(me, R, z));
+    P && (ye = cv(me, R, z));
     let be = ye;
     const xe = F?.transform;
     return xe !== void 0 ? be = {
@@ -46545,13 +46555,13 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     g,
     v
   ]), H = y.useMemo(
-    () => l ? Mb(l.tracks) : null,
+    () => l ? Fb(l.tracks) : null,
     [l]
   ), N = H?.visibleTracksByOrderDesc ?? [], O = y.useMemo(
     () => N.reduce((q, ie) => Math.max(q, ie.order ?? 0), 0),
     [N]
   ), Y = y.useMemo(
-    () => wT(k),
+    () => ST(k),
     [k]
   ), L = y.useMemo(() => a === "audio-only" ? [] : N.flatMap((q) => {
     const ie = q.order ?? 0;
@@ -46586,7 +46596,7 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     [o, e.id]
   ), E = ge.useRef(en);
   ge.useEffect(() => {
-    a === "audio-only" && of(e.id);
+    a === "audio-only" && cf(e.id);
   }, [i, e.id, a]);
   const pe = y.useMemo(() => {
     if (!l)
@@ -46594,14 +46604,14 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     const q = { width: l.width, height: l.height, fps: l.fps }, ie = new Map((l.keyframes ?? []).map((xe) => [xe.itemId, xe])), me = (H?.visibleTracks ?? []).flatMap((xe) => k.filter((Ge) => Ge.trackId === xe.id && Ge.type === "shape" && Ge.isMask === !0).map((Ge) => ({
       mask: Ge,
       trackOrder: xe.order ?? 0
-    }))), ye = fw(Yc(
+    }))), ye = mw(Yc(
       me,
       {
         canvas: q,
         frame: j,
         getKeyframes: (xe) => ie.get(xe)
       }
-    )), be = mw(E.current, ye);
+    )), be = pw(E.current, ye);
     return E.current = be, be;
   }, [k, H?.visibleTracks, l?.width, l?.height, l?.fps, l?.keyframes, j]);
   if (!l)
@@ -46625,12 +46635,12 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
         visibility: q.trackVisible ? "visible" : "hidden"
       },
       children: /* @__PURE__ */ w.jsx(
-        ad,
+        id,
         {
           item: q,
           muted: q.muted,
           visible: q.trackVisible,
-          masks: nd(pe, q.trackOrder),
+          masks: ad(pe, q.trackOrder),
           renderDepth: n,
           audioGainMultiplier: Z,
           audioGainLiveItemIds: fe
@@ -46652,22 +46662,22 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     position: "relative",
     visibility: r ? "visible" : "hidden"
   }, children: /* @__PURE__ */ w.jsx(
-    sw,
+    cw,
     {
       projectWidth: l.width,
       projectHeight: l.height,
       renderWidth: l.width,
       renderHeight: l.height,
       children: /* @__PURE__ */ w.jsx(
-        aL,
+        sL,
         {
           width: l.width,
           height: l.height,
           fps: l.fps,
           durationInFrames: l.durationInFrames,
-          children: /* @__PURE__ */ w.jsx(aw, { keyframes: l.keyframes, children: /* @__PURE__ */ w.jsxs(Fr, { children: [
+          children: /* @__PURE__ */ w.jsx(iw, { keyframes: l.keyframes, children: /* @__PURE__ */ w.jsxs(Fr, { children: [
             /* @__PURE__ */ w.jsx(
-              dw,
+              fw,
               {
                 items: L,
                 renderItem: X,
@@ -46687,12 +46697,12 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
                     from: ie.from,
                     durationInFrames: ie.durationInFrames,
                     children: /* @__PURE__ */ w.jsx(
-                      ad,
+                      id,
                       {
                         item: ie,
                         muted: q.muted || Y.has(ie.id),
                         visible: q.trackVisible,
-                        masks: nd(pe, q.trackOrder),
+                        masks: ad(pe, q.trackOrder),
                         renderDepth: n,
                         compositionRenderMode: ie.type === "composition" && Ra(k, ie) ? "visual-only" : "full",
                         audioGainMultiplier: Z,
@@ -46711,32 +46721,32 @@ const _c = ge.memo(({ item: e, parentMuted: t = !1, parentVisible: r = !0, rende
     }
   ) });
 });
-function cB({ item: e }) {
-  const t = rw(), { width: r, height: n } = _r(), a = y.useRef(null), [i, o] = y.useState(0);
-  return y.useEffect(() => $u()?.subscribe?.(() => o((s) => s + 1)), []), y.useEffect(() => {
-    const s = $u(), c = a.current;
+function dB({ item: e }) {
+  const t = nw(), { width: r, height: n } = _r(), a = y.useRef(null), [i, o] = y.useState(0);
+  return y.useEffect(() => Hu()?.subscribe?.(() => o((s) => s + 1)), []), y.useEffect(() => {
+    const s = Hu(), c = a.current;
     if (!s || !c) return;
     let l = !0;
     const u = (m) => {
       !l || !m || (c.width = m.width, c.height = m.height, c.getContext("2d")?.drawImage(m, 0, 0));
-    }, d = Kb(e, t, r, n, "preview"), f = s.peekFrame?.(d);
+    }, d = Xb(e, t, r, n, "preview"), f = s.peekFrame?.(d);
     return f ? u(f) : s.getFrame(d).then(u), () => {
       l = !1;
     };
   }, [e, t, r, n, i]), /* @__PURE__ */ w.jsx("canvas", { ref: a, style: { width: "100%", height: "100%", display: "block" } });
 }
-function i0() {
+function s0() {
   return He("CompositionItem");
 }
-const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n = [], renderDepth: a = 0, compositionRenderMode: i = "full", audioGainMultiplier: o = 1, audioGainLiveItemIds: s }) => {
-  const c = oP((d) => d.showVideoDebugOverlay), { fps: l } = _r(), u = qt(
+const c0 = 16, id = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n = [], renderDepth: a = 0, compositionRenderMode: i = "full", audioGainMultiplier: o = 1, audioGainLiveItemIds: s }) => {
+  const c = lP((d) => d.showVideoDebugOverlay), { fps: l } = _r(), u = qt(
     (d) => e.mediaId ? d.mediaItems.find((f) => f.id === e.mediaId)?.fps : void 0
   );
   if (e.type === "video") {
     const d = bc(e);
     if (!e.src)
       return /* @__PURE__ */ w.jsx(Fr, { style: { backgroundColor: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ w.jsx("p", { style: { color: "#666", fontSize: 14 }, children: "Media not loaded" }) });
-    const f = e.sourceStart ?? e.trimStart ?? e.offset ?? 0, m = e.sourceFps ?? u ?? l, p = e.speed ?? ea, h = Bt(e.durationInFrames, p, l, m), g = f + h, v = e.sourceDuration || 0, b = e.sourceEnd !== void 0 && e.sourceStart !== void 0 ? e.sourceEnd - e.sourceStart : v, x = v > 0 || b > 0, k = x && !lT(f, v || void 0), M = x && !uT(
+    const f = e.sourceStart ?? e.trimStart ?? e.offset ?? 0, m = e.sourceFps ?? u ?? l, p = e.speed ?? ea, h = Bt(e.durationInFrames, p, l, m), g = f + h, v = e.sourceDuration || 0, b = e.sourceEnd !== void 0 && e.sourceStart !== void 0 ? e.sourceEnd - e.sourceStart : v, x = v > 0 || b > 0, k = x && !uT(f, v || void 0), M = x && !dT(
       f,
       e.durationInFrames,
       p,
@@ -46746,7 +46756,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
       m
     ), S = 30 * 60 * 60, F = v === 0 && b === 0 && f > S;
     if (F || k)
-      return i0().error("Invalid source position detected:", {
+      return s0().error("Invalid source position detected:", {
         itemId: e.id,
         sourceStart: e.sourceStart,
         trimBefore: f,
@@ -46755,7 +46765,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
         hasCorruptedMetadata: F,
         isInvalidSeek: k
       }), /* @__PURE__ */ w.jsx(Fr, { style: { backgroundColor: "#2a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ w.jsx("p", { style: { color: "#ff6b6b", fontSize: 14 }, children: "Invalid source position" }) });
-    const C = Td(
+    const C = Md(
       f,
       e.durationInFrames,
       p,
@@ -46768,7 +46778,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
         1,
         wr(T, p, m, l)
       );
-      i0().warn("Clip duration exceeds source duration (graceful clamp):", {
+      s0().warn("Clip duration exceeds source duration (graceful clamp):", {
         itemId: e.id,
         sourceFramesNeeded: h,
         sourceDuration: v,
@@ -46783,7 +46793,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
     }
     const R = /* @__PURE__ */ w.jsxs(w.Fragment, { children: [
       /* @__PURE__ */ w.jsx(
-        cw,
+        lw,
         {
           item: e,
           muted: t,
@@ -46794,7 +46804,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
         }
       ),
       c && /* @__PURE__ */ w.jsx(
-        lL,
+        fL,
         {
           id: e.id,
           speed: p,
@@ -46828,7 +46838,7 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
   }
   if (e.type === "audio") {
     if (e.compositionId)
-      return a >= o0 ? null : /* @__PURE__ */ w.jsx(
+      return a >= c0 ? null : /* @__PURE__ */ w.jsx(
         _c,
         {
           item: e,
@@ -46869,10 +46879,10 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
     const d = bc(e);
     if (!e.src)
       return /* @__PURE__ */ w.jsx(Fr, { style: { backgroundColor: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center" }, children: /* @__PURE__ */ w.jsx("p", { style: { color: "#666", fontSize: 14 }, children: "Image not loaded" }) });
-    const f = e.label?.toLowerCase() ?? "", m = tf(e.src) || f.endsWith(".gif"), p = Gb(e.src) || f.endsWith(".webp");
+    const f = e.label?.toLowerCase() ?? "", m = rf(e.src) || f.endsWith(".gif"), p = Wb(e.src) || f.endsWith(".webp");
     if ((m || p) && e.mediaId) {
       const g = e.speed ?? ea, v = /* @__PURE__ */ w.jsx(
-        dL,
+        pL,
         {
           mediaId: e.mediaId,
           src: e.src,
@@ -46925,11 +46935,11 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
     );
   }
   if (e.type === "text")
-    return /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(EL, { item: e }) });
+    return /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(AL, { item: e }) });
   if (e.type === "shape")
-    return /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(BL, { item: e }) });
+    return /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(zL, { item: e }) });
   if (e.type === "composition")
-    return a >= o0 ? null : /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(
+    return a >= c0 ? null : /* @__PURE__ */ w.jsx(ya, { item: e, masks: n, children: /* @__PURE__ */ w.jsx(
       _c,
       {
         item: e,
@@ -46948,13 +46958,13 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
         item: e,
         masks: n,
         mediaContent: { fitMode: "contain", sourceWidth: e.sourceWidth, sourceHeight: e.sourceHeight, crop: e.crop },
-        children: /* @__PURE__ */ w.jsx(cB, { item: e })
+        children: /* @__PURE__ */ w.jsx(dB, { item: e })
       }
     );
   if (e.type === "adjustment")
     return null;
   throw new Error(`Unknown item type: ${JSON.stringify(e)}`);
-}), lB = {
+}), fB = {
   enabled: !1,
   intensity: 1,
   model: "rnnoise",
@@ -46967,10 +46977,10 @@ const o0 = 16, ad = ge.memo(({ item: e, muted: t = !1, visible: r = !0, masks: n
   compress: !0,
   normalize: !0
 };
-function uB(e) {
+function mB(e) {
   return e ? {
     enabled: e.enabled,
-    intensity: mB(e.intensity ?? 1),
+    intensity: gB(e.intensity ?? 1),
     model: e.model ?? "rnnoise",
     denoise: e.denoise ?? !0,
     aggressive: e.aggressive ?? !1,
@@ -46980,9 +46990,9 @@ function uB(e) {
     voiceEq: e.voiceEq ?? !1,
     compress: e.compress ?? !0,
     normalize: e.normalize ?? !0
-  } : lB;
+  } : fB;
 }
-function dB(e) {
+function pB(e) {
   return {
     model: e.model ?? "rnnoise",
     denoise: e.denoise,
@@ -46995,7 +47005,7 @@ function dB(e) {
     normalize: e.normalize ?? !0
   };
 }
-function fB(e) {
+function hB(e) {
   return [
     `M${e.model}`,
     e.denoise ? "d1" : "d0",
@@ -47008,38 +47018,38 @@ function fB(e) {
     e.normalize ? "m1" : "m0"
   ].join("-");
 }
-function mB(e) {
+function gB(e) {
   return !Number.isFinite(e) || e < 0 ? 0 : e > 1 ? 1 : e;
 }
-const gf = He("IndexedDB:EnhancedAudio");
-async function pw() {
+const vf = He("IndexedDB:EnhancedAudio");
+async function hw() {
   let e = await Xt();
-  if (!e.objectStoreNames.contains("enhancedAudio") && (gf.warn("enhancedAudio store not found, attempting reconnection..."), e = await Ai(), !e.objectStoreNames.contains("enhancedAudio")))
+  if (!e.objectStoreNames.contains("enhancedAudio") && (vf.warn("enhancedAudio store not found, attempting reconnection..."), e = await Ai(), !e.objectStoreNames.contains("enhancedAudio")))
     throw new Error("enhancedAudio store not found after reconnection");
   return e;
 }
-function hw(e, t) {
+function gw(e, t) {
   return `${e}:${t}`;
 }
-async function pB(e) {
+async function yB(e) {
   try {
-    return await (await pw()).get("enhancedAudio", e);
+    return await (await hw()).get("enhancedAudio", e);
   } catch (t) {
-    gf.error(`Failed to get enhanced audio ${e}:`, t);
+    vf.error(`Failed to get enhanced audio ${e}:`, t);
     return;
   }
 }
-async function hB(e) {
-  const t = await pw();
+async function vB(e) {
+  const t = await hw();
   try {
     await t.put("enhancedAudio", e);
   } catch (r) {
-    throw gf.error(`Failed to save enhanced audio ${e.id}:`, r), r;
+    throw vf.error(`Failed to save enhanced audio ${e.id}:`, r), r;
   }
 }
 const eu = He("AudioEnhance");
-let gB = 1;
-const wo = /* @__PURE__ */ new Map(), yB = Go({
+let bB = 1;
+const wo = /* @__PURE__ */ new Map(), xB = Go({
   createWorker: () => new Worker(new URL(
     /* @vite-ignore */
     "" + new URL("assets/audio-enhance.worker-TrAnXct4.js", import.meta.url).href,
@@ -47060,7 +47070,7 @@ const wo = /* @__PURE__ */ new Map(), yB = Go({
     };
   }
 });
-async function vB(e, t, r = {}) {
+async function wB(e, t, r = {}) {
   if (e.sampleRate !== 48e3 && t.denoise)
     throw new Error(
       `RNNoise requires a 48 kHz buffer; got ${e.sampleRate} Hz. Decode at 48 kHz before calling processAudioBuffer.`
@@ -47068,7 +47078,7 @@ async function vB(e, t, r = {}) {
   const n = [];
   for (let d = 0; d < e.numberOfChannels; d++)
     n.push(new Float32Array(e.getChannelData(d)));
-  const a = n.map((d) => d.buffer), i = `enh-${gB++}`, o = yB.getWorker(), s = await new Promise((d, f) => {
+  const a = n.map((d) => d.buffer), i = `enh-${bB++}`, o = xB.getWorker(), s = await new Promise((d, f) => {
     wo.set(i, {
       resolve: d,
       reject: f,
@@ -47097,7 +47107,7 @@ async function vB(e, t, r = {}) {
 function ro(e, t) {
   return `${e}:${t}`;
 }
-const bB = Mt((e) => ({
+const SB = Mt((e) => ({
   jobs: {},
   errors: {},
   startJob: (t, r) => e((n) => {
@@ -47132,49 +47142,49 @@ const bB = Mt((e) => ({
     const a = ro(t, r), i = { ...n.errors };
     return delete i[a], { ...n, errors: i };
   })
-})), ja = He("EnhancedAudioCache"), s0 = 48e3, c0 = 200 * 1024 * 1024, Oc = /* @__PURE__ */ new Map(), tu = /* @__PURE__ */ new Map();
+})), ja = He("EnhancedAudioCache"), l0 = 48e3, u0 = 200 * 1024 * 1024, Oc = /* @__PURE__ */ new Map(), tu = /* @__PURE__ */ new Map();
 let rc = 0;
-function xB(e, t) {
+function IB(e, t) {
   return `${e}:${t}`;
 }
-function wB(e) {
+function kB(e) {
   return e.numberOfChannels * e.length * 4;
 }
-function SB() {
-  if (rc <= c0) return;
+function TB() {
+  if (rc <= u0) return;
   const e = [...Oc.entries()].sort((t, r) => t[1].lastAccess - r[1].lastAccess);
   for (const [t, r] of e) {
-    if (rc <= c0) break;
+    if (rc <= u0) break;
     Oc.delete(t), rc -= r.bytes, ja.debug("Evicted enhanced buffer", { key: t, freedMB: (r.bytes / (1024 * 1024)).toFixed(1) });
   }
 }
-async function rj(e, t, r) {
-  const n = dB(uB(r)), a = fB(n), i = xB(e, a), o = Oc.get(i);
+async function ij(e, t, r) {
+  const n = pB(mB(r)), a = hB(n), i = IB(e, a), o = Oc.get(i);
   if (o)
     return o.lastAccess = Date.now(), o.buffer;
   const s = tu.get(i);
   if (s) return s;
   const c = (async () => {
-    const l = await TB(e, a);
+    const l = await CB(e, a);
     if (l)
       return ja.info("Loaded enhanced audio from IDB", {
         mediaId: e,
         hash: a,
         durationSec: (l.length / l.sampleRate).toFixed(2)
       }), l;
-    const u = await FB(e, t, n, a);
-    return MB(e, a, u).catch((d) => {
+    const u = await PB(e, t, n, a);
+    return EB(e, a, u).catch((d) => {
       ja.warn("Failed to persist enhanced audio to IDB", { mediaId: e, hash: a, err: d });
     }), u;
   })().then((l) => {
-    const u = wB(l);
-    return Oc.set(i, { buffer: l, bytes: u, lastAccess: Date.now() }), rc += u, SB(), l;
+    const u = kB(l);
+    return Oc.set(i, { buffer: l, bytes: u, lastAccess: Date.now() }), rc += u, TB(), l;
   }).finally(() => {
     tu.delete(i);
   });
   return tu.set(i, c), c;
 }
-function IB(e) {
+function MB(e) {
   const t = new Int16Array(e.length);
   for (let r = 0; r < e.length; r++) {
     const n = Math.max(-1, Math.min(1, e[r]));
@@ -47182,7 +47192,7 @@ function IB(e) {
   }
   return t.buffer;
 }
-function kB(e) {
+function FB(e) {
   const t = new Int16Array(e), r = new Float32Array(t.length);
   for (let n = 0; n < t.length; n++) {
     const a = t[n];
@@ -47190,9 +47200,9 @@ function kB(e) {
   }
   return r;
 }
-async function TB(e, t) {
+async function CB(e, t) {
   try {
-    const r = await pB(hw(e, t));
+    const r = await yB(gw(e, t));
     if (!r) return null;
     const a = new OfflineAudioContext(
       r.channels.length,
@@ -47204,7 +47214,7 @@ async function TB(e, t) {
       r.sampleRate
     );
     for (let i = 0; i < r.channels.length; i++) {
-      const o = kB(r.channels[i]);
+      const o = FB(r.channels[i]);
       a.getChannelData(i).set(o);
     }
     return a;
@@ -47212,12 +47222,12 @@ async function TB(e, t) {
     return ja.warn("IDB read failed; will re-bake", { mediaId: e, hash: t, err: r }), null;
   }
 }
-async function MB(e, t, r) {
+async function EB(e, t, r) {
   const n = [];
   for (let a = 0; a < r.numberOfChannels; a++)
-    n.push(IB(r.getChannelData(a)));
-  await hB({
-    id: hw(e, t),
+    n.push(MB(r.getChannelData(a)));
+  await vB({
+    id: gw(e, t),
     mediaId: e,
     settingsHash: t,
     sampleRate: r.sampleRate,
@@ -47230,18 +47240,18 @@ async function MB(e, t, r) {
     sizeMB: (n.reduce((a, i) => a + i.byteLength, 0) / (1024 * 1024)).toFixed(2)
   });
 }
-async function FB(e, t, r, n) {
-  const { startJob: a, setProgress: i, finishJob: o, failJob: s } = bB.getState();
+async function PB(e, t, r, n) {
+  const { startJob: a, setProgress: i, finishJob: o, failJob: s } = SB.getState();
   a(e, n);
   try {
-    const c = await CB(e, t);
+    const c = await RB(e, t);
     ja.info("Decoded for enhance", {
       mediaId: e,
       duration: c.duration.toFixed(2),
       channels: c.numberOfChannels,
       sampleRate: c.sampleRate
     });
-    const l = await vB(c, r, {
+    const l = await wB(c, r, {
       onProgress: (u) => i(e, n, u)
     });
     return o(e, n), l;
@@ -47250,11 +47260,11 @@ async function FB(e, t, r, n) {
     throw s(e, n, l), ja.warn("Enhance failed", { mediaId: e, error: l }), c;
   }
 }
-async function CB(e, t) {
-  await PB(e) && await jx();
+async function RB(e, t) {
+  await DB(e) && await Vx();
   const n = await import("./media-bunny-core-CXIwd4FE.js").then((i) => i.i), a = new n.Input({
     formats: n.ALL_FORMATS,
-    source: new n.UrlSource(t)
+    source: new n.UrlSource(t, nf(t))
   });
   try {
     const i = await a.getPrimaryAudioTrack();
@@ -47275,7 +47285,7 @@ async function CB(e, t) {
           const T = new Float32Array(x);
           b.copyTo(T, { planeIndex: C, format: "f32-planar" }), M.push(T);
         }
-        const { left: S, right: F } = RB(M, x);
+        const { left: S, right: F } = _B(M, x);
         l.push(S), u.push(F), d += x;
       } finally {
         v.close();
@@ -47288,26 +47298,26 @@ async function CB(e, t) {
       const b = l[v], x = u[v];
       p.set(b, g), h.set(x, g), g += b.length;
     }
-    return c === s0 ? m : await EB(m, s0);
+    return c === l0 ? m : await AB(m, l0);
   } finally {
     a.dispose();
   }
 }
-async function EB(e, t) {
+async function AB(e, t) {
   const r = Math.ceil(e.length * t / e.sampleRate), n = new OfflineAudioContext(e.numberOfChannels, r, t), a = n.createBufferSource();
   return a.buffer = e, a.connect(n.destination), a.start(0), await n.startRendering();
 }
-async function PB(e) {
+async function DB(e) {
   try {
     const t = await qr(e);
     if (!t) return !1;
     const r = t.mimeType.startsWith("audio/") ? t.codec : t.audioCodec;
-    return zx(r);
+    return jx(r);
   } catch {
     return !1;
   }
 }
-function RB(e, t) {
+function _B(e, t) {
   const r = e.length;
   if (r === 1) {
     const p = e[0];
@@ -47326,8 +47336,8 @@ function RB(e, t) {
   }
   return { left: i, right: o };
 }
-const AB = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
-  O0,
+const OB = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
+  B0,
   {
     className: je(
       "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
@@ -47336,7 +47346,7 @@ const AB = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
     ...t,
     ref: r,
     children: /* @__PURE__ */ w.jsx(
-      iS,
+      oS,
       {
         className: je(
           "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
@@ -47345,15 +47355,15 @@ const AB = y.forwardRef(({ className: e, ...t }, r) => /* @__PURE__ */ w.jsx(
     )
   }
 ));
-AB.displayName = O0.displayName;
-const DB = y.forwardRef(({ className: e, value: t, ...r }, n) => /* @__PURE__ */ w.jsx(
-  L0,
+OB.displayName = B0.displayName;
+const LB = y.forwardRef(({ className: e, value: t, ...r }, n) => /* @__PURE__ */ w.jsx(
+  N0,
   {
     ref: n,
     className: je("relative h-4 w-full overflow-hidden rounded-full bg-secondary", e),
     ...r,
     children: /* @__PURE__ */ w.jsx(
-      oS,
+      sS,
       {
         className: "h-full w-full flex-1 bg-primary transition-all",
         style: { transform: `translateX(-${100 - (t || 0)}%)` }
@@ -47361,16 +47371,16 @@ const DB = y.forwardRef(({ className: e, value: t, ...r }, n) => /* @__PURE__ */
     )
   }
 ));
-DB.displayName = L0.displayName;
-function nj({
+LB.displayName = N0.displayName;
+function oj({
   title: e,
   icon: t,
   defaultOpen: r = !0,
   children: n
 }) {
   const [a, i] = y.useState(r);
-  return /* @__PURE__ */ w.jsxs(P3, { open: a, onOpenChange: i, children: [
-    /* @__PURE__ */ w.jsxs(R3, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
+  return /* @__PURE__ */ w.jsxs(D3, { open: a, onOpenChange: i, children: [
+    /* @__PURE__ */ w.jsxs(_3, { className: "flex items-center gap-2 w-full py-2 hover:bg-secondary/50 rounded-md px-2 -mx-2 transition-colors", children: [
       /* @__PURE__ */ w.jsx(
         mo,
         {
@@ -47383,10 +47393,10 @@ function nj({
       t && /* @__PURE__ */ w.jsx(t, { className: "w-3 h-3 text-muted-foreground" }),
       /* @__PURE__ */ w.jsx("span", { className: "text-xs font-semibold tracking-wide uppercase text-muted-foreground", children: e })
     ] }),
-    /* @__PURE__ */ w.jsx(A3, { className: "pt-1 pb-2 space-y-0", children: n })
+    /* @__PURE__ */ w.jsx(O3, { className: "pt-1 pb-2 space-y-0", children: n })
   ] });
 }
-function _B({
+function BB({
   label: e,
   children: t,
   tooltip: r,
@@ -47401,7 +47411,7 @@ function _B({
     /* @__PURE__ */ w.jsx("div", { className: "flex-1 min-w-0 flex items-center", children: t })
   ] });
 }
-function l0({
+function d0({
   value: e,
   onChange: t,
   onLiveChange: r,
@@ -47532,20 +47542,20 @@ function l0({
     }
   );
 }
-const OB = 16, LB = 3, BB = 0.03125, NB = 6, UB = 24, zB = 160;
-function id(e) {
+const NB = 16, UB = 3, zB = 0.03125, jB = 6, VB = 24, $B = 160;
+function od(e) {
   const t = e.toString(), r = t.indexOf(".");
   return r === -1 ? 0 : t.length - r - 1;
 }
 function $s(e, t) {
   const r = Math.round(e / t) * t;
-  return parseFloat(r.toFixed(id(t)));
+  return parseFloat(r.toFixed(od(t)));
 }
-function jB(e, t, r) {
+function HB(e, t, r) {
   const n = (e - t) / (r - t), a = Math.round(n * 10) / 10;
-  return Math.abs(n - a) <= BB ? t + a * (r - t) : e;
+  return Math.abs(n - a) <= zB ? t + a * (r - t) : e;
 }
-function u0(e, t, r, n) {
+function f0(e, t, r, n) {
   let a = 0, i = e;
   const o = 0.8;
   let s = null, c = performance.now();
@@ -47563,11 +47573,11 @@ function u0(e, t, r, n) {
     s !== null && cancelAnimationFrame(s);
   };
 }
-const aj = y.memo(function({
+const sj = y.memo(function({
   value: t,
   onChange: r,
   onLiveChange: n,
-  liveChangeThrottleMs: a = OB,
+  liveChangeThrottleMs: a = NB,
   label: i,
   min: o,
   max: s,
@@ -47594,7 +47604,7 @@ const aj = y.memo(function({
   const me = y.useCallback(
     (ve) => {
       if (u) return u(ve);
-      const Me = ve.toFixed(id(c));
+      const Me = ve.toFixed(od(c));
       return l ? `${Me}${l}` : Me;
     },
     [u, c, l]
@@ -47629,8 +47639,8 @@ const aj = y.memo(function({
   ), Se = y.useCallback((ve, Me) => {
     const Ce = R.current;
     if (!Ce) return 0;
-    const qe = Me < 0 ? Ce.left - ve : ve - Ce.right, Ve = Math.max(0, qe - UB);
-    return Me * NB * Math.sqrt(Math.min(Ve / zB, 1));
+    const qe = Me < 0 ? Ce.left - ve : ve - Ce.right, Ve = Math.max(0, qe - VB);
+    return Me * jB * Math.sqrt(Math.min(Ve / $B, 1));
   }, []), Ae = y.useCallback(
     (ve) => {
       const Me = n ?? r;
@@ -47643,7 +47653,7 @@ const aj = y.memo(function({
     },
     [a, r, n]
   ), dt = y.useCallback(() => {
-    const ve = d ? d(g) : g.toFixed(id(c));
+    const ve = d ? d(g) : g.toFixed(od(c));
     W.current = !1, ae(!0), E.current = !0, le(ve), _.current = ve;
   }, [d, g, c]), gt = y.useCallback(() => {
     if (pe.current || W.current) {
@@ -47668,7 +47678,7 @@ const aj = y.memo(function({
     (ve) => {
       if (!z || !C.current) return;
       const Me = ve.clientX - C.current.x, Ce = ve.clientY - C.current.y, qe = Math.sqrt(Me * Me + Ce * Ce);
-      if (T.current && qe > LB && (T.current = !1, N(!0)), !T.current) {
+      if (T.current && qe > UB && (T.current = !1, N(!0)), !T.current) {
         const Ve = R.current;
         let Oe = 0;
         Ve && (ve.clientX < Ve.left ? Oe = Se(ve.clientX, -1) : ve.clientX > Ve.right && (Oe = Se(ve.clientX, 1))), xe(Oe);
@@ -47685,8 +47695,8 @@ const aj = y.memo(function({
           return;
         }
         if (T.current) {
-          const Me = Pe(ve.clientX), qe = (s - o) / c <= 10 ? Math.max(o, Math.min(s, o + Math.round((Me - o) / c) * c)) : $s(jB(Me, o, s), c), Ve = (qe - o) / (s - o) * 100, Oe = K.current;
-          P.current = u0(
+          const Me = Pe(ve.clientX), qe = (s - o) / c <= 10 ? Math.max(o, Math.min(s, o + Math.round((Me - o) / c) * c)) : $s(HB(Me, o, s), c), Ve = (qe - o) / (s - o) * 100, Oe = K.current;
+          P.current = f0(
             Oe,
             Ve,
             (Le) => Ge(Le, { active: !0, dragging: !1 }),
@@ -47698,7 +47708,7 @@ const aj = y.memo(function({
           q.current !== null && ($(K.current), Z(q.current), r(q.current));
         if (X.current !== 0) {
           const Me = X.current;
-          j(Me), u0(Me, 0, (Ce) => xe(Ce), () => {
+          j(Me), f0(Me, 0, (Ce) => xe(Ce), () => {
             xe(0), j(0);
           });
         }
@@ -47825,7 +47835,7 @@ const aj = y.memo(function({
     }
   ) });
 });
-function ij({
+function cj({
   width: e,
   height: t,
   aspectLocked: r,
@@ -47869,7 +47879,7 @@ function ij({
   );
   return /* @__PURE__ */ w.jsxs("div", { className: je("grid grid-cols-[1fr_auto_1fr] gap-1 flex-1 min-w-0 items-center", p), children: [
     /* @__PURE__ */ w.jsx(
-      l0,
+      d0,
       {
         value: e,
         onChange: g,
@@ -47897,11 +47907,11 @@ function ij({
         title: r ? "Unlock aspect ratio" : "Lock aspect ratio",
         "aria-pressed": r,
         "aria-label": r ? "Unlock aspect ratio" : "Lock aspect ratio",
-        children: r ? /* @__PURE__ */ w.jsx(ak, { className: "w-3.5 h-3.5" }) : /* @__PURE__ */ w.jsx(ik, { className: "w-3.5 h-3.5" })
+        children: r ? /* @__PURE__ */ w.jsx(ik, { className: "w-3.5 h-3.5" }) : /* @__PURE__ */ w.jsx(ok, { className: "w-3.5 h-3.5" })
       }
     ),
     /* @__PURE__ */ w.jsx(
-      l0,
+      d0,
       {
         value: t,
         onChange: v,
@@ -47925,13 +47935,13 @@ function al() {
     return e;
   }).apply(this, arguments);
 }
-function gw(e, t) {
+function yw(e, t) {
   if (e == null) return {};
   var r, n, a = {}, i = Object.keys(e);
   for (n = 0; n < i.length; n++) t.indexOf(r = i[n]) >= 0 || (a[r] = e[r]);
   return a;
 }
-function od(e) {
+function sd(e) {
   var t = y.useRef(e), r = y.useRef(function(n) {
     t.current && t.current(n);
   });
@@ -47941,30 +47951,30 @@ var zo = function(e, t, r) {
   return t === void 0 && (t = 0), r === void 0 && (r = 1), e > r ? r : e < t ? t : e;
 }, So = function(e) {
   return "touches" in e;
-}, sd = function(e) {
+}, cd = function(e) {
   return e && e.ownerDocument.defaultView || self;
-}, d0 = function(e, t, r) {
+}, m0 = function(e, t, r) {
   var n = e.getBoundingClientRect(), a = So(t) ? function(i, o) {
     for (var s = 0; s < i.length; s++) if (i[s].identifier === o) return i[s];
     return i[0];
   }(t.touches, r) : t;
-  return { left: zo((a.pageX - (n.left + sd(e).pageXOffset)) / n.width), top: zo((a.pageY - (n.top + sd(e).pageYOffset)) / n.height) };
-}, f0 = function(e) {
+  return { left: zo((a.pageX - (n.left + cd(e).pageXOffset)) / n.width), top: zo((a.pageY - (n.top + cd(e).pageYOffset)) / n.height) };
+}, p0 = function(e) {
   !So(e) && e.preventDefault();
-}, yw = ge.memo(function(e) {
-  var t = e.onMove, r = e.onKey, n = gw(e, ["onMove", "onKey"]), a = y.useRef(null), i = od(t), o = od(r), s = y.useRef(null), c = y.useRef(!1), l = y.useMemo(function() {
+}, vw = ge.memo(function(e) {
+  var t = e.onMove, r = e.onKey, n = yw(e, ["onMove", "onKey"]), a = y.useRef(null), i = sd(t), o = sd(r), s = y.useRef(null), c = y.useRef(!1), l = y.useMemo(function() {
     var m = function(g) {
-      f0(g), (So(g) ? g.touches.length > 0 : g.buttons > 0) && a.current ? i(d0(a.current, g, s.current)) : h(!1);
+      p0(g), (So(g) ? g.touches.length > 0 : g.buttons > 0) && a.current ? i(m0(a.current, g, s.current)) : h(!1);
     }, p = function() {
       return h(!1);
     };
     function h(g) {
-      var v = c.current, b = sd(a.current), x = g ? b.addEventListener : b.removeEventListener;
+      var v = c.current, b = cd(a.current), x = g ? b.addEventListener : b.removeEventListener;
       x(v ? "touchmove" : "mousemove", m), x(v ? "touchend" : "mouseup", p);
     }
     return [function(g) {
       var v = g.nativeEvent, b = a.current;
-      if (b && (f0(v), !function(k, M) {
+      if (b && (p0(v), !function(k, M) {
         return M && !So(k);
       }(v, c.current) && b)) {
         if (So(v)) {
@@ -47972,7 +47982,7 @@ var zo = function(e, t, r) {
           var x = v.changedTouches || [];
           x.length && (s.current = x[0].identifier);
         }
-        b.focus(), i(d0(b, v, s.current)), h(!0);
+        b.focus(), i(m0(b, v, s.current)), h(!0);
       }
     }, function(g) {
       var v = g.which || g.keyCode;
@@ -47982,26 +47992,26 @@ var zo = function(e, t, r) {
   return y.useEffect(function() {
     return f;
   }, [f]), ge.createElement("div", al({}, n, { onTouchStart: u, onMouseDown: u, className: "react-colorful__interactive", ref: a, onKeyDown: d, tabIndex: 0, role: "slider" }));
-}), yf = function(e) {
+}), bf = function(e) {
   return e.filter(Boolean).join(" ");
-}, vw = function(e) {
-  var t = e.color, r = e.left, n = e.top, a = n === void 0 ? 0.5 : n, i = yf(["react-colorful__pointer", e.className]);
+}, bw = function(e) {
+  var t = e.color, r = e.left, n = e.top, a = n === void 0 ? 0.5 : n, i = bf(["react-colorful__pointer", e.className]);
   return ge.createElement("div", { className: i, style: { top: 100 * a + "%", left: 100 * r + "%" } }, ge.createElement("div", { className: "react-colorful__pointer-fill", style: { backgroundColor: t } }));
 }, br = function(e, t, r) {
   return t === void 0 && (t = 0), r === void 0 && (r = Math.pow(10, t)), Math.round(r * e) / r;
-}, VB = function(e) {
-  return KB(cd(e));
-}, cd = function(e) {
+}, GB = function(e) {
+  return YB(ld(e));
+}, ld = function(e) {
   return e[0] === "#" && (e = e.substring(1)), e.length < 6 ? { r: parseInt(e[0] + e[0], 16), g: parseInt(e[1] + e[1], 16), b: parseInt(e[2] + e[2], 16), a: e.length === 4 ? br(parseInt(e[3] + e[3], 16) / 255, 2) : 1 } : { r: parseInt(e.substring(0, 2), 16), g: parseInt(e.substring(2, 4), 16), b: parseInt(e.substring(4, 6), 16), a: e.length === 8 ? br(parseInt(e.substring(6, 8), 16) / 255, 2) : 1 };
-}, $B = function(e) {
-  return WB(GB(e));
-}, HB = function(e) {
+}, WB = function(e) {
+  return qB(XB(e));
+}, KB = function(e) {
   var t = e.s, r = e.v, n = e.a, a = (200 - t) * r / 100;
   return { h: br(e.h), s: br(a > 0 && a < 200 ? t * r / 100 / (a <= 100 ? a : 200 - a) * 100 : 0), l: br(a / 2), a: br(n, 2) };
-}, ld = function(e) {
-  var t = HB(e);
+}, ud = function(e) {
+  var t = KB(e);
   return "hsl(" + t.h + ", " + t.s + "%, " + t.l + "%)";
-}, GB = function(e) {
+}, XB = function(e) {
   var t = e.h, r = e.s, n = e.v, a = e.a;
   t = t / 360 * 6, r /= 100, n /= 100;
   var i = Math.floor(t), o = n * (1 - r), s = n * (1 - (t - i) * r), c = n * (1 - (1 - t + i) * r), l = i % 6;
@@ -48009,35 +48019,35 @@ var zo = function(e, t, r) {
 }, Hs = function(e) {
   var t = e.toString(16);
   return t.length < 2 ? "0" + t : t;
-}, WB = function(e) {
+}, qB = function(e) {
   var t = e.r, r = e.g, n = e.b, a = e.a, i = a < 1 ? Hs(br(255 * a)) : "";
   return "#" + Hs(t) + Hs(r) + Hs(n) + i;
-}, KB = function(e) {
+}, YB = function(e) {
   var t = e.r, r = e.g, n = e.b, a = e.a, i = Math.max(t, r, n), o = i - Math.min(t, r, n), s = o ? i === t ? (r - n) / o : i === r ? 2 + (n - t) / o : 4 + (t - r) / o : 0;
   return { h: br(60 * (s < 0 ? s + 6 : s)), s: br(i ? o / i * 100 : 0), v: br(i / 255 * 100), a };
-}, XB = ge.memo(function(e) {
-  var t = e.hue, r = e.onChange, n = yf(["react-colorful__hue", e.className]);
-  return ge.createElement("div", { className: n }, ge.createElement(yw, { onMove: function(a) {
+}, ZB = ge.memo(function(e) {
+  var t = e.hue, r = e.onChange, n = bf(["react-colorful__hue", e.className]);
+  return ge.createElement("div", { className: n }, ge.createElement(vw, { onMove: function(a) {
     r({ h: 360 * a.left });
   }, onKey: function(a) {
     r({ h: zo(t + 360 * a.left, 0, 360) });
-  }, "aria-label": "Hue", "aria-valuenow": br(t), "aria-valuemax": "360", "aria-valuemin": "0" }, ge.createElement(vw, { className: "react-colorful__hue-pointer", left: t / 360, color: ld({ h: t, s: 100, v: 100, a: 1 }) })));
-}), qB = ge.memo(function(e) {
-  var t = e.hsva, r = e.onChange, n = { backgroundColor: ld({ h: t.h, s: 100, v: 100, a: 1 }) };
-  return ge.createElement("div", { className: "react-colorful__saturation", style: n }, ge.createElement(yw, { onMove: function(a) {
+  }, "aria-label": "Hue", "aria-valuenow": br(t), "aria-valuemax": "360", "aria-valuemin": "0" }, ge.createElement(bw, { className: "react-colorful__hue-pointer", left: t / 360, color: ud({ h: t, s: 100, v: 100, a: 1 }) })));
+}), QB = ge.memo(function(e) {
+  var t = e.hsva, r = e.onChange, n = { backgroundColor: ud({ h: t.h, s: 100, v: 100, a: 1 }) };
+  return ge.createElement("div", { className: "react-colorful__saturation", style: n }, ge.createElement(vw, { onMove: function(a) {
     r({ s: 100 * a.left, v: 100 - 100 * a.top });
   }, onKey: function(a) {
     r({ s: zo(t.s + 100 * a.left, 0, 100), v: zo(t.v - 100 * a.top, 0, 100) });
-  }, "aria-label": "Color", "aria-valuetext": "Saturation " + br(t.s) + "%, Brightness " + br(t.v) + "%" }, ge.createElement(vw, { className: "react-colorful__saturation-pointer", top: 1 - t.v / 100, left: t.s / 100, color: ld(t) })));
-}), bw = function(e, t) {
+  }, "aria-label": "Color", "aria-valuetext": "Saturation " + br(t.s) + "%, Brightness " + br(t.v) + "%" }, ge.createElement(bw, { className: "react-colorful__saturation-pointer", top: 1 - t.v / 100, left: t.s / 100, color: ud(t) })));
+}), xw = function(e, t) {
   if (e === t) return !0;
   for (var r in e) if (e[r] !== t[r]) return !1;
   return !0;
-}, YB = function(e, t) {
-  return e.toLowerCase() === t.toLowerCase() || bw(cd(e), cd(t));
+}, JB = function(e, t) {
+  return e.toLowerCase() === t.toLowerCase() || xw(ld(e), ld(t));
 };
-function ZB(e, t, r) {
-  var n = od(r), a = y.useState(function() {
+function eN(e, t, r) {
+  var n = sd(r), a = y.useState(function() {
     return e.toHsva(t);
   }), i = a[0], o = a[1], s = y.useRef({ color: t, hsva: i });
   y.useEffect(function() {
@@ -48047,7 +48057,7 @@ function ZB(e, t, r) {
     }
   }, [t, e]), y.useEffect(function() {
     var l;
-    bw(i, s.current.hsva) || e.equal(l = e.fromHsva(i), s.current.color) || (s.current = { hsva: i, color: l }, n(l));
+    xw(i, s.current.hsva) || e.equal(l = e.fromHsva(i), s.current.color) || (s.current = { hsva: i, color: l }, n(l));
   }, [i, e, n]);
   var c = y.useCallback(function(l) {
     o(function(u) {
@@ -48056,29 +48066,29 @@ function ZB(e, t, r) {
   }, []);
   return [i, c];
 }
-var QB = typeof window < "u" ? y.useLayoutEffect : y.useEffect, JB = function() {
+var tN = typeof window < "u" ? y.useLayoutEffect : y.useEffect, rN = function() {
   return typeof __webpack_nonce__ < "u" ? __webpack_nonce__ : void 0;
-}, m0 = /* @__PURE__ */ new Map(), eN = function(e) {
-  QB(function() {
+}, h0 = /* @__PURE__ */ new Map(), nN = function(e) {
+  tN(function() {
     var t = e.current ? e.current.ownerDocument : document;
-    if (t !== void 0 && !m0.has(t)) {
+    if (t !== void 0 && !h0.has(t)) {
       var r = t.createElement("style");
-      r.innerHTML = `.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}`, m0.set(t, r);
-      var n = JB();
+      r.innerHTML = `.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}`, h0.set(t, r);
+      var n = rN();
       n && r.setAttribute("nonce", n), t.head.appendChild(r);
     }
   }, []);
-}, tN = function(e) {
-  var t = e.className, r = e.colorModel, n = e.color, a = n === void 0 ? r.defaultColor : n, i = e.onChange, o = gw(e, ["className", "colorModel", "color", "onChange"]), s = y.useRef(null);
-  eN(s);
-  var c = ZB(r, a, i), l = c[0], u = c[1], d = yf(["react-colorful", t]);
-  return ge.createElement("div", al({}, o, { ref: s, className: d }), ge.createElement(qB, { hsva: l, onChange: u }), ge.createElement(XB, { hue: l.h, onChange: u, className: "react-colorful__last-control" }));
-}, rN = { defaultColor: "000", toHsva: VB, fromHsva: function(e) {
-  return $B({ h: e.h, s: e.s, v: e.v, a: 1 });
-}, equal: YB }, nN = function(e) {
-  return ge.createElement(tN, al({}, e, { colorModel: rN }));
+}, aN = function(e) {
+  var t = e.className, r = e.colorModel, n = e.color, a = n === void 0 ? r.defaultColor : n, i = e.onChange, o = yw(e, ["className", "colorModel", "color", "onChange"]), s = y.useRef(null);
+  nN(s);
+  var c = eN(r, a, i), l = c[0], u = c[1], d = bf(["react-colorful", t]);
+  return ge.createElement("div", al({}, o, { ref: s, className: d }), ge.createElement(QB, { hsva: l, onChange: u }), ge.createElement(ZB, { hue: l.h, onChange: u, className: "react-colorful__last-control" }));
+}, iN = { defaultColor: "000", toHsva: GB, fromHsva: function(e) {
+  return WB({ h: e.h, s: e.s, v: e.v, a: 1 });
+}, equal: JB }, oN = function(e) {
+  return ge.createElement(aN, al({}, e, { colorModel: iN }));
 };
-const oj = y.memo(function({
+const lj = y.memo(function({
   color: t,
   onChange: r,
   onLiveChange: n,
@@ -48142,7 +48152,7 @@ const oj = y.memo(function({
         className: "h-7 w-7 flex-shrink-0",
         onClick: a,
         title: "Reset",
-        children: /* @__PURE__ */ w.jsx(G0, { className: "w-3.5 h-3.5" })
+        children: /* @__PURE__ */ w.jsx(K0, { className: "w-3.5 h-3.5" })
       }
     ),
     d && !o && /* @__PURE__ */ w.jsxs("div", { className: "absolute top-8 left-0 z-50 p-2 bg-popover border border-border rounded-lg shadow-lg", children: [
@@ -48157,18 +48167,18 @@ const oj = y.memo(function({
         },
         x
       )) }),
-      /* @__PURE__ */ w.jsx(nN, { color: l, onChange: p })
+      /* @__PURE__ */ w.jsx(oN, { color: l, onChange: p })
     ] })
   ] });
-  return c ? /* @__PURE__ */ w.jsx(_B, { label: c, children: b }) : b;
-}), va = He("CustomDecoderBufferedAudio"), Gs = 8e-3, aN = 2e-3, ru = 0.25, iN = 1, oN = 1.25, sN = -0.75, cN = 250;
+  return c ? /* @__PURE__ */ w.jsx(BB, { label: c, children: b }) : b;
+}), va = He("CustomDecoderBufferedAudio"), Gs = 8e-3, sN = 2e-3, ru = 0.25, cN = 1, lN = 1.25, uN = -0.75, dN = 250;
 let Ws = null;
 function pi() {
   if (typeof window > "u") return null;
   const e = window.AudioContext ?? window.webkitAudioContext;
   return e ? ((Ws === null || Ws.state === "closed") && (Ws = new e()), Ws) : null;
 }
-const ud = ge.memo(({
+const dd = ge.memo(({
   src: e,
   mediaId: t,
   itemId: r,
@@ -48197,7 +48207,7 @@ const ud = ge.memo(({
   we(
     y.useCallback((W) => W.items.find((K) => K.id === r)?.audioEnhance, [r])
   );
-  const C = YC, T = "", { frame: R, fps: P, playing: _, resolvedVolume: B } = iw({
+  const C = ZC, T = "", { frame: R, fps: P, playing: _, resolvedVolume: B } = ow({
     itemId: r,
     liveGainItemIds: S,
     volume: i,
@@ -48224,7 +48234,7 @@ const ud = ge.memo(({
   }, [A]), y.useEffect(() => {
     if (!t || !e) return;
     let W = !1;
-    return Gx(t, e).then((K) => {
+    return Wx(t, e).then((K) => {
       W || (U((X) => (X && X.sampleRate >= 48e3, K)), va.info("Full buffered audio ready", {
         mediaId: t,
         duration: K.duration.toFixed(2),
@@ -48264,7 +48274,7 @@ const ud = ge.memo(({
       le.current = 0, se.current = !0;
     }, K = () => {
       if (!se.current) return;
-      le.current = performance.now() + cN;
+      le.current = performance.now() + dN;
       const be = pi();
       be?.state === "suspended" && be.resume().catch(() => {
       });
@@ -48300,7 +48310,7 @@ const ud = ge.memo(({
       const ie = X.currentTime, me = ie + Gs;
       q.gain.cancelScheduledValues(ie), q.gain.setValueAtTime(q.gain.value, ie), q.gain.linearRampToValueAtTime(0, me);
       try {
-        K.stop(me + aN);
+        K.stop(me + sN);
       } catch {
         try {
           K.stop();
@@ -48318,7 +48328,7 @@ const ud = ge.memo(({
     if (!$) return;
     const W = pi(), K = H.current;
     if (!W || !K) return;
-    const X = R < 0, ie = nw(n, a ?? P, R, o, P), me = R - L.current;
+    const X = R < 0, ie = aw(n, a ?? P, R, o, P), me = R - L.current;
     L.current = R;
     const ye = j !== ae.current;
     ae.current = j;
@@ -48359,7 +48369,7 @@ const ud = ge.memo(({
         (dt.buffer?.duration ?? 0) - ie <= ru && (Se = !0, Ae = "buffer-upgrade");
       else if (!Pe && !Ns(t)) {
         const gt = W.currentTime - ee.current, kt = Z.current + gt * fe.current - ie;
-        gt > iN && (kt > oN || kt < sN) && (Se = !0, Ae = "drift-resync");
+        gt > cN && (kt > lN || kt < uN) && (Se = !0, Ae = "drift-resync");
       }
       if (Se) {
         const gt = performance.now();
@@ -48407,29 +48417,29 @@ const ud = ge.memo(({
       pe(), E.current = !0;
     !xe && !Ge && se.current && (se.current = !1);
   }, [R, P, _, o, n, $, t, a, j, pe]), null;
-}), p0 = He("CustomDecoderAudio"), Io = /* @__PURE__ */ new Map();
+}), g0 = He("CustomDecoderAudio"), Io = /* @__PURE__ */ new Map();
 function Jn(e, t, r) {
   for (let n = 0; n < r.length; n++)
     e.setUint8(t + n, r.charCodeAt(n));
 }
-function h0(e) {
+function y0(e) {
   const t = Math.max(-1, Math.min(1, e));
   return t < 0 ? Math.round(t * 32768) : Math.round(t * 32767);
 }
-function lN(e, t, r) {
+function fN(e, t, r) {
   const a = t * 2, i = e * a, o = r * a, s = 44, c = new ArrayBuffer(s), l = new DataView(c);
   return Jn(l, 0, "RIFF"), l.setUint32(4, 36 + o, !0), Jn(l, 8, "WAVE"), Jn(l, 12, "fmt "), l.setUint32(16, 16, !0), l.setUint16(20, 1, !0), l.setUint16(22, t, !0), l.setUint32(24, e, !0), l.setUint32(28, i, !0), l.setUint16(32, a, !0), l.setUint16(34, 16, !0), Jn(l, 36, "data"), l.setUint32(40, o, !0), c;
 }
-function uN(e, t, r) {
+function mN(e, t, r) {
   const n = new Int16Array(r * 2);
   for (let a = 0; a < r; a++)
     n[a * 2] = e[a] ?? 0, n[a * 2 + 1] = t[a] ?? 0;
   return n.buffer;
 }
-function dN(e, t) {
+function pN(e, t) {
   return `${e}:bin:${t}`;
 }
-async function fN(e) {
+async function hN(e) {
   const t = await Mo(e);
   if (!(t && "kind" in t && t.kind === "meta"))
     return null;
@@ -48438,8 +48448,8 @@ async function fN(e) {
     return null;
   const n = Array.from(
     { length: r.binCount },
-    (s, c) => Mo(dN(e, c))
-  ), a = await Promise.all(n), i = [lN(r.sampleRate, 2, r.totalFrames)];
+    (s, c) => Mo(pN(e, c))
+  ), a = await Promise.all(n), i = [fN(r.sampleRate, 2, r.totalFrames)];
   let o = 0;
   for (let s = 0; s < a.length; s++) {
     const c = a[s];
@@ -48451,20 +48461,20 @@ async function fN(e) {
     const u = new Int16Array(l.left), d = new Int16Array(l.right);
     if (u.length !== l.frames || d.length !== l.frames || o + l.frames > r.totalFrames)
       return null;
-    i.push(uN(u, d, l.frames)), o += l.frames;
+    i.push(mN(u, d, l.frames)), o += l.frames;
   }
   return o !== r.totalFrames ? null : new Blob(i, { type: "audio/wav" });
 }
-function mN(e) {
+function gN(e) {
   const t = Math.max(1, Math.min(2, e.numberOfChannels)), r = e.length, n = e.sampleRate, i = t * 2, o = n * i, s = r * i, c = 44, l = new ArrayBuffer(c + s), u = new DataView(l);
   Jn(u, 0, "RIFF"), u.setUint32(4, 36 + s, !0), Jn(u, 8, "WAVE"), Jn(u, 12, "fmt "), u.setUint32(16, 16, !0), u.setUint16(20, 1, !0), u.setUint16(22, t, !0), u.setUint32(24, n, !0), u.setUint32(28, o, !0), u.setUint16(32, i, !0), u.setUint16(34, 16, !0), Jn(u, 36, "data"), u.setUint32(40, s, !0);
   const d = e.getChannelData(0), f = t > 1 ? e.getChannelData(1) : d;
   let m = c;
   for (let p = 0; p < r; p++)
-    u.setInt16(m, h0(d[p] ?? 0), !0), m += 2, t > 1 && (u.setInt16(m, h0(f[p] ?? 0), !0), m += 2);
+    u.setInt16(m, y0(d[p] ?? 0), !0), m += 2, t > 1 && (u.setInt16(m, y0(f[p] ?? 0), !0), m += 2);
   return new Blob([l], { type: "audio/wav" });
 }
-async function pN(e, t) {
+async function yN(e, t) {
   const r = Io.get(e);
   if (r) {
     if (r.refs += 1, r.url)
@@ -48478,18 +48488,18 @@ async function pN(e, t) {
     refs: 1
   };
   return Io.set(e, n), n.promise = (async () => {
-    const a = await fN(e);
+    const a = await hN(e);
     if (a) {
       const c = URL.createObjectURL(a);
       return n.url = c, n.promise = null, c;
     }
-    const i = await Gx(e, t), o = mN(i), s = URL.createObjectURL(o);
+    const i = await Wx(e, t), o = gN(i), s = URL.createObjectURL(o);
     return n.url = s, n.promise = null, s;
   })().catch((a) => {
     throw Io.delete(e), a;
   }), n.promise;
 }
-function hN(e) {
+function vN(e) {
   const t = Io.get(e);
   if (!t || (t.refs -= 1, t.refs > 0)) return;
   const r = (n) => {
@@ -48501,7 +48511,7 @@ function hN(e) {
   t.url ? r(t.url) : t.promise && t.promise.then(r).catch(() => {
   }), Io.delete(e);
 }
-const gN = ({
+const bN = ({
   src: e,
   mediaId: t,
   itemId: r,
@@ -48530,12 +48540,12 @@ const gN = ({
   return y.useEffect(() => {
     if (!t || !e) return;
     let T = !1;
-    return C(null), pN(t, e).then((R) => {
-      T || (C(R), p0.info("Decoded WAV source ready", { mediaId: t }));
+    return C(null), yN(t, e).then((R) => {
+      T || (C(R), g0.info("Decoded WAV source ready", { mediaId: t }));
     }).catch((R) => {
-      T || p0.error("Failed to prepare decoded WAV source", { mediaId: t, err: R });
+      T || g0.error("Failed to prepare decoded WAV source", { mediaId: t, err: R });
     }), () => {
-      T = !0, hN(t);
+      T = !0, vN(t);
     };
   }, [t, e]), F ? /* @__PURE__ */ w.jsx(
     Ac,
@@ -48564,10 +48574,10 @@ const gN = ({
       volumeMultiplier: S
     }
   ) : null;
-}, g0 = ge.memo((e) => {
+}, v0 = ge.memo((e) => {
   const t = e.playbackRate ?? 1;
-  return Math.abs(t - 1) <= 1e-4 ? /* @__PURE__ */ w.jsx(ud, { ...e, playbackRate: t }) : /* @__PURE__ */ w.jsx(gN, { ...e, playbackRate: t });
-}), yN = ge.memo(({
+  return Math.abs(t - 1) <= 1e-4 ? /* @__PURE__ */ w.jsx(dd, { ...e, playbackRate: t }) : /* @__PURE__ */ w.jsx(bN, { ...e, playbackRate: t });
+}), xN = ge.memo(({
   children: e
 }) => /* @__PURE__ */ w.jsx(
   "div",
@@ -48579,25 +48589,25 @@ const gN = ({
     },
     children: e
   }
-)), y0 = (e) => {
+)), b0 = (e) => {
   const r = Dn()?.localFrame ?? 0;
-  return /* @__PURE__ */ w.jsx(yN, { ...e, frame: r });
-}, v0 = 0.5, b0 = 2, xw = ge.createContext(en), vN = ({ masks: e, canvasWidth: t, canvasHeight: r, children: n }) => {
-  const a = rw(), { fps: i } = _r(), o = ge.useContext(hf), s = ge.useRef(en), c = y.useMemo(() => {
+  return /* @__PURE__ */ w.jsx(xN, { ...e, frame: r });
+}, x0 = 0.5, w0 = 2, ww = ge.createContext(en), wN = ({ masks: e, canvasWidth: t, canvasHeight: r, children: n }) => {
+  const a = nw(), { fps: i } = _r(), o = ge.useContext(yf), s = ge.useRef(en), c = y.useMemo(() => {
     if (e.length === 0)
       return s.current = en, en;
-    const l = fw(Yc(e, {
+    const l = mw(Yc(e, {
       canvas: { width: t, height: r },
       frame: a,
       getKeyframes: o?.getItemKeyframes
-    })), u = mw(s.current, l);
+    })), u = pw(s.current, l);
     return s.current = u, u;
   }, [e, t, r, i, a, o]);
-  return /* @__PURE__ */ w.jsx(xw.Provider, { value: c, children: n });
-}, x0 = ({ item: e, muted: t, visible: r = !0, itemTrackOrder: n, compositionRenderMode: a = "full" }) => {
-  const i = ge.useContext(xw);
-  return /* @__PURE__ */ w.jsx(ad, { item: e, muted: t, visible: r, masks: nd(i, n), compositionRenderMode: a });
-}, sj = ({
+  return /* @__PURE__ */ w.jsx(ww.Provider, { value: c, children: n });
+}, S0 = ({ item: e, muted: t, visible: r = !0, itemTrackOrder: n, compositionRenderMode: a = "full" }) => {
+  const i = ge.useContext(ww);
+  return /* @__PURE__ */ w.jsx(id, { item: e, muted: t, visible: r, masks: ad(i, n), compositionRenderMode: a });
+}, uj = ({
   tracks: e,
   transitions: t = [],
   backgroundColor: r = "#000000",
@@ -48606,7 +48616,7 @@ const gN = ({
   height: i
 }) => {
   const { fps: o, width: s, height: c } = _r(), l = a ?? s, u = i ?? c, d = s, f = c, p = Er((E) => E.canvasBackgroundPreview) ?? r, h = y.useMemo(
-    () => Fb({ tracks: e, transitions: t }),
+    () => Cb({ tracks: e, transitions: t }),
     [e, t]
   ), { trackRenderState: g } = h, { maxOrder: v } = g, b = h.videoItems, x = h.audioItems, k = y.useMemo(
     () => x.filter((E) => rn(E)),
@@ -48615,7 +48625,7 @@ const gN = ({
     () => x.filter((E) => !rn(E)),
     [x]
   ), S = y.useMemo(
-    () => xT(e.flatMap((E) => E.items), t),
+    () => wT(e.flatMap((E) => E.items), t),
     [e, t]
   ), F = y.useMemo(() => {
     const E = /* @__PURE__ */ new Set();
@@ -48663,19 +48673,19 @@ const gN = ({
     }),
     [$, S]
   ), j = y.useMemo(
-    () => B3(T, o),
+    () => z3(T, o),
     [T, o]
   ), z = y.useMemo(
     () => h.videoItems.filter((E) => !E.embeddedAudioMuted && !Ra(x, E)),
     [x, h.videoItems]
   ), A = y.useMemo(
-    () => Gg(z, t, o),
+    () => Kg(z, t, o),
     [z, t, o]
   ), H = y.useMemo(
-    () => Gg(C, B, o),
+    () => Kg(C, B, o),
     [C, B, o]
   ), N = y.useMemo(
-    () => N3(R, U, o),
+    () => j3(R, U, o),
     [o, R, U]
   ), O = y.useMemo(
     () => [...A, ...H],
@@ -48695,14 +48705,14 @@ const gN = ({
     if (ae.has(E.itemId) || !E.mediaId)
       return !0;
     const pe = L.get(E.mediaId);
-    return pe ? bO(pe.audioCodec ?? pe.codec) : !0;
+    return pe ? SO(pe.audioCodec ?? pe.codec) : !0;
   }, [L, ae]), le = h.visibleAdjustmentLayers, ee = h.stableDomTracks, Z = y.useMemo(
     () => h.visibleShapeMasks,
     [h.visibleShapeMasks]
   );
   ge.useEffect(() => {
     const E = h.visibleTextFontFamilies;
-    E.length > 0 && CL(E);
+    E.length > 0 && RL(E);
   }, [h.visibleTextFontFamilies]);
   const fe = y.useCallback((E) => {
     const pe = E.from - (E._sequenceFrameOffset ?? 0);
@@ -48718,19 +48728,19 @@ const gN = ({
           backfaceVisibility: "hidden"
         },
         children: /* @__PURE__ */ w.jsx(
-          y0,
+          b0,
           {
             itemTrackOrder: E.trackOrder,
             adjustmentLayers: le,
             sequenceFrom: pe,
-            children: /* @__PURE__ */ w.jsx(x0, { item: E, muted: !0, itemTrackOrder: E.trackOrder })
+            children: /* @__PURE__ */ w.jsx(S0, { item: E, muted: !0, itemTrackOrder: E.trackOrder })
           }
         )
       }
     );
   }, [le]);
-  return /* @__PURE__ */ w.jsx(aw, { keyframes: n, children: /* @__PURE__ */ w.jsx(
-    sw,
+  return /* @__PURE__ */ w.jsx(iw, { keyframes: n, children: /* @__PURE__ */ w.jsx(
+    cw,
     {
       projectWidth: l,
       projectHeight: u,
@@ -48745,9 +48755,9 @@ const gN = ({
             {
               from: E.from,
               durationInFrames: E.durationInFrames,
-              premountFor: Math.round(o * v0),
+              premountFor: Math.round(o * x0),
               children: X ? /* @__PURE__ */ w.jsx(
-                ud,
+                dd,
                 {
                   src: E.src,
                   mediaId: W,
@@ -48773,7 +48783,7 @@ const gN = ({
                   crossfadeFadeOut: E.crossfadeFadeOut
                 }
               ) : pe ? /* @__PURE__ */ w.jsx(
-                g0,
+                v0,
                 {
                   src: E.src,
                   mediaId: W,
@@ -48835,9 +48845,9 @@ const gN = ({
             {
               from: E.from,
               durationInFrames: E.durationInFrames,
-              premountFor: Math.round(o * b0),
+              premountFor: Math.round(o * w0),
               children: X ? /* @__PURE__ */ w.jsx(
-                ud,
+                dd,
                 {
                   src: E.src,
                   mediaId: W,
@@ -48857,7 +48867,7 @@ const gN = ({
                   clipFadeSpans: E.clipFadeSpans
                 }
               ) : pe ? /* @__PURE__ */ w.jsx(
-                g0,
+                v0,
                 {
                   src: E.src,
                   mediaId: W,
@@ -48921,7 +48931,7 @@ const gN = ({
             {
               from: E.from,
               durationInFrames: E.durationInFrames,
-              premountFor: Math.round(o * v0),
+              premountFor: Math.round(o * x0),
               children: /* @__PURE__ */ w.jsx(
                 _c,
                 {
@@ -48942,7 +48952,7 @@ const gN = ({
           {
             from: E.from,
             durationInFrames: E.durationInFrames,
-            premountFor: Math.round(o * b0),
+            premountFor: Math.round(o * w0),
             children: /* @__PURE__ */ w.jsx(
               _c,
               {
@@ -48956,14 +48966,14 @@ const gN = ({
           `compound-audio-${E.id}`
         )),
         /* @__PURE__ */ w.jsx(
-          vN,
+          wN,
           {
             masks: Z,
             canvasWidth: d,
             canvasHeight: f,
             children: /* @__PURE__ */ w.jsxs(Fr, { children: [
               /* @__PURE__ */ w.jsx(
-                dw,
+                fw,
                 {
                   items: b,
                   transitionWindows: h.transitionWindows,
@@ -48982,13 +48992,13 @@ const gN = ({
                       visibility: E.trackVisible ? "visible" : "hidden"
                     },
                     children: E.items.map((W) => /* @__PURE__ */ w.jsx(qn, { from: W.from, durationInFrames: W.durationInFrames, children: /* @__PURE__ */ w.jsx(
-                      y0,
+                      b0,
                       {
                         itemTrackOrder: pe,
                         adjustmentLayers: le,
                         sequenceFrom: W.from,
                         children: /* @__PURE__ */ w.jsx(
-                          x0,
+                          S0,
                           {
                             item: W,
                             muted: E.muted || !E.trackVisible || W.type === "composition" && Ra(x, W),
@@ -49012,461 +49022,463 @@ const gN = ({
 };
 export {
   J as $,
-  nU as A,
+  oU as A,
   Kt as B,
-  fx as C,
-  wU as D,
-  gU as E,
-  QN as F,
-  cU as G,
-  r5 as H,
-  t5 as I,
+  mx as C,
+  kU as D,
+  bU as E,
+  tU as F,
+  dU as G,
+  i5 as H,
+  a5 as I,
   qo as J,
-  pO as K,
-  ak as L,
-  HN as M,
-  n5 as N,
-  MU as O,
+  yO as K,
+  ik as L,
+  KN as M,
+  o5 as N,
+  EU as O,
   tr as P,
-  bO as Q,
-  rU as R,
-  sU as S,
-  y1 as T,
+  SO as Q,
+  iU as R,
+  uU as S,
+  v1 as T,
   qt as U,
   It as V,
-  TU as W,
+  CU as W,
   Yo as X,
   $n as Y,
-  hy as Z,
-  a5 as _,
+  yy as Z,
+  s5 as _,
   $a as a,
-  f5 as a$,
+  h5 as a$,
   Ra as a0,
-  QU as a1,
-  Fz as a2,
-  tf as a3,
-  Gb as a4,
-  iU as a5,
-  ik as a6,
+  tz as a1,
+  Pz as a2,
+  rf as a3,
+  Wb as a4,
+  cU as a5,
+  ok as a6,
   mo as a7,
-  pd as a8,
-  s5 as a9,
-  Qz as aA,
-  Yz as aB,
-  Gz as aC,
-  Wz as aD,
+  hd as a8,
+  u5 as a9,
+  t5 as aA,
+  Jz as aB,
+  Xz as aC,
+  qz as aD,
   Mr as aE,
-  uO as aF,
+  mO as aF,
   Qi as aG,
   zl as aH,
   Ji as aI,
   Ds as aJ,
   _s as aK,
   Lr as aL,
-  b5 as aM,
-  qy as aN,
+  S5 as aM,
+  Zy as aN,
   Je as aO,
   Gr as aP,
-  yg as aQ,
-  Jz as aR,
-  Hb as aS,
-  yx as aT,
+  bg as aQ,
+  r5 as aR,
+  Gb as aS,
+  vx as aT,
   Dt as aU,
-  c5 as aV,
-  m5 as aW,
+  d5 as aV,
+  g5 as aW,
   Ko as aX,
   Zt as aY,
   gi as aZ,
-  Xz as a_,
+  Zz as a_,
   Nr as aa,
   Xl as ab,
   Wl as ac,
   Xs as ad,
   _a as ae,
   Cn as af,
-  vg as ag,
+  xg as ag,
   Eo as ah,
-  bg as ai,
-  YM as aj,
-  qM as ak,
+  wg as ai,
+  ZM as aj,
+  YM as ak,
   Bt as al,
   wr as am,
-  Dd as an,
-  AU as ao,
+  _d as an,
+  OU as ao,
   or as ap,
   Is as aq,
-  TT as ar,
+  MT as ar,
   An as as,
-  g5 as at,
+  b5 as at,
   bt as au,
-  y5 as av,
-  Vz as aw,
-  Kz as ax,
-  qz as ay,
-  Zz as az,
+  x5 as av,
+  Gz as aw,
+  Yz as ax,
+  Qz as ay,
+  e5 as az,
   we as b,
-  ZO as b$,
-  h5 as b0,
-  XM as b1,
-  Ry as b2,
+  e3 as b$,
+  v5 as b0,
+  qM as b1,
+  Dy as b2,
   Fu as b3,
-  yE as b4,
-  gE as b5,
-  xO as b6,
-  LE as b7,
-  i5 as b8,
-  I5 as b9,
-  M5 as bA,
-  AE as bB,
-  o5 as bC,
-  S5 as bD,
-  jz as bE,
-  k5 as bF,
-  ig as bG,
-  F5 as bH,
+  xE as b4,
+  bE as b5,
+  IO as b6,
+  UE as b7,
+  c5 as b8,
+  M5 as b9,
+  E5 as bA,
+  OE as bB,
+  l5 as bC,
+  T5 as bD,
+  Hz as bE,
+  F5 as bF,
+  sg as bG,
+  P5 as bH,
   mi as bI,
-  v5 as bJ,
-  H0 as bK,
-  C5 as bL,
+  w5 as bJ,
+  W0 as bK,
+  R5 as bL,
   tl as bM,
-  E5 as bN,
-  D5 as bO,
-  Dx as bP,
-  I_ as bQ,
-  P5 as bR,
+  A5 as bN,
+  L5 as bO,
+  _x as bP,
+  M_ as bQ,
+  D5 as bR,
   gn as bS,
-  cf as bT,
-  sf as bU,
-  FO as bV,
-  lE as bW,
+  uf as bT,
+  lf as bU,
+  PO as bV,
+  fE as bW,
   zt as bX,
-  xU as bY,
-  A5 as bZ,
+  IU as bY,
+  O5 as bZ,
   $c as b_,
-  T5 as ba,
-  x5 as bb,
-  w5 as bc,
-  of as bd,
-  G_ as be,
-  FU as bf,
-  ez as bg,
-  tz as bh,
-  p5 as bi,
-  kg as bj,
-  d5 as bk,
-  l5 as bl,
-  Kv as bm,
-  $z as bn,
-  u5 as bo,
+  C5 as ba,
+  I5 as bb,
+  k5 as bc,
+  cf as bd,
+  X_ as be,
+  PU as bf,
+  nz as bg,
+  az as bh,
+  y5 as bi,
+  Mg as bj,
+  p5 as bk,
+  f5 as bl,
+  Xv as bm,
+  Wz as bn,
+  m5 as bo,
   Ct as bp,
   Ur as bq,
-  SU as br,
+  TU as br,
   Os as bs,
   Vl as bt,
-  AO as bu,
-  DO as bv,
-  _O as bw,
-  GU as bx,
-  jU as by,
-  HU as bz,
+  OO as bu,
+  LO as bv,
+  BO as bw,
+  XU as bx,
+  HU as by,
+  KU as bz,
   je as c,
-  ZU as c$,
-  _5 as c0,
-  O5 as c1,
+  ez as c$,
+  B5 as c0,
+  N5 as c1,
   Br as c2,
-  r3 as c3,
-  T_ as c4,
-  L5 as c5,
-  RO as c6,
-  QO as c7,
-  a3 as c8,
-  Vd as c9,
-  UN as cA,
-  im as cB,
-  V5 as cC,
+  i3 as c3,
+  C_ as c4,
+  U5 as c5,
+  _O as c6,
+  t3 as c7,
+  s3 as c8,
+  $d as c9,
+  VN as cA,
+  sm as cB,
+  G5 as cC,
   st as cD,
   ft as cE,
-  U5 as cF,
-  H5 as cG,
+  V5 as cF,
+  K5 as cG,
   zr as cH,
   aa as cI,
-  $5 as cJ,
-  Tp as cK,
-  Mp as cL,
-  tk as cM,
+  W5 as cJ,
+  Fp as cK,
+  Cp as cL,
+  rk as cM,
   Cu as cN,
   dn as cO,
-  h3 as cP,
+  v3 as cP,
   Zl as cQ,
-  zg as cR,
-  jg as cS,
-  am as cT,
-  w3 as cU,
-  Jy as cV,
-  Qy as cW,
-  OU as cX,
-  oF as cY,
+  Vg as cR,
+  $g as cS,
+  om as cT,
+  k3 as cU,
+  tv as cV,
+  ev as cW,
+  NU as cX,
+  sF as cY,
   Fa as cZ,
   Qr as c_,
-  d1 as ca,
-  Ez as cb,
-  B5 as cc,
+  f1 as ca,
+  Az as cb,
+  z5 as cc,
   he as cd,
   Pn as ce,
-  kz as cf,
-  u_ as cg,
-  Tz as ch,
-  R5 as ci,
-  z5 as cj,
-  s3 as ck,
-  N5 as cl,
-  Az as cm,
-  m1 as cn,
-  Rz as co,
-  Pz as cp,
-  d_ as cq,
+  Fz as cf,
+  m_ as cg,
+  Cz as ch,
+  _5 as ci,
+  $5 as cj,
+  u3 as ck,
+  j5 as cl,
+  Oz as cm,
+  p1 as cn,
+  _z as co,
+  Dz as cp,
+  p_ as cq,
   fr as cr,
-  ek as cs,
-  j5 as ct,
-  bU as cu,
-  ON as cv,
-  NN as cw,
-  FN as cx,
-  MN as cy,
-  zN as cz,
+  tk as cs,
+  H5 as ct,
+  SU as cu,
+  NN as cv,
+  jN as cw,
+  PN as cx,
+  EN as cy,
+  $N as cz,
   Pt as d,
-  YR as d$,
-  t2 as d0,
+  JR as d$,
+  a2 as d0,
   Wc as d1,
-  e2 as d2,
-  r2 as d3,
-  l2 as d4,
-  cF as d5,
-  cv as d6,
-  lF as d7,
-  dv as d8,
-  fv as d9,
-  nz as dA,
-  YN as dB,
-  A2 as dC,
-  P2 as dD,
-  P3 as dE,
-  R3 as dF,
-  uU as dG,
-  A3 as dH,
-  JU as dI,
-  rz as dJ,
-  K5 as dK,
-  XN as dL,
-  qN as dM,
-  GN as dN,
-  az as dO,
-  WN as dP,
+  n2 as d2,
+  i2 as d3,
+  f2 as d4,
+  lF as d5,
+  uv as d6,
+  uF as d7,
+  mv as d8,
+  pv as d9,
+  oz as dA,
+  JN as dB,
+  O2 as dC,
+  D2 as dD,
+  D3 as dE,
+  _3 as dF,
+  mU as dG,
+  O3 as dH,
+  rz as dI,
+  iz as dJ,
+  Y5 as dK,
+  ZN as dL,
+  QN as dM,
+  XN as dN,
+  sz as dO,
+  qN as dP,
   io as dQ,
-  KN as dR,
-  dU as dS,
+  YN as dR,
+  pU as dS,
   ba as dT,
-  _B as dU,
-  aj as dV,
-  oj as dW,
-  G0 as dX,
+  BB as dU,
+  sj as dV,
+  lj as dW,
+  K0 as dX,
   Ir as dY,
   Er as dZ,
-  qR as d_,
-  rk as da,
-  nk as db,
+  QR as d_,
+  nk as da,
+  ak as db,
   ki as dc,
-  UU as dd,
+  VU as dd,
   qs as de,
-  gb as df,
+  yb as df,
   bc as dg,
-  VN as dh,
-  zU as di,
-  eU as dj,
-  ck as dk,
-  _N as dl,
-  Kp as dm,
-  ZN as dn,
-  AN as dp,
-  BN as dq,
-  LN as dr,
+  GN as dh,
+  $U as di,
+  nU as dj,
+  lk as dk,
+  BN as dl,
+  qp as dm,
+  eU as dn,
+  ON as dp,
+  zN as dq,
+  UN as dr,
   vr as ds,
-  qU as dt,
-  YU as du,
-  VU as dv,
-  CN as dw,
-  YC as dx,
+  QU as dt,
+  JU as du,
+  GU as dv,
+  RN as dw,
+  ZC as dx,
   Aa as dy,
-  $U as dz,
+  WU as dz,
   mr as e,
-  Y3 as e$,
-  nj as e0,
-  zb as e1,
-  hU as e2,
-  jA as e3,
-  e5 as e4,
-  KU as e5,
-  oE as e6,
-  XU as e7,
+  J3 as e$,
+  oj as e0,
+  jb as e1,
+  vU as e2,
+  HA as e3,
+  n5 as e4,
+  YU as e5,
+  lE as e6,
+  ZU as e7,
   es as e8,
-  J3 as e9,
-  sh as eA,
-  sF as eB,
-  X2 as eC,
-  Ov as eD,
-  sE as eE,
-  LA as eF,
+  rL as e9,
+  lh as eA,
+  cF as eB,
+  Z2 as eC,
+  Bv as eD,
+  uE as eE,
+  UA as eF,
   fo as eG,
-  pz as eH,
-  sL as eI,
+  yz as eH,
+  uL as eI,
   xr as eJ,
-  KM as eK,
-  ej as eL,
-  tj as eM,
-  OD as eN,
-  Ib as eO,
-  $u as eP,
-  xz as eQ,
-  RD as eR,
-  sj as eS,
-  RN as eT,
+  XM as eK,
+  nj as eL,
+  aj as eM,
+  ND as eN,
+  kb as eO,
+  Hu as eP,
+  Iz as eQ,
+  _D as eR,
+  uj as eS,
+  _N as eT,
   iu as eU,
-  EN as eV,
-  PN as eW,
-  fU as eX,
-  om as eY,
-  Mz as eZ,
+  AN as eV,
+  DN as eW,
+  hU as eX,
+  cm as eY,
+  Ez as eZ,
   Ha as e_,
-  q5 as ea,
-  Z5 as eb,
-  Y5 as ec,
-  Q5 as ed,
-  aL as ee,
-  CU as ef,
-  ov as eg,
-  NU as eh,
-  sz as ei,
-  dz as ej,
-  oz as ek,
-  wb as el,
-  By as em,
-  uz as en,
-  pb as eo,
-  cz as ep,
-  Tb as eq,
+  Q5 as ea,
+  ej as eb,
+  J5 as ec,
+  tj as ed,
+  sL as ee,
+  RU as ef,
+  cv as eg,
+  jU as eh,
+  uz as ei,
+  pz as ej,
+  lz as ek,
+  Sb as el,
+  Uy as em,
+  mz as en,
+  hb as eo,
+  dz as ep,
+  Mb as eq,
   Js as er,
-  lz as es,
-  ih as et,
-  J5 as eu,
-  Wu as ev,
+  fz as es,
+  sh as et,
+  rj as eu,
+  Ku as ev,
   Zr as ew,
   so as ex,
-  n3 as ey,
-  aP as ez,
-  Cz as f,
-  fu as f$,
-  Z3 as f0,
-  nL as f1,
+  o3 as ey,
+  sP as ez,
+  Rz as f,
+  Vo as f$,
+  eL as f0,
+  oL as f1,
   Fr as f2,
-  S2 as f3,
+  T2 as f3,
   Tn as f4,
   Mn as f5,
-  tU as f6,
+  aU as f6,
   fn as f7,
-  aU as f8,
-  I2 as f9,
-  PU as fA,
-  RU as fB,
-  EU as fC,
-  WT as fD,
-  Bd as fE,
-  vb as fF,
-  mz as fG,
-  fz as fH,
-  Xd as fI,
-  JN as fJ,
+  sU as f8,
+  M2 as f9,
+  DU as fA,
+  _U as fB,
+  AU as fC,
+  KT as fD,
+  Nd as fE,
+  bb as fF,
+  gz as fG,
+  hz as fH,
+  qd as fI,
+  rU as fJ,
   Xo as fK,
   Ro as fL,
-  DN as fM,
-  vU as fN,
-  Sz as fO,
+  LN as fM,
+  wU as fN,
+  Tz as fO,
   ta as fP,
-  Iz as fQ,
-  wz as fR,
-  BM as fS,
-  ky as fT,
+  Mz as fQ,
+  kz as fR,
+  NM as fS,
+  My as fT,
   Ei as fU,
-  _U as fV,
-  FE as fW,
-  Kb as fX,
-  Hz as fY,
-  ix as fZ,
-  Vo as f_,
-  k2 as fa,
-  jD as fb,
-  VD as fc,
-  Wv as fd,
-  $N as fe,
-  qF as ff,
-  yU as fg,
-  CO as fh,
-  Mg as fi,
-  EO as fj,
-  PO as fk,
-  jN as fl,
-  sm as fm,
-  lk as fn,
-  md as fo,
-  IO as fp,
-  nN as fq,
-  ij as fr,
-  LU as fs,
-  l0 as ft,
-  vz as fu,
-  BU as fv,
-  uF as fw,
-  yz as fx,
-  Ly as fy,
-  HT as fz,
-  gy as g,
-  bz as g0,
-  WU as g1,
-  W5 as g2,
-  pU as g3,
-  mU as g4,
-  X5 as g5,
-  G5 as g6,
-  TN as g7,
-  zx as g8,
+  BU as fV,
+  PE as fW,
+  Xb as fX,
+  Kz as fY,
+  ox as fZ,
+  cE as f_,
+  F2 as fa,
+  HD as fb,
+  GD as fc,
+  Kv as fd,
+  WN as fe,
+  YF as ff,
+  xU as fg,
+  RO as fh,
+  Cg as fi,
+  AO as fj,
+  DO as fk,
+  HN as fl,
+  lm as fm,
+  uk as fn,
+  pd as fo,
+  MO as fp,
+  oN as fq,
+  cj as fr,
+  UU as fs,
+  d0 as ft,
+  wz as fu,
+  zU as fv,
+  dF as fw,
+  xz as fx,
+  Ny as fy,
+  GT as fz,
+  vy as g,
+  fu as g0,
+  Sz as g1,
+  qU as g2,
+  q5 as g3,
+  yU as g4,
+  gU as g5,
+  Z5 as g6,
+  X5 as g7,
+  CN as g8,
   jx as g9,
-  PT as ga,
-  rn as gb,
-  iz as gc,
-  Vc as gd,
-  rj as ge,
-  uc as gf,
-  dc as gg,
-  wT as gh,
-  Po as gi,
-  hz as gj,
-  gz as gk,
-  kU as h,
-  DU as i,
+  Vx as ga,
+  RT as gb,
+  rn as gc,
+  cz as gd,
+  Vc as ge,
+  ij as gf,
+  nf as gg,
+  uc as gh,
+  dc as gi,
+  ST as gj,
+  Po as gk,
+  vz as gl,
+  bz as gm,
+  FU as h,
+  LU as i,
   Qe as j,
-  oU as k,
-  lU as l,
-  sk as m,
-  ok as n,
-  IU as o,
-  Dz as p,
+  lU as k,
+  fU as l,
+  ck as m,
+  sk as n,
+  MU as o,
+  Lz as p,
   La as q,
-  _z as r,
+  Bz as r,
   jc as s,
-  Oz as t,
+  Nz as t,
   Va as u,
-  Bz as v,
-  zz as w,
-  Lz as x,
-  Uz as y,
-  Nz as z
+  zz as v,
+  $z as w,
+  Uz as x,
+  Vz as y,
+  jz as z
 };
